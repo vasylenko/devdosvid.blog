@@ -1,0 +1,35 @@
+title: Oh my blog!
+description: > # this means to ignore newlines until "baseurl:"
+  A place where I talk with internet
+permalink: ':title/'
+baseurl:  # the subpath of your site, e.g. /blog
+url: "https://serhii.vasylenko.info" # the base hostname & protocol for your site, e.g. http://example.com
+site-twitter: #if your site has a twitter account, enter it here
+
+# Author Settings
+author: Serhii Vasylenko # add your name
+author-img: serhii-vasylenko.png #david-freeman.jpg # add your photo
+about-author: An engineer, a teamlead, a geek. # add description
+#social-twitter: # add your Twitter handle
+social-facebook: vasylenkos # add your Facebook handle
+#social-github: vasylenko
+social-linkedin: svasylenko # add your Linkedin handle
+social-email: contacts@vasylenko.info # add your Email address
+
+# Disqus
+discus-identifier: serhii-vasylenko-info # add your discus identifier
+
+# Tracker
+analytics: # Google Analytics
+
+# Build Settings
+markdown: kramdown
+plugins:
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jemoji
+
+paginate: 8
+paginate_path: "/page/:num"
+
+exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
