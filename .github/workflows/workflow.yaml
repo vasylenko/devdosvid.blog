@@ -25,7 +25,7 @@ jobs:
           -v $(pwd):/src \
           -w /src \
           ruby:2.6.4 \
-          bundle install && bundle exec jekyll build --verbose --destination "_site"
+          bundle install ; bundle exec jekyll build --verbose --destination "_site"
       - name: Step#4 - upload artifact
         uses: actions/upload-artifact@v1
         with: 
