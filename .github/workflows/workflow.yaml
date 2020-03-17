@@ -22,7 +22,7 @@ jobs:
       #     docker run --rm --volume="$PWD:/srv/jekyll" --user 1001 jekyll/builder jekyll build
       #     echo "$(pwd && ls -la _site)"
       - name: Run Jekyll
-        uses: faph/action-jekyll@master
+        uses: faph/action-jekyll@1.5
         with:
             add_nojekyll_tag: false
       - name: Step#3 - prepare artifact
