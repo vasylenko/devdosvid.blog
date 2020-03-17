@@ -49,5 +49,5 @@ jobs:
           git config user.email "${GITHUB_ACTOR}@bots.github.com"
           git add -A 
           git commit -a -m "updated GitHub Pages"
-          git remote set-url origin gh-pages
-          git push --force-with-lease origin "https://${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git"
+          git remote set-url origin "https://github.com/vasylenko/serhii.vasylenko.info.git"
+          git push --force-with-lease origin "https://${{ secrets.DEPLOY_TOKEN }}:x-oauth-basic@github.com/vasylenko/serhii.vasylenko.info.git"
