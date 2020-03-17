@@ -27,10 +27,10 @@ jobs:
           --user 1001 \
           --volume ./:/src \
           --env INPUT_SOURCE_DIR=/src \
+          ruby:2.6 \
           cd $INPUT_SOURCE_DIR && \
           bundle install && \
-          bundle exec jekyll build --verbose --destination "$INPUT_SOURCE_DIR/_site" \
-          ruby:2.6
+          bundle exec jekyll build --verbose --destination "$INPUT_SOURCE_DIR/_site" 
       - name: Step#4 - upload artifact
         uses: actions/upload-artifact@v1
         with: 
