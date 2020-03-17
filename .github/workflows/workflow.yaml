@@ -17,14 +17,20 @@ jobs:
           pwd
       - name: Step#1 - checkout
         uses: actions/checkout@v2 
-      # - name: Step#2 - build
-      #   run: |
-      #     docker run --rm --volume="$PWD:/srv/jekyll" --user 1001 jekyll/builder jekyll build
-      #     echo "$(pwd && ls -la _site)"
-      - name: Run Jekyll
-        uses: docker://faph/action-jekyll
-        with:
-            add_nojekyll_tag: false
+      # - name: Run Jekyll
+      #   uses: docker://faph/action-jekyll
+      #   with:
+      #       add_nojekyll_tag: false
+      - name: Step#3 - build
+        run: |
+          docker run \
+          --user 1001 \
+          --volume ./:/src \
+          --env INPUT_SOURCE_DIR=/src \
+          cd $INPUT_SOURCE_DIR && \
+          bundle install && \
+          bundle exec jekyll build --verbose --destination "$INPUT_SOURCE_DIR/_site" \
+          ruby:2.6
       - name: Step#4 - upload artifact
         uses: actions/upload-artifact@v1
         with: 
