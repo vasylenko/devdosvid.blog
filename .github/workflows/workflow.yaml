@@ -12,9 +12,9 @@ jobs:
       # This step uses GitHub's hello-world-javascript-action: https://github.com/actions/hello-world-javascript-action
       - name: Step#0 - facts
         run: |
-        whoami
-        id
-        pwd
+          whoami
+          id
+          pwd
       - name: Step#1 - checkout
         uses: actions/checkout@v2
         with:
