@@ -16,20 +16,18 @@ jobs:
           id
           pwd
       - name: Step#1 - checkout
-        uses: actions/checkout@v2
-        with:
-          path: source
+        uses: actions/checkout@v2 
       - name: Step#2 - build
         run: |
-          docker run --rm --volume="$PWD/source:/srv/jekyll" --user 1001:115 jekyll/builder jekyll build
+          docker run --rm --volume="$PWD:/srv/jekyll" --user 1001 jekyll/builder jekyll build
           echo "$(pwd && ls -la _site)"
       - name: Step#3 - prepare artifact
-        run: zip -r _site.zip source/_site
+        run: zip -r _site.zip _site
       - name: Step#4 - upload artifact
         uses: actions/upload-artifact@v1
         with: 
           name: _site
-          path: source/_site.zip
+          path: _site.zip
   deploy_job:
     needs: build_job
     name: deploy job
