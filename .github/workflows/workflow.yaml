@@ -5,18 +5,23 @@ on: [push]
 jobs:
   build:
     # Job name
-    name: Job name
+    name: build job
     # This job runs on Linux
     runs-on: ubuntu-latest
     steps:
       # This step uses GitHub's hello-world-javascript-action: https://github.com/actions/hello-world-javascript-action
-      - name: Step - Hello world
-        uses: actions/hello-world-javascript-action@v1
+      - name: step#1 - checkout
+        uses: actions/checklout@v2
         with:
-          who-to-greet: 'Planet Earth'
-        id: id_hello
-      # This step prints an output (time) from the previous step's action.
-      - name: Step - tell the date and list files
+          path: folder
+      - name: step#2 - list files
         run: |
-          echo '$(date)'
-          ls -la 
+          echo "$(date)"
+          echo "$(pwd && ls -la -R)"
+  deploy:
+    name: deploy job
+    runs-on: ubuntu-latest
+    steps:
+      - name: step#1
+        run: |
+          echo "this would be a deploy job"
