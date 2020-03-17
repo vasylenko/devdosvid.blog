@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Step#2 - build
         run: |
-          docker run --rm --volume="$PWD:/srv/jekyll" jekyll/builder jekyll build
+          docker run --rm --volume="$PWD:/srv/jekyll" --user 1001:1001 jekyll/builder jekyll build
           echo "$(pwd && ls -la _site)"
       - name: Step#3 - prepare artifact
         run: zip -r _site.zip _site
