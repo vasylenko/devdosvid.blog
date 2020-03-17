@@ -3,7 +3,7 @@ name: Workflow
 on: [push]
 
 jobs:
-  build:
+  build_job:
     # Job name
     name: build job
     # This job runs on Linux
@@ -11,14 +11,15 @@ jobs:
     steps:
       # This step uses GitHub's hello-world-javascript-action: https://github.com/actions/hello-world-javascript-action
       - name: step#1 - checkout
-        uses: actions/checklout@v2
+        uses: actions/checkout@v2
         with:
           path: folder
       - name: step#2 - list files
         run: |
           echo "$(date)"
           echo "$(pwd && ls -la -R)"
-  deploy:
+  deploy_job:
+    needs: build_job
     name: deploy job
     runs-on: ubuntu-latest
     steps:
