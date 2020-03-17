@@ -437,19 +437,20 @@ template {
 }
 
 .highlight {
-  background-color: #faf9f9;
+  background-color: #ffffff;
   -webkit-border-radius: 3px;
           border-radius: 3px;
   margin: 0;
+  font-size: 12px;
 }
 
 .highlighter-rouge {
   color: #ce887b;
   font-weight: 400;
-  border: 1px solid #607D8B;
+  border: 0px solid #607D8B;
   -webkit-border-radius: 3px;
           border-radius: 3px;
-  padding: 0.1rem 0.5rem;
+  padding: 0.1rem 0.1rem;
 }
 
 .highlight .hll {
@@ -969,7 +970,7 @@ table tfoot td {
 }
 
 .about .author-name {
-  font-family: 'PT Serif', serif;
+  font-family: 'Lato', serif;
   margin: 0 0 10px;
   position: relative;
   padding-bottom: 15px;
@@ -979,7 +980,7 @@ table tfoot td {
   font-weight: 700;
 }
 
-.about .author-name::after {
+/* .about .author-name::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -993,7 +994,7 @@ table tfoot td {
   -webkit-border-radius: 100%;
           border-radius: 100%;
   background-color: #515151;
-}
+} */
 
 .about p {
   font-size: 16px;

@@ -9,11 +9,6 @@ jobs:
     name: build job
     runs-on: ubuntu-latest
     steps:
-      - name: Step#0 - facts
-        run: |
-          whoami
-          id
-          pwd
       - name: Step#1 - checkout
         uses: actions/checkout@v2 
       - name: Step#3 - build
