@@ -10,9 +10,9 @@ site-twitter: #if your site has a twitter account, enter it here
 author: Serhii Vasylenko # add your name
 author-img: serhii-vasylenko.png #david-freeman.jpg # add your photo
 about-author: An engineer, a teamlead, a geek. # add description
-#social-twitter: # add your Twitter handle
+social-twitter: # add your Twitter handle
 social-facebook: vasylenkos # add your Facebook handle
-#social-github: vasylenko
+social-github: vasylenko
 social-linkedin: svasylenko # add your Linkedin handle
 social-email: contacts@vasylenko.info # add your Email address
 
@@ -20,7 +20,7 @@ social-email: contacts@vasylenko.info # add your Email address
 discus-identifier: serhii-vasylenko-info # add your discus identifier
 
 # Tracker
-analytics: # Google Analytics
+analytics: G-GK7SE0XWGK
 
 # Build Settings
 markdown: kramdown

@@ -51,3 +51,9 @@ jobs:
         run: |
           pwd
           ls -la ./
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "${GITHUB_ACTOR}@bots.github.com"
+          git add -A 
+          git commit -a -m "updated GitHub Pages"
+          git remote set-url origin "$target_branch"
+          git push --force-with-lease origin "$repo_uri"
