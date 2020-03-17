@@ -25,7 +25,7 @@ jobs:
         run: |
           docker run \
           --user 1001 \
-          --volume ./:/src \
+          --volume $(pwd):/src \
           --env INPUT_SOURCE_DIR=/src \
           ruby:2.6 \
           cd $INPUT_SOURCE_DIR && \
