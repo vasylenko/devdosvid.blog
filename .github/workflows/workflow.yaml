@@ -21,7 +21,7 @@ jobs:
           path: source
       - name: Step#2 - build
         run: |
-          docker run --rm --volume="$PWD/source:/srv/jekyll" jekyll/builder jekyll build
+          docker run --rm --volume="$PWD/source:/srv/jekyll" --user 1001:115 jekyll/builder jekyll build
           echo "$(pwd && ls -la _site)"
       - name: Step#3 - prepare artifact
         run: zip -r _site.zip source/_site
