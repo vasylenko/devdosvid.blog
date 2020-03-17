@@ -32,9 +32,6 @@ jobs:
   deploy_job:
     needs: build_job
     name: deploy job
-    env:
-      repo_uri: "https://x-access-token:${{ secret.DEPLOY_TOKEN }}@github.com/serhii.vasylenko.info.git"
-      target_branch: "gh-pages"
     runs-on: ubuntu-latest
     steps:
       - name: Step#1 - checkout gh-pages branch
@@ -52,5 +49,5 @@ jobs:
           git config user.email "${GITHUB_ACTOR}@bots.github.com"
           git add -A 
           git commit -a -m "updated GitHub Pages"
-          git remote set-url origin "$target_branch"
-          git push --force-with-lease origin "$repo_uri"
+          git remote set-url origin gh-pages
+          git push --force-with-lease origin "$https://x-access-token:${{ secret.DEPLOY_TOKEN }}@github.com/serhii.vasylenko.info.git"
