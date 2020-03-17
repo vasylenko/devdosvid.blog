@@ -4,12 +4,9 @@ on: [push]
 
 jobs:
   build_job:
-    # Job name
     name: build job
-    # This job runs on Linux
     runs-on: ubuntu-latest
     steps:
-      # This step uses GitHub's hello-world-javascript-action: https://github.com/actions/hello-world-javascript-action
       - name: Step#0 - facts
         run: |
           whoami
@@ -25,11 +22,10 @@ jobs:
         run: |
           docker run \
           --user 1001 \
-          --volume $(pwd):/src \
-          -w="/src" \
-          ruby:2.6 \
-          bundle install && \
-          bundle exec jekyll build --verbose --destination "_site" 
+          -v $(pwd):/src \
+          -w /src \
+          ruby:2.6.4 \
+          bundle install && bundle exec jekyll build --verbose --destination "_site"
       - name: Step#4 - upload artifact
         uses: actions/upload-artifact@v1
         with: 
