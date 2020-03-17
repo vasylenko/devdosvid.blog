@@ -33,7 +33,7 @@ jobs:
     needs: build_job
     name: deploy job
     env:
-      repo_uri: "https://x-access-token:${{secret.DEPLOY_TOKEN}}@github.com/serhii.vasylenko.info.git"
+      repo_uri: "https://x-access-token:${{ secret.DEPLOY_TOKEN }}@github.com/serhii.vasylenko.info.git"
       target_branch: "gh-pages"
     runs-on: ubuntu-latest
     steps:
