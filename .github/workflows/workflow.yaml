@@ -39,11 +39,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Step - checkout gh-pages branch
-        run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "${GITHUB_ACTOR}@bots.github.com"
-          git checkout gh-pages
-          ls -la
+        uses: actions/checkout@v2
+        with:
+          ref: 'gh-pages'
       - name: step - get the build
         uses: actions/download-artifact@v1
         with:
