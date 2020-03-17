@@ -22,16 +22,14 @@ jobs:
       #     docker run --rm --volume="$PWD:/srv/jekyll" --user 1001 jekyll/builder jekyll build
       #     echo "$(pwd && ls -la _site)"
       - name: Run Jekyll
-        uses: faph/action-jekyll@1.5
+        uses: docker://faph/action-jekyll
         with:
             add_nojekyll_tag: false
-      - name: Step#3 - prepare artifact
-        run: zip -r _site.zip _site
       - name: Step#4 - upload artifact
         uses: actions/upload-artifact@v1
         with: 
           name: _site
-          path: _site.zip
+          path: _site/
   deploy_job:
     needs: build_job
     name: deploy job
