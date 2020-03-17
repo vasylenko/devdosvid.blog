@@ -1,6 +1,8 @@
 name: Workflow
-# This workflow is triggered on pushes to the repository.
-on: [push]
+on:
+  push:
+    branches:
+    - master
 
 jobs:
   build_job:
@@ -14,10 +16,6 @@ jobs:
           pwd
       - name: Step#1 - checkout
         uses: actions/checkout@v2 
-      # - name: Run Jekyll
-      #   uses: docker://faph/action-jekyll
-      #   with:
-      #       add_nojekyll_tag: false
       - name: Step#3 - build
         run: |
           docker run \
@@ -34,8 +32,24 @@ jobs:
   deploy_job:
     needs: build_job
     name: deploy job
+    env:
+      repo_uri: "https://x-access-token:${DEPLOY_TOKEN}@github.com/serhii.vasylenko.info.git"
+      target_branch: "gh-pages"
+
     runs-on: ubuntu-latest
     steps:
-      - name: step#1
+      - name: Step - checkout gh-pages branch
         run: |
-          echo "this would be a deploy job"
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "${GITHUB_ACTOR}@bots.github.com"
+          git checkout gh-pages
+          ls -la
+      - name: step - get the build
+        uses: actions/download-artifact@v1
+        with:
+          name: _site
+          path: ./
+      - name: check
+          run: |
+            pwd
+            ls -la ./
