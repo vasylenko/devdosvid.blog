@@ -50,6 +50,6 @@ jobs:
           name: _site
           path: ./
       - name: check
-          run: |
-            pwd
-            ls -la ./
+        run: |
+          pwd
+          ls -la ./
