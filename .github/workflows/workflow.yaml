@@ -20,9 +20,9 @@ jobs:
         run: zip -r _site.zip _site
       - name: Step#4 - upload artifact
         uses: actions/upload-artifact@v1
-          with: 
-            name: _site
-            path: ./_site.zip
+        with: 
+          name: _site
+          path: ./_site.zip
   deploy_job:
     needs: build_job
     name: deploy job
