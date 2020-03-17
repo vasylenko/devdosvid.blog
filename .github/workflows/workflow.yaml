@@ -26,11 +26,10 @@ jobs:
           docker run \
           --user 1001 \
           --volume $(pwd):/src \
-          --env INPUT_SOURCE_DIR=/src \
+          -w="/src"
           ruby:2.6 \
-          cd $INPUT_SOURCE_DIR && \
           bundle install && \
-          bundle exec jekyll build --verbose --destination "$INPUT_SOURCE_DIR/_site" 
+          bundle exec jekyll build --verbose --destination "_site" 
       - name: Step#4 - upload artifact
         uses: actions/upload-artifact@v1
         with: 
