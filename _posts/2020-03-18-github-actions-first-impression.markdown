@@ -3,7 +3,7 @@ layout: post
 title: Github Actions - First impression
 date: 2020-03-18 00:30:20 +0200
 description: My first meet with github actions... in action. # Add post description (optional)
-img:  posts/github-actions-logo.png # Add image post (optional)
+img:  posts/2020-03-18-github-actions-first-impression_github-actions-logo.png # Add image post (optional)
 fig-caption: # Add figcaption (optional)
 tags: [github, automation, review]
 ---
@@ -62,4 +62,4 @@ As usual, there are steps, where you make something; the steps form a job, which
 There is no option to restart the workflow manually or restart its job. Also, there is no sandbox or any other way for testing - you have to commit to the repo each time when you need to check one or another change in the workflow.
 
 I hope Github will figure out something to save us from this mess in the workflow events log:
-![github actions events](/assets/img/posts/github-actions-events.png "github actions events"){:width="600px"}
+![github actions events](/assets/img/posts/2020-03-18-github-actions-first-impression_github-actions-events.png "github actions events"){:width="600px"}
