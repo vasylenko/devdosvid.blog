@@ -1,11 +1,6 @@
 name: Build & Deploy to gh-pages
 on: [push]
-  # push:
-  #   branches:
-  #     - master
-  # pull_request:
-  #   branches:
-  #     - '*'
+
 
 jobs:
   build_job:
@@ -34,7 +29,7 @@ jobs:
           name: _site
           path: _site/
   deploy_job:
-    if: github.event_name == 'push' &&  github.ref == 'master'
+    if: github.ref == 'master'
     needs: build_job
     name: deploy job
     runs-on: ubuntu-latest
