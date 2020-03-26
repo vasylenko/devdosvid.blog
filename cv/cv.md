@@ -58,13 +58,13 @@ Project Management
 Public Clouds
 :   Amazon Web Services - [cerified Solutions Architect Associate](https://www.certmetrics.com/amazon/public/badge.aspx?i=1&t=c&d=2020-03-11&ci=AWS00846640).\
     Design and fine-tuning of resilient and HA infrastructures; costs optimization and security hardening.\
-    Three years of hands-on experience. 
+    More than three years of hands-on experience. 
 
 Automation
-:   Jenkins, GitlabCI, GithubActions, BitRise: deployments and tests automation (web and mobile)
+:   Jenkins, GitlabCI, GithubActions, Bitrise, CircleCI: deployment and test automation (web and mobile).
 
 Other techs
-:   Docker, Python, Bash, Nginx, Apache, MySQL, MongoDB, Git, Linux
+:   Docker, Python, Bash, Nginx, Apache, MySQL, MongoDB, Linux.
 
 Activities and interests
 ------------------------
@@ -73,7 +73,7 @@ Science
 :   Fond of History, Astronomy, and Physics. I wish to see Betelgeuse supernova explosion someday, although the explosion day is somewhere between today and 50k (or even 100k) years.
 
 Traveling
-:   I like to explore new cities and countries, and I like trekking. 
+:   I like to explore new cities and countries, and I like trekking. After I got to Annapurna base camp, I want to visit the base camp of Everest :wink:
 
 
 ----
