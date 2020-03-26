@@ -9,17 +9,23 @@ jobs:
     name: build job
     runs-on: ubuntu-latest
     steps:
-      - name: Step#1 - checkout
+      - name: Checkout
         uses: actions/checkout@v2 
-      - name: Step#3 - build
+      - name: Build blog
         run: |
-          docker run \
+          docker run --rm \
           --user 1001 \
           -v $(pwd):/src \
           -w /src \
           ruby:2.6.4 \
           /bin/bash -c 'bundle install && bundle exec jekyll build --verbose --destination "_site"'
-      - name: Step#4 - upload artifact
+      - name: Build CV
+        run: |
+          docker run --rm\
+          --user 1001 \
+          -v \"$(pwd)/cv:/data\" pandoc/latex --standalone -c style.css --from markdown --to html -o cv.html cv.md" 
+          cp ./cv/{cv.html,style.css} _site/cv
+      - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with: 
           name: _site
@@ -29,16 +35,16 @@ jobs:
     name: deploy job
     runs-on: ubuntu-latest
     steps:
-      - name: Step#1 - checkout gh-pages branch
+      - name: Checkout gh-pages branch
         uses: actions/checkout@v2
         with:
           ref: 'gh-pages'
-      - name: Step#2 - get the build
+      - name: Get the build artifact
         uses: actions/download-artifact@v1
         with:
           name: _site
           path: ./
-      - name: Step#3 - push to gh-pages
+      - name: Deploy (push) to gh-pages
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "${GITHUB_ACTOR}@bots.github.com"
