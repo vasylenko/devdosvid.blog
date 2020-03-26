@@ -1,11 +1,11 @@
-name: Workflow
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+name: Build & Deploy to gh-pages
+on: [push]
+  # push:
+  #   branches:
+  #     - master
+  # pull_request:
+  #   branches:
+  #     - '*'
 
 jobs:
   build_job:
@@ -24,7 +24,7 @@ jobs:
           /bin/bash -c 'bundle install && bundle exec jekyll build --verbose --destination "_site"'
       - name: Build CV
         run: |
-          docker run --rm\
+          docker run --rm \
           --user 1001 \
           -v $(pwd)/cv:/data pandoc/latex --standalone -c style.css --from markdown --to html -o cv.html cv.md
           cp ./cv/{cv.html,style.css} _site/cv
@@ -34,6 +34,7 @@ jobs:
           name: _site
           path: _site/
   deploy_job:
+    if: github.event_name == 'push' &&  github.ref == 'master'
     needs: build_job
     name: deploy job
     runs-on: ubuntu-latest
