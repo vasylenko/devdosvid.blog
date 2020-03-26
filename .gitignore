@@ -8,6 +8,8 @@ package-lock.json
 node_modules/
 vendor
 
+cv/*.html
+
 ### macOS ###
 *.DS_Store
 .AppleDouble
