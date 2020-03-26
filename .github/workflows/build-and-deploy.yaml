@@ -27,9 +27,8 @@ jobs:
           docker run --rm \
           --user 1001 \
           -v $(pwd)/cv:/data pandoc/latex --standalone -c style.css --from markdown --to html -o cv.html cv.md
-          ls -la $(pwd)
-          ls -la $(pwd)/cv/
-          # cp -r $(pwd)/cv _site
+          rm -rf /_site/cv
+          cp -r $(pwd)/cv _site
           ls -laR ./_site
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
