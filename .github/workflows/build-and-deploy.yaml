@@ -29,7 +29,7 @@ jobs:
           name: _site
           path: _site/
   deploy_job:
-    if: github.ref == 'master'
+    # if: github.ref == 'master'
     needs: build_job
     name: deploy job
     runs-on: ubuntu-latest
