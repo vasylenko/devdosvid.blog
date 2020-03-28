@@ -1,42 +1,57 @@
 ---
 title: Serhii Vasylenko
+header-includes: <script async src="https://www.googletagmanager.com/gtag/js?id=G-GK7SE0XWGK"></script><script>window.dataLayer=window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag('js', new Date()); gtag('config', 'G-GK7SE0XWGK');</script>
 ---
 
+About
+--------------------
 I am an engineer and a team-lead: I am passionate about technologies, have a broad engineering background, and I fond of team management.
 
 I thrive when developing great people, great teams, and great products. 
 
 
---------------------
-
 Professional Experience
 --------------------
 
 Mar 2017 - present
-:   __Teamlead in ITCraft__
+:   ### Teamlead - "ITCraft"
 
-    I started as a single DevOps engineer on a project, then hired one more engineer, and eventually, we evolved into a team of seven members.\
-    Key accomplishments:\
-    - Created a team that completed more than 20 successful projects of different sizes;\
-    - Increased team reputation and visibility inside the company (increased number of shared projects in the result);\
-    - Introduced DevOps as a Service culture (versus "outstaff");\
-    - Brought up senior and middle engineers from junior newcomers.
+    Started as a DevOps engineer on a project, then hired one more engineer, and eventually, we evolved into a team of seven members.\
 
-    Challenges:\
-    - Keeping the team motivated despite workload level: during overloads and a drawdown;\
-    - Justification of investments into continuous learning to company stakeholders;\
-    - Transforming of team members' mindset.
+    **Key accomplishments**:
+
+    - Created a team that completed more than 40 successful projects of different sizes
+    - Increased team reputation and visibility inside the company (increased number of shared projects in the result)
+    - Introduced DevOps as a Service culture (versus "outstaff")
+    - Brought up senior and middle engineers from junior newcomers
+
+    **Challenges**:
+
+    - Transforming of team members' mindset towards process ownership
+    - Keeping the team motivated despite workload level: during overloads and a drawdown
+    - Justification of investments into continuous learning to company stakeholders
+    - Justification of the team’s advantages to the clients on the pre-sales stage
 
 Nov 2014 - Sep 2016
-:   __CTO of techsupport department in YourServerAdmin__
+:   ### CTO of tech support department - "YourServerAdmin"
 
-    My position called CTO but in fact, that was a mix of CTO, BA, and PM.\
-    Key accomplishments: improved technical expertise of support team; improved task management and task velocity; increased team size; fostered the change of team mindset to agile thinking.
+    My position called CTO but in fact, that was a mix of:
+
+    As a chief technologist, I was responsible for the main technical processes inside my team and research of the new technologies we could implement for clients. Also, I implemented ITIL practices together with our COO. But what I like the most is that I could change the way of how our department worked with the development department. The work became more united, more interactive, which turned into interesting and successful projects for both departments. 
+
+    Project Manager. Managed the projects using practices from PRINCE2 methodology and Theory of Constraints.
+
+    **Key accomplishments**:
+    
+    - Improved technical expertise of support team
+    - Improved task management and task velocity
+    - Increased team size
+    - Fostered the change of team mindset to agile thinking
 
 Jun 2011 - Nov 2014
-:   __Support Engineer in YourServerAdmin__
+:   ### Support Engineer - "YourServerAdmin"
 
-    Grew up from a Level-1 tech support engineer, with responsibility for communication with customers and initial problem analysis, to Level-3 System Administrator responsible for complex technical tasks and daily shift management.
+    Grew up from a Level-1 tech support engineer (communication with customers and initial problem analysis) to Level-3 System Administrator responsible for complex technical tasks and daily shift management.
 
 Skills
 ----------------------------------
@@ -52,18 +67,17 @@ Team development
 
 Project Management
 :   Management of stand-alone DevOps projects and operations parts of big projects with the dev team.\
-    Scrum and Kanban.\
     Time and capacity management.
 
 Public Clouds
-:   Amazon Web Services - [cerified Solutions Architect Associate](https://www.certmetrics.com/amazon/public/badge.aspx?i=1&t=c&d=2020-03-11&ci=AWS00846640).\
+:   Amazon Web Services - [Certified Solutions Architect Associate](https://www.certmetrics.com/amazon/public/badge.aspx?i=1&t=c&d=2020-03-11&ci=AWS00846640).\
     Design and fine-tuning of resilient and HA infrastructures; costs optimization and security hardening.\
     More than three years of hands-on experience. 
 
 Automation
 :   Jenkins, GitlabCI, GithubActions, Bitrise, CircleCI: deployment and test automation (web and mobile).
 
-Other techs
+Other techs I work with
 :   Docker, Python, Bash, Nginx, Apache, MySQL, MongoDB, Linux.
 
 Activities and interests
@@ -73,10 +87,9 @@ Science
 :   Fond of History, Astronomy, and Physics. I wish to see Betelgeuse supernova explosion someday, although the explosion day is somewhere between today and 50k (or even 100k) years.
 
 Traveling
-:   I like to explore new cities and countries, and I like trekking. After I got to Annapurna base camp, I want to visit the base camp of Everest :wink:
-
+:   I like to explore new cities and countries, and I like trekking. After I got to Annapurna base camp, I want to visit the base camp of Everest.
 
 ----
 
-> <contacts@vasylenko.info> • +380 66 268 86 11\
->  [LinkedIn profile](https://www.linkedin.com/in/svasylenko/)
+
+##### <contacts@vasylenko.info> | +380 66 268 86 11 | [LinkedIn profile](https://www.linkedin.com/in/svasylenko/)

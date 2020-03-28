@@ -19,12 +19,6 @@ body {
     padding: 10px 10px 10px 10px;
 }
 
-img {
-    border-radius: 10%;
-    width: 120px;
-    float: left;
-    margin-right: 1em;
-  }
 
 /* Title of the resume */
 h1 {
@@ -46,42 +40,43 @@ h2 {
     text-transform: uppercase;
     margin-top: 2em;
 }
-/* There is a bar just before each category */
-/* h2:before {
-    content: "";
-    display: inline-block;
-    margin-right:1%;
-    width: 16%;
-    height: 10px;
-    background-color: #9CB770;
-} */
+
 h2:hover {
     background-color: #397249;
     color: #FFFFFF;
     text-shadow: 1px 1px 1px #333;
 }
 
+/* Titles of job positions */
+h3 {
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: left;
+    margin-left: 0;
+    font-size: 1em;
+}
+
+/* personal contacts */
+h5 {
+    text-align: center;
+}
+
 /* Definitions */
 dt {
     float: left;
     clear: left;
-    width: 15%;
+    width: 13%;
     font-weight: bold;
 
 }
 dd {
     margin-top: 1em;
-    margin-left: 17%;
+    margin-left: 15%;
     margin-bottom: 2em;;
 }
 p {
     margin-top:0;
     /* margin-bottom:7px; */
-}
-
-/* Blockquotes */
-blockquote {
-    text-align: center
 }
 
 /* Links */
@@ -100,3 +95,10 @@ a:hover, a:active {
 hr {
     color: #A6A6A6;
 }
+
+ /* list styling */
+ul {
+    list-style-type: circle;
+}
+
+

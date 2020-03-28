@@ -1,10 +1,12 @@
 name: Build & Deploy to gh-pages
 on: [push]
-
+# for purpose of eductaion I need to run this workflow on every push (despite the branch name),
+# but do the deploy only when push was made to master.
 
 jobs:
-  build_job:
-    name: build job
+
+  build:
+    name: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,16 +24,17 @@ jobs:
           docker run --rm \
           --user 1001 \
           -v $(pwd)/cv:/data pandoc/latex --standalone -c style.css --from markdown --to html -o index.html cv.md
-          rm -rf $(pwd)/_site/cv && cp -r $(pwd)/cv _site
+          cp -r $(pwd)/cv _site
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with: 
           name: _site
           path: _site/
-  deploy_job:
-    # if: github.ref == 'master'
-    needs: build_job
-    name: deploy job
+
+  deploy:
+    if: github.ref == 'refs/heads/master'
+    needs: build
+    name: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout gh-pages branch
