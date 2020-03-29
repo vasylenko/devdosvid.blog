@@ -18,14 +18,14 @@ Mar 2017 - present
 
     Started as a DevOps engineer on a project, then hired one more engineer, and eventually, we evolved into a team of seven members.\
 
-    **Key accomplishments**:
+    #### Key accomplishments:
 
     - Created a team that completed more than 40 successful projects of different sizes
     - Increased team reputation and visibility inside the company (increased number of shared projects in the result)
     - Introduced DevOps as a Service culture (versus "outstaff")
     - Brought up senior and middle engineers from junior newcomers
 
-    **Challenges**:
+    #### Challenges:
 
     - Transforming of team members' mindset towards process ownership
     - Keeping the team motivated despite workload level: during overloads and a drawdown
@@ -41,7 +41,7 @@ Nov 2014 - Sep 2016
 
     Project Manager. Managed the projects using practices from PRINCE2 methodology and Theory of Constraints.
 
-    **Key accomplishments**:
+    #### Key accomplishments:
     
     - Improved technical expertise of support team
     - Improved task management and task velocity
@@ -89,7 +89,5 @@ Science
 Traveling
 :   I like to explore new cities and countries, and I like trekking. After I got to Annapurna base camp, I want to visit the base camp of Everest.
 
-----
-
-
-##### <contacts@vasylenko.info> | +380 66 268 86 11 | [LinkedIn profile](https://www.linkedin.com/in/svasylenko/)
+---
+##### <contacts@vasylenko.info> | +380 66 268 86 11 | [linkedin.com/in/svasylenko](https://linkedin.com/in/svasylenko)
