@@ -66,12 +66,12 @@ Team development
 :   Hiring the new team members and forming the required team skillset.
 
 Project Management
-:   Management of stand-alone DevOps projects and operations parts of big projects with the dev team.\
+:   Management of stand-alone DevOps projects and operations parts of big projects with the dev team.
     Time and capacity management.
 
 Public Clouds
 :   Amazon Web Services - [Certified Solutions Architect Associate](https://www.certmetrics.com/amazon/public/badge.aspx?i=1&t=c&d=2020-03-11&ci=AWS00846640).\
-    Design and fine-tuning of resilient and HA infrastructures; costs optimization and security hardening.\
+    Design and fine-tuning of resilient and HA infrastructures; costs optimization and security hardening.
     More than three years of hands-on experience. 
 
 Automation

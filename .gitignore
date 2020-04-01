@@ -8,7 +8,7 @@ package-lock.json
 node_modules/
 vendor
 
-cv/*.html
+cv/cv.html
 
 ### macOS ###
 *.DS_Store
