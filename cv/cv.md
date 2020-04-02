@@ -16,21 +16,20 @@ Professional Experience
 Mar 2017 - present
 :   ### Teamlead - "ITCraft"
 
-    Started as a DevOps engineer on a project, then hired one more engineer, and eventually, we evolved into a team of seven members.\
+    Started as a DevOps engineer on a project, then hired one more engineer, and eventually, we evolved into a team of seven members.
 
     #### Key accomplishments:
 
-    - Created a team that completed more than 40 successful projects of different sizes
-    - Increased team reputation and visibility inside the company (increased number of shared projects in the result)
-    - Introduced DevOps as a Service culture (versus "outstaff")
-    - Brought up senior and middle engineers from junior newcomers
+    - Created a team that completed more than 40 successful projects of different sizes;
+    - Increased number of shared projects with other departments by boosting of department reputation and team visibility inside the company;
+    - Introduced DevOps as a Service commercial approach in department;
+    - Brought up senior and middle engineers from junior newcomers.
 
     #### Challenges:
 
-    - Transforming of team members' mindset towards process ownership
-    - Keeping the team motivated despite workload level: during overloads and a drawdown
-    - Justification of investments into continuous learning to company stakeholders
-    - Justification of the team’s advantages to the clients on the pre-sales stage
+    - Transforming of team members' mindset towards process ownership;
+    - Keeping the team motivated despite workload level: during overloads and a drawdown;
+    - Justification of the team’s advantages to the clients on the pre-sales stage.
 
 Nov 2014 - Sep 2016
 :   ### CTO of tech support department - "YourServerAdmin"
@@ -43,10 +42,10 @@ Nov 2014 - Sep 2016
 
     #### Key accomplishments:
     
-    - Improved technical expertise of support team
-    - Improved task management and task velocity
-    - Increased team size
-    - Fostered the change of team mindset to agile thinking
+    - Improved technical expertise of support team;
+    - Improved task management and task velocity;
+    - Increased team size;
+    - Fostered the change of team mindset to agile thinking.
 
 Jun 2011 - Nov 2014
 :   ### Support Engineer - "YourServerAdmin"
@@ -60,14 +59,14 @@ Leadership
 :   Team motivation, mentoring, cultivating of soft/hard skills of team members.
 
 Team culture
-:   Fostering of team values and working principles, development of new ones together with the team.
+:   Fostering team values and working principles, and developing the new ones together with the team.
 
 Team development
-:   Hiring the new team members and forming the required team skillset.
+:   Hiring new team members and forming the required team skillset.
 
 Project Management
-:   Management of stand-alone DevOps projects and operations parts of big projects with the dev team.
-    Time and capacity management.
+:   Managing of stand-alone DevOps projects and operations parts of big projects with dev teams.
+    Time resources and capacity management.
 
 Public Clouds
 :   Amazon Web Services - [Certified Solutions Architect Associate](https://www.certmetrics.com/amazon/public/badge.aspx?i=1&t=c&d=2020-03-11&ci=AWS00846640).\
@@ -77,14 +76,14 @@ Public Clouds
 Automation
 :   Jenkins, GitlabCI, GithubActions, Bitrise, CircleCI: deployment and test automation (web and mobile).
 
-Other techs I work with
-:   Docker, Python, Bash, Nginx, Apache, MySQL, MongoDB, Linux.
+Technologies
+:   Docker, Web servers (Nginx, Apache), Databases (MySQL, MongoDB), Bash, Python, Linux.
 
 Activities and interests
 ------------------------
 
 Science 
-:   Fond of History, Astronomy, and Physics. I wish to see Betelgeuse supernova explosion someday, although the explosion day is somewhere between today and 50k (or even 100k) years.
+:   Fond of History, Astronomy, and Physics. I wish to see Betelgeuse supernova explosion someday, although the explosion date is somewhere between today and 100k years :-) 
 
 Traveling
 :   I like to explore new cities and countries, and I like trekking. After I got to Annapurna base camp, I want to visit the base camp of Everest.
