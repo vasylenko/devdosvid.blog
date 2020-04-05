@@ -1,4 +1,4 @@
-name: Build & Deploy to gh-pages
+name: GH-Pages Website
 on: [push]
 # for purpose of eductaion I need to run this workflow on every push (despite the branch name),
 # but do the deploy only when push was made to master.
