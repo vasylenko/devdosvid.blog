@@ -22,6 +22,7 @@ html {
  */
 body {
   margin: 0;
+  font-size: 18px;
 }
 
 /**
@@ -441,7 +442,7 @@ template {
   -webkit-border-radius: 3px;
           border-radius: 3px;
   margin: 0;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .highlighter-rouge {
@@ -885,7 +886,7 @@ table tfoot td {
 }
 
 .wrapper {
-  max-width: 1250px;
+  max-width: 1150px;
   position: relative;
 }
 
