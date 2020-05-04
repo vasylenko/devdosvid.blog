@@ -71,13 +71,13 @@ Project Management
 Public Clouds
 :   Amazon Web Services - [Certified Solutions Architect Associate](https://www.certmetrics.com/amazon/public/badge.aspx?i=1&t=c&d=2020-03-11&ci=AWS00846640).\
     Design and fine-tuning of resilient and HA infrastructures; costs optimization and security hardening.
-    More than three years of hands-on experience. 
+    Four years of hands-on experience. 
 
 Automation
 :   Jenkins, GitlabCI, GithubActions, Bitrise, CircleCI: deployment and test automation (web and mobile).
 
 Technologies
-:   Docker, Web servers (Nginx, Apache), Databases (MySQL, MongoDB), Bash, Python, Linux.
+:   Docker, Terraform, Web servers (Nginx, Apache), Databases (MySQL, MongoDB), Bash, Python, Linux.
 
 Activities and interests
 ------------------------
