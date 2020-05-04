@@ -22,7 +22,7 @@ Mar 2017 - present
 
     - Created a team that completed more than 40 successful projects of different sizes;
     - Increased number of shared projects with other departments by boosting of department reputation and team visibility inside the company;
-    - Introduced DevOps as a Service business model in department;
+    - Introduced DevOps as a Service business model in the department;
     - Brought up senior and middle engineers from junior newcomers.
 
     #### Challenges:
