@@ -34,7 +34,7 @@
     
     <meta content="terraform" property="article:tag">
     
-    <meta content="explained" property="article:tag">
+    <meta content="devops" property="article:tag">
     
     <meta content="education" property="article:tag">
     
@@ -99,6 +99,9 @@
         
           <li><a href="https://facebook.com/vasylenkos" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
         
+        
+          <li><a href="https://twitter.com/vasylenko" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+               
         
           <li class="github"><a href="http://github.com/vasylenko" target="_blank"><i class="fa fa-github"></i></a></li>
         
@@ -190,9 +193,9 @@
   <span class="s">instance_type = “t3.micro”</span>
   <span class="s">}</span>
 </code></pre></div></div>
-<p>The <code class="highlighter-rouge">aws_instance</code> is a resource type and <code class="highlighter-rouge">web_server</code> is the resource local name. Later, when Terraform applies this code, it will create an EC2 instance with some particular ID in AWS. Once created, the ID will be stored in the state file with mapping information that logically connects it with <code class="highlighter-rouge">web_server</code>.</p>
+<p>The <code class="language-plaintext highlighter-rouge">aws_instance</code> is a resource type and <code class="language-plaintext highlighter-rouge">web_server</code> is the resource local name. Later, when Terraform applies this code, it will create an EC2 instance with some particular ID in AWS. Once created, the ID will be stored in the state file with mapping information that logically connects it with <code class="language-plaintext highlighter-rouge">web_server</code>.</p>
 
-<p>The <code class="highlighter-rouge">ami</code>, <code class="highlighter-rouge">instance_type</code> and <code class="highlighter-rouge">private_ip</code> are the arguments with values which define the actual state of the resource. There are plenty of value types, depending on the particular argument and particular resource type, so I will not focus on them here.</p>
+<p>The <code class="language-plaintext highlighter-rouge">ami</code>, <code class="language-plaintext highlighter-rouge">instance_type</code> and <code class="language-plaintext highlighter-rouge">private_ip</code> are the arguments with values which define the actual state of the resource. There are plenty of value types, depending on the particular argument and particular resource type, so I will not focus on them here.</p>
 
 <p><strong>Modules</strong> are the kind of logical containers or groups for resources you define and use together. The purpose of modules is not only the grouping of resources but it is also the possibility to reuse the same code with different variables.</p>
 
@@ -209,7 +212,7 @@
 
 <p>Having these two resources together allows us to think of it as a stand-alone unit you can reuse later, for example in our development, staging, and production environments. And not by copying and pasting it, but via reference to the module defined only once.</p>
 
-<p>Please note: we specified an instance argument inside the <code class="highlighter-rouge">aws_eip</code> resource as a reference to another resource details (the ID of an instance). This is possible because of a way how Terraform treats dependencies: when it detects the dependency (or you define it explicitly) it will create the main resource first, and only after it’s created and available it will create the dependent one.</p>
+<p>Please note: we specified an instance argument inside the <code class="language-plaintext highlighter-rouge">aws_eip</code> resource as a reference to another resource details (the ID of an instance). This is possible because of a way how Terraform treats dependencies: when it detects the dependency (or you define it explicitly) it will create the main resource first, and only after it’s created and available it will create the dependent one.</p>
 
 <p><strong>Input variables</strong> work as parameters for the modules so module code could be reusable. Let’s look at the previous example: it has some hardcoded values — instance image ID and instance type. Here is how you can make it more abstract and reusable:</p>
 
@@ -245,9 +248,9 @@
 
 <p>The local values are used inside modules for extended data manipulations in it.</p>
 
-<p>The expressions are used to set the values (for many things), for example, to set the value of some argument in resource configuration. They used either to refer something (just as we referenced instance ID <code class="highlighter-rouge">“${aws_instance.web_server.id}”</code> in the example above) or to compute the value within your configuration.</p>
+<p>The expressions are used to set the values (for many things), for example, to set the value of some argument in resource configuration. They used either to refer something (just as we referenced instance ID <code class="language-plaintext highlighter-rouge">“${aws_instance.web_server.id}”</code> in the example above) or to compute the value within your configuration.</p>
 
-<p>The functions in Terraform are built-int jobs you can call to transform and combine values. For example, the <code class="highlighter-rouge">tolist()</code> function converts its argument to a list value.</p>
+<p>The functions in Terraform are built-int jobs you can call to transform and combine values. For example, the <code class="language-plaintext highlighter-rouge">tolist()</code> function converts its argument to a list value.</p>
 
 <h2 id="and-this-is-it">And this is it?</h2>
 
@@ -273,7 +276,7 @@
           
             <a href="/tags#terraform" class="tag">&#35; terraform</a>
           
-            <a href="/tags#explained" class="tag">&#35; explained</a>
+            <a href="/tags#devops" class="tag">&#35; devops</a>
           
             <a href="/tags#education" class="tag">&#35; education</a>
           
