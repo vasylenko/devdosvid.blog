@@ -12,7 +12,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
 
 body {
-    font-family: 'Verdana', Arial, sans-serif;;
+    font-family: 'Verdana', Arial, sans-serif;
+    color: #232F3E;
     width: 800px;
     margin: auto;
     background: #FFFFFF;
@@ -37,7 +38,7 @@ h1 {
 
 /* Titles of categories */
 h2 {
-    color: #397249;
+    color: #FF9900;
     text-transform: uppercase;
     margin-top: 1em;
     font-weight: normal;
@@ -89,10 +90,10 @@ p {
 /* Links */
 a {
     text-decoration: none;
-    color: #397249;
+    color: #538083;
 }
 a:hover, a:active {
-    background-color: #397249;
+    background-color: #538083;
     color: #FFFFFF;
     text-decoration: none;
     text-shadow: 1px 1px 1px #333;
@@ -115,7 +116,7 @@ ul {
     }
     h1,h2,h3,h4+ul{
         page-break-after: avoid;
-        color: black;
+        color: #232F3E;
     }
     /* h4 {
         page-break-after: avoid;

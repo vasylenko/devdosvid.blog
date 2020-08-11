@@ -7,7 +7,7 @@ Gemfile.lock
 package-lock.json
 node_modules/
 vendor
-
+.vscode
 cv/cv.html
 
 ### macOS ###
