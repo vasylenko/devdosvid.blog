@@ -165,7 +165,7 @@
 
 <p>Terraform supports a lot of platforms: from major cloud providers such as AWS, Azure, GCP, DigitalOcean, to more modest platforms such as OVH, 1&amp;1, Hetzner, and others. It also supports infrastructure software such as Docker, Kubernetes, Chef, and even databases and monitoring software. This is why Terraform is so popular — it is a real Swiss knife in the operations world.</p>
 
-<p>So to create, change, or destroy the infrastructure Terraform needs the source code. The <strong>source code</strong> is a set of configuration files that defines your infrastructure state. The code uses YAML syntax and looks very user friendly. Here is an example: the following configuration block describes the virtual server (EC2 instance) in AWS</p>
+<p>So to create, change, or destroy the infrastructure Terraform needs the source code. The <strong>source code</strong> is a set of configuration files that defines your infrastructure state. The code uses its own syntax but it looks very user friendly. Here is an example: the following configuration block describes the virtual server (EC2 instance) in AWS</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">resource "aws_instance" “web_server” {</span>
   <span class="s">ami           = "ami-a1b2c3d4"</span>
