@@ -35,7 +35,7 @@ Terraform works with the source code of configuration, and interprets the code i
 
 Terraform supports a lot of platforms: from major cloud providers such as AWS, Azure, GCP, DigitalOcean, to more modest platforms such as OVH, 1&1, Hetzner, and others. It also supports infrastructure software such as Docker, Kubernetes, Chef, and even databases and monitoring software. This is why Terraform is so popular — it is a real Swiss knife in the operations world.
 
-So to create, change, or destroy the infrastructure Terraform needs the source code. The **source code** is a set of configuration files that defines your infrastructure state. The code uses YAML syntax and looks very user friendly. Here is an example: the following configuration block describes the virtual server (EC2 instance) in AWS
+So to create, change, or destroy the infrastructure Terraform needs the source code. The **source code** is a set of configuration files that defines your infrastructure state. The code uses its own syntax but it looks very user friendly. Here is an example: the following configuration block describes the virtual server (EC2 instance) in AWS
 
 ```yaml
 resource "aws_instance" “web_server” {
