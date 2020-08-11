@@ -56,7 +56,6 @@ Jun 2011 – Nov 2014
 
 Skills
 ----------------------------------
-
 Leadership
 :   Team motivation, mentoring, cultivating of soft/hard skills of team members.
 
@@ -75,20 +74,20 @@ Public Clouds
     Designing and fine-tuning of resilient and HA infrastructures; costs optimization and security hardening.
     4 years of hands-on experience. 
 
-Automation
+Automation (CI/CD)
 :   Jenkins, GitlabCI, GithubActions, Bitrise, CircleCI: build, deploy and test automation (web and mobile).
 
-Technologies
-:   Docker, Terraform, Ansible, Web servers (Nginx, Apache), Databases (MySQL, MongoDB).
+Other technologies
+:   Docker, Terraform, Ansible,\
+    Nginx, Apache, MySQL, MongoDB.
 
 Languages
 :   English – C1 (CEFR)
 
 Activities and interests
 ------------------------
-
 Science 
-:   Fond of History, Astronomy, and Physics. I wish to see Betelgeuse supernova explosion someday, although the explosion date is somewhere between today and 100k years :-) 
+:   Fond of History, Astronomy, and Physics. I wish to see Betelgeuse supernova explosion someday, although the explosion date is somewhere between today and 100k years ☺️ 
 
 Traveling
 :   I like to explore new cities and countries, and I like trekking. After gettingn to the Annapurna base camp, I want to visit the base camp of Everest.
