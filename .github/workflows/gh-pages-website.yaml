@@ -1,10 +1,15 @@
-name: GH-Pages Website
-on: [push]
+name: Website
+on:
+  push:
+    paths:
+      - '_includes/**'
+      - '_layouts/**'
+      - '_posts/**'
+      - '*.*'
 # for purpose of eductaion I need to run this workflow on every push (despite the branch name),
 # but do the deploy only when commit was made to master.
 
 jobs:
-
   build:
     name: build
     runs-on: ubuntu-latest
@@ -51,6 +56,6 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "${GITHUB_ACTOR}@bots.github.com"
           git add -A 
-          git commit -a -m "updated GitHub Pages"
+          git commit -a -m "Updated Website"
           git remote set-url origin "https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git"
           git push --force-with-lease origin gh-pages
