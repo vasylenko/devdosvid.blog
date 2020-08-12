@@ -1,9 +1,10 @@
-name: GH-Pages Website
+name: CV
 on:
   push:
     branches: 
       - master
-    paths: 'cv/**'
+    paths: 
+      - 'cv/**'
 jobs:
   build:
     name: build
