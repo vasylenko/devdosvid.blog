@@ -134,8 +134,7 @@
         <h1 class="page-title">Managing Ansible playbook secrets with AWS services</h1>
         <div class="page-date"><span>2020, Aug 06&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       </header>
-      <h2 id="intro">Intro</h2>
-<p>Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks. 
+      <p>Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks. 
 If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.<br />
 Also, you can (or even should) use SSM Parameter Store to keep all your variables related to environment settings – this is what this service was made for and this is why it’s called “<strong>Parameter</strong> Store”</p>
 
@@ -154,7 +153,8 @@ Also, you can (or even should) use SSM Parameter Store to keep all your variable
 
 <p>SSM Parameter Store gives you more flexibility and security by centralized storage and management of parameters and secrets, so let’s use it with Ansible:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># content of dev.vars.yaml to be included in your play or role</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="c1"># content of dev.vars.yaml to be included in your play or role</span>
 <span class="na">use_tls</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{lookup('aws_ssm',</span><span class="nv"> </span><span class="s">'/dev/webserver/use_tls')}}"</span>
 <span class="na">application_port</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{lookup('aws_ssm',</span><span class="nv"> </span><span class="s">'/dev/webserver/application_port')}}"</span>
 <span class="na">app_env</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{lookup('aws_ssm',</span><span class="nv"> </span><span class="s">'/dev/webserver/app_env')}}"</span>
@@ -176,7 +176,8 @@ Also, you can (or even should) use SSM Parameter Store to keep all your variable
 
 <p>Here is a quick example of its functionality in a Playbook:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Extract something secrets from Secret Manager</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Extract something secrets from Secret Manager</span>
   <span class="na">debug</span><span class="pi">:</span>
     <span class="na">msg</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">lookup('aws_secret',</span><span class="nv"> </span><span class="s">'dev/some-secrets')}}"</span>
 </code></pre></div></div>
