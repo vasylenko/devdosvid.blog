@@ -22,10 +22,10 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with: 
-          name: 
-            - ./cv/index.html
-            - ./cv/style.css
-          path: _site/cv
+          name: cv
+          path: |
+            ./cv/index.html
+            ./cv/style.css
 
   deploy:
     if: github.ref == 'refs/heads/master'
@@ -40,8 +40,8 @@ jobs:
       - name: Get the build artifact
         uses: actions/download-artifact@v2
         with:
-          name: _site
-          path: ./
+          name: cv
+          path: ./cv
       - name: Deploy (push) to gh-pages
         run: |
           git config user.name "$GITHUB_ACTOR"
