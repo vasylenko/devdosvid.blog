@@ -136,52 +136,43 @@
       </header>
       <h2 id="intro">Intro</h2>
 <p>Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks. 
-If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.</p>
+If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.<br />
+Also, you can (or even should) use SSM Parameter Store to keep all your variables related to environment settings – this is what this service was made for and this is why it’s called “<strong>Parameter</strong> Store”</p>
 
-<h2 id="inventory-with-ssm-parameter-store">Inventory with SSM Parameter Store</h2>
+<h2 id="variables-with-ssm-parameter-store">Variables with SSM Parameter Store</h2>
 
-<p>Suppose we have the following inventory.<br />
-<em>All examples hereafter are simplified for the sake of easy-reading, but they still give the main idea</em>.</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># host_inventory.yaml</span>
-<span class="na">all</span><span class="pi">:</span> 
-  <span class="na">hosts</span><span class="pi">:</span>
-      <span class="na">some_server</span><span class="pi">:</span>
-        <span class="na">ansible_host</span><span class="pi">:</span> <span class="s">54.80.167.162</span>      
-</code></pre></div></div>
-<p>The Internet generally advises using ansible-vault or ssh-agent to keep and use ssh keys needed for connection.<br />
-Here is an alternative: <strong>keep your SSH key in Parameter Store and make Ansible get it for you.</strong></p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># host_inventory.yaml</span>
-<span class="na">all</span><span class="pi">:</span> 
-  <span class="na">hosts</span><span class="pi">:</span>
-      <span class="na">some_server</span><span class="pi">:</span>
-        <span class="na">ansible_host</span><span class="pi">:</span> <span class="s">54.80.167.162</span>
-        <span class="na">ansible_ssh_private_key_file</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{lookup('aws_ssm','/dev/some-server/ssh-key')}}"</span>
+<p>Let’s say you have some variables defined in ‘defaults/main.yaml’ file of your role or maybe in group_vars.yaml file.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="c1"># content of dev.vars.yaml to be included in your play or role</span>
+<span class="na">use_tls</span><span class="pi">:</span> <span class="no">true</span>
+<span class="na">application_port</span><span class="pi">:</span> <span class="m">3000</span>
+<span class="na">app_env</span><span class="pi">:</span> <span class="s">development</span>
+<span class="na">stripe_api_key</span><span class="pi">:</span> <span class="s">1HGASU2eZvKYlo2CT5MEcnC39HqLyjWD</span>
 </code></pre></div></div>
 
+<p>If you store such things locally on Ansible control node, you probably encrypt it with <a href="https://docs.ansible.com/ansible/latest/user_guide/vault.html">ansible-vault</a></p>
+
+<p>SSM Parameter Store gives you more flexibility and security by centralized storage and management of parameters and secrets, so let’s use it with Ansible:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># content of dev.vars.yaml to be included in your play or role</span>
+<span class="na">use_tls</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{lookup('aws_ssm',</span><span class="nv"> </span><span class="s">'/dev/webserver/use_tls')}}"</span>
+<span class="na">application_port</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{lookup('aws_ssm',</span><span class="nv"> </span><span class="s">'/dev/webserver/application_port')}}"</span>
+<span class="na">app_env</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{lookup('aws_ssm',</span><span class="nv"> </span><span class="s">'/dev/webserver/app_env')}}"</span>
+<span class="na">stripe_api_key</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{lookup('aws_ssm',</span><span class="nv"> </span><span class="s">'/dev/webserver/stripe_api_key')}}"</span>
+</code></pre></div></div>
 <p>The syntax is fairly simple:</p>
 
 <p>The <code class="language-plaintext highlighter-rouge">aws_ssm</code> argument – is the name of plugin.</p>
 
-<p>The <code class="language-plaintext highlighter-rouge">/dev/some-server/ssh-key</code> argument here is a path to the key in Paramter Store.</p>
+<p>The <code class="language-plaintext highlighter-rouge">/dev/webserver/use_tls</code> argument – is the path to the key in Paramter Store.</p>
 
 <p>Surely you can do the same for a group of servers with group variables, for example:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># host_inventory_with_group_vars.yaml</span>
-<span class="na">some_group</span><span class="pi">:</span>
-  <span class="na">hosts</span><span class="pi">:</span>
-    <span class="na">some_server</span><span class="pi">:</span>
-      <span class="na">ansible_host</span><span class="pi">:</span> <span class="s">54.80.167.162</span>
-    <span class="na">some_other_server</span><span class="pi">:</span>
-      <span class="na">ansible_host</span><span class="pi">:</span> <span class="s">45.08.176.126</span>
-  <span class="na">vars</span><span class="pi">:</span>
-    <span class="na">ansible_ssh_private_key_file</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{lookup('aws_ssm',</span><span class="nv"> </span><span class="s">'/dev/servers-group/ssh-key')}}"</span>
-</code></pre></div></div>
+<p>You can use this anywhere you can use templating: in a play, in variables file, or a Jinja2 template.</p>
 
-<h2 id="playbooks-with-secret-manager">Playbooks with Secret Manager</h2>
+<h2 id="variables-with-secret-manager">Variables with Secret Manager</h2>
 
-<p>Another cool lookup plugin is Secrets Manager. In a nutshell, it has the same kind of functionality but fits better for applications (in my humble opinion, of course). Also, keep in mind that it returns JSON object (because you store objects as JSON in SM)</p>
+<p>Another cool lookup plugin is Secrets Manager. In a nutshell, it has the same kind of functionality but it uses JSON format by feault.</p>
 
 <p>Here is a quick example of its functionality in a Playbook:</p>
 
@@ -206,13 +197,12 @@ ok: [some_server] =&gt; {
 
 <h2 id="conclusion">Conclusion</h2>
 
-<p>May it be used vice versa: Parameter Store in playbooks and SM for inventory – of course!<br />
-May I use only of them – sure!</p>
-
 <p>If you’re using Ansible in CI/CD, then having it on an EC2 Instance with the IAM role will make you avoid keeping any secrets on that instance at all.<br />
-The IAM role must allow at least read access to SSM Parameter Store (+ KMS read access to be able to decrypt the keys) or read access to Secrets Manager.</p>
+The IAM role must allow at least the read access to SSM Parameter Store (+ KMS read access to be able to decrypt the keys) or the read access to Secrets Manager.</p>
 
 <p>You can find documentation for described plugins here <a href="https://docs.ansible.com/ansible/latest/plugins/lookup/aws_ssm.html">aws_ssm</a> and here <a href="https://docs.ansible.com/ansible/latest/plugins/lookup/aws_secret.html">aws_secret</a>.</p>
+
+<p>More about lookup plugins: https://docs.ansible.com/ansible/latest/plugins/lookup.html</p>
 
       <div class="page-footer">
         <!-- <div class="page-share">
