@@ -7,7 +7,6 @@ img: posts/2020-08-06-ansible-secrets-aws-ssm-sm.png
 tags: [ansible, aws, devops, security]
 ---
 
-## Intro
 Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks. 
 If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.\
 Also, you can (or even should) use SSM Parameter Store to keep all your variables related to environment settings – this is what this service was made for and this is why it's called "**Parameter** Store"
@@ -29,6 +28,7 @@ If you store such things locally on Ansible control node, you probably encrypt i
 SSM Parameter Store gives you more flexibility and security by centralized storage and management of parameters and secrets, so let's use it with Ansible:
 
 ```yaml
+---
 # content of dev.vars.yaml to be included in your play or role
 use_tls: {% raw %}"{{lookup('aws_ssm', '/dev/webserver/use_tls')}}"{% endraw %}
 application_port: {% raw %}"{{lookup('aws_ssm', '/dev/webserver/application_port')}}"{% endraw %}
@@ -52,6 +52,7 @@ Another cool lookup plugin is Secrets Manager. In a nutshell, it has the same ki
 Here is a quick example of its functionality in a Playbook:
 
 ```yaml
+---
 - name: Extract something secrets from Secret Manager
   debug:
     msg: {% raw %}"{{ lookup('aws_secret', 'dev/some-secrets')}}"{% endraw %}
