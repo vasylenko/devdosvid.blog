@@ -4,7 +4,7 @@ on:
     paths: 
       - 'cv/**'
       - '.github/workflows/cv.yaml'
-      
+
 jobs:
   build:
     name: build
@@ -17,13 +17,14 @@ jobs:
       
       - name: Build CV
         run: |
-          cd ./cv
-          /usr/local/bin/pandoc --standalone -H head.html --from markdown --to html5 -o index.html cv.md
+          /usr/local/bin/pandoc --standalone -H ./cv/head.html --from markdown --to html5 -o ./cv/index.html ./cv/cv.md
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with: 
-          name: cv
+          name: 
+            - ./cv/index.html
+            - ./cv/style.css
           path: _site/cv
 
   deploy:
