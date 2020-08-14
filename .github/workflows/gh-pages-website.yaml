@@ -5,7 +5,7 @@ on:
       - '_includes/**'
       - '_layouts/**'
       - '_posts/**'
-      - '*.*'
+      - '*'
 
 jobs:
   build:
