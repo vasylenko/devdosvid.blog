@@ -6,30 +6,20 @@ on:
       - '_layouts/**'
       - '_posts/**'
       - '*.*'
-# for purpose of eductaion I need to run this workflow on every push (despite the branch name),
-# but do the deploy only when commit was made to master.
 
 jobs:
   build:
-    name: build
     runs-on: ubuntu-latest
+    container:
+      image: ruby:2.6.4
+      options: 
+        --workdir /src 
     steps:
       - name: Checkout
         uses: actions/checkout@v2 
       - name: Build blog
         run: |
-          docker run --rm \
-          --user 1001 \
-          -v $(pwd):/src \
-          -w /src \
-          ruby:2.6.4 \
-          /bin/bash -c 'bundle install && bundle exec jekyll build --verbose --destination "_site"'
-      # - name: Build CV
-      #   run: |
-      #     docker run --rm \
-      #     --user 1001 \
-      #     -v $(pwd)/cv:/data pandoc/latex --standalone -H head.html --from markdown --to html5 -o index.html cv.md
-      #     cp -r $(pwd)/cv _site
+          bundle install && bundle exec jekyll build --verbose --destination "_site"
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with: 
