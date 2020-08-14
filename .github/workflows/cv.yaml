@@ -1,31 +1,30 @@
 name: CV
 on:
   push:
-    branches: 
-      - master
     paths: 
       - 'cv/**'
+      - '.github/workflows/cv.yaml'
+      
 jobs:
   build:
     name: build
     runs-on: ubuntu-latest
+    container:
+      image: pandoc/latex 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
+      
       - name: Build CV
         run: |
-          mkdir _site
-          docker run --rm \
-          --user 1001 \
-          -v $(pwd)/cv:/data pandoc/latex --standalone -H head.html --from markdown --to html5 -o index.html cv.md
-          cp -r $(pwd)/cv _site
+          cd ./cv
+          /usr/local/bin/pandoc --standalone -H head.html --from markdown --to html5 -o index.html cv.md
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with: 
-          name: _site
-          path: _site/
+          name: cv
+          path: _site/cv
 
   deploy:
     if: github.ref == 'refs/heads/master'
@@ -38,7 +37,7 @@ jobs:
         with:
           ref: 'gh-pages'
       - name: Get the build artifact
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: _site
           path: ./
