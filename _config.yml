@@ -24,6 +24,7 @@ analytics: G-GK7SE0XWGK
 
 # Build Settings
 markdown: kramdown
+highlighter: rouge
 plugins:
   - jekyll-sitemap
   - jekyll-paginate
