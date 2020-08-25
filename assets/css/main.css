@@ -1175,6 +1175,7 @@ footer .copyright {
 
 a.older-posts, a.newer-posts {
   font-size: 18px;
+  text-decoration: none;
   display: inline-block;
   color: #515151;
   -webkit-transition: -webkit-transform .2s;
@@ -1191,6 +1192,7 @@ a.older-posts:hover {
 }
 
 a.newer-posts:hover {
+  text-decoration: none;
   -webkit-transform: translateX(-5px);
       -ms-transform: translateX(-5px);
           transform: translateX(-5px);
