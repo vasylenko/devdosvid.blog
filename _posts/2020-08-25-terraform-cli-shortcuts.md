@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Terraforn CLI shortcuts
+title: Terraform CLI shortcuts
 summary: A bunch of small tools I use to simplify Terraform workflow
 date: 2020-08-25
 img: posts/2020-08-25-handy-terraform-cli-shortcuts.jpg
