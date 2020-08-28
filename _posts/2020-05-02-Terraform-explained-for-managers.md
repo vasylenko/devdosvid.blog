@@ -1,12 +1,13 @@
 ---
 layout: post
-title: Terraform explained for managers
+title: 🤔 Terraform explained for managers
 summary: For those who want to understand the engineering team better and speak on the same technical language - terraform explained.
 date: 2020-05-02
-img: posts/2020-05-02-Terraform-explained-for-managers.png
 tags: [terraform, devops, education, experience]
 ---
-As a team leader, I have to speak with my teammates on the same language — technical language. 
+![](/assets/posts/2020-05-02-Terraform-explained-for-managers.png)
+
+As a team leader, I have to speak with my teammates on the same language — technical language...
 
 For example, I have a good technical background, yet sometimes I have a feeling that my teammates see that I don’t understand them when we discuss some project or a task in-depth. Moreover, I know they are right. Of course, there are plenty of managers who do not have a technical background and they perform great. And some might say that technical skills are not the priority for a manager.
 
@@ -16,21 +17,21 @@ This is why I decided to share my experience and explain Terraform in one blog p
 
 The language of this article will be ‘techie’ but not too much. This is because I want to highlight the main parts the Terraform consists of. Although, this is not technical documentation (I hope). Code examples will be based on AWS cloud configuration, although in-depth knowledge of AWS is not required to understand them.
 
-## A few words about “Infrastructure as Code”
+### A few words about “Infrastructure as Code”
 IaC is when you describe and manage your infrastructure as… (guess what?) …code. Literally.
 
 In a nutshell that means you can define all the elements (servers, networks, storage, etc.) and resources (memory, cpu, etc) of your infrastructure via configuration files in the version control system (Git, SVN, etc.), and manage it in a way similar to how you manage the source code of the applications: branches, releases, and all that stuff.
 
 And the main idea behind the IaC approach is that it manages the state of things and must be the single source of truth (configuration truth) for your infrastructure. You define the state via the code (at first) and then IaC tool (Terraform, for example) applies this state on the infrastructure: all that is missing according to the code will be created, all that differs from the code will be changed and all that exists in the infrastructure but is not described via code — will be destroyed.
 
-## Why and when do you need the Terraform for a project?
+### Why and when do you need the Terraform for a project?
 Terraform is a specific tool, hence like any other tool it has its particular application area. There is no strict definition of project kind that needs Terraform (surprise!) but in general, you need to consider using Terraform if you answer ‘yes’ to one of the following questions:
 
  - Do you have multiple logical elements of the same kind (in plural) in your infrastructure, i.e. several web servers, several application servers, several database servers?
  - Do you have numerous environments (or workspaces) where you run your applications, i.e. development, staging, QA, production?
  - Do you spend some significant amount of time managing the changes in the environment(s) where you run your applications?
 
-## How does it work?
+### How does it work?
 Terraform works with the source code of configuration, and interprets the code into real resources inside on-premise or cloud platforms.
 
 Terraform supports a lot of platforms: from major cloud providers such as AWS, Azure, GCP, DigitalOcean, to more modest platforms such as OVH, 1&1, Hetzner, and others. It also supports infrastructure software such as Docker, Kubernetes, Chef, and even databases and monitoring software. This is why Terraform is so popular — it is a real Swiss knife in the operations world.
@@ -50,7 +51,7 @@ When you apply the code first time, Terraform creates a so-called “**state fil
 
 One of the important functions of the state file is a description of dependencies between the resources. For example (some technical nuances are omitted for purpose of simplicity): if you have a server created inside some network and that network is going to be changed, then Terraform will know that server setting should be changed as well or server should be re-created inside the updated network.
 
-## What is inside?
+### What is inside?
 
 Terraform configuration code consists of several elements: providers, resources, modules, input variables, output values, local values, expressions, functions.
 
@@ -127,11 +128,11 @@ The expressions are used to set the values (for many things), for example, to se
 
 The functions in Terraform are built-int jobs you can call to transform and combine values. For example, the `tolist()` function converts its argument to a list value.
 
-## And this is it?
+### And this is it?
 
 Yes, in a very very short words — this is what Terraform is. Not a rocket science if it's about to manage a small infastructure, but gets more complicated with bigger infrastctucture. As any other engineerign tool or development language, actually. 
 
-## Okay, what next?
+### Okay, what next?
 
 If you read down to this point (anybody?) then it means it worth “get your hands dirty” and to try building your Infrastructure with Terraform. There are plenty of courses and books (and the “Terraform up and running” is one of the most popular), but my learning path started from the following: [Official guide from Hashicorp](https://learn.hashicorp.com/terraform) — great and free guide from Terraform developers. Just pick your favorite cloud (AWS, Azure, GCP) and go through the topics.
 

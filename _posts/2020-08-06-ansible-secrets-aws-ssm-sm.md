@@ -1,17 +1,15 @@
 ---
 layout: post
-title: Managing Ansible playbook secrets with AWS services 
+title: 💡 Managing Ansible playbook secrets with AWS services 
 summary: A quick guide to secure secrets management with Ansible in AWS
 date: 2020-08-06
-img: posts/2020-08-06-ansible-secrets-aws-ssm-sm.png
 tags: [ansible, aws, devops, security]
 ---
-
 Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks. 
-If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.\
-Also, you can (or even should) use SSM Parameter Store to keep all your variables related to environment settings – this is what this service was made for and this is why it's called "**Parameter** Store"
+If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.
+![](/assets/posts/2020-08-06-ansible-secrets-aws-ssm-sm.png)
 
-## Variables with SSM Parameter Store
+### Variables with SSM Parameter Store
 
 Let's say you have some variables defined in 'defaults/main.yaml' file of your role or maybe in group_vars.yaml file.
 ```yaml
@@ -45,7 +43,7 @@ Surely you can do the same for a group of servers with group variables, for exam
 
 You can use this anywhere you can use templating: in a play, in variables file, or a Jinja2 template. 
 
-## Variables with Secret Manager
+### Variables with Secret Manager
 
 Another cool lookup plugin is Secrets Manager. In a nutshell, it has the same kind of functionality but it uses JSON format by feault.
 
@@ -73,7 +71,7 @@ ok: [some_server] => {
 ```
 This is nice if you want to insert a JSON as is, but you will need additional parsing in case you want to get only some of JSON elements.
 
-## Conclusion
+### Conclusion
 
 If you’re using Ansible in CI/CD, then having it on an EC2 Instance with the IAM role will make you avoid keeping any secrets on that instance at all.\
 The IAM role must allow at least the read access to SSM Parameter Store (+ KMS read access to be able to decrypt the keys) or the read access to Secrets Manager. 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: AWS SAA exam results
+title: 🥳 AWS SAA exam results
 date: 2020-03-15 20:16:20 +0200
 description: Sharing my AWS SAA exam results
 img: posts/2020-03-15-aws-solutions-architect-associate-exam-tips_AWS-Certified_Solutions-Architect_Associate.png
@@ -8,10 +8,10 @@ fig-caption: # Add figcaption (optional)
 tags: [aws, education]
 ---
 
-## 926 out of 1000
-Last week I've successfully passed AWS SAA exam with 926 points from 1000 possible. I can't help saying this and showing off my [verification page](https://www.certmetrics.com/amazon/public/badge.aspx?i=1&t=c&d=2020-03-11&ci=AWS00846640){:target="_blank"}, just because I am very happy :joy: so please excuse me my boasting.
+### 926 out of 1000
+Last week I've successfully passed AWS SAA exam with 926 points from 1000 possible. I can't help saying this and showing off my [verification page](https://www.youracclaim.com/badges/7c6c7a70-63f5-4854-97ab-e5c1ad251231){:target="_blank"}, just because I am very happy so please excuse me my bragging.
 
-## What helped me
+### What helped me
 But I would like to share some advices and tips with anyone who reads this and wants to pass the exam. I mean, I could just twit about it if that was only about saying "hey look at me!", right? 
 
 It took me a month of intensive studying and here is what helped me:

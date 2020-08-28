@@ -1,36 +1,83 @@
-title: Oh my blog!
-description: > # this means to ignore newlines until "baseurl:"
-  A place where I talk with internet
-permalink: ':title/'
-baseurl:  # the subpath of your site, e.g. /blog
-url: "https://serhii.vasylenko.info" # the base hostname & protocol for your site, e.g. http://example.com
-site-twitter: #if your site has a twitter account, enter it here
+# SITE CONFIGURATION
+baseurl: ""
+url: "https://serhii.vasylenko.info"
 
-# Author Settings
-author: Serhii Vasylenko # add your name
-author-img: serhii-vasylenko.jpeg #david-freeman.jpg # add your photo
-about-author: Teamlead, engineer, geek. # add description
-social-twitter: vasylenko
-social-facebook: vasylenkos # add your Facebook handle
-social-github: vasylenko
-social-linkedin: svasylenko # add your Linkedin handle
-social-email: contacts@vasylenko.info # add your Email address
+# THEME-SPECIFIC CONFIGURATION
+theme_settings:
+  # Meta
+  title: Hello world, it is nice to meet you ^_^
+  avatar: 
+  favicon: assets/favicon.ico
+  gravatar: # Email MD5 hash
+  description: "Serhii Vasylenko - personal blog" # used by search engines
 
-# Disqus
-discus-identifier: serhii-vasylenko-info # add your discus identifier
+  # Header and footer text
+  header_text:
+  header_text_feature_image:
+  footer_text: .
 
-# Tracker
-analytics: G-GK7SE0XWGK
+  # Icons
+  rss: true
+  email_address: email-from-blog@vasylenko.info
+  behance:
+  bitbucket:
+  dribbble:
+  facebook: 
+  flickr:
+  gitlab:
+  github: 
+  gitter:
+  google_plus:
+  instagram: 
+  linkedin:  https://www.linkedin.com/in/svasylenko/
+  pinterest:
+  reddit:
+  soundcloud:
+  stack_exchange:  # Full URL
+  steam:
+  tumblr:
+  twitter: 
+  wordpress:
+  youtube:
 
-# Build Settings
+  # Scripts
+  google_analytics: G-GK7SE0XWGK # Tracking ID, e.g. "G-GK7SE0XWGK"
+  disqus_shortname:
+  katex: false # Enable if using math markup
+  search: false # Enable the search feature
+
+  # Localization strings
+  str_follow_on: "Follow on"
+  str_rss_follow: "Follow RSS feed"
+  str_email: "Email"
+  str_next_post: "Next post"
+  str_previous_post: "Previous post"
+  str_next_page: "Next page"
+  str_previous_page: "Previous page"
+  str_continue_reading: "Continue reading"
+  str_javascript_required_disqus: "Please enable JavaScript to view comments."
+  str_search_no_results: "No results found."
+
+  # Colours, typography and padding
+  # Open the "_sass > base" folder, and open "_variables.scss"
+  google_fonts: "Work-Sans:300,700,700italic,400italic"
+
+  # Post navigation
+  post_navigation: true
+
+# PAGINATION
+paginate: 5
+paginate_path: "blog/page:num"
+
+# BUILD SETTINGS
 markdown: kramdown
 highlighter: rouge
-plugins:
-  - jekyll-sitemap
+sass:
+  sass_dir: _sass
+  style: :compressed
+plugins: 
   - jekyll-paginate
-  - jemoji
-
-paginate: 5
-paginate_path: "/page/:num"
-
-exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock", "cv"]
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor

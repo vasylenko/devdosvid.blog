@@ -1,18 +1,15 @@
 ---
 layout: post
-title: DevOps team in outsource. A team?
-summary: 
+title: 🤔 DevOps team in outsource. A team?
 date: 2020-03-20 
 tags: [teambuilding, experience]
-img: posts/2020-03-20-devops-team-in-outsource-a-team_heading-image.png
 ---
 
-## Introduction 
 I am a team lead in an outsourcing company. That means I believe _(or convince myself)_ that I lead the team _(wait, wait, there will be even more obvious discoveries)_. 
 
 I am sure that **a team** can achieve more than a single person or a group. And the story I want to tell is about making the team from a group of people with personal and non-connected tasks. I assume this is going to be a series of posts, and hopefully, I will add a table of contents here.
 
-## A group or a team?
+### A group or a team?
 It is quite rare to find a project that involves more than 10-15 people in a small or mid-size outsourcing company. With such project size, a single DevOps engineer is enough to handle the whole job. Or an engineer may work on several projects at the same time if projects are relatively small. This is because the scope of work to be done fits into the schedule of a single person. So it is either one-to-one or one-to-many connection in most cases: either the employee works with one project or the employee works with several projects simultaneously.
 
 Outsourcing a "DevOps" within this context usually means assigning an individual for the work with a client or/and a client's team.
@@ -24,9 +21,9 @@ Now imagine: you have several people in a room, all of them are DevOps engineers
 Wikipedia states that "a team" is a group of individuals (human or non-human) working together to achieve **their [common] goal**. 
 As well as common sense tells us that "a team" is something that groups people to make them work for a **mutual outcome**.
 
-And here comes an obvious but a difficult question: what common goal(s) a group of people can have whereas each member of that group has its own goal, which is not related to others'? A bit contradictory, isn't it? :smirk: 
+And here comes an obvious but a difficult question: what common goal(s) a group of people can have whereas each member of that group has its own goal, which is not related to others'? A bit contradictory, isn't it? 
 
-## A Goal
+### A Goal
 
 Conventional thinking tells us that a goal for the for-profit company is to make money. This is true, and I don't want to argue with it. Therefore, does it mean that a goal for a team of engineers inside the company is the same as for the company as a whole?
 
@@ -70,7 +67,7 @@ The **COMMON INTERESTS** is more about informal things we share within a team. T
 
 These pillars create a team culture where learning, creativity, and an open mindset are encouraged. 
 
-## The Team
+### The Team
 This is how a group of people with separate goals may become a team. While we do not have a goal ("one for all") that is measurable or has a fixed point of completion, we still have a common aim whose realization is based on pillars of teamwork. And with a set of sub-goals, this may be a specific, achievable (until you find something else to improve, which should happen quite often) and even realistic. So it's kinda 60% S.M.A.R.T. goal :smile:
 
 Unfortunately or fortunately (if you like your team lead job) there is a lot of work that needs to be done and a lot of questions need to be answered to implement the described approach:
@@ -84,5 +81,5 @@ Unfortunately or fortunately (if you like your team lead job) there is a lot of 
 - How to keep team members motivated when the work becomes boring and the level of engagement goes down?
 - and much much more
 
-I wish I could answer all these questions at once, and I wish there were only correct answers. :stuck_out_tongue_winking_eye:
+I wish I could answer all these questions at once, and I wish there were only correct answers.
 But my experience tells me that it is possible to answer them one by one. And I hope to share that here someday!
