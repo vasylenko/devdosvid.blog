@@ -17,7 +17,7 @@ Then just source this file, for example: `source ~/.zshrc`
 ### Function: list outputs and variables of given module
 You need to provide the path to module directory, and this function will list all declared variables and outputs module has. It comes very useful when you don't remember them all and just need to take a quick look.
 
-```bash
+{% highlight bash %}
 # TerraForm MOdule Explained
 function tfmoe {
   echo -e "\nOutputs:"
@@ -25,7 +25,7 @@ function tfmoe {
   echo -e "\nVariables:"
   grep -r "variable \".*\"" $1 |awk '{print "\t",$2}' |tr -d '"'
 }
-```
+{% endhighlight %}
 
 Example usage:
 ```terminal

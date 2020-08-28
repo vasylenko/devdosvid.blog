@@ -26,7 +26,7 @@ In both workflows, the build job is performed within a container, which is diffe
 
 Here is how the build job looks like for the blog:
 
-```yaml
+{% highlight yaml %}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -48,7 +48,8 @@ jobs:
         with: 
           name: _site
           path: _site
-```
+{% endhighlight %}
+
 As you can see, I run the steps within the Ruby container. This simplifies things related to file permissions and directory mounting because checkout is made inside the container.
 
 The deploy step is performed via shell run command for now, for better clearness (can be replaced to third-party action or custom-made one): it makes a commit to gh-pages branch which is configured for Github Pages.

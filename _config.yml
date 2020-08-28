@@ -5,9 +5,9 @@ url: "https://serhii.vasylenko.info"
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
   # Meta
-  title: Hello world, it is nice to meet you ^_^
+  title: Hello, world! It is nice to meet you ^_^
   avatar: 
-  favicon: assets/favicon.ico
+  # favicon: assets/favicon.ico
   gravatar: # Email MD5 hash
   description: "Serhii Vasylenko - personal blog" # used by search engines
 
