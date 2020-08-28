@@ -5,8 +5,6 @@ summary: For those who want to understand the engineering team better and speak 
 date: 2020-05-02
 tags: [terraform, devops, education, experience]
 ---
-![](/assets/posts/2020-05-02-Terraform-explained-for-managers.png)
-
 As a team leader, I have to speak with my teammates on the same language — technical language...
 
 For example, I have a good technical background, yet sometimes I have a feeling that my teammates see that I don’t understand them when we discuss some project or a task in-depth. Moreover, I know they are right. Of course, there are plenty of managers who do not have a technical background and they perform great. And some might say that technical skills are not the priority for a manager.

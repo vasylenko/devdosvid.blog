@@ -26,7 +26,7 @@ In both workflows, the build job is performed within a container, which is diffe
 
 Here is how the build job looks like for the blog:
 
-```yml
+```yaml
 jobs:
   build:
     runs-on: ubuntu-latest
