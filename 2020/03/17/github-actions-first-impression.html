@@ -2,7 +2,7 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>😲 Github Actions - First impression | Hello world, it is nice to meet you ^_^</title>
+	<title>😲 Github Actions - First impression | Hello, world! It is nice to meet you ^_^</title>
 	<meta name="description"
 		content="Although Github Actions service is generally available since November 13, 2020, and there are about 243,000,000 results for “github actions” in Google search...">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,13 +11,13 @@
 	<link rel="stylesheet" href="/assets/css/main.css">
 
 	<!--Favicon-->
-	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/" type="image/x-icon">
 
 	<!-- Canonical -->
 	<link rel="canonical" href="/2020/03/17/github-actions-first-impression.html">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Hello world, it is nice to meet you ^_^"
+	<link rel="alternate" type="application/atom+xml" title="Hello, world! It is nice to meet you ^_^"
 		href="/feed.xml" />
 
 	<!-- Font Awesome -->
@@ -53,7 +53,7 @@
 	<div class="branding">
 		
 		<h1 class="site-title">
-			<a href="/">Hello world, it is nice to meet you ^_^</a>
+			<a href="/">Hello, world! It is nice to meet you ^_^</a>
 		</h1>
 	</div>
 	<nav class="site-nav">
@@ -188,7 +188,7 @@
 
 <p>Here is how the build job looks like for the blog:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jobs</span><span class="pi">:</span>
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">jobs</span><span class="pi">:</span>
   <span class="na">build</span><span class="pi">:</span>
     <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
     <span class="na">container</span><span class="pi">:</span>
@@ -208,8 +208,8 @@
         <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/upload-artifact@v2</span>
         <span class="na">with</span><span class="pi">:</span> 
           <span class="na">name</span><span class="pi">:</span> <span class="s">_site</span>
-          <span class="na">path</span><span class="pi">:</span> <span class="s">_site</span>
-</code></pre></div></div>
+          <span class="na">path</span><span class="pi">:</span> <span class="s">_site</span></code></pre></figure>
+
 <p>As you can see, I run the steps within the Ruby container. This simplifies things related to file permissions and directory mounting because checkout is made inside the container.</p>
 
 <p>The deploy step is performed via shell run command for now, for better clearness (can be replaced to third-party action or custom-made one): it makes a commit to gh-pages branch which is configured for Github Pages.</p>

@@ -2,7 +2,7 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>👨‍💻 Terraform CLI shortcuts | Hello world, it is nice to meet you ^_^</title>
+	<title>👨‍💻 Terraform CLI shortcuts | Hello, world! It is nice to meet you ^_^</title>
 	<meta name="description"
 		content="Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.Requirements — bash-compatible interpreter, because aliases and fu...">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,13 +11,13 @@
 	<link rel="stylesheet" href="/assets/css/main.css">
 
 	<!--Favicon-->
-	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/" type="image/x-icon">
 
 	<!-- Canonical -->
 	<link rel="canonical" href="/2020/08/25/terraform-cli-shortcuts.html">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Hello world, it is nice to meet you ^_^"
+	<link rel="alternate" type="application/atom+xml" title="Hello, world! It is nice to meet you ^_^"
 		href="/feed.xml" />
 
 	<!-- Font Awesome -->
@@ -53,7 +53,7 @@
 	<div class="branding">
 		
 		<h1 class="site-title">
-			<a href="/">Hello world, it is nice to meet you ^_^</a>
+			<a href="/">Hello, world! It is nice to meet you ^_^</a>
 		</h1>
 	</div>
 	<nav class="site-nav">
@@ -177,14 +177,13 @@ Requirements — bash-compatible interpreter, because aliases and functions desc
 <h3 id="function-list-outputs-and-variables-of-given-module">Function: list outputs and variables of given module</h3>
 <p>You need to provide the path to module directory, and this function will list all declared variables and outputs module has. It comes very useful when you don’t remember them all and just need to take a quick look.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># TerraForm MOdule Explained</span>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># TerraForm MOdule Explained</span>
 <span class="k">function </span>tfmoe <span class="o">{</span>
   <span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Outputs:"</span>
   <span class="nb">grep</span> <span class="nt">-r</span> <span class="s2">"output </span><span class="se">\"</span><span class="s2">.*</span><span class="se">\"</span><span class="s2">"</span> <span class="nv">$1</span> |awk <span class="s1">'{print "\t",$2}'</span> |tr <span class="nt">-d</span> <span class="s1">'"'</span>
   <span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Variables:"</span>
   <span class="nb">grep</span> <span class="nt">-r</span> <span class="s2">"variable </span><span class="se">\"</span><span class="s2">.*</span><span class="se">\"</span><span class="s2">"</span> <span class="nv">$1</span> |awk <span class="s1">'{print "\t",$2}'</span> |tr <span class="nt">-d</span> <span class="s1">'"'</span>
-<span class="o">}</span>
-</code></pre></div></div>
+<span class="o">}</span></code></pre></figure>
 
 <p>Example usage:</p>
 <div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">user@localhost $</span>: tfmoe ./module_alb

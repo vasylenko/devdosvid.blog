@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hello world, it is nice to meet you ^_^</title>
+    <title>Hello, world! It is nice to meet you ^_^</title>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>https://serhii.vasylenko.info/</link>
     <description>Serhii Vasylenko - personal blog</description>
-    <pubDate>Fri, 28 Aug 2020 13:13:08 +0000</pubDate>
+    <pubDate>Fri, 28 Aug 2020 19:49:16 +0000</pubDate>
     
       <item>
         <title>👨‍💻 Terraform CLI shortcuts</title>
@@ -23,14 +23,13 @@ Requirements — bash-compatible interpreter, because aliases and functions desc
 &lt;h3 id=&quot;function-list-outputs-and-variables-of-given-module&quot;&gt;Function: list outputs and variables of given module&lt;/h3&gt;
 &lt;p&gt;You need to provide the path to module directory, and this function will list all declared variables and outputs module has. It comes very useful when you don’t remember them all and just need to take a quick look.&lt;/p&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# TerraForm MOdule Explained&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# TerraForm MOdule Explained&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;tfmoe &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Outputs:&quot;&lt;/span&gt;
   &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;output &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; |awk &lt;span class=&quot;s1&quot;&gt;'{print &quot;\t&quot;,$2}'&lt;/span&gt; |tr &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&quot;'&lt;/span&gt;
   &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Variables:&quot;&lt;/span&gt;
   &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;variable &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; |awk &lt;span class=&quot;s1&quot;&gt;'{print &quot;\t&quot;,$2}'&lt;/span&gt; |tr &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&quot;'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;Example usage:&lt;/p&gt;
 &lt;div class=&quot;language-terminal highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;user@localhost $&lt;/span&gt;: tfmoe ./module_alb
@@ -427,7 +426,7 @@ But my experience tells me that it is possible to answer them one by one. And I 
 
 &lt;p&gt;Here is how the build job looks like for the blog:&lt;/p&gt;
 
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
   &lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;runs-on&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ubuntu-latest&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;container&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
@@ -447,8 +446,8 @@ But my experience tells me that it is possible to answer them one by one. And I 
         &lt;span class=&quot;na&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;actions/upload-artifact@v2&lt;/span&gt;
         &lt;span class=&quot;na&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; 
           &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;_site&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;_site&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+          &lt;span class=&quot;na&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;_site&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
 &lt;p&gt;As you can see, I run the steps within the Ruby container. This simplifies things related to file permissions and directory mounting because checkout is made inside the container.&lt;/p&gt;
 
 &lt;p&gt;The deploy step is performed via shell run command for now, for better clearness (can be replaced to third-party action or custom-made one): it makes a commit to gh-pages branch which is configured for Github Pages.&lt;/p&gt;
