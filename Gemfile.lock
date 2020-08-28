@@ -252,6 +252,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler
   github-pages
 
 BUNDLED WITH

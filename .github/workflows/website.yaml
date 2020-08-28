@@ -13,16 +13,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: ruby:2.6.4
-      options: 
-        --workdir /src 
+      image: svasylenko/jekyllbuilder:latest
+      # options: 
+      #   --workdir /src 
     steps:
       - name: Checkout
         uses: actions/checkout@v2 
 
       - name: Build blog
         run: |
-          gem install bundler:2.1.4
+          # gem install bundler:2.1.4
           bundle install
           bundle exec jekyll build --verbose --destination _site
       
