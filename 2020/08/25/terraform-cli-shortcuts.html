@@ -2,7 +2,7 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>💡 Terraform CLI shortcuts | Hello world, it is nice to meet you ^_^</title>
+	<title>👨‍💻 Terraform CLI shortcuts | Hello world, it is nice to meet you ^_^</title>
 	<meta name="description"
 		content="Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.Requirements — bash-compatible interpreter, because aliases and fu...">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -158,7 +158,7 @@
     <div class="content">
       <article >
   <header style="background-image: url('/')">
-    <h1 class="title">💡 Terraform CLI shortcuts</h1>
+    <h1 class="title">👨‍💻 Terraform CLI shortcuts</h1>
     
     <p class="meta">
       August 25, 2020
@@ -166,8 +166,9 @@
     </p>
   </header>
   <section class="post-content"><p>Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
-Requirements — bash-compatible interpreter, because aliases and functions described below will work with bash, zsh and ohmyzsh. 
-<img src="/assets/posts/2020-08-25-handy-terraform-cli-shortcuts.jpg" alt="" /></p>
+Requirements — bash-compatible interpreter, because aliases and functions described below will work with bash, zsh and ohmyzsh.</p>
+
+<p><img src="/assets/posts/2020-08-25-handy-terraform-cli-shortcuts.jpg" alt="" /></p>
 
 <p>In order to use any of described aliases of functions, you need to place it in your <code class="language-plaintext highlighter-rouge">~/.bashrc</code> or <code class="language-plaintext highlighter-rouge">~/.zshrc</code> file (or any other configuration file you have for your shell).</p>
 
@@ -186,8 +187,8 @@ Requirements — bash-compatible interpreter, because aliases and functions desc
 </code></pre></div></div>
 
 <p>Example usage:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user@localhost <span class="nv">$:</span> tfmoe ./module_alb
-
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">user@localhost $</span>: tfmoe ./module_alb
+<span class="go">
 Outputs:
 	 alb_arn
 
@@ -197,46 +198,46 @@ Variables:
 	 alb_sg_list
 	 subnets_id_list
 	 tags
-</code></pre></div></div>
+</span></code></pre></div></div>
 
 <h3 id="function-pre-fill-module-directory-with-configuration-files">Function: pre-fill module directory with configuration files</h3>
 <p>You need to provide a path to the module directory and this function will create a bunch of empty ‘default’ .tf files in it.</p>
-
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c">#TerraForm MOdule Initialize</span>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#TerraForm MOdule Initialize</span>
 <span class="k">function </span>tfmoi <span class="o">{</span>
   <span class="nb">touch</span> <span class="nv">$1</span>/variables.tf
   <span class="nb">touch</span> <span class="nv">$1</span>/outputs.tf
   <span class="nb">touch</span> <span class="nv">$1</span>/versions.tf
   <span class="nb">touch</span> <span class="nv">$1</span>/main.tf
-<span class="o">}</span></code></pre></figure>
+<span class="o">}</span>
+</code></pre></div></div>
 
 <p>Example usage:</p>
-
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">user@localhost <span class="nv">$:</span> <span class="nb">mkdir</span> ./module_foo <span class="o">&amp;&amp;</span> temoi <span class="nv">$_</span>
-
-user@localhost <span class="nv">$:</span> <span class="nb">ls</span> ./module_foo
-main.tf      outputs.tf   variables.tf versions.tf</code></pre></figure>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">user@localhost $</span>: <span class="nb">mkdir</span> ./module_foo <span class="o">&amp;&amp;</span> temoi <span class="nv">$_</span>
+<span class="go">
+</span><span class="gp">user@localhost $</span>: <span class="nb">ls</span> ./module_foo
+<span class="go">main.tf      outputs.tf   variables.tf versions.tf
+</span></code></pre></div></div>
 
 <h3 id="aliases">Aliases</h3>
 <p>The purpose of these aliases is just to keep you from typing long commands when you want to do a simple action.</p>
-
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">alias </span><span class="nv">tf</span><span class="o">=</span><span class="s1">'terraform'</span>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">alias </span><span class="nv">tf</span><span class="o">=</span><span class="s1">'terraform'</span>
 
 <span class="nb">alias </span><span class="nv">tfv</span><span class="o">=</span><span class="s1">'terraform validate'</span>
 
 <span class="nb">alias </span><span class="nv">tfi</span><span class="o">=</span><span class="s1">'terraform init'</span>
 
-<span class="nb">alias </span><span class="nv">tfp</span><span class="o">=</span><span class="s1">'terraform plan'</span> </code></pre></figure>
+<span class="nb">alias </span><span class="nv">tfp</span><span class="o">=</span><span class="s1">'terraform plan'</span> 
+</code></pre></div></div>
 
 <p>This one is useful because it makes format tool to go in-depth (recursively) through directories.</p>
-
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">alias </span><span class="nv">tfm</span><span class="o">=</span><span class="s1">'terraform fmt -recursive'</span></code></pre></figure>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">alias </span><span class="nv">tfm</span><span class="o">=</span><span class="s1">'terraform fmt -recursive'</span>
+</code></pre></div></div>
 
 <p>Example usage:</p>
-
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">user@localhost <span class="nv">$:</span> tfm 
-module_ecs_cluster/ecs.tf
-module_alb/alb.tf</code></pre></figure>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">user@localhost $</span>: tfm 
+<span class="go">module_ecs_cluster/ecs.tf
+module_alb/alb.tf
+</span></code></pre></div></div>
 </section>
   
 <footer>
@@ -264,7 +265,7 @@ module_alb/alb.tf</code></pre></figure>
   <div id="previous-post" class="post-nav-post">
       <p>Previous post</p>
       <a href="/2020/08/06/ansible-secrets-aws-ssm-sm.html">
-        💡 Managing Ansible playbook secrets with AWS services
+        👨‍💻 Managing Ansible playbook secrets with AWS services
       </a>
   </div>
   

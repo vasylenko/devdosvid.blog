@@ -5,15 +5,16 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>https://serhii.vasylenko.info/</link>
     <description>Serhii Vasylenko - personal blog</description>
-    <pubDate>Fri, 28 Aug 2020 11:19:05 +0000</pubDate>
+    <pubDate>Fri, 28 Aug 2020 12:28:01 +0000</pubDate>
     
       <item>
-        <title>💡 Terraform CLI shortcuts</title>
+        <title>👨‍💻 Terraform CLI shortcuts</title>
         <link>/2020/08/25/terraform-cli-shortcuts.html</link>
         <guid isPermaLink="true">/2020/08/25/terraform-cli-shortcuts.html</guid>
         <description>&lt;p&gt;Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
-Requirements — bash-compatible interpreter, because aliases and functions described below will work with bash, zsh and ohmyzsh. 
-&lt;img src=&quot;/assets/posts/2020-08-25-handy-terraform-cli-shortcuts.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+Requirements — bash-compatible interpreter, because aliases and functions described below will work with bash, zsh and ohmyzsh.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2020-08-25-handy-terraform-cli-shortcuts.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In order to use any of described aliases of functions, you need to place it in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.bashrc&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.zshrc&lt;/code&gt; file (or any other configuration file you have for your shell).&lt;/p&gt;
 
@@ -32,8 +33,8 @@ Requirements — bash-compatible interpreter, because aliases and functions desc
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Example usage:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user@localhost &lt;span class=&quot;nv&quot;&gt;$:&lt;/span&gt; tfmoe ./module_alb
-
+&lt;div class=&quot;language-terminal highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;user@localhost $&lt;/span&gt;: tfmoe ./module_alb
+&lt;span class=&quot;go&quot;&gt;
 Outputs:
 	 alb_arn
 
@@ -43,57 +44,58 @@ Variables:
 	 alb_sg_list
 	 subnets_id_list
 	 tags
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;function-pre-fill-module-directory-with-configuration-files&quot;&gt;Function: pre-fill module directory with configuration files&lt;/h3&gt;
 &lt;p&gt;You need to provide a path to the module directory and this function will create a bunch of empty ‘default’ .tf files in it.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;c&quot;&gt;#TerraForm MOdule Initialize&lt;/span&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#TerraForm MOdule Initialize&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;tfmoi &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;nb&quot;&gt;touch&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;/variables.tf
   &lt;span class=&quot;nb&quot;&gt;touch&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;/outputs.tf
   &lt;span class=&quot;nb&quot;&gt;touch&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;/versions.tf
   &lt;span class=&quot;nb&quot;&gt;touch&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;/main.tf
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Example usage:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;user@localhost &lt;span class=&quot;nv&quot;&gt;$:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; ./module_foo &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; temoi &lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;
-
-user@localhost &lt;span class=&quot;nv&quot;&gt;$:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; ./module_foo
-main.tf      outputs.tf   variables.tf versions.tf&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;div class=&quot;language-terminal highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;user@localhost $&lt;/span&gt;: &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; ./module_foo &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; temoi &lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;user@localhost $&lt;/span&gt;: &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; ./module_foo
+&lt;span class=&quot;go&quot;&gt;main.tf      outputs.tf   variables.tf versions.tf
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;aliases&quot;&gt;Aliases&lt;/h3&gt;
 &lt;p&gt;The purpose of these aliases is just to keep you from typing long commands when you want to do a simple action.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'terraform'&lt;/span&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'terraform'&lt;/span&gt;
 
 &lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;tfv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'terraform validate'&lt;/span&gt;
 
 &lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;tfi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'terraform init'&lt;/span&gt;
 
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;tfp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'terraform plan'&lt;/span&gt; &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;tfp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'terraform plan'&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;This one is useful because it makes format tool to go in-depth (recursively) through directories.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;tfm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'terraform fmt -recursive'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;tfm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'terraform fmt -recursive'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Example usage:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;user@localhost &lt;span class=&quot;nv&quot;&gt;$:&lt;/span&gt; tfm 
-module_ecs_cluster/ecs.tf
-module_alb/alb.tf&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;div class=&quot;language-terminal highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;user@localhost $&lt;/span&gt;: tfm 
+&lt;span class=&quot;go&quot;&gt;module_ecs_cluster/ecs.tf
+module_alb/alb.tf
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Tue, 25 Aug 2020 00:00:00 +0000</pubDate>
       </item>
     
       <item>
-        <title>💡 Managing Ansible playbook secrets with AWS services</title>
+        <title>👨‍💻 Managing Ansible playbook secrets with AWS services</title>
         <link>/2020/08/06/ansible-secrets-aws-ssm-sm.html</link>
         <guid isPermaLink="true">/2020/08/06/ansible-secrets-aws-ssm-sm.html</guid>
         <description>&lt;p&gt;Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks. 
-If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.
-&lt;img src=&quot;/assets/posts/2020-08-06-ansible-secrets-aws-ssm-sm.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2020-08-06-ansible-secrets-aws-ssm-sm.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;variables-with-ssm-parameter-store&quot;&gt;Variables with SSM Parameter Store&lt;/h3&gt;
 
@@ -169,9 +171,7 @@ The IAM role must allow at least the read access to SSM Parameter Store (+ KMS r
         <title>🤔 Terraform explained for managers</title>
         <link>/2020/05/02/Terraform-explained-for-managers.html</link>
         <guid isPermaLink="true">/2020/05/02/Terraform-explained-for-managers.html</guid>
-        <description>&lt;p&gt;&lt;img src=&quot;/assets/posts/2020-05-02-Terraform-explained-for-managers.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;As a team leader, I have to speak with my teammates on the same language — technical language…&lt;/p&gt;
+        <description>&lt;p&gt;As a team leader, I have to speak with my teammates on the same language — technical language…&lt;/p&gt;
 
 &lt;p&gt;For example, I have a good technical background, yet sometimes I have a feeling that my teammates see that I don’t understand them when we discuss some project or a task in-depth. Moreover, I know they are right. Of course, there are plenty of managers who do not have a technical background and they perform great. And some might say that technical skills are not the priority for a manager.&lt;/p&gt;
 
@@ -427,7 +427,7 @@ But my experience tells me that it is possible to answer them one by one. And I 
 
 &lt;p&gt;Here is how the build job looks like for the blog:&lt;/p&gt;
 
-&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
   &lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;runs-on&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ubuntu-latest&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;container&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
