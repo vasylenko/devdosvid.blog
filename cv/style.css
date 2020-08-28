@@ -1,0 +1,133 @@
+/*
+ * Copyright 2013 Christophe-Marie Duquesne <chmd@chmd.fr>
+ *
+ * CSS for making a resume with pandoc. Inspired by moderncv.
+ *
+ * This CSS document is delivered to you under the CC BY-SA 3.0 License.
+ * https://creativecommons.org/licenses/by-sa/3.0/deed.en_US
+ */
+
+/* Whole document */
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+
+body {
+    font-family: 'Verdana', Arial, sans-serif;
+    color: #232F3E;
+    width: 850px;
+    margin: auto;
+    background: #FFFFFF;
+    padding: 10px 10px 10px 10px;
+}
+
+
+/* Title of the resume */
+h1 {
+    font-size: 40px;
+    /* color: #757575; */
+    text-align:center;
+    margin-bottom:0.5em;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+/* h1:hover {
+    background-color: #757575;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 1px #333;
+} */
+
+/* Titles of categories */
+h2 {
+    color: #FF9900;
+    text-transform: uppercase;
+    margin-top: 1em;
+    font-weight: normal;
+}
+
+/* h2:hover {
+    background-color: #397249;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 1px #333;
+} */
+
+/* Titles of job positions */
+h3 {
+    /* text-transform: uppercase; */
+    font-weight: bold;
+    text-align: left;
+    margin-left: 0;
+    font-size: 1em;
+}
+
+/* job details headings */
+h4 {
+    font-size: 1em;
+    font-weight: bold;
+}
+/* personal contacts */
+h5 {
+    text-align: center;
+}
+
+/* Definitions */
+dt {
+    float: left;
+    clear: left;
+    width: 13%;
+    font-weight: bold;
+
+}
+dd {
+    margin-top: 1em;
+    margin-left: 16%;
+    margin-bottom: 2em;;
+}
+p {
+    /* margin-top:0; */
+    /* margin-bottom:7px; */
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: #538083;
+}
+a:hover, a:active {
+    background-color: #538083;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #333;
+}
+
+/* Horizontal separators */
+hr {
+    color: #A6A6A6;
+}
+
+ /* list styling */
+ul {
+    list-style-type: circle;
+}
+
+/* print syles */
+@media print {
+    body {
+        font-family: Verdana, Helvetica, sans-serif;
+    }
+    h1,h2,h3,h4+ul{
+        page-break-after: avoid;
+        color: #232F3E;
+    }
+    /* h4 {
+        page-break-after: avoid;
+    } */
+    a {
+        font-weight: bold;
+        text-decoration: none;
+        color: black;
+        }
+    /* a[href^=http]:after {
+        content:" (" attr(href) ") ";
+        } */
+
+}
