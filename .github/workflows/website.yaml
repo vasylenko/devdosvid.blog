@@ -41,7 +41,7 @@ jobs:
       - name: Checkout gh-pages branch
         uses: actions/checkout@v2
         with:
-          ref: 'gh-pages'
+          ref: 'gh-pages-new-theme'
 
       - name: Get the build artifact
         uses: actions/download-artifact@v2
