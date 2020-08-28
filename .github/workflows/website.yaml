@@ -56,4 +56,4 @@ jobs:
           git add -A 
           git commit -a -m "Updated Website"
           git remote set-url origin "https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git"
-          git push --force-with-lease origin gh-pages
+          git push --force-with-lease origin gh-pages-new-theme
