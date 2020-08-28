@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>🤔 Terraform explained for managers | Hello world, it is nice to meet you ^_^</title>
+	<meta name="description"
+		content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/2020/05/02/Terraform-explained-for-managers.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Hello world, it is nice to meet you ^_^"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Work-Sans:300,700,700italic,400italic" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'G-GK7SE0XWGK', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+</head>
+  <body>
+    <header class="site-header">
+	<div class="branding">
+		
+		<h1 class="site-title">
+			<a href="/">Hello world, it is nice to meet you ^_^</a>
+		</h1>
+	</div>
+	<nav class="site-nav">
+		<ul>
+			
+			
+			
+			
+			
+			<li>
+				<a class="page-link" href="/about/">
+					About me
+				</a>
+			</li>
+			
+			
+			
+			<li>
+				<a class="page-link" href="/cv/cv.html">
+					Serhii Vasylenko
+				</a>
+			</li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<!-- Social icons from Font Awesome, if enabled  -->
+			
+<li>
+	<a href="/feed.xml" title="Follow RSS feed">
+		<i class="fas fa-fw fa-rss"></i>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:email-from-blog@vasylenko.info" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.linkedin.com/in/svasylenko/" title="Follow on LinkedIn">
+		<i class="fab fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Search bar -->
+            
+		</ul>
+	</nav>
+
+</header>
+
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">🤔 Terraform explained for managers</h1>
+    
+    <p class="meta">
+      May 2, 2020
+      
+    </p>
+  </header>
+  <section class="post-content"><p><img src="/assets/posts/2020-05-02-Terraform-explained-for-managers.png" alt="" /></p>
+
+<p>As a team leader, I have to speak with my teammates on the same language — technical language…</p>
+
+<p>For example, I have a good technical background, yet sometimes I have a feeling that my teammates see that I don’t understand them when we discuss some project or a task in-depth. Moreover, I know they are right. Of course, there are plenty of managers who do not have a technical background and they perform great. And some might say that technical skills are not the priority for a manager.</p>
+
+<p>But I think that +1 to skills is always better than +0. Of course, it is a question of time and personal interests, one way or another.</p>
+
+<p>This is why I decided to share my experience and explain Terraform in one blog post.</p>
+
+<p>The language of this article will be ‘techie’ but not too much. This is because I want to highlight the main parts the Terraform consists of. Although, this is not technical documentation (I hope). Code examples will be based on AWS cloud configuration, although in-depth knowledge of AWS is not required to understand them.</p>
+
+<h3 id="a-few-words-about-infrastructure-as-code">A few words about “Infrastructure as Code”</h3>
+<p>IaC is when you describe and manage your infrastructure as… (guess what?) …code. Literally.</p>
+
+<p>In a nutshell that means you can define all the elements (servers, networks, storage, etc.) and resources (memory, cpu, etc) of your infrastructure via configuration files in the version control system (Git, SVN, etc.), and manage it in a way similar to how you manage the source code of the applications: branches, releases, and all that stuff.</p>
+
+<p>And the main idea behind the IaC approach is that it manages the state of things and must be the single source of truth (configuration truth) for your infrastructure. You define the state via the code (at first) and then IaC tool (Terraform, for example) applies this state on the infrastructure: all that is missing according to the code will be created, all that differs from the code will be changed and all that exists in the infrastructure but is not described via code — will be destroyed.</p>
+
+<h3 id="why-and-when-do-you-need-the-terraform-for-a-project">Why and when do you need the Terraform for a project?</h3>
+<p>Terraform is a specific tool, hence like any other tool it has its particular application area. There is no strict definition of project kind that needs Terraform (surprise!) but in general, you need to consider using Terraform if you answer ‘yes’ to one of the following questions:</p>
+
+<ul>
+  <li>Do you have multiple logical elements of the same kind (in plural) in your infrastructure, i.e. several web servers, several application servers, several database servers?</li>
+  <li>Do you have numerous environments (or workspaces) where you run your applications, i.e. development, staging, QA, production?</li>
+  <li>Do you spend some significant amount of time managing the changes in the environment(s) where you run your applications?</li>
+</ul>
+
+<h3 id="how-does-it-work">How does it work?</h3>
+<p>Terraform works with the source code of configuration, and interprets the code into real resources inside on-premise or cloud platforms.</p>
+
+<p>Terraform supports a lot of platforms: from major cloud providers such as AWS, Azure, GCP, DigitalOcean, to more modest platforms such as OVH, 1&amp;1, Hetzner, and others. It also supports infrastructure software such as Docker, Kubernetes, Chef, and even databases and monitoring software. This is why Terraform is so popular — it is a real Swiss knife in the operations world.</p>
+
+<p>So to create, change, or destroy the infrastructure Terraform needs the source code. The <strong>source code</strong> is a set of configuration files that defines your infrastructure state. The code uses its own syntax but it looks very user friendly. Here is an example: the following configuration block describes the virtual server (EC2 instance) in AWS</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">resource "aws_instance" “web_server” {</span>
+  <span class="s">ami           = "ami-a1b2c3d4"</span>
+  <span class="s">instance_type = "t3.micro"</span>
+  <span class="s">}</span>
+</code></pre></div></div>
+
+<p>Terraform can automatically detect the dependencies between resources described in the code, and also allows you to add custom dependencies when needed.</p>
+
+<p>When you apply the code first time, Terraform creates a so-called “<strong>state file</strong>” that works as a mapping of your code to real resources created in the hosting platform. With each next “apply” action Terraform will use it to compare the code changes with the sate file to decide what should be done (and in what order) against real infrastructure.</p>
+
+<p>One of the important functions of the state file is a description of dependencies between the resources. For example (some technical nuances are omitted for purpose of simplicity): if you have a server created inside some network and that network is going to be changed, then Terraform will know that server setting should be changed as well or server should be re-created inside the updated network.</p>
+
+<h3 id="what-is-inside">What is inside?</h3>
+
+<p>Terraform configuration code consists of several elements: providers, resources, modules, input variables, output values, local values, expressions, functions.</p>
+
+<p><strong>Provider</strong> is an entity that defines what exactly is possible to do with cloud or on-premises infrastructure platform you manage via Terraform.</p>
+
+<p><strong>Resource</strong> is the most important part of the configuration code. This is where the definition of infrastructure objects happens. Resources are the main building blocks of the whole code.</p>
+
+<p>Every resource has a type and local name. For example here is how EC2 instance configuration may look like:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">resource “aws_instance” “web_server” {</span>
+  <span class="s">ami           = “ami-a1b2c3d4”</span>
+  <span class="s">instance_type = “t3.micro”</span>
+  <span class="s">}</span>
+</code></pre></div></div>
+<p>The <code class="language-plaintext highlighter-rouge">aws_instance</code> is a resource type and <code class="language-plaintext highlighter-rouge">web_server</code> is the resource local name. Later, when Terraform applies this code, it will create an EC2 instance with some particular ID in AWS. Once created, the ID will be stored in the state file with mapping information that logically connects it with <code class="language-plaintext highlighter-rouge">web_server</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">ami</code>, <code class="language-plaintext highlighter-rouge">instance_type</code> and <code class="language-plaintext highlighter-rouge">private_ip</code> are the arguments with values which define the actual state of the resource. There are plenty of value types, depending on the particular argument and particular resource type, so I will not focus on them here.</p>
+
+<p><strong>Modules</strong> are the kind of logical containers or groups for resources you define and use together. The purpose of modules is not only the grouping of resources but it is also the possibility to reuse the same code with different variables.</p>
+
+<p>Let’s get back to the example with EC2 instance and say you need to have a static public IP address with it. In such a case, here is how the module for web server may look like:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">resource “aws_instance” “web_server” {</span>
+  <span class="s">ami           = “ami-a1b2c3d4”</span>
+  <span class="s">instance_type = “t3.micro”</span>
+  <span class="s">}</span>
+<span class="s">resource “aws_eip” “web_server_public_ip” {</span>
+  <span class="s">instance      = “${aws_instance.web_server.id}”</span>
+  <span class="s">}</span>
+</code></pre></div></div>
+
+<p>Having these two resources together allows us to think of it as a stand-alone unit you can reuse later, for example in our development, staging, and production environments. And not by copying and pasting it, but via reference to the module defined only once.</p>
+
+<p>Please note: we specified an instance argument inside the <code class="language-plaintext highlighter-rouge">aws_eip</code> resource as a reference to another resource details (the ID of an instance). This is possible because of a way how Terraform treats dependencies: when it detects the dependency (or you define it explicitly) it will create the main resource first, and only after it’s created and available it will create the dependent one.</p>
+
+<p><strong>Input variables</strong> work as parameters for the modules so module code could be reusable. Let’s look at the previous example: it has some hardcoded values — instance image ID and instance type. Here is how you can make it more abstract and reusable:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">variable “image_id” {</span>
+  <span class="s">type          = string</span>
+  <span class="s">}</span>
+<span class="s">variable “instance_type” {</span>
+  <span class="s">type          = string</span>
+  <span class="s">}</span>
+<span class="s">resource “aws_instance” “web_server” {</span>
+  <span class="s">ami           = var.image_id</span>
+  <span class="s">instance_type = var.instance_type</span>
+  <span class="s">}</span>
+</code></pre></div></div>
+
+<p>Values for the variables then can be passed either via CLI and environment variables (if you have only the one, so-called root module) or via explicit values in the block where you call a module, for example:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">module “web_server_production” {</span>
+  <span class="s">source.       = “./modules/web_server”</span>
+  <span class="s">image_id      = “ami-a1b2c3d4”</span>
+  <span class="s">instance_type = “m5.large”</span>
+  <span class="s">}</span>
+<span class="s">module “web_server_development” {</span>
+  <span class="s">source        = “./modules/web_server”</span>
+  <span class="s">image_id      = “ami-a2b3c4d5”</span>
+  <span class="s">instance_type = “t3.micro”</span>
+ <span class="s">}</span>
+</code></pre></div></div>
+
+<p><strong>Output values</strong> are similar to the “return” of a function in development language. They can be used for dependencies management (for example, when a module require something from another module) and for the printing of the certain values at the end of Terraform work (for example to be used for notification in CI/CD process).</p>
+
+<p><strong>Local values</strong>, <strong>expressions</strong>, <strong>functions</strong> — three more things that augment the capabilities of Terraform and make it more similar to a programming language (which is great by the way).</p>
+
+<p>The local values are used inside modules for extended data manipulations in it.</p>
+
+<p>The expressions are used to set the values (for many things), for example, to set the value of some argument in resource configuration. They used either to refer something (just as we referenced instance ID <code class="language-plaintext highlighter-rouge">“${aws_instance.web_server.id}”</code> in the example above) or to compute the value within your configuration.</p>
+
+<p>The functions in Terraform are built-int jobs you can call to transform and combine values. For example, the <code class="language-plaintext highlighter-rouge">tolist()</code> function converts its argument to a list value.</p>
+
+<h3 id="and-this-is-it">And this is it?</h3>
+
+<p>Yes, in a very very short words — this is what Terraform is. Not a rocket science if it’s about to manage a small infastructure, but gets more complicated with bigger infrastctucture. As any other engineerign tool or development language, actually.</p>
+
+<h3 id="okay-what-next">Okay, what next?</h3>
+
+<p>If you read down to this point (anybody?) then it means it worth “get your hands dirty” and to try building your Infrastructure with Terraform. There are plenty of courses and books (and the “Terraform up and running” is one of the most popular), but my learning path started from the following: <a href="https://learn.hashicorp.com/terraform">Official guide from Hashicorp</a> — great and free guide from Terraform developers. Just pick your favorite cloud (AWS, Azure, GCP) and go through the topics.</p>
+
+<p>Once you finish this guide, I suggest jumping into the more real-world things and describe the infrastructure of the most common project you work with. For example, here is what I do: <a href="https://github.com/vasylenko/tf-ecs">small github project</a> – I am trying to describe the Infrastructure for SPA website with services in docker containers at the backend. The variety and complexity of the code are limited only by your fantasy.</p>
+
+<p>Another thing worth your attention is <a href="https://blog.gruntwork.io/a-comprehensive-guide-to-terraform-b3d32832baca">A Comprehensive Guide to Terraform</a>.</p>
+
+<p>And I also encourage you to go through the <a href="https://gruntwork.io/static/devops-resources/">collection of blog posts and talks</a> they share.</p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#terraform">#terraform</a>
+    
+    <a class="tag" href="/tags#devops">#devops</a>
+    
+    <a class="tag" href="/tags#education">#education</a>
+    
+    <a class="tag" href="/tags#experience">#experience</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/2020/03/20/devops-team-in-outsource-a-team.html">
+        🤔 DevOps team in outsource. A team?
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/2020/08/06/ansible-secrets-aws-ssm-sm.html">
+        💡 Managing Ansible playbook secrets with AWS services
+      </a>
+  </div>
+  
+</div>
+
+
+
+    </div>
+    
+
+
+<footer class="site-footer">
+	<p class="text">.</p>
+</footer>
+
+
+  </body>
+</html>

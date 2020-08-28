@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>Search | Hello world, it is nice to meet you ^_^</title>
+	<meta name="description"
+		content="Serhii Vasylenko - personal blog">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/search.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Hello world, it is nice to meet you ^_^"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Work-Sans:300,700,700italic,400italic" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'G-GK7SE0XWGK', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+</head>
+  <body>
+    <header class="site-header">
+	<div class="branding">
+		
+		<h1 class="site-title">
+			<a href="/">Hello world, it is nice to meet you ^_^</a>
+		</h1>
+	</div>
+	<nav class="site-nav">
+		<ul>
+			
+			
+			
+			
+			
+			<li>
+				<a class="page-link" href="/about/">
+					About me
+				</a>
+			</li>
+			
+			
+			
+			<li>
+				<a class="page-link" href="/cv/cv.html">
+					Serhii Vasylenko
+				</a>
+			</li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<!-- Social icons from Font Awesome, if enabled  -->
+			
+<li>
+	<a href="/feed.xml" title="Follow RSS feed">
+		<i class="fas fa-fw fa-rss"></i>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:email-from-blog@vasylenko.info" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.linkedin.com/in/svasylenko/" title="Follow on LinkedIn">
+		<i class="fab fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Search bar -->
+            
+		</ul>
+	</nav>
+
+</header>
+
+    <div class="content">
+      <article >
+  <header style="background-image: url('/')">
+    <h1 class="title">Search</h1>
+    
+  </header>
+  <section class="post-content"><div class="search">
+    <div id="search-results"></div>
+    <p id="not-found" style="display: none">
+        No results found.
+    </p>
+</div>
+
+
+<script>
+  window.store = {
+    
+      "2020-08-25-terraform-cli-shortcuts-html": {
+        "title": "💡 Terraform CLI shortcuts",
+        "tags": "terraform, cli, automation",
+        "date": "August 25, 2020",
+        "author": "",
+        "category": "",
+        "content": "Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.Requirements — bash-compatible interpreter, because aliases and functions described below will work with bash, zsh and ohmyzsh. In order to use any of described aliases of functions, you need to place it in your ~/.bashrc or ~/.zshrc file (or any other configuration file you have for your shell).Then just source this file, for example: source ~/.zshrcFunction: list outputs and variables of given moduleYou need to provide the path to module directory, and this function will list all declared variables and outputs module has. It comes very useful when you don’t remember them all and just need to take a quick look.# TerraForm MOdule Explainedfunction tfmoe {  echo -e \"\\nOutputs:\"  grep -r \"output \\\".*\\\"\" $1 |awk '{print \"\\t\",$2}' |tr -d '\"'  echo -e \"\\nVariables:\"  grep -r \"variable \\\".*\\\"\" $1 |awk '{print \"\\t\",$2}' |tr -d '\"'}Example usage:user@localhost $: tfmoe ./module_albOutputs:\t alb_arnVariables:\t acm_certificate_arn\t lb_name\t alb_sg_list\t subnets_id_list\t tagsFunction: pre-fill module directory with configuration filesYou need to provide a path to the module directory and this function will create a bunch of empty ‘default’ .tf files in it.#TerraForm MOdule Initializefunction tfmoi {  touch $1/variables.tf  touch $1/outputs.tf  touch $1/versions.tf  touch $1/main.tf}Example usage:user@localhost $: mkdir ./module_foo &amp;&amp; temoi $_user@localhost $: ls ./module_foomain.tf      outputs.tf   variables.tf versions.tfAliasesThe purpose of these aliases is just to keep you from typing long commands when you want to do a simple action.alias tf='terraform'alias tfv='terraform validate'alias tfi='terraform init'alias tfp='terraform plan' This one is useful because it makes format tool to go in-depth (recursively) through directories.alias tfm='terraform fmt -recursive'Example usage:user@localhost $: tfm module_ecs_cluster/ecs.tfmodule_alb/alb.tf",
+        "url": "//2020/08/25/terraform-cli-shortcuts.html"
+      }
+      ,
+    
+      "2020-08-06-ansible-secrets-aws-ssm-sm-html": {
+        "title": "💡 Managing Ansible playbook secrets with AWS services",
+        "tags": "ansible, aws, devops, security",
+        "date": "August 6, 2020",
+        "author": "",
+        "category": "",
+        "content": "Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks. If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.Variables with SSM Parameter StoreLet’s say you have some variables defined in ‘defaults/main.yaml’ file of your role or maybe in group_vars.yaml file.---# content of dev.vars.yaml to be included in your play or roleuse_tls: trueapplication_port: 3000app_env: developmentstripe_api_key: 1HGASU2eZvKYlo2CT5MEcnC39HqLyjWDIf you store such things locally on Ansible control node, you probably encrypt it with ansible-vaultSSM Parameter Store gives you more flexibility and security by centralized storage and management of parameters and secrets, so let’s use it with Ansible:---# content of dev.vars.yaml to be included in your play or roleuse_tls: \"{{lookup('aws_ssm', '/dev/webserver/use_tls')}}\"application_port: \"{{lookup('aws_ssm', '/dev/webserver/application_port')}}\"app_env: \"{{lookup('aws_ssm', '/dev/webserver/app_env')}}\"stripe_api_key: \"{{lookup('aws_ssm', '/dev/webserver/stripe_api_key')}}\"The syntax is fairly simple:The aws_ssm argument – is the name of plugin.The /dev/webserver/use_tls argument – is the path to the key in Paramter Store.Surely you can do the same for a group of servers with group variables, for example:You can use this anywhere you can use templating: in a play, in variables file, or a Jinja2 template.Variables with Secret ManagerAnother cool lookup plugin is Secrets Manager. In a nutshell, it has the same kind of functionality but it uses JSON format by feault.Here is a quick example of its functionality in a Playbook:---- name: Extract something secrets from Secret Manager  debug:    msg: \"{{ lookup('aws_secret', 'dev/some-secrets')}}\"The above task will generate the following outputTASK [Extract something secrets from Secret Manager] ****************************************************ok: [some_server] =&gt; {    \"msg\": {        \"dbname\": \"database\",        \"engine\": \"mysql\",        \"host\": \"127.0.0.1\",        \"password\": \"password\",        \"port\": \"3306\",        \"username\": \"db_user\"    }}This is nice if you want to insert a JSON as is, but you will need additional parsing in case you want to get only some of JSON elements.ConclusionIf you’re using Ansible in CI/CD, then having it on an EC2 Instance with the IAM role will make you avoid keeping any secrets on that instance at all.The IAM role must allow at least the read access to SSM Parameter Store (+ KMS read access to be able to decrypt the keys) or the read access to Secrets Manager.You can find documentation for described plugins here aws_ssm and here aws_secret.More about lookup plugins: https://docs.ansible.com/ansible/latest/plugins/lookup.html",
+        "url": "//2020/08/06/ansible-secrets-aws-ssm-sm.html"
+      }
+      ,
+    
+      "2020-05-02-terraform-explained-for-managers-html": {
+        "title": "🤔 Terraform explained for managers",
+        "tags": "terraform, devops, education, experience",
+        "date": "May 2, 2020",
+        "author": "",
+        "category": "",
+        "content": "As a team leader, I have to speak with my teammates on the same language — technical language…For example, I have a good technical background, yet sometimes I have a feeling that my teammates see that I don’t understand them when we discuss some project or a task in-depth. Moreover, I know they are right. Of course, there are plenty of managers who do not have a technical background and they perform great. And some might say that technical skills are not the priority for a manager.But I think that +1 to skills is always better than +0. Of course, it is a question of time and personal interests, one way or another.This is why I decided to share my experience and explain Terraform in one blog post.The language of this article will be ‘techie’ but not too much. This is because I want to highlight the main parts the Terraform consists of. Although, this is not technical documentation (I hope). Code examples will be based on AWS cloud configuration, although in-depth knowledge of AWS is not required to understand them.A few words about “Infrastructure as Code”IaC is when you describe and manage your infrastructure as… (guess what?) …code. Literally.In a nutshell that means you can define all the elements (servers, networks, storage, etc.) and resources (memory, cpu, etc) of your infrastructure via configuration files in the version control system (Git, SVN, etc.), and manage it in a way similar to how you manage the source code of the applications: branches, releases, and all that stuff.And the main idea behind the IaC approach is that it manages the state of things and must be the single source of truth (configuration truth) for your infrastructure. You define the state via the code (at first) and then IaC tool (Terraform, for example) applies this state on the infrastructure: all that is missing according to the code will be created, all that differs from the code will be changed and all that exists in the infrastructure but is not described via code — will be destroyed.Why and when do you need the Terraform for a project?Terraform is a specific tool, hence like any other tool it has its particular application area. There is no strict definition of project kind that needs Terraform (surprise!) but in general, you need to consider using Terraform if you answer ‘yes’ to one of the following questions:  Do you have multiple logical elements of the same kind (in plural) in your infrastructure, i.e. several web servers, several application servers, several database servers?  Do you have numerous environments (or workspaces) where you run your applications, i.e. development, staging, QA, production?  Do you spend some significant amount of time managing the changes in the environment(s) where you run your applications?How does it work?Terraform works with the source code of configuration, and interprets the code into real resources inside on-premise or cloud platforms.Terraform supports a lot of platforms: from major cloud providers such as AWS, Azure, GCP, DigitalOcean, to more modest platforms such as OVH, 1&amp;1, Hetzner, and others. It also supports infrastructure software such as Docker, Kubernetes, Chef, and even databases and monitoring software. This is why Terraform is so popular — it is a real Swiss knife in the operations world.So to create, change, or destroy the infrastructure Terraform needs the source code. The source code is a set of configuration files that defines your infrastructure state. The code uses its own syntax but it looks very user friendly. Here is an example: the following configuration block describes the virtual server (EC2 instance) in AWSresource \"aws_instance\" “web_server” {  ami           = \"ami-a1b2c3d4\"  instance_type = \"t3.micro\"  }Terraform can automatically detect the dependencies between resources described in the code, and also allows you to add custom dependencies when needed.When you apply the code first time, Terraform creates a so-called “state file” that works as a mapping of your code to real resources created in the hosting platform. With each next “apply” action Terraform will use it to compare the code changes with the sate file to decide what should be done (and in what order) against real infrastructure.One of the important functions of the state file is a description of dependencies between the resources. For example (some technical nuances are omitted for purpose of simplicity): if you have a server created inside some network and that network is going to be changed, then Terraform will know that server setting should be changed as well or server should be re-created inside the updated network.What is inside?Terraform configuration code consists of several elements: providers, resources, modules, input variables, output values, local values, expressions, functions.Provider is an entity that defines what exactly is possible to do with cloud or on-premises infrastructure platform you manage via Terraform.Resource is the most important part of the configuration code. This is where the definition of infrastructure objects happens. Resources are the main building blocks of the whole code.Every resource has a type and local name. For example here is how EC2 instance configuration may look like:resource “aws_instance” “web_server” {  ami           = “ami-a1b2c3d4”  instance_type = “t3.micro”  }The aws_instance is a resource type and web_server is the resource local name. Later, when Terraform applies this code, it will create an EC2 instance with some particular ID in AWS. Once created, the ID will be stored in the state file with mapping information that logically connects it with web_server.The ami, instance_type and private_ip are the arguments with values which define the actual state of the resource. There are plenty of value types, depending on the particular argument and particular resource type, so I will not focus on them here.Modules are the kind of logical containers or groups for resources you define and use together. The purpose of modules is not only the grouping of resources but it is also the possibility to reuse the same code with different variables.Let’s get back to the example with EC2 instance and say you need to have a static public IP address with it. In such a case, here is how the module for web server may look like:resource “aws_instance” “web_server” {  ami           = “ami-a1b2c3d4”  instance_type = “t3.micro”  }resource “aws_eip” “web_server_public_ip” {  instance      = “${aws_instance.web_server.id}”  }Having these two resources together allows us to think of it as a stand-alone unit you can reuse later, for example in our development, staging, and production environments. And not by copying and pasting it, but via reference to the module defined only once.Please note: we specified an instance argument inside the aws_eip resource as a reference to another resource details (the ID of an instance). This is possible because of a way how Terraform treats dependencies: when it detects the dependency (or you define it explicitly) it will create the main resource first, and only after it’s created and available it will create the dependent one.Input variables work as parameters for the modules so module code could be reusable. Let’s look at the previous example: it has some hardcoded values — instance image ID and instance type. Here is how you can make it more abstract and reusable:variable “image_id” {  type          = string  }variable “instance_type” {  type          = string  }resource “aws_instance” “web_server” {  ami           = var.image_id  instance_type = var.instance_type  }Values for the variables then can be passed either via CLI and environment variables (if you have only the one, so-called root module) or via explicit values in the block where you call a module, for example:module “web_server_production” {  source.       = “./modules/web_server”  image_id      = “ami-a1b2c3d4”  instance_type = “m5.large”  }module “web_server_development” {  source        = “./modules/web_server”  image_id      = “ami-a2b3c4d5”  instance_type = “t3.micro” }Output values are similar to the “return” of a function in development language. They can be used for dependencies management (for example, when a module require something from another module) and for the printing of the certain values at the end of Terraform work (for example to be used for notification in CI/CD process).Local values, expressions, functions — three more things that augment the capabilities of Terraform and make it more similar to a programming language (which is great by the way).The local values are used inside modules for extended data manipulations in it.The expressions are used to set the values (for many things), for example, to set the value of some argument in resource configuration. They used either to refer something (just as we referenced instance ID “${aws_instance.web_server.id}” in the example above) or to compute the value within your configuration.The functions in Terraform are built-int jobs you can call to transform and combine values. For example, the tolist() function converts its argument to a list value.And this is it?Yes, in a very very short words — this is what Terraform is. Not a rocket science if it’s about to manage a small infastructure, but gets more complicated with bigger infrastctucture. As any other engineerign tool or development language, actually.Okay, what next?If you read down to this point (anybody?) then it means it worth “get your hands dirty” and to try building your Infrastructure with Terraform. There are plenty of courses and books (and the “Terraform up and running” is one of the most popular), but my learning path started from the following: Official guide from Hashicorp — great and free guide from Terraform developers. Just pick your favorite cloud (AWS, Azure, GCP) and go through the topics.Once you finish this guide, I suggest jumping into the more real-world things and describe the infrastructure of the most common project you work with. For example, here is what I do: small github project – I am trying to describe the Infrastructure for SPA website with services in docker containers at the backend. The variety and complexity of the code are limited only by your fantasy.Another thing worth your attention is A Comprehensive Guide to Terraform.And I also encourage you to go through the collection of blog posts and talks they share.",
+        "url": "//2020/05/02/Terraform-explained-for-managers.html"
+      }
+      ,
+    
+      "2020-03-20-devops-team-in-outsource-a-team-html": {
+        "title": "🤔 DevOps team in outsource. A team?",
+        "tags": "teambuilding, experience",
+        "date": "March 20, 2020",
+        "author": "",
+        "category": "",
+        "content": "I am a team lead in an outsourcing company. That means I believe (or convince myself) that I lead the team (wait, wait, there will be even more obvious discoveries).I am sure that a team can achieve more than a single person or a group. And the story I want to tell is about making the team from a group of people with personal and non-connected tasks. I assume this is going to be a series of posts, and hopefully, I will add a table of contents here.A group or a team?It is quite rare to find a project that involves more than 10-15 people in a small or mid-size outsourcing company. With such project size, a single DevOps engineer is enough to handle the whole job. Or an engineer may work on several projects at the same time if projects are relatively small. This is because the scope of work to be done fits into the schedule of a single person. So it is either one-to-one or one-to-many connection in most cases: either the employee works with one project or the employee works with several projects simultaneously.Outsourcing a “DevOps” within this context usually means assigning an individual for the work with a client or/and a client’s team.Now imagine: you have several people in a room, all of them are DevOps engineers working in the same outsource company and all they work with their “own” projects separately.So would you call that group of people “a team”?Wikipedia states that “a team” is a group of individuals (human or non-human) working together to achieve their [common] goal. As well as common sense tells us that “a team” is something that groups people to make them work for a mutual outcome.And here comes an obvious but a difficult question: what common goal(s) a group of people can have whereas each member of that group has its own goal, which is not related to others’? A bit contradictory, isn’t it?A GoalConventional thinking tells us that a goal for the for-profit company is to make money. This is true, and I don’t want to argue with it. Therefore, does it mean that a goal for a team of engineers inside the company is the same as for the company as a whole?Yes… Yet, not only, or almost.Yes, because it’s the main reason why we work for an outsourcing company. We do the job for clients, clients pay the company, the company pays us.However, there is a long chain of events and processes that leads from the start of a contract to the paid invoice. A team of engineers is the inalienable part of that chain, with a focus on its work - deliver technical solutions following the client’s expectations and requirements.This conclusion reveals the goal for the DevOps team in the outsourcing company: grow the quality of work by a process of ongoing improvement and refinement of technical and soft skills. So simple, so obvious.And this goal means nothing by itself. But to sustain it and adapt, to make it desirable for the team, and to make it a team’s foundation eventually, we need the following:  Values  Principles  Common interestsOne of the crucial responsibilities of a team lead is to foster these three pillars of a team.The VALUES  is something that lets us feel comfortable with the people surrounding us in the office. The list of values is not carved in stone, it can (and eventually should) change as the team evolves. But here is the most constant items for my team:  openness in communication  respect to each other’s opinion  empathy  feeling free to provide critic and being ready to receive it  count on help from a teammate and be ready to help  ability to work remotely and have flexible working hoursThe PRINCIPLES is a set of beliefs and policies that keeps us on the required level of productivity and disciplines us, and stimulates the longing to improve. Again, this list can be and should be adjusted as the time goes and the team evolves, but here is the most up to date for us:  we learn constantly  we are the first who appraises the quality of our work  we are proactive  we are open: if we do not agree with something or something is worrying us, we should be brave enough to say it  we may defend own point of view, but be ready to accept that it is incorrect  we can make mistakes, but we must learn from it and do not repeat them  we must help our teammates  we keep our promisesThe COMMON INTERESTS is more about informal things we share within a team. This includes (but not limited to) team building events, discussions and arguments about new technologies, so-called water-cooler chats, and so on. Being less formal, this pillar acts as a glue for the team. This is because we are all humans, first of all, and we generally work for 1/3 of our day (not including weekends), so we need to stay humans at work as well. I mean it is impossible to switch off the ‘human’ for that 1/3 of the day, leaving only the engineer for this time. Hence, this must be admitted and we must cope with it by putting several informal things into formal work.These pillars create a team culture where learning, creativity, and an open mindset are encouraged.The TeamThis is how a group of people with separate goals may become a team. While we do not have a goal (“one for all”) that is measurable or has a fixed point of completion, we still have a common aim whose realization is based on pillars of teamwork. And with a set of sub-goals, this may be a specific, achievable (until you find something else to improve, which should happen quite often) and even realistic. So it’s kinda 60% S.M.A.R.T. goal :smile:Unfortunately or fortunately (if you like your team lead job) there is a lot of work that needs to be done and a lot of questions need to be answered to implement the described approach:  How to translate own values to the team and create the new ones together?  How to make people communicate in such a team and share their knowledge?  How to define who does what?  How to teach team members to learn?  How to keep team members loyal to the team and company?  How to mitigate conflicts and how to use them?  How to keep team members motivated when the work becomes boring and the level of engagement goes down?  and much much moreI wish I could answer all these questions at once, and I wish there were only correct answers.But my experience tells me that it is possible to answer them one by one. And I hope to share that here someday!",
+        "url": "//2020/03/20/devops-team-in-outsource-a-team.html"
+      }
+      ,
+    
+      "2020-03-17-github-actions-first-impression-html": {
+        "title": "😲 Github Actions - First impression",
+        "tags": "github, automation, review",
+        "date": "March 17, 2020",
+        "author": "",
+        "category": "",
+        "content": "Although Github Actions service is generally available since November 13, 2020, and there are about 243,000,000 results for “github actions” in Google search already, I have just reached it…It’s half past midnight, it took me about 35 commits to make my first github automation work, but it finally works and this blog post was built and published automatically!Actions everywhereOne of the most (or maybe the most one) powerful things in Actions is … Actions! Github made a simple but genius thing: they turned well-known snippets (we do with pipelines) into the marketplace of well-made (sometimes not) simple and complex applications you can use in your automation workflow. https://github.com/marketplace?type=actionsSo now you can either re-invent your wheel or re-use someone else’s code to make the needed automation.I decided to automate publications to this blog via Actions in order to have some practice.There are two workflows: one for the blog (website), and one for the CV (cv).  actions/checkout@v2  actions/upload-artifact@v2  actions/download-artifact@v2In both workflows, the build job is performed within a container, which is different per workflow: Ruby for the blog and Pandoc for CV.Here is how the build job looks like for the blog:jobs:  build:    runs-on: ubuntu-latest    container:      image: ruby:2.6.4      options:         --workdir /src     steps:      - name: Checkout        uses: actions/checkout@v2       - name: Build blog        run: |          bundle install          bundle exec jekyll build --verbose --destination _site      - name: Upload artifacts        uses: actions/upload-artifact@v2        with:           name: _site          path: _siteAs you can see, I run the steps within the Ruby container. This simplifies things related to file permissions and directory mounting because checkout is made inside the container.The deploy step is performed via shell run command for now, for better clearness (can be replaced to third-party action or custom-made one): it makes a commit to gh-pages branch which is configured for Github Pages.deploy:    if: github.ref == 'refs/heads/master'    needs: build    runs-on: ubuntu-latest    steps:      - name: Checkout gh-pages branch        uses: actions/checkout@v2        with:          ref: 'gh-pages'      - name: Get the build artifact        uses: actions/download-artifact@v2        with:          name: _site          path: ./      - name: Deploy (push) to gh-pages        run: |          git config user.name \"$GITHUB_ACTOR\"          git config user.email \"${GITHUB_ACTOR}@bots.github.com\"          git add -A           git commit -a -m \"Updated Website\"          git remote set-url origin \"https://x-access-token:$@github.com/vasylenko/serhii.vasylenko.info.git\"          git push --force-with-lease origin gh-pagesOld good things made betterA lot of common things have been introduced to GitHubActions with some sweet additions:  you can also specify different environments for your jobs in the same workflow;  you can use environment variables with a different visibility scope: either workflow, or job, or step;  you can use cache for dependencies and reuse it between workflow runs while keeping workflow directory clean;  you can trigger a workflow by repo events and have a quite complex conditional logic or filters (if needed), external webhooks and by a schedule;  you can pass artifacts between jobs inside a workflow with ease - Github provides simple actions for this, so you don’t need to dance around temporary directories or files;  and much more",
+        "url": "//2020/03/17/github-actions-first-impression.html"
+      }
+      ,
+    
+      "2020-03-15-aws-solutions-architect-associate-exam-tips-html": {
+        "title": "🥳 AWS SAA exam results",
+        "tags": "aws, education",
+        "date": "March 15, 2020",
+        "author": "",
+        "category": "",
+        "content": "926 out of 1000Last week I’ve successfully passed AWS SAA exam with 926 points from 1000 possible. I can’t help saying this and showing off my verification page, just because I am very happy so please excuse me my bragging.What helped meBut I would like to share some advices and tips with anyone who reads this and wants to pass the exam. I mean, I could just twit about it if that was only about saying “hey look at me!”, right?It took me a month of intensive studying and here is what helped me:      Video course at CloudGuru - AWS Certified Solutions Architect Associate.    Price: $50 for a monthly subscription.    Tips: They have a 7 days free trial, which is actually quite enough to view the whole course. But I strongly recommend purchasing a full month, because it is better to view the lectures gradually during couple of weeks for better learning. Plus they have a nice exam simulator where you can practice several times.        Practice Tests set at Udemy - AWS Certified Solutions Architect Associate Practice Exams.    Price: $40 or only $12 if you’re lucky to get it during a sale. But they make sales quite often and they frequently provide  discuounts for new students. I purchaced it for $12.    Tips: practice tests are very useful, do not skip buying them. You will find your weak spots and also learn a lot by passing these tests. This particular set has a quite good explanations for each question.        Exam Guide at O’relly Media AWS Certified Solutions Architect Associate All-in-One Exam Guide.    Price: this one can be easily read during 10 days free trial period :wink:    Tips: The new exam version is released on 23rd of March, so it is better to find a new updated version of exam guide. And I suggest reading the guide after the video course or vise versa, but do not mix them.        Making notes. Seriously, note taking helps you memorize better. Do not skip it, and note your video courses as well as exam guide. Later, you will find your notes very helpful before the exam day - they will fresh up your memory.  Thank you for reading down to this point. I hope my advices were helpful and you will pass the exam!",
+        "url": "//2020/03/15/aws-solutions-architect-associate-exam-tips.html"
+      }
+      
+    
+  };
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.6/lunr.min.js"></script>
+<script src="/assets/js/search.js"></script></section>
+</article>
+
+    </div>
+    
+
+
+<footer class="site-footer">
+	<p class="text">.</p>
+</footer>
+
+
+  </body>
+</html>
