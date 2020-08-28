@@ -22,6 +22,7 @@ jobs:
 
       - name: Build blog
         run: |
+          gem install bundler:2.1.4
           bundle install
           bundle exec jekyll build --verbose --destination _site
       
