@@ -34,7 +34,7 @@ jobs:
     name: deploy
     runs-on: ubuntu-latest
     env:
-      BRANCH: gh-pages-${GITHUB_REF##*/}
+      BRANCH: gh-pages-new-theme
     steps:
       - name: Checkout gh-pages branch
         uses: actions/checkout@v2
