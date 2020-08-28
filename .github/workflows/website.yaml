@@ -37,11 +37,13 @@ jobs:
     if: github.ref == 'refs/heads/new-theme'
     needs: build
     runs-on: ubuntu-latest
+    env:
+      BRANCH: gh-pages-new-theme
     steps:
       - name: Checkout gh-pages branch
         uses: actions/checkout@v2
         with:
-          ref: 'gh-pages-new-theme'
+          ref: '${{ env.BRANCH }}'
 
       - name: Get the build artifact
         uses: actions/download-artifact@v2
@@ -56,4 +58,4 @@ jobs:
           git add -A 
           git commit -a -m "Updated Website"
           git remote set-url origin "https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git"
-          git push --force-with-lease origin gh-pages-new-theme
+          git push --force-with-lease origin ${{ env.BRANCH }}
