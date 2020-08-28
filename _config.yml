@@ -82,3 +82,4 @@ exclude:
   - Gemfile.lock
   - vendor
   - cv
+  - operations
