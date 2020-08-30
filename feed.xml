@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hello, world! It is nice to meet you ^_^</title>
+    <title>Hello, world! It is nice to meet you!</title>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>https://serhii.vasylenko.info/</link>
     <description>Serhii Vasylenko - personal blog</description>
-    <pubDate>Fri, 28 Aug 2020 19:49:16 +0000</pubDate>
+    <pubDate>Sun, 30 Aug 2020 16:56:52 +0000</pubDate>
     
       <item>
         <title>👨‍💻 Terraform CLI shortcuts</title>
