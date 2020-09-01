@@ -2,6 +2,19 @@
 baseurl: ""
 url: "https://serhii.vasylenko.info"
 
+#seo-tag plugin settings
+twitter: 
+  username: vasylenko
+  card: summary
+social:
+  name: Serhii Vasyleko
+  links:
+    - https://twitter.com/vasylenko
+    - https://www.facebook.com/vasylenkos
+    - https://www.linkedin.com/in/svasylenko/
+    - https://github.com/vasylenko
+description: "Serhii Vasylenko - personal blog"
+
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
   # Meta
@@ -77,6 +90,8 @@ sass:
   style: :compressed
 plugins: 
   - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-sitemap
 exclude:
   - Gemfile
   - Gemfile.lock
