@@ -73,7 +73,7 @@ theme_settings:
 
   # Colours, typography and padding
   # Open the "_sass > base" folder, and open "_variables.scss"
-  google_fonts: "Work-Sans:300,700,700italic,400italic"
+  google_fonts: "Noto+Sans"
 
   # Post navigation
   post_navigation: true
