@@ -3,11 +3,11 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - '_includes/**'
-      - '_layouts/**'
-      - '_posts/**'
-      - 'assets/**'
-      - '*'
+      - '!cv/**'
+      - '!operations/**'
+      - '!.github/**'
+      - '.github/workflows/website.yaml'
+      - '.vscode/**'
 
 jobs:
   build:
