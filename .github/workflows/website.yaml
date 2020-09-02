@@ -8,7 +8,6 @@ on:
       - '_posts/**'
       - 'assets/**'
       - '*'
-      - '.github/workflows/website.yaml'
 
 jobs:
   build:

@@ -3,7 +3,6 @@ on:
   push:
     paths: 
       - 'cv/**'
-      - '.github/workflows/cv.yaml'
   workflow_dispatch:
 
 jobs:

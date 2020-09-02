@@ -6,7 +6,6 @@ on:
       - 'operations/Dockerfile'
       - 'Gemfile'
       - 'Gemfile.lock'
-      - '.github/workflows/jekyllblogbuilder.yaml'
 
 jobs:
   build:
