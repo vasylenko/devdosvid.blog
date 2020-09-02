@@ -1,0 +1,29 @@
+name: Jekyll Blog Builder
+on:
+  push:
+    paths:
+      - 'operations/Dockerfile'
+      - 'Gemfile'
+      - 'Gemfile.lock'
+  workflow_dispatch:
+
+jobs:
+  build:
+    env:
+      PKG_NAME = jekyllblogbuilder
+    runs-on: 
+      - ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          ref: '${{ env.BRANCH }}'      
+      
+      - name: build docker image
+        run: |
+          docker build -t ghcr.io/vasylenko/${{ env.PKG_NAME }} -f operations/Dockerfile .
+
+      - name: push to GHCR
+        run: |
+          docker login ghcr.io -u USERNAME -p ${{ secrets.GHCR_TOKEN }}
+          docker push ghcr.io/vasylenko/${{ env.PKG_NAME }}
