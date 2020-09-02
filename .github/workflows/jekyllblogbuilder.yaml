@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     env:
-      PKG_NAME = jekyllblogbuilder
+      PKG_NAME: jekyllblogbuilder
     runs-on: 
       - ubuntu-latest
     steps:
