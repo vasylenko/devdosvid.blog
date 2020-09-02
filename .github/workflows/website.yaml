@@ -34,7 +34,7 @@ jobs:
           path: _site
 
   deploy:
-    if: github.ref == 'refs/heads/new-theme'
+    if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     env:

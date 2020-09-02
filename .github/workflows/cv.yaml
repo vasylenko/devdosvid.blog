@@ -28,7 +28,7 @@ jobs:
             ./cv/style.css
 
   deploy:
-    if: github.ref == 'refs/heads/new-theme'
+    if: github.ref == 'refs/heads/main'
     needs: build
     name: deploy
     runs-on: ubuntu-latest
