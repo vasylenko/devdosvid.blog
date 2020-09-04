@@ -1,6 +1,7 @@
 ---
 layout: post
-title: 👨‍💻 Managing Ansible playbook secrets with AWS services 
+title: Managing Ansible playbook secrets with AWS services 
+subtitle: better way to store sensitive information
 summary: A quick guide to secure secrets management with Ansible in AWS
 date: 2020-08-06
 tags: [ansible, aws, devops, security]
