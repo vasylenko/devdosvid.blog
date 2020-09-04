@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 😲 Github Actions - First impression
+title: Github Actions - First impression
 date: 2020-03-18 00:30:20 +0200
 description: My first meet with github actions... in action. # Add post description (optional)
 tags: [github, automation, review]

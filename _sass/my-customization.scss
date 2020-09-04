@@ -11,3 +11,20 @@ div.branding h1.site-title{
   font-size: 20px;
   display: inline;
 }
+article .title{
+  text-align: left;
+}
+article .subtitle {
+    font-size: 1.4em;
+    font-weight: 100;
+    color: rgba($text-color, .5);
+    margin: 0;
+    text-align: left;
+    margin-bottom: 0.5em;
+  }
+
+section.post-content > p > img {
+  display: block;
+  margin: auto;
+}
+  

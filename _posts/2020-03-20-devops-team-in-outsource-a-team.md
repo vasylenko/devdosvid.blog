@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 🤔 DevOps team in outsource. A team?
+title: DevOps team in outsource. A team?
 date: 2020-03-20 
 tags: [teambuilding, experience]
 ---
