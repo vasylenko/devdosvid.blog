@@ -5,7 +5,7 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>https://serhii.vasylenko.info/</link>
     <description>Serhii Vasylenko - personal blog</description>
-    <pubDate>Sun, 06 Sep 2020 15:09:39 +0000</pubDate>
+    <pubDate>Sun, 06 Sep 2020 15:17:44 +0000</pubDate>
     
       <item>
         <title>Terraform CLI shortcuts</title>
@@ -91,8 +91,6 @@ module_alb/alb.tf
         <guid isPermaLink="true">/2020/08/06/ansible-secrets-aws-ssm-sm.html</guid>
         <description>&lt;p&gt;Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks. 
 If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/posts/2020-08-06-ansible-secrets-aws-ssm-sm.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;variables-with-ssm-parameter-store&quot;&gt;Variables with SSM Parameter Store&lt;/h3&gt;
 
