@@ -10,7 +10,7 @@ layout: default
       {{ page.date | date: "%B %-d, %Y" }}
       {% if page.author %} - {{ page.author }}{% endif %}
     </p>
-    <img src="{{ page.img }}">
+    <img src="{{ page.image }}">
   </header>
   <section class="post-content">{{ content }}</section>
   {% include tags_list.html tags=page.tags tag_count=page.tags.size %}
