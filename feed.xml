@@ -5,7 +5,7 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>https://serhii.vasylenko.info/</link>
     <description>Serhii Vasylenko - personal blog</description>
-    <pubDate>Fri, 04 Sep 2020 23:45:58 +0000</pubDate>
+    <pubDate>Sun, 06 Sep 2020 14:27:56 +0000</pubDate>
     
       <item>
         <title>Terraform CLI shortcuts</title>
@@ -13,8 +13,6 @@
         <guid isPermaLink="true">/2020/08/25/terraform-cli-shortcuts.html</guid>
         <description>&lt;p&gt;Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
 Requirements — bash-compatible interpreter, because aliases and functions described below will work with bash, zsh and ohmyzsh.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/posts/2020-08-25-handy-terraform-cli-shortcuts.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In order to use any of described aliases of functions, you need to place it in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.bashrc&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.zshrc&lt;/code&gt; file (or any other configuration file you have for your shell).&lt;/p&gt;
 
