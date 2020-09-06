@@ -5,7 +5,7 @@ url: "https://serhii.vasylenko.info"
 #seo-tag plugin settings
 twitter: 
   username: vasylenko
-  card: summary
+  card: summary_large_image
 social:
   name: Serhii Vasyleko
   links:
