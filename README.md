@@ -4,7 +4,7 @@ Slightly modified Jekyll theme (see source links below) with automatic build and
 
 Build and deploy are automated by Github Actions – [.github/workflows/website.yaml](.github/workflows/website.yaml).
 
-Deploy goes to gh-pages branch which is confiogured for Github Pages.
+Deploy goes to gh-pages branch which is configured for Github Pages.
 
 ## Markdown CV with rendering to HTML
 
@@ -18,7 +18,7 @@ Deploy goes to the same gh-pages branch.
 
 ## Technologies used: 
 
-- Artem Shedulko's Jekyll theme - https://github.com/artemsheludko/flexible-jekyll
 - Jekyll static website generator - https://jekyllrb.com
+- Source theme - https://github.com/rohanchandra/type-theme
 - Pandoc document converter - https://pandoc.org and https://hub.docker.com/r/pandoc/latex
 - Github Pages and Github Actions
