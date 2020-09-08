@@ -14,7 +14,8 @@
 body {
     font-family: 'Verdana', Arial, sans-serif;
     color: #232F3E;
-    width: 850px;
+    max-width: 850px;
+    font-size: 14px;
     margin: auto;
     background: #FFFFFF;
     padding: 10px 10px 10px 10px;
@@ -23,7 +24,7 @@ body {
 
 /* Title of the resume */
 h1 {
-    font-size: 40px;
+    font-size: 3em;
     /* color: #757575; */
     text-align:center;
     margin-bottom:0.5em;
@@ -113,8 +114,10 @@ ul {
 @media print {
     body {
         font-family: Verdana, Helvetica, sans-serif;
+        max-width: 850px;
+        font-size: 14px;
     }
-    h1,h2,h3,h4+ul{
+    h1,h2,h3,h4+ul,dd,dt{
         page-break-after: avoid;
         color: #232F3E;
     }
