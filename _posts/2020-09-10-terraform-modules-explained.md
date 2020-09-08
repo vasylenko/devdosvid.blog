@@ -4,7 +4,8 @@ title: Terraform Modules explained
 subtitle: This article will help Terraform newcomers adopt the "modules" concept easier
 summary: Explanation of Terraform modules idea and main concepts
 date: 2020-09-5
-img: /assets/posts/2020-09-10-terraform-modules-explained/cover.png
+image: /assets/posts/2020-09-10-terraform-modules-explained/cover.png
+canonical_url: 'https://www.freecodecamp.org'
 tags: [terraform, explained]
 ---
 Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds of lines of configuration code.
@@ -14,7 +15,8 @@ I assume you already know some basics about Terraform or even tried to use it in
 Please note: I do not use real code examples with some specific provider like AWS or Google intentionally, just for the sake of simplicity.
 
 ## Terraform modules
-### You already write modules even if you think you don’t
+You already write modules even if you think you don’t.
+
 Even when you don't create a module intentionally, if you use Terraform, you are already writing a module – a so-called "root" module.
 
 Any number of Terraform configuration files `(.tf)` in a directory (even one) forms a module.
