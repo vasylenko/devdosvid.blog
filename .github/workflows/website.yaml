@@ -1,14 +1,14 @@
 name: Website
 on:
-  workflow_dispatch:
   push:
     paths:
+      - '**'
+      - '!.vscode/**'
       - '!cv/**'
       - '!operations/**'
       - '!.github/**'
       - '.github/workflows/website.yaml'
-      - '.vscode/**'
-
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest

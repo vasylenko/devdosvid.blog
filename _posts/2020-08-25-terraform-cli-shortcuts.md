@@ -1,14 +1,13 @@
 ---
 layout: post
 title: Terraform CLI shortcuts
-summary: A bunch of small tools I use to simplify Terraform workflow
+image: /assets/posts/2020-08-25-terraform-cli-shortcuts/cover.jpg
+description: A bunch of small tools I use to simplify Terraform workflow
 date: 2020-08-25
 tags: [terraform, cli, automation]
 ---
 Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
 Requirements --- bash-compatible interpreter, because aliases and functions described below will work with bash, zsh and ohmyzsh. 
-
-![](/assets/posts/2020-08-25-handy-terraform-cli-shortcuts.jpg)
 
 In order to use any of described aliases of functions, you need to place it in your `~/.bashrc` or `~/.zshrc` file (or any other configuration file you have for your shell).
 
