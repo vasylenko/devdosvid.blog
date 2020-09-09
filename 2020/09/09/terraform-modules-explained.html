@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>What are terraform Modules and how do they work? | Hello, world! It is nice to meet you!</title>
+	<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>What are terraform Modules and how do they work? | serhii.vasylenko.info</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="What are terraform Modules and how do they work?" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds of lines of configuration code." />
+<meta property="og:description" content="Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds of lines of configuration code." />
+<link rel="canonical" href="https://www.freecodecamp.org/news/terraform-modules-explained/" />
+<meta property="og:url" content="https://www.freecodecamp.org/news/terraform-modules-explained/" />
+<meta property="og:site_name" content="serhii.vasylenko.info" />
+<meta property="og:image" content="https://serhii.vasylenko.info/assets/posts/2020-09-09-terraform-modules-explained/cover.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-09T00:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://serhii.vasylenko.info/assets/posts/2020-09-09-terraform-modules-explained/cover.jpg" />
+<meta property="twitter:title" content="What are terraform Modules and how do they work?" />
+<meta name="twitter:site" content="@vasylenko" />
+<script type="application/ld+json">
+{"description":"Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds of lines of configuration code.","image":"https://serhii.vasylenko.info/assets/posts/2020-09-09-terraform-modules-explained/cover.jpg","headline":"What are terraform Modules and how do they work?","dateModified":"2020-09-09T00:00:00+00:00","datePublished":"2020-09-09T00:00:00+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.freecodecamp.org/news/terraform-modules-explained/"},"url":"https://www.freecodecamp.org/news/terraform-modules-explained/","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+	<meta name="description"
+		content="Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds...">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/2020/09/09/terraform-modules-explained.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Hello, world! It is nice to meet you!"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'G-GK7SE0XWGK', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+</head>
+  <body>
+    <header class="site-header">
+	<div class="branding">
+		
+		<h1 class="site-title">
+			<a href="/">Hello, world! It is nice to meet you!</a>
+		</h1>
+	</div>
+	<nav class="site-nav">
+		<ul>
+			
+			
+			
+			
+			
+			<li>
+				<a class="page-link" href="/about/">
+					About me
+				</a>
+			</li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<!-- Social icons from Font Awesome, if enabled  -->
+			
+<li>
+	<a href="/feed.xml" title="Follow RSS feed">
+		<i class="fas fa-fw fa-rss"></i>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:email-from-blog@vasylenko.info" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.linkedin.com/in/svasylenko/" title="Follow on LinkedIn">
+		<i class="fab fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Search bar -->
+            
+		</ul>
+	</nav>
+
+</header>
+
+    <div class="content">
+      <article >
+  <!-- <header style="background-image: url('/')"> -->
+  <header>
+    <h1 class="title">What are terraform Modules and how do they work?</h1>
+    <h2 class="subtitle">Explanation of Terraform modules and their main concepts. In English.</h2>
+    <p class="meta">
+      September 9, 2020
+      
+    </p>
+    <img src="/assets/posts/2020-09-09-terraform-modules-explained/cover.jpg">
+  </header>
+  <section class="post-content"><p>Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds of lines of configuration code.</p>
+
+<p>I assume you already know some basics about Terraform or even tried to use it in some way before reading the article.</p>
+
+<p>Please note: I do not use real code examples with some specific provider like AWS or Google intentionally, just for the sake of simplicity.</p>
+
+<h2 id="terraform-modules">Terraform modules</h2>
+<p>You already write modules even if you think you don’t.</p>
+
+<p>Even when you don’t create a module intentionally, if you use Terraform, you are already writing a module – a so-called “root” module.</p>
+
+<p>Any number of Terraform configuration files <code class="language-plaintext highlighter-rouge">(.tf)</code> in a directory (even one) forms a module.</p>
+
+<h3 id="what-does-the-module-do">What does the module do?</h3>
+<p>A Terraform module allows you to create logical abstraction on the top of some resource set. In other words, a module allows you to group resources together and reuse this group later, possibly many times.</p>
+
+<p>Let’s assume we have a virtual server with some features hosted in the cloud. What set of resources might describe that server? For example:
+– the virtual machine itself (created from some image)
+– an attached block device of specified size (for additional storage)
+– a static public IP mapped to the server’s virtual network interface
+– a set of firewall rules to be attached to the server
+– something else… (i.e. another block device, additional network interface, etc)</p>
+
+<p><img src="/assets/posts/2020-09-09-terraform-modules-explained/1.png" alt="" /></p>
+
+<p>Now let’s assume that you need to create this server with a set of resources many times. This is where modules are really helpful – you don’t want to repeat the same configuration code over and over again, do you?</p>
+
+<p>Here is an example that illustrates how our “server” module might be called.
+“To call a module” means to use it in the configuration file.</p>
+
+<p>Here we create 5 instances of the “server” using single set of configurations (in the module):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>module "server" {
+    
+    count         = 5
+    
+    source        = "./module_server"
+    some_variable = some_value
+}
+</code></pre></div></div>
+
+<h3 id="modules-organisation-child-and-root">Modules organisation: child and root</h3>
+<p>Of course, you would probably want to create more than one module. Here are some common examples:</p>
+<ul>
+  <li>for a network (i.e. VPC)</li>
+  <li>for a static content hosting (i.e. buckets)</li>
+  <li>for a load balancer and it’s related resources</li>
+  <li>for a logging configuration</li>
+  <li>and whatever else you consider a distinct logical component of the infrastructure</li>
+</ul>
+
+<p>Let’s say we have two different modules: a “server” module and a “network” module. The module called “network” is where we define and configure our virtual network and place servers in it:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>module "server" {
+    source        = "./module_server"
+    some_variable = some_value
+}
+
+module "network" {  
+    source              = "./module_network"
+    some_other_variable = some_other_value
+}
+</code></pre></div></div>
+
+<p>Once we have some custom modules, we can refer to them as “child” modules. And the configuration file where we call child modules relates to the root module.</p>
+
+<p><img src="/assets/posts/2020-09-09-terraform-modules-explained/2.png" alt="" /></p>
+
+<p>A child module can be sourced from a number of places:</p>
+
+<ul>
+  <li>local paths</li>
+  <li>official Terraform Registry (if you’re familiar with other registries, i.e. Docker Registry then you already understand the idea)</li>
+  <li>Git repository (a custom one or GitHub/BitBucket)</li>
+  <li>HTTP URL to .zip archive with module</li>
+</ul>
+
+<p>But how can you pass resources details between modules?</p>
+
+<p>In our example, the servers should be created in a network. So how can we tell the “server” module to create VMs in a network which was created in a module called “network”?</p>
+
+<p>This is where <strong>encapsulation</strong> comes in.</p>
+
+<h2 id="module-encapsulation">Module encapsulation</h2>
+<p>Encapsulation in Terraform consists of two basic concepts: module scope and explicit resources exposure.</p>
+
+<h3 id="module-scope">Module Scope</h3>
+<p>All resource instances, names, and therefore, resource visibility, are isolated in a module’s scope. For example, module “A” can’t see and does not know about resources in module “B” by default.</p>
+
+<p>Resource visibility, sometimes called resource isolation, ensures that resources will have unique names within a module’s namespace. For example, with our 5 instances of the “server” module:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>module.server[0].resource_type.resource_name
+module.server[1].resource_type.resource_name
+module.server[2].resource_type.resource_name
+</code></pre></div></div>
+
+<p>On the other hand, we could create two instances of the same module with different names:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>module "server-alpha" {    
+    source        = "./module_server"
+    some_variable = some_value
+}
+module "server-beta" {
+    source        = "./module_server"
+    some_variable = some_value
+}
+</code></pre></div></div>
+
+<p>In this case, the naming or address of resources would be as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>module.server-alpha.resource_type.resource_name
+
+module.server-beta.resource_type.resource_name
+</code></pre></div></div>
+
+<h3 id="explicit-resources-exposure">Explicit resources exposure</h3>
+
+<p>If you want to access some details for the resources in another module, you’ll need to explicitly configure that.</p>
+
+<p>By default, our module “server” doesn’t know about the network that was created in the “network” module.</p>
+
+<p><img src="/assets/posts/2020-09-09-terraform-modules-explained/3.png" alt="" /></p>
+
+<p>So we must declare an <code class="language-plaintext highlighter-rouge">output</code> value in the “network” module to export its resource, or an attribute of a resource, to other modules.</p>
+
+<p>The module “server” must declare a <code class="language-plaintext highlighter-rouge">variable</code> to be used later as the input.</p>
+
+<p><img src="/assets/posts/2020-09-09-terraform-modules-explained/4.png" alt="" /></p>
+
+<p>This explicit declaration of the output is the way to expose some resource (or information about it) outside — to the scope of the ‘root’ module, hence to make it available for other modules.</p>
+
+<p>Next, when we call the child module “server”  in the root module, we should assign the output from the “network” module to the variable of the “server” module:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>network_id = module.network.network_id
+</code></pre></div></div>
+
+<p>Here is how the final code for calling our child modules will look like in result:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>module "server" {
+    count         = 5
+    source        = "./module_server"
+    some_variable = some_value
+    network_id    = module.network.network_id
+}
+
+module "network" {  
+    source              = "./module_network"
+    some_other_variable = some_other_value
+}
+</code></pre></div></div>
+
+<p>This example configuration would create 5 instances of the same server, with all the necessary resources, in the network we created with as a separate module.</p>
+
+<h3 id="wrap-up">Wrap up</h3>
+<p>Now you should understand what modules are and what do they do.</p>
+
+<p>If you’re at the beginning of your Terraform journey, here are some suggestions for the next steps.</p>
+
+<p>I encourage you to take this short tutorial from HashiCorp, the creators of Terraform, about modules:  <a href="https://learn.hashicorp.com/collections/terraform/modules">“Organize Configuration”</a></p>
+
+<p>Also, there is a great comprehensive study guide which covers everything from beginner to advanced concepts about Terraform: <a href="https://learn.hashicorp.com/tutorials/terraform/associate-study?in=terraform/certification">“Study Guide - Terraform Associate Certification”</a></p>
+
+<p>The modular code structure makes your configuration more flexible and yet easy to be understood by others. The latter is especially useful in teamwork.</p>
+
+<hr />
+<h6 id="this-article-was-originaly-published-on-freecodecamp-paltform-by-me-but-i-still-want-to-keep-it-here-for-the-record-canonical-link-to-original-publication-was-properly-set-in-the-page-headers">This article was originaly published on FreeCodeCamp paltform by me, but I still want to keep it here for the record. Canonical link to original publication was properly set in the page headers.</h6>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#terraform">#terraform</a>
+    
+    <a class="tag" href="/tags#explained">#explained</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/2020/08/25/terraform-cli-shortcuts.html">
+        Terraform CLI shortcuts
+      </a>
+  </div>
+  
+  
+</div>
+
+
+
+    </div>
+    
+
+
+
+  </body>
+</html>
