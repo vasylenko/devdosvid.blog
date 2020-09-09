@@ -70,6 +70,11 @@ h5 {
     text-align: center;
 }
 
+h6 {
+    font-weight: normal;
+    text-align: right;
+}
+
 /* Definitions */
 dt {
     float: left;

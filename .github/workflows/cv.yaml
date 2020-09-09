@@ -17,6 +17,7 @@ jobs:
       
       - name: Build CV
         run: |
+          sed -i 's/updatedate/'"$(date +"%B %d %Y")"'/' ./cv/cv.md
           /usr/local/bin/pandoc --standalone -H ./cv/head.html --from markdown --to html5 -o ./cv/index.html ./cv/cv.md
 
       - name: Upload artifacts
