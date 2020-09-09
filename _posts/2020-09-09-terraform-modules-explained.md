@@ -2,10 +2,10 @@
 layout: post
 title: Terraform Modules explained
 subtitle: This article will help Terraform newcomers adopt the "modules" concept easier
-summary: Explanation of Terraform modules idea and main concepts
-date: 2020-09-5
-image: /assets/posts/2020-09-10-terraform-modules-explained/cover.png
-canonical_url: 'https://www.freecodecamp.org'
+summary: Explanation of Terraform modules and their main concepts
+date: 2020-09-09
+image: /assets/posts/2020-09-10-terraform-modules-explained/cover.jpg
+canonical_url: 'https://www.freecodecamp.org/news/terraform-modules-explained/'
 tags: [terraform, explained]
 ---
 Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds of lines of configuration code.
@@ -172,3 +172,6 @@ I encourage you to take this short tutorial from HashiCorp, the creators of Terr
 Also, there is a great comprehensive study guide which covers everything from beginner to advanced concepts about Terraform: ["Study Guide - Terraform Associate Certification"](https://learn.hashicorp.com/tutorials/terraform/associate-study?in=terraform/certification)
 
 The modular code structure makes your configuration more flexible and yet easy to be understood by others. The latter is especially useful in teamwork.
+
+----------------------------
+###### This article was originaly published on FreeCodeCamp paltform by me, but I still want to keep it here for the record. Canonical link to original publication was properly set in the page headers. 
