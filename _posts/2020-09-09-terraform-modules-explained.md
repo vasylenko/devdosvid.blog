@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Terraform Modules explained
-subtitle: This article will help Terraform newcomers adopt the "modules" concept easier
-summary: Explanation of Terraform modules and their main concepts
+title: What are terraform Modules and how do they work?
+subtitle: Explanation of Terraform modules and their main concepts. In English.
+summary: Explanation of Terraform modules and their main concepts. In English.
 date: 2020-09-09
-image: /assets/posts/2020-09-10-terraform-modules-explained/cover.jpg
+image: /assets/posts/2020-09-09-terraform-modules-explained/cover.jpg
 canonical_url: 'https://www.freecodecamp.org/news/terraform-modules-explained/'
 tags: [terraform, explained]
 ---
@@ -31,7 +31,7 @@ Let's assume we have a virtual server with some features hosted in the cloud. Wh
 – a set of firewall rules to be attached to the server
 – something else... (i.e. another block device, additional network interface, etc)
 
-![](/assets/posts/2020-09-10-terraform-modules-explained/1.png)
+![](/assets/posts/2020-09-09-terraform-modules-explained/1.png)
 
 Now let's assume that you need to create this server with a set of resources many times. This is where modules are really helpful – you don't want to repeat the same configuration code over and over again, do you?
 
@@ -74,7 +74,7 @@ module "network" {
 
 Once we have some custom modules, we can refer to them as "child" modules. And the configuration file where we call child modules relates to the root module.
 
-![](/assets/posts/2020-09-10-terraform-modules-explained/2.png)
+![](/assets/posts/2020-09-09-terraform-modules-explained/2.png)
 
 A child module can be sourced from a number of places:
 
@@ -128,13 +128,13 @@ If you want to access some details for the resources in another module, you'll n
 
 By default, our module "server" doesn't know about the network that was created in the "network" module.
 
-![](/assets/posts/2020-09-10-terraform-modules-explained/3.png)
+![](/assets/posts/2020-09-09-terraform-modules-explained/3.png)
 
 So we must declare an `output` value in the "network" module to export its resource, or an attribute of a resource, to other modules.
 
 The module "server" must declare a `variable` to be used later as the input.
 
-![](/assets/posts/2020-09-10-terraform-modules-explained/4.png)
+![](/assets/posts/2020-09-09-terraform-modules-explained/4.png)
 
 This explicit declaration of the output is the way to expose some resource (or information about it) outside — to the scope of the 'root' module, hence to make it available for other modules.
 
