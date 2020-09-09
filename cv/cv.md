@@ -87,7 +87,7 @@ Languages
 Activities and interests
 ------------------------
 Science 
-:   Fond of History, Astronomy, and Physics. I wish to see Betelgeuse supernova explosion someday, although the explosion date is somewhere between today and 100k years ☺️ 
+:   Fond of History, Astronomy, and Physics. I wish to see Betelgeuse supernova explosion someday even though the expected explosion date is somewhere between today and 100k years. ☺️ 
 
 Traveling
 :   I like to explore new cities and countries, and I like trekking. After gettingn to the Annapurna base camp, I want to visit the base camp of Everest.

@@ -88,9 +88,8 @@ dd {
     margin-left: 16%;
     margin-bottom: 2em;;
 }
-p {
-    /* margin-top:0; */
-    /* margin-bottom:7px; */
+dd p {
+    text-align: justify;
 }
 
 /* Links */
