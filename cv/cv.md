@@ -12,13 +12,13 @@ Certified: AWS Solutions Architect Associate, Terraform Associate.
 
 Professional Experience
 --------------------
-July 2020 – ongoing (~ Oct 20)
-:   ### [Instructor](https://kharkiv.ithillel.ua/coaches/sergey-vasilenko) in Hillel IT School (contract)
+July 2020 – present
+:   ### [Instructor](https://kharkiv.ithillel.ua/coaches/sergey-vasilenko) in Hillel IT School (part-time)
 
     I am doing my best in teaching engineers how to master the DevOps approach, methodology, and tools.
     
 Mar 2017 – June 2020
-:   ### Teamlead – "ITCraft"
+:   ### Team leader – "ITCraft"
 
     I started as a DevOps engineer on a project, then hired one more engineer, and eventually, we evolved into a team of seven members.
 
@@ -58,30 +58,23 @@ Jun 2011 – Nov 2014
 
 Skills
 ----------------------------------
-Leadership
+Leader
 :   Team motivation, mentoring, cultivating of soft/hard skills of team members.
 
-Team culture
+Team
 :   Fostering team values and working principles and developing the new ones together with the team.
-
-Team development
 :   Hiring new team members and forming the required team skillset.
 
-Project Management
+PM
 :   Managing of stand-alone DevOps projects and operations parts of big projects with dev teams.
-    Time resources and capacity management.
+:   Time resources and capacity management.
 
-Public Clouds
-:   [Amazon Web Services](https://www.youracclaim.com/badges/7c6c7a70-63f5-4854-97ab-e5c1ad251231/public_url).\
-    Design and fine-tuning of resilient and HA infrastructures; costs optimization and security hardening.
-    4 years of hands-on experience. 
+Clouds
+:   Amazon Web Services. Design and fine-tuning of resilient and HA infrastructures; costs optimization and security hardening. 4 years of hands-on experience. 
 
-Automation (CI/CD)
-:   Jenkins, GitlabCI, GithubActions, Bitrise, CircleCI: build, deploy, and test automation (web and mobile).
-
-Other technologies
-:   Terraform, Docker, Ansible,\
-    Nginx, Apache, MySQL, MongoDB.
+Techs
+:   Jenkins, GitlabCI, GithubActions, Bitrise, CircleCI.
+:   Terraform, Docker, Ansible, Nginx, Apache, MySQL, MongoDB.
 
 Languages
 :   English – C1 (CEFR)
@@ -91,7 +84,7 @@ Activities and interests
 Science 
 :   Fond of History, Astronomy, and Physics. I wish to see Betelgeuse supernova explosion someday even though the expected explosion date is somewhere between today and 100k years. ☺️ 
 
-Traveling
+Travel
 :   I like to explore new cities and countries, and I like trekking. I've been to the Annapurna base camp, and now I want to visit the base camp of Everest.
 
 ###### CV last updated: updatedate
