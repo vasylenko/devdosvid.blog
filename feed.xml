@@ -5,7 +5,7 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>https://serhii.vasylenko.info/</link>
     <description>Serhii Vasylenko - personal blog</description>
-    <pubDate>Wed, 09 Sep 2020 07:31:19 +0000</pubDate>
+    <pubDate>Fri, 11 Sep 2020 19:33:40 +0000</pubDate>
     
       <item>
         <title>What are terraform Modules and how do they work?</title>
