@@ -256,6 +256,7 @@ DEPENDENCIES
   github-pages
   jekyll-seo-tag
   jekyll-sitemap
+  jemoji
 
 BUNDLED WITH
    2.1.4
