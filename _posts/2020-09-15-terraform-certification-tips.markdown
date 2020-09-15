@@ -60,6 +60,8 @@ It is a collection of different codebases for front-end and back-end used to bui
 ![](/assets/posts/2020-09-15-terraform-certification-tips/real-world-demo.jpg)
 
 #### Answer forum topics
-Last but not least advice — try to answer some questions on the official Terraform forum. This is a nice way to test your knowledge, help others, and develop the community around Terraform. Just register there, search for the latest topics, and have fun!
+Last but not least advice — try to answer some questions on the official [Terraform forum](https://discuss.hashicorp.com/c/terraform-core/).
+
+This is a nice way to test your knowledge, help others, and develop the community around Terraform. Just register there, look for the latest topics, and have fun!
 
 ![](/assets/posts/2020-09-15-terraform-certification-tips/tf-forum.jpg)
