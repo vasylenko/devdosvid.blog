@@ -5,7 +5,7 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>https://serhii.vasylenko.info/</link>
     <description>Serhii Vasylenko - personal blog</description>
-    <pubDate>Tue, 15 Sep 2020 23:03:32 +0000</pubDate>
+    <pubDate>Tue, 15 Sep 2020 23:10:13 +0000</pubDate>
     
       <item>
         <title>Terraform Certification Tips</title>
@@ -45,7 +45,7 @@ For example, you can make a plan from the resources I outlined below in this art
 &lt;h2 id=&quot;take-additional-tutorials&quot;&gt;Take additional tutorials &lt;/h2&gt;
 &lt;p&gt;Here is a list of additional tutorials and materials I suggest adding into your learning program:&lt;/p&gt;
 
-&lt;p&gt;Official guides / documentation: &lt;/p&gt;
+&lt;h4 id=&quot;official-guides--documentation&quot;&gt;Official guides / documentation: &lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://learn.hashicorp.com/collections/terraform/automation&quot;&gt;Automate Terraform&lt;/a&gt; &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://learn.hashicorp.com/collections/terraform/cloud&quot;&gt;Collaborate using Terraform Cloud&lt;/a&gt;&lt;/li&gt;
@@ -55,7 +55,7 @@ For example, you can make a plan from the resources I outlined below in this art
   &lt;li&gt;&lt;a href=&quot;https://learn.hashicorp.com/collections/terraform/policy&quot;&gt;Enforce Policy with Sentinel&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Third-party articles and guides:&lt;/p&gt;
+&lt;h4 id=&quot;third-party-articles-and-guides&quot;&gt;Third-party articles and guides:&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://prefetch.net/blog/2020/04/27/using-the-terraform-console-to-debug-interpolation-syntax/&quot;&gt;Using the terraform console to debug interpolation syntax&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/playlist?list=PL5VXZTK6spA2HF5Kf0rI9RDRHF9Hopffr&quot;&gt;YouTube playlist with exam-like questions review&lt;/a&gt;&lt;/li&gt;
