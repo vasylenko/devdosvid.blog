@@ -5,7 +5,7 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>https://serhii.vasylenko.info/</link>
     <description>Serhii Vasylenko - personal blog</description>
-    <pubDate>Tue, 15 Sep 2020 23:12:10 +0000</pubDate>
+    <pubDate>Tue, 15 Sep 2020 23:14:59 +0000</pubDate>
     
       <item>
         <title>Terraform Certification Tips</title>
@@ -24,7 +24,7 @@
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;make-yourself-a-plan&quot;&gt;Make yourself a plan&lt;/h2&gt;
-&lt;p&gt;Make a list of things you are going to go through: links to the tutorial materials, practice tasks, some labs, some articles on relative blogs (Medium, Dev.to, etc.).
+&lt;p&gt;Make a list of things you are going to go through: links to the study materials, practice tasks, some labs, some articles on relative blogs (Medium, Dev.to, etc.).
 It should look at a “todo” or “check”-list. It may seem silly at first glance, but the list with checkboxes does its “cognitive magic”. When you go point by point, marking items as “done”, you feel the progress and this motivates you to keep going further.
 For example, you can make a plan from the resources I outlined below in this article.&lt;/p&gt;
 
