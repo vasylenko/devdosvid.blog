@@ -7,7 +7,6 @@ h1,h3 {
 }
 
 div.branding h1.site-title{
-
   font-size: 20px;
   display: inline;
 }
@@ -30,4 +29,7 @@ section.post-content > p > img {
   display: block;
   margin: auto;
 }
-  
+
+section.post-content img{
+  padding: 1em 1em;
+}
