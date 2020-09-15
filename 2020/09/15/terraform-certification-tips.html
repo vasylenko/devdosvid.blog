@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>Terraform Certification Tips | Hello, world! It is nice to meet you!</title>
+	<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Terraform Certification Tips | serhii.vasylenko.info</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Terraform Certification Tips" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I successfuly passed “HashiCorp Certified — Terraform Associate” exam last friday and decided to share some advice for exam preparation." />
+<meta property="og:description" content="I successfuly passed “HashiCorp Certified — Terraform Associate” exam last friday and decided to share some advice for exam preparation." />
+<link rel="canonical" href="https://serhii.vasylenko.info/2020/09/15/terraform-certification-tips.html" />
+<meta property="og:url" content="https://serhii.vasylenko.info/2020/09/15/terraform-certification-tips.html" />
+<meta property="og:site_name" content="serhii.vasylenko.info" />
+<meta property="og:image" content="https://serhii.vasylenko.info/assets/posts/2020-09-15-terraform-certification-tips/terraform-associate.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-15T00:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://serhii.vasylenko.info/assets/posts/2020-09-15-terraform-certification-tips/terraform-associate.png" />
+<meta property="twitter:title" content="Terraform Certification Tips" />
+<meta name="twitter:site" content="@vasylenko" />
+<script type="application/ld+json">
+{"description":"I successfuly passed “HashiCorp Certified — Terraform Associate” exam last friday and decided to share some advice for exam preparation.","image":"https://serhii.vasylenko.info/assets/posts/2020-09-15-terraform-certification-tips/terraform-associate.png","headline":"Terraform Certification Tips","dateModified":"2020-09-15T00:00:00+00:00","datePublished":"2020-09-15T00:00:00+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://serhii.vasylenko.info/2020/09/15/terraform-certification-tips.html"},"url":"https://serhii.vasylenko.info/2020/09/15/terraform-certification-tips.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+	<meta name="description"
+		content="I successfuly passed “HashiCorp Certified — Terraform Associate” exam last friday and decided to share some advice for exam preparation.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/2020/09/15/terraform-certification-tips.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Hello, world! It is nice to meet you!"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'G-GK7SE0XWGK', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+</head>
+  <body>
+    <header class="site-header">
+	<div class="branding">
+		
+		<h1 class="site-title">
+			<a href="/">Hello, world! It is nice to meet you!</a>
+		</h1>
+	</div>
+	<nav class="site-nav">
+		<ul>
+			
+			
+			
+			
+			
+			<li>
+				<a class="page-link" href="/about/">
+					About me
+				</a>
+			</li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<!-- Social icons from Font Awesome, if enabled  -->
+			
+<li>
+	<a href="/feed.xml" title="Follow RSS feed">
+		<i class="fas fa-fw fa-rss"></i>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:email-from-blog@vasylenko.info" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.linkedin.com/in/svasylenko/" title="Follow on LinkedIn">
+		<i class="fab fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Search bar -->
+            
+		</ul>
+	</nav>
+
+</header>
+
+    <div class="content">
+      <article >
+  <!-- <header style="background-image: url('/')"> -->
+  <header>
+    <h1 class="title">Terraform Certification Tips</h1>
+    <h2 class="subtitle">Summary of a learning path to HashiCorp Certified — Terraform Associate</h2>
+    <p class="meta">
+      September 15, 2020
+      
+    </p>
+    <img src="/assets/posts/2020-09-15-terraform-certification-tips/terraform-associate.png">
+  </header>
+  <section class="post-content"><p>I successfuly passed “HashiCorp Certified — Terraform Associate” exam last friday and decided to share some advice for exam preparation.</p>
+
+<p>TL;DR — here is an action list that helped me:</p>
+
+<ul>
+  <li><a href="#make-yourserlf-a-plan">Make a plan</a></li>
+  <li><a href="#go-through-the-official-study-guide">Work with Study Guide</a></li>
+  <li><a href="#take-additional-tutorials">Take additional tutorials</a></li>
+  <li><a href="#mockup-a-project">Mokup a project</a></li>
+  <li><a href="#answer-forum-topics">Answer forum topics</a></li>
+</ul>
+
+<h2 id="make-yourself-a-plan">Make yourself a plan</h2>
+<p>Make a list of things you are going to go through: links to the tutorial materials, practice tasks, some labs, some articles on relative blogs (Medium, Dev.to, etc.).
+It should look at a “todo” or “check”-list. It may seem silly at first glance, but the list with checkboxes does its “cognitive magic”. When you go point by point, marking items as “done”, you feel the progress and this motivates you to keep going further.
+For example, you can make a plan from the resources I outlined below in this article. But I encourage you to explore the Internet for something by yourself as well. Who knows, perhaps you will find some learning course that fits you better. And that is great! But when you find it, take extra 5-10 minutes to go through its curriculum and create a list with lessons. It feels so nice to cross-out items from the todo list, believe me 😄
+<img src="/assets/posts/2020-09-15-terraform-certification-tips/todo-list.jpg" alt="" /></p>
+
+<h2 id="go-through-the-official-study-guide">Go through the official Study Guide</h2>
+<p>Despite your findings on the Internet, I strongly suggest going through the official study guide</p>
+
+<p><a href="https://learn.hashicorp.com/tutorials/terraform/associate-study">Study Guide - Terraform Associate Certification</a></p>
+
+<p>It took me about 20 hours to complete it (including practice tasks based on topics in the guide), and it was the core of my studying. I did not buy or search for some third-party course intentionally because I did have some Terraform experience before starting the preparation. But give the official guide a chance even if you found some course. It is well-made and matches real exam questions very precisely. </p>
+
+<p>Also, there is an official <a href="https://learn.hashicorp.com/tutorials/terraform/associate-review">Exam Review</a>. Someone might find this even better because it is a direct mapping of each exam objective to HashiCorp’s documentation and training.  </p>
+
+<h2 id="take-additional-tutorials">Take additional tutorials </h2>
+<p>Here is a list of additional tutorials and materials I suggest adding into your learning program:</p>
+
+<p>Official guides / documentation: </p>
+<ul>
+  <li><a href="https://learn.hashicorp.com/collections/terraform/automation">Automate Terraform</a> </li>
+  <li><a href="https://learn.hashicorp.com/collections/terraform/cloud">Collaborate using Terraform Cloud</a></li>
+  <li><a href="https://learn.hashicorp.com/collections/terraform/0-13">Terraform 0.13 tutorials</a></li>
+  <li><a href="https://learn.hashicorp.com/collections/terraform/modules">Reuse Configuration with Modules</a></li>
+  <li><a href="https://www.hashicorp.com/resources/a-practitioner-s-guide-to-using-hashicorp-terraform-cloud-with-github">A Practitioner’s Guide to Using HashiCorp Terraform Cloud with GitHub</a></li>
+  <li><a href="https://learn.hashicorp.com/collections/terraform/policy">Enforce Policy with Sentinel</a></li>
+</ul>
+
+<p>Third-party articles and guides:</p>
+<ul>
+  <li><a href="https://prefetch.net/blog/2020/04/27/using-the-terraform-console-to-debug-interpolation-syntax/">Using the terraform console to debug interpolation syntax</a></li>
+  <li><a href="https://www.youtube.com/playlist?list=PL5VXZTK6spA2HF5Kf0rI9RDRHF9Hopffr">YouTube playlist with exam-like questions review</a></li>
+</ul>
+
+<h2 id="find-yourself-some-practice">Find yourself some practice </h2>
+<h4 id="mockup-a-project">Mockup a project</h4>
+<p>Your practice will improve if you mock some real business cases to practice.</p>
+
+<p>If you already work in some company you can set up the project you’re working with using Terraform. If you don’t have a real project or afraid to accidentally violate NDA, try this open-source demo project: <a href="https://github.com/gothinkster/realworld">Real World Example Apps</a>.</p>
+
+<p>It is a collection of different codebases for front-end and back-end used to build the same project. Just find the combination that suits your experience better and try to build the infrastructure for it using Terraform.</p>
+
+<p><img src="/assets/posts/2020-09-15-terraform-certification-tips/real-world-demo.jpg" alt="" /></p>
+
+<h4 id="answer-forum-topics">Answer forum topics</h4>
+<p>Last but not least advice — try to answer some questions on the official <a href="https://discuss.hashicorp.com/c/terraform-core/">Terraform forum</a>.</p>
+
+<p>This is a nice way to test your knowledge, help others, and develop the community around Terraform. Just register there, look for the latest topics, and have fun!</p>
+
+<p><img src="/assets/posts/2020-09-15-terraform-certification-tips/tf-forum.jpg" alt="" /></p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#terraform">#terraform</a>
+    
+    <a class="tag" href="/tags#education">#education</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/2020/09/09/terraform-modules-explained.html">
+        What are terraform Modules and how do they work?
+      </a>
+  </div>
+  
+  
+</div>
+
+
+
+    </div>
+    
+
+
+
+  </body>
+</html>

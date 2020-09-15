@@ -5,7 +5,77 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>https://serhii.vasylenko.info/</link>
     <description>Serhii Vasylenko - personal blog</description>
-    <pubDate>Fri, 11 Sep 2020 19:33:40 +0000</pubDate>
+    <pubDate>Tue, 15 Sep 2020 20:40:57 +0000</pubDate>
+    
+      <item>
+        <title>Terraform Certification Tips</title>
+        <link>/2020/09/15/terraform-certification-tips.html</link>
+        <guid isPermaLink="true">/2020/09/15/terraform-certification-tips.html</guid>
+        <description>&lt;p&gt;I successfuly passed “HashiCorp Certified — Terraform Associate” exam last friday and decided to share some advice for exam preparation.&lt;/p&gt;
+
+&lt;p&gt;TL;DR — here is an action list that helped me:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#make-yourserlf-a-plan&quot;&gt;Make a plan&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#go-through-the-official-study-guide&quot;&gt;Work with Study Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#take-additional-tutorials&quot;&gt;Take additional tutorials&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#mockup-a-project&quot;&gt;Mokup a project&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#answer-forum-topics&quot;&gt;Answer forum topics&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;make-yourself-a-plan&quot;&gt;Make yourself a plan&lt;/h2&gt;
+&lt;p&gt;Make a list of things you are going to go through: links to the tutorial materials, practice tasks, some labs, some articles on relative blogs (Medium, Dev.to, etc.).
+It should look at a “todo” or “check”-list. It may seem silly at first glance, but the list with checkboxes does its “cognitive magic”. When you go point by point, marking items as “done”, you feel the progress and this motivates you to keep going further.
+For example, you can make a plan from the resources I outlined below in this article. But I encourage you to explore the Internet for something by yourself as well. Who knows, perhaps you will find some learning course that fits you better. And that is great! But when you find it, take extra 5-10 minutes to go through its curriculum and create a list with lessons. It feels so nice to cross-out items from the todo list, believe me 😄
+&lt;img src=&quot;/assets/posts/2020-09-15-terraform-certification-tips/todo-list.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;go-through-the-official-study-guide&quot;&gt;Go through the official Study Guide&lt;/h2&gt;
+&lt;p&gt;Despite your findings on the Internet, I strongly suggest going through the official study guide&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://learn.hashicorp.com/tutorials/terraform/associate-study&quot;&gt;Study Guide - Terraform Associate Certification&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;It took me about 20 hours to complete it (including practice tasks based on topics in the guide), and it was the core of my studying. I did not buy or search for some third-party course intentionally because I did have some Terraform experience before starting the preparation. But give the official guide a chance even if you found some course. It is well-made and matches real exam questions very precisely. &lt;/p&gt;
+
+&lt;p&gt;Also, there is an official &lt;a href=&quot;https://learn.hashicorp.com/tutorials/terraform/associate-review&quot;&gt;Exam Review&lt;/a&gt;. Someone might find this even better because it is a direct mapping of each exam objective to HashiCorp’s documentation and training.  &lt;/p&gt;
+
+&lt;h2 id=&quot;take-additional-tutorials&quot;&gt;Take additional tutorials &lt;/h2&gt;
+&lt;p&gt;Here is a list of additional tutorials and materials I suggest adding into your learning program:&lt;/p&gt;
+
+&lt;p&gt;Official guides / documentation: &lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://learn.hashicorp.com/collections/terraform/automation&quot;&gt;Automate Terraform&lt;/a&gt; &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://learn.hashicorp.com/collections/terraform/cloud&quot;&gt;Collaborate using Terraform Cloud&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://learn.hashicorp.com/collections/terraform/0-13&quot;&gt;Terraform 0.13 tutorials&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://learn.hashicorp.com/collections/terraform/modules&quot;&gt;Reuse Configuration with Modules&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.hashicorp.com/resources/a-practitioner-s-guide-to-using-hashicorp-terraform-cloud-with-github&quot;&gt;A Practitioner’s Guide to Using HashiCorp Terraform Cloud with GitHub&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://learn.hashicorp.com/collections/terraform/policy&quot;&gt;Enforce Policy with Sentinel&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Third-party articles and guides:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://prefetch.net/blog/2020/04/27/using-the-terraform-console-to-debug-interpolation-syntax/&quot;&gt;Using the terraform console to debug interpolation syntax&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/playlist?list=PL5VXZTK6spA2HF5Kf0rI9RDRHF9Hopffr&quot;&gt;YouTube playlist with exam-like questions review&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;find-yourself-some-practice&quot;&gt;Find yourself some practice &lt;/h2&gt;
+&lt;h4 id=&quot;mockup-a-project&quot;&gt;Mockup a project&lt;/h4&gt;
+&lt;p&gt;Your practice will improve if you mock some real business cases to practice.&lt;/p&gt;
+
+&lt;p&gt;If you already work in some company you can set up the project you’re working with using Terraform. If you don’t have a real project or afraid to accidentally violate NDA, try this open-source demo project: &lt;a href=&quot;https://github.com/gothinkster/realworld&quot;&gt;Real World Example Apps&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;It is a collection of different codebases for front-end and back-end used to build the same project. Just find the combination that suits your experience better and try to build the infrastructure for it using Terraform.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2020-09-15-terraform-certification-tips/real-world-demo.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;answer-forum-topics&quot;&gt;Answer forum topics&lt;/h4&gt;
+&lt;p&gt;Last but not least advice — try to answer some questions on the official &lt;a href=&quot;https://discuss.hashicorp.com/c/terraform-core/&quot;&gt;Terraform forum&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is a nice way to test your knowledge, help others, and develop the community around Terraform. Just register there, look for the latest topics, and have fun!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2020-09-15-terraform-certification-tips/tf-forum.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
+      </item>
     
       <item>
         <title>What are terraform Modules and how do they work?</title>
