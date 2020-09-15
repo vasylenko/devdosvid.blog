@@ -55,7 +55,7 @@ Third-party articles and guides:
 
 ## Find yourself some practice 
 #### Mockup a project
-Your practice will improve if you mock some real business cases to practice.
+You can greatly improve your practice by mocking some real business cases.
 
 If you already work in some company you can set up the project you're working with using Terraform. If you don’t have a real project or afraid to accidentally violate NDA, try this open-source demo project: [Real World Example Apps](https://github.com/gothinkster/realworld).
 
