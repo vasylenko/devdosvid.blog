@@ -20,7 +20,7 @@ Here is the action list that helped me:
 
 
 ## Make yourself a plan
-Make a list of things you are going to go through: links to the tutorial materials, practice tasks, some labs, some articles on relative blogs (Medium, Dev.to, etc.).
+Make a list of things you are going to go through: links to the study materials, practice tasks, some labs, some articles on relative blogs (Medium, Dev.to, etc.).
 It should look at a "todo" or "check"-list. It may seem silly at first glance, but the list with checkboxes does its "cognitive magic". When you go point by point, marking items as "done", you feel the progress and this motivates you to keep going further.
 For example, you can make a plan from the resources I outlined below in this article. 
 
