@@ -70,4 +70,4 @@ This is a nice way to test your knowledge, help others, and develop the communit
 
 ![](/assets/posts/2020-09-15-terraform-certification-tips/tf-forum.jpg)
 
-🍀 I wish you exciting exam preparation and successful certification! 🍀
+🍀 I sincerely wish you exciting preparation and a successful exam! 🍀
