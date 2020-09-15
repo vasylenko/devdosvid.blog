@@ -5,7 +5,7 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>https://serhii.vasylenko.info/</link>
     <description>Serhii Vasylenko - personal blog</description>
-    <pubDate>Tue, 15 Sep 2020 23:10:13 +0000</pubDate>
+    <pubDate>Tue, 15 Sep 2020 23:12:10 +0000</pubDate>
     
       <item>
         <title>Terraform Certification Tips</title>
@@ -13,7 +13,7 @@
         <guid isPermaLink="true">/2020/09/15/terraform-certification-tips.html</guid>
         <description>&lt;p&gt;I successfully passed the “HashiCorp Certified — Terraform Associate” exam last Friday and decided to share some advice for exam preparation.&lt;/p&gt;
 
-&lt;p&gt;TL;DR — here is an action list that helped me:&lt;/p&gt;
+&lt;p&gt;Here is the action list that helped me:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#make-yourserlf-a-plan&quot;&gt;Make a plan&lt;/a&gt;&lt;/li&gt;
