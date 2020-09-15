@@ -69,3 +69,5 @@ Last but not least advice — try to answer some questions on the official [Terr
 This is a nice way to test your knowledge, help others, and develop the community around Terraform. Just register there, look for the latest topics, and have fun!
 
 ![](/assets/posts/2020-09-15-terraform-certification-tips/tf-forum.jpg)
+
+🍀 I wish you exciting exam preparation and successful certification! 🍀
