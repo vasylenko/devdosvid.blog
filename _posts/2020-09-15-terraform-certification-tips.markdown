@@ -26,7 +26,7 @@ For example, you can make a plan from the resources I outlined below in this art
 
 I encourage you to explore the Internet for something by yourself as well. Who knows, perhaps you will find some learning course that fits you better. And that is great! However, when you find it, take extra 5-10 minutes to go through its curriculum and create a list with lessons. 
 
-It feels so nice to cross out items from the todo list, believe me 😄
+It feels so nice to cross out items off the todo list, believe me 😄
 ![](/assets/posts/2020-09-15-terraform-certification-tips/todo-list.jpg)
 
 ## Go through the official Study Guide
