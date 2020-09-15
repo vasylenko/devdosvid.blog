@@ -7,7 +7,7 @@ image: /assets/posts/2020-09-15-terraform-certification-tips/terraform-associate
 description: Summary of a learning path to HashiCorp Certified — Terraform Associate
 tags: [terraform, education]
 ---
-I successfuly passed "HashiCorp Certified — Terraform Associate" exam last friday and decided to share some advice for exam preparation.
+I successfully passed the "HashiCorp Certified — Terraform Associate" exam last Friday and decided to share some advice for exam preparation.
 
 TL;DR — here is an action list that helped me: 
 
