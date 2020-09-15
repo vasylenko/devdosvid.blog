@@ -41,7 +41,7 @@ Also, there is an official [Exam Review](https://learn.hashicorp.com/tutorials/
 ## Take additional tutorials 
 Here is a list of additional tutorials and materials I suggest adding into your learning program:
 
-Official guides / documentation: 
+#### Official guides / documentation: 
   - [Automate Terraform](https://learn.hashicorp.com/collections/terraform/automation) 
   - [Collaborate using Terraform Cloud](https://learn.hashicorp.com/collections/terraform/cloud)
   - [Terraform 0.13 tutorials](https://learn.hashicorp.com/collections/terraform/0-13)
@@ -49,7 +49,7 @@ Official guides / documentation: 
   - [A Practitioner’s Guide to Using HashiCorp Terraform Cloud with GitHub](https://www.hashicorp.com/resources/a-practitioner-s-guide-to-using-hashicorp-terraform-cloud-with-github)
   - [Enforce Policy with Sentinel](https://learn.hashicorp.com/collections/terraform/policy)
 
-Third-party articles and guides:
+#### Third-party articles and guides:
 * [Using the terraform console to debug interpolation syntax](https://prefetch.net/blog/2020/04/27/using-the-terraform-console-to-debug-interpolation-syntax/)
 * [YouTube playlist with exam-like questions review](https://www.youtube.com/playlist?list=PL5VXZTK6spA2HF5Kf0rI9RDRHF9Hopffr)
 
