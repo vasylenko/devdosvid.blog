@@ -9,7 +9,7 @@ tags: [terraform, education]
 ---
 I successfully passed the "HashiCorp Certified — Terraform Associate" exam last Friday and decided to share some advice for exam preparation.
 
-TL;DR — here is an action list that helped me: 
+Here is the action list that helped me: 
 
   - [Make a plan](#make-yourserlf-a-plan)
   - [Work with Study Guide](#go-through-the-official-study-guide)
