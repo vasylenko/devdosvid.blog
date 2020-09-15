@@ -5,7 +5,7 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>https://serhii.vasylenko.info/</link>
     <description>Serhii Vasylenko - personal blog</description>
-    <pubDate>Tue, 15 Sep 2020 21:46:29 +0000</pubDate>
+    <pubDate>Tue, 15 Sep 2020 21:48:15 +0000</pubDate>
     
       <item>
         <title>Terraform Certification Tips</title>
@@ -63,7 +63,7 @@ For example, you can make a plan from the resources I outlined below in this art
 
 &lt;h2 id=&quot;find-yourself-some-practice&quot;&gt;Find yourself some practice &lt;/h2&gt;
 &lt;h4 id=&quot;mockup-a-project&quot;&gt;Mockup a project&lt;/h4&gt;
-&lt;p&gt;Your practice will improve if you mock some real business cases to practice.&lt;/p&gt;
+&lt;p&gt;You can greatly improve your practice by mocking some real business cases.&lt;/p&gt;
 
 &lt;p&gt;If you already work in some company you can set up the project you’re working with using Terraform. If you don’t have a real project or afraid to accidentally violate NDA, try this open-source demo project: &lt;a href=&quot;https://github.com/gothinkster/realworld&quot;&gt;Real World Example Apps&lt;/a&gt;.&lt;/p&gt;
 
