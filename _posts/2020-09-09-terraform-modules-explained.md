@@ -4,7 +4,7 @@ title: What are terraform Modules and how do they work?
 subtitle: Explanation of Terraform modules and their main concepts. In English.
 summary: Explanation of Terraform modules and their main concepts. In English.
 date: 2020-09-09
-image: /assets/posts/2020-09-09-terraform-modules-explained/cover.jpg
+image: /assets/posts/2020-09-09-terraform-modules-explained/terraform-modules.jpeg
 canonical_url: 'https://www.freecodecamp.org/news/terraform-modules-explained/'
 tags: [terraform, explained]
 ---
