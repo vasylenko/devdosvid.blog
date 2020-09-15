@@ -5,7 +5,7 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>https://serhii.vasylenko.info/</link>
     <description>Serhii Vasylenko - personal blog</description>
-    <pubDate>Tue, 15 Sep 2020 21:37:37 +0000</pubDate>
+    <pubDate>Tue, 15 Sep 2020 21:42:15 +0000</pubDate>
     
       <item>
         <title>Terraform Certification Tips</title>
@@ -77,6 +77,8 @@ For example, you can make a plan from the resources I outlined below in this art
 &lt;p&gt;This is a nice way to test your knowledge, help others, and develop the community around Terraform. Just register there, look for the latest topics, and have fun!&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/posts/2020-09-15-terraform-certification-tips/tf-forum.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;🍀 I wish you exciting exam preparation and successful certification! 🍀&lt;/p&gt;
 </description>
         <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
       </item>
