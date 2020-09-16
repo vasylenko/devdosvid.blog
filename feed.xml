@@ -5,7 +5,183 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>https://serhii.vasylenko.info/</link>
     <description>Serhii Vasylenko - personal blog</description>
-    <pubDate>Tue, 15 Sep 2020 23:14:59 +0000</pubDate>
+    <pubDate>Wed, 16 Sep 2020 16:32:43 +0000</pubDate>
+    
+      <item>
+        <title>Terraform Workflow — Working Individually and in a Team</title>
+        <link>/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html</link>
+        <guid isPermaLink="true">/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html</guid>
+        <description>&lt;p&gt;Workflow, or a pattern of the work, gives you a standardized way to do something.&lt;/p&gt;
+
+&lt;p&gt;It is extremely helpful in a team, and can benefit you even if you work individually. A good workflow enables you to streamline a process, organize it, and make it less error-prone.&lt;/p&gt;
+
+&lt;p&gt;This article summaries several approaches when working with Terraform, both individually and in a team. I tried to gather the most common ones, but you might also want to develop your own.&lt;/p&gt;
+
+&lt;p&gt;The common requirement for all of them is a version control system (such as Git). This is how you ensure nothing is lost and all your code changes are properly versioned tracked.&lt;/p&gt;
+
+&lt;p&gt;Table of contents:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#basic-concepts&quot;&gt;Basic Concepts&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#core-individual-workflow&quot;&gt;Core individual workflow&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#core-team-workflow&quot;&gt;Core team workflow&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#team-workflow-with-automation&quot;&gt;Team workflow with automation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#import-workflow&quot;&gt;Import workflow&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;basic-concepts&quot;&gt;Basic Concepts&lt;/h1&gt;
+&lt;p&gt;Let’s define the basic actions first.&lt;/p&gt;
+
+&lt;p&gt;All described workflows are built on top of three key steps: Write, Plan, and Apply. Nevertheless, their details and actions vary between workflows.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflow.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Write&lt;/strong&gt; – this is where you make changes to the code.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Plan&lt;/strong&gt; – this is where you review changes and decide whether to accept them.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Apply&lt;/strong&gt; – this is where you accept changes and apply them against real infrastructure.&lt;/p&gt;
+
+&lt;p&gt;It’s a simple idea with a variety of possible implementations.&lt;/p&gt;
+
+&lt;h1 id=&quot;core-individual-workflow&quot;&gt;Core individual workflow&lt;/h1&gt;
+&lt;p&gt;This is the most simple workflow if you work alone on a relatively small TF project. This workflow suits both local and remote backends well.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflow-individual.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;write&quot;&gt;Write&lt;/h3&gt;
+&lt;p&gt;You clone the remote code repo or pull the latest changes, edit the configuration code, then run the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform validate&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform fmt&lt;/code&gt; commands to make sure your code works well.&lt;/p&gt;
+
+&lt;h3 id=&quot;plan&quot;&gt;Plan&lt;/h3&gt;
+&lt;p&gt;This is where you run the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform plan&lt;/code&gt; command to make sure that your changes do what you need. This is a good time to commit your code changes changes (or you can do it in the next step).&lt;/p&gt;
+
+&lt;h3 id=&quot;apply&quot;&gt;Apply&lt;/h3&gt;
+&lt;p&gt;This is when you run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform apply&lt;/code&gt; and introduce the changes to real infrastructure objects. Also, this is when you push committed changes to the remote repository.&lt;/p&gt;
+
+&lt;h1 id=&quot;core-team-workflow&quot;&gt;Core team workflow&lt;/h1&gt;
+&lt;p&gt;This workflow is good for when you work with configuration code in a team and want to use feature branches to manage the changes accurately.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-core-workflow-team.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;write-1&quot;&gt;Write&lt;/h3&gt;
+&lt;p&gt;Start by checking out a new branch, make your changes, and run the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform validate&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform fmt&lt;/code&gt; commands to make sure your code works well.&lt;/p&gt;
+
+&lt;p&gt;Running &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform plan&lt;/code&gt; at this step will help ensure that you’ll get what you expect.&lt;/p&gt;
+
+&lt;h3 id=&quot;plan-1&quot;&gt;Plan&lt;/h3&gt;
+&lt;p&gt;This is where code and plan reviews happen.&lt;/p&gt;
+
+&lt;p&gt;Add the output of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform plan&lt;/code&gt; command to the Pull Request with your changes. It would be a good idea to add only the changed parts of the common output, which is the part that starts with “Terraform will perform the following actions” string.&lt;/p&gt;
+
+&lt;h3 id=&quot;apply-1&quot;&gt;Apply&lt;/h3&gt;
+&lt;p&gt;Once the PR is reviewed and merged to the upstream branch, it is safe to finally pull the upstream branch locally and apply the configuration with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform apply&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;team-workflow-with-automation&quot;&gt;Team workflow with automation&lt;/h1&gt;
+&lt;p&gt;In a nutshell, this workflow allows you to introduce a kind of smoke test for your infrastructure code (using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;plan&lt;/code&gt;) and also to automate the feedback in the CI process.&lt;/p&gt;
+
+&lt;p&gt;The automated part of this workflow consists of a speculative plan on commit and/or Pull Request (PR ), along with adding the output of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;plan&lt;/code&gt; to the comment of the PR. A speculative plan mean just to show the changes, and not apply them afterward.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflow-team-automation-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;write-2&quot;&gt;Write&lt;/h3&gt;
+&lt;p&gt;This step is the same as in the previous workflow.&lt;/p&gt;
+
+&lt;h3 id=&quot;plan-2&quot;&gt;Plan&lt;/h3&gt;
+&lt;p&gt;This is where your CI tool does its job.&lt;/p&gt;
+
+&lt;p&gt;Let’s review this step by step:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;You create a PR with the code changes you wish to implement.&lt;/li&gt;
+  &lt;li&gt;The CI pipeline is triggered by an event from your code repository (such as webhook push) and it runs a speculative plan against your code.&lt;/li&gt;
+  &lt;li&gt;The list of changes (a so-called “plan diff”) is added to PR for review by the CI.&lt;/li&gt;
+  &lt;li&gt;Once merged, the CI pipeline runs again and you get the final plan that’s ready to be applied to the infrastructure.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;apply-2&quot;&gt;Apply&lt;/h3&gt;
+
+&lt;p&gt;Now that you have a branch (i.e. main) with the fresh code to apply, you need to pull it locally and run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform apply&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can also add the automated apply here – step 5 in the picture below. This may be very useful for disposable environments such as testing, staging, development, and so on.&lt;/p&gt;
+
+&lt;p&gt;The exact CI tool to be used here is up to you: Jenkins, GitHub Actions, and Travis CI all work well.&lt;/p&gt;
+
+&lt;p&gt;An important thing to note is that the CI pipeline must be configured in a bi-directional way with your repository to get the code from it and report back with comments to PR.&lt;/p&gt;
+
+&lt;p&gt;As an option, you may consider using Terraform Cloud which has a lot of functionality, including the above mentioned repo integration, even with the free subscription.&lt;/p&gt;
+
+&lt;p&gt;If you have never worked with Terraform Cloud before and want to advice to get started, I’ll provide the links at the end of this article.&lt;/p&gt;
+
+&lt;h1 id=&quot;import-workflow&quot;&gt;Import workflow&lt;/h1&gt;
+&lt;p&gt;This workflow refers to a situation when you have some objects already created (i.e., up and running), and you need to manage them with Terraform.&lt;/p&gt;
+
+&lt;p&gt;Suppose we already have an S3 bucket in AWS called “someassetsbucket” and we want to include it into our configuration code.‌‌&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflow-import.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;prepare&quot;&gt;Prepare&lt;/h3&gt;
+&lt;p&gt;You should create a resource block to be used later for the real object you’re going to import.&lt;/p&gt;
+
+&lt;p&gt;You don’t need to fill the arguments in it at the start, so it may be just a blank resource block, for example:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;resource &quot;aws_s3_bucket&quot; &quot;someassetsbucket&quot; {
+‌‌
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;import&quot;&gt;Import&lt;/h3&gt;
+&lt;p&gt;Now you need to import the information about the real object into your existing Terraform state file.&lt;/p&gt;
+
+&lt;p&gt;This can be done with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform import&lt;/code&gt; command, for example:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terraform import aws_s3_bucket.assets &quot;someassetsbucket&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;‌Be sure to also check the list of possible options import accepts with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform import -h&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;write-3&quot;&gt;Write&lt;/h3&gt;
+&lt;p&gt;Now you need to write the corresponding Terraform code for this bucket.&lt;/p&gt;
+
+&lt;p&gt;To avoid modifying your real object on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform apply&lt;/code&gt; action, you should specify all needed arguments with the exact values from the import phase.&lt;/p&gt;
+
+&lt;p&gt;You can see the details by running the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform state show&lt;/code&gt; command, for example:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terraform state show aws_s3_bucket.assets
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The output of this command will be very similar to the configuration code. But it contains both arguments and attributes of the resource, so you need to clean it up before applying it.&lt;/p&gt;
+
+&lt;p&gt;You can use one of the following tactics:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;either copy/paste it, and then run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform validate&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform plan&lt;/code&gt; several times to make sure there are no errors like “argument is not expected here” or “this field cannot be set”&lt;/li&gt;
+  &lt;li&gt;or you can pick and write only the necessary arguments&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In any case, be sure to refer to the documentation of the resource during this process.&lt;/p&gt;
+
+&lt;h3 id=&quot;plan-3&quot;&gt;Plan&lt;/h3&gt;
+&lt;p&gt;The goal is to have a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform plan&lt;/code&gt; output showing “~ update in-place” changes only.&lt;/p&gt;
+
+&lt;p&gt;However, it is not always clear whether the real object will be modified or only the state file will be updated. This is why you should understand how a real object works and know its life cycle to make sure it is safe to apply the plan.&lt;/p&gt;
+
+&lt;h3 id=&quot;apply-3&quot;&gt;Apply&lt;/h3&gt;
+&lt;p&gt;This is usual the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform apply&lt;/code&gt; action.&lt;/p&gt;
+
+&lt;p&gt;Once applied, your configuration and state file will correspond to the real object configuration.&lt;/p&gt;
+
+&lt;h1 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h1&gt;
+&lt;p&gt;Here is an overview of Terraform Cloud for those who never worked with it before: &lt;a href=&quot;https://www.terraform.io/docs/cloud/overview.html&quot;&gt;‌‌Overview of Terraform Cloud Features&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;And here is a nice tutorial to start with: &lt;a href=&quot;https://learn.hashicorp.com/collections/terraform/cloud-get-started&quot;&gt;Get Started - Terraform Cloud&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Also, here is an overview of workflows at scale from the HashiCorp CTO which might be useful for more experienced Terraform users: &lt;a href=&quot;https://www.hashicorp.com/resources/terraform-workflow-best-practices-at-scale&quot;&gt;Terraform Workflow Best Practices at Scale&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Thank you for reading. I hope you will try one of these workflows, or develop your own!‌‌&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h6 id=&quot;this-article-was-originaly-published-on-freecodecamp-paltform-by-me-but-i-still-want-to-keep-it-here-for-the-record-canonical-link-to-original-publication-was-properly-set-in-the-page-headers&quot;&gt;This article was originaly published on FreeCodeCamp paltform by me, but I still want to keep it here for the record. Canonical link to original publication was properly set in the page headers.&lt;/h6&gt;
+</description>
+        <pubDate>Wed, 16 Sep 2020 00:00:00 +0000</pubDate>
+      </item>
     
       <item>
         <title>Terraform Certification Tips</title>

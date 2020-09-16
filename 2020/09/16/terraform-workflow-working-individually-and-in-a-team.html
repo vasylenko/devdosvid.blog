@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>Terraform Workflow — Working Individually and in a Team | Hello, world! It is nice to meet you!</title>
+	<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Terraform Workflow — Working Individually and in a Team | serhii.vasylenko.info</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Terraform Workflow — Working Individually and in a Team" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An overview of best practices for working with Terraform individually or in a team" />
+<meta property="og:description" content="An overview of best practices for working with Terraform individually or in a team" />
+<link rel="canonical" href="https://www.freecodecamp.org/news/terraform-workflow-working-individually-and-in-a-team/#team-workflow-with-automation" />
+<meta property="og:url" content="https://www.freecodecamp.org/news/terraform-workflow-working-individually-and-in-a-team/#team-workflow-with-automation" />
+<meta property="og:site_name" content="serhii.vasylenko.info" />
+<meta property="og:image" content="https://serhii.vasylenko.info/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflows.jpeg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-16T00:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://serhii.vasylenko.info/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflows.jpeg" />
+<meta property="twitter:title" content="Terraform Workflow — Working Individually and in a Team" />
+<meta name="twitter:site" content="@vasylenko" />
+<script type="application/ld+json">
+{"description":"An overview of best practices for working with Terraform individually or in a team","image":"https://serhii.vasylenko.info/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflows.jpeg","headline":"Terraform Workflow — Working Individually and in a Team","dateModified":"2020-09-16T00:00:00+00:00","datePublished":"2020-09-16T00:00:00+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.freecodecamp.org/news/terraform-workflow-working-individually-and-in-a-team/#team-workflow-with-automation"},"url":"https://www.freecodecamp.org/news/terraform-workflow-working-individually-and-in-a-team/#team-workflow-with-automation","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+	<meta name="description"
+		content="Workflow, or a pattern of the work, gives you a standardized way to do something.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Hello, world! It is nice to meet you!"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'G-GK7SE0XWGK', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+</head>
+  <body>
+    <header class="site-header">
+	<div class="branding">
+		
+		<h1 class="site-title">
+			<a href="/">Hello, world! It is nice to meet you!</a>
+		</h1>
+	</div>
+	<nav class="site-nav">
+		<ul>
+			
+			
+			
+			
+			
+			<li>
+				<a class="page-link" href="/about/">
+					About me
+				</a>
+			</li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<!-- Social icons from Font Awesome, if enabled  -->
+			
+<li>
+	<a href="/feed.xml" title="Follow RSS feed">
+		<i class="fas fa-fw fa-rss"></i>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:email-from-blog@vasylenko.info" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.linkedin.com/in/svasylenko/" title="Follow on LinkedIn">
+		<i class="fab fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Search bar -->
+            
+		</ul>
+	</nav>
+
+</header>
+
+    <div class="content">
+      <article >
+  <!-- <header style="background-image: url('/')"> -->
+  <header>
+    <h1 class="title">Terraform Workflow — Working Individually and in a Team</h1>
+    <h2 class="subtitle">Organize your configuration work with these workflows</h2>
+    <p class="meta">
+      September 16, 2020
+      
+    </p>
+    <img src="/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflows.jpeg">
+  </header>
+  <section class="post-content"><p>Workflow, or a pattern of the work, gives you a standardized way to do something.</p>
+
+<p>It is extremely helpful in a team, and can benefit you even if you work individually. A good workflow enables you to streamline a process, organize it, and make it less error-prone.</p>
+
+<p>This article summaries several approaches when working with Terraform, both individually and in a team. I tried to gather the most common ones, but you might also want to develop your own.</p>
+
+<p>The common requirement for all of them is a version control system (such as Git). This is how you ensure nothing is lost and all your code changes are properly versioned tracked.</p>
+
+<p>Table of contents:</p>
+
+<ul>
+  <li><a href="#basic-concepts">Basic Concepts</a></li>
+  <li><a href="#core-individual-workflow">Core individual workflow</a></li>
+  <li><a href="#core-team-workflow">Core team workflow</a></li>
+  <li><a href="#team-workflow-with-automation">Team workflow with automation</a></li>
+  <li><a href="#import-workflow">Import workflow</a></li>
+</ul>
+
+<h1 id="basic-concepts">Basic Concepts</h1>
+<p>Let’s define the basic actions first.</p>
+
+<p>All described workflows are built on top of three key steps: Write, Plan, and Apply. Nevertheless, their details and actions vary between workflows.</p>
+
+<p><img src="/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflow.png" alt="" /></p>
+
+<p><strong>Write</strong> – this is where you make changes to the code.</p>
+
+<p><strong>Plan</strong> – this is where you review changes and decide whether to accept them.</p>
+
+<p><strong>Apply</strong> – this is where you accept changes and apply them against real infrastructure.</p>
+
+<p>It’s a simple idea with a variety of possible implementations.</p>
+
+<h1 id="core-individual-workflow">Core individual workflow</h1>
+<p>This is the most simple workflow if you work alone on a relatively small TF project. This workflow suits both local and remote backends well.</p>
+
+<p><img src="/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflow-individual.png" alt="" /></p>
+
+<h3 id="write">Write</h3>
+<p>You clone the remote code repo or pull the latest changes, edit the configuration code, then run the <code class="language-plaintext highlighter-rouge">terraform validate</code> and <code class="language-plaintext highlighter-rouge">terraform fmt</code> commands to make sure your code works well.</p>
+
+<h3 id="plan">Plan</h3>
+<p>This is where you run the <code class="language-plaintext highlighter-rouge">terraform plan</code> command to make sure that your changes do what you need. This is a good time to commit your code changes changes (or you can do it in the next step).</p>
+
+<h3 id="apply">Apply</h3>
+<p>This is when you run <code class="language-plaintext highlighter-rouge">terraform apply</code> and introduce the changes to real infrastructure objects. Also, this is when you push committed changes to the remote repository.</p>
+
+<h1 id="core-team-workflow">Core team workflow</h1>
+<p>This workflow is good for when you work with configuration code in a team and want to use feature branches to manage the changes accurately.</p>
+
+<p><img src="/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-core-workflow-team.png" alt="" /></p>
+
+<h3 id="write-1">Write</h3>
+<p>Start by checking out a new branch, make your changes, and run the <code class="language-plaintext highlighter-rouge">terraform validate</code> and <code class="language-plaintext highlighter-rouge">terraform fmt</code> commands to make sure your code works well.</p>
+
+<p>Running <code class="language-plaintext highlighter-rouge">terraform plan</code> at this step will help ensure that you’ll get what you expect.</p>
+
+<h3 id="plan-1">Plan</h3>
+<p>This is where code and plan reviews happen.</p>
+
+<p>Add the output of the <code class="language-plaintext highlighter-rouge">terraform plan</code> command to the Pull Request with your changes. It would be a good idea to add only the changed parts of the common output, which is the part that starts with “Terraform will perform the following actions” string.</p>
+
+<h3 id="apply-1">Apply</h3>
+<p>Once the PR is reviewed and merged to the upstream branch, it is safe to finally pull the upstream branch locally and apply the configuration with <code class="language-plaintext highlighter-rouge">terraform apply</code>.</p>
+
+<h1 id="team-workflow-with-automation">Team workflow with automation</h1>
+<p>In a nutshell, this workflow allows you to introduce a kind of smoke test for your infrastructure code (using <code class="language-plaintext highlighter-rouge">plan</code>) and also to automate the feedback in the CI process.</p>
+
+<p>The automated part of this workflow consists of a speculative plan on commit and/or Pull Request (PR ), along with adding the output of <code class="language-plaintext highlighter-rouge">plan</code> to the comment of the PR. A speculative plan mean just to show the changes, and not apply them afterward.</p>
+
+<p><img src="/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflow-team-automation-1.png" alt="" /></p>
+
+<h3 id="write-2">Write</h3>
+<p>This step is the same as in the previous workflow.</p>
+
+<h3 id="plan-2">Plan</h3>
+<p>This is where your CI tool does its job.</p>
+
+<p>Let’s review this step by step:</p>
+
+<ol>
+  <li>You create a PR with the code changes you wish to implement.</li>
+  <li>The CI pipeline is triggered by an event from your code repository (such as webhook push) and it runs a speculative plan against your code.</li>
+  <li>The list of changes (a so-called “plan diff”) is added to PR for review by the CI.</li>
+  <li>Once merged, the CI pipeline runs again and you get the final plan that’s ready to be applied to the infrastructure.</li>
+</ol>
+
+<h3 id="apply-2">Apply</h3>
+
+<p>Now that you have a branch (i.e. main) with the fresh code to apply, you need to pull it locally and run <code class="language-plaintext highlighter-rouge">terraform apply</code>.</p>
+
+<p>You can also add the automated apply here – step 5 in the picture below. This may be very useful for disposable environments such as testing, staging, development, and so on.</p>
+
+<p>The exact CI tool to be used here is up to you: Jenkins, GitHub Actions, and Travis CI all work well.</p>
+
+<p>An important thing to note is that the CI pipeline must be configured in a bi-directional way with your repository to get the code from it and report back with comments to PR.</p>
+
+<p>As an option, you may consider using Terraform Cloud which has a lot of functionality, including the above mentioned repo integration, even with the free subscription.</p>
+
+<p>If you have never worked with Terraform Cloud before and want to advice to get started, I’ll provide the links at the end of this article.</p>
+
+<h1 id="import-workflow">Import workflow</h1>
+<p>This workflow refers to a situation when you have some objects already created (i.e., up and running), and you need to manage them with Terraform.</p>
+
+<p>Suppose we already have an S3 bucket in AWS called “someassetsbucket” and we want to include it into our configuration code.‌‌</p>
+
+<p><img src="/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflow-import.png" alt="" /></p>
+
+<h3 id="prepare">Prepare</h3>
+<p>You should create a resource block to be used later for the real object you’re going to import.</p>
+
+<p>You don’t need to fill the arguments in it at the start, so it may be just a blank resource block, for example:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resource "aws_s3_bucket" "someassetsbucket" {
+‌‌
+}
+</code></pre></div></div>
+<h3 id="import">Import</h3>
+<p>Now you need to import the information about the real object into your existing Terraform state file.</p>
+
+<p>This can be done with the <code class="language-plaintext highlighter-rouge">terraform import</code> command, for example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>terraform import aws_s3_bucket.assets "someassetsbucket"
+</code></pre></div></div>
+
+<p>‌Be sure to also check the list of possible options import accepts with <code class="language-plaintext highlighter-rouge">terraform import -h</code></p>
+
+<h3 id="write-3">Write</h3>
+<p>Now you need to write the corresponding Terraform code for this bucket.</p>
+
+<p>To avoid modifying your real object on the <code class="language-plaintext highlighter-rouge">terraform apply</code> action, you should specify all needed arguments with the exact values from the import phase.</p>
+
+<p>You can see the details by running the <code class="language-plaintext highlighter-rouge">terraform state show</code> command, for example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>terraform state show aws_s3_bucket.assets
+</code></pre></div></div>
+
+<p>The output of this command will be very similar to the configuration code. But it contains both arguments and attributes of the resource, so you need to clean it up before applying it.</p>
+
+<p>You can use one of the following tactics:</p>
+
+<ul>
+  <li>either copy/paste it, and then run <code class="language-plaintext highlighter-rouge">terraform validate</code> and <code class="language-plaintext highlighter-rouge">terraform plan</code> several times to make sure there are no errors like “argument is not expected here” or “this field cannot be set”</li>
+  <li>or you can pick and write only the necessary arguments</li>
+</ul>
+
+<p>In any case, be sure to refer to the documentation of the resource during this process.</p>
+
+<h3 id="plan-3">Plan</h3>
+<p>The goal is to have a <code class="language-plaintext highlighter-rouge">terraform plan</code> output showing “~ update in-place” changes only.</p>
+
+<p>However, it is not always clear whether the real object will be modified or only the state file will be updated. This is why you should understand how a real object works and know its life cycle to make sure it is safe to apply the plan.</p>
+
+<h3 id="apply-3">Apply</h3>
+<p>This is usual the <code class="language-plaintext highlighter-rouge">terraform apply</code> action.</p>
+
+<p>Once applied, your configuration and state file will correspond to the real object configuration.</p>
+
+<h1 id="wrapping-up">Wrapping up</h1>
+<p>Here is an overview of Terraform Cloud for those who never worked with it before: <a href="https://www.terraform.io/docs/cloud/overview.html">‌‌Overview of Terraform Cloud Features</a></p>
+
+<p>And here is a nice tutorial to start with: <a href="https://learn.hashicorp.com/collections/terraform/cloud-get-started">Get Started - Terraform Cloud</a></p>
+
+<p>Also, here is an overview of workflows at scale from the HashiCorp CTO which might be useful for more experienced Terraform users: <a href="https://www.hashicorp.com/resources/terraform-workflow-best-practices-at-scale">Terraform Workflow Best Practices at Scale</a></p>
+
+<p>Thank you for reading. I hope you will try one of these workflows, or develop your own!‌‌</p>
+
+<hr />
+<h6 id="this-article-was-originaly-published-on-freecodecamp-paltform-by-me-but-i-still-want-to-keep-it-here-for-the-record-canonical-link-to-original-publication-was-properly-set-in-the-page-headers">This article was originaly published on FreeCodeCamp paltform by me, but I still want to keep it here for the record. Canonical link to original publication was properly set in the page headers.</h6>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#terraform">#terraform</a>
+    
+    <a class="tag" href="/tags#explained">#explained</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/2020/09/15/terraform-certification-tips.html">
+        Terraform Certification Tips
+      </a>
+  </div>
+  
+  
+</div>
+
+
+
+    </div>
+    
+
+
+
+  </body>
+</html>
