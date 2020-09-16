@@ -6,16 +6,17 @@ header-includes: <script async src="https://www.googletagmanager.com/gtag/js?id=
 
 About
 --------------------
-I am an engineer and a team-lead. I am passionate about technologies and team management, have a broad engineering background, and love developing great people, great teams, and great products.\
+I am a team leader and an engineer. I am passionate about technologies and team management, have a broad engineering background, and love developing great people, great teams, and great products.\
+
 Certified: AWS Solutions Architect Associate, Terraform Associate.
 
 
 Professional Experience
 --------------------
 July 2020 – present
-:   ### [Instructor](https://kharkiv.ithillel.ua/coaches/sergey-vasilenko) in Hillel IT School (part-time)
+:   ### Instructor in "Hillel" IT School (part-time)
 
-    I am doing my best in teaching engineers how to master the DevOps approach, methodology, and tools.
+    I am doing my best in teaching engineers how to master the DevOps methodology, approach, and tools.
     
 Mar 2017 – June 2020
 :   ### Team leader – "ITCraft"
@@ -62,8 +63,7 @@ Leader
 :   Team motivation, mentoring, cultivating of soft/hard skills of team members.
 
 Team
-:   Fostering team values and working principles and developing the new ones together with the team.
-:   Hiring new team members and forming the required team skillset.
+:   Fostering team values and working principles and developing the new ones together with the team. Hiring new team members and forming the required team skillset.
 
 PM
 :   Managing of stand-alone DevOps projects and operations parts of big projects with dev teams.
@@ -73,8 +73,8 @@ Clouds
 :   Amazon Web Services. Design and fine-tuning of resilient and HA infrastructures; costs optimization and security hardening. 4 years of hands-on experience. 
 
 Techs
-:   Jenkins, GitlabCI, GithubActions, Bitrise, CircleCI.
-:   Terraform, Docker, Ansible, Nginx, Apache, MySQL, MongoDB.
+:   Jenkins, GitlabCI, GithubActions, Bitrise, CircleCI.\
+    Terraform, Docker, Ansible, Nginx, Apache, MySQL, MongoDB.
 
 Languages
 :   English – C1 (CEFR)
