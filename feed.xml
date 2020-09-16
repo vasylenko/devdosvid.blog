@@ -5,13 +5,13 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>https://serhii.vasylenko.info/</link>
     <description>Serhii Vasylenko - personal blog</description>
-    <pubDate>Wed, 16 Sep 2020 16:32:43 +0000</pubDate>
+    <pubDate>Wed, 16 Sep 2020 17:18:40 +0000</pubDate>
     
       <item>
         <title>Terraform Workflow — Working Individually and in a Team</title>
         <link>/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html</link>
         <guid isPermaLink="true">/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html</guid>
-        <description>&lt;p&gt;Workflow, or a pattern of the work, gives you a standardized way to do something.&lt;/p&gt;
+        <description>&lt;p&gt;The work with Terraform code may become tangled sometimes. Here are some guides on how to streamline it and make it transparent for you and your team.&lt;/p&gt;
 
 &lt;p&gt;It is extremely helpful in a team, and can benefit you even if you work individually. A good workflow enables you to streamline a process, organize it, and make it less error-prone.&lt;/p&gt;
 
