@@ -41,7 +41,7 @@ Nov 2014 – Sep 2016
 :   ### CTO of tech support department — "YourServerAdmin"
 
     I was responsible for the technical processes inside the department and for the research of the new technologies we could implement for our clients. Introduced ITIL practices together with our COO and, what I like the most, could change the way of how our sysadmin's department worked with the development department. The work became more coordinated and more integrated.\
-    Also, I managed the projects using practices from PRINCE2 methodology and the Theory of Constraints.Also I managed the projects using practices from PRINCE2 methodology and Theory of Constraints.
+    Also, I managed the projects using practices from PRINCE2 methodology and the Theory of Constraints.
 
     #### Key accomplishments:
     
