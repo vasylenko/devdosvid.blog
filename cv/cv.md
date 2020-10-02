@@ -6,30 +6,34 @@ header-includes: <script async src="https://www.googletagmanager.com/gtag/js?id=
 
 About Me
 --------------------
-I am a team leader and an engineer. I am passionate about technologies and team management, have a broad engineering background, and love developing great people, great teams, and great products.
+I am a team leader and an engineer. I am passionate about team management and technologies, have a broad engineering background, and love developing great people, great teams, and great products.
 
 Certified: AWS Solutions Architect Associate, Terraform Associate.
 
 
 Professional Experience
 --------------------
-July 2020 – present
+July - Oct 2020
 :   ### Instructor in "Hillel" IT School (part-time)
 
-    I am doing my best in teaching engineers how to master the DevOps methodology, approach, and tools.
+    I had a class of diverse people with different backgrounds and skillsets: sysadmins from IT, students from the university, and even from retail. There was one common thing — they all wanted to know what DevOps is and how does it work.\
+    I taught them how to work inside and with the development team, how to use tools such as Terraform, Ansible, Jenkins, and Docker, and how to think DevOps.
+
+    It was a win-win for myself and students: I could get a unique experience and fulfill my long-cherished dream of being a teacher, and my students could gain new jobs or promotions.
     
 Mar 2017 – June 2020
 :   ### Team leader — "ITCraft"
 
-    My favorite project — my team. A skilled and highly-motivated team of engineers that sincerely cares about its work outcomes.
+    My biggest project so far — my team. A skilled and highly-motivated team of engineers that sincerely cares about its work outcomes.
 
     #### Key accomplishments:
 
     - Created a team of engineers that completed more than 40 successful projects of different sizes;
-    - Team size growth — from 1 to 8;
+    - Team size growth: from 1 to 8;
     - Tripled the number of shared projects with other departments by boosting of department reputation and team visibility within the company;
     - Introduced DevOps as a Service business model in the department;
-    - Mentored senior and middle engineers from junior newcomers.
+    - Mentored senior and middle engineers from junior newcomers;
+    - Fostered the culture of ownership.
 
     #### Challenges:
 
