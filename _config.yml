@@ -54,7 +54,8 @@ theme_settings:
   youtube:
 
   # Scripts
-  google_analytics: G-GK7SE0XWGK # Tracking ID, e.g. "G-GK7SE0XWGK"
+  #google_analytics: G-GK7SE0XWGK # Tracking ID, e.g. "G-GK7SE0XWGK"
+  google_analytics: 
   disqus_shortname:
   katex: false # Enable if using math markup
   search: false # Enable the search feature

@@ -1,6 +1,5 @@
 ---
 title: Serhii Vasylenko
-header-includes: <script async src="https://www.googletagmanager.com/gtag/js?id=G-GK7SE0XWGK"></script><script>window.dataLayer=window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag('js', new Date()); gtag('config', 'G-GK7SE0XWGK');</script>
 ---
 ##### <contacts@vasylenko.info> | +380 66 268 86 11 | [linkedin.com/in/svasylenko](https://linkedin.com/in/svasylenko)
 
