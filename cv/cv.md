@@ -13,12 +13,10 @@ Certified: AWS Solutions Architect Associate, Terraform Associate.
 Professional Experience
 --------------------
 July - Oct 2020
-:   ### Instructor in "Hillel" IT School (part-time)
+:   ### DevOps coach at "Hillel" IT School (part-time)
 
-    I had a class of diverse people with different backgrounds and skillsets: sysadmins from IT, students from the university, and even from retail. There was one common thing — they all wanted to know what DevOps is and how does it work.\
-    I taught them how to work inside and with the development team, how to use tools such as Terraform, Ansible, Jenkins, and Docker, and how to think DevOps.
-
-    It was a win-win for myself and students: I could get a unique experience and fulfill my long-cherished dream of being a teacher, and my students could gain new jobs or promotions.
+    I had a class of diverse people with different backgrounds and skillsets: sysadmins from IT, students from the university, and even from retail. There was one common thing — they all wanted to know what DevOps is and how it works.\
+    I taught them how to work inside and with the development team and use tools such as Terraform, Ansible, Jenkins, and Docker, and how to think DevOps.
     
 Mar 2017 – June 2020
 :   ### Team leader — "ITCraft"
@@ -38,14 +36,14 @@ Mar 2017 – June 2020
 
     - Transform team members' mindset towards ownership culture;
     - Keep the team motivated despite workload level: during peaks and drawdowns;
-    - Justification of the team’s advantages to the clients on the pre-sales stage.
+    - Justification of the advantages of my team to the clients on the pre-sales stage.
 
 Nov 2014 – Sep 2016
-:   ### CTO of tech support department — "YourServerAdmin"
+:   ### Chief technologist of tech support department — "YourServerAdmin"
 
-    I was responsible for the technical processes inside the department and for the research of the new technologies we could implement for our clients. Introduced ITIL practices together with our COO and, what I like the most, could change the way of how our sysadmin's department worked with the development department. The work became more coordinated and more integrated.\
+    I was responsible for the technical-side of processes inside the department and researching the new technologies we could implement for our clients. Introduced ITIL practices together with our COO and, what I like the most, could change how our sysadmin's department worked with the development department. The work became more coordinated and more integrated.\
     Also, I managed the projects using practices from PRINCE2 methodology and the Theory of Constraints.
-
+    
     #### Key accomplishments:
     
     - Improved technical expertise of a support team;
