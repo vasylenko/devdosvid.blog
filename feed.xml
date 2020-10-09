@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hello, world! It is nice to meet you!</title>
+    <title>Quite a novel title for a blog: my notes</title>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>https://serhii.vasylenko.info/</link>
     <description>Serhii Vasylenko - personal blog</description>
-    <pubDate>Sat, 03 Oct 2020 18:47:07 +0000</pubDate>
+    <pubDate>Fri, 09 Oct 2020 22:26:04 +0000</pubDate>
     
       <item>
-        <title>Terraform Workflow — Working Individually and in a Team</title>
+        <title>🦉 Terraform Workflow — Working Individually and in a Team</title>
         <link>/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html</link>
         <guid isPermaLink="true">/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html</guid>
         <description>&lt;p&gt;The work with Terraform code may become tangled sometimes. Here are some guides on how to streamline it and make it transparent for you and your team.&lt;/p&gt;
@@ -184,7 +184,7 @@
       </item>
     
       <item>
-        <title>Terraform Certification Tips</title>
+        <title>🐣 Terraform Certification Tips</title>
         <link>/2020/09/15/terraform-certification-tips.html</link>
         <guid isPermaLink="true">/2020/09/15/terraform-certification-tips.html</guid>
         <description>&lt;p&gt;I successfully passed the “HashiCorp Certified — Terraform Associate” exam last Friday and decided to share some advice for exam preparation.&lt;/p&gt;
@@ -260,7 +260,7 @@ For example, you can make a plan from the resources I outlined below in this art
       </item>
     
       <item>
-        <title>What are terraform Modules and how do they work?</title>
+        <title>🦉 What are terraform Modules and how do they work?</title>
         <link>/2020/09/09/terraform-modules-explained.html</link>
         <guid isPermaLink="true">/2020/09/09/terraform-modules-explained.html</guid>
         <description>&lt;p&gt;Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds of lines of configuration code.&lt;/p&gt;
@@ -432,7 +432,7 @@ module &quot;network&quot; {
       </item>
     
       <item>
-        <title>Terraform CLI shortcuts</title>
+        <title>🐣 Terraform CLI shortcuts</title>
         <link>/2020/08/25/terraform-cli-shortcuts.html</link>
         <guid isPermaLink="true">/2020/08/25/terraform-cli-shortcuts.html</guid>
         <description>&lt;p&gt;Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
@@ -510,7 +510,7 @@ module_alb/alb.tf
       </item>
     
       <item>
-        <title>Managing Ansible playbook secrets with AWS services</title>
+        <title>🐣 Managing Ansible playbook secrets with AWS services</title>
         <link>/2020/08/06/ansible-secrets-aws-ssm-sm.html</link>
         <guid isPermaLink="true">/2020/08/06/ansible-secrets-aws-ssm-sm.html</guid>
         <description>&lt;p&gt;Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks. 
@@ -587,7 +587,7 @@ The IAM role must allow at least the read access to SSM Parameter Store (+ KMS r
       </item>
     
       <item>
-        <title>Terraform explained for managers</title>
+        <title>🦉 Terraform explained for managers</title>
         <link>/2020/05/02/Terraform-explained-for-managers.html</link>
         <guid isPermaLink="true">/2020/05/02/Terraform-explained-for-managers.html</guid>
         <description>&lt;p&gt;As a team leader, I have to speak with my teammates on the same language — technical language…&lt;/p&gt;
@@ -726,7 +726,7 @@ The IAM role must allow at least the read access to SSM Parameter Store (+ KMS r
       </item>
     
       <item>
-        <title>DevOps team in outsource. A team?</title>
+        <title>🦉 DevOps team in outsource. A team?</title>
         <link>/2020/03/20/devops-team-in-outsource-a-team.html</link>
         <guid isPermaLink="true">/2020/03/20/devops-team-in-outsource-a-team.html</guid>
         <description>&lt;p&gt;I am a team lead in an outsourcing company. That means I believe &lt;em&gt;(or convince myself)&lt;/em&gt; that I lead the team &lt;em&gt;(wait, wait, there will be even more obvious discoveries)&lt;/em&gt;.&lt;/p&gt;
@@ -820,7 +820,7 @@ But my experience tells me that it is possible to answer them one by one. And I 
       </item>
     
       <item>
-        <title>Github Actions - First impression</title>
+        <title>🐣 Github Actions - First impression</title>
         <link>/2020/03/17/github-actions-first-impression.html</link>
         <guid isPermaLink="true">/2020/03/17/github-actions-first-impression.html</guid>
         <description>&lt;p&gt;Although Github Actions service is generally available since November 13, 2020, and there are about 243,000,000 results for “github actions” in Google search already, I have just reached it…&lt;/p&gt;
@@ -914,7 +914,7 @@ But my experience tells me that it is possible to answer them one by one. And I 
       </item>
     
       <item>
-        <title>AWS SAA exam results</title>
+        <title>🐣 AWS SAA exam results</title>
         <link>/2020/03/15/aws-solutions-architect-associate-exam-tips.html</link>
         <guid isPermaLink="true">/2020/03/15/aws-solutions-architect-associate-exam-tips.html</guid>
         <description>&lt;h3 id=&quot;926-out-of-1000&quot;&gt;926 out of 1000&lt;/h3&gt;
