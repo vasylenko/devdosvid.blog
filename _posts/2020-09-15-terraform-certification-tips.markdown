@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Terraform Certification Tips
+title: 🐣 Terraform Certification Tips
 subtitle: Summary of a learning path to HashiCorp Certified — Terraform Associate
 date: 2020-09-15
 image: /assets/posts/2020-09-15-terraform-certification-tips/terraform-associate.png

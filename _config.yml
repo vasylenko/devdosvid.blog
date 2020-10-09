@@ -18,7 +18,7 @@ description: "Serhii Vasylenko - personal blog"
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
   # Meta
-  title: Hello, world! It is nice to meet you!
+  title: "Quite a novel title for a blog: my notes"
   avatar: 
   # favicon: assets/favicon.ico
   gravatar: # Email MD5 hash

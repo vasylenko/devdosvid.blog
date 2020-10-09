@@ -1,6 +1,6 @@
 ---
 layout: post
-title: What are terraform Modules and how do they work?
+title: 🦉 What are terraform Modules and how do they work?
 subtitle: Explanation of Terraform modules and their main concepts. In English.
 summary: Explanation of Terraform modules and their main concepts. In English.
 date: 2020-09-09

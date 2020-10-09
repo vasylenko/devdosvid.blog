@@ -1,6 +1,6 @@
 ---
 layout: post
-title: AWS SAA exam results
+title: 🐣 AWS SAA exam results
 date: 2020-03-15 20:16:20 +0200
 description: Sharing my AWS SAA exam results
 img: posts/2020-03-15-aws-solutions-architect-associate-exam-tips_AWS-Certified_Solutions-Architect_Associate.png

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Terraform Workflow — Working Individually and in a Team
+title: 🦉 Terraform Workflow — Working Individually and in a Team
 subtitle: Organize your configuration work with these workflows
 description: An overview of best practices for working with Terraform individually or in a team
 date: 2020-09-16
