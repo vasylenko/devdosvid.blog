@@ -14,11 +14,11 @@ In order to use any of described aliases of functions, you need to place it in y
 
 Then just source this file, for example: `source ~/.zshrc`
 
-### Function: list outputs and variables of given module
+## Function: list outputs and variables of given module
 You need to provide the path to module directory, and this function will list all declared variables and outputs module has. It comes very useful when you don't remember them all and just need to take a quick look.
 
 {% highlight bash %}
-# TerraForm MOdule Explained
+## TerraForm MOdule Explained
 function tfmoe {
   echo -e "\nOutputs:"
   grep -r "output \".*\"" $1 |awk '{print "\t",$2}' |tr -d '"'
@@ -42,7 +42,7 @@ Variables:
 	 tags
 ```
 
-### Function: pre-fill module directory with configuration files
+## Function: pre-fill module directory with configuration files
 You need to provide a path to the module directory and this function will create a bunch of empty 'default' .tf files in it.
 ```shell
 #TerraForm MOdule Initialize
@@ -63,7 +63,7 @@ main.tf      outputs.tf   variables.tf versions.tf
 ```
 
 
-### Aliases
+## Aliases
 The purpose of these aliases is just to keep you from typing long commands when you want to do a simple action.
 ```shell
 alias tf='terraform'

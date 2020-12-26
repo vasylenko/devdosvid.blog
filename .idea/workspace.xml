@@ -1,19 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9ee6c33-e8a0-47b7-a141-c8b06f5b7982" name="Default Changelist" comment="new theme applied">
+    <list default="true" id="c9ee6c33-e8a0-47b7-a141-c8b06f5b7982" name="Default Changelist" comment="theme colors and settings updated">
+      <change afterPath="$PROJECT_DIR$/assets/img/avatar.jpeg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_includes/panel.html" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/panel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_layouts/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/_layouts/post.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/2019-08-09-getting-started.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2019-08-09-getting-started.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_tabs/about.md" beforeDir="false" afterPath="$PROJECT_DIR$/_tabs/about.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/about.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/_addon/module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/_addon/module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/_colors/light-typography.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/_colors/light-typography.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/post.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/post.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/img/sample/avatar.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/2020-03-20-devops-team-in-outsource-a-team.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2020-03-20-devops-team-in-outsource-a-team.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/2020-05-02-Terraform-explained-for-managers.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2020-05-02-Terraform-explained-for-managers.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/2020-08-06-ansible-secrets-aws-ssm-sm.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2020-08-06-ansible-secrets-aws-ssm-sm.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/2020-08-25-terraform-cli-shortcuts.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2020-08-25-terraform-cli-shortcuts.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/android-icon-144x144.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/android-icon-144x144.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/android-icon-192x192.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/android-icon-192x192.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/android-icon-36x36.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/android-icon-36x36.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/android-icon-48x48.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/android-icon-48x48.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/android-icon-72x72.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/android-icon-72x72.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/android-icon-96x96.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/android-icon-96x96.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/apple-icon-114x114.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/apple-icon-114x114.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/apple-icon-120x120.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/apple-icon-120x120.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/apple-icon-144x144.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/apple-icon-144x144.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/apple-icon-152x152.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/apple-icon-152x152.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/apple-icon-180x180.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/apple-icon-180x180.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/apple-icon-57x57.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/apple-icon-57x57.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/apple-icon-60x60.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/apple-icon-60x60.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/apple-icon-72x72.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/apple-icon-72x72.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/apple-icon-76x76.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/apple-icon-76x76.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/apple-icon-precomposed.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/apple-icon-precomposed.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/apple-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/apple-icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/favicon-16x16.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/favicon-16x16.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/favicon-32x32.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/favicon-32x32.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/favicon-96x96.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/favicon-96x96.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/ms-icon-144x144.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/ms-icon-144x144.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/ms-icon-150x150.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/ms-icon-150x150.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/ms-icon-310x310.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/ms-icon-310x310.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicons/ms-icon-70x70.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicons/ms-icon-70x70.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,10 +63,13 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/img" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/img" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/_tabs" />
     </key>
@@ -66,7 +90,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609011411384</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="theme colors and settings updated">
+      <created>1609014521889</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1609014521889</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -98,6 +129,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="new theme applied" />
-    <option name="LAST_COMMIT_MESSAGE" value="new theme applied" />
+    <MESSAGE value="theme colors and settings updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="theme colors and settings updated" />
   </component>
 </project>

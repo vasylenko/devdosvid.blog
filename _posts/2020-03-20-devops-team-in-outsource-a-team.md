@@ -5,6 +5,9 @@ date: 2020-03-20
 category: [Blogging]
 ---
 
+This article was written a long time ago in a galaxy far, far away...
+---
+
 I am a team lead in an outsourcing company. That means I believe _(or convince myself)_ that I lead the team _(wait, wait, there will be even more obvious discoveries)_. 
 
 I am sure that **a team** can achieve more than a single person or a group. And the story I want to tell is about making the team from a group of people with personal and non-connected tasks. I assume this is going to be a series of posts, and hopefully, I will add a table of contents here.
