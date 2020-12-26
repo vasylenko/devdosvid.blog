@@ -14,7 +14,7 @@ tagline: Personal blog  # it will display as the sub-title
 description: Here I publish my notes about different things, mostly technical.
 
 # fill in the base hostname & protocol for your site, e.g., 'https://username.github.io'
-url: ''
+url: 'https://serhii.vasylenko.info'
 
 author: Serhii Vasylenko                  # change to your full name
 
