@@ -1,9 +1,10 @@
 ---
 layout: post
-title: 🦉 Terraform explained for managers
+title: Terraform explained for managers
 summary: For those who want to understand the engineering team better and speak on the same technical language - terraform explained.
 date: 2020-05-02
-tags: [terraform, devops, education, experience]
+tags: [terraform, devops]
+category: [Tutorial]
 ---
 As a team leader, I have to speak with my teammates on the same language — technical language...
 

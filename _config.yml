@@ -1,101 +1,197 @@
-# SITE CONFIGURATION
-baseurl: ""
-url: "https://serhii.vasylenko.info"
+# The Site Settings
+# v2.0
+# https://github.com/cotes2020/jekyll-theme-chirpy
+# © 2017-2019 Cotes Chung
+# MIT licensed
 
-#seo-tag plugin settings
-twitter: 
-  username: vasylenko
+
+# jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
+# --------------------------
+title: Serhii Vasylenko                          # the main title
+
+tagline: Personal blog  # it will display as the sub-title
+
+description: Here I publish my notes about different things, mostly technical.
+
+# fill in the base hostname & protocol for your site, e.g., 'https://username.github.io'
+url: ''
+
+author: Serhii Vasylenko                  # change to your full name
+
+avatar: /assets/img/sample/avatar.jpg   # support internet resources
+
+github:
+  username: vasylenko             # change to your github username
+
+twitter:
+  username: vasylenko            # change to your twitter username
   card: summary_large_image
+
 social:
-  name: Serhii Vasyleko
+  name: Serhii Vasylenko                  # it will shows as the copyright owner in Footer
+  email: mail-from-blog@vasylenko.info             # change to your email address
   links:
-    - https://twitter.com/vasylenko
-    - https://www.facebook.com/vasylenkos
-    - https://www.linkedin.com/in/svasylenko/
-    - https://github.com/vasylenko
-description: "Serhii Vasylenko - personal blog"
+    # The first element serves as the copyright owner's link
+    - https://twitter.com/vasylenko      # change to your twitter homepage
+    - https://github.com/vasylenko       # change to your github homepage
+    # Uncomment below to add more social links
+    # - https://www.facebook.com/username
+    # - https://www.linkedin.com/in/username
 
-# THEME-SPECIFIC CONFIGURATION
-theme_settings:
-  # Meta
-  title: "Quite a novel title for a blog: my notes"
-  avatar: 
-  # favicon: assets/favicon.ico
-  gravatar: # Email MD5 hash
-  description: "Serhii Vasylenko - personal blog" # used by search engines
+google_site_verification: google_meta_tag_verification # change to your verification string
+# --------------------------
 
-  # Header and footer text
-  header_text:
-  header_text_feature_image:
-  footer_text: 
 
-  # Icons
-  rss: true
-  email_address: email-from-blog@vasylenko.info
-  behance:
-  bitbucket:
-  dribbble:
-  facebook: 
-  flickr:
-  gitlab:
-  github: 
-  gitter:
-  google_plus:
-  instagram: 
-  linkedin:  https://www.linkedin.com/in/svasylenko/
-  pinterest:
-  reddit:
-  soundcloud:
-  stack_exchange:  # Full URL
-  steam:
-  tumblr:
-  twitter: 
-  wordpress:
-  youtube:
+# Only if your site type is GitHub Project sites and doesn't have a custom domain,
+# change below value to '/projectname'.
+baseurl: ''
 
-  # Scripts
-  #google_analytics: G-GK7SE0XWGK # Tracking ID, e.g. "G-GK7SE0XWGK"
-  google_analytics: 
-  disqus_shortname:
-  katex: false # Enable if using math markup
-  search: false # Enable the search feature
+# Change to your timezone › http://www.timezoneconverter.com/cgi-bin/findzone/findzone
+timezone: Europe/Kiev
 
-  # Localization strings
-  str_follow_on: "Follow on"
-  str_rss_follow: "Follow RSS feed"
-  str_email: "Email"
-  str_next_post: "Next post"
-  str_previous_post: "Previous post"
-  str_next_page: "Next page"
-  str_previous_page: "Previous page"
-  str_continue_reading: "Continue reading"
-  str_javascript_required_disqus: "Please enable JavaScript to view comments."
-  str_search_no_results: "No results found."
+google_analytics:
+  id: ''          # Fill with your Google Analytics ID
+  pv:
+    # The Google Analytics pageviews switch.
+    # DO NOT enable it unless you know how to deploy the Google Analytics superProxy.
+    enabled: false
+    # the next options only valid when `google_analytics.pv` is enabled.
+    proxy_url: ''
+    proxy_endpoint: ''
+    cache: false  # pv data local cache, good for the users from GFW area.
 
-  # Colours, typography and padding
-  # Open the "_sass > base" folder, and open "_variables.scss"
-  google_fonts: "Noto+Sans"
+disqus:
+  comments: false  # boolean type, the global switch for posts comments.
+  shortname: ''    # Fill with your Disqus shortname. › https://help.disqus.com/en/articles/1717111-what-s-a-shortname
 
-  # Post navigation
-  post_navigation: true
 
-# PAGINATION
-paginate: 5
-paginate_path: "blog/page:num"
+# Prefer color scheme setting.
+#
+# Note: Keep empty will follow the system prefer color by default,
+# and there will be a toggle to switch the theme between dark and light
+# on the bottom left of the sidebar.
+#
+# Available options:
+#
+#     light  - Use the light color scheme
+#
+#     dark   - Use the dark color scheme
+#
+theme_mode: # <light|dark>
 
-# BUILD SETTINGS
-markdown: kramdown
-highlighter: rouge
+# boolean type, the global switch for ToC in posts.
+toc: true
+
+paginate: 6
+
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:   # Rouge Options › https://github.com/jneen/rouge#full-options
+    css_class: highlight
+    # default_lang: console
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+# DO NOT change this unless you're a Pro user on Jekyll and Web development,
+# or you think you're smart enough to change other relevant URLs within this template.
+permalink: /:year/:month/:day/:title:output_ext
+
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
+
+defaults:
+  -
+    scope:
+      path: ''          # An empty string here means all files in the project
+      type: posts
+    values:
+      layout: post
+      comments: true    # Enable comments in posts.
+      toc: true         # Display TOC column in posts.
+      breadcrumb:
+        -
+          label: Posts
+          url: /
+  -
+    scope:
+      path: _drafts
+    values:
+      comments: false
+  -
+    scope:
+      path: index.html
+    values:
+      breadcrumb:
+        -
+          label: Posts
+  -
+    scope:
+      path: tags
+    values:
+      breadcrumb:
+        -
+          label: Home
+          url: /
+        -
+          label: Tags
+          url: /tabs/tags/
+  -
+    scope:
+      path: categories
+    values:
+      breadcrumb:
+        -
+          label: Home
+          url: /
+        -
+          label: Categories
+          url: /tabs/categories/
+  -
+    scope:
+      path: ''
+      type: tabs             # see `site.collections`
+    values:
+      layout: page
+      dynamic_title: true    # Hide title in mobile screens.
+      breadcrumb:
+        -
+          label: Home
+          url: /
+
 sass:
-  sass_dir: _sass
-  style: :compressed
-plugins: 
-  - jekyll-paginate
-  - jekyll-seo-tag
-  - jekyll-sitemap
+  sass_dir: /assets/css
+  style: compressed
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  profile: false
+  blanklines: false
+  ignore:
+    envs: []
+
 exclude:
-  - Gemfile
-  - Gemfile.lock
   - vendor
+  - Gemfile.lock
+  - Gemfile
+  - tools
+  - docs
+  - README.md
+  - LICENSE
   - cv
-  - operations
+
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/
