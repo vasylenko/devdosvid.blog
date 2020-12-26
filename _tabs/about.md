@@ -1,14 +1,12 @@
 ---
-title: About
+layout: page
+title: About me
 icon: fas fa-info
 order: 4
-
-# The About page
-# v2.0
-# https://github.com/cotes2020/jekyll-theme-chirpy
-# © 2017-2019 Cotes Chung
-# MIT License
 ---
 
+Hello, and thank you for visiting my blog! 
 
-> **Note**: Add Markdown syntax content to file `_tabs/about.md` and it will show up on this page.
+My name is Serhii; I thrive on developing great people, great teams, and great products.
+
+You can also find me here: [LinkedIn](https://www.linkedin.com/in/svasylenko/), [Twitter](https://twitter.com/vasylenko), [Instagram](https://www.instagram.com/svasylenko/), or [Facebook](https://www.facebook.com/vasylenkos)

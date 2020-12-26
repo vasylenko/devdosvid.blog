@@ -21,7 +21,7 @@
 }
 
 %link-hover {
-  color: #d2603a !important;
+  color: var(--btn-paginator-hover-color) !important;
   border-bottom: 1px solid #d2603a;
   text-decoration: none;
 }

@@ -18,7 +18,7 @@ url: ''
 
 author: Serhii Vasylenko                  # change to your full name
 
-avatar: /assets/img/sample/avatar.jpg   # support internet resources
+avatar: /assets/img/sample/avatar.jpeg   # support internet resources
 
 github:
   username: vasylenko             # change to your github username
@@ -32,11 +32,11 @@ social:
   email: mail-from-blog@vasylenko.info             # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/vasylenko      # change to your twitter homepage
-    - https://github.com/vasylenko       # change to your github homepage
+    - https://twitter.com/vasylenko
+    - https://github.com/vasylenko
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
-    # - https://www.linkedin.com/in/username
+    - https://www.linkedin.com/in/svasylenko/
 
 google_site_verification: google_meta_tag_verification # change to your verification string
 # --------------------------
