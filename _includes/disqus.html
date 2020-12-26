@@ -1,10 +1,28 @@
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-	var disqus_shortname = '{{ site.theme_settings.disqus_shortname }}';
-	(function() {
-		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	})();
+<!--
+  The Disqus lazy loading.
+  Powered by: https://osvaldas.info/lazy-loading-disqus-comments
+  v2.0
+  https://github.com/cotes2020/jekyll-theme-chirpy
+  © 2019 Cotes Chung
+  MIT License
+-->
+
+<div id="disqus" class="pt-2 pb-2">
+  <p class="font-italic text-center text-muted small">
+    Comments powered by <a href="https://disqus.com/">Disqus</a>.
+  </p>
+</div>
+
+<script src="{{ site.baseurl }}/assets/js/lib/jquery.disqusloader.min.js"></script>
+<script>
+  var options = {
+    scriptUrl: '//{{ site.disqus.shortname }}.disqus.com/embed.js',
+
+    disqusConfig: function() {
+      this.page.url = '{{ site.url | append: site.baseurl | append: page.url }}';
+      this.page.identifier = '{{ page.url }}';
+    }
+  };
+
+  $.disqusLoader('#disqus', options);
 </script>
-<noscript>{{ site.theme_settings.str_javascript_required_disqus }}</noscript>

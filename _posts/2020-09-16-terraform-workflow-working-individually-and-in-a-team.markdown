@@ -1,12 +1,13 @@
 ---
 layout: post
-title: 🦉 Terraform Workflow — Working Individually and in a Team
+title: Terraform Workflow — Working Individually and in a Team
 subtitle: Organize your configuration work with these workflows
 description: An overview of best practices for working with Terraform individually or in a team
 date: 2020-09-16
 image: /assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflows.jpeg
 canonical_url: 'https://www.freecodecamp.org/news/terraform-workflow-working-individually-and-in-a-team'
-tags: [terraform, explained]
+tags: [terraform]
+category: [Tutorial]
 ---
 The work with Terraform code may become tangled sometimes. Here are some guides on how to streamline it and make it transparent for you and your team.
 
@@ -30,6 +31,7 @@ Let’s define the basic actions first.
 All described workflows are built on top of three key steps: Write, Plan, and Apply. Nevertheless, their details and actions vary between workflows.
 
 ![](/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflow.png)
+_It's a piece of cake, isn't it? 😆_
 
 **Write** – this is where you make changes to the code.
 
@@ -43,6 +45,7 @@ It's a simple idea with a variety of possible implementations.
 This is the most simple workflow if you work alone on a relatively small TF project. This workflow suits both local and remote backends well.
 
 ![](/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflow-individual.png)
+_Let's add a bit of Git_
 
 ### Write
 You clone the remote code repo or pull the latest changes, edit the configuration code, then run the `terraform validate` and `terraform fmt` commands to make sure your code works well.
@@ -57,6 +60,7 @@ This is when you run `terraform apply` and introduce the changes to real infrast
 This workflow is good for when you work with configuration code in a team and want to use feature branches to manage the changes accurately.
 
 ![](/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-core-workflow-team.png)
+_Don't get scared, it is still simple, just follow the lines_
 
 ### Write
 Start by checking out a new branch, make your changes, and run the `terraform validate` and `terraform fmt` commands to make sure your code works well.
@@ -77,6 +81,7 @@ In a nutshell, this workflow allows you to introduce a kind of smoke test for yo
 The automated part of this workflow consists of a speculative plan on commit and/or Pull Request (PR ), along with adding the output of `plan` to the comment of the PR. A speculative plan mean just to show the changes, and not apply them afterward.
 
 ![](/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflow-team-automation-1.png)
+_I like when TF plan output is included to PR, but nobody likes to read others TF plans for some reason..._
 
 ### Write
 This step is the same as in the previous workflow.

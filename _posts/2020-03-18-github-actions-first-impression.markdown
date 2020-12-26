@@ -1,9 +1,10 @@
 ---
 layout: post
-title: 🐣 Github Actions - First impression
+title: Github Actions - First impression
 date: 2020-03-18 00:30:20 +0200
 description: My first meet with github actions... in action. # Add post description (optional)
-tags: [github, automation, review]
+tags: [github, automation]
+category: [Review]
 ---
 Although Github Actions service is generally available since November 13, 2020, and there are about 243,000,000 results for "github actions" in Google search already, I have just reached it...
 

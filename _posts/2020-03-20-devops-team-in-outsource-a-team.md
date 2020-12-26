@@ -1,8 +1,11 @@
 ---
 layout: post
-title: 🦉 DevOps team in outsource. A team?
-date: 2020-03-20 
-tags: [teambuilding, experience]
+title: DevOps team in outsource. A team?
+date: 2020-03-20
+category: [Blogging]
+---
+
+This article was written a long time ago in a galaxy far, far away...
 ---
 
 I am a team lead in an outsourcing company. That means I believe _(or convince myself)_ that I lead the team _(wait, wait, there will be even more obvious discoveries)_. 
