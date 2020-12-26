@@ -8,6 +8,8 @@ vendor
 .bundle
 cv/cv.html
 
+.idea
+
 ### macOS ###
 .DocumentRevisions-V100
 .fseventsd
