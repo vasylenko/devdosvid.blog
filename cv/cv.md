@@ -5,18 +5,27 @@ title: Serhii Vasylenko
 
 About Me
 --------------------
-I am a team leader and an engineer. I am passionate about team management and technologies, have a broad engineering background, and love developing great people, great teams, and great products.
+I am passionate about technologies, have a broad engineering background, and love developing myself, the people around me, and leading teams.
+
+Recently switched from team management to an individual contributor role to feel the world of engineering on the tip of my fingers again 😆
 
 Certified: AWS Solutions Architect Associate, Terraform Associate.
 
 
 Professional Experience
 --------------------
-July - Oct 2020
+Nov 2020 — present time
+:   ### Platform Software Engineer at Grammarly
+
+    The detailed description is to be updated...
+
+
+Jul 2020 — present time
 :   ### DevOps coach at "Hillel" IT School (part-time)
 
-    I had a class of diverse people with different backgrounds and skillsets: sysadmins from IT, students from the university, and even from retail. There was one common thing — they all wanted to know what DevOps is and how it works.\
-    I taught them how to work inside and with the development team and use tools such as Terraform, Ansible, Jenkins, and Docker, and how to think DevOps.
+    Having classes of diverse people with different backgrounds and skillsets: sysadmins and developers from IT, students from the university, sales managers from retail. There is one common thing: they all want to know what DevOps is and how it works.
+
+    Teaching them how to work inside and with the development teams and use tools such as Terraform, Ansible, Jenkins, and Docker, and how to think DevOps.
     
 Mar 2017 – June 2020
 :   ### Team leader — "ITCraft"
