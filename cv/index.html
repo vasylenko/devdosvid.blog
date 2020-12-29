@@ -6,6 +6,136 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Serhii Vasylenko</title>
   <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
@@ -21,10 +151,10 @@
   <link rel=stylesheet href="style.css">
   <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script> 
   <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt=""/></noscript>
-  <meta name="description" content="Team leader, engineer, devops. Certified: AWS Solutions Architect, Terraform.">
+  <meta name="description" content="Platform Software Engineer at Grammarly">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://serhii.vasylenko.info/assets/img/about_me2.jpeg">
-  <meta name="twitter:title" content="Serhii Vasylenko. Team leader, engineer, devops. Certified: AWS Solutions Architect, Terraform.">
+  <meta name="twitter:title" content="Platform Software Engineer at Grammarly">
   <meta name="twitter:site" content="@vasylenko">
 </head>
 <body>
@@ -33,14 +163,19 @@
 </header>
 <h5 id="contactsvasylenko.info-380-66-268-86-11-linkedin.cominsvasylenko"><a href="mailto:contacts@vasylenko.info" class="email">contacts@vasylenko.info</a> | +380 66 268 86 11 | <a href="https://linkedin.com/in/svasylenko">linkedin.com/in/svasylenko</a></h5>
 <h2 id="about-me">About Me</h2>
-<p>I am a team leader and an engineer. I am passionate about team management and technologies, have a broad engineering background, and love developing great people, great teams, and great products.</p>
+<p>I am passionate about technologies, have a broad engineering background, and love developing myself, the people around me, and leading teams.</p>
+<p>Recently switched from team management to an individual contributor role to feel the world of engineering on the tip of my fingers again 😆</p>
 <p>Certified: AWS Solutions Architect Associate, Terraform Associate.</p>
 <h2 id="professional-experience">Professional Experience</h2>
 <dl>
-<dt>July - Oct 2020</dt>
+<dt>Nov 2020 — present time</dt>
+<dd><h3 id="platform-software-engineer-at-grammarly">Platform Software Engineer at Grammarly</h3>
+<p>The detailed description is to be updated…</p>
+</dd>
+<dt>Jul 2020 — present time</dt>
 <dd><h3 id="devops-coach-at-hillel-it-school-part-time">DevOps coach at “Hillel” IT School (part-time)</h3>
-<p>I had a class of diverse people with different backgrounds and skillsets: sysadmins from IT, students from the university, and even from retail. There was one common thing — they all wanted to know what DevOps is and how it works.<br />
-I taught them how to work inside and with the development team and use tools such as Terraform, Ansible, Jenkins, and Docker, and how to think DevOps.</p>
+<p>Having classes of diverse people with different backgrounds and skillsets: sysadmins and developers from IT, students from the university, sales managers from retail. There is one common thing: they all want to know what DevOps is and how it works.</p>
+<p>Teaching them how to work inside and with the development teams and use tools such as Terraform, Ansible, Jenkins, and Docker, and how to think DevOps.</p>
 </dd>
 <dt>Mar 2017 – June 2020</dt>
 <dd><h3 id="team-leader-itcraft">Team leader — “ITCraft”</h3>
@@ -114,6 +249,6 @@ Terraform, Docker, Ansible, Nginx, Apache, Databases.
 <dd>Fond of History, Astronomy, and Physics. I wish to see Betelgeuse supernova explosion someday even though the expected explosion date is somewhere between today and 100k years. ☺️
 </dd>
 </dl>
-<h6 id="cv-last-updated-october-08-2020">CV last updated: October 08 2020</h6>
+<h6 id="cv-last-updated-december-29-2020">CV last updated: December 29 2020</h6>
 </body>
 </html>
