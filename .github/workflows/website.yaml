@@ -61,12 +61,12 @@ jobs:
           git push --force-with-lease origin ${{ env.BRANCH }}
 
   purge_cf_cache:
-    # needs: deploy
+    needs: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Purge CloudFlare cache for website
         run: |
           curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLAREZONEID }}/purge_cache" \
-               -H "Authorization: Bearer ${{ secrets.CLOUDFLARECACHEPURGE }}" \
+               -H "Authorization: Bearer ${{ secrets.CLOUDFLAREPURGETOKEN }}" \
                -H "Content-Type: application/json" \
                --data '{"purge_everything":true}'
