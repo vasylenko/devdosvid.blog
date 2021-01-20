@@ -186,6 +186,8 @@ exclude:
   - README.md
   - LICENSE
   - cv
+  - operations
+  - .idea
 
 jekyll-archives:
   enabled: [categories, tags]
