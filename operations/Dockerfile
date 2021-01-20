@@ -13,3 +13,7 @@ COPY Gemfile Gemfile.lock ./
 RUN gem install bundler:2.1.4 \
   && bundle install \
   && rm -rf /var/cache/apt/archives
+
+EXPOSE 4000
+
+#docker run --rm -v $(pwd):/src -p 4000:4000 ghcr.io/vasylenko/jekyllblogbuilder bundle exec jekyll serve --host=0.0.0.0
