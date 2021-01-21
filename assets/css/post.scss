@@ -49,21 +49,6 @@ $prompt-newer: "{{ site.data.label.post.button.next }}";
 }
 
 .post-content {
-  > ol, > ul, > dl {
-    padding-left: 2rem;
-    li + li {
-      margin-top: 0.3rem;
-    }
-  }
-  li {
-    > ol, > ul, > dl { // sub list
-      padding-left: 2rem;
-      margin-top: 0.3rem;
-    }
-    > p {
-      margin: 1rem 0 0.8rem;
-    }
-  }
   .preview-img {
     margin-top: 0;
     margin-bottom: 2.5rem;
@@ -89,9 +74,9 @@ $prompt-newer: "{{ site.data.label.post.button.next }}";
     @include btn-post-nav;
     color: var(--link-color);
     &:hover {
-      background: var(--btn-paginator-hover-color);
+      background: #2a408e;
       color: #fff;
-      border-color: var(--btn-paginator-hover-color);
+      border-color: #2a408e;
     }
     &.disabled {
       @include btn-post-nav;
@@ -159,7 +144,7 @@ $prompt-newer: "{{ site.data.label.post.button.next }}";
   position: sticky;
   top: 4rem;
   transition: top 0.2s ease-in-out;
-  animation: fade-up .8s;
+  animation: fade-up 0.8s;
   &.topbar-down {
     top: 6rem;
   }
@@ -182,19 +167,19 @@ $prompt-newer: "{{ site.data.label.post.button.next }}";
     @include label(1.1rem, 600);
   }
   .card {
-    border: 1px solid var(--card-border-color);
+    border-color: var(--card-border-color);
     background-color: var(--card-bg);
     box-shadow: 0 0 5px 0 var(--card-box-shadow);
-    -webkit-transition: all .3s ease-in-out;
-    -moz-transition: all .3s ease-in-out;
-    transition: all .3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     h3 {
       color: var(--text-color);
     }
     &:hover {
       -webkit-transform: translate3d(0, -3px, 0);
       transform: translate3d(0, -3px, 0);
-      box-shadow: 0 20px 35px -4px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 10px 15px -4px rgba(0,0,0,0.15);
     }
   }
 
@@ -339,7 +324,7 @@ $prompt-newer: "{{ site.data.label.post.button.next }}";
   .post {
     .post-meta {
       >div:not(:first-child)::before {
-        @include dot(.5rem, .2rem);
+        @include dot(0.5rem, 0.2rem);
       }
       &.flex-column {
         -webkit-box-orient: horizontal!important;
