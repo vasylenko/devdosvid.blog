@@ -21,7 +21,7 @@
 }
 
 %link-hover {
-  color: var(--btn-paginator-hover-color) !important;
+  color: #d2603a !important;
   border-bottom: 1px solid #d2603a;
   text-decoration: none;
 }
@@ -65,7 +65,6 @@
   color: $color;
   transition: color 0.35s ease-in-out;
   user-select: none;
-  margin: 0 0.25rem;
 }
 
 @mixin icon-round($diameter) {
@@ -97,7 +96,6 @@
   color: $color;
   font-size: $font-size;
   font-weight: $font-weight;
-  font-family: 'Roboto Condensed', 'Microsoft Yahei', sans-serif;
 }
 
 @mixin panel-label {
