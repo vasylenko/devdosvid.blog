@@ -15,11 +15,14 @@
   .post-preview {
     padding-top: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid var(--main-border-color);
+    border: 2px solid var(--main-border-color);
+    margin-bottom: 10px;
+    cursor: pointer;
 
     h1 {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       margin: 0;
+      font-weight: bold;
     }
 
     .post-meta {
@@ -34,7 +37,7 @@
     .post-content {
       margin-top: 0.6rem;
       margin-bottom: 0.6rem;
-      color: var(--post-list-text-color);
+      color: var(--text-color);
       > p {
         /* Make preview shorter on the homepage */
         margin: 0;

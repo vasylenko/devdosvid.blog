@@ -48,12 +48,18 @@ layout: page
 
 {% for post in posts %}
 
-  <div class="post-preview">
+  <div class="post-preview" onclick="location.href='{{ post.url | relative_url }}'">
+
+    {% if post.image %}
+    <img src={{ post.image }} style="margin-bottom: 10px">
+    {% endif %}
+
     <a href="{{ post.url | relative_url }}">
       <h1>{{ post.title }}</h1>
     </a>
 
     <div class="post-content">
+
       <p>
         {% include no-linenos.html content=post.content %}
         {{ content | markdownify | strip_html | truncate: 200 }}
