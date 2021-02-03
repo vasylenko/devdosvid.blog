@@ -31,7 +31,7 @@ By the way, Ansible Galaxy does not have many management packages for macOS, eit
 
 I used Ansible to build the macOS AMI for CI/CD, so here are some tips for such a case.
 
-_I hardcoded some values intentionally in the code examples for the sake of simplicity and easy reading. You would probably want to parametrize them._
+_Some values are hardcoded intentionally in the code examples for the sake of simplicity and easy reading. You would probably want to parametrize them._
 
 ## Xcode installation example
 The following tasks will help you to automate the basics.
@@ -78,7 +78,7 @@ The following tasks will help you to automate the basics.
   args:
     chdir: /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/
 ```
-I will not bother you with the code blocks a lot; I am sure you already got the idea. Shell rulez, yes.
+Shell rulez, yes.
 
 # Building the AMI
 ![](/assets/posts/2021-02-01-customizing-mac1-metal-ec2-ami/ami-build.gif)
@@ -90,7 +90,7 @@ I would love to compare Packer with EC2 Image Builder, but it [does not support 
 Packer configuration is straightforward, so I want to highlight only the things specific to the "mac1.metal" use case.
 
 ## Timeouts
-As I mentioned in the [previous article](https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html), the launching and destroying time of the "mac1.metal" Instance is significantly bigger than Linux. That is why I suggest raising the polling parameters for the builder.
+As I mentioned in the [previous article](https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html), the creation and deletion time of the "mac1.metal" Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.
 
 Example:
 ```json
@@ -130,7 +130,7 @@ But it is still worth mentioning that if you want to parametrize the Ansible pla
 ```
 
 # Configuration at launch
-If you're familiar with AWS, you probably know what the Instance `user data` is.
+If you're familiar with AWS EC2, you probably know what the Instance `user data` is.
 
 A group of AWS developers made something similar for the macOS: [EC2 macOS Init](https://github.com/aws/ec2-macos-init).
 
@@ -191,12 +191,12 @@ Example:
 ec2-macos-init run
 ```
 
+You can also combine the EC2 macOS Init actions (made by modules) with your script in user data for more accurate nontrivial configurations.
+
 # Wrapping up
 As a whole, building and operating macOS-based AMI does not differ from AMI management for other platforms.
 
 There are the same principle stages: prepare, clear, build, execute deployment script (if necessary). Though, the particular implementation of each step has its nuances and constraints.
-
-Ultimately you can combine the EC2 macOS Init actions (made by modules) with your configuration described in user data.
 
 So the whole process may look as follows:
 - Provision and configure needed software with Ansible playbook
