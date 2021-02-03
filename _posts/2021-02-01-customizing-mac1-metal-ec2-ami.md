@@ -87,10 +87,10 @@ I will not bother you with the code blocks a lot; I am sure you already got the 
 
 I would love to compare Packer with EC2 Image Builder, but it [does not support macOS](https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html#image-builder-os) yet (as of Feb'21).
 
-Packer configuration is straightforward (I believe they made it with the Unix philosophy in hearts), so I want to highlight only the things specific to the "mac1.metal" use case.
+Packer configuration is straightforward, so I want to highlight only the things specific to the "mac1.metal" use case.
 
 ## Timeouts
-As I mentioned in the [previous article](https://dev.to/svasylenko/mac1-metal-ec2-instance-user-experience-j08), the launching and destroying time of the "mac1.metal" Instance is significantly bigger than Linux. That is why I suggest raising the polling parameters for the builder.
+As I mentioned in the [previous article](https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html), the launching and destroying time of the "mac1.metal" Instance is significantly bigger than Linux. That is why I suggest raising the polling parameters for the builder.
 
 Example:
 ```json
@@ -130,15 +130,17 @@ But it is still worth mentioning that if you want to parametrize the Ansible pla
 ```
 
 # Configuration at launch
-If you're familiar with AWS, you probably know what the Instance `user data` is. A group of AWS developers made something similar for the macOS: [EC2 macOS Init](https://github.com/aws/ec2-macos-init).
+If you're familiar with AWS, you probably know what the Instance `user data` is.
 
-It is a sophisticated tool, and these folks did a great job (_or should I use the "amazing" word if we're talking about macOS?_)!
+A group of AWS developers made something similar for the macOS: [EC2 macOS Init](https://github.com/aws/ec2-macos-init).
 
-EC2 macOS Init utility is defacto a Launch Daemon (macOS terminology) that runs on behalf of the `root` user at system boot. It runs the commands you specified according to the so-called Priority Groups, or the sequence in other words.
+It does not support `cloud-init` as on Linux-based Instances, but it can run shell scripts, which is quite enough.
 
-The number of the group corresponds to the execution order. You can put several tasks into a single priority group, and the utility will execute them simultaneously.
+EC2 macOS Init utility is a Launch Daemon (macOS terminology) that runs on behalf of the `root` user at system boot. It executes the commands according to the so-called Priority Groups, or the sequence in other words.
 
-EC2 macOS Init has a human-readable configuration file in `toml` format.
+The number of the group corresponds to the execution order. You can put several tasks into a single Priority Group, and the tool will execute them simultaneously.
+
+EC2 macOS Init uses a human-readable configuration file in `toml` format.
 
 Example:
 
@@ -156,13 +158,13 @@ Example:
 
 I should clarify some things here.
 
-Modules — a set of pre-defined modules for different purposes. It's similar to the Ansible modules.
+Modules — a set of pre-defined modules for different purposes. It is something similar to the Ansible modules.
 
 You can find the list of available modules here [ec2-macos-init/lib/ec2macosinit](https://github.com/aws/ec2-macos-init/tree/master/lib/ec2macosinit)
 
-The `RunPer*` directive is tricky. Here is how it works and what it means:
+The `RunPerInstance` directive controls whether a module should run. There are three of such directives, and here is what they mean:
 
-- `RunPerBoot` — module will run every system boot
+- `RunPerBoot` — module will run at every system boot
 - `RunPerInstance` — module will run once for the Instance. Each Instance has a unique ID; the init tool fetches it from the AWS API before the execution and keeps its execution history per Instance ID. When you create a new Instance from the AMI, it will have a unique ID, and the module will run again.
 - `RunOnce` — module will run only once, despite the instance ID change
 
@@ -170,11 +172,11 @@ I mentioned the execution history above. When EC2 macOS Init runs on the Instanc
 
 `RunPerInstance` and `RunOnce` directives depend on the execution history, and modules with those directives will run again on the next boot if the previous execution failed. It was not obvious to me why RunOnce keeps repeating itself every boot until I dug into [the source code](https://github.com/aws/ec2-macos-init/blob/master/lib/ec2macosinit/module.go#L110).
 
-Finally, there is a module for user data execution. It runs at the end by default (priority group #4) and pulls the user data from AWS API before its execution.
+Finally, there is a module for user data. It runs at the end by default (priority group #4) and pulls the user data script from AWS API before script execution.
 
 I suggest looking into the default [init.toml](https://github.com/aws/ec2-macos-init/blob/master/configuration/init.toml) configuration file to get yourself more familiar with the capabilities of the tool.
 
-The init tool can also clear its history, which is useful for the new AMI.
+The init tool can also clear its history, which is useful for the new AMI creation.
 
 Example:
 ```shell
@@ -200,8 +202,8 @@ So the whole process may look as follows:
 - Provision and configure needed software with Ansible playbook
 - Clean-up system logs and EC2 macOS Init history (again, with Ansible task)
 - Create the AMI
-- Add more customizations with EC2 macOS Init modules and user data (which also executes an Ansible playbook or shell commands)
+- Add more customizations at launch with EC2 macOS Init modules and user data (that also executes your Ansible playbook or shell commands)
 
-Getting into all this was both fun and exciting. Sometimes painful, though. 😆
+Getting into all this was both fun and interesting. Sometimes painful, though. 😆
 
 I sincerely hope this article was helpful to you. Thank you for reading!

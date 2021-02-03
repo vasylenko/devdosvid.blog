@@ -4,7 +4,7 @@ title: Terraforming mac1.metal at AWS
 subtitle: Infrastructure as Code for macOS instances
 description: How to manage mac1.metal EC2 instances with Terraform
 date: 2021-01-20
-image: /assets/posts/2021-01-20-terraforming-mac1-metal-at-AWS.png
+image: /assets/posts/2021-01-20-terraforming-mac1-metal-at-AWS.jpg
 tags: [aws, terraform, automation, devops]
 category: [Howto]
 ---
