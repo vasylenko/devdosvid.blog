@@ -5,7 +5,7 @@ title: Serhii Vasylenko
 
 About Me
 --------------------
-I am passionate about technologies, have a broad engineering background, and love developing myself, the people around me, and leading teams.
+I am an engineer from Ukraine. I like astronomy and everything related to DevOps. I thrive on developing great product offerings, great people, and great teams.
 
 Recently switched from team management to an individual contributor role to feel the world of engineering on the tip of my fingers again 😆
 
