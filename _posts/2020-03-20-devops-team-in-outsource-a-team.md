@@ -2,7 +2,7 @@
 layout: post
 title: DevOps team in outsource. A team?
 date: 2020-03-20
-category: [Blogging]
+category: [Mindset]
 ---
 
 This article was written a long time ago in a galaxy far, far away...
