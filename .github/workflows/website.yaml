@@ -56,7 +56,7 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "${GITHUB_ACTOR}@bots.github.com"
           git add -A 
-          git commit -a -m "Updated Website"
+          git commit -a -m "Website deploy — ${GITHUB_RUN_NUMBER}"
           git remote set-url origin "https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git"
           git push --force-with-lease origin ${{ env.BRANCH }}
 
