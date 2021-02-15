@@ -8,9 +8,17 @@ date: 2021-02-14
 tags: [macos, automation, fun]
 category: [Technical Blogs]
 ---
-# TL;DR in one picture:
+# What is it and how it works
+You select needed files and/or folders, then right click on them, then click on Services menu item and select TinyPNG.
 
-![](/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/context_menu_full_compressed.png)
+Then magic happens.
+
+Magic: 
+
+    A shell script that takes each selected file (or a file from selected folder) and sends it to TinyPNG image optimizer with a web request.
+    Once processed, TinyPNG replies with the link, so the script could use it to download the file and store it near the original one.  
+
+![](/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/context_menu_full_compressed.gif)
 
 # Creating Quick Action Workflow
 ![](/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/quick_action_compressed.png)
@@ -26,23 +34,17 @@ Click the **Option** button at the bottom of the Action window and **Uncheck** `
 
 ![](/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/run_shell_script_compressed.png)
 
-You need to have `jq` utility installed to make this script work. You can do it using homebrew, for instance.
-
-This installation should be done only once, you don't need to add this into the script.
-```shell
-brew install jq
-```
+Put the following script into the **Run Shell Script** window, replacing *YOUR_API_KEY_HERE* string (second line of the script) with your valid API key obtained from TinyPNG 
 
 ```shell
-set -e -o pipefail
 export PATH="$PATH:/usr/local/bin"
 APIKEY=YOUR_API_KEY_HERE
 tinypng () {
 	file_name="$1:t:r"
 	file_ext="$1:t:e"
 	file_dir="$1:h"
-	compressed_url=$(curl -s -H "Accept: application/json" -H "Content-type: application/json" --user api:$APIKEY --data-binary @"$1" https://api.tinify.com/shrink |jq -r .output.url)
-	curl -s --output "${file_dir}/${file_name}_compressed.${file_ext}" "$compressed_url"
+	compressed_url="$(curl -D - -o /dev/null --user api:$APIKEY --data-binary @"$1" https://api.tinify.com/shrink|grep location|cut -d ' ' -f 2|sed 's/\r//')"
+	curl -o "${file_dir}/${file_name}_compressed.${file_ext}" "$compressed_url"
 }
 
 for f in "$@"
@@ -56,4 +58,8 @@ do
 done
 ```
 
-I've added the `sleep 1` command for the sake of 
+TODO:
+explain why grep
+explain why cut
+explain why sed ( problem example: +./tinypng.sh:12> curl --output 1.png $'https://api.tinify.com/output/4m5jdajjrhweuqbdjdu7x669xda8zb79\C-M' )
+explain why not with jq: because does not require you to install anything
