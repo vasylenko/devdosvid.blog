@@ -7,7 +7,7 @@ date: 2020-09-09
 image: /assets/posts/2020-09-09-terraform-modules-explained/terraform-modules.jpeg
 canonical_url: 'https://www.freecodecamp.org/news/terraform-modules-explained/'
 tags: [terraform]
-category: [Tutorial]
+category: [Learning]
 ---
 Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds of lines of configuration code.
 

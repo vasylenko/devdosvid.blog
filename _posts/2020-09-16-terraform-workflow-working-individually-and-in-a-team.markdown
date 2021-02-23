@@ -7,7 +7,7 @@ date: 2020-09-16
 image: /assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflows.jpeg
 canonical_url: 'https://www.freecodecamp.org/news/terraform-workflow-working-individually-and-in-a-team'
 tags: [terraform]
-category: [Tutorial]
+category: [Learning]
 ---
 The work with Terraform code may become tangled sometimes. Here are some guides on how to streamline it and make it transparent for you and your team.
 

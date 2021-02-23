@@ -6,7 +6,7 @@ description: Sharing my AWS SAA exam results
 img: posts/2020-03-15-aws-solutions-architect-associate-exam-tips_AWS-Certified_Solutions-Architect_Associate.png
 fig-caption: # Add figcaption (optional)
 tags: [aws]
-category: [Tutorial]
+category: [Learning]
 ---
 
 ### 926 out of 1000

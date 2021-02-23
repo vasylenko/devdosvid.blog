@@ -6,7 +6,7 @@ description: A quick guide to secure secrets management with Ansible in AWS
 image: /assets/posts/2020-08-06-ansible-secrets-aws-ssm-sm.png
 date: 2020-08-06
 tags: [ansible, aws, devops, security]
-category: [Howto]
+category: [Technical Blogs]
 ---
 Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks. 
 If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.

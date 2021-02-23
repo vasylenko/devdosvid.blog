@@ -6,7 +6,7 @@ description: How to build mac1.metal Instance AMI for CI/CD using Ansible and Pa
 image: /assets/posts/2021-02-01-customizing-mac1-metal-ec2-ami/cover.png
 date: 2021-02-01
 tags: [aws, ansible, packer, automation, devops]
-category: [Howto]
+category: [Technical Blogs]
 ---
 
 I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?

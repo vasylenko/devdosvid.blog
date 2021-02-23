@@ -6,7 +6,7 @@ description: How to manage mac1.metal EC2 instances with Terraform
 date: 2021-01-20
 image: /assets/posts/2021-01-20-terraforming-mac1-metal-at-AWS.jpg
 tags: [aws, terraform, automation, devops]
-category: [Howto]
+category: [Technical Blogs]
 ---
 
 Recently AWS [announced](https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/) the support for Mac mini instances.
