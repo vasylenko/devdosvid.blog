@@ -5,7 +5,7 @@ subtitle: Something cool and powerful with inevitable trade-offs. As everything 
 description: An overview of one-month user experience with the new mac1.metal EC2 Instances from AWS
 date: 2021-01-19
 image: /assets/posts/2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg
-tags: [aws]
+tags: [aws, macos]
 category: [Review]
 ---
 

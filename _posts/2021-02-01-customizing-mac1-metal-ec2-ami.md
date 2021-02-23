@@ -5,7 +5,7 @@ subtitle: My journey with the AWS macOS "mac1.metal" Instances continues, and it
 description: How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer
 image: /assets/posts/2021-02-01-customizing-mac1-metal-ec2-ami/cover.png
 date: 2021-02-01
-tags: [aws, ansible, packer, automation, devops]
+tags: [aws, ansible, packer, automation, devops, macos]
 category: [Technical Blogs]
 ---
 

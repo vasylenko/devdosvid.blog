@@ -62,7 +62,7 @@ layout: page
 
       <p>
         {% include no-linenos.html content=post.content %}
-        {{ content | markdownify | strip_html | truncate: 200 }}
+        {{ content | markdownify | strip_html | truncatewords: 25 }}
       </p>
     </div>
 

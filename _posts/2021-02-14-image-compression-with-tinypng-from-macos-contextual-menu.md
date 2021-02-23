@@ -8,6 +8,10 @@ date: 2021-02-14
 tags: [macos, automation, fun]
 category: [Technical Blogs]
 ---
+I just wanted to compress one image, but went to far...
+
+or "How to add TinyPNG image compression to your macOS Finder contextual menu."
+
 # What is it and how it works
 You select needed files or folders, then right-click on them, click on the Services menu item and choose TinyPNG.
 
