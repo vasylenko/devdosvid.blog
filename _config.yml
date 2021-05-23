@@ -77,10 +77,10 @@ disqus:
 #
 #     dark   - Use the dark color scheme
 #
-theme_mode: # <light|dark>
+theme_mode: light
 
 # boolean type, the global switch for ToC in posts.
-toc: true
+toc: false
 
 paginate: 8
 
@@ -197,3 +197,5 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+
+enable_right_panel: false
