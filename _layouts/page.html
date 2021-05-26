@@ -21,7 +21,9 @@ layout: default
     </div> <!-- #page -->
   </div><!-- .col-12 -->
 
-  {% include panel.html %}
+  {% if enable_right_panel %}
+    {% include panel.html %}
+  {% endif %}
 
 </div>
 

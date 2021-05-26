@@ -14,9 +14,11 @@
 
   .post-preview {
     padding-top: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid var(--main-border-color);
-    margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-bottom: 1rem;
+    border: 1px solid var(--main-border-color);
+    border-radius: 10px;
     cursor: pointer;
 
     h1 {
@@ -85,7 +87,7 @@
       align-items: center;
       border-radius: 50%;
       border: 1px solid var(--btn-paginator-border-color);
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Lato', sans-serif;
       background-color: var(--button-bg);
       &:hover {
         background-color: var(--btn-paginator-hover-color)
