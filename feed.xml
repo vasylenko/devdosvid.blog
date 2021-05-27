@@ -1,11 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://serhii.vasylenko.info/feed.xml" rel="self" type="application/atom+xml" /><link href="https://serhii.vasylenko.info/" rel="alternate" type="text/html" /><updated>2021-05-27T14:10:19+03:00</updated><id>https://serhii.vasylenko.info/feed.xml</id><title type="html">Serhii Vasylenko</title><subtitle>Here I publish my notes about different things, mostly technical: AWS, Terraform, around DevOps stuff and more.</subtitle><author><name>Serhii Vasylenko</name></author><entry><title type="html">Run Ansible playbook on mac1.metal instances fleet with AWS Systems Manager</title><link href="https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html" rel="alternate" type="text/html" title="Run Ansible playbook on mac1.metal instances fleet with AWS Systems Manager" /><published>2021-05-27T00:00:00+03:00</published><updated>2021-05-27T00:00:00+03:00</updated><id>https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager</id><content type="html" xml:base="https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html">&lt;p&gt;In days of containers and serverless applications, Ansible looks not such a trendy thing.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://serhii.vasylenko.info/feed.xml" rel="self" type="application/atom+xml" /><link href="https://serhii.vasylenko.info/" rel="alternate" type="text/html" /><updated>2021-05-27T14:35:04+03:00</updated><id>https://serhii.vasylenko.info/feed.xml</id><title type="html">Serhii Vasylenko</title><subtitle>Here I publish my notes about different things, mostly technical: AWS, Terraform, around DevOps stuff and more.</subtitle><author><name>Serhii Vasylenko</name></author><entry><title type="html">Run Ansible playbook on mac1.metal instances fleet with AWS Systems Manager</title><link href="https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html" rel="alternate" type="text/html" title="Run Ansible playbook on mac1.metal instances fleet with AWS Systems Manager" /><published>2021-05-27T00:00:00+03:00</published><updated>2021-05-27T00:00:00+03:00</updated><id>https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager</id><content type="html" xml:base="https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html">&lt;p&gt;In days of containers and serverless applications, Ansible looks not such a trendy thing.&lt;/p&gt;
 
 &lt;p&gt;But still, there are cases when it helps, and there are cases when it combines very well with brand new product offerings, such as EC2 Mac instances.&lt;/p&gt;
 
-&lt;p&gt;And &lt;a href=&quot;https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html&quot;&gt;the more I use mac1.metal&lt;/a&gt; in AWS, the more I see that Ansible becomes a bedrock of software customization in my case.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html&quot;&gt;more I use mac1.metal&lt;/a&gt; in AWS, the more I see that Ansible becomes a bedrock of software customization in my case.&lt;/p&gt;
+
+&lt;p&gt;And when you have a large instances fleet, the AWS Systems Manager becomes your best friend (the sooner you get along together, the better).&lt;/p&gt;
+
+&lt;p&gt;So is it possible to use Ansible playbooks for mac1.metal on a big scale, with the help of AWS Systems Manager?&lt;/p&gt;
 
 &lt;h2 id=&quot;not-available-out-of-the-box&quot;&gt;(Not) Available out of the box&lt;/h2&gt;
-&lt;p&gt;AWS SSM has a pre-defined, shared Document that allows running Ansible playbooks. It’s called “AWS-RunAnsiblePlaybook,” and you can find it in AWS Systems Manager -&amp;gt; Documents -&amp;gt; Owned by Amazon.&lt;/p&gt;
+&lt;p&gt;AWS Systems Manager (SSM hereafter) has a pre-defined, shared Document that allows running Ansible playbooks.&lt;/p&gt;
+
+&lt;p&gt;It’s called “AWS-RunAnsiblePlaybook,” and you can find it in AWS SSM → Documents → Owned by Amazon.&lt;/p&gt;
 
 &lt;p&gt;However, this Document is not quite “friendly” to macOS. When the SSM agent calls Ansible on the Mac EC2 instance, it does not recognize the Ansible installed with Homebrew (de-facto most used macOS package manager).&lt;/p&gt;
 
@@ -15,21 +21,21 @@
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Ansible is not installed. Please &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;Ansible and rerun the command.
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;The root cause is simple: the path to Ansible binary is not present on the list of paths available to the SSM agent by default.&lt;/p&gt;
+&lt;p&gt;The root cause is trivial: the path to Ansible binary is not present on the list of paths available to the SSM agent by default.&lt;/p&gt;
 
 &lt;p&gt;There are several ways to solve that, but I believe that the most convenient one would be to create your custom Document — a slightly adjusted version of the default one provided by AWS.&lt;/p&gt;
 
 &lt;h2 id=&quot;creating-own-ssm-document-for-ansible-installed-with-homebrew&quot;&gt;Creating own SSM Document for Ansible installed with Homebrew&lt;/h2&gt;
 
-&lt;p&gt;The solution is simple: all you need to do is clone the Document provided by AWS and change its code a little — replace the callouts of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ansible&lt;/code&gt; with the full path to the binary.&lt;/p&gt;
+&lt;p&gt;All you need to do is clone the Document provided by AWS and change its code a little — replace the callouts of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ansible&lt;/code&gt; with the full path to the binary.&lt;/p&gt;
 
-&lt;p&gt;Navigate to AWS Systems Manager -&amp;gt; Documents -&amp;gt; Owned by Amazon and type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AWS-RunAnsiblePlaybook&lt;/code&gt; in the search field.&lt;/p&gt;
+&lt;p&gt;Navigate to AWS SSM → Documents → Owned by Amazon and type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AWS-RunAnsiblePlaybook&lt;/code&gt; in the search field.&lt;/p&gt;
 
-&lt;p&gt;Select the Document by pressing the circle on its top-right corner and then click Actions -&amp;gt; Clone document.&lt;/p&gt;
+&lt;p&gt;Select the Document by pressing the circle on its top-right corner and then click Actions → Clone document.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/posts/2021-05-27-run-ansible-playbook-mac1-metal-aws-systems-manager/aws_ssm_document_clone.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Give the new SSM Document a name, i.e. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;macos-arbitrary-ansible-playbook&lt;/code&gt;,  and change the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ansible&lt;/code&gt; callouts (at the end of the code) with the full path to the ansible symlink made by Homebrew which is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/usr/local/bin/ansible&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Give the new SSM Document a name, e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;macos-arbitrary-ansible-playbook&lt;/code&gt;, and change the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ansible&lt;/code&gt; callouts (at the end of the code) with the full path to the ansible symlink made by Homebrew which is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/usr/local/bin/ansible&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;Here is the complete source code of the Document with adjusted Ansible path:&lt;/p&gt;
 
@@ -132,7 +138,7 @@
 
 &lt;p&gt;Let’s give our new SSM Document a try! (I suppose you have at least one mac1 instance running, right?)&lt;/p&gt;
 
-&lt;p&gt;In AWS Systems Manager, go to the Run Command feature, then click on the Run Command button.&lt;/p&gt;
+&lt;p&gt;In AWS SSM, go to the Run Command feature, then click on the Run Command button.&lt;/p&gt;
 
 &lt;p&gt;On the new panel, type the name of your Document (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;macos-arbitrary-ansible-playbook&lt;/code&gt; in this example) in the search field and press enter.&lt;/p&gt;
 
