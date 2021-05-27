@@ -18,7 +18,7 @@ And [the more I use mac1.metal](https://serhii.vasylenko.info/2021/02/01/customi
 ## (Not) Available out of the box
 AWS SSM has a pre-defined, shared Document that allows running Ansible playbooks. It's called "AWS-RunAnsiblePlaybook," and you can find it in AWS Systems Manager -> Documents -> Owned by Amazon.
 
-It is not quite "friendly" to macOS: when the SSM agent tries to use Ansible, it does not recognize the Ansible installed with Homebrew (de-facto most used macOS package manager).
+However, this Document is not quite "friendly" to macOS. When the SSM agent calls Ansible on the Mac EC2 instance, it does not recognize the Ansible installed with Homebrew (de-facto most used macOS package manager).
 
 So if you try to run a command on the mac1.metal instance using this Document, you will get the following error:
 
@@ -26,9 +26,9 @@ So if you try to run a command on the mac1.metal instance using this Document, y
 Ansible is not installed. Please install Ansible and rerun the command.
 ```
 
-The root cause is simple: the Ansible binary path is not present on the list of paths available to the SSM agent by default.
+The root cause is simple: the path to Ansible binary is not present on the list of paths available to the SSM agent by default.
 
-There are several ways to solve that, but I believe that the most convenient one would be to create your custom Document — a slightly adjusted version of the default provided by AWS. 
+There are several ways to solve that, but I believe that the most convenient one would be to create your custom Document — a slightly adjusted version of the default one provided by AWS. 
 
 ## Creating own SSM Document for Ansible installed with Homebrew
 
