@@ -10,6 +10,7 @@ group :jekyll_plugins do
   gem "jekyll-archives"
   gem "jekyll-sitemap"
   gem "jekyll-gist"
+  gem 'jekyll-feed'
 end
 
 group :test do

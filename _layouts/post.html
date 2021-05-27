@@ -62,6 +62,8 @@ layout: default
         {% else %}
           {{ content }}
         {% endif %}
+        <p style="margin-top: 3em;margin-bottom:0px;">
+        Liked the article? Please share it in the social media to support me!<br>Have a question? Feel free to <a href="/tabs/about.html">contact me</a> anytime!</p>
       </div>
 
       <div class="post-tail-wrapper text-muted">
@@ -76,7 +78,6 @@ layout: default
           {% endfor %}
         </div>
         {% endif %}
-
         <!-- tags -->
         {% if page.tags.size > 0 %}
         <div class="post-tags">
