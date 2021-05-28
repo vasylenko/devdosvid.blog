@@ -14,7 +14,9 @@
   {% seo title=false %}
   {% if page.layout == "home" %}
   <meta property="og:image" content="{{ page.url | prepend: site.baseurl | prepend: site.url }}{{ site.image }}" />
+  <meta property="og:image:type" content="image/png" />
   <meta name="twitter:image" content="{{ page.url | prepend: site.baseurl | prepend: site.url }}{{ site.image }}" />
+  <meta name="twitter:card" content="summary_large_image">
   {% endif %}
   <title>
   {%- unless page.layout == "home" -%}
