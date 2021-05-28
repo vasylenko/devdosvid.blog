@@ -1,3 +1,4 @@
+[![Website](https://github.com/vasylenko/serhii.vasylenko.info/actions/workflows/website.yaml/badge.svg?branch=main)](https://github.com/vasylenko/serhii.vasylenko.info/actions/workflows/website.yaml)
 ### Personal blog powered by Jekyll
 
 Slightly modified Jekyll theme (see links below) with automatic build and deployment to Github Pages.
