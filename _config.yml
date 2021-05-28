@@ -8,7 +8,7 @@
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # --------------------------
 title: Serhii Vasylenko                          # the main title
-
+image: assets/img/website_logo.png
 tagline: Personal blog  # it will display as the sub-title
 
 description: 'Here I publish my notes about different things, mostly technical: AWS, Terraform, around DevOps stuff and more.'
@@ -26,6 +26,7 @@ github:
 twitter:
   username: vasylenko            # change to your twitter username
   card: summary_large_image
+  image: /assets/img/website_logo.png
 
 social:
   name: Serhii Vasylenko                  # it will shows as the copyright owner in Footer

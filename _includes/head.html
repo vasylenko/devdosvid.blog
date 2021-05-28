@@ -12,7 +12,10 @@
   <meta name="theme" content="{{ site.data.meta.name }} v{{ site.data.meta.version }}">
   {% feed_meta %}
   {% seo title=false %}
-
+  {% if page.layout == "home" %}
+  <meta property="og:image" content="{{ page.url | prepend: site.baseurl | prepend: site.url }}{{ site.image }}" />
+  <meta name="twitter:image" content="{{ page.url | prepend: site.baseurl | prepend: site.url }}{{ site.image }}" />
+  {% endif %}
   <title>
   {%- unless page.layout == "home" -%}
     {{ page.title | append: " | "}}
