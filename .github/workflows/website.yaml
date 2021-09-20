@@ -5,8 +5,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: klakegg/hugo:ci
+#     container:
+#       image: klakegg/hugo:ci
     steps:
       - name: Checkout
         uses: actions/checkout@v2
