@@ -1,0 +1,195 @@
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>Using TinyPNG Image Compression From MacOS Finder Contextual Menu | Serhii Vasylenko</title>
+<meta name=keywords content="macos,fun">
+<meta name=description content="How to add TinyPNG image compression to your macOS Finder contextual menu">
+<meta name=author content="Serhii Vasylenko">
+<link rel=canonical href=https://serhii.vasylenko.info/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.702036ea97a5d9c8c1b3a1362228db44b93885ec3ead997e5ec5b2d376d3656d.css integrity="sha256-cCA26pel2cjBs6E2IijbRLk4hew+rZl+XsWy03bTZW0=" rel="preload stylesheet" as=style>
+<link rel=preload href=/apple-touch-icon.png as=image>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://serhii.vasylenko.info/favicon.ico>
+<link rel=icon type=image/png sizes=16x16 href=https://serhii.vasylenko.info/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://serhii.vasylenko.info/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://serhii.vasylenko.info/apple-touch-icon.png>
+<link rel=mask-icon href=https://serhii.vasylenko.info/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.88.0">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:#1d1e20;--entry:#2e2e33;--primary:rgba(255, 255, 255, 0.84);--secondary:rgba(255, 255, 255, 0.56);--tertiary:rgba(255, 255, 255, 0.16);--content:rgba(255, 255, 255, 0.74);--hljs-bg:#2e2e33;--code-bg:#37383e;--border:#333}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GK7SE0XWGK"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-GK7SE0XWGK',{anonymize_ip:!1})}</script>
+<meta property="og:title" content="Using TinyPNG Image Compression From MacOS Finder Contextual Menu">
+<meta property="og:description" content="How to add TinyPNG image compression to your macOS Finder contextual menu">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://serhii.vasylenko.info/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html">
+<meta property="og:image" content="https://serhii.vasylenko.info/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/cover.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-02-14T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-02-14T00:00:00+00:00"><meta property="og:site_name" content="Serhii Vasylenko — Personal Blog">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://serhii.vasylenko.info/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/cover.png">
+<meta name=twitter:title content="Using TinyPNG Image Compression From MacOS Finder Contextual Menu">
+<meta name=twitter:description content="How to add TinyPNG image compression to your macOS Finder contextual menu">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://serhii.vasylenko.info/posts/"},{"@type":"ListItem","position":3,"name":"Using TinyPNG Image Compression From MacOS Finder Contextual Menu","item":"https://serhii.vasylenko.info/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Using TinyPNG Image Compression From MacOS Finder Contextual Menu","name":"Using TinyPNG Image Compression From MacOS Finder Contextual Menu","description":"How to add TinyPNG image compression to your macOS Finder contextual menu","keywords":["macos","fun"],"articleBody":"I just wanted to compress one image, but went to far…\nor “How to add TinyPNG image compression to your macOS Finder contextual menu.”\nWhat is it and how it works You select needed files or folders, then right-click on them, click on the Services menu item and choose TinyPNG.\nAfter a moment, the new optimized versions of images will appear near to original files.\nIf you selected a folder along with the files, the script would process all png and jpeg files in it.\nPrerequisites You need to register at TinyPNG and get your API key here — Developer API.\nThey sometimes block some countries (for example, Ukraine) from registration; in that case, try to use a web-proxy or VPN.\nHow to create Quick Action Workflow Open Automator application. If you never used this app before, please read about it on the official user guide website.\nOn the New Action screen, chose Quick Action\nAfter you click the “Choose” button, you’ll see the workflow configuration window.\nWorkflow configuration Find the Run Shell Script action on the Utilities list in Library on the left, and drag it onto the right side of the panel.\nSet the following workflow configuration options as described below:\nWorkflow receives current files and folders in Finder\nShell /bin/zsh\nPass input as arguments\nClick the Option button at the bottom of the Action window and Uncheck Show this action when the workflow runs.\nPut the following script into the Run Shell Script window, replacing the YOUR_API_KEY_HERE string with your API key obtained from TinyPNG.\n{% gist 13cb423aa83265e79ac5ad900195603f %}\nUtilities used in the script — explained curl — used to make web requests (like your browser does)\ngrep — used to parse the response for the needed header (i.e., field) with the file download link\ncut — used to extract the URL from the parsed result\nsed — used to remove the trailing “carriage return” symbol at the end of extracted string\nThe response body also contains a JSON object that includes the download URL; you can parse it with jq, for example. But I intentionally refused to use the jq tool because it is not pre-installed in MacOS.\nConclusion It is simple, and it does its job fine. And you don’t need to install anything to make it work.\nTo make this a bit fancier, you might also like to add a “Display Notification” (from the Utilities library on the left) after the “Run Shell Script”. The action will display a notification once image processing is completed.\nThank you for reading!\n","wordCount":"425","inLanguage":"en","image":"https://serhii.vasylenko.info/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/cover.png","datePublished":"2021-02-14T00:00:00Z","dateModified":"2021-02-14T00:00:00Z","author":{"@type":"Person","name":"Serhii Vasylenko"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://serhii.vasylenko.info/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html"},"publisher":{"@type":"Person","name":"Serhii Vasylenko","logo":{"@type":"ImageObject","url":"https://serhii.vasylenko.info/favicon.ico"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://serhii.vasylenko.info accesskey=h title="Home (Alt + H)">
+<img src=/apple-touch-icon.png alt=logo aria-label=logo height=" 30px">Home</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://serhii.vasylenko.info/tags/ title=Tags>
+<span>Tags</span>
+</a>
+</li>
+<li>
+<a href=https://serhii.vasylenko.info/about/ title="About me">
+<span>About me</span>
+</a>
+</li>
+<li>
+<a href=https://serhii.vasylenko.info/cv/ title="My CV">
+<span>My CV</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://serhii.vasylenko.info>Home</a>&nbsp;»&nbsp;<a href=https://serhii.vasylenko.info/posts/>Posts</a></div>
+<h1 class=post-title>
+Using TinyPNG Image Compression From MacOS Finder Contextual Menu
+</h1>
+<div class=post-description>
+How to add TinyPNG image compression to your macOS Finder contextual menu
+</div>
+<div class=post-meta>February 14, 2021&nbsp;·&nbsp;Serhii Vasylenko&nbsp;|&nbsp;<a href=mailto:serhii@vasylenko.info rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header>
+<figure class=entry-cover><img loading=lazy src=https://serhii.vasylenko.info/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/cover.png alt>
+</figure><div class=toc>
+<details>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#what-is-it-and-how-it-works aria-label="What is it and how it works">What is it and how it works</a></li>
+<li>
+<a href=#prerequisites aria-label=Prerequisites>Prerequisites</a></li>
+<li>
+<a href=#how-to-create-quick-action-workflow aria-label="How to create Quick Action Workflow">How to create Quick Action Workflow</a></li>
+<li>
+<a href=#workflow-configuration aria-label="Workflow configuration">Workflow configuration</a><ul>
+<li>
+<a href=#utilities-used-in-the-script--explained aria-label="Utilities used in the script — explained">Utilities used in the script — explained</a></li></ul>
+</li>
+<li>
+<a href=#conclusion aria-label=Conclusion>Conclusion</a>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><p>I just wanted to compress one image, but went to far&mldr;</p>
+<p>or &ldquo;How to add TinyPNG image compression to your macOS Finder contextual menu.&rdquo;</p>
+<h1 id=what-is-it-and-how-it-works>What is it and how it works<a hidden class=anchor aria-hidden=true href=#what-is-it-and-how-it-works>#</a></h1>
+<p>You select needed files or folders, then right-click on them, click on the Services menu item and choose TinyPNG.</p>
+<p>After a moment, the new optimized versions of images will appear near to original files.</p>
+<p>If you selected a folder along with the files, the script would process all <code>png</code> and <code>jpeg</code> files in it.</p>
+<p><img loading=lazy src=/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/context_menu_full_compressed.gif alt>
+</p>
+<h1 id=prerequisites>Prerequisites<a hidden class=anchor aria-hidden=true href=#prerequisites>#</a></h1>
+<p>You need to register at TinyPNG and get your API key here — <a href=https://tinypng.com/developers>Developer API</a>.</p>
+<p>They sometimes block some countries (for example, Ukraine) from registration; in that case, try to use a web-proxy or VPN.</p>
+<h1 id=how-to-create-quick-action-workflow>How to create Quick Action Workflow<a hidden class=anchor aria-hidden=true href=#how-to-create-quick-action-workflow>#</a></h1>
+<p>Open Automator application. If you never used this app before, please read about it on the official <a href=https://support.apple.com/guide/automator/create-a-workflow-aut7cac58839/2.10/mac/11.0>user guide website</a>.</p>
+<p>On the New Action screen, chose <strong>Quick Action</strong></p>
+<p><img loading=lazy src=/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/quick_action_compressed.png alt>
+</p>
+<p>After you click the &ldquo;Choose&rdquo; button, you&rsquo;ll see the workflow configuration window.</p>
+<h1 id=workflow-configuration>Workflow configuration<a hidden class=anchor aria-hidden=true href=#workflow-configuration>#</a></h1>
+<p>Find the <strong>Run Shell Script</strong> action on the Utilities list in Library on the left, and drag it onto the right side of the panel.</p>
+<p>Set the following workflow configuration options as described below:</p>
+<p><strong>Workflow receives current</strong> <code>files and folders</code> <strong>in</strong> <code>Finder</code></p>
+<p><strong>Shell</strong> <code>/bin/zsh</code></p>
+<p><strong>Pass input</strong> <code>as arguments</code></p>
+<p>Click the <strong>Option</strong> button at the bottom of the Action window and <strong>Uncheck</strong> <code>Show this action when the workflow runs.</code></p>
+<p><img loading=lazy src=/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/run_shell_script_compressed.png alt>
+</p>
+<p>Put the following script into the <strong>Run Shell Script</strong> window, replacing the <em>YOUR_API_KEY_HERE</em> string with your API key obtained from TinyPNG.</p>
+<p>{% gist 13cb423aa83265e79ac5ad900195603f %}</p>
+<h2 id=utilities-used-in-the-script--explained>Utilities used in the script — explained<a hidden class=anchor aria-hidden=true href=#utilities-used-in-the-script--explained>#</a></h2>
+<p><code>curl</code> — used to make web requests (like your browser does)</p>
+<p><code>grep</code> — used to parse the response for the needed header (i.e., field) with the file download link</p>
+<p><code>cut</code> — used to extract the URL from the parsed result</p>
+<p><code>sed</code> — used to remove the trailing &ldquo;carriage return&rdquo; symbol at the end of extracted string</p>
+<p>The response body also contains a JSON object that includes the download URL; you can parse it with <code>jq</code>, for example. But I intentionally refused to use the <code>jq</code> tool because it is not pre-installed in MacOS.</p>
+<h1 id=conclusion>Conclusion<a hidden class=anchor aria-hidden=true href=#conclusion>#</a></h1>
+<p>It is simple, and it does its job fine. And you don&rsquo;t need to install anything to make it work.</p>
+<p>To make this a bit fancier, you might also like to add a &ldquo;Display Notification&rdquo; (from the Utilities library on the left) after the &ldquo;Run Shell Script&rdquo;. The action will display a notification once image processing is completed.</p>
+<p>Thank you for reading!</p>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://serhii.vasylenko.info/tags/macos/>macos</a></li>
+<li><a href=https://serhii.vasylenko.info/tags/fun/>fun</a></li>
+</ul>
+<nav class=paginav>
+<a class=prev href=https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html>
+<span class=title>« Prev Page</span>
+<br>
+<span>Configure HTTP Security headers with CloudFront Functions</span>
+</a>
+<a class=next href=https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html>
+<span class=title>Next Page »</span>
+<br>
+<span>Customizing mac1.metal EC2 AMI — new guts, more glory</span>
+</a>
+</nav>
+<div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share Using TinyPNG Image Compression From MacOS Finder Contextual Menu on twitter" href="https://twitter.com/intent/tweet/?text=Using%20TinyPNG%20Image%20Compression%20From%20MacOS%20Finder%20Contextual%20Menu&url=https%3a%2f%2fserhii.vasylenko.info%2f2021%2f02%2f14%2fimage-compression-with-tinypng-from-macos-contextual-menu.html&hashtags=macos%2cfun"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Using TinyPNG Image Compression From MacOS Finder Contextual Menu on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fserhii.vasylenko.info%2f2021%2f02%2f14%2fimage-compression-with-tinypng-from-macos-contextual-menu.html&title=Using%20TinyPNG%20Image%20Compression%20From%20MacOS%20Finder%20Contextual%20Menu&summary=Using%20TinyPNG%20Image%20Compression%20From%20MacOS%20Finder%20Contextual%20Menu&source=https%3a%2f%2fserhii.vasylenko.info%2f2021%2f02%2f14%2fimage-compression-with-tinypng-from-macos-contextual-menu.html"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Using TinyPNG Image Compression From MacOS Finder Contextual Menu on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fserhii.vasylenko.info%2f2021%2f02%2f14%2fimage-compression-with-tinypng-from-macos-contextual-menu.html&title=Using%20TinyPNG%20Image%20Compression%20From%20MacOS%20Finder%20Contextual%20Menu"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Using TinyPNG Image Compression From MacOS Finder Contextual Menu on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fserhii.vasylenko.info%2f2021%2f02%2f14%2fimage-compression-with-tinypng-from-macos-contextual-menu.html"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+</div>
+</footer>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2021 <a href=https://serhii.vasylenko.info>Serhii Vasylenko</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)},document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerText='copy';function d(){a.innerText='copied!',setTimeout(()=>{a.innerText='copy'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script>
+</body>
+</html>
