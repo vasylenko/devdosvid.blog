@@ -27,7 +27,7 @@ jobs:
     env:
       BRANCH: gh-pages-hugo
     steps:
-      - name: Checkout gh-pages branch
+      - name: Checkout gh-pages-hugo branch
         uses: actions/checkout@v2
         with:
           ref: '${{ env.BRANCH }}'
