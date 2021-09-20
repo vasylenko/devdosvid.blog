@@ -1,0 +1,43 @@
+.list {
+    background: var(--theme);
+}
+
+.entry-content p{
+    font-size: 16px;
+}
+
+:root {
+    --main-width: 800px;
+    /*--code-bg: white;*/
+
+}
+
+.first-entry.home-info {
+    margin-bottom: 5px;
+}
+
+
+@media print {
+    body {
+        font-family: Verdana, Helvetica, sans-serif;
+        max-width: 850px;
+        font-size: 14px;
+    }
+    h1,h2,h3,h4,h4+ul,dd,dt{
+        page-break-after: avoid;
+        color: #232F3E;
+    }
+
+    h6, .header, .footer, .post-footer, .breadcrumbs, .post-meta, .toc {
+        display: none !important;
+    }
+    a {
+        font-weight: bold;
+        text-decoration: none;
+        color: black;
+    }
+    /* a[href^=http]:after {
+        content:" (" attr(href) ") ";
+        } */
+
+}

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>github on Serhii Vasylenko</title>
+    <link>https://serhii.vasylenko.info/tags/github/</link>
+    <description>Recent content in github on Serhii Vasylenko</description>
+    <image>
+      <url>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</url>
+      <link>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 18 Mar 2020 00:30:20 +0000</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Github Actions - First impression</title>
+      <link>https://serhii.vasylenko.info/2020/03/18/github-actions-first-impression.html</link>
+      <pubDate>Wed, 18 Mar 2020 00:30:20 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2020/03/18/github-actions-first-impression.html</guid>
+      <description>My first meet with github actions... in action.</description>
+      <content:encoded><![CDATA[<p>Although Github Actions service is generally available since November 13, 2020, and there are about 243,000,000 results for &ldquo;github actions&rdquo; in Google search already, I have just reached it&hellip;</p>
+<p>It&rsquo;s half past midnight, it took me about 35 commits to make my first github automation work, but it finally works and this blog post was built and published automatically!</p>
+<h3 id="actions-everywhere">Actions everywhere</h3>
+<p>One of the most (or maybe the most one) powerful things in Actions is &hellip; Actions! Github made a simple but genius thing: they turned well-known snippets (we do with pipelines) into the marketplace of well-made (sometimes not) simple and complex applications you can use in your automation workflow. <a href="https://github.com/marketplace?type=actions">https://github.com/marketplace?type=actions</a></p>
+<p>So now you can either re-invent your wheel or re-use someone else&rsquo;s code to make the needed automation.</p>
+<p>I decided to automate publications to this blog via Actions in order to have some practice.</p>
+<p>There are two workflows: one for the blog (website), and one for the CV (cv).</p>
+<ul>
+<li><a href="https://github.com/actions/checkout">actions/checkout@v2</a></li>
+<li><a href="https://github.com/actions/upload-artifact">actions/upload-artifact@v2</a></li>
+<li><a href="https://github.com/actions/download-artifact">actions/download-artifact@v2</a></li>
+</ul>
+<p>In both workflows, the build job is performed within a container, which is different per workflow: Ruby for the blog and Pandoc for CV.</p>
+<p>Here is how the build job looks like for the blog:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">jobs</span>:
+  <span style="color:#f92672">build</span>:
+    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+    <span style="color:#f92672">container</span>:
+      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">ruby:2.6.4</span>
+      <span style="color:#f92672">options</span>: 
+        --<span style="color:#ae81ff">workdir /src </span>
+    <span style="color:#f92672">steps</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout</span>
+        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2 </span>
+
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build blog</span>
+        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span><span style="color:#e6db74">          bundle install
+</span><span style="color:#e6db74">          bundle exec jekyll build --verbose --destination _site</span>          
+
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Upload artifacts</span>
+        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/upload-artifact@v2</span>
+        <span style="color:#f92672">with</span>: 
+          <span style="color:#f92672">name</span>: <span style="color:#ae81ff">_site</span>
+          <span style="color:#f92672">path</span>: <span style="color:#ae81ff">_site</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>As you can see, I run the steps within the Ruby container. This simplifies things related to file permissions and directory mounting because checkout is made inside the container.</p>
+<p>The deploy step is performed via shell run command for now, for better clearness (can be replaced to third-party action or custom-made one): it makes a commit to gh-pages branch which is configured for Github Pages.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">deploy</span>:
+    <span style="color:#f92672">if</span>: <span style="color:#ae81ff">github.ref == &#39;refs/heads/master&#39;</span>
+    <span style="color:#f92672">needs</span>: <span style="color:#ae81ff">build</span>
+    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+    <span style="color:#f92672">steps</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout gh-pages branch</span>
+        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+        <span style="color:#f92672">with</span>:
+          <span style="color:#f92672">ref</span>: <span style="color:#e6db74">&#39;gh-pages&#39;</span>
+
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Get the build artifact</span>
+        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/download-artifact@v2</span>
+        <span style="color:#f92672">with</span>:
+          <span style="color:#f92672">name</span>: <span style="color:#ae81ff">_site</span>
+          <span style="color:#f92672">path</span>: <span style="color:#ae81ff">./</span>
+
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Deploy (push) to gh-pages</span>
+        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span><span style="color:#e6db74">          git config user.name &#34;$GITHUB_ACTOR&#34;
+</span><span style="color:#e6db74">          git config user.email &#34;${GITHUB_ACTOR}@bots.github.com&#34;
+</span><span style="color:#e6db74">          git add -A 
+</span><span style="color:#e6db74">          git commit -a -m &#34;Updated Website&#34;
+</span><span style="color:#e6db74">          git remote set-url origin &#34;https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git&#34;
+</span><span style="color:#e6db74">          git push --force-with-lease origin gh-pages</span>          
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="old-good-things-made-better">Old good things made better</h3>
+<p>A lot of common things have been introduced to GitHubActions with some sweet additions:</p>
+<ul>
+<li>you can also specify different environments for your jobs in the same workflow;</li>
+<li>you can use environment variables with a different visibility scope: either workflow, or job, or step;</li>
+<li>you can use cache for dependencies and reuse it between workflow runs while keeping workflow directory clean;</li>
+<li>you can trigger a workflow by repo events and have a quite complex conditional logic or filters (if needed), external webhooks and by a schedule;</li>
+<li>you can pass artifacts between jobs inside a workflow with ease - Github provides simple actions for this, so you don&rsquo;t need to dance around temporary directories or files;</li>
+<li>and much more</li>
+</ul>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

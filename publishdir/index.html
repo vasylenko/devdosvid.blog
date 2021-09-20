@@ -1,0 +1,266 @@
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>Serhii Vasylenko</title>
+<meta name=keywords content="Blog,DevOps,AWS,Terraform,Ukraine,Tutorials,Education">
+<meta name=description content="Personal blog of Serhii Vasylenko — aws community builder, devops, developer experience engineer at Grammarly">
+<meta name=author content="Serhii Vasylenko">
+<link rel=canonical href=https://serhii.vasylenko.info/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.702036ea97a5d9c8c1b3a1362228db44b93885ec3ead997e5ec5b2d376d3656d.css integrity="sha256-cCA26pel2cjBs6E2IijbRLk4hew+rZl+XsWy03bTZW0=" rel="preload stylesheet" as=style>
+<link rel=preload href=/apple-touch-icon.png as=image>
+<link rel=icon href=https://serhii.vasylenko.info/favicon.ico>
+<link rel=icon type=image/png sizes=16x16 href=https://serhii.vasylenko.info/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://serhii.vasylenko.info/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://serhii.vasylenko.info/apple-touch-icon.png>
+<link rel=mask-icon href=https://serhii.vasylenko.info/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.88.0">
+<link rel=alternate type=application/rss+xml href=https://serhii.vasylenko.info/index.xml>
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:#1d1e20;--entry:#2e2e33;--primary:rgba(255, 255, 255, 0.84);--secondary:rgba(255, 255, 255, 0.56);--tertiary:rgba(255, 255, 255, 0.16);--content:rgba(255, 255, 255, 0.74);--hljs-bg:#2e2e33;--code-bg:#37383e;--border:#333}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GK7SE0XWGK"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-GK7SE0XWGK',{anonymize_ip:!1})}</script>
+<meta property="og:title" content="Serhii Vasylenko">
+<meta property="og:description" content="Personal blog of Serhii Vasylenko — aws community builder, devops, developer experience engineer at Grammarly">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://serhii.vasylenko.info/"><meta property="og:image" content="https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg"><meta property="og:site_name" content="Serhii Vasylenko — Personal Blog">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg">
+<meta name=twitter:title content="Serhii Vasylenko">
+<meta name=twitter:description content="Personal blog of Serhii Vasylenko — aws community builder, devops, developer experience engineer at Grammarly">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"Person","name":"Serhii Vasylenko","url":"https://serhii.vasylenko.info","description":"Personal blog of Serhii Vasylenko — aws community builder, devops, developer experience engineer at Grammarly","thumbnailUrl":"https://serhii.vasylenko.info/favicon.ico","sameAs":["https://twitter.com/vasylenko","https://dev.to/svasylenko","https://stackoverflow.com","https://github.com/vasylenko","https://www.facebook.com/vasylenkos"]}</script>
+</head>
+<body class=list id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://serhii.vasylenko.info accesskey=h title="Home (Alt + H)">
+<img src=/apple-touch-icon.png alt=logo aria-label=logo height=" 30px">Home</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://serhii.vasylenko.info/tags/ title=Tags>
+<span>Tags</span>
+</a>
+</li>
+<li>
+<a href=https://serhii.vasylenko.info/about/ title="About me">
+<span>About me</span>
+</a>
+</li>
+<li>
+<a href=https://serhii.vasylenko.info/cv/ title="My CV">
+<span>My CV</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class="first-entry home-info">
+<header class=entry-header>
+<h1>Hi! 👋 I am Serhii Vasylenko and this is my blog</h1>
+</header>
+<section class=entry-content>
+<p>Here I write about my DevOps experience, technologies, tutorials and some day-to-day work as a Developer Experience engineer at Grammarly.</p>
+</section>
+<footer class=entry-footer>
+<div class=social-icons>
+<a href=https://twitter.com/vasylenko target=_blank rel="noopener noreferrer me" title=Twitter><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z"/></svg>
+</a>
+<a href=https://dev.to/svasylenko target=_blank rel="noopener noreferrer me" title=Dev><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentcolor" stroke="none"><path d="M7.42 10.05c-.18-.16-.46-.23-.84-.23H6l.02 2.44.04 2.45.56-.02c.41.0.63-.07.83-.26.24-.24.26-.36.26-2.2.0-1.91-.02-1.96-.29-2.18zM0 4.94v14.12h24V4.94H0zM8.56 15.3c-.44.58-1.06.77-2.53.77H4.71V8.53h1.4c1.67.0 2.16.18 2.6.9.27.43.29.6.32 2.57.05 2.23-.02 2.73-.47 3.3zm5.09-5.47h-2.47v1.77h1.52v1.28l-.72.04-.75.03v1.77l1.22.03 1.2.04v1.28h-1.6c-1.53.0-1.6-.01-1.87-.3l-.3-.28v-3.16c0-3.02.01-3.18.25-3.48.23-.31.25-.31 1.88-.31h1.64v1.3zm4.68 5.45c-.17.43-.64.79-1 .79-.18.0-.45-.15-.67-.39-.32-.32-.45-.63-.82-2.08l-.9-3.39-.45-1.67h.76c.4.0.75.02.75.05.0.06 1.16 4.54 1.26 4.83.04.15.32-.7.73-2.3l.66-2.52.74-.04c.4-.02.73.0.73.04.0.14-1.67 6.38-1.8 6.68z"/></svg>
+</a>
+<a href=https://stackoverflow.com target=_blank rel="noopener noreferrer me" title=Linkedin><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+</a>
+<a href=https://github.com/vasylenko target=_blank rel="noopener noreferrer me" title=Github><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77 5.44 5.44.0 003.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22"/></svg>
+</a>
+<a href=https://www.facebook.com/vasylenkos target=_blank rel="noopener noreferrer me" title=Facebook><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+</a>
+</div>
+</footer>
+</article>
+<article class=post-entry>
+<figure class=entry-cover><img loading=lazy src=https://serhii.vasylenko.info/assets/posts/2021-05-27-run-ansible-playbook-mac1-metal-aws-systems-manager/cover_image.png alt>
+</figure>
+<header class=entry-header>
+<h2>Run Ansible playbook on mac1.metal instances fleet with AWS Systems Manager
+</h2>
+</header>
+<section class=entry-content>
+<p>In days of containers and serverless applications, Ansible looks not such a trendy thing.
+But still, there are cases when it helps, and there are cases when it combines very well with brand new product offerings, such as EC2 Mac instances.
+The more I use mac1.metal in AWS, the more I see that Ansible becomes a bedrock of software customization in my case.
+And when you have a large instances fleet, the AWS Systems Manager becomes your best friend (the sooner you get along together, the better)....</p>
+</section>
+<footer class=entry-footer>May 27, 2021&nbsp;·&nbsp;Serhii Vasylenko</footer>
+<a class=entry-link aria-label="post link to Run Ansible playbook on mac1.metal instances fleet with AWS Systems Manager" href=https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html></a>
+</article>
+<article class=post-entry>
+<figure class=entry-cover><img loading=lazy src=https://serhii.vasylenko.info/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/cover_image.png alt>
+</figure>
+<header class=entry-header>
+<h2>Configure HTTP Security headers with CloudFront Functions
+</h2>
+</header>
+<section class=entry-content>
+<p>A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.
+It is “true edge” because Functions work on 200+ edge locations (link to doc) while its predecessor, the Lambda@Edge, runs on a small number of regional edge caches.
+One of the use cases for Lambda@Edge was adding security HTTP headers (it’s even listed on the product page), and now there is one more way to make it using CloudFront Functions....</p>
+</section>
+<footer class=entry-footer>May 21, 2021&nbsp;·&nbsp;Serhii Vasylenko</footer>
+<a class=entry-link aria-label="post link to Configure HTTP Security headers with CloudFront Functions" href=https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html></a>
+</article>
+<article class=post-entry>
+<figure class=entry-cover><img loading=lazy src=https://serhii.vasylenko.info/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/cover.png alt>
+</figure>
+<header class=entry-header>
+<h2>Using TinyPNG Image Compression From MacOS Finder Contextual Menu
+</h2>
+</header>
+<section class=entry-content>
+<p>I just wanted to compress one image, but went to far…
+or “How to add TinyPNG image compression to your macOS Finder contextual menu.”
+What is it and how it works You select needed files or folders, then right-click on them, click on the Services menu item and choose TinyPNG.
+After a moment, the new optimized versions of images will appear near to original files.
+If you selected a folder along with the files, the script would process all png and jpeg files in it....</p>
+</section>
+<footer class=entry-footer>February 14, 2021&nbsp;·&nbsp;Serhii Vasylenko</footer>
+<a class=entry-link aria-label="post link to Using TinyPNG Image Compression From MacOS Finder Contextual Menu" href=https://serhii.vasylenko.info/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html></a>
+</article>
+<article class=post-entry>
+<figure class=entry-cover><img loading=lazy src=https://serhii.vasylenko.info/assets/posts/2021-02-01-customizing-mac1-metal-ec2-ami/cover.png alt>
+</figure>
+<header class=entry-header>
+<h2>Customizing mac1.metal EC2 AMI — new guts, more glory
+</h2>
+</header>
+<section class=entry-content>
+<p>I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?
+Configuration Management Native Apple’s Mobile device management (a.k.a MDM) and Jamf is probably the most potent combination for macOS configuration. But as much as it’s mighty, it is a cumbersome combination, and Jamf is not free....</p>
+</section>
+<footer class=entry-footer>February 1, 2021&nbsp;·&nbsp;Serhii Vasylenko</footer>
+<a class=entry-link aria-label="post link to Customizing mac1.metal EC2 AMI — new guts, more glory" href=https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html></a>
+</article>
+<article class=post-entry>
+<figure class=entry-cover><img loading=lazy src=https://serhii.vasylenko.info/assets/posts/2021-01-20-terraforming-mac1-metal-at-AWS.jpg alt>
+</figure>
+<header class=entry-header>
+<h2>Terraforming mac1.metal at AWS
+</h2>
+</header>
+<section class=entry-content>
+<p>Recently AWS announced the support for Mac mini instances.
+I believe this is huge, even despite the many constraints this solution has. Oh, and the price is as huge as the announcement as well.
+But still, this offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.
+Here is a tip for engineers like me who decided to give this new instance type a try: managing a dedicated host for the “mac1....</p>
+</section>
+<footer class=entry-footer>January 20, 2021&nbsp;·&nbsp;Serhii Vasylenko</footer>
+<a class=entry-link aria-label="post link to Terraforming mac1.metal at AWS" href=https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html></a>
+</article>
+<article class=post-entry>
+<figure class=entry-cover><img loading=lazy src=https://serhii.vasylenko.info/assets/posts/2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg alt>
+</figure>
+<header class=entry-header>
+<h2>mac1.metal EC2 Instance — user experience
+</h2>
+</header>
+<section class=entry-content>
+<p>Amazon EC2 Mac Instances Something cool and powerful with inevitable trade-offs. As everything in this world.
+AWS announced EC2 macOS-based instances on the 30th of November 2020, and after more than a month of tests, I would like to share some findings and impressions about it.
+First of all, the things you can easily find, but it’s still worth to say:
+The new instance family is called mac1.metal. Guess we should expect mac2 or mac3; otherwise, why did they put a number in the name?...</p>
+</section>
+<footer class=entry-footer>January 19, 2021&nbsp;·&nbsp;Serhii Vasylenko</footer>
+<a class=entry-link aria-label="post link to mac1.metal EC2 Instance — user experience" href=https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html></a>
+</article>
+<article class=post-entry>
+<figure class=entry-cover><img loading=lazy src=https://serhii.vasylenko.info/assets/posts/2020-12-16-aws-cloudshell.png alt>
+</figure>
+<header class=entry-header>
+<h2>AWS CloudShell
+</h2>
+</header>
+<section class=entry-content>
+<p>A simple but cool announcement from AWS — AWS CloudShell. A tool for ad-hoc AWS management via CLI directly in your browser.
+I like when AWS releases something simple to understand and yet powerful.
+So it is not another DevOps Guru, believe me :)
+Yes, this is similar to the shells that GCE and Azure have. No, you can’t access your instances from it, so it’s not a jump server (bastion host)....</p>
+</section>
+<footer class=entry-footer>December 16, 2020&nbsp;·&nbsp;Serhii Vasylenko</footer>
+<a class=entry-link aria-label="post link to AWS CloudShell" href=https://serhii.vasylenko.info/2020/12/16/aws-cloudshell.html></a>
+</article>
+<article class=post-entry>
+<figure class=entry-cover><img loading=lazy src=https://serhii.vasylenko.info/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflows.jpeg alt>
+</figure>
+<header class=entry-header>
+<h2>Terraform Workflow — Working Individually and in a Team
+</h2>
+</header>
+<section class=entry-content>
+<p>The work with Terraform code may become tangled sometimes. Here are some guides on how to streamline it and make it transparent for you and your team.
+It is extremely helpful in a team, and can benefit you even if you work individually. A good workflow enables you to streamline a process, organize it, and make it less error-prone.
+This article summaries several approaches when working with Terraform, both individually and in a team....</p>
+</section>
+<footer class=entry-footer>September 16, 2020&nbsp;·&nbsp;Serhii Vasylenko</footer>
+<a class=entry-link aria-label="post link to Terraform Workflow — Working Individually and in a Team" href=https://serhii.vasylenko.info/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html></a>
+</article>
+<article class=post-entry>
+<figure class=entry-cover><img loading=lazy src=https://serhii.vasylenko.info/assets/posts/2020-09-15-terraform-certification-tips/terraform-associate.png alt>
+</figure>
+<header class=entry-header>
+<h2>Terraform Certification Tips
+</h2>
+</header>
+<section class=entry-content>
+<p>I successfully passed the “HashiCorp Certified — Terraform Associate” exam last Friday and decided to share some advice for exam preparation.
+Make yourself a plan Make a list of things you are going to go through: links to the study materials, practice tasks, some labs, some articles on relative blogs (Medium, Dev.to, etc.). It should look at a “todo” or “check”-list. It may seem silly at first glance, but the list with checkboxes does its “cognitive magic”....</p>
+</section>
+<footer class=entry-footer>September 15, 2020&nbsp;·&nbsp;Serhii Vasylenko</footer>
+<a class=entry-link aria-label="post link to Terraform Certification Tips" href=https://serhii.vasylenko.info/2020/09/15/terraform-certification-tips.html></a>
+</article>
+<article class=post-entry>
+<figure class=entry-cover><img loading=lazy src=https://serhii.vasylenko.info/assets/posts/2020-09-09-terraform-modules-explained/terraform-modules.jpeg alt>
+</figure>
+<header class=entry-header>
+<h2>What are Terraform Modules and how do they work?
+</h2>
+</header>
+<section class=entry-content>
+<p>Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds of lines of configuration code.
+I assume you already know some basics about Terraform or even tried to use it in some way before reading the article.
+Please note: I do not use real code examples with some specific provider like AWS or Google intentionally, just for the sake of simplicity....</p>
+</section>
+<footer class=entry-footer>September 9, 2020&nbsp;·&nbsp;Serhii Vasylenko</footer>
+<a class=entry-link aria-label="post link to What are Terraform Modules and how do they work?" href=https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html></a>
+</article>
+<footer class=page-footer>
+<nav class=pagination>
+<a class=next href=https://serhii.vasylenko.info/page/2/>Next Page »</a>
+</nav>
+</footer>
+</main>
+<footer class=footer>
+<span>&copy; 2021 <a href=https://serhii.vasylenko.info>Serhii Vasylenko</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)},document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+</body>
+</html>

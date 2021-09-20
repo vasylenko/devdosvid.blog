@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>cli on Serhii Vasylenko</title>
+    <link>https://serhii.vasylenko.info/tags/cli/</link>
+    <description>Recent content in cli on Serhii Vasylenko</description>
+    <image>
+      <url>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</url>
+      <link>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 16 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/cli/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWS CloudShell</title>
+      <link>https://serhii.vasylenko.info/2020/12/16/aws-cloudshell.html</link>
+      <pubDate>Wed, 16 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2020/12/16/aws-cloudshell.html</guid>
+      <description>Native and official way to run AWS CLI in a browser</description>
+      <content:encoded><![CDATA[<p>A simple but cool announcement from AWS — <a href="https://aws.amazon.com/cloudshell/">AWS CloudShell</a>.
+A tool for ad-hoc AWS management via CLI directly in your browser.</p>
+<p>I like when AWS releases something simple to understand and yet powerful.<br>
+So it is not another <a href="https://aws.amazon.com/devops-guru/">DevOps Guru</a>, believe me :)</p>
+<ul>
+<li>Yes, this is similar to the shells that GCE and Azure have.</li>
+<li>No, you can’t access your instances from it, so it’s not a jump server (bastion host).</li>
+<li>Yes, it has AWS CLI and other tools pre-installed. Even Python and Node.js.</li>
+<li>No, you can’t (well, you can, but should not) use it as an alternative to the day-to-day console on your laptop.</li>
+<li>Yes, you can manage all resources from that shell as much as your IAM permissions allow you (even with SSO, which is pretty cool).</li>
+<li>No, it does not support Docker.</li>
+<li>Yes, you have 1 GB of permanent storage and the ability to transfer files in and out.</li>
+</ul>
+<h5 id="more-yes-and-nos-here">More Yes and No’s here:</h5>
+<p><a href="https://docs.aws.amazon.com/cloudshell/latest/userguide/faq-list.html">https://docs.aws.amazon.com/cloudshell/latest/userguide/faq-list.html</a></p>
+<p><a href="https://aws.amazon.com/cloudshell/faqs/">https://aws.amazon.com/cloudshell/faqs/</a></p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Terraform CLI shortcuts</title>
+      <link>https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html</link>
+      <pubDate>Tue, 25 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html</guid>
+      <description>A bunch of small tools I use to simplify Terraform workflow</description>
+      <content:encoded><![CDATA[<p>Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
+Requirements &mdash; bash-compatible interpreter, because aliases and functions described below will work with bash, zsh and ohmyzsh.</p>
+<p>In order to use any of described aliases of functions, you need to place it in your <code>~/.bashrc</code> or <code>~/.zshrc</code> file (or any other configuration file you have for your shell).</p>
+<p>Then just source this file, for example: <code>source ~/.zshrc</code></p>
+<h2 id="function-list-outputs-and-variables-of-given-module">Function: list outputs and variables of given module</h2>
+<p>You need to provide the path to module directory, and this function will list all declared variables and outputs module has. It comes very useful when you don&rsquo;t remember them all and just need to take a quick look.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">## TerraForm MOdule Explained</span>
+<span style="color:#66d9ef">function</span> tfmoe <span style="color:#f92672">{</span>
+  echo -e <span style="color:#e6db74">&#34;\nOutputs:&#34;</span>
+  grep -r <span style="color:#e6db74">&#34;output \&#34;.*\&#34;&#34;</span> $1 |awk <span style="color:#e6db74">&#39;{print &#34;\t&#34;,$2}&#39;</span> |tr -d <span style="color:#e6db74">&#39;&#34;&#39;</span>
+  echo -e <span style="color:#e6db74">&#34;\nVariables:&#34;</span>
+  grep -r <span style="color:#e6db74">&#34;variable \&#34;.*\&#34;&#34;</span> $1 |awk <span style="color:#e6db74">&#39;{print &#34;\t&#34;,$2}&#39;</span> |tr -d <span style="color:#e6db74">&#39;&#34;&#39;</span>
+<span style="color:#f92672">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Example usage:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: tfmoe ./module_alb
+
+Outputs:
+	 alb_arn
+
+Variables:
+	 acm_certificate_arn
+	 lb_name
+	 alb_sg_list
+	 subnets_id_list
+	 tags
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="function-pre-fill-module-directory-with-configuration-files">Function: pre-fill module directory with configuration files</h2>
+<p>You need to provide a path to the module directory and this function will create a bunch of empty &lsquo;default&rsquo; .tf files in it.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#TerraForm MOdule Initialize</span>
+<span style="color:#66d9ef">function</span> tfmoi <span style="color:#f92672">{</span>
+  touch $1/variables.tf
+  touch $1/outputs.tf
+  touch $1/versions.tf
+  touch $1/main.tf
+<span style="color:#f92672">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Example usage:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: mkdir ./module_foo &amp;&amp; temoi $_
+
+user@localhost $: ls ./module_foo
+main.tf      outputs.tf   variables.tf versions.tf
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="aliases">Aliases</h2>
+<p>The purpose of these aliases is just to keep you from typing long commands when you want to do a simple action.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">alias tf<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform&#39;</span>
+
+alias tfv<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform validate&#39;</span>
+
+alias tfi<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform init&#39;</span>
+
+alias tfp<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform plan&#39;</span> 
+</code></pre></td></tr></table>
+</div>
+</div><p>This one is useful because it makes format tool to go in-depth (recursively) through directories.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">alias tfm<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform fmt -recursive&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Example usage:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: tfm 
+module_ecs_cluster/ecs.tf
+module_alb/alb.tf
+</code></pre></td></tr></table>
+</div>
+</div>]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

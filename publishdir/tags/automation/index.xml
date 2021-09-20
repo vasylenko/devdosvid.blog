@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>automation on Serhii Vasylenko</title>
+    <link>https://serhii.vasylenko.info/tags/automation/</link>
+    <description>Recent content in automation on Serhii Vasylenko</description>
+    <image>
+      <url>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</url>
+      <link>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 20 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/automation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Terraforming mac1.metal at AWS</title>
+      <link>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</link>
+      <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</guid>
+      <description>How to manage mac1.metal EC2 instances with Terraform</description>
+      <content:encoded><![CDATA[<p>Recently AWS <a href="https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/">announced</a> the support for Mac mini instances.</p>
+<p>I believe this is huge, even despite the many constraints this solution has. Oh, and the price is as huge as the announcement as well.</p>
+<p>But still, this offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.</p>
+<p>Here is a tip for engineers like me who decided to give this new instance type a try: managing a dedicated host for the &ldquo;mac1.metal&rdquo; instance using Terraform.</p>
+<p>&ldquo;mac1.metal&rdquo; instance requires a dedicated host to be placed onto. This is a real Mac mini with a bit of magic from AWS.</p>
+<p>As of 10 Jan 2021, the AWS Terraform provider does not have a dedicated host resource.</p>
+<p>So we must solve this using  CloudFormation&hellip; in Terraform!</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;availability_zone&#34;</span> {
+  default <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;us-east-1a&#34;</span>
+}
+
+<span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;random_pet&#34; &#34;runner_name&#34;</span> {
+  length    <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+  prefix    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mac-metal-&#34;</span>
+  separator <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;-&#34;</span>
+}
+
+<span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_cloudformation_stack&#34; &#34;dedicated_host&#34;</span> {
+  name <span style="color:#f92672">=</span> <span style="color:#66d9ef">random_pet</span>.<span style="color:#66d9ef">runner_name</span>.<span style="color:#66d9ef">id</span>
+
+  timeout_in_minutes <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
+
+  template_body <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">&lt;&lt;</span><span style="color:#66d9ef">STACK</span>
+{
+  <span style="color:#e6db74">&#34;Resources&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> {
+    <span style="color:#e6db74">&#34;MyDedicatedHost&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+      <span style="color:#e6db74">&#34;Type&#34; : &#34;AWS::EC2::Host&#34;</span>,
+      <span style="color:#e6db74">&#34;Properties&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> {
+          <span style="color:#e6db74">&#34;AutoPlacement&#34; : &#34;on&#34;</span>,
+          <span style="color:#e6db74">&#34;AvailabilityZone&#34; : &#34;${var.availability_zone}&#34;</span>,
+          <span style="color:#e6db74">&#34;HostRecovery&#34; : &#34;off&#34;</span>,
+          <span style="color:#e6db74">&#34;InstanceType&#34; : &#34;mac1.metal&#34;</span>
+        }
+    }
+  },
+  <span style="color:#e6db74">&#34;Outputs&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> {
+    <span style="color:#e6db74">&#34;HostID&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> {
+      <span style="color:#e6db74">&#34;Description&#34;: &#34;Host ID&#34;</span>,
+      <span style="color:#e6db74">&#34;Value&#34; : { &#34;Ref&#34; : &#34;MyDedicatedHost&#34;</span> }
+    }
+  }
+}
+<span style="color:#66d9ef">STACK</span>
+}
+
+<span style="color:#66d9ef">output</span> <span style="color:#e6db74">&#34;dedicated_host_id&#34;</span> {
+  value <span style="color:#f92672">=</span> <span style="color:#66d9ef">aws_cloudformation_stack</span>.<span style="color:#66d9ef">dedicated_host</span>.<span style="color:#66d9ef">outputs</span>[<span style="color:#e6db74">&#34;HostID&#34;</span>]
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>Then you pass HostID to <code>aws_instance</code> resource, and you have mac1.metal up and running!</p>
+<p>I like to make boring technical things a bit less boring, so I decided to add a random pet name. Just for fun, why not.</p>
+<p>You can wrap this into a module or add a count meta-argument to make it more versatile.</p>
+<p>Simple as that, yes. But now, you can integrate it into your CI system (if you have enough courage and money 😄) and have the Mac instance with the underlying host in a bundle.</p>
+<p>Thanks for reading me!</p>
+<hr>
+<p><em>credits for cover image: <a href="https://www.youtube.com/watch?v=Pn3miC_tTH0">AWS EC2 Mac Instances Launch - macOS in the cloud for the first time, with the benefits of EC2</a></em></p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Terraform CLI shortcuts</title>
+      <link>https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html</link>
+      <pubDate>Tue, 25 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html</guid>
+      <description>A bunch of small tools I use to simplify Terraform workflow</description>
+      <content:encoded><![CDATA[<p>Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
+Requirements &mdash; bash-compatible interpreter, because aliases and functions described below will work with bash, zsh and ohmyzsh.</p>
+<p>In order to use any of described aliases of functions, you need to place it in your <code>~/.bashrc</code> or <code>~/.zshrc</code> file (or any other configuration file you have for your shell).</p>
+<p>Then just source this file, for example: <code>source ~/.zshrc</code></p>
+<h2 id="function-list-outputs-and-variables-of-given-module">Function: list outputs and variables of given module</h2>
+<p>You need to provide the path to module directory, and this function will list all declared variables and outputs module has. It comes very useful when you don&rsquo;t remember them all and just need to take a quick look.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">## TerraForm MOdule Explained</span>
+<span style="color:#66d9ef">function</span> tfmoe <span style="color:#f92672">{</span>
+  echo -e <span style="color:#e6db74">&#34;\nOutputs:&#34;</span>
+  grep -r <span style="color:#e6db74">&#34;output \&#34;.*\&#34;&#34;</span> $1 |awk <span style="color:#e6db74">&#39;{print &#34;\t&#34;,$2}&#39;</span> |tr -d <span style="color:#e6db74">&#39;&#34;&#39;</span>
+  echo -e <span style="color:#e6db74">&#34;\nVariables:&#34;</span>
+  grep -r <span style="color:#e6db74">&#34;variable \&#34;.*\&#34;&#34;</span> $1 |awk <span style="color:#e6db74">&#39;{print &#34;\t&#34;,$2}&#39;</span> |tr -d <span style="color:#e6db74">&#39;&#34;&#39;</span>
+<span style="color:#f92672">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Example usage:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: tfmoe ./module_alb
+
+Outputs:
+	 alb_arn
+
+Variables:
+	 acm_certificate_arn
+	 lb_name
+	 alb_sg_list
+	 subnets_id_list
+	 tags
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="function-pre-fill-module-directory-with-configuration-files">Function: pre-fill module directory with configuration files</h2>
+<p>You need to provide a path to the module directory and this function will create a bunch of empty &lsquo;default&rsquo; .tf files in it.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#TerraForm MOdule Initialize</span>
+<span style="color:#66d9ef">function</span> tfmoi <span style="color:#f92672">{</span>
+  touch $1/variables.tf
+  touch $1/outputs.tf
+  touch $1/versions.tf
+  touch $1/main.tf
+<span style="color:#f92672">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Example usage:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: mkdir ./module_foo &amp;&amp; temoi $_
+
+user@localhost $: ls ./module_foo
+main.tf      outputs.tf   variables.tf versions.tf
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="aliases">Aliases</h2>
+<p>The purpose of these aliases is just to keep you from typing long commands when you want to do a simple action.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">alias tf<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform&#39;</span>
+
+alias tfv<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform validate&#39;</span>
+
+alias tfi<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform init&#39;</span>
+
+alias tfp<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform plan&#39;</span> 
+</code></pre></td></tr></table>
+</div>
+</div><p>This one is useful because it makes format tool to go in-depth (recursively) through directories.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">alias tfm<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform fmt -recursive&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Example usage:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: tfm 
+module_ecs_cluster/ecs.tf
+module_alb/alb.tf
+</code></pre></td></tr></table>
+</div>
+</div>]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Github Actions - First impression</title>
+      <link>https://serhii.vasylenko.info/2020/03/18/github-actions-first-impression.html</link>
+      <pubDate>Wed, 18 Mar 2020 00:30:20 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2020/03/18/github-actions-first-impression.html</guid>
+      <description>My first meet with github actions... in action.</description>
+      <content:encoded><![CDATA[<p>Although Github Actions service is generally available since November 13, 2020, and there are about 243,000,000 results for &ldquo;github actions&rdquo; in Google search already, I have just reached it&hellip;</p>
+<p>It&rsquo;s half past midnight, it took me about 35 commits to make my first github automation work, but it finally works and this blog post was built and published automatically!</p>
+<h3 id="actions-everywhere">Actions everywhere</h3>
+<p>One of the most (or maybe the most one) powerful things in Actions is &hellip; Actions! Github made a simple but genius thing: they turned well-known snippets (we do with pipelines) into the marketplace of well-made (sometimes not) simple and complex applications you can use in your automation workflow. <a href="https://github.com/marketplace?type=actions">https://github.com/marketplace?type=actions</a></p>
+<p>So now you can either re-invent your wheel or re-use someone else&rsquo;s code to make the needed automation.</p>
+<p>I decided to automate publications to this blog via Actions in order to have some practice.</p>
+<p>There are two workflows: one for the blog (website), and one for the CV (cv).</p>
+<ul>
+<li><a href="https://github.com/actions/checkout">actions/checkout@v2</a></li>
+<li><a href="https://github.com/actions/upload-artifact">actions/upload-artifact@v2</a></li>
+<li><a href="https://github.com/actions/download-artifact">actions/download-artifact@v2</a></li>
+</ul>
+<p>In both workflows, the build job is performed within a container, which is different per workflow: Ruby for the blog and Pandoc for CV.</p>
+<p>Here is how the build job looks like for the blog:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">jobs</span>:
+  <span style="color:#f92672">build</span>:
+    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+    <span style="color:#f92672">container</span>:
+      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">ruby:2.6.4</span>
+      <span style="color:#f92672">options</span>: 
+        --<span style="color:#ae81ff">workdir /src </span>
+    <span style="color:#f92672">steps</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout</span>
+        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2 </span>
+
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build blog</span>
+        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span><span style="color:#e6db74">          bundle install
+</span><span style="color:#e6db74">          bundle exec jekyll build --verbose --destination _site</span>          
+
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Upload artifacts</span>
+        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/upload-artifact@v2</span>
+        <span style="color:#f92672">with</span>: 
+          <span style="color:#f92672">name</span>: <span style="color:#ae81ff">_site</span>
+          <span style="color:#f92672">path</span>: <span style="color:#ae81ff">_site</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>As you can see, I run the steps within the Ruby container. This simplifies things related to file permissions and directory mounting because checkout is made inside the container.</p>
+<p>The deploy step is performed via shell run command for now, for better clearness (can be replaced to third-party action or custom-made one): it makes a commit to gh-pages branch which is configured for Github Pages.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">deploy</span>:
+    <span style="color:#f92672">if</span>: <span style="color:#ae81ff">github.ref == &#39;refs/heads/master&#39;</span>
+    <span style="color:#f92672">needs</span>: <span style="color:#ae81ff">build</span>
+    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+    <span style="color:#f92672">steps</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout gh-pages branch</span>
+        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+        <span style="color:#f92672">with</span>:
+          <span style="color:#f92672">ref</span>: <span style="color:#e6db74">&#39;gh-pages&#39;</span>
+
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Get the build artifact</span>
+        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/download-artifact@v2</span>
+        <span style="color:#f92672">with</span>:
+          <span style="color:#f92672">name</span>: <span style="color:#ae81ff">_site</span>
+          <span style="color:#f92672">path</span>: <span style="color:#ae81ff">./</span>
+
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Deploy (push) to gh-pages</span>
+        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span><span style="color:#e6db74">          git config user.name &#34;$GITHUB_ACTOR&#34;
+</span><span style="color:#e6db74">          git config user.email &#34;${GITHUB_ACTOR}@bots.github.com&#34;
+</span><span style="color:#e6db74">          git add -A 
+</span><span style="color:#e6db74">          git commit -a -m &#34;Updated Website&#34;
+</span><span style="color:#e6db74">          git remote set-url origin &#34;https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git&#34;
+</span><span style="color:#e6db74">          git push --force-with-lease origin gh-pages</span>          
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="old-good-things-made-better">Old good things made better</h3>
+<p>A lot of common things have been introduced to GitHubActions with some sweet additions:</p>
+<ul>
+<li>you can also specify different environments for your jobs in the same workflow;</li>
+<li>you can use environment variables with a different visibility scope: either workflow, or job, or step;</li>
+<li>you can use cache for dependencies and reuse it between workflow runs while keeping workflow directory clean;</li>
+<li>you can trigger a workflow by repo events and have a quite complex conditional logic or filters (if needed), external webhooks and by a schedule;</li>
+<li>you can pass artifacts between jobs inside a workflow with ease - Github provides simple actions for this, so you don&rsquo;t need to dance around temporary directories or files;</li>
+<li>and much more</li>
+</ul>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

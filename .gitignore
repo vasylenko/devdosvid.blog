@@ -1,29 +1,3 @@
-# Jekyll project
-_site
-.sass-cache
-.jekyll-metadata
-.jekyll-cache
-vendor
-.vscode
-.bundle
-cv/cv.html
-
-.idea
-
-### macOS ###
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-*.DS_Store
-.AppleDouble
-.LSOverride
-._*
+public
+publishdir
+.DS_Store

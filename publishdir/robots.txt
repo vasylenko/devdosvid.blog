@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://serhii.vasylenko.info/sitemap.xml
