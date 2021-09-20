@@ -32,20 +32,20 @@ jobs:
         with:
           ref: '${{ env.BRANCH }}'
 
-      - name: Get the build artifact
+      - name: Get the new website content
         uses: actions/download-artifact@v2
         with:
           name: _site
           path: ./
 
-      - name: Deploy (push) to gh-pages
+      - name: Deploy website
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "${GITHUB_ACTOR}@bots.github.com"
           git add -A 
           git commit -a -m "Website deploy — ${GITHUB_RUN_NUMBER}"
           git remote set-url origin "https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git"
-          git push --force-with-lease origin ${{ env.BRANCH }}
+          git push --force origin ${{ env.BRANCH }}
 
   purge_cf_cache:
     needs: deploy
