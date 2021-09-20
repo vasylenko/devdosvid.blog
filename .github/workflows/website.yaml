@@ -17,7 +17,9 @@ jobs:
         LC_ALL: "en_US.UTF-8"
     steps:
       - name: Checkout
-        uses: actions/checkout@v2 
+        uses: actions/checkout@v2
+        with:
+          submodules: true
 
       - name: Build blog
         run: hugo
