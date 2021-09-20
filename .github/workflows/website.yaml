@@ -11,10 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: klakegg/hugo:ci
-      env:
-        LANG: "en_US.UTF-8"
-        LANGUAGE: "en_US:en"
-        LC_ALL: "en_US.UTF-8"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
