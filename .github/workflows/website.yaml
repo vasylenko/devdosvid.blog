@@ -19,11 +19,11 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with: 
-          name: publishdir
-          path: _site
+          name: _site
+          path: publishdir
 
   deploy:
-    if: github.ref == 'refs/heads/main'
+#     if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     env:
