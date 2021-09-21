@@ -100,7 +100,7 @@ params:
         - name: dev
           url: "https://dev.to/svasylenko"
         - name: linkedin
-          url: "https://stackoverflow.com"
+          url: "https://www.linkedin.com/in/svasylenko/"
         - name: github
           url: "https://github.com/vasylenko"
         - name: "facebook"
