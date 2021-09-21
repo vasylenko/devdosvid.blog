@@ -40,12 +40,16 @@ jobs:
 
       - name: Deploy website
         run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "${GITHUB_ACTOR}@bots.github.com"
-          git add -A 
-          git commit -a -m "Website deploy — ${GITHUB_RUN_NUMBER}"
-          git remote set-url origin "https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git"
-          git push --force origin ${{ env.BRANCH }}
+          if [[ -z $(git status --porcelain) ]]; then
+            echo "No changes to the site were detected"
+          else
+            git config user.name "$GITHUB_ACTOR"
+            git config user.email "${GITHUB_ACTOR}@bots.github.com"
+            git add -A
+            git commit -a -m "Website deploy — ${GITHUB_RUN_NUMBER}"
+            git remote set-url origin "https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git"
+            git push --force origin ${{ env.BRANCH }}
+          fi
 
   purge_cf_cache:
     needs: deploy
