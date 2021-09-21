@@ -1,11 +1,11 @@
 ---
 date: "2021-05-27T00:00:00Z"
-description: Centralized software customization on the group of EC2 Mac instances
+description: A small adjustment for big capabilities
 cover:
   image: /assets/posts/2021-05-27-run-ansible-playbook-mac1-metal-aws-systems-manager/cover_image.png
 images:
   - /assets/posts/2021-05-27-run-ansible-playbook-mac1-metal-aws-systems-manager/cover_image.png
-subtitle: A small adjustment for big capabilities
+subtitle: Centralized software customization on the group of EC2 Mac instances
 tags: [aws, ansible]
 title: Run Ansible playbook on mac1.metal instances fleet with AWS Systems Manager
 url: /2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html

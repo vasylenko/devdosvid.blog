@@ -8,15 +8,18 @@ disableAnchoredHeadings: true
 hideSummary: true
 cover.hidden: true
 ShowBreadCrumbs: false
+keywords: [devops, resume, hiring, cv, aws, terraform, teamlead, senior engineer]
+summary: "Serhii Vasylenko professional experience"
+title: "Serhii Vasylenko"
+description: "contacts@vasylenko.info"
 ---
-Professional Experience
---------------------
-Recently switched from team management to an individual contributor role to feel the world of engineering on the tip of my fingers again.
+
+In 2020 I switched from team management to an individual contributor role to feel the engineering world on the tip of my fingers again.
 
 Certified: AWS Solutions Architect Associate, Terraform Associate.
 
 From November'20
-:   **Platform Software Engineer at Grammarly**
+:   **Developer Experience Engineer at [Grammarly](https://grammarly.com)**
 
     Making day-to-day work of developers more productive and agile by:
     - Providing automation and tooling for routine SDLC procedures
@@ -25,35 +28,38 @@ From November'20
 
 
 From July'20
-:   **DevOps Coach at "Hillel" IT School (part-time)**
+:   **DevOps Coach at [Hillel IT School](https://ithillel.ua/) (part-time)**
 
-    Teaching DevOps and making workshops about AWS and Terraform. 
+    Teaching DevOps and doing workshops about AWS and Terraform.
 
 Mar 2017 – Jun 2020
-:   **DevOps Teamlead at "ITCraft"**
+:   **DevOps Teamlead at [ITCraft](https://itechcraft.com/)**
 
-    My biggest project — my team. A skilled and highly-motivated team of engineers that sincerely cares about its work outcomes.
+    My biggest project — my team. A skilled and highly motivated team of engineers that sincerely cares about its work outcomes.
 
     #### Key accomplishments:
 
     - Created a team of engineers that completed more than 40 successful projects of different sizes;
     - Team size growth: from 1 to 8;
-    - Tripled the number of shared projects with other departments by boosting of department reputation and team visibility within the company;
+    - Tripled the number of shared projects with other departments by boosting department reputation and team visibility within the company;
     - Introduced DevOps as a Service business model in the department;
     - Mentored senior and middle engineers from junior newcomers;
     - Fostered the culture of ownership.
 
     #### Challenges:
 
-    - Transform team members' mindset towards ownership culture;
+    - Transform team members' mindset toward ownership culture;
     - Keep the team motivated despite workload level: during peaks and drawdowns;
     - Justification of the advantages of my team to the clients on the pre-sales stage.
 
-Nov 2014 – Sep 2016
-:   **Chief Technologist at "YourServerAdmin"**
 
-    I was responsible for the technical-side of processes inside the department and researching the new technologies we could implement for our clients.      Introduced ITIL practices together with our COO and, what I like the most, could change how our sysadmin's department worked with the development
-    department. The work became more coordinated and more integrated.
+Nov 2014 – Sep 2016
+:   **Chief Technologist at [YourServerAdmin](https://yourserveradmin.com/)**
+
+    I was responsible for the technical side of processes inside the department and researching the new technologies we could implement for our clients.
+
+    Introduced ITIL practices together with our COO and, what I like the most, could change how our sysadmin's department worked with the development department. The work became more coordinated and more integrated.
+
 
     Also, I managed the projects using practices from PRINCE2 methodology and the Theory of Constraints.
     
@@ -65,7 +71,7 @@ Nov 2014 – Sep 2016
     - Fostered the change of team mindset to Agile thinking.
 
 Jun 2011 – Nov 2014
-:   **System Administrator / Support Engineer at "YourServerAdmin"**
+:   **System Administrator / Support Engineer at [YourServerAdmin](https://yourserveradmin.com/)**
 
     I grew up from a Level-1 tech support engineer (communication with customers and initial problem analysis) to Level-3 System Administrator responsible for complex technical tasks and daily shift management.
 
@@ -79,7 +85,7 @@ Team
 Hiring new team members and forming the required team skillset.
 
 PM
-:   Managing of stand-alone DevOps projects and operations parts of big projects with dev teams.\
+:   Managing stand-alone DevOps projects and operations parts of big projects with dev teams.\
 Resources and capacity management.
 
 Clouds
@@ -95,10 +101,10 @@ English
 Activities and interests
 ------------------------
 Travel
-:   I like to explore new cities and countries, and I like trekking. I've been to the Annapurna base camp, and now I want to visit the base camp of Everest.
+:   I like to explore new cities and countries, and I like trekking. I've been to the Annapurna base camp, and now I want to visit Everest's base camp.
 
 Blogging
 :   I love to write tutorials and articles about the technologies I use and learn.
 
 Science
-:   Fond of History, Astronomy, and Physics. I wish to see Betelgeuse supernova explosion someday even though the expected explosion date is somewhere between today and 100k years. ☺️ 
+:   Fond of History, Astronomy, and Physics. I wish to see the Betelgeuse supernova explosion someday, even though the expected explosion date is somewhere between today and 100k years. 

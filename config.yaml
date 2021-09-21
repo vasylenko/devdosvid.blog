@@ -113,9 +113,9 @@ params:
         responsiveImages: true
 
     editPost:
-        URL: "mailto:serhii@vasylenko.info"
-        Text: "Suggest Changes" # edit text
-        appendFilePath: false # to append file path to Edit link
+        URL: "mailto:email-from-blog@vasylenko.info"
+        Text: "Suggest Changes"
+        appendFilePath: false
 
     # for search
     # https://fusejs.io/api/options.html
