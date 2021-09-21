@@ -2,8 +2,12 @@
 
 ## Personal blog powered by Hugo
 
-Hugo static website generator — https://gohugo.io/
+🤑 **Zero-cost** (but it still takes your time, though) hosting and CI/CD with GitHub and free CloudFlare CDN for the fast content delivery and better compression.
 
-Hugo theme used — https://github.com/adityatelange/hugo-PaperMod/
+👨‍💻 Static website generator: [Hugo](https://gohugo.io/)
 
-To be updated...
+📝 Blog theme: [PaperMod](https://github.com/adityatelange/hugo-PaperMod/)
+
+⚙️ CI/CD: GitHub [Actions](https://docs.github.com/en/actions) (see my [workflow](./.github/workflows/website.yaml) for example)
+
+🌎 + free account at [CloudFlare](https://www.cloudflare.com/plans/) for CDN 
