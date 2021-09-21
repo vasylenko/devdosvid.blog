@@ -17,7 +17,7 @@
       <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html</guid>
-      <description>Centralized software customization on the group of EC2 Mac instances</description>
+      <description>A small adjustment for big capabilities</description>
       <content:encoded><![CDATA[<p>In days of containers and serverless applications, Ansible looks not such a trendy thing.</p>
 <p>But still, there are cases when it helps, and there are cases when it combines very well with brand new product offerings, such as EC2 Mac instances.</p>
 <p>The <a href="https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html">more I use mac1.metal</a> in AWS, the more I see that Ansible becomes a bedrock of software customization in my case.</p>
@@ -2070,21 +2070,17 @@ But my experience tells me that it is possible to answer them one by one. And I 
     </item>
     
     <item>
-      <title></title>
+      <title>Serhii Vasylenko</title>
       <link>https://serhii.vasylenko.info/cv/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://serhii.vasylenko.info/cv/</guid>
-      <description>Professional Experience Recently switched from team management to an individual contributor role to feel the world of engineering on the tip of my fingers again.
-Certified: AWS Solutions Architect Associate, Terraform Associate.
- From November&#39;20 Platform Software Engineer at Grammarly Making day-to-day work of developers more productive and agile by:
- Providing automation and tooling for routine SDLC procedures Enriching experience in Infrastructure, Automation, Observability areas Standardizing commonly used infrastructure components   From July&#39;20 DevOps Coach at &amp;ldquo;Hillel&amp;rdquo; IT School (part-time) Teaching DevOps and making workshops about AWS and Terraform.</description>
-      <content:encoded><![CDATA[<h2 id="professional-experience">Professional Experience</h2>
-<p>Recently switched from team management to an individual contributor role to feel the world of engineering on the tip of my fingers again.</p>
+      <description>contacts@vasylenko.info</description>
+      <content:encoded><![CDATA[<p>In 2020 I switched from team management to an individual contributor role to feel the engineering world on the tip of my fingers again.</p>
 <p>Certified: AWS Solutions Architect Associate, Terraform Associate.</p>
 <dl>
 <dt>From November'20</dt>
-<dd><strong>Platform Software Engineer at Grammarly</strong>
+<dd><strong>Developer Experience Engineer at <a href="https://grammarly.com">Grammarly</a></strong>
 <p>Making day-to-day work of developers more productive and agile by:</p>
 <ul>
 <li>Providing automation and tooling for routine SDLC procedures</li>
@@ -2093,32 +2089,32 @@ Certified: AWS Solutions Architect Associate, Terraform Associate.
 </ul>
 </dd>
 <dt>From July'20</dt>
-<dd><strong>DevOps Coach at &ldquo;Hillel&rdquo; IT School (part-time)</strong>
-<p>Teaching DevOps and making workshops about AWS and Terraform.</p>
+<dd><strong>DevOps Coach at <a href="https://ithillel.ua/">Hillel IT School</a> (part-time)</strong>
+<p>Teaching DevOps and doing workshops about AWS and Terraform.</p>
 </dd>
 <dt>Mar 2017 – Jun 2020</dt>
-<dd><strong>DevOps Teamlead at &ldquo;ITCraft&rdquo;</strong>
-<p>My biggest project — my team. A skilled and highly-motivated team of engineers that sincerely cares about its work outcomes.</p>
+<dd><strong>DevOps Teamlead at <a href="https://itechcraft.com/">ITCraft</a></strong>
+<p>My biggest project — my team. A skilled and highly motivated team of engineers that sincerely cares about its work outcomes.</p>
 <h4 id="key-accomplishments">Key accomplishments:</h4>
 <ul>
 <li>Created a team of engineers that completed more than 40 successful projects of different sizes;</li>
 <li>Team size growth: from 1 to 8;</li>
-<li>Tripled the number of shared projects with other departments by boosting of department reputation and team visibility within the company;</li>
+<li>Tripled the number of shared projects with other departments by boosting department reputation and team visibility within the company;</li>
 <li>Introduced DevOps as a Service business model in the department;</li>
 <li>Mentored senior and middle engineers from junior newcomers;</li>
 <li>Fostered the culture of ownership.</li>
 </ul>
 <h4 id="challenges">Challenges:</h4>
 <ul>
-<li>Transform team members' mindset towards ownership culture;</li>
+<li>Transform team members' mindset toward ownership culture;</li>
 <li>Keep the team motivated despite workload level: during peaks and drawdowns;</li>
 <li>Justification of the advantages of my team to the clients on the pre-sales stage.</li>
 </ul>
 </dd>
 <dt>Nov 2014 – Sep 2016</dt>
-<dd><strong>Chief Technologist at &ldquo;YourServerAdmin&rdquo;</strong>
-<p>I was responsible for the technical-side of processes inside the department and researching the new technologies we could implement for our clients.      Introduced ITIL practices together with our COO and, what I like the most, could change how our sysadmin&rsquo;s department worked with the development
-department. The work became more coordinated and more integrated.</p>
+<dd><strong>Chief Technologist at <a href="https://yourserveradmin.com/">YourServerAdmin</a></strong>
+<p>I was responsible for the technical side of processes inside the department and researching the new technologies we could implement for our clients.</p>
+<p>Introduced ITIL practices together with our COO and, what I like the most, could change how our sysadmin&rsquo;s department worked with the development department. The work became more coordinated and more integrated.</p>
 <p>Also, I managed the projects using practices from PRINCE2 methodology and the Theory of Constraints.</p>
 <h4 id="key-accomplishments-1">Key accomplishments:</h4>
 <ul>
@@ -2129,7 +2125,7 @@ department. The work became more coordinated and more integrated.</p>
 </ul>
 </dd>
 <dt>Jun 2011 – Nov 2014</dt>
-<dd><strong>System Administrator / Support Engineer at &ldquo;YourServerAdmin&rdquo;</strong>
+<dd><strong>System Administrator / Support Engineer at <a href="https://yourserveradmin.com/">YourServerAdmin</a></strong>
 <p>I grew up from a Level-1 tech support engineer (communication with customers and initial problem analysis) to Level-3 System Administrator responsible for complex technical tasks and daily shift management.</p>
 </dd>
 </dl>
@@ -2141,7 +2137,7 @@ department. The work became more coordinated and more integrated.</p>
 <dd>Fostering team values and working principles and developing the new ones together with the team.<br>
 Hiring new team members and forming the required team skillset.</dd>
 <dt>PM</dt>
-<dd>Managing of stand-alone DevOps projects and operations parts of big projects with dev teams.<br>
+<dd>Managing stand-alone DevOps projects and operations parts of big projects with dev teams.<br>
 Resources and capacity management.</dd>
 <dt>Clouds</dt>
 <dd>Amazon Web Services. Design and fine-tuning of resilient and HA infrastructures; costs optimization and security hardening. 4 years of hands-on experience.</dd>
@@ -2154,11 +2150,11 @@ Terraform, Docker, Ansible, Nginx, Apache, Databases.</dd>
 <h2 id="activities-and-interests">Activities and interests</h2>
 <dl>
 <dt>Travel</dt>
-<dd>I like to explore new cities and countries, and I like trekking. I&rsquo;ve been to the Annapurna base camp, and now I want to visit the base camp of Everest.</dd>
+<dd>I like to explore new cities and countries, and I like trekking. I&rsquo;ve been to the Annapurna base camp, and now I want to visit Everest&rsquo;s base camp.</dd>
 <dt>Blogging</dt>
 <dd>I love to write tutorials and articles about the technologies I use and learn.</dd>
 <dt>Science</dt>
-<dd>Fond of History, Astronomy, and Physics. I wish to see Betelgeuse supernova explosion someday even though the expected explosion date is somewhere between today and 100k years. ☺️</dd>
+<dd>Fond of History, Astronomy, and Physics. I wish to see the Betelgeuse supernova explosion someday, even though the expected explosion date is somewhere between today and 100k years.</dd>
 </dl>
 ]]></content:encoded>
     </item>

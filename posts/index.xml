@@ -17,7 +17,7 @@
       <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html</guid>
-      <description>Centralized software customization on the group of EC2 Mac instances</description>
+      <description>A small adjustment for big capabilities</description>
       <content:encoded><![CDATA[<p>In days of containers and serverless applications, Ansible looks not such a trendy thing.</p>
 <p>But still, there are cases when it helps, and there are cases when it combines very well with brand new product offerings, such as EC2 Mac instances.</p>
 <p>The <a href="https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html">more I use mac1.metal</a> in AWS, the more I see that Ansible becomes a bedrock of software customization in my case.</p>
