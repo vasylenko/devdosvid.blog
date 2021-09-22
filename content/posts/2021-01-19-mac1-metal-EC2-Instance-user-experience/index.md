@@ -2,9 +2,9 @@
 date: "2021-01-19T00:00:00Z"
 title: mac1.metal EC2 Instance — user experience
 description: An overview of one-month user experience with the new mac1.metal EC2 Instances from AWS
-images: ["/assets/posts/2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg"]
+images: ["2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg"]
 cover:
-  image: "/assets/posts/2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg"
+  image: 2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg
 tags: ["aws", "macos", "ec2"]
 url: /2021/01/19/mac1-metal-EC2-Instance-user-experience.html
 ---

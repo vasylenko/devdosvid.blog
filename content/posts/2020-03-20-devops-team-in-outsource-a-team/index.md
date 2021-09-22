@@ -4,6 +4,9 @@ title: DevOps team in outsource. A team?
 description: This article was written a long time ago in a galaxy far, far away...
 tags: ["devops"]
 url: /2020/03/20/devops-team-in-outsource-a-team.html
+cover:
+    image: 2020-03-20-devops-team-in-outsource-a-team_heading-image.png
+images: ["2020-03-20-devops-team-in-outsource-a-team_heading-image.png"]
 ---
 
 I am a team lead in an outsourcing company. That means I believe _(or convince myself)_ that I lead the team _(wait, wait, there will be even more obvious discoveries)_. 

@@ -4,6 +4,9 @@ description: For those who want to understand the engineering team better and sp
 tags: ["terraform", "tutorial"]
 title: Terraform explained for managers
 url: /2020/05/02/Terraform-explained-for-managers.html
+cover:
+    image: 2020-05-02-terraform-explained-for-managers.png
+images: ["2020-05-02-terraform-explained-for-managers.png"]
 ---
 
 This article was written a long time ago in a galaxy far, far away...

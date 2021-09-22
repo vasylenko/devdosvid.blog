@@ -1,9 +1,9 @@
 ---
 date: "2021-05-21T00:00:00Z"
 description: Modifying response headers to enforce the security of the web application
-images: ["/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/cover_image.png"]
+images: ["cover_image.png"]
 cover:
-    image: "/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/cover_image.png"
+    image: "cover_image.png"
 tags: ["aws", "cloudfront", "security"]
 title: Configure HTTP Security headers with CloudFront Functions
 url: /2021/05/21/configure-http-security-headers-with-cloudfront-functions.html
@@ -37,7 +37,7 @@ Every CloudFront distribution has one (default) or more Cache behaviors, and Fun
 
 That is how the request flow looks like in general, and here is where CloudFront Functions execution happens: 
 
-![](/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/request_flow.png)
+![](request_flow.png)
 
 CloudFront Functions support Viewer Request (after CloudFront receives a request from a client) and Viewer Response (before CloudFront forwards the response to the client) events.
 
@@ -53,7 +53,7 @@ Creation and configuration of the CloudFront Function consist of the following s
 
 ### Create Function
 In the AWS Console, open CloudFront service and lick on the Functions on the left navigation bar, then click Create function button.
-   ![](/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/create_function.png)
+   ![](create_function.png)
 Enter the name of your Function (e.g., “security-headers”) and click Continue.
 
 ### Build Function
@@ -61,7 +61,7 @@ On the function settings page, you will see four tabs with the four lifecycle st
 
 Paste the function code into the editor and click “Save.”
 
-![](/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/function_editor.png)
+![](function_editor.png)
 
 Here is the source code of the function:
 ```javascript
@@ -88,18 +88,18 @@ Now click the blue “Test” button and observe the output results:
 - Compute utilization represents the relative amount of time (on a scale between 0 and 100) your function took to run
 - Check the Response headers tab and take a look at how the function added custom headers.
 
-![](/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/function_test.png)
+![](function_test.png)
 
 ### Publish Function
 Let’s publish our function. To do that, open the Publish tab and click on the blue button “Publish and update.”
-![](/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/function_publish.png)
+![](function_publish.png)
 
 ### Associate your Function with CloudFront distribution
 Now, you can associate the function with the CloudFront distribution.
 
 To do so, open the Associate tab, select the distribution and event type (Viewer Response), and select the Cache behavior of your distribution which you want to use for the association.
 
-![](/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/function_associate.png)
+![](function_associate.png)
 
 Once you associate the function with the CloudFront distribution, you can test it in live mode.
 
@@ -129,8 +129,8 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw==
 
 You can also test your results here — [Mozilla Observatory](https://observatory.mozilla.org/)
 
-![](/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/scan_result-1.png)
-![](/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/scan_result-2.png)
+![](scan_result-1.png)
+![](scan_result-2.png)
 
 ## Read more
 That was a simplified overview of the CloudFront Functions capabilities.

@@ -1,9 +1,9 @@
 ---
 date: "2020-12-16T00:00:00Z"
 description: Native and official way to run AWS CLI in a browser 
-images: ["/assets/posts/2020-12-16-aws-cloudshell.png"]
+images: ["2020-12-16-aws-cloudshell.png"]
 cover:
-    image: "/assets/posts/2020-12-16-aws-cloudshell.png"
+    image: 2020-12-16-aws-cloudshell.png
 tags: ["aws", "cli"]
 title: AWS CloudShell
 url: /2020/12/16/aws-cloudshell.html

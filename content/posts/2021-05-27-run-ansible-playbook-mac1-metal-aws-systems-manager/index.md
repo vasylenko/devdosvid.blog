@@ -2,9 +2,8 @@
 date: "2021-05-27T00:00:00Z"
 description: A small adjustment for big capabilities
 cover:
-  image: /assets/posts/2021-05-27-run-ansible-playbook-mac1-metal-aws-systems-manager/cover_image.png
-images:
-  - /assets/posts/2021-05-27-run-ansible-playbook-mac1-metal-aws-systems-manager/cover_image.png
+  image: cover_image.png
+images: ["cover_image.png"]
 subtitle: Centralized software customization on the group of EC2 Mac instances
 tags: [aws, ansible]
 title: Run Ansible playbook on mac1.metal instances fleet with AWS Systems Manager
@@ -47,7 +46,7 @@ Navigate to AWS SSM → Documents → Owned by Amazon and type `AWS-RunAnsiblePl
 
 Select the Document by pressing the circle on its top-right corner and then click Actions → Clone document.
 
-![](/assets/posts/2021-05-27-run-ansible-playbook-mac1-metal-aws-systems-manager/aws_ssm_document_clone.png)
+![](aws_ssm_document_clone.png)
 
 Give the new SSM Document a name, e.g., `macos-arbitrary-ansible-playbook`, and change the `ansible` callouts (at the end of the code) with the full path to the ansible symlink made by Homebrew which is `/usr/local/bin/ansible`
 

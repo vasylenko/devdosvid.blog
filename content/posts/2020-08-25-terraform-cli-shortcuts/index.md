@@ -1,9 +1,9 @@
 ---
 date: "2020-08-25T00:00:00Z"
 description: A bunch of small tools I use to simplify Terraform workflow
-images: ["/assets/posts/2020-08-25-terraform-cli-shortcuts/cover.jpg"]
+images: ["2020-08-25-terraform-cli-shortcuts.jpg"]
 cover:
-  image: /assets/posts/2020-08-25-terraform-cli-shortcuts/cover.jpg
+  image: 2020-08-25-terraform-cli-shortcuts.jpg
 tags: ["terraform", "cli", "automation"]
 title: Terraform CLI shortcuts
 url: /2020/08/25/terraform-cli-shortcuts.html

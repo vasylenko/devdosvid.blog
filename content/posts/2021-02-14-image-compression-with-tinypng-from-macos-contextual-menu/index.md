@@ -2,9 +2,9 @@
 date: "2021-02-14T00:00:00Z"
 title: Using TinyPNG Image Compression From MacOS Finder Contextual Menu
 description: How to add TinyPNG image compression to your macOS Finder contextual menu
-images: ["/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/cover.png"]
+images: ["2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu.png"]
 cover:
-  image: "/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/cover.png"
+  image: 2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu.png
 tags: ["macos", "fun"]
 url: /2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html
 ---
@@ -19,7 +19,7 @@ After a moment, the new optimized versions of images will appear near to origina
 
 If you selected a folder along with the files, the script would process all `png` and `jpeg` files in it.
 
-![](/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/context_menu_full_compressed.gif)
+![](context_menu_full_compressed.gif)
 
 # Prerequisites
 You need to register at TinyPNG and get your API key here — [Developer API](https://tinypng.com/developers).
@@ -31,7 +31,7 @@ Open Automator application. If you never used this app before, please read about
 
 On the New Action screen, chose **Quick Action**
 
-![](/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/quick_action_compressed.png)
+![](quick_action_compressed.png)
 
 After you click the "Choose" button, you'll see the workflow configuration window.
 
@@ -48,7 +48,7 @@ Set the following workflow configuration options as described below:
 
 Click the **Option** button at the bottom of the Action window and **Uncheck** `Show this action when the workflow runs.`
 
-![](/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/run_shell_script_compressed.png)
+![](run_shell_script_compressed.png)
 
 Put the following script into the **Run Shell Script** window, replacing the *YOUR_API_KEY_HERE* string with your API key obtained from TinyPNG.
 

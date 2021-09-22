@@ -1,9 +1,9 @@
 ---
 date: "2020-08-06T00:00:00Z"
 description: A quick guide to secure secrets management with Ansible in AWS
-images: ["/assets/posts/2020-08-06-ansible-secrets-aws-ssm-sm.png"]
+images: ["2020-08-06-ansible-secrets-aws-ssm-sm.png"]
 cover:
-    image: "/assets/posts/2020-08-06-ansible-secrets-aws-ssm-sm.png"
+    image: "2020-08-06-ansible-secrets-aws-ssm-sm.png"
 description: A better way to store sensitive information for Ansible on EC2 or other services
 tags: ["ansible", "aws", "devops", "security", "ssm"]
 title: Manage Ansible playbook secrets with AWS services
