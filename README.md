@@ -11,3 +11,8 @@
 ⚙️ CI/CD: GitHub [Actions](https://docs.github.com/en/actions) (see my [workflow](./.github/workflows/website.yaml) for example)
 
 🌎 + free account at [CloudFlare](https://www.cloudflare.com/plans/) for CDN 
+
+#### Lighthouse report
+![[](https://lighthouse-dot-webdotdevsite.appspot.com//lh/html?url=https%3A%2F%2Fserhii.vasylenko.info%2F)](./lighthouse.png)
+#### GTmetrix report
+![[](https://gtmetrix.com/reports/serhii.vasylenko.info/l0fh6SNO/)](./gtmetrix.png)
