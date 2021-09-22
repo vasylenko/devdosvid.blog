@@ -1,7 +1,8 @@
 ---
 date: "2020-05-02T00:00:00Z"
 description: For those who want to understand the engineering team better and speak on the same technical language - terraform explained.
-tags: ["terraform", "tutorial"]
+tags: ["terraform", "tutorials"]
+categories: [Tutorials]
 title: Terraform explained for managers
 url: /2020/05/02/Terraform-explained-for-managers.html
 cover:

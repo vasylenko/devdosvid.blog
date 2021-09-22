@@ -5,7 +5,8 @@ images: ["terraform-modules.jpeg"]
 cover:
     image: terraform-modules.jpeg
 description: Explanation of Terraform modules and their main concepts in English.
-tags: ["terraform","tutorial"]
+tags: ["terraform","tutorials"]
+categories: [Tutorials]
 title: What are Terraform Modules and how do they work?
 url: /2020/09/09/terraform-modules-explained.html
 ---

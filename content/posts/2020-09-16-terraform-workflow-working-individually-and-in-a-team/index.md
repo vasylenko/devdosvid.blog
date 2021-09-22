@@ -5,7 +5,8 @@ description: An overview of best practices for working with Terraform individual
 images: ["tf-workflows.jpeg"]
 cover:
   image: tf-workflows.jpeg
-tags: ["terraform", "tutorial"]
+tags: ["Terraform", "Tutorials"]
+categories: [Tutorials]
 title: Terraform Workflow — Working Individually and in a Team
 url: /2020/09/16/terraform-workflow-working-individually-and-in-a-team.html
 ---

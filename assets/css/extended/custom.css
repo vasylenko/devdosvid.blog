@@ -16,6 +16,10 @@
     margin-bottom: 5px;
 }
 
+.terms-tags li {
+    display: inline;
+}
+
 
 @media print {
     body {

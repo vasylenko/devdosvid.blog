@@ -5,6 +5,7 @@ images: ["cover_image.png"]
 cover:
     image: "cover_image.png"
 tags: ["aws", "cloudfront", "security"]
+categories: [Cloud-based DevOps]
 title: Configure HTTP Security headers with CloudFront Functions
 url: /2021/05/21/configure-http-security-headers-with-cloudfront-functions.html
 ---

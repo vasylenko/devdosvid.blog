@@ -8,6 +8,7 @@ disableAnchoredHeadings: true
 hideSummary: true
 cover.hidden: true
 ShowBreadCrumbs: false
+title: About me
 ---
 ![](about-me.jpg)
 

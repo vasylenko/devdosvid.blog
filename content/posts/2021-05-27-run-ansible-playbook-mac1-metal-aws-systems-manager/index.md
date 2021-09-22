@@ -6,6 +6,7 @@ cover:
 images: ["cover_image.png"]
 subtitle: Centralized software customization on the group of EC2 Mac instances
 tags: [aws, ansible]
+categories: [Cloud-based DevOps]
 title: Run Ansible playbook on mac1.metal instances fleet with AWS Systems Manager
 url: /2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html
 ---

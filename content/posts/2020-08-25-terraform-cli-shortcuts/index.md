@@ -5,6 +5,7 @@ images: ["2020-08-25-terraform-cli-shortcuts.jpg"]
 cover:
   image: 2020-08-25-terraform-cli-shortcuts.jpg
 tags: ["terraform", "cli", "automation"]
+categories: [Cloud-based DevOps]
 title: Terraform CLI shortcuts
 url: /2020/08/25/terraform-cli-shortcuts.html
 ---

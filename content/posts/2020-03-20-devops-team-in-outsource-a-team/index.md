@@ -3,6 +3,7 @@ date: "2020-03-20T00:00:00Z"
 title: DevOps team in outsource. A team?
 description: This article was written a long time ago in a galaxy far, far away...
 tags: ["devops"]
+categories: [Workplace Experience]
 url: /2020/03/20/devops-team-in-outsource-a-team.html
 cover:
     image: 2020-03-20-devops-team-in-outsource-a-team_heading-image.png

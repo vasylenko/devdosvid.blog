@@ -6,6 +6,7 @@ images: ["2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg"]
 cover:
   image: 2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg
 tags: ["aws", "macos", "ec2"]
+categories: [Reviews, Cloud-based DevOps]
 url: /2021/01/19/mac1-metal-EC2-Instance-user-experience.html
 ---
 

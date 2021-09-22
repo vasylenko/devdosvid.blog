@@ -6,6 +6,7 @@ images: ["2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu.p
 cover:
   image: 2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu.png
 tags: ["macos", "fun"]
+categories: [Tutorials]
 url: /2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html
 ---
 I just wanted to compress one image, but went to far...

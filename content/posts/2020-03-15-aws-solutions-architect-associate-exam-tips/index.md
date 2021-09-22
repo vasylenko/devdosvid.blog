@@ -7,6 +7,7 @@ cover:
 images: ["2020-03-15-aws-solutions-architect-associate-exam-tips_AWS-Certified_Solutions-Architect_Associate.png"]
 tags: ["aws","certification"]
 title: AWS SAA exam results
+categories: [Learning tips]
 ---
 
 ### 926 out of 1000

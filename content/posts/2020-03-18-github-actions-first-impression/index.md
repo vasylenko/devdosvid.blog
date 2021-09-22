@@ -2,6 +2,7 @@
 date: "2020-03-18T00:30:20Z"
 description: My first meet with github actions... in action.
 tags: ["github","automation"]
+categories: [Reviews]
 title: Github Actions - First impression
 url: /2020/03/18/github-actions-first-impression.html
 images: ["cover.png"]

@@ -6,6 +6,7 @@ cover:
     image: "2021-01-20-terraforming-mac1-metal-at-AWS.jpg"
 subtitle: Infrastructure as Code for macOS instances
 tags: ["aws", "terraform", "automation", "ec2"]
+categories: [Cloud-based DevOps]
 title: Terraforming mac1.metal at AWS
 url: /2021/01/20/terraforming-mac1-metal-at-AWS.html
 ---
