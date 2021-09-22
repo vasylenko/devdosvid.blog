@@ -24,7 +24,7 @@
 <p>You select needed files or folders, then right-click on them, click on the Services menu item and choose TinyPNG.</p>
 <p>After a moment, the new optimized versions of images will appear near to original files.</p>
 <p>If you selected a folder along with the files, the script would process all <code>png</code> and <code>jpeg</code> files in it.</p>
-<p><img loading="lazy" src="/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/context_menu_full_compressed.gif" alt=""  />
+<p><img loading="lazy" src="context_menu_full_compressed.gif" alt=""  />
 </p>
 <h1 id="prerequisites">Prerequisites</h1>
 <p>You need to register at TinyPNG and get your API key here — <a href="https://tinypng.com/developers">Developer API</a>.</p>
@@ -32,7 +32,7 @@
 <h1 id="how-to-create-quick-action-workflow">How to create Quick Action Workflow</h1>
 <p>Open Automator application. If you never used this app before, please read about it on the official <a href="https://support.apple.com/guide/automator/create-a-workflow-aut7cac58839/2.10/mac/11.0">user guide website</a>.</p>
 <p>On the New Action screen, chose <strong>Quick Action</strong></p>
-<p><img loading="lazy" src="/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/quick_action_compressed.png" alt=""  />
+<p><img loading="lazy" src="quick_action_compressed.png" alt=""  />
 </p>
 <p>After you click the &ldquo;Choose&rdquo; button, you&rsquo;ll see the workflow configuration window.</p>
 <h1 id="workflow-configuration">Workflow configuration</h1>
@@ -42,7 +42,7 @@
 <p><strong>Shell</strong> <code>/bin/zsh</code></p>
 <p><strong>Pass input</strong> <code>as arguments</code></p>
 <p>Click the <strong>Option</strong> button at the bottom of the Action window and <strong>Uncheck</strong> <code>Show this action when the workflow runs.</code></p>
-<p><img loading="lazy" src="/assets/posts/2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu/run_shell_script_compressed.png" alt=""  />
+<p><img loading="lazy" src="run_shell_script_compressed.png" alt=""  />
 </p>
 <p>Put the following script into the <strong>Run Shell Script</strong> window, replacing the <em>YOUR_API_KEY_HERE</em> string with your API key obtained from TinyPNG.</p>
 <p>{% gist 13cb423aa83265e79ac5ad900195603f %}</p>

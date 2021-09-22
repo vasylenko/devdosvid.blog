@@ -42,7 +42,7 @@
 <p>All you need to do is clone the Document provided by AWS and change its code a little — replace the callouts of <code>ansible</code> with the full path to the binary.</p>
 <p>Navigate to AWS SSM → Documents → Owned by Amazon and type <code>AWS-RunAnsiblePlaybook</code> in the search field.</p>
 <p>Select the Document by pressing the circle on its top-right corner and then click Actions → Clone document.</p>
-<p><img loading="lazy" src="/assets/posts/2021-05-27-run-ansible-playbook-mac1-metal-aws-systems-manager/aws_ssm_document_clone.png" alt=""  />
+<p><img loading="lazy" src="aws_ssm_document_clone.png" alt=""  />
 </p>
 <p>Give the new SSM Document a name, e.g., <code>macos-arbitrary-ansible-playbook</code>, and change the <code>ansible</code> callouts (at the end of the code) with the full path to the ansible symlink made by Homebrew which is <code>/usr/local/bin/ansible</code></p>
 <p>Here is the complete source code of the Document with adjusted Ansible path:</p>
@@ -352,7 +352,7 @@
 </div>
 </div><p>Shell rulez, yes.</p>
 <h1 id="building-the-ami">Building the AMI</h1>
-<p><img loading="lazy" src="/assets/posts/2021-02-01-customizing-mac1-metal-ec2-ami/ami-build.gif" alt=""  />
+<p><img loading="lazy" src="ami-build.gif" alt=""  />
 </p>
 <p><a href="https://www.packer.io/docs/builders/amazon/ebs">Packer by HashiCorp</a>, of course.</p>
 <p>I would love to compare Packer with EC2 Image Builder, but it <a href="https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html#image-builder-os">does not support macOS</a> yet (as of Feb'21).</p>

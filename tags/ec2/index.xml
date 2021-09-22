@@ -120,7 +120,7 @@
 </div>
 </div><p>Shell rulez, yes.</p>
 <h1 id="building-the-ami">Building the AMI</h1>
-<p><img loading="lazy" src="/assets/posts/2021-02-01-customizing-mac1-metal-ec2-ami/ami-build.gif" alt=""  />
+<p><img loading="lazy" src="ami-build.gif" alt=""  />
 </p>
 <p><a href="https://www.packer.io/docs/builders/amazon/ebs">Packer by HashiCorp</a>, of course.</p>
 <p>I would love to compare Packer with EC2 Image Builder, but it <a href="https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html#image-builder-os">does not support macOS</a> yet (as of Feb'21).</p>

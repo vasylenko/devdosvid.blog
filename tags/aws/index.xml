@@ -42,7 +42,7 @@
 <p>All you need to do is clone the Document provided by AWS and change its code a little — replace the callouts of <code>ansible</code> with the full path to the binary.</p>
 <p>Navigate to AWS SSM → Documents → Owned by Amazon and type <code>AWS-RunAnsiblePlaybook</code> in the search field.</p>
 <p>Select the Document by pressing the circle on its top-right corner and then click Actions → Clone document.</p>
-<p><img loading="lazy" src="/assets/posts/2021-05-27-run-ansible-playbook-mac1-metal-aws-systems-manager/aws_ssm_document_clone.png" alt=""  />
+<p><img loading="lazy" src="aws_ssm_document_clone.png" alt=""  />
 </p>
 <p>Give the new SSM Document a name, e.g., <code>macos-arbitrary-ansible-playbook</code>, and change the <code>ansible</code> callouts (at the end of the code) with the full path to the ansible symlink made by Homebrew which is <code>/usr/local/bin/ansible</code></p>
 <p>Here is the complete source code of the Document with adjusted Ansible path:</p>
@@ -270,7 +270,7 @@
 <p>In a nutshell, CloudFront Functions allow performing simple actions against HTTP(s) request (from the client) and response (from the CloudFront cache at the edge). Functions take less than one millisecond to execute, support JavaScript (ECMAScript 5.1 compliant), and cost $0.10 per 1 million invocations.</p>
 <p>Every CloudFront distribution has one (default) or more Cache behaviors, and Functions can be associated with these behaviors to execute upon a specific event.</p>
 <p>That is how the request flow looks like in general, and here is where CloudFront Functions execution happens:</p>
-<p><img loading="lazy" src="/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/request_flow.png" alt=""  />
+<p><img loading="lazy" src="request_flow.png" alt=""  />
 </p>
 <p>CloudFront Functions support Viewer Request (after CloudFront receives a request from a client) and Viewer Response (before CloudFront forwards the response to the client) events.</p>
 <p>You can read more about the events types and their properties here — <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-cloudfront-trigger-events.html">CloudFront Events That Can Trigger a Lambda Function - Amazon CloudFront</a>.</p>
@@ -280,13 +280,13 @@
 <p>Creation and configuration of the CloudFront Function consist of the following steps:</p>
 <h3 id="create-function">Create Function</h3>
 <p>In the AWS Console, open CloudFront service and lick on the Functions on the left navigation bar, then click Create function button.
-<img loading="lazy" src="/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/create_function.png" alt=""  />
+<img loading="lazy" src="create_function.png" alt=""  />
 
 Enter the name of your Function (e.g., “security-headers”) and click Continue.</p>
 <h3 id="build-function">Build Function</h3>
 <p>On the function settings page, you will see four tabs with the four lifecycle steps: Build, Test, Publish, Associate.</p>
 <p>Paste the function code into the editor and click “Save.”</p>
-<p><img loading="lazy" src="/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/function_editor.png" alt=""  />
+<p><img loading="lazy" src="function_editor.png" alt=""  />
 </p>
 <p>Here is the source code of the function:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -329,16 +329,16 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
 <li>Compute utilization represents the relative amount of time (on a scale between 0 and 100) your function took to run</li>
 <li>Check the Response headers tab and take a look at how the function added custom headers.</li>
 </ul>
-<p><img loading="lazy" src="/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/function_test.png" alt=""  />
+<p><img loading="lazy" src="function_test.png" alt=""  />
 </p>
 <h3 id="publish-function">Publish Function</h3>
 <p>Let’s publish our function. To do that, open the Publish tab and click on the blue button “Publish and update.”
-<img loading="lazy" src="/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/function_publish.png" alt=""  />
+<img loading="lazy" src="function_publish.png" alt=""  />
 </p>
 <h3 id="associate-your-function-with-cloudfront-distribution">Associate your Function with CloudFront distribution</h3>
 <p>Now, you can associate the function with the CloudFront distribution.</p>
 <p>To do so, open the Associate tab, select the distribution and event type (Viewer Response), and select the Cache behavior of your distribution which you want to use for the association.</p>
-<p><img loading="lazy" src="/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/function_associate.png" alt=""  />
+<p><img loading="lazy" src="function_associate.png" alt=""  />
 </p>
 <p>Once you associate the function with the CloudFront distribution, you can test it in live mode.</p>
 <p>I will use curl here to demonstrate it:</p>
@@ -387,9 +387,9 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw<span style="
 </code></pre></td></tr></table>
 </div>
 </div><p>You can also test your results here — <a href="https://observatory.mozilla.org/">Mozilla Observatory</a></p>
-<p><img loading="lazy" src="/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/scan_result-1.png" alt=""  />
+<p><img loading="lazy" src="scan_result-1.png" alt=""  />
 
-<img loading="lazy" src="/assets/posts/2021-05-21-configure-http-security-headers-with-cloudfront-functions/scan_result-2.png" alt=""  />
+<img loading="lazy" src="scan_result-2.png" alt=""  />
 </p>
 <h2 id="read-more">Read more</h2>
 <p>That was a simplified overview of the CloudFront Functions capabilities.</p>
@@ -520,7 +520,7 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw<span style="
 </div>
 </div><p>Shell rulez, yes.</p>
 <h1 id="building-the-ami">Building the AMI</h1>
-<p><img loading="lazy" src="/assets/posts/2021-02-01-customizing-mac1-metal-ec2-ami/ami-build.gif" alt=""  />
+<p><img loading="lazy" src="ami-build.gif" alt=""  />
 </p>
 <p><a href="https://www.packer.io/docs/builders/amazon/ebs">Packer by HashiCorp</a>, of course.</p>
 <p>I would love to compare Packer with EC2 Image Builder, but it <a href="https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html#image-builder-os">does not support macOS</a> yet (as of Feb'21).</p>

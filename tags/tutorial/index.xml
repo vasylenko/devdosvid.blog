@@ -33,7 +33,7 @@
 <h1 id="basic-concepts">Basic Concepts</h1>
 <p>Let’s define the basic actions first.</p>
 <p>All described workflows are built on top of three key steps: Write, Plan, and Apply. Nevertheless, their details and actions vary between workflows.</p>
-<p><img loading="lazy" src="/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflow.png" alt=""  />
+<p><img loading="lazy" src="tf-workflow.png" alt=""  />
 
 <em>It&rsquo;s a piece of cake, isn&rsquo;t it? 😆</em></p>
 <p><strong>Write</strong> – this is where you make changes to the code.</p>
@@ -42,7 +42,7 @@
 <p>It&rsquo;s a simple idea with a variety of possible implementations.</p>
 <h1 id="core-individual-workflow">Core individual workflow</h1>
 <p>This is the most simple workflow if you work alone on a relatively small TF project. This workflow suits both local and remote backends well.</p>
-<p><img loading="lazy" src="/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflow-individual.png" alt=""  />
+<p><img loading="lazy" src="tf-workflow-individual.png" alt=""  />
 
 <em>Let&rsquo;s add a bit of Git</em></p>
 <h3 id="write">Write</h3>
@@ -53,7 +53,7 @@
 <p>This is when you run <code>terraform apply</code> and introduce the changes to real infrastructure objects. Also, this is when you push committed changes to the remote repository.</p>
 <h1 id="core-team-workflow">Core team workflow</h1>
 <p>This workflow is good for when you work with configuration code in a team and want to use feature branches to manage the changes accurately.</p>
-<p><img loading="lazy" src="/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-core-workflow-team.png" alt=""  />
+<p><img loading="lazy" src="tf-core-workflow-team.png" alt=""  />
 
 <em>Don&rsquo;t get scared, it is still simple, just follow the lines</em></p>
 <h3 id="write-1">Write</h3>
@@ -67,7 +67,7 @@
 <h1 id="team-workflow-with-automation">Team workflow with automation</h1>
 <p>In a nutshell, this workflow allows you to introduce a kind of smoke test for your infrastructure code (using <code>plan</code>) and also to automate the feedback in the CI process.</p>
 <p>The automated part of this workflow consists of a speculative plan on commit and/or Pull Request (PR ), along with adding the output of <code>plan</code> to the comment of the PR. A speculative plan mean just to show the changes, and not apply them afterward.</p>
-<p><img loading="lazy" src="/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflow-team-automation-1.png" alt=""  />
+<p><img loading="lazy" src="tf-workflow-team-automation-1.png" alt=""  />
 
 <em>I like when TF plan output is included to PR, but nobody likes to read others TF plans for some reason&hellip;</em></p>
 <h3 id="write-2">Write</h3>
@@ -91,7 +91,7 @@
 <h1 id="import-workflow">Import workflow</h1>
 <p>This workflow refers to a situation when you have some objects already created (i.e., up and running), and you need to manage them with Terraform.</p>
 <p>Suppose we already have an S3 bucket in AWS called &ldquo;someassetsbucket&rdquo; and we want to include it into our configuration code.‌‌</p>
-<p><img loading="lazy" src="/assets/posts/2020-09-16-terraform-workflow-working-individually-and-in-a-team/tf-workflow-import.png" alt=""  />
+<p><img loading="lazy" src="tf-workflow-import.png" alt=""  />
 </p>
 <h3 id="prepare">Prepare</h3>
 <p>You should create a resource block to be used later for the real object you’re going to import.</p>
@@ -177,7 +177,7 @@
 – a static public IP mapped to the server&rsquo;s virtual network interface
 – a set of firewall rules to be attached to the server
 – something else&hellip; (i.e. another block device, additional network interface, etc)</p>
-<p><img loading="lazy" src="/assets/posts/2020-09-09-terraform-modules-explained/1.png" alt=""  />
+<p><img loading="lazy" src="1.png" alt=""  />
 </p>
 <p>Now let&rsquo;s assume that you need to create this server with a set of resources many times. This is where modules are really helpful – you don&rsquo;t want to repeat the same configuration code over and over again, do you?</p>
 <p>Here is an example that illustrates how our &ldquo;server&rdquo; module might be called.
@@ -238,7 +238,7 @@ module &#34;network&#34; {
 </code></pre></td></tr></table>
 </div>
 </div><p>Once we have some custom modules, we can refer to them as &ldquo;child&rdquo; modules. And the configuration file where we call child modules relates to the root module.</p>
-<p><img loading="lazy" src="/assets/posts/2020-09-09-terraform-modules-explained/2.png" alt=""  />
+<p><img loading="lazy" src="2.png" alt=""  />
 </p>
 <p>A child module can be sourced from a number of places:</p>
 <ul>
@@ -306,11 +306,11 @@ module.server-beta.resource_type.resource_name
 </div><h3 id="explicit-resources-exposure">Explicit resources exposure</h3>
 <p>If you want to access some details for the resources in another module, you&rsquo;ll need to explicitly configure that.</p>
 <p>By default, our module &ldquo;server&rdquo; doesn&rsquo;t know about the network that was created in the &ldquo;network&rdquo; module.</p>
-<p><img loading="lazy" src="/assets/posts/2020-09-09-terraform-modules-explained/3.png" alt=""  />
+<p><img loading="lazy" src="3.png" alt=""  />
 </p>
 <p>So we must declare an <code>output</code> value in the &ldquo;network&rdquo; module to export its resource, or an attribute of a resource, to other modules.</p>
 <p>The module &ldquo;server&rdquo; must declare a <code>variable</code> to be used later as the input.</p>
-<p><img loading="lazy" src="/assets/posts/2020-09-09-terraform-modules-explained/4.png" alt=""  />
+<p><img loading="lazy" src="4.png" alt=""  />
 </p>
 <p>This explicit declaration of the output is the way to expose some resource (or information about it) outside — to the scope of the &lsquo;root&rsquo; module, hence to make it available for other modules.</p>
 <p>Next, when we call the child module &ldquo;server&rdquo;  in the root module, we should assign the output from the &ldquo;network&rdquo; module to the variable of the &ldquo;server&rdquo; module:</p>

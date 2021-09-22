@@ -394,7 +394,9 @@ module_alb/alb.tf
 </span><span style="color:#e6db74">          git push --force-with-lease origin gh-pages</span>          
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="old-good-things-made-better">Old good things made better</h3>
+</div><p><img loading="lazy" src="2020-03-18-github-actions-first-impression_github-actions-events.png" alt=""  />
+</p>
+<h3 id="old-good-things-made-better">Old good things made better</h3>
 <p>A lot of common things have been introduced to GitHubActions with some sweet additions:</p>
 <ul>
 <li>you can also specify different environments for your jobs in the same workflow;</li>
