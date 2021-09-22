@@ -1,0 +1,1178 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Cloud-based DevOps on Serhii Vasylenko</title>
+    <link>https://serhii.vasylenko.info/categories/cloud-based-devops/</link>
+    <description>Recent content in Cloud-based DevOps on Serhii Vasylenko</description>
+    <image>
+      <url>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</url>
+      <link>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 27 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/cloud-based-devops/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Run Ansible playbook on mac1.metal instances fleet with AWS Systems Manager</title>
+      <link>https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html</link>
+      <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html</guid>
+      <description>A small adjustment for big capabilities</description>
+      <content:encoded><![CDATA[<p>In days of containers and serverless applications, Ansible looks not such a trendy thing.</p>
+<p>But still, there are cases when it helps, and there are cases when it combines very well with brand new product offerings, such as EC2 Mac instances.</p>
+<p>The <a href="https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html">more I use mac1.metal</a> in AWS, the more I see that Ansible becomes a bedrock of software customization in my case.</p>
+<p>And when you have a large instances fleet, the AWS Systems Manager becomes your best friend (the sooner you get along together, the better).</p>
+<p>So is it possible to use Ansible playbooks for mac1.metal on a big scale, with the help of AWS Systems Manager?</p>
+<h2 id="not-available-out-of-the-box">(Not) Available out of the box</h2>
+<p>AWS Systems Manager (SSM hereafter) has a pre-defined, shared Document that allows running Ansible playbooks.</p>
+<p>It’s called “AWS-RunAnsiblePlaybook,” and you can find it in AWS SSM → Documents → Owned by Amazon.</p>
+<p>However, this Document is not quite “friendly” to macOS. When the SSM agent calls Ansible on the Mac EC2 instance, it does not recognize the Ansible installed with Homebrew (de-facto most used macOS package manager).</p>
+<p>So if you try to run a command on the mac1.metal instance using this Document, you will get the following error:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Ansible is not installed. Please install Ansible and rerun the command.
+</code></pre></td></tr></table>
+</div>
+</div><p>The root cause is trivial: the path to Ansible binary is not present on the list of paths available to the SSM agent by default.</p>
+<p>There are several ways to solve that, but I believe that the most convenient one would be to create your custom Document — a slightly adjusted version of the default one provided by AWS.</p>
+<h2 id="creating-own-ssm-document-for-ansible-installed-with-homebrew">Creating own SSM Document for Ansible installed with Homebrew</h2>
+<p>All you need to do is clone the Document provided by AWS and change its code a little — replace the callouts of <code>ansible</code> with the full path to the binary.</p>
+<p>Navigate to AWS SSM → Documents → Owned by Amazon and type <code>AWS-RunAnsiblePlaybook</code> in the search field.</p>
+<p>Select the Document by pressing the circle on its top-right corner and then click Actions → Clone document.</p>
+<p><img loading="lazy" src="aws_ssm_document_clone.png" alt=""  />
+</p>
+<p>Give the new SSM Document a name, e.g., <code>macos-arbitrary-ansible-playbook</code>, and change the <code>ansible</code> callouts (at the end of the code) with the full path to the ansible symlink made by Homebrew which is <code>/usr/local/bin/ansible</code></p>
+<p>Here is the complete source code of the Document with adjusted Ansible path:</p>
+
+
+<p><details >
+  <summary markdown="span">Click to expand the code block</summary>
+  <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">87
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;schemaVersion&#34;</span>: <span style="color:#e6db74">&#34;2.0&#34;</span>,
+  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Use this document to run arbitrary Ansible playbooks on macOS EC2 instances. Specify either YAML text or URL. If you specify both, the URL parameter will be used. Use the extravar parameter to send runtime variables to the Ansible execution. Use the check parameter to perform a dry run of the Ansible execution. The output of the dry run shows the changes that will be made when the playbook is executed.&#34;</span>,
+  <span style="color:#f92672">&#34;parameters&#34;</span>: {
+    <span style="color:#f92672">&#34;playbook&#34;</span>: {
+      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;String&#34;</span>,
+      <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;(Optional) If you don&#39;t specify a URL, then you must specify playbook YAML in this field.&#34;</span>,
+      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+      <span style="color:#f92672">&#34;displayType&#34;</span>: <span style="color:#e6db74">&#34;textarea&#34;</span>
+    },
+    <span style="color:#f92672">&#34;playbookurl&#34;</span>: {
+      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;String&#34;</span>,
+      <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;(Optional) If you don&#39;t specify playbook YAML, then you must specify a URL where the playbook is stored. You can specify the URL in the following formats: http://example.com/playbook.yml  or s3://examplebucket/plabook.url. For security reasons, you can&#39;t specify a URL with quotes.&#34;</span>,
+      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+      <span style="color:#f92672">&#34;allowedPattern&#34;</span>: <span style="color:#e6db74">&#34;^\\s*$|^(http|https|s3)://[^&#39;]*$&#34;</span>
+    },
+    <span style="color:#f92672">&#34;extravars&#34;</span>: {
+      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;String&#34;</span>,
+      <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;(Optional) Additional variables to pass to Ansible at runtime. Enter a space separated list of key/value pairs. For example: color=red or fruits=[apples,pears]&#34;</span>,
+      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;foo=bar&#34;</span>,
+      <span style="color:#f92672">&#34;displayType&#34;</span>: <span style="color:#e6db74">&#34;textarea&#34;</span>,
+      <span style="color:#f92672">&#34;allowedPattern&#34;</span>: <span style="color:#e6db74">&#34;^((^|\\s)\\w+=(\\S+|&#39;.*&#39;))*$&#34;</span>
+    },
+    <span style="color:#f92672">&#34;check&#34;</span>: {
+      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;String&#34;</span>,
+      <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34; (Optional) Use the check parameter to perform a dry run of the Ansible execution.&#34;</span>,
+      <span style="color:#f92672">&#34;allowedValues&#34;</span>: [
+        <span style="color:#e6db74">&#34;True&#34;</span>,
+        <span style="color:#e6db74">&#34;False&#34;</span>
+      ],
+      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;False&#34;</span>
+    },
+    <span style="color:#f92672">&#34;timeoutSeconds&#34;</span>: {
+      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;String&#34;</span>,
+      <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;(Optional) The time in seconds for a command to be completed before it is considered to have failed.&#34;</span>,
+      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;3600&#34;</span>
+    }
+  },
+  <span style="color:#f92672">&#34;mainSteps&#34;</span>: [
+    {
+      <span style="color:#f92672">&#34;action&#34;</span>: <span style="color:#e6db74">&#34;aws:runShellScript&#34;</span>,
+      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;runShellScript&#34;</span>,
+      <span style="color:#f92672">&#34;inputs&#34;</span>: {
+        <span style="color:#f92672">&#34;timeoutSeconds&#34;</span>: <span style="color:#e6db74">&#34;{{ timeoutSeconds }}&#34;</span>,
+        <span style="color:#f92672">&#34;runCommand&#34;</span>: [
+          <span style="color:#e6db74">&#34;#!/bin/bash&#34;</span>,
+          <span style="color:#e6db74">&#34;/usr/local/bin/ansible --version&#34;</span>,
+          <span style="color:#e6db74">&#34;if [ $? -ne 0 ]; then&#34;</span>,
+          <span style="color:#e6db74">&#34; echo \&#34;Ansible is not installed. Please install Ansible and rerun the command\&#34; &gt;&amp;2&#34;</span>,
+          <span style="color:#e6db74">&#34; exit 1&#34;</span>,
+          <span style="color:#e6db74">&#34;fi&#34;</span>,
+          <span style="color:#e6db74">&#34;execdir=$(dirname $0)&#34;</span>,
+          <span style="color:#e6db74">&#34;cd $execdir&#34;</span>,
+          <span style="color:#e6db74">&#34;if [ -z &#39;{{playbook}}&#39; ] ; then&#34;</span>,
+          <span style="color:#e6db74">&#34; if [[ \&#34;{{playbookurl}}\&#34; == http* ]]; then&#34;</span>,
+          <span style="color:#e6db74">&#34;   wget &#39;{{playbookurl}}&#39; -O playbook.yml&#34;</span>,
+          <span style="color:#e6db74">&#34;   if [ $? -ne 0 ]; then&#34;</span>,
+          <span style="color:#e6db74">&#34;       echo \&#34;There was a problem downloading the playbook. Make sure the URL is correct and that the playbook exists.\&#34; &gt;&amp;2&#34;</span>,
+          <span style="color:#e6db74">&#34;       exit 1&#34;</span>,
+          <span style="color:#e6db74">&#34;   fi&#34;</span>,
+          <span style="color:#e6db74">&#34; elif [[ \&#34;{{playbookurl}}\&#34; == s3* ]] ; then&#34;</span>,
+          <span style="color:#e6db74">&#34;   aws --version&#34;</span>,
+          <span style="color:#e6db74">&#34;   if [ $? -ne 0 ]; then&#34;</span>,
+          <span style="color:#e6db74">&#34;       echo \&#34;The AWS CLI is not installed. The CLI is required to process Amazon S3 URLs. Install the AWS CLI and run the command again.\&#34; &gt;&amp;2&#34;</span>,
+          <span style="color:#e6db74">&#34;       exit 1&#34;</span>,
+          <span style="color:#e6db74">&#34;   fi&#34;</span>,
+          <span style="color:#e6db74">&#34;   aws s3 cp &#39;{{playbookurl}}&#39; playbook.yml&#34;</span>,
+          <span style="color:#e6db74">&#34;   if [ $? -ne 0 ]; then&#34;</span>,
+          <span style="color:#e6db74">&#34;       echo \&#34;Error while downloading the document from S3\&#34; &gt;&amp;2&#34;</span>,
+          <span style="color:#e6db74">&#34;       exit 1&#34;</span>,
+          <span style="color:#e6db74">&#34;   fi&#34;</span>,
+          <span style="color:#e6db74">&#34; else&#34;</span>,
+          <span style="color:#e6db74">&#34;   echo \&#34;The playbook URL is not valid. Verify the URL and try again.\&#34;&#34;</span>,
+          <span style="color:#e6db74">&#34; fi&#34;</span>,
+          <span style="color:#e6db74">&#34;else&#34;</span>,
+          <span style="color:#e6db74">&#34; echo &#39;{{playbook}}&#39; &gt; playbook.yml&#34;</span>,
+          <span style="color:#e6db74">&#34;fi&#34;</span>,
+          <span style="color:#e6db74">&#34;if  [[ \&#34;{{check}}\&#34; == True ]] ; then&#34;</span>,
+          <span style="color:#e6db74">&#34;   /usr/local/bin/ansible-playbook -i \&#34;localhost,\&#34; --check -c local -e \&#34;{{extravars}}\&#34; playbook.yml&#34;</span>,
+          <span style="color:#e6db74">&#34;else&#34;</span>,
+          <span style="color:#e6db74">&#34;   /usr/local/bin/ansible-playbook -i \&#34;localhost,\&#34; -c local -e \&#34;{{extravars}}\&#34; playbook.yml&#34;</span>,
+          <span style="color:#e6db74">&#34;fi&#34;</span>
+        ]
+      }
+    }
+  ]
+}
+</code></pre></td></tr></table>
+</div>
+</div>
+</details></p>
+
+<h2 id="applying-ansible-playbook-to-the-fleet-of-mac1metal">Applying Ansible playbook to the fleet of mac1.metal</h2>
+<p>Let’s give our new SSM Document a try! (I suppose you have at least one mac1 instance running, right?)</p>
+<p>In AWS SSM, go to the Run Command feature, then click on the Run Command button.</p>
+<p>On the new panel, type the name of your Document (<code>macos-arbitrary-ansible-playbook</code> in this example) in the search field and press enter.</p>
+<p>Select the Document, and you’ll see its parameters and settings.</p>
+<p>The rest is self-explanatory. Enter either a playbook code or a link to the source file, add extra variables if needed, and select the target host or a filtered bunch (I like that feature with tags filtering!). Finally, click on the “Run” orange button to apply your playbook.</p>
+<p>That’s it! Now you can make all your ansible-playbook dreams come true! 😁</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Configure HTTP Security headers with CloudFront Functions</title>
+      <link>https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html</link>
+      <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html</guid>
+      <description>Modifying response headers to enforce the security of the web application</description>
+      <content:encoded><![CDATA[<p>A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.</p>
+<p>It is “true edge” because Functions work on 200+ edge locations (<a href="https://aws.amazon.com/cloudfront/features/?whats-new-cloudfront.sort-by=item.additionalFields.postDateTime&amp;whats-new-cloudfront.sort-order=desc#Edge_Computing">link to doc</a>) while its predecessor, the Lambda@Edge, runs on a small number of regional edge caches.</p>
+<p>One of the use cases for Lambda@Edge was adding security HTTP headers (it’s even listed on the <a href="https://aws.amazon.com/lambda/edge/">product page</a>), and now there is one more way to make it using CloudFront Functions.</p>
+<h2 id="what-are-security-headers-and-why-it-matters">What are security headers, and why it matters</h2>
+<p>Security Headers are one of the web security pillars.</p>
+<p>They specify security-related information of communication between a web application (i.e., website) and a client (i.e., browser) and protect the web app from different types of attacks. Also, HIPAA and PCI, and other security standard certifications generally include these headers in their rankings.</p>
+<p>We will use CloudFront Functions to set the following headers:</p>
+<ul>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#content-security-policy">Content Security Policy</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#http-strict-transport-security">Strict Transport Security</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#x-content-type-options">X-Content-Type-Options</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#x-xss-protection">X-XSS-Protection</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#x-frame-options">X-Frame-Options</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#referrer-policy">Referrer Policy</a></li>
+</ul>
+<p>You can find a short and detailed explanation for each security header on <a href="https://infosec.mozilla.org/guidelines/web_security">Web Security cheatsheet made by Mozilla</a></p>
+<h2 id="cloudfront-functions-overview">CloudFront Functions overview</h2>
+<p>In a nutshell, CloudFront Functions allow performing simple actions against HTTP(s) request (from the client) and response (from the CloudFront cache at the edge). Functions take less than one millisecond to execute, support JavaScript (ECMAScript 5.1 compliant), and cost $0.10 per 1 million invocations.</p>
+<p>Every CloudFront distribution has one (default) or more Cache behaviors, and Functions can be associated with these behaviors to execute upon a specific event.</p>
+<p>That is how the request flow looks like in general, and here is where CloudFront Functions execution happens:</p>
+<p><img loading="lazy" src="request_flow.png" alt=""  />
+</p>
+<p>CloudFront Functions support Viewer Request (after CloudFront receives a request from a client) and Viewer Response (before CloudFront forwards the response to the client) events.</p>
+<p>You can read more about the events types and their properties here — <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-cloudfront-trigger-events.html">CloudFront Events That Can Trigger a Lambda Function - Amazon CloudFront</a>.</p>
+<p>Also, the CloudFront Functions allow you to manage and operate the code and lifecycle of the functions directly from the CloudFront web interface.</p>
+<h2 id="solution-overview">Solution overview</h2>
+<p>CloudFront distribution should exist before Function creation so you could associate the Function with the distribution.</p>
+<p>Creation and configuration of the CloudFront Function consist of the following steps:</p>
+<h3 id="create-function">Create Function</h3>
+<p>In the AWS Console, open CloudFront service and lick on the Functions on the left navigation bar, then click Create function button.
+<img loading="lazy" src="create_function.png" alt=""  />
+
+Enter the name of your Function (e.g., “security-headers”) and click Continue.</p>
+<h3 id="build-function">Build Function</h3>
+<p>On the function settings page, you will see four tabs with the four lifecycle steps: Build, Test, Publish, Associate.</p>
+<p>Paste the function code into the editor and click “Save.”</p>
+<p><img loading="lazy" src="function_editor.png" alt=""  />
+</p>
+<p>Here is the source code of the function:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">handler</span>(<span style="color:#a6e22e">event</span>) {
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">response</span>;
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">headers</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">headers</span>;
+
+<span style="color:#a6e22e">headers</span>[<span style="color:#e6db74">&#39;strict-transport-security&#39;</span>] <span style="color:#f92672">=</span> { <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;max-age=63072000; includeSubdomains; preload&#39;</span>}; 
+<span style="color:#a6e22e">headers</span>[<span style="color:#e6db74">&#39;content-security-policy&#39;</span>] <span style="color:#f92672">=</span> { <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;default-src &#39;none&#39;; img-src &#39;self&#39;; script-src &#39;self&#39;; style-src &#39;self&#39;; object-src &#39;none&#39;; frame-ancestors &#39;none&#39;&#34;</span>}; 
+<span style="color:#a6e22e">headers</span>[<span style="color:#e6db74">&#39;x-content-type-options&#39;</span>] <span style="color:#f92672">=</span> { <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;nosniff&#39;</span>}; 
+<span style="color:#a6e22e">headers</span>[<span style="color:#e6db74">&#39;x-xss-protection&#39;</span>] <span style="color:#f92672">=</span> {<span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1; mode=block&#39;</span>};
+<span style="color:#a6e22e">headers</span>[<span style="color:#e6db74">&#39;referrer-policy&#39;</span>] <span style="color:#f92672">=</span> {<span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;same-origin&#39;</span>};
+<span style="color:#a6e22e">headers</span>[<span style="color:#e6db74">&#39;x-frame-options&#39;</span>] <span style="color:#f92672">=</span> {<span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;DENY&#39;</span>};
+
+<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="test-function">Test Function</h4>
+<p>Open the “Test” tab — let’s try our function first before it becomes live!</p>
+<p>Select Viewer Response event type and Development Stage, then select “Viewer response with headers” as a Sample test event (you will get a simple set of headers automatically).</p>
+<p>Now click the blue “Test” button and observe the output results:</p>
+<ul>
+<li>Compute utilization represents the relative amount of time (on a scale between 0 and 100) your function took to run</li>
+<li>Check the Response headers tab and take a look at how the function added custom headers.</li>
+</ul>
+<p><img loading="lazy" src="function_test.png" alt=""  />
+</p>
+<h3 id="publish-function">Publish Function</h3>
+<p>Let’s publish our function. To do that, open the Publish tab and click on the blue button “Publish and update.”
+<img loading="lazy" src="function_publish.png" alt=""  />
+</p>
+<h3 id="associate-your-function-with-cloudfront-distribution">Associate your Function with CloudFront distribution</h3>
+<p>Now, you can associate the function with the CloudFront distribution.</p>
+<p>To do so, open the Associate tab, select the distribution and event type (Viewer Response), and select the Cache behavior of your distribution which you want to use for the association.</p>
+<p><img loading="lazy" src="function_associate.png" alt=""  />
+</p>
+<p>Once you associate the function with the CloudFront distribution, you can test it in live mode.</p>
+<p>I will use curl here to demonstrate it:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; curl -i https://d30i87a4ss9ifz.cloudfront.net
+HTTP/2 <span style="color:#ae81ff">200</span>
+content-type: text/html
+content-length: <span style="color:#ae81ff">140</span>
+date: Sat, <span style="color:#ae81ff">22</span> May <span style="color:#ae81ff">2021</span> 00:22:18 GMT
+last-modified: Tue, <span style="color:#ae81ff">27</span> Apr <span style="color:#ae81ff">2021</span> 23:07:14 GMT
+etag: <span style="color:#e6db74">&#34;a855a3189f8223db53df8a0ca362dd62&#34;</span>
+accept-ranges: bytes
+server: AmazonS3
+via: 1.1 50f21cb925e6471490e080147e252d7d.cloudfront.net <span style="color:#f92672">(</span>CloudFront<span style="color:#f92672">)</span>
+content-security-policy: default-src <span style="color:#e6db74">&#39;none&#39;</span>; img-src <span style="color:#e6db74">&#39;self&#39;</span>; script-src <span style="color:#e6db74">&#39;self&#39;</span>; style-src <span style="color:#e6db74">&#39;self&#39;</span>; object-src <span style="color:#e6db74">&#39;none&#39;</span>; frame-ancestors <span style="color:#e6db74">&#39;none&#39;</span>
+strict-transport-security: max-age<span style="color:#f92672">=</span>63072000; includeSubdomains; preload
+x-xss-protection: 1; mode<span style="color:#f92672">=</span>block
+x-frame-options: DENY
+referrer-policy: same-origin
+x-content-type-options: nosniff
+x-cache: Miss from cloudfront
+x-amz-cf-pop: WAW50-C1
+x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw<span style="color:#f92672">==</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>You can also test your results here — <a href="https://observatory.mozilla.org/">Mozilla Observatory</a></p>
+<p><img loading="lazy" src="scan_result-1.png" alt=""  />
+
+<img loading="lazy" src="scan_result-2.png" alt=""  />
+</p>
+<h2 id="read-more">Read more</h2>
+<p>That was a simplified overview of the CloudFront Functions capabilities.</p>
+<p>But if you want to get deeper, here is a couple of useful links to start:</p>
+<ul>
+<li>Another overview from AWS — <a href="https://aws.amazon.com/blogs/aws/introducing-cloudfront-functions-run-your-code-at-the-edge-with-low-latency-at-any-scale">CloudFront Functions Launch Blog</a></li>
+<li>More about creating, testing, updating and publishing of CloudFront Functions — <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/managing-functions.html">Managing functions in CloudFront Functions - Amazon CloudFront</a></li>
+</ul>
+<h2 id="so-what-to-choose">So what to choose?</h2>
+<p>CloudFront Functions are simpler than Lambda@Edge and run faster with minimal latency and minimal time penalty for your web clients.</p>
+<p>Lambda@Edge takes more time to invoke, but it can run upon Origin Response event so that CloudFront can cache the processed response (including headers) and return it faster afterward.</p>
+<p>But again, the CloudFront Functions invocations are much cheaper (6x times) than Lambda@Edge, and you do not pay for the function execution duration.</p>
+<p>The final decision would also depend on the dynamic/static nature of the content you have at your origin.</p>
+<p>To make a wise and deliberate decision, try to analyze your use case using these two documentation articles:</p>
+<ul>
+<li><a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions.html">Choosing between CloudFront Functions and Lambda@Edge</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-how-to-choose-event.html">How to Decide Which CloudFront Event to Use to Trigger a Lambda Function</a></li>
+</ul>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Customizing mac1.metal EC2 AMI — new guts, more glory</title>
+      <link>https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html</link>
+      <pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html</guid>
+      <description>How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer</description>
+      <content:encoded><![CDATA[<p>I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?</p>
+<h1 id="configuration-management">Configuration Management</h1>
+<p>Native Apple&rsquo;s Mobile device management (a.k.a MDM) and Jamf is probably the most potent combination for macOS configuration. But as much as it&rsquo;s mighty, it is a cumbersome combination, and Jamf is not free.</p>
+<p>Then we have Ansible, Chef, Puppet, SaltStack — they all are good with Linux, but what about macOS?</p>
+<p>I tried to search for use cases of mentioned CM tools for macOS. However, I concluded that they wrap the execution of native macOS command-line utilities most of the time.</p>
+<p>And if you search for the &lsquo;macos&rsquo; word in Chef Supermarket or Puppet Forge, you won&rsquo;t be impressed by the number of actively maintained packages. Although, here is a motivating article about using Chef <a href="https://pspdfkit.com/blog/2016/chef-on-macos/">automating-macos-provisioning-with-chef</a> if you prefer it. I could not find something similar and fresh for Puppet, so I am sorry, Puppet fans.</p>
+<p>That is why I decided to follow the KISS principle and chose Ansible.</p>
+<p>It&rsquo;s easy to write and read the configuration, it allows to group tasks and to add execution logic <del>, and it feels more DevOps executing shell commands inside Ansible tasks instead of shell scripts; I know you know that 😂</del></p>
+<p>By the way, Ansible Galaxy does not have many management packages for macOS, either. But thankfully, it has the basics:</p>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_module.html#ansible-collections-community-general-homebrew-module">homebrew</a> with <a href="https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_cask_module.html#ansible-collections-community-general-homebrew-cask-module">homebrew_cask</a> and <a href="https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_tap_module.html#ansible-collections-community-general-homebrew-tap-module">homebrew_tap</a> — to install software</li>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/community/general/launchd_module.html#ansible-collections-community-general-launchd-module">launchd</a> — to manage services</li>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/community/general/osx_defaults_module.html#ansible-collections-community-general-osx-defaults-module">osx_defaults</a> — to manage some user settings (not all!)</li>
+</ul>
+<p>I used Ansible to build the macOS AMI for CI/CD, so here are some tips for such a case.</p>
+<p><em>Some values are hardcoded intentionally in the code examples for the sake of simplicity and easy reading. You would probably want to parametrize them.</em></p>
+<h2 id="xcode-installation-example">Xcode installation example</h2>
+<p>The following tasks will help you to automate the basics.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install Xcode</span>
+      <span style="color:#f92672">shell</span>: <span style="color:#e6db74">&#34;xip --expand Xcode.xip&#34;</span>
+      <span style="color:#f92672">args</span>:
+        <span style="color:#f92672">chdir</span>: <span style="color:#ae81ff">/Applications</span>
+
+- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Accept License Agreement</span>
+  <span style="color:#f92672">shell</span>: <span style="color:#e6db74">&#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -license accept&#34;</span>
+
+- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Accept License Agreement</span>
+  <span style="color:#f92672">shell</span>: <span style="color:#e6db74">&#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -runFirstLaunch&#34;</span>
+
+- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Switch into newly installed Xcode context</span>
+  <span style="color:#f92672">shell</span>: <span style="color:#e6db74">&#34;xcode-select --switch /Applications/Xcode.app/Contents/Developer&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="example-of-software-installation-with-brew">Example of software installation with Brew</h2>
+<p>{% raw %}</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install common build software</span>
+  <span style="color:#f92672">community.general.homebrew</span>:
+    <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;{{ item }}&#34;</span>
+    <span style="color:#f92672">state</span>: <span style="color:#ae81ff">latest</span>
+  <span style="color:#f92672">loop</span>:
+    - <span style="color:#ae81ff">swiftlint</span>
+    - <span style="color:#ae81ff">swiftformat</span>
+    - <span style="color:#ae81ff">wget</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>{% endraw %}</p>
+<h2 id="screensharing-remote-desktop-configuration-example">ScreenSharing (remote desktop) configuration example</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Turn On Remote Management</span>
+  <span style="color:#f92672">shell</span>: <span style="color:#e6db74">&#34;./kickstart -activate -configure -allowAccessFor -specifiedUsers&#34;</span>
+  <span style="color:#f92672">args</span>:
+    <span style="color:#f92672">chdir</span>: <span style="color:#ae81ff">/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/</span>
+
+- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Enable Remote Management for CI user</span>
+  <span style="color:#f92672">shell</span>: <span style="color:#e6db74">&#34;./kickstart -configure -users ec2-user -access -on -privs -all&#34;</span>
+  <span style="color:#f92672">args</span>:
+    <span style="color:#f92672">chdir</span>: <span style="color:#ae81ff">/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Shell rulez, yes.</p>
+<h1 id="building-the-ami">Building the AMI</h1>
+<p><img loading="lazy" src="ami-build.gif" alt=""  />
+</p>
+<p><a href="https://www.packer.io/docs/builders/amazon/ebs">Packer by HashiCorp</a>, of course.</p>
+<p>I would love to compare Packer with EC2 Image Builder, but it <a href="https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html#image-builder-os">does not support macOS</a> yet (as of Feb'21).</p>
+<p>Packer configuration is straightforward, so I want to highlight only the things specific to the &ldquo;mac1.metal&rdquo; use case.</p>
+<h2 id="timeouts">Timeouts</h2>
+<p>As I mentioned in the <a href="https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html">previous article</a>, the creation and deletion time of the &ldquo;mac1.metal&rdquo; Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.</p>
+<p>Example:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;aws_polling&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+        <span style="color:#f92672">&#34;delay_seconds&#34;</span>: <span style="color:#ae81ff">30</span>,
+        <span style="color:#f92672">&#34;max_attempts&#34;</span>: <span style="color:#ae81ff">60</span>
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>And it would be best if you also increased the SSH timeout:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;ssh_timeout&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;1h&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Fortunately, Packer&rsquo;s AMI builder does not require an explicit declaration of the Dedicated Host ID. So you can just reference the same subnet where you allocated the Host, assuming you did it with the enabled &ldquo;Auto placement&rdquo; parameter during the host creation.</p>
+<p>Example:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;tenancy&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;host&#34;</span><span style="color:#960050;background-color:#1e0010">,</span>
+  <span style="color:#e6db74">&#34;subnet_id&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;your-subnet-id&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="provisioning">Provisioning</h2>
+<p>Packer has <a href="https://www.packer.io/docs/provisioners/ansible">Ansible Provisioner</a> that I used for the AMI. Its documentation is also very clean and straightforward.</p>
+<p>But it is still worth mentioning that if you want to parametrize the Ansible playbook, then the following configuration example will be handy:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;extra_arguments&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+    <span style="color:#e6db74">&#34;--extra-vars&#34;</span>,
+    <span style="color:#e6db74">&#34;your-variable-foo=your-value-bar]&#34;</span>
+  ]<span style="color:#960050;background-color:#1e0010">,</span>
+  <span style="color:#e6db74">&#34;ansible_env_vars&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+    <span style="color:#e6db74">&#34;ANSIBLE_PYTHON_INTERPRETER=auto_legacy_silent&#34;</span>,
+    <span style="color:#e6db74">&#34;ANSIBLE_OTHER_ENV_VARIABLE=other_value&#34;</span>
+  ]
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="configuration-at-launch">Configuration at launch</h1>
+<p>If you&rsquo;re familiar with AWS EC2, you probably know what the Instance <code>user data</code> is.</p>
+<p>A group of AWS developers made something similar for the macOS: <a href="https://github.com/aws/ec2-macos-init">EC2 macOS Init</a>.</p>
+<p>It does not support <code>cloud-init</code> as on Linux-based Instances, but it can run shell scripts, which is quite enough.</p>
+<p>EC2 macOS Init utility is a Launch Daemon (macOS terminology) that runs on behalf of the <code>root</code> user at system boot. It executes the commands according to the so-called Priority Groups, or the sequence in other words.</p>
+<p>The number of the group corresponds to the execution order. You can put several tasks into a single Priority Group, and the tool will execute them simultaneously.</p>
+<p>EC2 macOS Init uses a human-readable configuration file in <code>toml</code> format.</p>
+<p>Example:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">[[Module]]
+  Name = &#34;Create-some-folder&#34;
+  PriorityGroup = 3
+  FatalOnError = false 
+  RunPerInstance = true 
+  [Module.Command]
+    Cmd = [&#34;mkdir&#34;, &#34;/Users/ec2-user/my-directory&#34;] 
+    RunAsUser = &#34;ec2-user&#34;
+    EnvironmentVars = [&#34;MY_VAR_FOO=myValueBar&#34;]
+</code></pre></td></tr></table>
+</div>
+</div><p>I should clarify some things here.</p>
+<p>Modules — a set of pre-defined modules for different purposes. It is something similar to the Ansible modules.</p>
+<p>You can find the list of available modules here <a href="https://github.com/aws/ec2-macos-init/tree/master/lib/ec2macosinit">ec2-macos-init/lib/ec2macosinit</a></p>
+<p>The <code>RunPerInstance</code> directive controls whether a module should run. There are three of such directives, and here is what they mean:</p>
+<ul>
+<li><code>RunPerBoot</code> — module will run at every system boot</li>
+<li><code>RunPerInstance</code> — module will run once for the Instance. Each Instance has a unique ID; the init tool fetches it from the AWS API before the execution and keeps its execution history per Instance ID. When you create a new Instance from the AMI, it will have a unique ID, and the module will run again.</li>
+<li><code>RunOnce</code> — module will run only once, despite the instance ID change</li>
+</ul>
+<p>I mentioned the execution history above. When EC2 macOS Init runs on the Instance first time, it creates a unique directory with the name per Instance ID to store the execution history and user data copy.</p>
+<p><code>RunPerInstance</code> and <code>RunOnce</code> directives depend on the execution history, and modules with those directives will run again on the next boot if the previous execution failed. It was not obvious to me why RunOnce keeps repeating itself every boot until I dug into <a href="https://github.com/aws/ec2-macos-init/blob/master/lib/ec2macosinit/module.go#L110">the source code</a>.</p>
+<p>Finally, there is a module for user data. It runs at the end by default (priority group #4) and pulls the user data script from AWS API before script execution.</p>
+<p>I suggest looking into the default <a href="https://github.com/aws/ec2-macos-init/blob/master/configuration/init.toml">init.toml</a> configuration file to get yourself more familiar with the capabilities of the tool.</p>
+<p>The init tool can also clear its history, which is useful for the new AMI creation.</p>
+<p>Example:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ec2-macos-init clean -all
+</code></pre></td></tr></table>
+</div>
+</div><p>And you can run the init manually for debugging purposes.</p>
+<p>Example:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ec2-macos-init run
+</code></pre></td></tr></table>
+</div>
+</div><p>You can also combine the EC2 macOS Init actions (made by modules) with your script in user data for more accurate nontrivial configurations.</p>
+<h1 id="wrapping-up">Wrapping up</h1>
+<p>As a whole, building and operating macOS-based AMI does not differ from AMI management for other platforms.</p>
+<p>There are the same principle stages: prepare, clear, build, execute deployment script (if necessary). Though, the particular implementation of each step has its nuances and constraints.</p>
+<p>So the whole process may look as follows:</p>
+<ul>
+<li>Provision and configure needed software with Ansible playbook</li>
+<li>Clean-up system logs and EC2 macOS Init history (again, with Ansible task)</li>
+<li>Create the AMI</li>
+<li>Add more customizations at launch with EC2 macOS Init modules and user data (that also executes your Ansible playbook or shell commands)</li>
+</ul>
+<p>Getting into all this was both fun and interesting. Sometimes painful, though. 😆</p>
+<p>I sincerely hope this article was helpful to you. Thank you for reading!</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Terraforming mac1.metal at AWS</title>
+      <link>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</link>
+      <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</guid>
+      <description>How to manage mac1.metal EC2 instances with Terraform</description>
+      <content:encoded><![CDATA[<p>Recently AWS <a href="https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/">announced</a> the support for Mac mini instances.</p>
+<p>I believe this is huge, even despite the many constraints this solution has. Oh, and the price is as huge as the announcement as well.</p>
+<p>But still, this offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.</p>
+<p>Here is a tip for engineers like me who decided to give this new instance type a try: managing a dedicated host for the &ldquo;mac1.metal&rdquo; instance using Terraform.</p>
+<p>&ldquo;mac1.metal&rdquo; instance requires a dedicated host to be placed onto. This is a real Mac mini with a bit of magic from AWS.</p>
+<p>As of 10 Jan 2021, the AWS Terraform provider does not have a dedicated host resource.</p>
+<p>So we must solve this using  CloudFormation&hellip; in Terraform!</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;availability_zone&#34;</span> {
+  default <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;us-east-1a&#34;</span>
+}
+
+<span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;random_pet&#34; &#34;runner_name&#34;</span> {
+  length    <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+  prefix    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mac-metal-&#34;</span>
+  separator <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;-&#34;</span>
+}
+
+<span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_cloudformation_stack&#34; &#34;dedicated_host&#34;</span> {
+  name <span style="color:#f92672">=</span> <span style="color:#66d9ef">random_pet</span>.<span style="color:#66d9ef">runner_name</span>.<span style="color:#66d9ef">id</span>
+
+  timeout_in_minutes <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
+
+  template_body <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">&lt;&lt;</span><span style="color:#66d9ef">STACK</span>
+{
+  <span style="color:#e6db74">&#34;Resources&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> {
+    <span style="color:#e6db74">&#34;MyDedicatedHost&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+      <span style="color:#e6db74">&#34;Type&#34; : &#34;AWS::EC2::Host&#34;</span>,
+      <span style="color:#e6db74">&#34;Properties&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> {
+          <span style="color:#e6db74">&#34;AutoPlacement&#34; : &#34;on&#34;</span>,
+          <span style="color:#e6db74">&#34;AvailabilityZone&#34; : &#34;${var.availability_zone}&#34;</span>,
+          <span style="color:#e6db74">&#34;HostRecovery&#34; : &#34;off&#34;</span>,
+          <span style="color:#e6db74">&#34;InstanceType&#34; : &#34;mac1.metal&#34;</span>
+        }
+    }
+  },
+  <span style="color:#e6db74">&#34;Outputs&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> {
+    <span style="color:#e6db74">&#34;HostID&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> {
+      <span style="color:#e6db74">&#34;Description&#34;: &#34;Host ID&#34;</span>,
+      <span style="color:#e6db74">&#34;Value&#34; : { &#34;Ref&#34; : &#34;MyDedicatedHost&#34;</span> }
+    }
+  }
+}
+<span style="color:#66d9ef">STACK</span>
+}
+
+<span style="color:#66d9ef">output</span> <span style="color:#e6db74">&#34;dedicated_host_id&#34;</span> {
+  value <span style="color:#f92672">=</span> <span style="color:#66d9ef">aws_cloudformation_stack</span>.<span style="color:#66d9ef">dedicated_host</span>.<span style="color:#66d9ef">outputs</span>[<span style="color:#e6db74">&#34;HostID&#34;</span>]
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>Then you pass HostID to <code>aws_instance</code> resource, and you have mac1.metal up and running!</p>
+<p>I like to make boring technical things a bit less boring, so I decided to add a random pet name. Just for fun, why not.</p>
+<p>You can wrap this into a module or add a count meta-argument to make it more versatile.</p>
+<p>Simple as that, yes. But now, you can integrate it into your CI system (if you have enough courage and money 😄) and have the Mac instance with the underlying host in a bundle.</p>
+<p>Thanks for reading me!</p>
+<hr>
+<p><em>credits for cover image: <a href="https://www.youtube.com/watch?v=Pn3miC_tTH0">AWS EC2 Mac Instances Launch - macOS in the cloud for the first time, with the benefits of EC2</a></em></p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>mac1.metal EC2 Instance — user experience</title>
+      <link>https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html</link>
+      <pubDate>Tue, 19 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html</guid>
+      <description>An overview of one-month user experience with the new mac1.metal EC2 Instances from AWS</description>
+      <content:encoded><![CDATA[<h2 id="amazon-ec2-mac-instances">Amazon EC2 Mac Instances</h2>
+<p>Something cool and powerful with inevitable trade-offs. As everything in this world.</p>
+<p>AWS announced EC2 macOS-based instances on the 30th of November 2020, and after more than a month of tests, I would like to share some findings and impressions about it.</p>
+<p>First of all, the things you can easily find, but it&rsquo;s still worth to say:</p>
+<ul>
+<li>The new instance family is called <code>mac1.metal</code>. Guess we should expect mac2 or mac3; otherwise, why did they put a number in the name?</li>
+<li>They added <a href="https://aws.amazon.com/ec2/nitro/">AWS Nitro System</a> to integrate them with many AWS services.</li>
+<li>The Instance must be placed onto a <a href="https://aws.amazon.com/ec2/dedicated-hosts/">Dedicated Host</a>. Only one Instance per Host is allowed because the Host is an actual Mac Mini in that case.</li>
+<li>You don&rsquo;t pay anything for the Instance itself, but you pay for the Dedicated Host leasing — $1.083, and the minimum lease time is 24 hours. So the launch of the &ldquo;mac1.metal&rdquo; Instance costs $26 at minimum. Prices provided for the cheapest region — North Virginia.</li>
+<li>You can apply <a href="https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html">Saving Plans</a> to save some money.</li>
+<li>Mojave (10.14) and Catalina (10.15) are supported at the moment, with <a href="https://aws.amazon.com/ec2/instance-types/mac/">&ldquo;support for macOS Big Sur (11.0) coming soon&rdquo;</a>. I expect it to be in 2021, though.</li>
+</ul>
+<h2 id="what-can-it-do">What can it do</h2>
+<p>Here is a list of some features that the &ldquo;mac1.metal&rdquo; instance has:</p>
+<ul>
+<li>It lives in your VPC because it is an EC2 Instance so that you can access many other services.</li>
+<li>It supports the new gp3 EBS type (and other types as well).</li>
+<li>It supports SSM Agent and Session Manager.</li>
+<li>It has several AWS tools pre-installed.</li>
+<li>It has pre-installed Enhanced Network Interface drivers. My test upload/download to S3 was about 300GB/s.</li>
+<li>It can report CPU metrics to CloudWatch (if you ever need it, though).</li>
+</ul>
+<h2 id="what-cant-it-do">What can&rsquo;t it do</h2>
+<ul>
+<li>It can&rsquo;t be used in Auto Scaling because of a Dedicated Host.</li>
+<li>It can&rsquo;t recognize the attached EBS if you connected it while the Instance was running — you must reboot the Instance to make it visible.</li>
+<li>It does not support several services that rely on additional custom software, such as &ldquo;EC2 Instance Connect&rdquo; and &ldquo;AWS Inspect.&rdquo; But I think that AWS will add macOS distros for those soon.</li>
+</ul>
+<h2 id="launching-the-instance">Launching the Instance</h2>
+<p>Jeff Bar <a href="https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/">published</a> an excellent how-to about kickstart of the &ldquo;mac1.metal&rdquo;, so I will focus on things he did not mention.</p>
+<p>Once you allocated the Dedicated Host and launched an Instance on it, the underlying system connects the EBS with a root file system to the Mac Mini.</p>
+<p>It is an AMI with 32G EBS (as per Jan'21) with macOS pre-installed.</p>
+<p>That means two things:</p>
+<ul>
+<li>The built-it physical SSD is still there and still yours to use; however, AWS does not manage or support the Apple hardware&rsquo;s internal SSD.</li>
+<li>You must resize the disk manually (if you specified the EBS size to be more than 32G)[1].</li>
+</ul>
+<p>The time from the Instance launch till you&rsquo;re able to SSH into it varies between 15 and 20 minutes.</p>
+<p>You have the option to access it over SSH with your private key. If you need to set up Screen Sharing, you have to allow it through the &ldquo;kickstart&rdquo; command-line utility and setting the user password [2].</p>
+<h2 id="destroying-the-instance">Destroying the Instance</h2>
+<p>What an easy thing to do, right? Well, it depends.</p>
+<p>When you click on the &ldquo;Terminate&rdquo; item in the Instance actions menu, the complex Instance scrubbing process begins.</p>
+<p>AWS wants to make sure that anyone who uses the Host (Mac mini) after you will get your data stored neither on disks (including physical SSD mentioned earlier), nor inside memory or NVRAM, nor anywhere else. They do not share the info about this scrubbing process&rsquo;s details, but it takes more than an hour to complete.</p>
+<p>When scrubbing is started, the Dedicated Host transitions to the Pending state. Dedicated Host transitions to Available state once scrubbing is finished. But you must wait for another 10-15 minutes to be able to release it finally.</p>
+<p>I don&rsquo;t know why they set the Available state value earlier than the Host is available for operations, but this is how it works now (Jan'21).</p>
+<p>Therefore, you can launch the next Instance on the same Host not earlier than ~1,5 hours after you terminated the previous. That doesn&rsquo;t seem very pleasant in the first couple of weeks, but you will get used to it. 😄</p>
+<p>And again: you can release the &ldquo;mac1.metal&rdquo; Dedicated Host not earlier than 24 hours after it was allocated. So plan your tests wisely.</p>
+<h2 id="legal-things">Legal things</h2>
+<p>I could not find it on a documentation page, but A Cloud Guru folks <a href="https://acloudguru.com/blog/engineering/what-you-need-to-know-about-awss-new-ec2-mac-instances">say</a> that you must use new Instances solely for developer services, and you must agree to all of the EULAs.</p>
+<p>Sounds reasonable to me, but that could be written somewhere in the docs still, at least. Please let me know if you found it there.</p>
+<h2 id="some-more-cool-stuff-to-check">Some more cool stuff to check:</h2>
+<p><a href="https://github.com/aws/ec2-macos-init">EC2 macOS Init</a> launch daemon, which is used to initialize Mac instances.
+<a href="https://github.com/aws/homebrew-aws">EC2 macOS Homebrew Tap</a> (Third-Party Repository) with several management tools which come pre-installed into macOS AMI from AWS.</p>
+<hr>
+<p>Indeed it is powerful, and it has its trade-offs, such as price and some technical constraints. But it is a real MacOS device natively integrated into the AWS environment. So I guess it worth to be tried!</p>
+<p>Thanks for reading this! Stay tuned for more user experience feedback about baking custom AMI&rsquo;s, automated software provisioning with Ansible, and other adventures with mac1.metal!</p>
+<hr>
+<p><strong>[1] How to resize the EBS at mac1.metal in Terminal</strong></p>
+<p>Get the identifier of EBS (look for the first one with GUID_partition_scheme):</p>
+<p><code>diskutil list physical external</code></p>
+<p>Or here is a more advanced version to be used in a script:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">DISK_ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>diskutil list physical external | grep <span style="color:#e6db74">&#39;GUID_partition_scheme&#39;</span>| tr -s <span style="color:#e6db74">&#39; &#39;</span> | cut -d<span style="color:#e6db74">&#39; &#39;</span> -f6<span style="color:#66d9ef">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>It would probably be <code>disk0</code> if you did not attach additional EBS.</p>
+<p>Then run the repair job for the disk, using its identifier:
+<code>diskutil repairDisk disk0</code></p>
+<p>Advanced version:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yes | diskutil repairDisk $DISK_ID
+</code></pre></td></tr></table>
+</div>
+</div><p>Now get the APFS container identifier (look for Apple_APFS):
+<code>diskutil list physical external</code></p>
+<p>Advanced version:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">APFS_ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>diskutil list physical external | grep <span style="color:#e6db74">&#39;Apple_APFS&#39;</span> | tr -s <span style="color:#e6db74">&#39; &#39;</span> | cut -d<span style="color:#e6db74">&#39; &#39;</span> -f8<span style="color:#66d9ef">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>It would probably be <code>disk0s2</code> if you did not attach additional EBS.</p>
+<p>Finally, resize the APFS container:
+<code>diskutil apfs resizeContainer disk0s2</code></p>
+<p>Advanced version</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">diskutil apfs resizeContainer $APFS_ID
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>[2]How to setup Screen Sharing at mac1.metal in Terminal</strong></p>
+<p>The <code>kickstart</code> command-line tool resides in <code>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/</code> so you&rsquo;ll better to cd into that directory for convenience:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Turn On Remote Management for a user to be specified later</span>
+sudo ./kickstart -activate -configure -allowAccessFor -specifiedUsers
+
+<span style="color:#75715e"># Enable Remote Management for ec2-user user</span>
+sudo ./kickstart -configure -users ec2-user -access -on -privs -all
+
+<span style="color:#75715e"># Set the user password </span>
+sudo passwd ec2-user
+</code></pre></td></tr></table>
+</div>
+</div>]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Terraform CLI shortcuts</title>
+      <link>https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html</link>
+      <pubDate>Tue, 25 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html</guid>
+      <description>A bunch of small tools I use to simplify Terraform workflow</description>
+      <content:encoded><![CDATA[<p>Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
+Requirements &mdash; bash-compatible interpreter, because aliases and functions described below will work with bash, zsh and ohmyzsh.</p>
+<p>In order to use any of described aliases of functions, you need to place it in your <code>~/.bashrc</code> or <code>~/.zshrc</code> file (or any other configuration file you have for your shell).</p>
+<p>Then just source this file, for example: <code>source ~/.zshrc</code></p>
+<h2 id="function-list-outputs-and-variables-of-given-module">Function: list outputs and variables of given module</h2>
+<p>You need to provide the path to module directory, and this function will list all declared variables and outputs module has. It comes very useful when you don&rsquo;t remember them all and just need to take a quick look.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">## TerraForm MOdule Explained</span>
+<span style="color:#66d9ef">function</span> tfmoe <span style="color:#f92672">{</span>
+  echo -e <span style="color:#e6db74">&#34;\nOutputs:&#34;</span>
+  grep -r <span style="color:#e6db74">&#34;output \&#34;.*\&#34;&#34;</span> $1 |awk <span style="color:#e6db74">&#39;{print &#34;\t&#34;,$2}&#39;</span> |tr -d <span style="color:#e6db74">&#39;&#34;&#39;</span>
+  echo -e <span style="color:#e6db74">&#34;\nVariables:&#34;</span>
+  grep -r <span style="color:#e6db74">&#34;variable \&#34;.*\&#34;&#34;</span> $1 |awk <span style="color:#e6db74">&#39;{print &#34;\t&#34;,$2}&#39;</span> |tr -d <span style="color:#e6db74">&#39;&#34;&#39;</span>
+<span style="color:#f92672">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Example usage:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: tfmoe ./module_alb
+
+Outputs:
+	 alb_arn
+
+Variables:
+	 acm_certificate_arn
+	 lb_name
+	 alb_sg_list
+	 subnets_id_list
+	 tags
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="function-pre-fill-module-directory-with-configuration-files">Function: pre-fill module directory with configuration files</h2>
+<p>You need to provide a path to the module directory and this function will create a bunch of empty &lsquo;default&rsquo; .tf files in it.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#TerraForm MOdule Initialize</span>
+<span style="color:#66d9ef">function</span> tfmoi <span style="color:#f92672">{</span>
+  touch $1/variables.tf
+  touch $1/outputs.tf
+  touch $1/versions.tf
+  touch $1/main.tf
+<span style="color:#f92672">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Example usage:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: mkdir ./module_foo &amp;&amp; temoi $_
+
+user@localhost $: ls ./module_foo
+main.tf      outputs.tf   variables.tf versions.tf
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="aliases">Aliases</h2>
+<p>The purpose of these aliases is just to keep you from typing long commands when you want to do a simple action.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">alias tf<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform&#39;</span>
+
+alias tfv<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform validate&#39;</span>
+
+alias tfi<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform init&#39;</span>
+
+alias tfp<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform plan&#39;</span> 
+</code></pre></td></tr></table>
+</div>
+</div><p>This one is useful because it makes format tool to go in-depth (recursively) through directories.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">alias tfm<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform fmt -recursive&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Example usage:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: tfm 
+module_ecs_cluster/ecs.tf
+module_alb/alb.tf
+</code></pre></td></tr></table>
+</div>
+</div>]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Manage Ansible playbook secrets with AWS services</title>
+      <link>https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html</link>
+      <pubDate>Thu, 06 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html</guid>
+      <description>A better way to store sensitive information for Ansible on EC2 or other services</description>
+      <content:encoded><![CDATA[<p>Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks.
+If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.</p>
+<h2 id="variables-with-ssm-parameter-store">Variables with SSM Parameter Store</h2>
+<p>Let&rsquo;s say you have some variables defined in &lsquo;defaults/main.yaml&rsquo; file of your role or maybe in group_vars.yaml file.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
+<span style="color:#75715e"># content of dev.vars.yaml to be included in your play or role</span>
+<span style="color:#f92672">use_tls</span>: <span style="color:#66d9ef">true</span>
+<span style="color:#f92672">application_port</span>: <span style="color:#ae81ff">3000</span>
+<span style="color:#f92672">app_env</span>: <span style="color:#ae81ff">development</span>
+<span style="color:#f92672">stripe_api_key</span>: <span style="color:#ae81ff">1HGASU2eZvKYlo2CT5MEcnC39HqLyjWD</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>If you store such things locally on Ansible control node, you probably encrypt it with <a href="https://docs.ansible.com/ansible/latest/user_guide/vault.html">ansible-vault</a></p>
+<p>SSM Parameter Store gives you more flexibility and security by centralized storage and management of parameters and secrets, so let&rsquo;s use it with Ansible:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># content of dev.vars.yaml to be included in your play or role</span>
+
+<span style="color:#f92672">use_tls</span>: <span style="color:#e6db74">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/use_tls&#39;)}}&#34;</span>
+<span style="color:#f92672">application_port</span>: <span style="color:#e6db74">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/application_port&#39;)}}&#34;</span>
+<span style="color:#f92672">app_env</span>: <span style="color:#e6db74">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/app_env&#39;)}}&#34;</span>
+<span style="color:#f92672">stripe_api_key</span>: <span style="color:#e6db74">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/stripe_api_key&#39;)}}&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>The syntax is fairly simple:</p>
+<p>The <code>aws_ssm</code> argument – is the name of plugin.</p>
+<p>The <code>/dev/webserver/use_tls</code> argument – is the path to the key in Paramter Store.</p>
+<p>Surely you can do the same for a group of servers with group variables, for example:</p>
+<p>You can use this anywhere you can use templating: in a play, in variables file, or a Jinja2 template.</p>
+<h2 id="variables-with-secret-manager">Variables with Secret Manager</h2>
+<p>Another cool lookup plugin is Secrets Manager. In a nutshell, it has the same kind of functionality but it uses JSON format by feault.</p>
+<p>Here is a quick example of its functionality in a Playbook:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
+- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Extract something secrets from Secret Manager</span>
+  <span style="color:#f92672">debug</span>:
+    <span style="color:#f92672">msg</span>: <span style="color:#e6db74">&#34;{{ lookup(&#39;aws_secret&#39;, &#39;dev/some-secrets&#39;)}}&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>The above task will generate the following output</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">TASK <span style="color:#f92672">[</span>Extract something secrets from Secret Manager<span style="color:#f92672">]</span> ****************************************************
+ok: <span style="color:#f92672">[</span>some_server<span style="color:#f92672">]</span> <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;msg&#34;</span>: <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;dbname&#34;</span>: <span style="color:#e6db74">&#34;database&#34;</span>,
+        <span style="color:#e6db74">&#34;engine&#34;</span>: <span style="color:#e6db74">&#34;mysql&#34;</span>,
+        <span style="color:#e6db74">&#34;host&#34;</span>: <span style="color:#e6db74">&#34;127.0.0.1&#34;</span>,
+        <span style="color:#e6db74">&#34;password&#34;</span>: <span style="color:#e6db74">&#34;password&#34;</span>,
+        <span style="color:#e6db74">&#34;port&#34;</span>: <span style="color:#e6db74">&#34;3306&#34;</span>,
+        <span style="color:#e6db74">&#34;username&#34;</span>: <span style="color:#e6db74">&#34;db_user&#34;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>This is nice if you want to insert a JSON as is, but you will need additional parsing in case you want to get only some of JSON elements.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>If you’re using Ansible in CI/CD, then having it on an EC2 Instance with the IAM role will make you avoid keeping any secrets on that instance at all.<br>
+The IAM role must allow at least the read access to SSM Parameter Store (+ KMS read access to be able to decrypt the keys) or the read access to Secrets Manager.</p>
+<p>You can find documentation for described plugins here <a href="https://docs.ansible.com/ansible/latest/plugins/lookup/aws_ssm.html">aws_ssm</a> and here <a href="https://docs.ansible.com/ansible/latest/plugins/lookup/aws_secret.html">aws_secret</a>.</p>
+<p>More about lookup plugins: <a href="https://docs.ansible.com/ansible/latest/plugins/lookup.html">https://docs.ansible.com/ansible/latest/plugins/lookup.html</a></p>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Learning tips on Serhii Vasylenko</title>
+    <link>https://serhii.vasylenko.info/categories/learning-tips/</link>
+    <description>Recent content in Learning tips on Serhii Vasylenko</description>
+    <image>
+      <url>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</url>
+      <link>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/learning-tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Terraform Certification Tips</title>
+      <link>https://serhii.vasylenko.info/2020/09/15/terraform-certification-tips.html</link>
+      <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2020/09/15/terraform-certification-tips.html</guid>
+      <description>Summary of a learning path to HashiCorp Certified — Terraform Associate</description>
+      <content:encoded><![CDATA[<p>I successfully passed the &ldquo;HashiCorp Certified — Terraform Associate&rdquo; exam last Friday and decided to share some advice for exam preparation.</p>
+<h2 id="make-yourself-a-plan">Make yourself a plan</h2>
+<p>Make a list of things you are going to go through: links to the study materials, practice tasks, some labs, some articles on relative blogs (Medium, Dev.to, etc.).
+It should look at a &ldquo;todo&rdquo; or &ldquo;check&rdquo;-list. It may seem silly at first glance, but the list with checkboxes does its &ldquo;cognitive magic&rdquo;. When you go point by point, marking items as &ldquo;done&rdquo;, you feel the progress and this motivates you to keep going further.
+For example, you can make a plan from the resources I outlined below in this article.</p>
+<p>I encourage you to explore the Internet for something by yourself as well. Who knows, perhaps you will find some learning course that fits you better. And that is great! However, when you find it, take extra 5-10 minutes to go through its curriculum and create a list with lessons.</p>
+<p>It feels so nice to cross out items off the todo list, believe me 😄
+<img loading="lazy" src="todo-list.jpg" alt=""  />
+</p>
+<h2 id="go-through-the-official-study-guide">Go through the official Study Guide</h2>
+<p>Despite your findings on the Internet, I strongly suggest going through the official study guide</p>
+<p><a href="https://learn.hashicorp.com/tutorials/terraform/associate-study">Study Guide - Terraform Associate Certification</a></p>
+<p>It took me about 20 hours to complete it (including practice tasks based on topics in the guide), and it was the core of my studying. I did not buy or search for some third-party course intentionally because I did have some Terraform experience before starting the preparation. But give the official guide a chance even if you found some course. It is well-made and matches real exam questions very precisely.</p>
+<p>Also, there is an official <a href="https://learn.hashicorp.com/tutorials/terraform/associate-review">Exam Review</a>. Someone might find this even better because it is a direct mapping of each exam objective to HashiCorp&rsquo;s documentation and training.</p>
+<h2 id="take-additional-tutorials">Take additional tutorials</h2>
+<p>Here is a list of additional tutorials and materials I suggest adding into your learning program:</p>
+<h4 id="official-guides--documentation">Official guides / documentation:</h4>
+<ul>
+<li><a href="https://learn.hashicorp.com/collections/terraform/automation">Automate Terraform</a></li>
+<li><a href="https://learn.hashicorp.com/collections/terraform/cloud">Collaborate using Terraform Cloud</a></li>
+<li><a href="https://learn.hashicorp.com/collections/terraform/0-13">Terraform tutorials</a></li>
+<li><a href="https://learn.hashicorp.com/collections/terraform/modules">Reuse Configuration with Modules</a></li>
+<li><a href="https://www.hashicorp.com/resources/a-practitioner-s-guide-to-using-hashicorp-terraform-cloud-with-github">A Practitioner’s Guide to Using HashiCorp Terraform Cloud with GitHub</a></li>
+<li><a href="https://learn.hashicorp.com/collections/terraform/policy">Enforce Policy with Sentinel</a></li>
+</ul>
+<h4 id="third-party-articles-and-guides">Third-party articles and guides:</h4>
+<ul>
+<li><a href="https://prefetch.net/blog/2020/04/27/using-the-terraform-console-to-debug-interpolation-syntax/">Using the terraform console to debug interpolation syntax</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PL5VXZTK6spA2HF5Kf0rI9RDRHF9Hopffr">YouTube playlist with exam-like questions review</a></li>
+</ul>
+<h2 id="find-yourself-some-practice">Find yourself some practice</h2>
+<h4 id="mockup-a-project">Mockup a project</h4>
+<p>You can greatly improve your practice by mocking some real business cases.</p>
+<p>If you already work in some company you can set up the project you&rsquo;re working with using Terraform. If you don’t have a real project or afraid to accidentally violate NDA, try this open-source demo project: <a href="https://github.com/gothinkster/realworld">Real World Example Apps</a>.</p>
+<p>It is a collection of different codebases for front-end and back-end used to build the same project. Just find the combination that suits your experience better and try to build the infrastructure for it using Terraform.</p>
+<p><img loading="lazy" src="real-world-demo.jpg" alt=""  />
+</p>
+<h4 id="answer-forum-topics">Answer forum topics</h4>
+<p>Last but not least advice — try to answer some questions on the official <a href="https://discuss.hashicorp.com/c/terraform-core/">Terraform forum</a>.</p>
+<p>This is a nice way to test your knowledge, help others, and develop the community around Terraform. Just register there, look for the latest topics, and have fun!</p>
+<p><img loading="lazy" src="tf-forum.jpg" alt=""  />
+</p>
+<h4 id="-i-sincerely-wish-you-exciting-preparation-and-a-successful-exam-">🍀 I sincerely wish you exciting preparation and a successful exam! 🍀</h4>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>AWS SAA exam results</title>
+      <link>https://serhii.vasylenko.info/2020/03/15/aws-solutions-architect-associate-exam-tips.html</link>
+      <pubDate>Sun, 15 Mar 2020 20:16:20 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2020/03/15/aws-solutions-architect-associate-exam-tips.html</guid>
+      <description>Sharing my AWS SAA exam results</description>
+      <content:encoded><![CDATA[<h3 id="926-out-of-1000">926 out of 1000</h3>
+<p>Last week I&rsquo;ve successfully passed AWS SAA exam with 926 points from 1000 possible. I can&rsquo;t help saying this and showing off my <a href="https://www.youracclaim.com/badges/7c6c7a70-63f5-4854-97ab-e5c1ad251231">verification page</a>{:target=&quot;_blank&quot;}, just because I am very happy so please excuse me my bragging.</p>
+<h3 id="what-helped-me">What helped me</h3>
+<p>But I would like to share some advices and tips with anyone who reads this and wants to pass the exam. I mean, I could just twit about it if that was only about saying &ldquo;hey look at me!&rdquo;, right?</p>
+<p>It took me a month of intensive studying and here is what helped me:</p>
+<ol>
+<li>
+<p><strong>Video course</strong> at CloudGuru - <a href="https://acloud.guru/learn/aws-certified-solutions-architect-associate">AWS Certified Solutions Architect Associate</a>{:target=&quot;_blank&quot;}.</p>
+<p>Price: $50 for a monthly subscription.</p>
+<p>Tips: They have a 7 days free trial, which is actually quite enough to view the whole course. But I strongly recommend purchasing a full month, because it is better to view the lectures gradually during couple of weeks for better learning. Plus they have a nice exam simulator where you can practice several times.</p>
+</li>
+<li>
+<p><strong>Practice Tests</strong> set at Udemy - <a href="https://www.udemy.com/course/aws-certified-solutions-architect-associate-amazon-practice-exams-saa-c02/">AWS Certified Solutions Architect Associate Practice Exams</a>{:target=&quot;_blank&quot;}.</p>
+<p>Price: $40 or only $12 if you&rsquo;re lucky to get it during a sale. But they make sales quite often and they frequently provide  discuounts for new students. I purchaced it for $12.</p>
+<p>Tips: practice tests are very useful, do not skip buying them. You will find your weak spots and also learn a lot by passing these tests. This particular set has a quite good explanations for each question.</p>
+</li>
+<li>
+<p><strong>Exam Guide</strong> at O&rsquo;relly Media <a href="https://learning.oreilly.com/library/view/aws-certified-solutions/9781260108262/">AWS Certified Solutions Architect Associate All-in-One Exam Guide</a>{:target=&quot;_blank&quot;}.</p>
+<p>Price: this one can be easily read during 10 days free trial period :wink:</p>
+<p>Tips: The new exam version is released on 23rd of March, so it is better to find a new updated version of exam guide. And I suggest reading the guide after the video course or vise versa, but do not mix them.</p>
+</li>
+<li>
+<p><strong>Making notes</strong>. Seriously, note taking helps you memorize better. Do not skip it, and note your video courses as well as exam guide. Later, you will find your notes very helpful before the exam day - they will fresh up your memory.</p>
+</li>
+</ol>
+<p>Thank you for reading down to this point. I hope my advices were helpful and you will pass the exam!</p>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

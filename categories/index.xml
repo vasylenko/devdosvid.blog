@@ -9,6 +9,57 @@
       <link>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://serhii.vasylenko.info/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Thu, 27 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cloud-based DevOps</title>
+      <link>https://serhii.vasylenko.info/categories/cloud-based-devops/</link>
+      <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/categories/cloud-based-devops/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Tutorials</title>
+      <link>https://serhii.vasylenko.info/categories/tutorials/</link>
+      <pubDate>Sun, 14 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/categories/tutorials/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Reviews</title>
+      <link>https://serhii.vasylenko.info/categories/reviews/</link>
+      <pubDate>Tue, 19 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/categories/reviews/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Learning tips</title>
+      <link>https://serhii.vasylenko.info/categories/learning-tips/</link>
+      <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/categories/learning-tips/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Workplace Experience</title>
+      <link>https://serhii.vasylenko.info/categories/workplace-experience/</link>
+      <pubDate>Fri, 20 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/categories/workplace-experience/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
   </channel>
 </rss>

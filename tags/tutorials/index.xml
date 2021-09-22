@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>tutorials on Serhii Vasylenko</title>
+    <link>https://serhii.vasylenko.info/tags/tutorials/</link>
+    <description>Recent content in tutorials on Serhii Vasylenko</description>
+    <image>
+      <url>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</url>
+      <link>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 16 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Terraform Workflow — Working Individually and in a Team</title>
+      <link>https://serhii.vasylenko.info/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html</link>
+      <pubDate>Wed, 16 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html</guid>
+      <description>An overview of best practices for working with Terraform individually or in a team</description>
+      <content:encoded><![CDATA[<p>The work with Terraform code may become tangled sometimes. Here are some guides on how to streamline it and make it transparent for you and your team.</p>
+<p>It is extremely helpful in a team, and can benefit you even if you work individually. A good workflow enables you to streamline a process, organize it, and make it less error-prone.</p>
+<p>This article summaries several approaches when working with Terraform, both individually and in a team. I tried to gather the most common ones, but you might also want to develop your own.</p>
+<p>The common requirement for all of them is a version control system (such as Git). This is how you ensure nothing is lost and all your code changes are properly versioned tracked.</p>
+<p>Table of contents:</p>
+<ul>
+<li><a href="#basic-concepts">Basic Concepts</a></li>
+<li><a href="#core-individual-workflow">Core individual workflow</a></li>
+<li><a href="#core-team-workflow">Core team workflow</a></li>
+<li><a href="#team-workflow-with-automation">Team workflow with automation</a></li>
+<li><a href="#import-workflow">Import workflow</a></li>
+</ul>
+<h1 id="basic-concepts">Basic Concepts</h1>
+<p>Let’s define the basic actions first.</p>
+<p>All described workflows are built on top of three key steps: Write, Plan, and Apply. Nevertheless, their details and actions vary between workflows.</p>
+<p><img loading="lazy" src="tf-workflow.png" alt=""  />
+
+<em>It&rsquo;s a piece of cake, isn&rsquo;t it? 😆</em></p>
+<p><strong>Write</strong> – this is where you make changes to the code.</p>
+<p><strong>Plan</strong> – this is where you review changes and decide whether to accept them.</p>
+<p><strong>Apply</strong> – this is where you accept changes and apply them against real infrastructure.</p>
+<p>It&rsquo;s a simple idea with a variety of possible implementations.</p>
+<h1 id="core-individual-workflow">Core individual workflow</h1>
+<p>This is the most simple workflow if you work alone on a relatively small TF project. This workflow suits both local and remote backends well.</p>
+<p><img loading="lazy" src="tf-workflow-individual.png" alt=""  />
+
+<em>Let&rsquo;s add a bit of Git</em></p>
+<h3 id="write">Write</h3>
+<p>You clone the remote code repo or pull the latest changes, edit the configuration code, then run the <code>terraform validate</code> and <code>terraform fmt</code> commands to make sure your code works well.</p>
+<h3 id="plan">Plan</h3>
+<p>This is where you run the <code>terraform plan</code> command to make sure that your changes do what you need. This is a good time to commit your code changes changes (or you can do it in the next step).</p>
+<h3 id="apply">Apply</h3>
+<p>This is when you run <code>terraform apply</code> and introduce the changes to real infrastructure objects. Also, this is when you push committed changes to the remote repository.</p>
+<h1 id="core-team-workflow">Core team workflow</h1>
+<p>This workflow is good for when you work with configuration code in a team and want to use feature branches to manage the changes accurately.</p>
+<p><img loading="lazy" src="tf-core-workflow-team.png" alt=""  />
+
+<em>Don&rsquo;t get scared, it is still simple, just follow the lines</em></p>
+<h3 id="write-1">Write</h3>
+<p>Start by checking out a new branch, make your changes, and run the <code>terraform validate</code> and <code>terraform fmt</code> commands to make sure your code works well.</p>
+<p>Running <code>terraform plan</code> at this step will help ensure that you&rsquo;ll get what you expect.</p>
+<h3 id="plan-1">Plan</h3>
+<p>This is where code and plan reviews happen.</p>
+<p>Add the output of the <code>terraform plan</code> command to the Pull Request with your changes. It would be a good idea to add only the changed parts of the common output, which is the part that starts with &ldquo;Terraform will perform the following actions&rdquo; string.</p>
+<h3 id="apply-1">Apply</h3>
+<p>Once the PR is reviewed and merged to the upstream branch, it is safe to finally pull the upstream branch locally and apply the configuration with <code>terraform apply</code>.</p>
+<h1 id="team-workflow-with-automation">Team workflow with automation</h1>
+<p>In a nutshell, this workflow allows you to introduce a kind of smoke test for your infrastructure code (using <code>plan</code>) and also to automate the feedback in the CI process.</p>
+<p>The automated part of this workflow consists of a speculative plan on commit and/or Pull Request (PR ), along with adding the output of <code>plan</code> to the comment of the PR. A speculative plan mean just to show the changes, and not apply them afterward.</p>
+<p><img loading="lazy" src="tf-workflow-team-automation-1.png" alt=""  />
+
+<em>I like when TF plan output is included to PR, but nobody likes to read others TF plans for some reason&hellip;</em></p>
+<h3 id="write-2">Write</h3>
+<p>This step is the same as in the previous workflow.</p>
+<h3 id="plan-2">Plan</h3>
+<p>This is where your CI tool does its job.</p>
+<p>Let’s review this step by step:</p>
+<ol>
+<li>You create a PR with the code changes you wish to implement.</li>
+<li>The CI pipeline is triggered by an event from your code repository (such as webhook push) and it runs a speculative plan against your code.</li>
+<li>The list of changes (a so-called &ldquo;plan diff&rdquo;) is added to PR for review by the CI.</li>
+<li>Once merged, the CI pipeline runs again and you get the final plan that&rsquo;s ready to be applied to the infrastructure.</li>
+</ol>
+<h3 id="apply-2">Apply</h3>
+<p>Now that you have a branch (i.e. main) with the fresh code to apply, you need to pull it locally and run <code>terraform apply</code>.</p>
+<p>You can also add the automated apply here – step 5 in the picture below. This may be very useful for disposable environments such as testing, staging, development, and so on.</p>
+<p>The exact CI tool to be used here is up to you: Jenkins, GitHub Actions, and Travis CI all work well.</p>
+<p>An important thing to note is that the CI pipeline must be configured in a bi-directional way with your repository to get the code from it and report back with comments to PR.</p>
+<p>As an option, you may consider using Terraform Cloud which has a lot of functionality, including the above mentioned repo integration, even with the free subscription.</p>
+<p>If you have never worked with Terraform Cloud before and want to advice to get started, I&rsquo;ll provide the links at the end of this article.</p>
+<h1 id="import-workflow">Import workflow</h1>
+<p>This workflow refers to a situation when you have some objects already created (i.e., up and running), and you need to manage them with Terraform.</p>
+<p>Suppose we already have an S3 bucket in AWS called &ldquo;someassetsbucket&rdquo; and we want to include it into our configuration code.‌‌</p>
+<p><img loading="lazy" src="tf-workflow-import.png" alt=""  />
+</p>
+<h3 id="prepare">Prepare</h3>
+<p>You should create a resource block to be used later for the real object you’re going to import.</p>
+<p>You don’t need to fill the arguments in it at the start, so it may be just a blank resource block, for example:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">resource &#34;aws_s3_bucket&#34; &#34;someassetsbucket&#34; {
+‌‌
+}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="import">Import</h3>
+<p>Now you need to import the information about the real object into your existing Terraform state file.</p>
+<p>This can be done with the <code>terraform import</code> command, for example:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">terraform import aws_s3_bucket.assets &#34;someassetsbucket&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>‌Be sure to also check the list of possible options import accepts with <code>terraform import -h</code></p>
+<h3 id="write-3">Write</h3>
+<p>Now you need to write the corresponding Terraform code for this bucket.</p>
+<p>To avoid modifying your real object on the <code>terraform apply</code> action, you should specify all needed arguments with the exact values from the import phase.</p>
+<p>You can see the details by running the <code>terraform state show</code> command, for example:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">terraform state show aws_s3_bucket.assets
+</code></pre></td></tr></table>
+</div>
+</div><p>The output of this command will be very similar to the configuration code. But it contains both arguments and attributes of the resource, so you need to clean it up before applying it.</p>
+<p>You can use one of the following tactics:</p>
+<ul>
+<li>either copy/paste it, and then run <code>terraform validate</code> and <code>terraform plan</code> several times to make sure there are no errors like &ldquo;argument is not expected here&rdquo; or &ldquo;this field cannot be set&rdquo;</li>
+<li>or you can pick and write only the necessary arguments</li>
+</ul>
+<p>In any case, be sure to refer to the documentation of the resource during this process.</p>
+<h3 id="plan-3">Plan</h3>
+<p>The goal is to have a <code>terraform plan</code> output showing &ldquo;~ update in-place&rdquo; changes only.</p>
+<p>However, it is not always clear whether the real object will be modified or only the state file will be updated. This is why you should understand how a real object works and know its life cycle to make sure it is safe to apply the plan.</p>
+<h3 id="apply-3">Apply</h3>
+<p>This is usual the <code>terraform apply</code> action.</p>
+<p>Once applied, your configuration and state file will correspond to the real object configuration.</p>
+<h1 id="wrapping-up">Wrapping up</h1>
+<p>Here is an overview of Terraform Cloud for those who never worked with it before: <a href="https://www.terraform.io/docs/cloud/overview.html">‌‌Overview of Terraform Cloud Features</a></p>
+<p>And here is a nice tutorial to start with: <a href="https://learn.hashicorp.com/collections/terraform/cloud-get-started">Get Started - Terraform Cloud</a></p>
+<p>Also, here is an overview of workflows at scale from the HashiCorp CTO which might be useful for more experienced Terraform users: <a href="https://www.hashicorp.com/resources/terraform-workflow-best-practices-at-scale">Terraform Workflow Best Practices at Scale</a></p>
+<p>Thank you for reading. I hope you will try one of these workflows, or develop your own!‌‌</p>
+<hr>
+<h6 id="this-article-was-originaly-published-on-freecodecamp-paltform-by-me-but-i-still-want-to-keep-it-here-for-the-record-canonical-link-to-original-publication-was-properly-set-in-the-page-headers">This article was originaly published on FreeCodeCamp paltform by me, but I still want to keep it here for the record. Canonical link to original publication was properly set in the page headers.</h6>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>What are Terraform Modules and how do they work?</title>
+      <link>https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html</link>
+      <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html</guid>
+      <description>Explanation of Terraform modules and their main concepts in English.</description>
+      <content:encoded><![CDATA[<p>Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds of lines of configuration code.</p>
+<p>I assume you already know some basics about Terraform or even tried to use it in some way before reading the article.</p>
+<p>Please note: I do not use real code examples with some specific provider like AWS or Google intentionally, just for the sake of simplicity.</p>
+<h2 id="terraform-modules">Terraform modules</h2>
+<p>You already write modules even if you think you don’t.</p>
+<p>Even when you don&rsquo;t create a module intentionally, if you use Terraform, you are already writing a module – a so-called &ldquo;root&rdquo; module.</p>
+<p>Any number of Terraform configuration files <code>(.tf)</code> in a directory (even one) forms a module.</p>
+<h3 id="what-does-the-module-do">What does the module do?</h3>
+<p>A Terraform module allows you to create logical abstraction on the top of some resource set. In other words, a module allows you to group resources together and reuse this group later, possibly many times.</p>
+<p>Let&rsquo;s assume we have a virtual server with some features hosted in the cloud. What set of resources might describe that server? For example:
+– the virtual machine itself (created from some image)
+– an attached block device of specified size (for additional storage)
+– a static public IP mapped to the server&rsquo;s virtual network interface
+– a set of firewall rules to be attached to the server
+– something else&hellip; (i.e. another block device, additional network interface, etc)</p>
+<p><img loading="lazy" src="1.png" alt=""  />
+</p>
+<p>Now let&rsquo;s assume that you need to create this server with a set of resources many times. This is where modules are really helpful – you don&rsquo;t want to repeat the same configuration code over and over again, do you?</p>
+<p>Here is an example that illustrates how our &ldquo;server&rdquo; module might be called.
+&ldquo;To call a module&rdquo; means to use it in the configuration file.</p>
+<p>Here we create 5 instances of the &ldquo;server&rdquo; using single set of configurations (in the module):</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module &#34;server&#34; {
+    
+    count         = 5
+    
+    source        = &#34;./module_server&#34;
+    some_variable = some_value
+}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="modules-organisation-child-and-root">Modules organisation: child and root</h3>
+<p>Of course, you would probably want to create more than one module. Here are some common examples:</p>
+<ul>
+<li>for a network (i.e. VPC)</li>
+<li>for a static content hosting (i.e. buckets)</li>
+<li>for a load balancer and it&rsquo;s related resources</li>
+<li>for a logging configuration</li>
+<li>and whatever else you consider a distinct logical component of the infrastructure</li>
+</ul>
+<p>Let&rsquo;s say we have two different modules: a &ldquo;server&rdquo; module and a &ldquo;network&rdquo; module. The module called &ldquo;network&rdquo; is where we define and configure our virtual network and place servers in it:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module &#34;server&#34; {
+    source        = &#34;./module_server&#34;
+    some_variable = some_value
+}
+
+module &#34;network&#34; {  
+    source              = &#34;./module_network&#34;
+    some_other_variable = some_other_value
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>Once we have some custom modules, we can refer to them as &ldquo;child&rdquo; modules. And the configuration file where we call child modules relates to the root module.</p>
+<p><img loading="lazy" src="2.png" alt=""  />
+</p>
+<p>A child module can be sourced from a number of places:</p>
+<ul>
+<li>local paths</li>
+<li>official Terraform Registry (if you&rsquo;re familiar with other registries, i.e. Docker Registry then you already understand the idea)</li>
+<li>Git repository (a custom one or GitHub/BitBucket)</li>
+<li>HTTP URL to .zip archive with module</li>
+</ul>
+<p>But how can you pass resources details between modules?</p>
+<p>In our example, the servers should be created in a network. So how can we tell the &ldquo;server&rdquo; module to create VMs in a network which was created in a module called &ldquo;network&rdquo;?</p>
+<p>This is where <strong>encapsulation</strong> comes in.</p>
+<h2 id="module-encapsulation">Module encapsulation</h2>
+<p>Encapsulation in Terraform consists of two basic concepts: module scope and explicit resources exposure.</p>
+<h3 id="module-scope">Module Scope</h3>
+<p>All resource instances, names, and therefore, resource visibility, are isolated in a module&rsquo;s scope. For example, module &ldquo;A&rdquo; can&rsquo;t see and does not know about resources in module &ldquo;B&rdquo; by default.</p>
+<p>Resource visibility, sometimes called resource isolation, ensures that resources will have unique names within a module&rsquo;s namespace. For example, with our 5 instances of the &ldquo;server&rdquo; module:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module.server[0].resource_type.resource_name
+module.server[1].resource_type.resource_name
+module.server[2].resource_type.resource_name
+</code></pre></td></tr></table>
+</div>
+</div><p>On the other hand, we could create two instances of the same module with different names:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module &#34;server-alpha&#34; {    
+    source        = &#34;./module_server&#34;
+    some_variable = some_value
+}
+module &#34;server-beta&#34; {
+    source        = &#34;./module_server&#34;
+    some_variable = some_value
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>In this case, the naming or address of resources would be as follows:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module.server-alpha.resource_type.resource_name
+
+module.server-beta.resource_type.resource_name
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="explicit-resources-exposure">Explicit resources exposure</h3>
+<p>If you want to access some details for the resources in another module, you&rsquo;ll need to explicitly configure that.</p>
+<p>By default, our module &ldquo;server&rdquo; doesn&rsquo;t know about the network that was created in the &ldquo;network&rdquo; module.</p>
+<p><img loading="lazy" src="3.png" alt=""  />
+</p>
+<p>So we must declare an <code>output</code> value in the &ldquo;network&rdquo; module to export its resource, or an attribute of a resource, to other modules.</p>
+<p>The module &ldquo;server&rdquo; must declare a <code>variable</code> to be used later as the input.</p>
+<p><img loading="lazy" src="4.png" alt=""  />
+</p>
+<p>This explicit declaration of the output is the way to expose some resource (or information about it) outside — to the scope of the &lsquo;root&rsquo; module, hence to make it available for other modules.</p>
+<p>Next, when we call the child module &ldquo;server&rdquo;  in the root module, we should assign the output from the &ldquo;network&rdquo; module to the variable of the &ldquo;server&rdquo; module:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">network_id = module.network.network_id
+</code></pre></td></tr></table>
+</div>
+</div><p>Here is how the final code for calling our child modules will look like in result:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module &#34;server&#34; {
+    count         = 5
+    source        = &#34;./module_server&#34;
+    some_variable = some_value
+    network_id    = module.network.network_id
+}
+
+module &#34;network&#34; {  
+    source              = &#34;./module_network&#34;
+    some_other_variable = some_other_value
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>This example configuration would create 5 instances of the same server, with all the necessary resources, in the network we created with as a separate module.</p>
+<h3 id="wrap-up">Wrap up</h3>
+<p>Now you should understand what modules are and what do they do.</p>
+<p>If you&rsquo;re at the beginning of your Terraform journey, here are some suggestions for the next steps.</p>
+<p>I encourage you to take this short tutorial from HashiCorp, the creators of Terraform, about modules:  <a href="https://learn.hashicorp.com/collections/terraform/modules">&ldquo;Organize Configuration&rdquo;</a></p>
+<p>Also, there is a great comprehensive study guide which covers everything from beginner to advanced concepts about Terraform: <a href="https://learn.hashicorp.com/tutorials/terraform/associate-study?in=terraform/certification">&ldquo;Study Guide - Terraform Associate Certification&rdquo;</a></p>
+<p>The modular code structure makes your configuration more flexible and yet easy to be understood by others. The latter is especially useful in teamwork.</p>
+<hr>
+<h6 id="this-article-was-originaly-published-on-freecodecamp-paltform-by-me-but-i-still-want-to-keep-it-here-for-the-record-canonical-link-to-original-publication-was-properly-set-in-the-page-headers">This article was originaly published on FreeCodeCamp paltform by me, but I still want to keep it here for the record. Canonical link to original publication was properly set in the page headers.</h6>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Terraform explained for managers</title>
+      <link>https://serhii.vasylenko.info/2020/05/02/Terraform-explained-for-managers.html</link>
+      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2020/05/02/Terraform-explained-for-managers.html</guid>
+      <description>For those who want to understand the engineering team better and speak on the same technical language - terraform explained.</description>
+      <content:encoded><![CDATA[<h2 id="this-article-was-written-a-long-time-ago-in-a-galaxy-far-far-away">This article was written a long time ago in a galaxy far, far away&hellip;</h2>
+<p>As a team leader, I have to speak with my teammates on the same language — technical language&hellip;</p>
+<p>For example, I have a good technical background, yet sometimes I have a feeling that my teammates see that I don’t understand them when we discuss some project or a task in-depth. Moreover, I know they are right. Of course, there are plenty of managers who do not have a technical background and they perform great. And some might say that technical skills are not the priority for a manager.</p>
+<p>But I think that +1 to skills is always better than +0. Of course, it is a question of time and personal interests, one way or another.</p>
+<p>This is why I decided to share my experience and explain Terraform in one blog post.</p>
+<p>The language of this article will be ‘techie’ but not too much. This is because I want to highlight the main parts the Terraform consists of. Although, this is not technical documentation (I hope). Code examples will be based on AWS cloud configuration, although in-depth knowledge of AWS is not required to understand them.</p>
+<h3 id="a-few-words-about-infrastructure-as-code">A few words about “Infrastructure as Code”</h3>
+<p>IaC is when you describe and manage your infrastructure as… (guess what?) …code. Literally.</p>
+<p>In a nutshell that means you can define all the elements (servers, networks, storage, etc.) and resources (memory, cpu, etc) of your infrastructure via configuration files in the version control system (Git, SVN, etc.), and manage it in a way similar to how you manage the source code of the applications: branches, releases, and all that stuff.</p>
+<p>And the main idea behind the IaC approach is that it manages the state of things and must be the single source of truth (configuration truth) for your infrastructure. You define the state via the code (at first) and then IaC tool (Terraform, for example) applies this state on the infrastructure: all that is missing according to the code will be created, all that differs from the code will be changed and all that exists in the infrastructure but is not described via code — will be destroyed.</p>
+<h3 id="why-and-when-do-you-need-the-terraform-for-a-project">Why and when do you need the Terraform for a project?</h3>
+<p>Terraform is a specific tool, hence like any other tool it has its particular application area. There is no strict definition of project kind that needs Terraform (surprise!) but in general, you need to consider using Terraform if you answer ‘yes’ to one of the following questions:</p>
+<ul>
+<li>Do you have multiple logical elements of the same kind (in plural) in your infrastructure, i.e. several web servers, several application servers, several database servers?</li>
+<li>Do you have numerous environments (or workspaces) where you run your applications, i.e. development, staging, QA, production?</li>
+<li>Do you spend some significant amount of time managing the changes in the environment(s) where you run your applications?</li>
+</ul>
+<h3 id="how-does-it-work">How does it work?</h3>
+<p>Terraform works with the source code of configuration, and interprets the code into real resources inside on-premise or cloud platforms.</p>
+<p>Terraform supports a lot of platforms: from major cloud providers such as AWS, Azure, GCP, DigitalOcean, to more modest platforms such as OVH, 1&amp;1, Hetzner, and others. It also supports infrastructure software such as Docker, Kubernetes, Chef, and even databases and monitoring software. This is why Terraform is so popular — it is a real Swiss knife in the operations world.</p>
+<p>So to create, change, or destroy the infrastructure Terraform needs the source code. The <strong>source code</strong> is a set of configuration files that defines your infrastructure state. The code uses its own syntax but it looks very user friendly. Here is an example: the following configuration block describes the virtual server (EC2 instance) in AWS</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">resource &#34;aws_instance&#34; “web_server” {</span>
+  <span style="color:#ae81ff">ami           = &#34;ami-a1b2c3d4&#34;</span>
+  <span style="color:#ae81ff">instance_type = &#34;t3.micro&#34;</span>
+  }
+</code></pre></td></tr></table>
+</div>
+</div><p>Terraform can automatically detect the dependencies between resources described in the code, and also allows you to add custom dependencies when needed.</p>
+<p>When you apply the code first time, Terraform creates a so-called “<strong>state file</strong>” that works as a mapping of your code to real resources created in the hosting platform. With each next “apply” action Terraform will use it to compare the code changes with the sate file to decide what should be done (and in what order) against real infrastructure.</p>
+<p>One of the important functions of the state file is a description of dependencies between the resources. For example (some technical nuances are omitted for purpose of simplicity): if you have a server created inside some network and that network is going to be changed, then Terraform will know that server setting should be changed as well or server should be re-created inside the updated network.</p>
+<h3 id="what-is-inside">What is inside?</h3>
+<p>Terraform configuration code consists of several elements: providers, resources, modules, input variables, output values, local values, expressions, functions.</p>
+<p><strong>Provider</strong> is an entity that defines what exactly is possible to do with cloud or on-premises infrastructure platform you manage via Terraform.</p>
+<p><strong>Resource</strong> is the most important part of the configuration code. This is where the definition of infrastructure objects happens. Resources are the main building blocks of the whole code.</p>
+<p>Every resource has a type and local name. For example here is how EC2 instance configuration may look like:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">resource “aws_instance” “web_server” {</span>
+  <span style="color:#ae81ff">ami           = “ami-a1b2c3d4”</span>
+  <span style="color:#ae81ff">instance_type = “t3.micro”</span>
+  }
+</code></pre></td></tr></table>
+</div>
+</div><p>The <code>aws_instance</code> is a resource type and <code>web_server</code> is the resource local name. Later, when Terraform applies this code, it will create an EC2 instance with some particular ID in AWS. Once created, the ID will be stored in the state file with mapping information that logically connects it with <code>web_server</code>.</p>
+<p>The <code>ami</code>, <code>instance_type</code> and <code>private_ip</code> are the arguments with values which define the actual state of the resource. There are plenty of value types, depending on the particular argument and particular resource type, so I will not focus on them here.</p>
+<p><strong>Modules</strong> are the kind of logical containers or groups for resources you define and use together. The purpose of modules is not only the grouping of resources but it is also the possibility to reuse the same code with different variables.</p>
+<p>Let’s get back to the example with EC2 instance and say you need to have a static public IP address with it. In such a case, here is how the module for web server may look like:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">resource “aws_instance” “web_server” {</span>
+  <span style="color:#ae81ff">ami           = “ami-a1b2c3d4”</span>
+  <span style="color:#ae81ff">instance_type = “t3.micro”</span>
+  }
+<span style="color:#ae81ff">resource “aws_eip” “web_server_public_ip” {</span>
+  <span style="color:#ae81ff">instance      = “${aws_instance.web_server.id}”</span>
+  }
+</code></pre></td></tr></table>
+</div>
+</div><p>Having these two resources together allows us to think of it as a stand-alone unit you can reuse later, for example in our development, staging, and production environments. And not by copying and pasting it, but via reference to the module defined only once.</p>
+<p>Please note: we specified an instance argument inside the <code>aws_eip</code> resource as a reference to another resource details (the ID of an instance). This is possible because of a way how Terraform treats dependencies: when it detects the dependency (or you define it explicitly) it will create the main resource first, and only after it’s created and available it will create the dependent one.</p>
+<p><strong>Input variables</strong> work as parameters for the modules so module code could be reusable. Let’s look at the previous example: it has some hardcoded values — instance image ID and instance type. Here is how you can make it more abstract and reusable:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">variable “image_id” {</span>
+  <span style="color:#ae81ff">type          = string</span>
+  }
+<span style="color:#ae81ff">variable “instance_type” {</span>
+  <span style="color:#ae81ff">type          = string</span>
+  }
+<span style="color:#ae81ff">resource “aws_instance” “web_server” {</span>
+  <span style="color:#ae81ff">ami           = var.image_id</span>
+  <span style="color:#ae81ff">instance_type = var.instance_type</span>
+  }
+</code></pre></td></tr></table>
+</div>
+</div><p>Values for the variables then can be passed either via CLI and environment variables (if you have only the one, so-called root module) or via explicit values in the block where you call a module, for example:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">module “web_server_production” {</span>
+  <span style="color:#ae81ff">source.       = “./modules/web_server”</span>
+  <span style="color:#ae81ff">image_id      = “ami-a1b2c3d4”</span>
+  <span style="color:#ae81ff">instance_type = “m5.large”</span>
+  }
+<span style="color:#ae81ff">module “web_server_development” {</span>
+  <span style="color:#ae81ff">source        = “./modules/web_server”</span>
+  <span style="color:#ae81ff">image_id      = “ami-a2b3c4d5”</span>
+  <span style="color:#ae81ff">instance_type = “t3.micro”</span>
+ }
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>Output values</strong> are similar to the “return” of a function in development language. They can be used for dependencies management (for example, when a module require something from another module) and for the printing of the certain values at the end of Terraform work (for example to be used for notification in CI/CD process).</p>
+<p><strong>Local values</strong>, <strong>expressions</strong>, <strong>functions</strong> — three more things that augment the capabilities of Terraform and make it more similar to a programming language (which is great by the way).</p>
+<p>The local values are used inside modules for extended data manipulations in it.</p>
+<p>The expressions are used to set the values (for many things), for example, to set the value of some argument in resource configuration. They used either to refer something (just as we referenced instance ID <code>“${aws_instance.web_server.id}”</code> in the example above) or to compute the value within your configuration.</p>
+<p>The functions in Terraform are built-int jobs you can call to transform and combine values. For example, the <code>tolist()</code> function converts its argument to a list value.</p>
+<h3 id="and-this-is-it">And this is it?</h3>
+<p>Yes, in a very very short words — this is what Terraform is. Not a rocket science if it&rsquo;s about to manage a small infastructure, but gets more complicated with bigger infrastctucture. As any other engineerign tool or development language, actually.</p>
+<h3 id="okay-what-next">Okay, what next?</h3>
+<p>If you read down to this point (anybody?) then it means it worth “get your hands dirty” and to try building your Infrastructure with Terraform. There are plenty of courses and books (and the “Terraform up and running” is one of the most popular), but my learning path started from the following: <a href="https://learn.hashicorp.com/terraform">Official guide from Hashicorp</a> — great and free guide from Terraform developers. Just pick your favorite cloud (AWS, Azure, GCP) and go through the topics.</p>
+<p>Once you finish this guide, I suggest jumping into the more real-world things and describe the infrastructure of the most common project you work with. For example, here is what I do: <a href="https://github.com/vasylenko/tf-ecs">small github project</a> – I am trying to describe the Infrastructure for SPA website with services in docker containers at the backend. The variety and complexity of the code are limited only by your fantasy.</p>
+<p>Another thing worth your attention is <a href="https://blog.gruntwork.io/a-comprehensive-guide-to-terraform-b3d32832baca">A Comprehensive Guide to Terraform</a>.</p>
+<p>And I also encourage you to go through the <a href="https://gruntwork.io/static/devops-resources/">collection of blog posts and talks</a> they share.</p>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>
