@@ -12,7 +12,7 @@ jobs:
           submodules: true
 
       - name: Build blog
-        run: docker run --rm -v "$(pwd)":/src klakegg/hugo:ci --gc --minify --debug
+        run: docker run --rm -v "$(pwd)":/src klakegg/hugo:ci hugo --gc --minify --debug
       
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
