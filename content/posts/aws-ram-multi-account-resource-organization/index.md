@@ -52,6 +52,24 @@ Finally, review the summary page of the resource share and create it.
 
 Only specific actions are available to the users of shared resources. These actions mostly have the "read-only" nature and [vary by resource type](https://docs.aws.amazon.com/ram/latest/userguide/shareable.html).
 
+Also, the RAM service is [supported by Terraform](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ram_resource_share), so the resource sharing configuration may look like that, for example:
+
+```hcl
+resource "aws_ram_resource_share" "example" {
+  name                      = "example"
+  allow_external_principals = false
+
+  tags = {
+    Environment = "Production"
+  }
+}
+
+resource "aws_ram_resource_association" "example" {
+  resource_arn       = aws_subnet.example.arn
+  resource_share_arn = aws_ram_resource_share.example.arn
+}
+```
+
 ## Example use cases
 One of the trivial but valuable examples of RAM service usage is sharing a Manged Prefix List.
 Suppose you have some service user across your Organization, a self-hosted VPN server, for example. And you have a static set of IPs for that VPN: you trust these IPs and would like them to be allow-listed in your other services.
