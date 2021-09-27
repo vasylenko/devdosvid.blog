@@ -12,12 +12,12 @@ jobs:
           submodules: true
 
       - name: Build blog
-        run: docker run --rm -v "$(pwd)":/src klakegg/hugo:ci
+        run: docker run --rm -v "$(pwd)":/src klakegg/hugo:ci --gc --minify --debug
       
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with: 
-          name: _site
+          name: publishdir
           path: publishdir
 
   deploy:
@@ -27,7 +27,7 @@ jobs:
     env:
       BRANCH: gh-pages-hugo
     steps:
-      - name: Checkout gh-pages-hugo branch
+      - name: Checkout the branch for website hosting
         uses: actions/checkout@v2
         with:
           ref: '${{ env.BRANCH }}'
@@ -35,7 +35,7 @@ jobs:
       - name: Get the new website content
         uses: actions/download-artifact@v2
         with:
-          name: _site
+          name: publishdir
           path: ./
 
       - name: Deploy website
