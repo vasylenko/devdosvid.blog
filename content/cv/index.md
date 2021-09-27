@@ -9,9 +9,8 @@ hideSummary: true
 cover.hidden: true
 ShowBreadCrumbs: false
 keywords: [devops, resume, hiring, cv, aws, terraform, teamlead, senior engineer]
-summary: "Serhii Vasylenko professional experience"
+summary: "Serhii Vasylenko — professional experience"
 title: "Serhii Vasylenko"
-description: "contacts@vasylenko.info"
 ---
 
 In 2020 I switched from team management to an individual contributor role to feel the engineering world on the tip of my fingers again.

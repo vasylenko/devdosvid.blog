@@ -1,10 +1,10 @@
 ---
 title: "AWS Resource Access Manager — Multi Account Resource Governance"
 date: 2021-09-25T00:54:23+03:00
-description: Provision and manage resources within the AWS Organization with ease 
+description: Provision and manage resources within the AWS Organization with ease
 cover:
     image: cover-image.png
-images: ["cover-image.png"]
+    relative: true
 tags: [aws, architecture, governance]
 categories: [Cloud-based DevOps]
 ---

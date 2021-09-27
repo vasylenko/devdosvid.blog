@@ -4,7 +4,7 @@ date: {{ .Date }}
 description:
 cover:
     image: cover-image.png
-images: ["cover-image.png"]
+    relative: true
 tags: []
 categories: []
 draft: true
