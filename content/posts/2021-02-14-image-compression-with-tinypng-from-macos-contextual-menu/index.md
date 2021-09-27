@@ -2,9 +2,10 @@
 date: "2021-02-14T00:00:00Z"
 title: Using TinyPNG Image Compression From MacOS Finder Contextual Menu
 description: How to add TinyPNG image compression to your macOS Finder contextual menu
-images: ["2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu.png"]
+images: 
+  - 2021/02/14/cover-image.png
 cover:
-  image: 2021-02-14-image-compression-with-tinypng-from-macos-contextual-menu.png
+  image: 2021/02/14/cover-image.png
 tags: ["macos", "fun"]
 categories: [Tutorials]
 url: /2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html
