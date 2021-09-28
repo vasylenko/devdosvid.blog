@@ -1,0 +1,31 @@
+<!--
+Custom YouTube shortcut taken from https://github.com/H4tch/hugo-plus/blob/master/layouts/shortcodes/youtube.html
+Thanks to Daniel Hatch https://github.com/H4tch
+
+My customization: added support for the 'title' attribute
+
+src - The Youtube id of the video. This can be found for a video on youtube by clicking on the share button and copying the last portion of the URL after the youtu.be/ part.
+
+title — video title for accessibility reasons
+
+id - Id attribute of the div tag around the iframe
+
+class - Class attribute of the div tag around the iframe
+
+style - Style attribute of the div tag around the iframe
+
+width - Width of the iframe. Defaults to 100%
+
+height - Height of the iframe
+
+allow_fullscreen - Enabled by default, set to false to turn off
+-->
+<div {{ with .Get "id" }}id="{{ . }}"{{ end }}
+class="magnific-video mpf-iframe embed video-player {{ .Get "class" }}" title="{{ .Get "title" }}">
+<iframe src="https://www.youtube.com/embed/{{ .Get "src" }}" type="text/html"
+{{ if (ne (.Get "allow_fullscreen") false) }}allowfullscreen{{ end }}
+frameborder="0"
+{{ with .Get "width" }}width="{{ . }}"{{ else }}width="100%"{{ end }}
+{{ with .Get "height" }}height="{{ . }}"{{ else }}height="400"{{ end }}
+></iframe>
+</div>

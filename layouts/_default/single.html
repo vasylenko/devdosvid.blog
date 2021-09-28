@@ -35,8 +35,8 @@
   {{- end }}
 
   <footer class="post-footer">
-    <p>I hope the article was informative and relevant to you! If you liked it, please support me by sharing this article on social networks 🙏</p>
     {{- if (and .Site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
+    <p> If you liked the article, please <b>support me by sharing</b> it on social networks 🙏</p>
     {{- partial "share_icons.html" . -}}
     {{- end }}
     {{- if .Params.tags }}
