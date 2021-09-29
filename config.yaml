@@ -64,6 +64,8 @@ outputs:
 
 rssLimit: 20
 
+disqusShortname: serhii-vasylenko-info
+
 ### THEME SETTINGS
 params:
     env: production # to enable google analytics, opengraph, twitter-cards and schema.
@@ -84,7 +86,7 @@ params:
     ShowCodeCopyButtons: true
     disableSpecial1stPost: false
     disableScrollToTop: false
-    comments: false
+    comments: true
     hidemeta: false
     hideSummary: false
     showtoc: true
@@ -130,7 +132,7 @@ params:
 
     editPost:
         URL: "mailto:email-from-blog@vasylenko.info"
-        Text: "Suggest Changes"
+        Text: "📩 Suggest Changes"
         appendFilePath: false
 
     # for search
