@@ -2159,76 +2159,38 @@ But my experience tells me that it is possible to answer them one by one. And I 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://serhii.vasylenko.info/about/</guid>
-      <description>I am an engineer from Ukraine. I like astronomy and everything related to DevOps. I thrive on developing great product offerings, great people, and great teams. 🖖 Some highlights of the things I do Terraform webinar (RU): Start using Terraform if you still don&amp;rsquo;t    AWS webinar (RU): The path to the certification of AWS architect    AWS/macOS webinar (RU): Infrastructure for Software Engineers: Spin Up and Keep It Running    Terraform crash course (RU): three 2-hours classes about Terraform and Terarform modules       </description>
-      <content:encoded><![CDATA[<h5 id="i-am-an-engineer-from-ukraine-i-like-astronomy-and-everything-related-to-devops-i-thrive-on-developing-great-product-offerings-great-people-and-great-teams-">I am an engineer from Ukraine. I like astronomy and everything related to DevOps. I thrive on developing great product offerings, great people, and great teams. 🖖</h5>
+      <description>I am an engineer from Ukraine. I like astronomy and everything related to DevOps. I thrive on developing great product offerings, great people, and great teams.
+Some highlights of the things I do Webinars, workshops, presentations:
+  Terraform webinar (RU): Start using Terraform if you still don&amp;rsquo;t
+  AWS webinar (RU): The path to the certification of AWS architect 
+  AWS webinar (RU): Infrastructure for Software Engineers: Spin Up and Keep It Running</description>
+      <content:encoded><![CDATA[<p>I am an engineer from Ukraine. I like astronomy and everything related to DevOps. I thrive on developing great product offerings, great people, and great teams.</p>
 <h3 id="some-highlights-of-the-things-i-do">Some highlights of the things I do</h3>
-<h4 id="terraform-webinar-ru-start-using-terraform-if-you-still-dont">Terraform webinar (RU): Start using Terraform if you still don&rsquo;t</h4>
+<p>Webinars, workshops, presentations:</p>
+<ul>
+<li>
+<p><a href="https://www.youtube.com/watch?v=lC4948SizsU">Terraform webinar (RU): Start using Terraform if you still don&rsquo;t</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=3vVUyJRk_TM">AWS webinar (RU): The path to the certification of AWS architect </a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=7rLB4qqWcL0">AWS webinar (RU): Infrastructure for Software Engineers: Spin Up and Keep It Running</a></p>
+</li>
+</ul>
+<p>Terraform crash course (RU) in Hillel IT school. Three 2-hours classes about Terraform and Terraform modules:</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=U8a5TTowUmI">Terraform — Introduction (RU)</a></li>
+<li><a href="https://www.youtube.com/watch?v=lIcKRtjKB-Q">Terraform — Modules (RU)</a></li>
+<li><a href="https://www.youtube.com/watch?v=-rwA7utnPbs">Terraform — Modules practice (RU)</a></li>
+</ul>
+<figure>
+    <img loading="lazy" src="./chasing-the-ocean.jpg"
+         alt="And this is me chasing the ocean waves on Iceland&#39;s volcanic sand beach" width="800"/> <figcaption>
+            <p>And this is me chasing the ocean waves on Iceland&rsquo;s volcanic sand beach</p>
+        </figcaption>
+</figure>
 
-<div 
-class="magnific-video mpf-iframe embed video-player " title="Start using Terraform if you still don&#39;t (RU)">
-<iframe src="https://www.youtube.com/embed/lC4948SizsU" type="text/html"
-allowfullscreen
-frameborder="0"
-width="100%"
-height="400"
-></iframe>
-</div>
-<hr>
-<h4 id="aws-webinar-ru-the-path-to-the-certification-of-aws-architect">AWS webinar (RU): The path to the certification of AWS architect</h4>
-
-<div 
-class="magnific-video mpf-iframe embed video-player " title="The path to the certification of AWS architect (RU)">
-<iframe src="https://www.youtube.com/embed/3vVUyJRk_TM" type="text/html"
-allowfullscreen
-frameborder="0"
-width="100%"
-height="400"
-></iframe>
-</div>
-<hr>
-<h4 id="awsmacos-webinar-ru-infrastructure-for-software-engineers-spin-up-and-keep-it-running">AWS/macOS webinar (RU): Infrastructure for Software Engineers: Spin Up and Keep It Running</h4>
-
-<div 
-class="magnific-video mpf-iframe embed video-player " title="Infrastructure for Software Engineers: Spin Up and Keep It Running (RU)">
-<iframe src="https://www.youtube.com/embed/7rLB4qqWcL0" type="text/html"
-allowfullscreen
-frameborder="0"
-width="100%"
-height="400"
-></iframe>
-</div>
-<hr>
-<h4 id="terraform-crash-course-ru-three-2-hours-classes-about-terraform-and-terarform-modules">Terraform crash course (RU): three 2-hours classes about Terraform and Terarform modules</h4>
-
-<div 
-class="magnific-video mpf-iframe embed video-player " title="Terraform — introduction (RU)">
-<iframe src="https://www.youtube.com/embed/U8a5TTowUmI" type="text/html"
-allowfullscreen
-frameborder="0"
-width="100%"
-height="400"
-></iframe>
-</div>
-
-<div 
-class="magnific-video mpf-iframe embed video-player " title="Terraform — modules (RU)">
-<iframe src="https://www.youtube.com/embed/lIcKRtjKB-Q" type="text/html"
-allowfullscreen
-frameborder="0"
-width="100%"
-height="400"
-></iframe>
-</div>
-
-<div 
-class="magnific-video mpf-iframe embed video-player " title="Terraform — modules practice (RU)">
-<iframe src="https://www.youtube.com/embed/-rwA7utnPbs" type="text/html"
-allowfullscreen
-frameborder="0"
-width="100%"
-height="400"
-></iframe>
-</div>
 ]]></content:encoded>
     </item>
     
