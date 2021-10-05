@@ -31,4 +31,4 @@ Terraform crash course (RU) in Hillel IT school. Three 2-hours classes about Ter
 - [Terraform — Modules (RU)](https://www.youtube.com/watch?v=lIcKRtjKB-Q)
 - [Terraform — Modules practice (RU)](https://www.youtube.com/watch?v=-rwA7utnPbs)
 
-{{< figure src="./chasing-the-ocean.jpg" width=800 alt="And this is me chasing the ocean waves on Iceland's volcanic sand beach" caption="And this is me chasing the ocean waves on Iceland's volcanic sand beach" >}}
+{{< figure src="chasing-the-ocean.jpg" width=800 alt="And this is me chasing the ocean waves on Iceland's volcanic sand beach" caption="And this is me chasing the ocean waves on Iceland's volcanic sand beach" >}}
