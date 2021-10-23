@@ -8,7 +8,7 @@
 <meta name=description content="How to manage mac1.metal EC2 instances with Terraform">
 <meta name=author content="Serhii Vasylenko">
 <link rel=canonical href=https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.9d0ee5f7e9290da0756b77773249ca87656d25d05fe5e05caecbace6c375a707.css integrity="sha256-nQ7l9+kpDaB1a3d3MknKh2VtJdBf5eBcrsus5sN1pwc=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.937ee850c528aa20f87fe1894b57c5233bcd3d18b8c6bc7c4f7c8d84a7f8a10a.css integrity="sha256-k37oUMUoqiD4f+GJS1fFIzvNPRi4xrx8T3yNhKf4oQo=" rel="preload stylesheet" as=style>
 <link rel=preload href=/apple-touch-icon.png as=image>
 <script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://serhii.vasylenko.info/favicon.ico>
@@ -37,7 +37,7 @@
 <meta name=twitter:title content="Terraforming mac1.metal at AWS">
 <meta name=twitter:description content="How to manage mac1.metal EC2 instances with Terraform">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://serhii.vasylenko.info/posts/"},{"@type":"ListItem","position":3,"name":"Terraforming mac1.metal at AWS","item":"https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Terraforming mac1.metal at AWS","name":"Terraforming mac1.metal at AWS","description":"How to manage mac1.metal EC2 instances with Terraform","keywords":["aws","terraform","automation","ec2"],"articleBody":"Recently AWS announced the support for Mac mini instances.\nI believe this is huge, even despite the many constraints this solution has. Oh, and the price is as huge as the announcement as well.\nBut still, this offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.\nHere is a tip for engineers like me who decided to give this new instance type a try: managing a dedicated host for the “mac1.metal” instance using Terraform.\n“mac1.metal” instance requires a dedicated host to be placed onto. This is a real Mac mini with a bit of magic from AWS.\nAs of 10 Jan 2021, the AWS Terraform provider does not have a dedicated host resource.\nSo we must solve this using CloudFormation… in Terraform!\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41  variable \"availability_zone\" { default = \"us-east-1a\" } resource \"random_pet\" \"runner_name\" { length = 2 prefix = \"mac-metal-\" separator = \"-\" } resource \"aws_cloudformation_stack\" \"dedicated_host\" { name = random_pet.runner_name.id timeout_in_minutes = 20 template_body = STACK { \"Resources\" : { \"MyDedicatedHost\": { \"Type\" : \"AWS::EC2::Host\", \"Properties\" : { \"AutoPlacement\" : \"on\", \"AvailabilityZone\" : \"${var.availability_zone}\", \"HostRecovery\" : \"off\", \"InstanceType\" : \"mac1.metal\" } } }, \"Outputs\" : { \"HostID\" : { \"Description\": \"Host ID\", \"Value\" : { \"Ref\" : \"MyDedicatedHost\" } } } } STACK } output \"dedicated_host_id\" { value = aws_cloudformation_stack.dedicated_host.outputs[\"HostID\"] }   Then you pass HostID to aws_instance resource, and you have mac1.metal up and running!\nI like to make boring technical things a bit less boring, so I decided to add a random pet name. Just for fun, why not.\nYou can wrap this into a module or add a count meta-argument to make it more versatile.\nSimple as that, yes. But now, you can integrate it into your CI system (if you have enough courage and money 😄) and have the Mac instance with the underlying host in a bundle.\nThanks for reading me!\n credits for cover image: AWS EC2 Mac Instances Launch - macOS in the cloud for the first time, with the benefits of EC2\n","wordCount":"373","inLanguage":"en","image":"https://serhii.vasylenko.info/2021-01-20-terraforming-mac1-metal-at-AWS.jpg","datePublished":"2021-01-20T00:00:00Z","dateModified":"2021-01-20T00:00:00Z","author":{"@type":"Person","name":"Serhii Vasylenko"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html"},"publisher":{"@type":"Person","name":"Serhii Vasylenko","logo":{"@type":"ImageObject","url":"https://serhii.vasylenko.info/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Terraforming mac1.metal at AWS","name":"Terraforming mac1.metal at AWS","description":"How to manage mac1.metal EC2 instances with Terraform","keywords":["aws","terraform","automation","ec2"],"articleBody":" Updated on the 23rd of October, 2021: Teraform AWS provider now supports Dedicated Hosts natively\n In November 2021, AWS announced the support for Mac mini instances.\nI believe this is huge, even despite the number of constraints this solution has. This offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.\nSo here is a quick-start example of creating the dedicated host and the instance altogether using Terraform.\nI intentionally used some hardcoded values for the sake of simplicity in the example.\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28  resource \"aws_ec2_host\" \"example_host\" { instance_type = \"mac1.metal\" availability_zone = \"us-east-1a\" } resource \"aws_instance\" \"example_instance\" { ami = data.aws_ami.mac1metal.id host_id = aws_ec2_host.example_host.id instance_type = \"mac1.metal\" subnet_id = data.aws_subnet.example_subnet.id } data \"aws_subnet\" \"example_subnet\" { availability_zone = \"us-east-1a\" filter { name = \"tag:Tier\"# you should omit this filter if you don't distinguish your subnets on private and public  values = [\"private\"] } } data \"aws_ami\" \"mac1metal\" { owners = [\"amazon\"] most_recent = true filter { name = \"name\" values = [\"amzn-ec2-macos-11*\"]# get latest BigSur AMI  } }   Simple as that, yes. Now, you can integrate it into your CI system and have the Mac instance with the underlying host in a bundle.\n💡 Pro tip: you can leverage the aws_ec2_instance_type_offerings Data Source and use its output with aws_subnet source to avoid availability zone hardcoding.\nTo make the code more uniform and reusable, you can wrap it into a Terraform module that accepts specific parameters (such as instance_type or availability_zone) as input variables.\n","wordCount":"272","inLanguage":"en","image":"https://serhii.vasylenko.info/2021-01-20-terraforming-mac1-metal-at-AWS.jpg","datePublished":"2021-01-20T00:00:00Z","dateModified":"2021-01-20T00:00:00Z","author":{"@type":"Person","name":"Serhii Vasylenko"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html"},"publisher":{"@type":"Person","name":"Serhii Vasylenko","logo":{"@type":"ImageObject","url":"https://serhii.vasylenko.info/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -91,13 +91,13 @@ How to manage mac1.metal EC2 instances with Terraform
 <figure class=entry-cover>
 <img loading=lazy srcset="https://serhii.vasylenko.info/2021/01/20/2021-01-20-terraforming-mac1-metal-at-AWS_hu98db5d6334a3c514db2f9164fffc7a39_25339_360x0_resize_q75_box.jpg 360w ,https://serhii.vasylenko.info/2021/01/20/2021-01-20-terraforming-mac1-metal-at-AWS_hu98db5d6334a3c514db2f9164fffc7a39_25339_480x0_resize_q75_box.jpg 480w ,https://serhii.vasylenko.info/2021/01/20/2021-01-20-terraforming-mac1-metal-at-AWS_hu98db5d6334a3c514db2f9164fffc7a39_25339_720x0_resize_q75_box.jpg 720w ,https://serhii.vasylenko.info/2021/01/20/2021-01-20-terraforming-mac1-metal-at-AWS.jpg 1000w" sizes="(min-width: 768px) 720px, 100vw" src=https://serhii.vasylenko.info/2021/01/20/2021-01-20-terraforming-mac1-metal-at-AWS.jpg alt width=1000 height=500>
 </figure>
-<div class=post-content><p>Recently AWS <a href=https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/>announced</a> the support for Mac mini instances.</p>
-<p>I believe this is huge, even despite the many constraints this solution has. Oh, and the price is as huge as the announcement as well.</p>
-<p>But still, this offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.</p>
-<p>Here is a tip for engineers like me who decided to give this new instance type a try: managing a dedicated host for the &ldquo;mac1.metal&rdquo; instance using Terraform.</p>
-<p>&ldquo;mac1.metal&rdquo; instance requires a dedicated host to be placed onto. This is a real Mac mini with a bit of magic from AWS.</p>
-<p>As of 10 Jan 2021, the AWS Terraform provider does not have a dedicated host resource.</p>
-<p>So we must solve this using CloudFormation&mldr; in Terraform!</p>
+<div class=post-content><blockquote>
+<p><strong>Updated on the 23rd of October, 2021: Teraform AWS provider now <a href=https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_host>supports</a> Dedicated Hosts natively</strong></p>
+</blockquote>
+<p>In November 2021, AWS <a href=https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/>announced</a> the support for Mac mini instances.</p>
+<p>I believe this is huge, even despite the number of constraints this solution has. This offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.</p>
+<p>So here is a quick-start example of creating the dedicated host and the instance altogether using Terraform.</p>
+<p>I intentionally used some hardcoded values for the sake of simplicity in the example.</p>
 <div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
 <pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
@@ -128,71 +128,41 @@ How to manage mac1.metal EC2 instances with Terraform
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=color:#66d9ef>variable</span> <span style=color:#e6db74>&#34;availability_zone&#34;</span> {
-  default <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;us-east-1a&#34;</span>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_ec2_host&#34; &#34;example_host&#34;</span> {
+  instance_type     <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;mac1.metal&#34;</span>
+  availability_zone <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;us-east-1a&#34;</span>
 }
 
-<span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;random_pet&#34; &#34;runner_name&#34;</span> {
-  length    <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>
-  prefix    <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;mac-metal-&#34;</span>
-  separator <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;-&#34;</span>
+<span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_instance&#34; &#34;example_instance&#34;</span> {
+  ami           <span style=color:#f92672>=</span> <span style=color:#66d9ef>data</span>.<span style=color:#66d9ef>aws_ami</span>.<span style=color:#66d9ef>mac1metal</span>.<span style=color:#66d9ef>id</span>
+  host_id       <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_ec2_host</span>.<span style=color:#66d9ef>example_host</span>.<span style=color:#66d9ef>id</span>
+  instance_type <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;mac1.metal&#34;</span>
+  subnet_id     <span style=color:#f92672>=</span> <span style=color:#66d9ef>data</span>.<span style=color:#66d9ef>aws_subnet</span>.<span style=color:#66d9ef>example_subnet</span>.<span style=color:#66d9ef>id</span>
 }
 
-<span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_cloudformation_stack&#34; &#34;dedicated_host&#34;</span> {
-  name <span style=color:#f92672>=</span> <span style=color:#66d9ef>random_pet</span>.<span style=color:#66d9ef>runner_name</span>.<span style=color:#66d9ef>id</span>
-
-  timeout_in_minutes <span style=color:#f92672>=</span> <span style=color:#ae81ff>20</span>
-
-  template_body <span style=color:#f92672>=</span> <span style=color:#960050;background-color:#1e0010>&lt;&lt;</span><span style=color:#66d9ef>STACK</span>
-{
-  <span style=color:#e6db74>&#34;Resources&#34;</span> <span style=color:#960050;background-color:#1e0010>:</span> {
-    <span style=color:#e6db74>&#34;MyDedicatedHost&#34;</span><span style=color:#960050;background-color:#1e0010>:</span> {
-      <span style=color:#e6db74>&#34;Type&#34; : &#34;AWS::EC2::Host&#34;</span>,
-      <span style=color:#e6db74>&#34;Properties&#34;</span> <span style=color:#960050;background-color:#1e0010>:</span> {
-          <span style=color:#e6db74>&#34;AutoPlacement&#34; : &#34;on&#34;</span>,
-          <span style=color:#e6db74>&#34;AvailabilityZone&#34; : &#34;${var.availability_zone}&#34;</span>,
-          <span style=color:#e6db74>&#34;HostRecovery&#34; : &#34;off&#34;</span>,
-          <span style=color:#e6db74>&#34;InstanceType&#34; : &#34;mac1.metal&#34;</span>
-        }
-    }
-  },
-  <span style=color:#e6db74>&#34;Outputs&#34;</span> <span style=color:#960050;background-color:#1e0010>:</span> {
-    <span style=color:#e6db74>&#34;HostID&#34;</span> <span style=color:#960050;background-color:#1e0010>:</span> {
-      <span style=color:#e6db74>&#34;Description&#34;: &#34;Host ID&#34;</span>,
-      <span style=color:#e6db74>&#34;Value&#34; : { &#34;Ref&#34; : &#34;MyDedicatedHost&#34;</span> }
-    }
+<span style=color:#66d9ef>data</span> <span style=color:#e6db74>&#34;aws_subnet&#34; &#34;example_subnet&#34;</span> {
+  availability_zone <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;us-east-1a&#34;</span>
+  <span style=color:#66d9ef>filter</span> {
+    name   <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;tag:Tier&#34;</span><span style=color:#75715e> # you should omit this filter if you don&#39;t distinguish your subnets on private and public 
+</span><span style=color:#75715e></span>    values <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;private&#34;</span>]
   }
 }
-<span style=color:#66d9ef>STACK</span>
-}
 
-<span style=color:#66d9ef>output</span> <span style=color:#e6db74>&#34;dedicated_host_id&#34;</span> {
-  value <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_cloudformation_stack</span>.<span style=color:#66d9ef>dedicated_host</span>.<span style=color:#66d9ef>outputs</span>[<span style=color:#e6db74>&#34;HostID&#34;</span>]
+<span style=color:#66d9ef>data</span> <span style=color:#e6db74>&#34;aws_ami&#34; &#34;mac1metal&#34;</span> {
+  owners      <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;amazon&#34;</span>]
+  most_recent <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+  <span style=color:#66d9ef>filter</span> {
+    name   <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;name&#34;</span>
+    values <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;amzn-ec2-macos-11*&#34;</span>]<span style=color:#75715e> # get latest BigSur AMI
+</span><span style=color:#75715e></span>  }
 }
 </code></pre></td></tr></table>
 </div>
-</div><p>Then you pass HostID to <code>aws_instance</code> resource, and you have mac1.metal up and running!</p>
-<p>I like to make boring technical things a bit less boring, so I decided to add a random pet name. Just for fun, why not.</p>
-<p>You can wrap this into a module or add a count meta-argument to make it more versatile.</p>
-<p>Simple as that, yes. But now, you can integrate it into your CI system (if you have enough courage and money 😄) and have the Mac instance with the underlying host in a bundle.</p>
-<p>Thanks for reading me!</p>
-<hr>
-<p><em>credits for cover image: <a href="https://www.youtube.com/watch?v=Pn3miC_tTH0">AWS EC2 Mac Instances Launch - macOS in the cloud for the first time, with the benefits of EC2</a></em></p>
+</div><p>Simple as that, yes. Now, you can integrate it into your CI system and have the Mac instance with the underlying host in a bundle.</p>
+<p>💡 Pro tip: you can leverage the <code>aws_ec2_instance_type_offerings</code> <a href=https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings>Data Source</a> and use its output with <code>aws_subnet</code> source to avoid availability zone hardcoding.</p>
+<p>To make the code more uniform and reusable, you can wrap it into a <a href=https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html>Terraform module</a> that accepts specific parameters (such as <code>instance_type</code> or <code>availability_zone</code>) as input variables.</p>
 </div>
 <footer class=post-footer>
 <p>If you liked the article, please <b>support me by sharing</b> it on social networks 🙏</p>

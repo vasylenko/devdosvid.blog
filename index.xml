@@ -819,13 +819,13 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw<span style="
       
       <guid>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</guid>
       <description>How to manage mac1.metal EC2 instances with Terraform</description>
-      <content:encoded><![CDATA[<p>Recently AWS <a href="https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/">announced</a> the support for Mac mini instances.</p>
-<p>I believe this is huge, even despite the many constraints this solution has. Oh, and the price is as huge as the announcement as well.</p>
-<p>But still, this offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.</p>
-<p>Here is a tip for engineers like me who decided to give this new instance type a try: managing a dedicated host for the &ldquo;mac1.metal&rdquo; instance using Terraform.</p>
-<p>&ldquo;mac1.metal&rdquo; instance requires a dedicated host to be placed onto. This is a real Mac mini with a bit of magic from AWS.</p>
-<p>As of 10 Jan 2021, the AWS Terraform provider does not have a dedicated host resource.</p>
-<p>So we must solve this using  CloudFormation&hellip; in Terraform!</p>
+      <content:encoded><![CDATA[<blockquote>
+<p><strong>Updated on the 23rd of October, 2021: Teraform AWS provider now <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_host">supports</a> Dedicated Hosts natively</strong></p>
+</blockquote>
+<p>In November 2021, AWS <a href="https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/">announced</a> the support for Mac mini instances.</p>
+<p>I believe this is huge, even despite the number of constraints this solution has. This offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.</p>
+<p>So here is a quick-start example of creating the dedicated host and the instance altogether using Terraform.</p>
+<p>I intentionally used some hardcoded values for the sake of simplicity in the example.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -856,71 +856,41 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw<span style="
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;availability_zone&#34;</span> {
-  default <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;us-east-1a&#34;</span>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_ec2_host&#34; &#34;example_host&#34;</span> {
+  instance_type     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mac1.metal&#34;</span>
+  availability_zone <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;us-east-1a&#34;</span>
 }
 
-<span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;random_pet&#34; &#34;runner_name&#34;</span> {
-  length    <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
-  prefix    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mac-metal-&#34;</span>
-  separator <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;-&#34;</span>
+<span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;example_instance&#34;</span> {
+  ami           <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">aws_ami</span>.<span style="color:#66d9ef">mac1metal</span>.<span style="color:#66d9ef">id</span>
+  host_id       <span style="color:#f92672">=</span> <span style="color:#66d9ef">aws_ec2_host</span>.<span style="color:#66d9ef">example_host</span>.<span style="color:#66d9ef">id</span>
+  instance_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mac1.metal&#34;</span>
+  subnet_id     <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">aws_subnet</span>.<span style="color:#66d9ef">example_subnet</span>.<span style="color:#66d9ef">id</span>
 }
 
-<span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_cloudformation_stack&#34; &#34;dedicated_host&#34;</span> {
-  name <span style="color:#f92672">=</span> <span style="color:#66d9ef">random_pet</span>.<span style="color:#66d9ef">runner_name</span>.<span style="color:#66d9ef">id</span>
-
-  timeout_in_minutes <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
-
-  template_body <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">&lt;&lt;</span><span style="color:#66d9ef">STACK</span>
-{
-  <span style="color:#e6db74">&#34;Resources&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> {
-    <span style="color:#e6db74">&#34;MyDedicatedHost&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
-      <span style="color:#e6db74">&#34;Type&#34; : &#34;AWS::EC2::Host&#34;</span>,
-      <span style="color:#e6db74">&#34;Properties&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> {
-          <span style="color:#e6db74">&#34;AutoPlacement&#34; : &#34;on&#34;</span>,
-          <span style="color:#e6db74">&#34;AvailabilityZone&#34; : &#34;${var.availability_zone}&#34;</span>,
-          <span style="color:#e6db74">&#34;HostRecovery&#34; : &#34;off&#34;</span>,
-          <span style="color:#e6db74">&#34;InstanceType&#34; : &#34;mac1.metal&#34;</span>
-        }
-    }
-  },
-  <span style="color:#e6db74">&#34;Outputs&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> {
-    <span style="color:#e6db74">&#34;HostID&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> {
-      <span style="color:#e6db74">&#34;Description&#34;: &#34;Host ID&#34;</span>,
-      <span style="color:#e6db74">&#34;Value&#34; : { &#34;Ref&#34; : &#34;MyDedicatedHost&#34;</span> }
-    }
+<span style="color:#66d9ef">data</span> <span style="color:#e6db74">&#34;aws_subnet&#34; &#34;example_subnet&#34;</span> {
+  availability_zone <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;us-east-1a&#34;</span>
+  <span style="color:#66d9ef">filter</span> {
+    name   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tag:Tier&#34;</span><span style="color:#75715e"> # you should omit this filter if you don&#39;t distinguish your subnets on private and public 
+</span><span style="color:#75715e"></span>    values <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;private&#34;</span>]
   }
 }
-<span style="color:#66d9ef">STACK</span>
-}
 
-<span style="color:#66d9ef">output</span> <span style="color:#e6db74">&#34;dedicated_host_id&#34;</span> {
-  value <span style="color:#f92672">=</span> <span style="color:#66d9ef">aws_cloudformation_stack</span>.<span style="color:#66d9ef">dedicated_host</span>.<span style="color:#66d9ef">outputs</span>[<span style="color:#e6db74">&#34;HostID&#34;</span>]
+<span style="color:#66d9ef">data</span> <span style="color:#e6db74">&#34;aws_ami&#34; &#34;mac1metal&#34;</span> {
+  owners      <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;amazon&#34;</span>]
+  most_recent <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+  <span style="color:#66d9ef">filter</span> {
+    name   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;name&#34;</span>
+    values <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;amzn-ec2-macos-11*&#34;</span>]<span style="color:#75715e"> # get latest BigSur AMI
+</span><span style="color:#75715e"></span>  }
 }
 </code></pre></td></tr></table>
 </div>
-</div><p>Then you pass HostID to <code>aws_instance</code> resource, and you have mac1.metal up and running!</p>
-<p>I like to make boring technical things a bit less boring, so I decided to add a random pet name. Just for fun, why not.</p>
-<p>You can wrap this into a module or add a count meta-argument to make it more versatile.</p>
-<p>Simple as that, yes. But now, you can integrate it into your CI system (if you have enough courage and money 😄) and have the Mac instance with the underlying host in a bundle.</p>
-<p>Thanks for reading me!</p>
-<hr>
-<p><em>credits for cover image: <a href="https://www.youtube.com/watch?v=Pn3miC_tTH0">AWS EC2 Mac Instances Launch - macOS in the cloud for the first time, with the benefits of EC2</a></em></p>
+</div><p>Simple as that, yes. Now, you can integrate it into your CI system and have the Mac instance with the underlying host in a bundle.</p>
+<p>💡 Pro tip: you can leverage the <code>aws_ec2_instance_type_offerings</code> <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings">Data Source</a> and use its output with <code>aws_subnet</code> source to avoid availability zone hardcoding.</p>
+<p>To make the code more uniform and reusable, you can wrap it into a <a href="https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html">Terraform module</a> that accepts specific parameters (such as <code>instance_type</code> or <code>availability_zone</code>) as input variables.</p>
 ]]></content:encoded>
     </item>
     
@@ -2160,11 +2130,13 @@ But my experience tells me that it is possible to answer them one by one. And I 
       
       <guid>https://serhii.vasylenko.info/about/</guid>
       <description>I am an engineer from Ukraine. I like astronomy and everything related to DevOps. I thrive on developing great product offerings, great people, and great teams.
+AWS Community Builder and Engineer in Grammarly.
 Some highlights of the things I do Webinars, workshops, presentations:
   Terraform webinar (RU): Start using Terraform if you still don&amp;rsquo;t
   AWS webinar (RU): The path to the certification of AWS architect 
   AWS webinar (RU): Infrastructure for Software Engineers: Spin Up and Keep It Running</description>
       <content:encoded><![CDATA[<p>I am an engineer from Ukraine. I like astronomy and everything related to DevOps. I thrive on developing great product offerings, great people, and great teams.</p>
+<p><a href="https://aws.amazon.com/developer/community/community-builders/">AWS Community Builder</a> and Engineer in <a href="https://grammarly.com">Grammarly</a>.</p>
 <h3 id="some-highlights-of-the-things-i-do">Some highlights of the things I do</h3>
 <p>Webinars, workshops, presentations:</p>
 <ul>
@@ -2205,7 +2177,7 @@ Some highlights of the things I do Webinars, workshops, presentations:
       <content:encoded><![CDATA[<p>In 2020 I switched from team management to an individual contributor role to feel the engineering world on the tip of my fingers again.</p>
 <p>Certified: AWS Solutions Architect Associate, Terraform Associate.</p>
 <dl>
-<dt>From November'20</dt>
+<dt>From Nov'20</dt>
 <dd><strong>Developer Experience Engineer at <a href="https://grammarly.com">Grammarly</a></strong>
 <p>Making day-to-day work of developers more productive and agile by:</p>
 <ul>
@@ -2218,7 +2190,7 @@ Some highlights of the things I do Webinars, workshops, presentations:
 <dd><strong>DevOps Coach at <a href="https://ithillel.ua/">Hillel IT School</a> (part-time)</strong>
 <p>Teaching DevOps and doing workshops about AWS and Terraform.</p>
 </dd>
-<dt>Mar 2017 – Jun 2020</dt>
+<dt>Mar'17 – Jun'20</dt>
 <dd><strong>DevOps Teamlead at <a href="https://itechcraft.com/">ITCraft</a></strong>
 <p>My biggest project — my team. A skilled and highly motivated team of engineers that sincerely cares about its work outcomes.</p>
 <h4 id="key-accomplishments">Key accomplishments:</h4>
@@ -2237,7 +2209,7 @@ Some highlights of the things I do Webinars, workshops, presentations:
 <li>Justification of the advantages of my team to the clients on the pre-sales stage.</li>
 </ul>
 </dd>
-<dt>Nov 2014 – Sep 2016</dt>
+<dt>Nov'14 – Sep'16</dt>
 <dd><strong>Chief Technologist at <a href="https://yourserveradmin.com/">YourServerAdmin</a></strong>
 <p>I was responsible for the technical side of processes inside the department and researching the new technologies we could implement for our clients.</p>
 <p>Introduced ITIL practices together with our COO and, what I like the most, could change how our sysadmin&rsquo;s department worked with the development department. The work became more coordinated and more integrated.</p>
@@ -2250,9 +2222,9 @@ Some highlights of the things I do Webinars, workshops, presentations:
 <li>Fostered the change of team mindset to Agile thinking.</li>
 </ul>
 </dd>
-<dt>Jun 2011 – Nov 2014</dt>
+<dt>Jun'11 – Nov'14</dt>
 <dd><strong>System Administrator / Support Engineer at <a href="https://yourserveradmin.com/">YourServerAdmin</a></strong>
-<p>I grew up from a Level-1 tech support engineer (communication with customers and initial problem analysis) to Level-3 System Administrator responsible for complex technical tasks and daily shift management.</p>
+<p>Started my career in IT: grew up from a Level-1 tech support engineer (communication with customers and initial problem analysis) to Level-3 System Administrator responsible for complex technical tasks and daily shift management.</p>
 </dd>
 </dl>
 <h2 id="skills">Skills</h2>
