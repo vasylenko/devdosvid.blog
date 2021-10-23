@@ -28,7 +28,7 @@ With the help of Licence Manager, Host Resource Groups and Launch Templates, you
 ## Combining services to get real power
 So how does all that work? Let’s review the basic scheme that illustrates the interconnection between mentioned services:
 
-![](./general-scheme_compressed.png)
+{{< figure src="general-scheme_compressed.png" alt="Services interconnection" >}}
 
 ### 1️⃣ License Configuration
 First, you need to create a License Configuration so that the Host resource group can allocate the hots.
@@ -37,7 +37,7 @@ Go to AWS License Manager -> Customer managed licenses -> Create customer-manage
 
 Specify **Sockets** as the Licence type. You may skip setting the Number of Sockets. However, the actual limit of mac1.metal instances per account is regulated by Service Quota. The default number of mac instances allowed per account is 3. Therefore, consider [increasing](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html) this to a more significant number.
 
-![](./license-configuration_compressed.png)
+{{< figure src="license-configuration_compressed.png" alt="Licence configuration values" >}}
 
 ### 2️⃣ Host resource group
 Second, create the Host resource group: AWS License Manager -> Host resource groups -> Create host resource group.
@@ -47,7 +47,7 @@ However, Auto Scaling Group will maintain the desired number of instances if one
 
 Also, I recommend specifying “mac1” as an allowed Instance family for the sake of transparent resource management: only this instance type is permitted to allocate hosts in the group.
 
-![](./host-resource-group_compressed.png)
+{{< figure src="host-resource-group_compressed.png" alt="Host resource group configuration values" >}}
 
 Optionally, you may specify the license association here (the Host group will pick any compatible license) or select the license you created on step one. 
 
@@ -58,7 +58,7 @@ I will skip the description of all Launch Template parameters (here is a nice [t
 
 Specify mac1.metal as the Instance type. Later, in Advanced details: find the **Tenancy** parameter and set it to “Dedicated host”; for **Target host by** select “Host resource group”, and once selected the new parameter **Tenancy host resource group** will appear where you should choose your host group; select your license in **License configurations** parameter.
 
-![](./launch-template_compressed.png)
+{{< figure src="launch-template_compressed.png" alt="Launch Template configuration values" >}}
 
 ### 4️⃣ Auto Scaling Group
 Finally, create the Auto Scaling Group: EC2 -> Auto Scaling groups -> Create Auto Scaling group.
