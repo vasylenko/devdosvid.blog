@@ -17,7 +17,7 @@ In 2020 I switched from team management to an individual contributor role to fee
 
 Certified: AWS Solutions Architect Associate, Terraform Associate.
 
-From November'20
+From Nov'20
 :   **Developer Experience Engineer at [Grammarly](https://grammarly.com)**
 
     Making day-to-day work of developers more productive and agile by:
@@ -31,7 +31,7 @@ From July'20
 
     Teaching DevOps and doing workshops about AWS and Terraform.
 
-Mar 2017 – Jun 2020
+Mar'17 – Jun'20
 :   **DevOps Teamlead at [ITCraft](https://itechcraft.com/)**
 
     My biggest project — my team. A skilled and highly motivated team of engineers that sincerely cares about its work outcomes.
@@ -52,7 +52,7 @@ Mar 2017 – Jun 2020
     - Justification of the advantages of my team to the clients on the pre-sales stage.
 
 
-Nov 2014 – Sep 2016
+Nov'14 – Sep'16
 :   **Chief Technologist at [YourServerAdmin](https://yourserveradmin.com/)**
 
     I was responsible for the technical side of processes inside the department and researching the new technologies we could implement for our clients.
@@ -69,10 +69,10 @@ Nov 2014 – Sep 2016
     - Increased team size;
     - Fostered the change of team mindset to Agile thinking.
 
-Jun 2011 – Nov 2014
+Jun'11 – Nov'14
 :   **System Administrator / Support Engineer at [YourServerAdmin](https://yourserveradmin.com/)**
 
-    I grew up from a Level-1 tech support engineer (communication with customers and initial problem analysis) to Level-3 System Administrator responsible for complex technical tasks and daily shift management.
+    Started my career in IT: grew up from a Level-1 tech support engineer (communication with customers and initial problem analysis) to Level-3 System Administrator responsible for complex technical tasks and daily shift management.
 
 Skills
 ----------------------------------

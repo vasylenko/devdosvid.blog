@@ -1,5 +1,6 @@
 ---
 date: "2021-01-20T00:00:00Z"
+showtoc: false
 description: How to manage mac1.metal EC2 instances with Terraform
 images: ["2021-01-20-terraforming-mac1-metal-at-AWS.jpg"]
 cover:
@@ -11,74 +12,49 @@ title: Terraforming mac1.metal at AWS
 url: /2021/01/20/terraforming-mac1-metal-at-AWS.html
 ---
 
-Recently AWS [announced](https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/) the support for Mac mini instances.
+> **Updated on the 23rd of October, 2021: Teraform AWS provider now [supports](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_host) Dedicated Hosts natively**
 
-I believe this is huge, even despite the many constraints this solution has. Oh, and the price is as huge as the announcement as well.
+In November 2021, AWS [announced](https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/) the support for Mac mini instances.
 
-But still, this offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.
+I believe this is huge, even despite the number of constraints this solution has. This offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.
 
-Here is a tip for engineers like me who decided to give this new instance type a try: managing a dedicated host for the "mac1.metal" instance using Terraform.
+So here is a quick-start example of creating the dedicated host and the instance altogether using Terraform.
 
-"mac1.metal" instance requires a dedicated host to be placed onto. This is a real Mac mini with a bit of magic from AWS.
-
-As of 10 Jan 2021, the AWS Terraform provider does not have a dedicated host resource.
-
-So we must solve this using  CloudFormation... in Terraform!
+I intentionally used some hardcoded values for the sake of simplicity in the example.
 
 ```hcl
-variable "availability_zone" {
-  default = "us-east-1a"
+resource "aws_ec2_host" "example_host" {
+  instance_type     = "mac1.metal"
+  availability_zone = "us-east-1a"
 }
 
-resource "random_pet" "runner_name" {
-  length    = 2
-  prefix    = "mac-metal-"
-  separator = "-"
+resource "aws_instance" "example_instance" {
+  ami           = data.aws_ami.mac1metal.id
+  host_id       = aws_ec2_host.example_host.id
+  instance_type = "mac1.metal"
+  subnet_id     = data.aws_subnet.example_subnet.id
 }
 
-resource "aws_cloudformation_stack" "dedicated_host" {
-  name = random_pet.runner_name.id
-
-  timeout_in_minutes = 20
-
-  template_body = <<STACK
-{
-  "Resources" : {
-    "MyDedicatedHost": {
-      "Type" : "AWS::EC2::Host",
-      "Properties" : {
-          "AutoPlacement" : "on",
-          "AvailabilityZone" : "${var.availability_zone}",
-          "HostRecovery" : "off",
-          "InstanceType" : "mac1.metal"
-        }
-    }
-  },
-  "Outputs" : {
-    "HostID" : {
-      "Description": "Host ID",
-      "Value" : { "Ref" : "MyDedicatedHost" }
-    }
+data "aws_subnet" "example_subnet" {
+  availability_zone = "us-east-1a"
+  filter {
+    name   = "tag:Tier" # you should omit this filter if you don't distinguish your subnets on private and public 
+    values = ["private"]
   }
 }
-STACK
-}
 
-output "dedicated_host_id" {
-  value = aws_cloudformation_stack.dedicated_host.outputs["HostID"]
+data "aws_ami" "mac1metal" {
+  owners      = ["amazon"]
+  most_recent = true
+  filter {
+    name   = "name"
+    values = ["amzn-ec2-macos-11*"] # get latest BigSur AMI
+  }
 }
 ```
 
-Then you pass HostID to `aws_instance` resource, and you have mac1.metal up and running!
+Simple as that, yes. Now, you can integrate it into your CI system and have the Mac instance with the underlying host in a bundle.
 
-I like to make boring technical things a bit less boring, so I decided to add a random pet name. Just for fun, why not.
+💡 Pro tip: you can leverage the `aws_ec2_instance_type_offerings` [Data Source](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings) and use its output with `aws_subnet` source to avoid availability zone hardcoding.
 
-You can wrap this into a module or add a count meta-argument to make it more versatile.
-
-Simple as that, yes. But now, you can integrate it into your CI system (if you have enough courage and money 😄) and have the Mac instance with the underlying host in a bundle.
-
-Thanks for reading me!
-
-
-------
-*credits for cover image: [AWS EC2 Mac Instances Launch - macOS in the cloud for the first time, with the benefits of EC2](https://www.youtube.com/watch?v=Pn3miC_tTH0)*
+To make the code more uniform and reusable, you can wrap it into a [Terraform module](https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html) that accepts specific parameters (such as `instance_type` or `availability_zone`) as input variables.

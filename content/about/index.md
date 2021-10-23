@@ -14,6 +14,8 @@ kind: page
 
 I am an engineer from Ukraine. I like astronomy and everything related to DevOps. I thrive on developing great product offerings, great people, and great teams. 
 
+[AWS Community Builder](https://aws.amazon.com/developer/community/community-builders/) and Engineer in [Grammarly](https://grammarly.com).
+
 
 ### Some highlights of the things I do
 
