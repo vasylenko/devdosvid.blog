@@ -63,35 +63,35 @@ In a nutshell, the RAM service allows you to share the AWS resources you create 
 <p>Finally, review the summary page of the resource share and create it.</p>
 <p>Only specific actions are available to the users of shared resources. These actions mostly have the &ldquo;read-only&rdquo; nature and <a href="https://docs.aws.amazon.com/ram/latest/userguide/shareable.html">vary by resource type</a>.</p>
 <p>Also, the RAM service is <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ram_resource_share">supported by Terraform</a>, so the resource sharing configuration may look like that, for example:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_ram_resource_share&#34; &#34;example&#34;</span> {
-  name                      <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;example&#34;</span>
-  allow_external_principals <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_ram_resource_share&#34; &#34;example&#34;</span> {
+  name                      = <span style="color:#ed9d13">&#34;example&#34;</span>
+  allow_external_principals = <span style="color:#6ab825;font-weight:bold">false</span>
 
-  tags <span style="color:#f92672">=</span> {
-    Environment <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Production&#34;</span>
+  tags = {
+    Environment = <span style="color:#ed9d13">&#34;Production&#34;</span>
   }
 }
 
-<span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_ram_resource_association&#34; &#34;example&#34;</span> {
-  resource_arn       <span style="color:#f92672">=</span> <span style="color:#66d9ef">aws_subnet</span>.<span style="color:#66d9ef">example</span>.<span style="color:#66d9ef">arn</span>
-  resource_share_arn <span style="color:#f92672">=</span> <span style="color:#66d9ef">aws_ram_resource_share</span>.<span style="color:#66d9ef">example</span>.<span style="color:#66d9ef">arn</span>
+<span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_ram_resource_association&#34; &#34;example&#34;</span> {
+  resource_arn       = <span style="color:#6ab825;font-weight:bold">aws_subnet</span>.<span style="color:#6ab825;font-weight:bold">example</span>.<span style="color:#6ab825;font-weight:bold">arn</span>
+  resource_share_arn = <span style="color:#6ab825;font-weight:bold">aws_ram_resource_share</span>.<span style="color:#6ab825;font-weight:bold">example</span>.<span style="color:#6ab825;font-weight:bold">arn</span>
 }
 </code></pre></td></tr></table>
 </div>

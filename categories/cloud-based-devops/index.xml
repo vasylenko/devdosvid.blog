@@ -10,7 +10,284 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 25 Sep 2021 00:54:23 +0300</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/cloud-based-devops/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Oct 2021 02:00:31 +0300</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/cloud-based-devops/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Auto Scaling Group for your macOS EC2 Instances</title>
+      <link>https://serhii.vasylenko.info/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances/</link>
+      <pubDate>Sun, 24 Oct 2021 02:00:31 +0300</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances/</guid>
+      <description>It’s been almost a year since I started using macOS EC2 instances on AWS: there were ups and downs in service offerings and a lot of discoveries with macOS AMI build automation.
+And I like this small but so helpful update of EC2 service very much: with mac1.metal instances, seamless integration of Apple-oriented CI/CD with other AWS infrastructure could finally happen.
+While management of a single mac1.metal node (or a tiny number of ones) is not a big deal (especially when Dedicated Host support was added to Terraform provider), governing the fleet of instances is still complicated.</description>
+      <content:encoded><![CDATA[<p>It’s been almost a year since I started using macOS EC2 instances on AWS: there were <a href="https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html">ups and downs in service offerings</a> and a lot of discoveries with <a href="https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html">macOS AMI build</a> automation.</p>
+<p>And I like this small but so helpful update of EC2 service very much: with mac1.metal instances, seamless integration of Apple-oriented CI/CD with other AWS infrastructure could finally happen.</p>
+<p>While management of a single mac1.metal node (or a tiny number of ones) is not a big deal (especially when <a href="https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html">Dedicated Host support</a> was added to Terraform provider), governing the fleet of instances is still complicated. Or it has been complicated until recent days.</p>
+<h2 id="official--unofficial-auto-scaling">Official / Unofficial Auto Scaling</h2>
+<p>With a growing number of instances, the following challenges arise:</p>
+<ul>
+<li>Scale mac1.metal instances horizontally</li>
+<li>Automatically allocate and release Dedicated Hosts needed for instances</li>
+<li>Automatically replace unhealthy instances</li>
+</ul>
+<p>If you have worked with AWS before, you know that Auto Scaling Group service can solve such things.</p>
+<p>However, official documentation (as of October 2021) <a href="https://github.com/awsdocs/amazon-ec2-user-guide/blob/269ac7494dd3aef62ae5d45e8b11f7ea5cadd2bf/doc_source/ec2-mac-instances.md">states</a>: “You cannot use Mac instances with Amazon EC2 Auto Scaling”.</p>
+<p>But in fact, you can.</p>
+<h2 id="combining-services-to-get-real-power">Combining services to get real power</h2>
+<p>So how does all that work?</p>
+<p>Let’s review the diagram that illustrates the interconnection between involved services:</p>
+<figure>
+    <img loading="lazy" src="general-scheme_compressed.png"
+         alt="Services interconnection"/> 
+</figure>
+
+<p>With the help of Licence Manager service and Launch Templates, you can set up EC2 Auto Scaling Group for mac1.metal and leave the automated instance provisioning to the service.</p>
+<h3 id="license-configuration">License Configuration</h3>
+<p>First, you need to create a License Configuration so that the Host resource group can allocate the hots.</p>
+<p>Go to AWS License Manager -&gt; Customer managed licenses -&gt; Create customer-managed license.</p>
+<p>Specify <strong>Sockets</strong> as the Licence type. You may skip setting the Number of Sockets. However, the actual limit of mac1.metal instances per account is regulated by Service Quota. The default number of mac instances allowed per account is 3. Therefore, consider <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html">increasing</a> this to a more significant number.</p>
+<figure>
+    <img loading="lazy" src="license-configuration_compressed.png"
+         alt="Licence configuration values"/> 
+</figure>
+
+<h3 id="host-resource-group">Host resource group</h3>
+<p>Second, create the Host resource group: AWS License Manager -&gt; Host resource groups -&gt; Create host resource group.</p>
+<p>When creating the Host resource group, check “<strong>Allocate hosts automatically</strong>” and “<strong>Release hosts automatically</strong>” but leave “Recover hosts automatically” unchecked. Dedicated Host does <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html#dedicated-hosts-recovery-instances">not support host recovery</a> for mac1.metal.
+However, Auto Scaling Group will maintain the desired number of instances if one fails the health check (which assumes the case of host failure as well).</p>
+<p>Also, I recommend specifying “mac1” as an allowed Instance family for the sake of transparent resource management: only this instance type is permitted to allocate hosts in the group.</p>
+<figure>
+    <img loading="lazy" src="host-resource-group_compressed.png"
+         alt="Host resource group configuration values"/> 
+</figure>
+
+<p>Optionally, you may specify the license association here (the Host group will pick any compatible license) or select the license you created on step one.</p>
+<h3 id="launch-template">Launch Template</h3>
+<p>Create Launch Template: EC2 -&gt; Launch templates -&gt; Create launch template.</p>
+<p>I will skip the description of all Launch Template parameters (but here is a nice <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html">tutorial</a>), if you don’t mind, and keep focus only on the items relevant to the current case.</p>
+<p>Specify mac1.metal as the Instance type. Later, in Advanced details: find the <strong>Tenancy</strong> parameter and set it to “Dedicated host”; for <strong>Target host by</strong> select “Host resource group”, and once selected the new parameter <strong>Tenancy host resource group</strong> will appear where you should choose your host group; select your license in <strong>License configurations</strong> parameter.</p>
+<figure>
+    <img loading="lazy" src="launch-template_compressed.png"
+         alt="Launch Template configuration values"/> 
+</figure>
+
+<h3 id="auto-scaling-group">Auto Scaling Group</h3>
+<p>Finally, create the Auto Scaling Group: EC2 -&gt; Auto Scaling groups -&gt; Create Auto Scaling group.</p>
+<p>The vital thing to note here — is the availability of the mac1.metal instance in particular AZ.</p>
+<p>Mac instances are available in us-east-1 and <a href="https://aws.amazon.com/about-aws/whats-new/2021/10/amazon-ec2-mac-instances-additional-regions/">7 more regions</a>, but not every Availability Zone in the region supports it. So you must figure out which AZ supports the needed instance type.</p>
+<p>There is no documentation for that, but there is an AWS CLI command that can answer this question: <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/describe-instance-type-offerings.html">describe-instance-type-offerings — AWS CLI 2.3.0 Command Reference</a></p>
+<p>Here is an example for the us-east-1 region:
+<p><details >
+<summary markdown="span" style="font-size: 0.8em; font-weight: bold">🔍 Click here to see the code snippet</summary>
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; aws ec2 describe-instance-type-offerings --location-type availability-zone-id --filters <span style="color:#40ffff">Name</span>=instance-type,Values=mac1.metal --region us-east-1 --output text
+
+INSTANCETYPEOFFERINGS	mac1.metal	use1-az6	availability-zone-id
+INSTANCETYPEOFFERINGS	mac1.metal	use1-az4	availability-zone-id
+</code></pre></td></tr></table>
+</div>
+</div>
+</details></p>
+</p>
+<p>Keep that nuance in mind when selecting a subnet for the mac1.metal instances.</p>
+<p>When you know the AZ, specify the respective Subnet in the Auto Scaling Group settings, and you&rsquo;re ready to go!</p>
+<h2 id="what-about-infrastructure-as-code">What about Infrastructure as Code?</h2>
+<p>Of course, I suggest describing all that as a code. I prefer Terraform, and fortunately, the AWS provider supports the needed resources. Except one.</p>
+<p>As of October 2021, resources supported :</p>
+<ul>
+<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/servicequotas_service_quota">aws_servicequotas_service_quota</a></li>
+<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/licensemanager_license_configuration">aws_licensemanager_license_configuration</a></li>
+<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template">aws_launch_template</a></li>
+<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group">aws_autoscaling_group</a></li>
+</ul>
+<p>The Host resource group is not yet supported by the provider, unfortunately. However, we can use CloudFormation in Terraform to overcome that: describe the Host resource group as <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack">aws_cloudformation_stack</a> Terraform resource using CloudFormation template from a file.</p>
+<p>Here is how it looks like:
+<p><details >
+<summary markdown="span" style="font-size: 0.8em; font-weight: bold">🔍 Click here to see the code snippet</summary>
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_licensemanager_license_configuration&#34; &#34;this&#34;</span> {
+  name                     = <span style="color:#6ab825;font-weight:bold">local</span>.<span style="color:#6ab825;font-weight:bold">full_name</span>
+  license_counting_type    = <span style="color:#ed9d13">&#34;Socket&#34;</span>
+}
+
+<span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_cloudformation_stack&#34; &#34;this&#34;</span> {
+  name          = <span style="color:#6ab825;font-weight:bold">local</span>.<span style="color:#6ab825;font-weight:bold">full_name</span><span style="color:#999;font-style:italic"> # the name of CloudFormation stack
+</span><span style="color:#999;font-style:italic"></span>  template_body = <span style="color:#6ab825;font-weight:bold">file</span>(<span style="color:#ed9d13">&#34;${path.module}/resource-group-cf-stack-template.json&#34;</span>)
+  parameters = {
+    GroupName = <span style="color:#6ab825;font-weight:bold">local</span>.<span style="color:#6ab825;font-weight:bold">full_name</span><span style="color:#999;font-style:italic"> # the name for the Host group, passed to CloudFormation template
+</span><span style="color:#999;font-style:italic"></span>  }
+  on_failure = <span style="color:#ed9d13">&#34;DELETE&#34;</span>
+}
+</code></pre></td></tr></table>
+</div>
+</div>
+</details></p>
+</p>
+<p>And the next code snippet explains the CloudFromation template (which is the <code>resource-group-cf-stack-template.json</code> file in the code snippet above)</p>
+<p><details >
+<summary markdown="span" style="font-size: 0.8em; font-weight: bold">🔍 Click here to see the code snippet</summary>
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">58
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#6ab825;font-weight:bold">&#34;Parameters&#34;</span> : {
+    <span style="color:#6ab825;font-weight:bold">&#34;GroupName&#34;</span> : {
+      <span style="color:#6ab825;font-weight:bold">&#34;Type&#34;</span> : <span style="color:#ed9d13">&#34;String&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;Description&#34;</span> : <span style="color:#ed9d13">&#34;The name of Host Group&#34;</span>
+    }
+  },
+  <span style="color:#6ab825;font-weight:bold">&#34;Resources&#34;</span> : {
+    <span style="color:#6ab825;font-weight:bold">&#34;DedicatedHostGroup&#34;</span>: {
+      <span style="color:#6ab825;font-weight:bold">&#34;Type&#34;</span>: <span style="color:#ed9d13">&#34;AWS::ResourceGroups::Group&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;Properties&#34;</span>: {
+        <span style="color:#6ab825;font-weight:bold">&#34;Name&#34;</span>: { <span style="color:#6ab825;font-weight:bold">&#34;Ref&#34;</span>: <span style="color:#ed9d13">&#34;GroupName&#34;</span> },
+        <span style="color:#6ab825;font-weight:bold">&#34;Configuration&#34;</span>: [
+          {
+            <span style="color:#6ab825;font-weight:bold">&#34;Type&#34;</span>: <span style="color:#ed9d13">&#34;AWS::ResourceGroups::Generic&#34;</span>,
+            <span style="color:#6ab825;font-weight:bold">&#34;Parameters&#34;</span>: [
+              {
+                <span style="color:#6ab825;font-weight:bold">&#34;Name&#34;</span>: <span style="color:#ed9d13">&#34;allowed-resource-types&#34;</span>,
+                <span style="color:#6ab825;font-weight:bold">&#34;Values&#34;</span>: [<span style="color:#ed9d13">&#34;AWS::EC2::Host&#34;</span>]
+              },
+              {
+                <span style="color:#6ab825;font-weight:bold">&#34;Name&#34;</span>: <span style="color:#ed9d13">&#34;deletion-protection&#34;</span>,
+                <span style="color:#6ab825;font-weight:bold">&#34;Values&#34;</span>: [<span style="color:#ed9d13">&#34;UNLESS_EMPTY&#34;</span>]
+              }
+            ]
+          },
+          {
+            <span style="color:#6ab825;font-weight:bold">&#34;Type&#34;</span>: <span style="color:#ed9d13">&#34;AWS::EC2::HostManagement&#34;</span>,
+            <span style="color:#6ab825;font-weight:bold">&#34;Parameters&#34;</span>: [
+              {
+                <span style="color:#6ab825;font-weight:bold">&#34;Name&#34;</span>: <span style="color:#ed9d13">&#34;allowed-host-families&#34;</span>,
+                <span style="color:#6ab825;font-weight:bold">&#34;Values&#34;</span>: [<span style="color:#ed9d13">&#34;mac1&#34;</span>]
+              },
+              {
+                <span style="color:#6ab825;font-weight:bold">&#34;Name&#34;</span>: <span style="color:#ed9d13">&#34;auto-allocate-host&#34;</span>,
+                <span style="color:#6ab825;font-weight:bold">&#34;Values&#34;</span>: [<span style="color:#ed9d13">&#34;true&#34;</span>]
+              },
+              {
+                <span style="color:#6ab825;font-weight:bold">&#34;Name&#34;</span>: <span style="color:#ed9d13">&#34;auto-release-host&#34;</span>,
+                <span style="color:#6ab825;font-weight:bold">&#34;Values&#34;</span>: [<span style="color:#ed9d13">&#34;true&#34;</span>]
+              },
+              {
+                <span style="color:#6ab825;font-weight:bold">&#34;Name&#34;</span>: <span style="color:#ed9d13">&#34;any-host-based-license-configuration&#34;</span>,
+                <span style="color:#6ab825;font-weight:bold">&#34;Values&#34;</span>: [<span style="color:#ed9d13">&#34;true&#34;</span>]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  <span style="color:#6ab825;font-weight:bold">&#34;Outputs&#34;</span> : {
+    <span style="color:#6ab825;font-weight:bold">&#34;ResourceGroupARN&#34;</span> : {
+      <span style="color:#6ab825;font-weight:bold">&#34;Description&#34;</span>: <span style="color:#ed9d13">&#34;ResourceGroupARN&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;Value&#34;</span> : { <span style="color:#6ab825;font-weight:bold">&#34;Fn::GetAtt&#34;</span> : [<span style="color:#ed9d13">&#34;DedicatedHostGroup&#34;</span>, <span style="color:#ed9d13">&#34;Arn&#34;</span>] }
+    }
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div>
+</details></p>
+
+<p>The <code>aws_cloudformation_stack</code> resource will export the <code>DedicatedHostGroup</code> attribute (see the code of CloudFromation template), which you will use later in the Launch Template resource.</p>
+<h3 id="pro-tips">Pro tips</h3>
+<p>If you manage an AWS Organization, I have good news: Host groups and Licenses are supported by <a href="https://docs.aws.amazon.com/ram/latest/userguide/shareable.html">Resource Access Manager</a> service. Hence, you can host all mac instances in one account and share them with other accounts — it might be helpful for costs allocation, for example. Also, check out <a href="https://serhii.vasylenko.info/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/">my blog about AWS RAM</a> if you are very new to this service.</p>
+<p>To solve the “which AZ supports mac metal” puzzle, you can leverage the <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings">aws_ec2_instance_type_offerings</a> and <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet_ids">aws_subnet_ids</a> data sources.</p>
+<h2 id="what-about-costs">What about costs?</h2>
+<p>License Manager is a <a href="https://aws.amazon.com/license-manager/pricing/">free of charge service</a>, as well as <a href="https://aws.amazon.com/autoscaling/pricing/">Auto Scaling</a>, and <a href="https://aws.amazon.com/about-aws/whats-new/2017/11/introducing-launch-templates-for-amazon-ec2-instances/">Launch Template</a>. So it’s all about the price for mac1.metal Dedicated Host which is <a href="https://aws.amazon.com/ec2/dedicated-hosts/pricing/">$1.083 per hour</a> as of October 2021. Please note that the minimum allocation time for that type of host is 24 hours. Maybe someday AWS will change that to 1-hour minimum someday (fingers crossed).</p>
+<h2 id="oh-so-asg">Oh. So. ASG.</h2>
+<p>The Auto Scaling for mac1.metal opens new possibilities for CI/CD: you can combine that with your favorite tool (GitLab, Jenkins, whatsoever) using AWS Lambda and provision new instances when your development/testing environments need that. Or you can use other cool ASG stuff, such as Lifecycle hooks, to create even more custom scenarios.</p>
+<p>Considering the “hidden” (undocumented) nature of the described setup, I suggest treating it as rather testing than production-ready. However, my tests show that everything works pretty well: hosts are allocated, instances are spawned, and the monthly bill grows.</p>
+<p>I suppose AWS will officially announce all this in the nearest future. Along with that, I am looking forward to the announcement of Monterey-based AMIs and maybe even M1 chip-based instances (will it be mac2.metal?).</p>
+<p>And I want to say thanks (thanks, pal!) to <a href="https://github.com/hashicorp/terraform/issues/28531">OliverKoo</a>, who started digging into that back in April'21.</p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>AWS Resource Access Manager — Multi Account Resource Governance</title>
       <link>https://serhii.vasylenko.info/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</link>
@@ -63,35 +340,35 @@ In a nutshell, the RAM service allows you to share the AWS resources you create 
 <p>Finally, review the summary page of the resource share and create it.</p>
 <p>Only specific actions are available to the users of shared resources. These actions mostly have the &ldquo;read-only&rdquo; nature and <a href="https://docs.aws.amazon.com/ram/latest/userguide/shareable.html">vary by resource type</a>.</p>
 <p>Also, the RAM service is <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ram_resource_share">supported by Terraform</a>, so the resource sharing configuration may look like that, for example:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_ram_resource_share&#34; &#34;example&#34;</span> {
-  name                      <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;example&#34;</span>
-  allow_external_principals <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_ram_resource_share&#34; &#34;example&#34;</span> {
+  name                      = <span style="color:#ed9d13">&#34;example&#34;</span>
+  allow_external_principals = <span style="color:#6ab825;font-weight:bold">false</span>
 
-  tags <span style="color:#f92672">=</span> {
-    Environment <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Production&#34;</span>
+  tags = {
+    Environment = <span style="color:#ed9d13">&#34;Production&#34;</span>
   }
 }
 
-<span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_ram_resource_association&#34; &#34;example&#34;</span> {
-  resource_arn       <span style="color:#f92672">=</span> <span style="color:#66d9ef">aws_subnet</span>.<span style="color:#66d9ef">example</span>.<span style="color:#66d9ef">arn</span>
-  resource_share_arn <span style="color:#f92672">=</span> <span style="color:#66d9ef">aws_ram_resource_share</span>.<span style="color:#66d9ef">example</span>.<span style="color:#66d9ef">arn</span>
+<span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_ram_resource_association&#34; &#34;example&#34;</span> {
+  resource_arn       = <span style="color:#6ab825;font-weight:bold">aws_subnet</span>.<span style="color:#6ab825;font-weight:bold">example</span>.<span style="color:#6ab825;font-weight:bold">arn</span>
+  resource_share_arn = <span style="color:#6ab825;font-weight:bold">aws_ram_resource_share</span>.<span style="color:#6ab825;font-weight:bold">example</span>.<span style="color:#6ab825;font-weight:bold">arn</span>
 }
 </code></pre></td></tr></table>
 </div>
@@ -123,12 +400,12 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
 <p>It’s called “AWS-RunAnsiblePlaybook,” and you can find it in AWS SSM → Documents → Owned by Amazon.</p>
 <p>However, this Document is not quite “friendly” to macOS. When the SSM agent calls Ansible on the Mac EC2 instance, it does not recognize the Ansible installed with Homebrew (de-facto most used macOS package manager).</p>
 <p>So if you try to run a command on the mac1.metal instance using this Document, you will get the following error:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Ansible is not installed. Please install Ansible and rerun the command.
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Ansible is not installed. Please install Ansible and rerun the command.
 </code></pre></td></tr></table>
 </div>
 </div><p>The root cause is trivial: the path to Ansible binary is not present on the list of paths available to the SSM agent by default.</p>
@@ -145,179 +422,179 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
 
 <p><details >
   <summary markdown="span">Click to expand the code block</summary>
-  <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+  <div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">80
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">81
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">82
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">83
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">84
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">85
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">86
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">87
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">87
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
-  <span style="color:#f92672">&#34;schemaVersion&#34;</span>: <span style="color:#e6db74">&#34;2.0&#34;</span>,
-  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Use this document to run arbitrary Ansible playbooks on macOS EC2 instances. Specify either YAML text or URL. If you specify both, the URL parameter will be used. Use the extravar parameter to send runtime variables to the Ansible execution. Use the check parameter to perform a dry run of the Ansible execution. The output of the dry run shows the changes that will be made when the playbook is executed.&#34;</span>,
-  <span style="color:#f92672">&#34;parameters&#34;</span>: {
-    <span style="color:#f92672">&#34;playbook&#34;</span>: {
-      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;String&#34;</span>,
-      <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;(Optional) If you don&#39;t specify a URL, then you must specify playbook YAML in this field.&#34;</span>,
-      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
-      <span style="color:#f92672">&#34;displayType&#34;</span>: <span style="color:#e6db74">&#34;textarea&#34;</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#6ab825;font-weight:bold">&#34;schemaVersion&#34;</span>: <span style="color:#ed9d13">&#34;2.0&#34;</span>,
+  <span style="color:#6ab825;font-weight:bold">&#34;description&#34;</span>: <span style="color:#ed9d13">&#34;Use this document to run arbitrary Ansible playbooks on macOS EC2 instances. Specify either YAML text or URL. If you specify both, the URL parameter will be used. Use the extravar parameter to send runtime variables to the Ansible execution. Use the check parameter to perform a dry run of the Ansible execution. The output of the dry run shows the changes that will be made when the playbook is executed.&#34;</span>,
+  <span style="color:#6ab825;font-weight:bold">&#34;parameters&#34;</span>: {
+    <span style="color:#6ab825;font-weight:bold">&#34;playbook&#34;</span>: {
+      <span style="color:#6ab825;font-weight:bold">&#34;type&#34;</span>: <span style="color:#ed9d13">&#34;String&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;description&#34;</span>: <span style="color:#ed9d13">&#34;(Optional) If you don&#39;t specify a URL, then you must specify playbook YAML in this field.&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;default&#34;</span>: <span style="color:#ed9d13">&#34;&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;displayType&#34;</span>: <span style="color:#ed9d13">&#34;textarea&#34;</span>
     },
-    <span style="color:#f92672">&#34;playbookurl&#34;</span>: {
-      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;String&#34;</span>,
-      <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;(Optional) If you don&#39;t specify playbook YAML, then you must specify a URL where the playbook is stored. You can specify the URL in the following formats: http://example.com/playbook.yml  or s3://examplebucket/plabook.url. For security reasons, you can&#39;t specify a URL with quotes.&#34;</span>,
-      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
-      <span style="color:#f92672">&#34;allowedPattern&#34;</span>: <span style="color:#e6db74">&#34;^\\s*$|^(http|https|s3)://[^&#39;]*$&#34;</span>
+    <span style="color:#6ab825;font-weight:bold">&#34;playbookurl&#34;</span>: {
+      <span style="color:#6ab825;font-weight:bold">&#34;type&#34;</span>: <span style="color:#ed9d13">&#34;String&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;description&#34;</span>: <span style="color:#ed9d13">&#34;(Optional) If you don&#39;t specify playbook YAML, then you must specify a URL where the playbook is stored. You can specify the URL in the following formats: http://example.com/playbook.yml  or s3://examplebucket/plabook.url. For security reasons, you can&#39;t specify a URL with quotes.&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;default&#34;</span>: <span style="color:#ed9d13">&#34;&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;allowedPattern&#34;</span>: <span style="color:#ed9d13">&#34;^\\s*$|^(http|https|s3)://[^&#39;]*$&#34;</span>
     },
-    <span style="color:#f92672">&#34;extravars&#34;</span>: {
-      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;String&#34;</span>,
-      <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;(Optional) Additional variables to pass to Ansible at runtime. Enter a space separated list of key/value pairs. For example: color=red or fruits=[apples,pears]&#34;</span>,
-      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;foo=bar&#34;</span>,
-      <span style="color:#f92672">&#34;displayType&#34;</span>: <span style="color:#e6db74">&#34;textarea&#34;</span>,
-      <span style="color:#f92672">&#34;allowedPattern&#34;</span>: <span style="color:#e6db74">&#34;^((^|\\s)\\w+=(\\S+|&#39;.*&#39;))*$&#34;</span>
+    <span style="color:#6ab825;font-weight:bold">&#34;extravars&#34;</span>: {
+      <span style="color:#6ab825;font-weight:bold">&#34;type&#34;</span>: <span style="color:#ed9d13">&#34;String&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;description&#34;</span>: <span style="color:#ed9d13">&#34;(Optional) Additional variables to pass to Ansible at runtime. Enter a space separated list of key/value pairs. For example: color=red or fruits=[apples,pears]&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;default&#34;</span>: <span style="color:#ed9d13">&#34;foo=bar&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;displayType&#34;</span>: <span style="color:#ed9d13">&#34;textarea&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;allowedPattern&#34;</span>: <span style="color:#ed9d13">&#34;^((^|\\s)\\w+=(\\S+|&#39;.*&#39;))*$&#34;</span>
     },
-    <span style="color:#f92672">&#34;check&#34;</span>: {
-      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;String&#34;</span>,
-      <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34; (Optional) Use the check parameter to perform a dry run of the Ansible execution.&#34;</span>,
-      <span style="color:#f92672">&#34;allowedValues&#34;</span>: [
-        <span style="color:#e6db74">&#34;True&#34;</span>,
-        <span style="color:#e6db74">&#34;False&#34;</span>
+    <span style="color:#6ab825;font-weight:bold">&#34;check&#34;</span>: {
+      <span style="color:#6ab825;font-weight:bold">&#34;type&#34;</span>: <span style="color:#ed9d13">&#34;String&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;description&#34;</span>: <span style="color:#ed9d13">&#34; (Optional) Use the check parameter to perform a dry run of the Ansible execution.&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;allowedValues&#34;</span>: [
+        <span style="color:#ed9d13">&#34;True&#34;</span>,
+        <span style="color:#ed9d13">&#34;False&#34;</span>
       ],
-      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;False&#34;</span>
+      <span style="color:#6ab825;font-weight:bold">&#34;default&#34;</span>: <span style="color:#ed9d13">&#34;False&#34;</span>
     },
-    <span style="color:#f92672">&#34;timeoutSeconds&#34;</span>: {
-      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;String&#34;</span>,
-      <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;(Optional) The time in seconds for a command to be completed before it is considered to have failed.&#34;</span>,
-      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;3600&#34;</span>
+    <span style="color:#6ab825;font-weight:bold">&#34;timeoutSeconds&#34;</span>: {
+      <span style="color:#6ab825;font-weight:bold">&#34;type&#34;</span>: <span style="color:#ed9d13">&#34;String&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;description&#34;</span>: <span style="color:#ed9d13">&#34;(Optional) The time in seconds for a command to be completed before it is considered to have failed.&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;default&#34;</span>: <span style="color:#ed9d13">&#34;3600&#34;</span>
     }
   },
-  <span style="color:#f92672">&#34;mainSteps&#34;</span>: [
+  <span style="color:#6ab825;font-weight:bold">&#34;mainSteps&#34;</span>: [
     {
-      <span style="color:#f92672">&#34;action&#34;</span>: <span style="color:#e6db74">&#34;aws:runShellScript&#34;</span>,
-      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;runShellScript&#34;</span>,
-      <span style="color:#f92672">&#34;inputs&#34;</span>: {
-        <span style="color:#f92672">&#34;timeoutSeconds&#34;</span>: <span style="color:#e6db74">&#34;{{ timeoutSeconds }}&#34;</span>,
-        <span style="color:#f92672">&#34;runCommand&#34;</span>: [
-          <span style="color:#e6db74">&#34;#!/bin/bash&#34;</span>,
-          <span style="color:#e6db74">&#34;/usr/local/bin/ansible --version&#34;</span>,
-          <span style="color:#e6db74">&#34;if [ $? -ne 0 ]; then&#34;</span>,
-          <span style="color:#e6db74">&#34; echo \&#34;Ansible is not installed. Please install Ansible and rerun the command\&#34; &gt;&amp;2&#34;</span>,
-          <span style="color:#e6db74">&#34; exit 1&#34;</span>,
-          <span style="color:#e6db74">&#34;fi&#34;</span>,
-          <span style="color:#e6db74">&#34;execdir=$(dirname $0)&#34;</span>,
-          <span style="color:#e6db74">&#34;cd $execdir&#34;</span>,
-          <span style="color:#e6db74">&#34;if [ -z &#39;{{playbook}}&#39; ] ; then&#34;</span>,
-          <span style="color:#e6db74">&#34; if [[ \&#34;{{playbookurl}}\&#34; == http* ]]; then&#34;</span>,
-          <span style="color:#e6db74">&#34;   wget &#39;{{playbookurl}}&#39; -O playbook.yml&#34;</span>,
-          <span style="color:#e6db74">&#34;   if [ $? -ne 0 ]; then&#34;</span>,
-          <span style="color:#e6db74">&#34;       echo \&#34;There was a problem downloading the playbook. Make sure the URL is correct and that the playbook exists.\&#34; &gt;&amp;2&#34;</span>,
-          <span style="color:#e6db74">&#34;       exit 1&#34;</span>,
-          <span style="color:#e6db74">&#34;   fi&#34;</span>,
-          <span style="color:#e6db74">&#34; elif [[ \&#34;{{playbookurl}}\&#34; == s3* ]] ; then&#34;</span>,
-          <span style="color:#e6db74">&#34;   aws --version&#34;</span>,
-          <span style="color:#e6db74">&#34;   if [ $? -ne 0 ]; then&#34;</span>,
-          <span style="color:#e6db74">&#34;       echo \&#34;The AWS CLI is not installed. The CLI is required to process Amazon S3 URLs. Install the AWS CLI and run the command again.\&#34; &gt;&amp;2&#34;</span>,
-          <span style="color:#e6db74">&#34;       exit 1&#34;</span>,
-          <span style="color:#e6db74">&#34;   fi&#34;</span>,
-          <span style="color:#e6db74">&#34;   aws s3 cp &#39;{{playbookurl}}&#39; playbook.yml&#34;</span>,
-          <span style="color:#e6db74">&#34;   if [ $? -ne 0 ]; then&#34;</span>,
-          <span style="color:#e6db74">&#34;       echo \&#34;Error while downloading the document from S3\&#34; &gt;&amp;2&#34;</span>,
-          <span style="color:#e6db74">&#34;       exit 1&#34;</span>,
-          <span style="color:#e6db74">&#34;   fi&#34;</span>,
-          <span style="color:#e6db74">&#34; else&#34;</span>,
-          <span style="color:#e6db74">&#34;   echo \&#34;The playbook URL is not valid. Verify the URL and try again.\&#34;&#34;</span>,
-          <span style="color:#e6db74">&#34; fi&#34;</span>,
-          <span style="color:#e6db74">&#34;else&#34;</span>,
-          <span style="color:#e6db74">&#34; echo &#39;{{playbook}}&#39; &gt; playbook.yml&#34;</span>,
-          <span style="color:#e6db74">&#34;fi&#34;</span>,
-          <span style="color:#e6db74">&#34;if  [[ \&#34;{{check}}\&#34; == True ]] ; then&#34;</span>,
-          <span style="color:#e6db74">&#34;   /usr/local/bin/ansible-playbook -i \&#34;localhost,\&#34; --check -c local -e \&#34;{{extravars}}\&#34; playbook.yml&#34;</span>,
-          <span style="color:#e6db74">&#34;else&#34;</span>,
-          <span style="color:#e6db74">&#34;   /usr/local/bin/ansible-playbook -i \&#34;localhost,\&#34; -c local -e \&#34;{{extravars}}\&#34; playbook.yml&#34;</span>,
-          <span style="color:#e6db74">&#34;fi&#34;</span>
+      <span style="color:#6ab825;font-weight:bold">&#34;action&#34;</span>: <span style="color:#ed9d13">&#34;aws:runShellScript&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;name&#34;</span>: <span style="color:#ed9d13">&#34;runShellScript&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;inputs&#34;</span>: {
+        <span style="color:#6ab825;font-weight:bold">&#34;timeoutSeconds&#34;</span>: <span style="color:#ed9d13">&#34;{{ timeoutSeconds }}&#34;</span>,
+        <span style="color:#6ab825;font-weight:bold">&#34;runCommand&#34;</span>: [
+          <span style="color:#ed9d13">&#34;#!/bin/bash&#34;</span>,
+          <span style="color:#ed9d13">&#34;/usr/local/bin/ansible --version&#34;</span>,
+          <span style="color:#ed9d13">&#34;if [ $? -ne 0 ]; then&#34;</span>,
+          <span style="color:#ed9d13">&#34; echo \&#34;Ansible is not installed. Please install Ansible and rerun the command\&#34; &gt;&amp;2&#34;</span>,
+          <span style="color:#ed9d13">&#34; exit 1&#34;</span>,
+          <span style="color:#ed9d13">&#34;fi&#34;</span>,
+          <span style="color:#ed9d13">&#34;execdir=$(dirname $0)&#34;</span>,
+          <span style="color:#ed9d13">&#34;cd $execdir&#34;</span>,
+          <span style="color:#ed9d13">&#34;if [ -z &#39;{{playbook}}&#39; ] ; then&#34;</span>,
+          <span style="color:#ed9d13">&#34; if [[ \&#34;{{playbookurl}}\&#34; == http* ]]; then&#34;</span>,
+          <span style="color:#ed9d13">&#34;   wget &#39;{{playbookurl}}&#39; -O playbook.yml&#34;</span>,
+          <span style="color:#ed9d13">&#34;   if [ $? -ne 0 ]; then&#34;</span>,
+          <span style="color:#ed9d13">&#34;       echo \&#34;There was a problem downloading the playbook. Make sure the URL is correct and that the playbook exists.\&#34; &gt;&amp;2&#34;</span>,
+          <span style="color:#ed9d13">&#34;       exit 1&#34;</span>,
+          <span style="color:#ed9d13">&#34;   fi&#34;</span>,
+          <span style="color:#ed9d13">&#34; elif [[ \&#34;{{playbookurl}}\&#34; == s3* ]] ; then&#34;</span>,
+          <span style="color:#ed9d13">&#34;   aws --version&#34;</span>,
+          <span style="color:#ed9d13">&#34;   if [ $? -ne 0 ]; then&#34;</span>,
+          <span style="color:#ed9d13">&#34;       echo \&#34;The AWS CLI is not installed. The CLI is required to process Amazon S3 URLs. Install the AWS CLI and run the command again.\&#34; &gt;&amp;2&#34;</span>,
+          <span style="color:#ed9d13">&#34;       exit 1&#34;</span>,
+          <span style="color:#ed9d13">&#34;   fi&#34;</span>,
+          <span style="color:#ed9d13">&#34;   aws s3 cp &#39;{{playbookurl}}&#39; playbook.yml&#34;</span>,
+          <span style="color:#ed9d13">&#34;   if [ $? -ne 0 ]; then&#34;</span>,
+          <span style="color:#ed9d13">&#34;       echo \&#34;Error while downloading the document from S3\&#34; &gt;&amp;2&#34;</span>,
+          <span style="color:#ed9d13">&#34;       exit 1&#34;</span>,
+          <span style="color:#ed9d13">&#34;   fi&#34;</span>,
+          <span style="color:#ed9d13">&#34; else&#34;</span>,
+          <span style="color:#ed9d13">&#34;   echo \&#34;The playbook URL is not valid. Verify the URL and try again.\&#34;&#34;</span>,
+          <span style="color:#ed9d13">&#34; fi&#34;</span>,
+          <span style="color:#ed9d13">&#34;else&#34;</span>,
+          <span style="color:#ed9d13">&#34; echo &#39;{{playbook}}&#39; &gt; playbook.yml&#34;</span>,
+          <span style="color:#ed9d13">&#34;fi&#34;</span>,
+          <span style="color:#ed9d13">&#34;if  [[ \&#34;{{check}}\&#34; == True ]] ; then&#34;</span>,
+          <span style="color:#ed9d13">&#34;   /usr/local/bin/ansible-playbook -i \&#34;localhost,\&#34; --check -c local -e \&#34;{{extravars}}\&#34; playbook.yml&#34;</span>,
+          <span style="color:#ed9d13">&#34;else&#34;</span>,
+          <span style="color:#ed9d13">&#34;   /usr/local/bin/ansible-playbook -i \&#34;localhost,\&#34; -c local -e \&#34;{{extravars}}\&#34; playbook.yml&#34;</span>,
+          <span style="color:#ed9d13">&#34;fi&#34;</span>
         ]
       }
     }
@@ -384,35 +661,35 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
 <p><img loading="lazy" src="function_editor.png" alt=""  />
 </p>
 <p>Here is the source code of the function:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">handler</span>(<span style="color:#a6e22e">event</span>) {
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">response</span>;
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">headers</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">headers</span>;
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#6ab825;font-weight:bold">function</span> handler(event) {
+<span style="color:#6ab825;font-weight:bold">var</span> response = event.response;
+<span style="color:#6ab825;font-weight:bold">var</span> headers = response.headers;
 
-<span style="color:#a6e22e">headers</span>[<span style="color:#e6db74">&#39;strict-transport-security&#39;</span>] <span style="color:#f92672">=</span> { <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;max-age=63072000; includeSubdomains; preload&#39;</span>}; 
-<span style="color:#a6e22e">headers</span>[<span style="color:#e6db74">&#39;content-security-policy&#39;</span>] <span style="color:#f92672">=</span> { <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;default-src &#39;none&#39;; img-src &#39;self&#39;; script-src &#39;self&#39;; style-src &#39;self&#39;; object-src &#39;none&#39;; frame-ancestors &#39;none&#39;&#34;</span>}; 
-<span style="color:#a6e22e">headers</span>[<span style="color:#e6db74">&#39;x-content-type-options&#39;</span>] <span style="color:#f92672">=</span> { <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;nosniff&#39;</span>}; 
-<span style="color:#a6e22e">headers</span>[<span style="color:#e6db74">&#39;x-xss-protection&#39;</span>] <span style="color:#f92672">=</span> {<span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1; mode=block&#39;</span>};
-<span style="color:#a6e22e">headers</span>[<span style="color:#e6db74">&#39;referrer-policy&#39;</span>] <span style="color:#f92672">=</span> {<span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;same-origin&#39;</span>};
-<span style="color:#a6e22e">headers</span>[<span style="color:#e6db74">&#39;x-frame-options&#39;</span>] <span style="color:#f92672">=</span> {<span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;DENY&#39;</span>};
+headers[<span style="color:#ed9d13">&#39;strict-transport-security&#39;</span>] = { value: <span style="color:#ed9d13">&#39;max-age=63072000; includeSubdomains; preload&#39;</span>}; 
+headers[<span style="color:#ed9d13">&#39;content-security-policy&#39;</span>] = { value: <span style="color:#ed9d13">&#34;default-src &#39;none&#39;; img-src &#39;self&#39;; script-src &#39;self&#39;; style-src &#39;self&#39;; object-src &#39;none&#39;; frame-ancestors &#39;none&#39;&#34;</span>}; 
+headers[<span style="color:#ed9d13">&#39;x-content-type-options&#39;</span>] = { value: <span style="color:#ed9d13">&#39;nosniff&#39;</span>}; 
+headers[<span style="color:#ed9d13">&#39;x-xss-protection&#39;</span>] = {value: <span style="color:#ed9d13">&#39;1; mode=block&#39;</span>};
+headers[<span style="color:#ed9d13">&#39;referrer-policy&#39;</span>] = {value: <span style="color:#ed9d13">&#39;same-origin&#39;</span>};
+headers[<span style="color:#ed9d13">&#39;x-frame-options&#39;</span>] = {value: <span style="color:#ed9d13">&#39;DENY&#39;</span>};
 
-<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span>;
+<span style="color:#6ab825;font-weight:bold">return</span> response;
 }
 </code></pre></td></tr></table>
 </div>
@@ -437,48 +714,48 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
 </p>
 <p>Once you associate the function with the CloudFront distribution, you can test it in live mode.</p>
 <p>I will use curl here to demonstrate it:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; curl -i https://d30i87a4ss9ifz.cloudfront.net
-HTTP/2 <span style="color:#ae81ff">200</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; curl -i https://d30i87a4ss9ifz.cloudfront.net
+HTTP/2 <span style="color:#3677a9">200</span>
 content-type: text/html
-content-length: <span style="color:#ae81ff">140</span>
-date: Sat, <span style="color:#ae81ff">22</span> May <span style="color:#ae81ff">2021</span> 00:22:18 GMT
-last-modified: Tue, <span style="color:#ae81ff">27</span> Apr <span style="color:#ae81ff">2021</span> 23:07:14 GMT
-etag: <span style="color:#e6db74">&#34;a855a3189f8223db53df8a0ca362dd62&#34;</span>
+content-length: <span style="color:#3677a9">140</span>
+date: Sat, <span style="color:#3677a9">22</span> May <span style="color:#3677a9">2021</span> 00:22:18 GMT
+last-modified: Tue, <span style="color:#3677a9">27</span> Apr <span style="color:#3677a9">2021</span> 23:07:14 GMT
+etag: <span style="color:#ed9d13">&#34;a855a3189f8223db53df8a0ca362dd62&#34;</span>
 accept-ranges: bytes
 server: AmazonS3
-via: 1.1 50f21cb925e6471490e080147e252d7d.cloudfront.net <span style="color:#f92672">(</span>CloudFront<span style="color:#f92672">)</span>
-content-security-policy: default-src <span style="color:#e6db74">&#39;none&#39;</span>; img-src <span style="color:#e6db74">&#39;self&#39;</span>; script-src <span style="color:#e6db74">&#39;self&#39;</span>; style-src <span style="color:#e6db74">&#39;self&#39;</span>; object-src <span style="color:#e6db74">&#39;none&#39;</span>; frame-ancestors <span style="color:#e6db74">&#39;none&#39;</span>
-strict-transport-security: max-age<span style="color:#f92672">=</span>63072000; includeSubdomains; preload
-x-xss-protection: 1; mode<span style="color:#f92672">=</span>block
+via: 1.1 50f21cb925e6471490e080147e252d7d.cloudfront.net (CloudFront)
+content-security-policy: default-src <span style="color:#ed9d13">&#39;none&#39;</span>; img-src <span style="color:#ed9d13">&#39;self&#39;</span>; script-src <span style="color:#ed9d13">&#39;self&#39;</span>; style-src <span style="color:#ed9d13">&#39;self&#39;</span>; object-src <span style="color:#ed9d13">&#39;none&#39;</span>; frame-ancestors <span style="color:#ed9d13">&#39;none&#39;</span>
+strict-transport-security: max-age=63072000; includeSubdomains; preload
+x-xss-protection: 1; <span style="color:#40ffff">mode</span>=block
 x-frame-options: DENY
 referrer-policy: same-origin
 x-content-type-options: nosniff
 x-cache: Miss from cloudfront
 x-amz-cf-pop: WAW50-C1
-x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw<span style="color:#f92672">==</span>
+x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw==
 </code></pre></td></tr></table>
 </div>
 </div><p>You can also test your results here — <a href="https://observatory.mozilla.org/">Mozilla Observatory</a></p>
@@ -531,87 +808,87 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw<span style="
 <p><em>Some values are hardcoded intentionally in the code examples for the sake of simplicity and easy reading. You would probably want to parametrize them.</em></p>
 <h2 id="xcode-installation-example">Xcode installation example</h2>
 <p>The following tasks will help you to automate the basics.</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install Xcode</span>
-      <span style="color:#f92672">shell</span>: <span style="color:#e6db74">&#34;xip --expand Xcode.xip&#34;</span>
-      <span style="color:#f92672">args</span>:
-        <span style="color:#f92672">chdir</span>: <span style="color:#ae81ff">/Applications</span>
-
-- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Accept License Agreement</span>
-  <span style="color:#f92672">shell</span>: <span style="color:#e6db74">&#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -license accept&#34;</span>
-
-- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Accept License Agreement</span>
-  <span style="color:#f92672">shell</span>: <span style="color:#e6db74">&#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -runFirstLaunch&#34;</span>
-
-- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Switch into newly installed Xcode context</span>
-  <span style="color:#f92672">shell</span>: <span style="color:#e6db74">&#34;xcode-select --switch /Applications/Xcode.app/Contents/Developer&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Install Xcode<span style="color:#666">
+</span><span style="color:#666">      </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;xip --expand Xcode.xip&#34;</span><span style="color:#666">
+</span><span style="color:#666">      </span><span style="color:#6ab825;font-weight:bold">args</span>:<span style="color:#666">
+</span><span style="color:#666">        </span><span style="color:#6ab825;font-weight:bold">chdir</span>:<span style="color:#666"> </span>/Applications<span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Accept License Agreement<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -license accept&#34;</span><span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Accept License Agreement<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -runFirstLaunch&#34;</span><span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Switch into newly installed Xcode context<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;xcode-select --switch /Applications/Xcode.app/Contents/Developer&#34;</span><span style="color:#666">
+</span></code></pre></td></tr></table>
 </div>
 </div><h2 id="example-of-software-installation-with-brew">Example of software installation with Brew</h2>
 <p>{% raw %}</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">8
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install common build software</span>
-  <span style="color:#f92672">community.general.homebrew</span>:
-    <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;{{ item }}&#34;</span>
-    <span style="color:#f92672">state</span>: <span style="color:#ae81ff">latest</span>
-  <span style="color:#f92672">loop</span>:
-    - <span style="color:#ae81ff">swiftlint</span>
-    - <span style="color:#ae81ff">swiftformat</span>
-    - <span style="color:#ae81ff">wget</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Install common build software<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">community.general.homebrew</span>:<span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{ item }}&#34;</span><span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">state</span>:<span style="color:#666"> </span>latest<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">loop</span>:<span style="color:#666">
+</span><span style="color:#666">    </span>- swiftlint<span style="color:#666">
+</span><span style="color:#666">    </span>- swiftformat<span style="color:#666">
+</span><span style="color:#666">    </span>- wget<span style="color:#666">
+</span></code></pre></td></tr></table>
 </div>
 </div><p>{% endraw %}</p>
 <h2 id="screensharing-remote-desktop-configuration-example">ScreenSharing (remote desktop) configuration example</h2>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">9
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Turn On Remote Management</span>
-  <span style="color:#f92672">shell</span>: <span style="color:#e6db74">&#34;./kickstart -activate -configure -allowAccessFor -specifiedUsers&#34;</span>
-  <span style="color:#f92672">args</span>:
-    <span style="color:#f92672">chdir</span>: <span style="color:#ae81ff">/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/</span>
-
-- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Enable Remote Management for CI user</span>
-  <span style="color:#f92672">shell</span>: <span style="color:#e6db74">&#34;./kickstart -configure -users ec2-user -access -on -privs -all&#34;</span>
-  <span style="color:#f92672">args</span>:
-    <span style="color:#f92672">chdir</span>: <span style="color:#ae81ff">/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Turn On Remote Management<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;./kickstart -activate -configure -allowAccessFor -specifiedUsers&#34;</span><span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">args</span>:<span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">chdir</span>:<span style="color:#666"> </span>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/<span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Enable Remote Management for CI user<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;./kickstart -configure -users ec2-user -access -on -privs -all&#34;</span><span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">args</span>:<span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">chdir</span>:<span style="color:#666"> </span>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/<span style="color:#666">
+</span></code></pre></td></tr></table>
 </div>
 </div><p>Shell rulez, yes.</p>
 <h1 id="building-the-ami">Building the AMI</h1>
@@ -623,63 +900,63 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw<span style="
 <h2 id="timeouts">Timeouts</h2>
 <p>As I mentioned in the <a href="https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html">previous article</a>, the creation and deletion time of the &ldquo;mac1.metal&rdquo; Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.</p>
 <p>Example:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;aws_polling&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
-        <span style="color:#f92672">&#34;delay_seconds&#34;</span>: <span style="color:#ae81ff">30</span>,
-        <span style="color:#f92672">&#34;max_attempts&#34;</span>: <span style="color:#ae81ff">60</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#ed9d13">&#34;aws_polling&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> {
+        <span style="color:#6ab825;font-weight:bold">&#34;delay_seconds&#34;</span>: <span style="color:#3677a9">30</span>,
+        <span style="color:#6ab825;font-weight:bold">&#34;max_attempts&#34;</span>: <span style="color:#3677a9">60</span>
 }
 </code></pre></td></tr></table>
 </div>
 </div><p>And it would be best if you also increased the SSH timeout:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;ssh_timeout&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;1h&#34;</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#ed9d13">&#34;ssh_timeout&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#ed9d13">&#34;1h&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>Fortunately, Packer&rsquo;s AMI builder does not require an explicit declaration of the Dedicated Host ID. So you can just reference the same subnet where you allocated the Host, assuming you did it with the enabled &ldquo;Auto placement&rdquo; parameter during the host creation.</p>
 <p>Example:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;tenancy&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;host&#34;</span><span style="color:#960050;background-color:#1e0010">,</span>
-  <span style="color:#e6db74">&#34;subnet_id&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;your-subnet-id&#34;</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#ed9d13">&#34;tenancy&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#ed9d13">&#34;host&#34;</span><span style="color:#a61717;background-color:#e3d2d2">,</span>
+  <span style="color:#ed9d13">&#34;subnet_id&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#ed9d13">&#34;your-subnet-id&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="provisioning">Provisioning</h2>
 <p>Packer has <a href="https://www.packer.io/docs/provisioners/ansible">Ansible Provisioner</a> that I used for the AMI. Its documentation is also very clean and straightforward.</p>
 <p>But it is still worth mentioning that if you want to parametrize the Ansible playbook, then the following configuration example will be handy:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">8
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;extra_arguments&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
-    <span style="color:#e6db74">&#34;--extra-vars&#34;</span>,
-    <span style="color:#e6db74">&#34;your-variable-foo=your-value-bar]&#34;</span>
-  ]<span style="color:#960050;background-color:#1e0010">,</span>
-  <span style="color:#e6db74">&#34;ansible_env_vars&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
-    <span style="color:#e6db74">&#34;ANSIBLE_PYTHON_INTERPRETER=auto_legacy_silent&#34;</span>,
-    <span style="color:#e6db74">&#34;ANSIBLE_OTHER_ENV_VARIABLE=other_value&#34;</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#ed9d13">&#34;extra_arguments&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> [
+    <span style="color:#ed9d13">&#34;--extra-vars&#34;</span>,
+    <span style="color:#ed9d13">&#34;your-variable-foo=your-value-bar]&#34;</span>
+  ]<span style="color:#a61717;background-color:#e3d2d2">,</span>
+  <span style="color:#ed9d13">&#34;ansible_env_vars&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> [
+    <span style="color:#ed9d13">&#34;ANSIBLE_PYTHON_INTERPRETER=auto_legacy_silent&#34;</span>,
+    <span style="color:#ed9d13">&#34;ANSIBLE_OTHER_ENV_VARIABLE=other_value&#34;</span>
   ]
 </code></pre></td></tr></table>
 </div>
@@ -691,20 +968,20 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw<span style="
 <p>The number of the group corresponds to the execution order. You can put several tasks into a single Priority Group, and the tool will execute them simultaneously.</p>
 <p>EC2 macOS Init uses a human-readable configuration file in <code>toml</code> format.</p>
 <p>Example:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">9
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">[[Module]]
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">[[Module]]
   Name = &#34;Create-some-folder&#34;
   PriorityGroup = 3
   FatalOnError = false 
@@ -730,22 +1007,22 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw<span style="
 <p>I suggest looking into the default <a href="https://github.com/aws/ec2-macos-init/blob/master/configuration/init.toml">init.toml</a> configuration file to get yourself more familiar with the capabilities of the tool.</p>
 <p>The init tool can also clear its history, which is useful for the new AMI creation.</p>
 <p>Example:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ec2-macos-init clean -all
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ec2-macos-init clean -all
 </code></pre></td></tr></table>
 </div>
 </div><p>And you can run the init manually for debugging purposes.</p>
 <p>Example:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ec2-macos-init run
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ec2-macos-init run
 </code></pre></td></tr></table>
 </div>
 </div><p>You can also combine the EC2 macOS Init actions (made by modules) with your script in user data for more accurate nontrivial configurations.</p>
@@ -778,65 +1055,65 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw<span style="
 <p>I believe this is huge, even despite the number of constraints this solution has. This offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.</p>
 <p>So here is a quick-start example of creating the dedicated host and the instance altogether using Terraform.</p>
 <p>I intentionally used some hardcoded values for the sake of simplicity in the example.</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">28
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_ec2_host&#34; &#34;example_host&#34;</span> {
-  instance_type     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mac1.metal&#34;</span>
-  availability_zone <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;us-east-1a&#34;</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_ec2_host&#34; &#34;example_host&#34;</span> {
+  instance_type     = <span style="color:#ed9d13">&#34;mac1.metal&#34;</span>
+  availability_zone = <span style="color:#ed9d13">&#34;us-east-1a&#34;</span>
 }
 
-<span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;example_instance&#34;</span> {
-  ami           <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">aws_ami</span>.<span style="color:#66d9ef">mac1metal</span>.<span style="color:#66d9ef">id</span>
-  host_id       <span style="color:#f92672">=</span> <span style="color:#66d9ef">aws_ec2_host</span>.<span style="color:#66d9ef">example_host</span>.<span style="color:#66d9ef">id</span>
-  instance_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mac1.metal&#34;</span>
-  subnet_id     <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">aws_subnet</span>.<span style="color:#66d9ef">example_subnet</span>.<span style="color:#66d9ef">id</span>
+<span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_instance&#34; &#34;example_instance&#34;</span> {
+  ami           = <span style="color:#6ab825;font-weight:bold">data</span>.<span style="color:#6ab825;font-weight:bold">aws_ami</span>.<span style="color:#6ab825;font-weight:bold">mac1metal</span>.<span style="color:#6ab825;font-weight:bold">id</span>
+  host_id       = <span style="color:#6ab825;font-weight:bold">aws_ec2_host</span>.<span style="color:#6ab825;font-weight:bold">example_host</span>.<span style="color:#6ab825;font-weight:bold">id</span>
+  instance_type = <span style="color:#ed9d13">&#34;mac1.metal&#34;</span>
+  subnet_id     = <span style="color:#6ab825;font-weight:bold">data</span>.<span style="color:#6ab825;font-weight:bold">aws_subnet</span>.<span style="color:#6ab825;font-weight:bold">example_subnet</span>.<span style="color:#6ab825;font-weight:bold">id</span>
 }
 
-<span style="color:#66d9ef">data</span> <span style="color:#e6db74">&#34;aws_subnet&#34; &#34;example_subnet&#34;</span> {
-  availability_zone <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;us-east-1a&#34;</span>
-  <span style="color:#66d9ef">filter</span> {
-    name   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tag:Tier&#34;</span><span style="color:#75715e"> # you should omit this filter if you don&#39;t distinguish your subnets on private and public 
-</span><span style="color:#75715e"></span>    values <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;private&#34;</span>]
+<span style="color:#6ab825;font-weight:bold">data</span> <span style="color:#ed9d13">&#34;aws_subnet&#34; &#34;example_subnet&#34;</span> {
+  availability_zone = <span style="color:#ed9d13">&#34;us-east-1a&#34;</span>
+  <span style="color:#6ab825;font-weight:bold">filter</span> {
+    name   = <span style="color:#ed9d13">&#34;tag:Tier&#34;</span><span style="color:#999;font-style:italic"> # you should omit this filter if you don&#39;t distinguish your subnets on private and public 
+</span><span style="color:#999;font-style:italic"></span>    values = [<span style="color:#ed9d13">&#34;private&#34;</span>]
   }
 }
 
-<span style="color:#66d9ef">data</span> <span style="color:#e6db74">&#34;aws_ami&#34; &#34;mac1metal&#34;</span> {
-  owners      <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;amazon&#34;</span>]
-  most_recent <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
-  <span style="color:#66d9ef">filter</span> {
-    name   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;name&#34;</span>
-    values <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;amzn-ec2-macos-11*&#34;</span>]<span style="color:#75715e"> # get latest BigSur AMI
-</span><span style="color:#75715e"></span>  }
+<span style="color:#6ab825;font-weight:bold">data</span> <span style="color:#ed9d13">&#34;aws_ami&#34; &#34;mac1metal&#34;</span> {
+  owners      = [<span style="color:#ed9d13">&#34;amazon&#34;</span>]
+  most_recent = <span style="color:#6ab825;font-weight:bold">true</span>
+  <span style="color:#6ab825;font-weight:bold">filter</span> {
+    name   = <span style="color:#ed9d13">&#34;name&#34;</span>
+    values = [<span style="color:#ed9d13">&#34;amzn-ec2-macos-11*&#34;</span>]<span style="color:#999;font-style:italic"> # get latest BigSur AMI
+</span><span style="color:#999;font-style:italic"></span>  }
 }
 </code></pre></td></tr></table>
 </div>
@@ -914,70 +1191,70 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw<span style="
 <p>Get the identifier of EBS (look for the first one with GUID_partition_scheme):</p>
 <p><code>diskutil list physical external</code></p>
 <p>Or here is a more advanced version to be used in a script:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">DISK_ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>diskutil list physical external | grep <span style="color:#e6db74">&#39;GUID_partition_scheme&#39;</span>| tr -s <span style="color:#e6db74">&#39; &#39;</span> | cut -d<span style="color:#e6db74">&#39; &#39;</span> -f6<span style="color:#66d9ef">)</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#40ffff">DISK_ID</span>=<span style="color:#6ab825;font-weight:bold">$(</span>diskutil list physical external | grep <span style="color:#ed9d13">&#39;GUID_partition_scheme&#39;</span>| tr -s <span style="color:#ed9d13">&#39; &#39;</span> | cut -d<span style="color:#ed9d13">&#39; &#39;</span> -f6<span style="color:#6ab825;font-weight:bold">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>It would probably be <code>disk0</code> if you did not attach additional EBS.</p>
 <p>Then run the repair job for the disk, using its identifier:
 <code>diskutil repairDisk disk0</code></p>
 <p>Advanced version:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yes | diskutil repairDisk $DISK_ID
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yes | diskutil repairDisk <span style="color:#40ffff">$DISK_ID</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>Now get the APFS container identifier (look for Apple_APFS):
 <code>diskutil list physical external</code></p>
 <p>Advanced version:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">APFS_ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>diskutil list physical external | grep <span style="color:#e6db74">&#39;Apple_APFS&#39;</span> | tr -s <span style="color:#e6db74">&#39; &#39;</span> | cut -d<span style="color:#e6db74">&#39; &#39;</span> -f8<span style="color:#66d9ef">)</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#40ffff">APFS_ID</span>=<span style="color:#6ab825;font-weight:bold">$(</span>diskutil list physical external | grep <span style="color:#ed9d13">&#39;Apple_APFS&#39;</span> | tr -s <span style="color:#ed9d13">&#39; &#39;</span> | cut -d<span style="color:#ed9d13">&#39; &#39;</span> -f8<span style="color:#6ab825;font-weight:bold">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>It would probably be <code>disk0s2</code> if you did not attach additional EBS.</p>
 <p>Finally, resize the APFS container:
 <code>diskutil apfs resizeContainer disk0s2</code></p>
 <p>Advanced version</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">diskutil apfs resizeContainer $APFS_ID
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">diskutil apfs resizeContainer <span style="color:#40ffff">$APFS_ID</span>
 </code></pre></td></tr></table>
 </div>
 </div><p><strong>[2]How to setup Screen Sharing at mac1.metal in Terminal</strong></p>
 <p>The <code>kickstart</code> command-line tool resides in <code>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/</code> so you&rsquo;ll better to cd into that directory for convenience:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">8
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Turn On Remote Management for a user to be specified later</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#999;font-style:italic"># Turn On Remote Management for a user to be specified later</span>
 sudo ./kickstart -activate -configure -allowAccessFor -specifiedUsers
 
-<span style="color:#75715e"># Enable Remote Management for ec2-user user</span>
+<span style="color:#999;font-style:italic"># Enable Remote Management for ec2-user user</span>
 sudo ./kickstart -configure -users ec2-user -access -on -privs -all
 
-<span style="color:#75715e"># Set the user password </span>
+<span style="color:#999;font-style:italic"># Set the user password </span>
 sudo passwd ec2-user
 </code></pre></td></tr></table>
 </div>
@@ -997,43 +1274,43 @@ Requirements &mdash; bash-compatible interpreter, because aliases and functions 
 <p>Then just source this file, for example: <code>source ~/.zshrc</code></p>
 <h2 id="function-list-outputs-and-variables-of-given-module">Function: list outputs and variables of given module</h2>
 <p>You need to provide the path to module directory, and this function will list all declared variables and outputs module has. It comes very useful when you don&rsquo;t remember them all and just need to take a quick look.</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">## TerraForm MOdule Explained</span>
-<span style="color:#66d9ef">function</span> tfmoe <span style="color:#f92672">{</span>
-  echo -e <span style="color:#e6db74">&#34;\nOutputs:&#34;</span>
-  grep -r <span style="color:#e6db74">&#34;output \&#34;.*\&#34;&#34;</span> $1 |awk <span style="color:#e6db74">&#39;{print &#34;\t&#34;,$2}&#39;</span> |tr -d <span style="color:#e6db74">&#39;&#34;&#39;</span>
-  echo -e <span style="color:#e6db74">&#34;\nVariables:&#34;</span>
-  grep -r <span style="color:#e6db74">&#34;variable \&#34;.*\&#34;&#34;</span> $1 |awk <span style="color:#e6db74">&#39;{print &#34;\t&#34;,$2}&#39;</span> |tr -d <span style="color:#e6db74">&#39;&#34;&#39;</span>
-<span style="color:#f92672">}</span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#999;font-style:italic">## TerraForm MOdule Explained</span>
+<span style="color:#6ab825;font-weight:bold">function</span> tfmoe {
+  <span style="color:#24909d">echo</span> -e <span style="color:#ed9d13">&#34;\nOutputs:&#34;</span>
+  grep -r <span style="color:#ed9d13">&#34;output \&#34;.*\&#34;&#34;</span> <span style="color:#40ffff">$1</span> |awk <span style="color:#ed9d13">&#39;{print &#34;\t&#34;,$2}&#39;</span> |tr -d <span style="color:#ed9d13">&#39;&#34;&#39;</span>
+  <span style="color:#24909d">echo</span> -e <span style="color:#ed9d13">&#34;\nVariables:&#34;</span>
+  grep -r <span style="color:#ed9d13">&#34;variable \&#34;.*\&#34;&#34;</span> <span style="color:#40ffff">$1</span> |awk <span style="color:#ed9d13">&#39;{print &#34;\t&#34;,$2}&#39;</span> |tr -d <span style="color:#ed9d13">&#39;&#34;&#39;</span>
+}</code></pre></td></tr></table>
 </div>
 </div>
 <p>Example usage:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: tfmoe ./module_alb
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: tfmoe ./module_alb
 
 Outputs:
 	 alb_arn
@@ -1048,36 +1325,36 @@ Variables:
 </div>
 </div><h2 id="function-pre-fill-module-directory-with-configuration-files">Function: pre-fill module directory with configuration files</h2>
 <p>You need to provide a path to the module directory and this function will create a bunch of empty &lsquo;default&rsquo; .tf files in it.</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#TerraForm MOdule Initialize</span>
-<span style="color:#66d9ef">function</span> tfmoi <span style="color:#f92672">{</span>
-  touch $1/variables.tf
-  touch $1/outputs.tf
-  touch $1/versions.tf
-  touch $1/main.tf
-<span style="color:#f92672">}</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#999;font-style:italic">#TerraForm MOdule Initialize</span>
+<span style="color:#6ab825;font-weight:bold">function</span> tfmoi {
+  touch <span style="color:#40ffff">$1</span>/variables.tf
+  touch <span style="color:#40ffff">$1</span>/outputs.tf
+  touch <span style="color:#40ffff">$1</span>/versions.tf
+  touch <span style="color:#40ffff">$1</span>/main.tf
+}
 </code></pre></td></tr></table>
 </div>
 </div><p>Example usage:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: mkdir ./module_foo &amp;&amp; temoi $_
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: mkdir ./module_foo &amp;&amp; temoi $_
 
 user@localhost $: ls ./module_foo
 main.tf      outputs.tf   variables.tf versions.tf
@@ -1085,44 +1362,44 @@ main.tf      outputs.tf   variables.tf versions.tf
 </div>
 </div><h2 id="aliases">Aliases</h2>
 <p>The purpose of these aliases is just to keep you from typing long commands when you want to do a simple action.</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">alias tf<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform&#39;</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#24909d">alias</span> <span style="color:#40ffff">tf</span>=<span style="color:#ed9d13">&#39;terraform&#39;</span>
 
-alias tfv<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform validate&#39;</span>
+<span style="color:#24909d">alias</span> <span style="color:#40ffff">tfv</span>=<span style="color:#ed9d13">&#39;terraform validate&#39;</span>
 
-alias tfi<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform init&#39;</span>
+<span style="color:#24909d">alias</span> <span style="color:#40ffff">tfi</span>=<span style="color:#ed9d13">&#39;terraform init&#39;</span>
 
-alias tfp<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform plan&#39;</span> 
+<span style="color:#24909d">alias</span> <span style="color:#40ffff">tfp</span>=<span style="color:#ed9d13">&#39;terraform plan&#39;</span> 
 </code></pre></td></tr></table>
 </div>
 </div><p>This one is useful because it makes format tool to go in-depth (recursively) through directories.</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">alias tfm<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;terraform fmt -recursive&#39;</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#24909d">alias</span> <span style="color:#40ffff">tfm</span>=<span style="color:#ed9d13">&#39;terraform fmt -recursive&#39;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>Example usage:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: tfm 
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: tfm 
 module_ecs_cluster/ecs.tf
 module_alb/alb.tf
 </code></pre></td></tr></table>
@@ -1141,43 +1418,43 @@ module_alb/alb.tf
 If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.</p>
 <h2 id="variables-with-ssm-parameter-store">Variables with SSM Parameter Store</h2>
 <p>Let&rsquo;s say you have some variables defined in &lsquo;defaults/main.yaml&rsquo; file of your role or maybe in group_vars.yaml file.</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-<span style="color:#75715e"># content of dev.vars.yaml to be included in your play or role</span>
-<span style="color:#f92672">use_tls</span>: <span style="color:#66d9ef">true</span>
-<span style="color:#f92672">application_port</span>: <span style="color:#ae81ff">3000</span>
-<span style="color:#f92672">app_env</span>: <span style="color:#ae81ff">development</span>
-<span style="color:#f92672">stripe_api_key</span>: <span style="color:#ae81ff">1HGASU2eZvKYlo2CT5MEcnC39HqLyjWD</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#447fcf;text-decoration:underline">---</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#999;font-style:italic"># content of dev.vars.yaml to be included in your play or role</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">use_tls</span>:<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">true</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">application_port</span>:<span style="color:#666"> </span><span style="color:#3677a9">3000</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">app_env</span>:<span style="color:#666"> </span>development<span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">stripe_api_key</span>:<span style="color:#666"> </span>1HGASU2eZvKYlo2CT5MEcnC39HqLyjWD<span style="color:#666">
+</span></code></pre></td></tr></table>
 </div>
 </div><p>If you store such things locally on Ansible control node, you probably encrypt it with <a href="https://docs.ansible.com/ansible/latest/user_guide/vault.html">ansible-vault</a></p>
 <p>SSM Parameter Store gives you more flexibility and security by centralized storage and management of parameters and secrets, so let&rsquo;s use it with Ansible:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># content of dev.vars.yaml to be included in your play or role</span>
-
-<span style="color:#f92672">use_tls</span>: <span style="color:#e6db74">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/use_tls&#39;)}}&#34;</span>
-<span style="color:#f92672">application_port</span>: <span style="color:#e6db74">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/application_port&#39;)}}&#34;</span>
-<span style="color:#f92672">app_env</span>: <span style="color:#e6db74">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/app_env&#39;)}}&#34;</span>
-<span style="color:#f92672">stripe_api_key</span>: <span style="color:#e6db74">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/stripe_api_key&#39;)}}&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#999;font-style:italic"># content of dev.vars.yaml to be included in your play or role</span><span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">use_tls</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/use_tls&#39;)}}&#34;</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">application_port</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/application_port&#39;)}}&#34;</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">app_env</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/app_env&#39;)}}&#34;</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">stripe_api_key</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/stripe_api_key&#39;)}}&#34;</span><span style="color:#666">
+</span></code></pre></td></tr></table>
 </div>
 </div><p>The syntax is fairly simple:</p>
 <p>The <code>aws_ssm</code> argument – is the name of plugin.</p>
@@ -1187,47 +1464,47 @@ If you manage some apps in AWS with Ansible, then using Parameter Store or Secre
 <h2 id="variables-with-secret-manager">Variables with Secret Manager</h2>
 <p>Another cool lookup plugin is Secrets Manager. In a nutshell, it has the same kind of functionality but it uses JSON format by feault.</p>
 <p>Here is a quick example of its functionality in a Playbook:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Extract something secrets from Secret Manager</span>
-  <span style="color:#f92672">debug</span>:
-    <span style="color:#f92672">msg</span>: <span style="color:#e6db74">&#34;{{ lookup(&#39;aws_secret&#39;, &#39;dev/some-secrets&#39;)}}&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#447fcf;text-decoration:underline">---</span><span style="color:#666">
+</span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Extract something secrets from Secret Manager<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">debug</span>:<span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">msg</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{ lookup(&#39;aws_secret&#39;, &#39;dev/some-secrets&#39;)}}&#34;</span><span style="color:#666">
+</span></code></pre></td></tr></table>
 </div>
 </div><p>The above task will generate the following output</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">TASK <span style="color:#f92672">[</span>Extract something secrets from Secret Manager<span style="color:#f92672">]</span> ****************************************************
-ok: <span style="color:#f92672">[</span>some_server<span style="color:#f92672">]</span> <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">{</span>
-    <span style="color:#e6db74">&#34;msg&#34;</span>: <span style="color:#f92672">{</span>
-        <span style="color:#e6db74">&#34;dbname&#34;</span>: <span style="color:#e6db74">&#34;database&#34;</span>,
-        <span style="color:#e6db74">&#34;engine&#34;</span>: <span style="color:#e6db74">&#34;mysql&#34;</span>,
-        <span style="color:#e6db74">&#34;host&#34;</span>: <span style="color:#e6db74">&#34;127.0.0.1&#34;</span>,
-        <span style="color:#e6db74">&#34;password&#34;</span>: <span style="color:#e6db74">&#34;password&#34;</span>,
-        <span style="color:#e6db74">&#34;port&#34;</span>: <span style="color:#e6db74">&#34;3306&#34;</span>,
-        <span style="color:#e6db74">&#34;username&#34;</span>: <span style="color:#e6db74">&#34;db_user&#34;</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">TASK [Extract something secrets from Secret Manager] ****************************************************
+ok: [some_server] =&gt; {
+    <span style="color:#ed9d13">&#34;msg&#34;</span>: {
+        <span style="color:#ed9d13">&#34;dbname&#34;</span>: <span style="color:#ed9d13">&#34;database&#34;</span>,
+        <span style="color:#ed9d13">&#34;engine&#34;</span>: <span style="color:#ed9d13">&#34;mysql&#34;</span>,
+        <span style="color:#ed9d13">&#34;host&#34;</span>: <span style="color:#ed9d13">&#34;127.0.0.1&#34;</span>,
+        <span style="color:#ed9d13">&#34;password&#34;</span>: <span style="color:#ed9d13">&#34;password&#34;</span>,
+        <span style="color:#ed9d13">&#34;port&#34;</span>: <span style="color:#ed9d13">&#34;3306&#34;</span>,
+        <span style="color:#ed9d13">&#34;username&#34;</span>: <span style="color:#ed9d13">&#34;db_user&#34;</span>
+    }
+}
 </code></pre></td></tr></table>
 </div>
 </div><p>This is nice if you want to insert a JSON as is, but you will need additional parsing in case you want to get only some of JSON elements.</p>

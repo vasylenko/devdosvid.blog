@@ -8,7 +8,7 @@
 <meta name=description content="How to manage mac1.metal EC2 instances with Terraform">
 <meta name=author content="Serhii Vasylenko">
 <link rel=canonical href=https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.937ee850c528aa20f87fe1894b57c5233bcd3d18b8c6bc7c4f7c8d84a7f8a10a.css integrity="sha256-k37oUMUoqiD4f+GJS1fFIzvNPRi4xrx8T3yNhKf4oQo=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.dceb688ab3beb6b0cf10660a549118a7bff6dcb779c898f5d0f897e26adb88f3.css integrity="sha256-3OtoirO+trDPEGYKVJEYp7/23Ld5yJj10PiX4mrbiPM=" rel="preload stylesheet" as=style>
 <link rel=preload href=/apple-touch-icon.png as=image>
 <script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://serhii.vasylenko.info/favicon.ico>
@@ -98,65 +98,65 @@ How to manage mac1.metal EC2 instances with Terraform
 <p>I believe this is huge, even despite the number of constraints this solution has. This offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.</p>
 <p>So here is a quick-start example of creating the dedicated host and the instance altogether using Terraform.</p>
 <p>I intentionally used some hardcoded values for the sake of simplicity in the example.</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">12
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">13
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">14
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">15
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">16
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">17
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">18
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">19
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">20
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">21
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">22
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">23
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">24
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">25
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">26
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">27
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">28
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_ec2_host&#34; &#34;example_host&#34;</span> {
-  instance_type     <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;mac1.metal&#34;</span>
-  availability_zone <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;us-east-1a&#34;</span>
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=color:#6ab825;font-weight:700>resource</span> <span style=color:#ed9d13>&#34;aws_ec2_host&#34; &#34;example_host&#34;</span> {
+  instance_type     = <span style=color:#ed9d13>&#34;mac1.metal&#34;</span>
+  availability_zone = <span style=color:#ed9d13>&#34;us-east-1a&#34;</span>
 }
 
-<span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_instance&#34; &#34;example_instance&#34;</span> {
-  ami           <span style=color:#f92672>=</span> <span style=color:#66d9ef>data</span>.<span style=color:#66d9ef>aws_ami</span>.<span style=color:#66d9ef>mac1metal</span>.<span style=color:#66d9ef>id</span>
-  host_id       <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_ec2_host</span>.<span style=color:#66d9ef>example_host</span>.<span style=color:#66d9ef>id</span>
-  instance_type <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;mac1.metal&#34;</span>
-  subnet_id     <span style=color:#f92672>=</span> <span style=color:#66d9ef>data</span>.<span style=color:#66d9ef>aws_subnet</span>.<span style=color:#66d9ef>example_subnet</span>.<span style=color:#66d9ef>id</span>
+<span style=color:#6ab825;font-weight:700>resource</span> <span style=color:#ed9d13>&#34;aws_instance&#34; &#34;example_instance&#34;</span> {
+  ami           = <span style=color:#6ab825;font-weight:700>data</span>.<span style=color:#6ab825;font-weight:700>aws_ami</span>.<span style=color:#6ab825;font-weight:700>mac1metal</span>.<span style=color:#6ab825;font-weight:700>id</span>
+  host_id       = <span style=color:#6ab825;font-weight:700>aws_ec2_host</span>.<span style=color:#6ab825;font-weight:700>example_host</span>.<span style=color:#6ab825;font-weight:700>id</span>
+  instance_type = <span style=color:#ed9d13>&#34;mac1.metal&#34;</span>
+  subnet_id     = <span style=color:#6ab825;font-weight:700>data</span>.<span style=color:#6ab825;font-weight:700>aws_subnet</span>.<span style=color:#6ab825;font-weight:700>example_subnet</span>.<span style=color:#6ab825;font-weight:700>id</span>
 }
 
-<span style=color:#66d9ef>data</span> <span style=color:#e6db74>&#34;aws_subnet&#34; &#34;example_subnet&#34;</span> {
-  availability_zone <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;us-east-1a&#34;</span>
-  <span style=color:#66d9ef>filter</span> {
-    name   <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;tag:Tier&#34;</span><span style=color:#75715e> # you should omit this filter if you don&#39;t distinguish your subnets on private and public 
-</span><span style=color:#75715e></span>    values <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;private&#34;</span>]
+<span style=color:#6ab825;font-weight:700>data</span> <span style=color:#ed9d13>&#34;aws_subnet&#34; &#34;example_subnet&#34;</span> {
+  availability_zone = <span style=color:#ed9d13>&#34;us-east-1a&#34;</span>
+  <span style=color:#6ab825;font-weight:700>filter</span> {
+    name   = <span style=color:#ed9d13>&#34;tag:Tier&#34;</span><span style=color:#999;font-style:italic> # you should omit this filter if you don&#39;t distinguish your subnets on private and public 
+</span><span style=color:#999;font-style:italic></span>    values = [<span style=color:#ed9d13>&#34;private&#34;</span>]
   }
 }
 
-<span style=color:#66d9ef>data</span> <span style=color:#e6db74>&#34;aws_ami&#34; &#34;mac1metal&#34;</span> {
-  owners      <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;amazon&#34;</span>]
-  most_recent <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
-  <span style=color:#66d9ef>filter</span> {
-    name   <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;name&#34;</span>
-    values <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;amzn-ec2-macos-11*&#34;</span>]<span style=color:#75715e> # get latest BigSur AMI
-</span><span style=color:#75715e></span>  }
+<span style=color:#6ab825;font-weight:700>data</span> <span style=color:#ed9d13>&#34;aws_ami&#34; &#34;mac1metal&#34;</span> {
+  owners      = [<span style=color:#ed9d13>&#34;amazon&#34;</span>]
+  most_recent = <span style=color:#6ab825;font-weight:700>true</span>
+  <span style=color:#6ab825;font-weight:700>filter</span> {
+    name   = <span style=color:#ed9d13>&#34;name&#34;</span>
+    values = [<span style=color:#ed9d13>&#34;amzn-ec2-macos-11*&#34;</span>]<span style=color:#999;font-style:italic> # get latest BigSur AMI
+</span><span style=color:#999;font-style:italic></span>  }
 }
 </code></pre></td></tr></table>
 </div>

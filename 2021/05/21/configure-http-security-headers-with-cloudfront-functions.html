@@ -8,7 +8,7 @@
 <meta name=description content="Modifying response headers to enforce the security of the web application">
 <meta name=author content="Serhii Vasylenko">
 <link rel=canonical href=https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.937ee850c528aa20f87fe1894b57c5233bcd3d18b8c6bc7c4f7c8d84a7f8a10a.css integrity="sha256-k37oUMUoqiD4f+GJS1fFIzvNPRi4xrx8T3yNhKf4oQo=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.dceb688ab3beb6b0cf10660a549118a7bff6dcb779c898f5d0f897e26adb88f3.css integrity="sha256-3OtoirO+trDPEGYKVJEYp7/23Ld5yJj10PiX4mrbiPM=" rel="preload stylesheet" as=style>
 <link rel=preload href=/apple-touch-icon.png as=image>
 <script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://serhii.vasylenko.info/favicon.ico>
@@ -161,35 +161,35 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
 <p><img loading=lazy src=function_editor.png alt>
 </p>
 <p>Here is the source code of the function:</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">12
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">13
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>handler</span>(<span style=color:#a6e22e>event</span>) {
-<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>response</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>response</span>;
-<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>headers</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>headers</span>;
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#6ab825;font-weight:700>function</span> handler(event) {
+<span style=color:#6ab825;font-weight:700>var</span> response = event.response;
+<span style=color:#6ab825;font-weight:700>var</span> headers = response.headers;
 
-<span style=color:#a6e22e>headers</span>[<span style=color:#e6db74>&#39;strict-transport-security&#39;</span>] <span style=color:#f92672>=</span> { <span style=color:#a6e22e>value</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;max-age=63072000; includeSubdomains; preload&#39;</span>}; 
-<span style=color:#a6e22e>headers</span>[<span style=color:#e6db74>&#39;content-security-policy&#39;</span>] <span style=color:#f92672>=</span> { <span style=color:#a6e22e>value</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;default-src &#39;none&#39;; img-src &#39;self&#39;; script-src &#39;self&#39;; style-src &#39;self&#39;; object-src &#39;none&#39;; frame-ancestors &#39;none&#39;&#34;</span>}; 
-<span style=color:#a6e22e>headers</span>[<span style=color:#e6db74>&#39;x-content-type-options&#39;</span>] <span style=color:#f92672>=</span> { <span style=color:#a6e22e>value</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;nosniff&#39;</span>}; 
-<span style=color:#a6e22e>headers</span>[<span style=color:#e6db74>&#39;x-xss-protection&#39;</span>] <span style=color:#f92672>=</span> {<span style=color:#a6e22e>value</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;1; mode=block&#39;</span>};
-<span style=color:#a6e22e>headers</span>[<span style=color:#e6db74>&#39;referrer-policy&#39;</span>] <span style=color:#f92672>=</span> {<span style=color:#a6e22e>value</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;same-origin&#39;</span>};
-<span style=color:#a6e22e>headers</span>[<span style=color:#e6db74>&#39;x-frame-options&#39;</span>] <span style=color:#f92672>=</span> {<span style=color:#a6e22e>value</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;DENY&#39;</span>};
+headers[<span style=color:#ed9d13>&#39;strict-transport-security&#39;</span>] = { value: <span style=color:#ed9d13>&#39;max-age=63072000; includeSubdomains; preload&#39;</span>}; 
+headers[<span style=color:#ed9d13>&#39;content-security-policy&#39;</span>] = { value: <span style=color:#ed9d13>&#34;default-src &#39;none&#39;; img-src &#39;self&#39;; script-src &#39;self&#39;; style-src &#39;self&#39;; object-src &#39;none&#39;; frame-ancestors &#39;none&#39;&#34;</span>}; 
+headers[<span style=color:#ed9d13>&#39;x-content-type-options&#39;</span>] = { value: <span style=color:#ed9d13>&#39;nosniff&#39;</span>}; 
+headers[<span style=color:#ed9d13>&#39;x-xss-protection&#39;</span>] = {value: <span style=color:#ed9d13>&#39;1; mode=block&#39;</span>};
+headers[<span style=color:#ed9d13>&#39;referrer-policy&#39;</span>] = {value: <span style=color:#ed9d13>&#39;same-origin&#39;</span>};
+headers[<span style=color:#ed9d13>&#39;x-frame-options&#39;</span>] = {value: <span style=color:#ed9d13>&#39;DENY&#39;</span>};
 
-<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>response</span>;
+<span style=color:#6ab825;font-weight:700>return</span> response;
 }
 </code></pre></td></tr></table>
 </div>
@@ -214,48 +214,48 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
 </p>
 <p>Once you associate the function with the CloudFront distribution, you can test it in live mode.</p>
 <p>I will use curl here to demonstrate it:</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">12
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">13
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">14
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">15
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">16
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">17
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">18
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">19
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>&gt; curl -i https://d30i87a4ss9ifz.cloudfront.net
-HTTP/2 <span style=color:#ae81ff>200</span>
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>&gt; curl -i https://d30i87a4ss9ifz.cloudfront.net
+HTTP/2 <span style=color:#3677a9>200</span>
 content-type: text/html
-content-length: <span style=color:#ae81ff>140</span>
-date: Sat, <span style=color:#ae81ff>22</span> May <span style=color:#ae81ff>2021</span> 00:22:18 GMT
-last-modified: Tue, <span style=color:#ae81ff>27</span> Apr <span style=color:#ae81ff>2021</span> 23:07:14 GMT
-etag: <span style=color:#e6db74>&#34;a855a3189f8223db53df8a0ca362dd62&#34;</span>
+content-length: <span style=color:#3677a9>140</span>
+date: Sat, <span style=color:#3677a9>22</span> May <span style=color:#3677a9>2021</span> 00:22:18 GMT
+last-modified: Tue, <span style=color:#3677a9>27</span> Apr <span style=color:#3677a9>2021</span> 23:07:14 GMT
+etag: <span style=color:#ed9d13>&#34;a855a3189f8223db53df8a0ca362dd62&#34;</span>
 accept-ranges: bytes
 server: AmazonS3
-via: 1.1 50f21cb925e6471490e080147e252d7d.cloudfront.net <span style=color:#f92672>(</span>CloudFront<span style=color:#f92672>)</span>
-content-security-policy: default-src <span style=color:#e6db74>&#39;none&#39;</span>; img-src <span style=color:#e6db74>&#39;self&#39;</span>; script-src <span style=color:#e6db74>&#39;self&#39;</span>; style-src <span style=color:#e6db74>&#39;self&#39;</span>; object-src <span style=color:#e6db74>&#39;none&#39;</span>; frame-ancestors <span style=color:#e6db74>&#39;none&#39;</span>
-strict-transport-security: max-age<span style=color:#f92672>=</span>63072000; includeSubdomains; preload
-x-xss-protection: 1; mode<span style=color:#f92672>=</span>block
+via: 1.1 50f21cb925e6471490e080147e252d7d.cloudfront.net (CloudFront)
+content-security-policy: default-src <span style=color:#ed9d13>&#39;none&#39;</span>; img-src <span style=color:#ed9d13>&#39;self&#39;</span>; script-src <span style=color:#ed9d13>&#39;self&#39;</span>; style-src <span style=color:#ed9d13>&#39;self&#39;</span>; object-src <span style=color:#ed9d13>&#39;none&#39;</span>; frame-ancestors <span style=color:#ed9d13>&#39;none&#39;</span>
+strict-transport-security: max-age=63072000; includeSubdomains; preload
+x-xss-protection: 1; <span style=color:#40ffff>mode</span>=block
 x-frame-options: DENY
 referrer-policy: same-origin
 x-content-type-options: nosniff
 x-cache: Miss from cloudfront
 x-amz-cf-pop: WAW50-C1
-x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw<span style=color:#f92672>==</span>
+x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw==
 </code></pre></td></tr></table>
 </div>
 </div><p>You can also test your results here — <a href=https://observatory.mozilla.org/>Mozilla Observatory</a></p>

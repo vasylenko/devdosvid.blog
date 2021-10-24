@@ -8,7 +8,7 @@
 <meta name=description content="How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer">
 <meta name=author content="Serhii Vasylenko">
 <link rel=canonical href=https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.937ee850c528aa20f87fe1894b57c5233bcd3d18b8c6bc7c4f7c8d84a7f8a10a.css integrity="sha256-k37oUMUoqiD4f+GJS1fFIzvNPRi4xrx8T3yNhKf4oQo=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.dceb688ab3beb6b0cf10660a549118a7bff6dcb779c898f5d0f897e26adb88f3.css integrity="sha256-3OtoirO+trDPEGYKVJEYp7/23Ld5yJj10PiX4mrbiPM=" rel="preload stylesheet" as=style>
 <link rel=preload href=/apple-touch-icon.png as=image>
 <script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://serhii.vasylenko.info/favicon.ico>
@@ -37,7 +37,7 @@
 <meta name=twitter:title content="Customizing mac1.metal EC2 AMI — new guts, more glory">
 <meta name=twitter:description content="How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://serhii.vasylenko.info/posts/"},{"@type":"ListItem","position":3,"name":"Customizing mac1.metal EC2 AMI — new guts, more glory","item":"https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Customizing mac1.metal EC2 AMI — new guts, more glory","name":"Customizing mac1.metal EC2 AMI — new guts, more glory","description":"How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer","keywords":["aws","ansible","packer","macos","ec2"],"articleBody":"I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?\nConfiguration Management Native Apple’s Mobile device management (a.k.a MDM) and Jamf is probably the most potent combination for macOS configuration. But as much as it’s mighty, it is a cumbersome combination, and Jamf is not free.\nThen we have Ansible, Chef, Puppet, SaltStack — they all are good with Linux, but what about macOS?\nI tried to search for use cases of mentioned CM tools for macOS. However, I concluded that they wrap the execution of native macOS command-line utilities most of the time.\nAnd if you search for the ‘macos’ word in Chef Supermarket or Puppet Forge, you won’t be impressed by the number of actively maintained packages. Although, here is a motivating article about using Chef automating-macos-provisioning-with-chef if you prefer it. I could not find something similar and fresh for Puppet, so I am sorry, Puppet fans.\nThat is why I decided to follow the KISS principle and chose Ansible.\nIt’s easy to write and read the configuration, it allows to group tasks and to add execution logic , and it feels more DevOps executing shell commands inside Ansible tasks instead of shell scripts; I know you know that 😂\nBy the way, Ansible Galaxy does not have many management packages for macOS, either. But thankfully, it has the basics:\n homebrew with homebrew_cask and homebrew_tap — to install software launchd — to manage services osx_defaults — to manage some user settings (not all!)  I used Ansible to build the macOS AMI for CI/CD, so here are some tips for such a case.\nSome values are hardcoded intentionally in the code examples for the sake of simplicity and easy reading. You would probably want to parametrize them.\nXcode installation example The following tasks will help you to automate the basics.\n1 2 3 4 5 6 7 8 9 10 11 12 13  - name: Install Xcode shell: \"xip --expand Xcode.xip\" args: chdir: /Applications - name: Accept License Agreement shell: \"/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -license accept\" - name: Accept License Agreement shell: \"/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -runFirstLaunch\" - name: Switch into newly installed Xcode context shell: \"xcode-select --switch /Applications/Xcode.app/Contents/Developer\"   Example of software installation with Brew {% raw %}\n1 2 3 4 5 6 7 8  - name: Install common build software community.general.homebrew: name: \"{{ item }}\" state: latest loop: - swiftlint - swiftformat - wget   {% endraw %}\nScreenSharing (remote desktop) configuration example 1 2 3 4 5 6 7 8 9  - name: Turn On Remote Management shell: \"./kickstart -activate -configure -allowAccessFor -specifiedUsers\" args: chdir: /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/ - name: Enable Remote Management for CI user shell: \"./kickstart -configure -users ec2-user -access -on -privs -all\" args: chdir: /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/   Shell rulez, yes.\nBuilding the AMI Packer by HashiCorp, of course.\nI would love to compare Packer with EC2 Image Builder, but it does not support macOS yet (as of Feb'21).\nPacker configuration is straightforward, so I want to highlight only the things specific to the “mac1.metal” use case.\nTimeouts As I mentioned in the previous article, the creation and deletion time of the “mac1.metal” Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.\nExample:\n1 2 3 4  \"aws_polling\": { \"delay_seconds\": 30, \"max_attempts\": 60 }   And it would be best if you also increased the SSH timeout:\n1  \"ssh_timeout\": \"1h\"   Fortunately, Packer’s AMI builder does not require an explicit declaration of the Dedicated Host ID. So you can just reference the same subnet where you allocated the Host, assuming you did it with the enabled “Auto placement” parameter during the host creation.\nExample:\n1 2  \"tenancy\": \"host\", \"subnet_id\": \"your-subnet-id\"   Provisioning Packer has Ansible Provisioner that I used for the AMI. Its documentation is also very clean and straightforward.\nBut it is still worth mentioning that if you want to parametrize the Ansible playbook, then the following configuration example will be handy:\n1 2 3 4 5 6 7 8  \"extra_arguments\": [ \"--extra-vars\", \"your-variable-foo=your-value-bar]\" ], \"ansible_env_vars\": [ \"ANSIBLE_PYTHON_INTERPRETER=auto_legacy_silent\", \"ANSIBLE_OTHER_ENV_VARIABLE=other_value\" ]   Configuration at launch If you’re familiar with AWS EC2, you probably know what the Instance user data is.\nA group of AWS developers made something similar for the macOS: EC2 macOS Init.\nIt does not support cloud-init as on Linux-based Instances, but it can run shell scripts, which is quite enough.\nEC2 macOS Init utility is a Launch Daemon (macOS terminology) that runs on behalf of the root user at system boot. It executes the commands according to the so-called Priority Groups, or the sequence in other words.\nThe number of the group corresponds to the execution order. You can put several tasks into a single Priority Group, and the tool will execute them simultaneously.\nEC2 macOS Init uses a human-readable configuration file in toml format.\nExample:\n1 2 3 4 5 6 7 8 9  [[Module]] Name = \"Create-some-folder\" PriorityGroup = 3 FatalOnError = false RunPerInstance = true [Module.Command] Cmd = [\"mkdir\", \"/Users/ec2-user/my-directory\"] RunAsUser = \"ec2-user\" EnvironmentVars = [\"MY_VAR_FOO=myValueBar\"]   I should clarify some things here.\nModules — a set of pre-defined modules for different purposes. It is something similar to the Ansible modules.\nYou can find the list of available modules here ec2-macos-init/lib/ec2macosinit\nThe RunPerInstance directive controls whether a module should run. There are three of such directives, and here is what they mean:\n RunPerBoot — module will run at every system boot RunPerInstance — module will run once for the Instance. Each Instance has a unique ID; the init tool fetches it from the AWS API before the execution and keeps its execution history per Instance ID. When you create a new Instance from the AMI, it will have a unique ID, and the module will run again. RunOnce — module will run only once, despite the instance ID change  I mentioned the execution history above. When EC2 macOS Init runs on the Instance first time, it creates a unique directory with the name per Instance ID to store the execution history and user data copy.\nRunPerInstance and RunOnce directives depend on the execution history, and modules with those directives will run again on the next boot if the previous execution failed. It was not obvious to me why RunOnce keeps repeating itself every boot until I dug into the source code.\nFinally, there is a module for user data. It runs at the end by default (priority group #4) and pulls the user data script from AWS API before script execution.\nI suggest looking into the default init.toml configuration file to get yourself more familiar with the capabilities of the tool.\nThe init tool can also clear its history, which is useful for the new AMI creation.\nExample:\n1  ec2-macos-init clean -all   And you can run the init manually for debugging purposes.\nExample:\n1  ec2-macos-init run   You can also combine the EC2 macOS Init actions (made by modules) with your script in user data for more accurate nontrivial configurations.\nWrapping up As a whole, building and operating macOS-based AMI does not differ from AMI management for other platforms.\nThere are the same principle stages: prepare, clear, build, execute deployment script (if necessary). Though, the particular implementation of each step has its nuances and constraints.\nSo the whole process may look as follows:\n Provision and configure needed software with Ansible playbook Clean-up system logs and EC2 macOS Init history (again, with Ansible task) Create the AMI Add more customizations at launch with EC2 macOS Init modules and user data (that also executes your Ansible playbook or shell commands)  Getting into all this was both fun and interesting. Sometimes painful, though. 😆\nI sincerely hope this article was helpful to you. Thank you for reading!\n","wordCount":"1293","inLanguage":"en","image":"https://serhii.vasylenko.info/2021-02-01-customizing-mac1-metal-ec2-ami.png","datePublished":"2021-02-01T00:00:00Z","dateModified":"2021-02-01T00:00:00Z","author":{"@type":"Person","name":"Serhii Vasylenko"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html"},"publisher":{"@type":"Person","name":"Serhii Vasylenko","logo":{"@type":"ImageObject","url":"https://serhii.vasylenko.info/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Customizing mac1.metal EC2 AMI — new guts, more glory","name":"Customizing mac1.metal EC2 AMI — new guts, more glory","description":"How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer","keywords":["aws","ansible","packer","macos","ec2"],"articleBody":"I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?\nConfiguration Management Native Apple’s Mobile device management (a.k.a MDM) and Jamf is probably the most potent combination for macOS configuration. But as much as it’s mighty, it is a cumbersome combination, and Jamf is not free.\nThen we have Ansible, Chef, Puppet, SaltStack — they all are good with Linux, but what about macOS?\nI tried to search for use cases of mentioned CM tools for macOS. However, I concluded that they wrap the execution of native macOS command-line utilities most of the time.\nAnd if you search for the ‘macos’ word in Chef Supermarket or Puppet Forge, you won’t be impressed by the number of actively maintained packages. Although, here is a motivating article about using Chef automating-macos-provisioning-with-chef if you prefer it. I could not find something similar and fresh for Puppet, so I am sorry, Puppet fans.\nThat is why I decided to follow the KISS principle and chose Ansible.\nIt’s easy to write and read the configuration, it allows to group tasks and to add execution logic , and it feels more DevOps executing shell commands inside Ansible tasks instead of shell scripts; I know you know that 😂\nBy the way, Ansible Galaxy does not have many management packages for macOS, either. But thankfully, it has the basics:\n homebrew with homebrew_cask and homebrew_tap — to install software launchd — to manage services osx_defaults — to manage some user settings (not all!)  I used Ansible to build the macOS AMI for CI/CD, so here are some tips for such a case.\nSome values are hardcoded intentionally in the code examples for the sake of simplicity and easy reading. You would probably want to parametrize them.\nXcode installation example The following tasks will help you to automate the basics.\n1 2 3 4 5 6 7 8 9 10 11 12 13  - name:Install Xcodeshell:\"xip --expand Xcode.xip\"args:chdir:/Applications- name:Accept License Agreementshell:\"/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -license accept\"- name:Accept License Agreementshell:\"/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -runFirstLaunch\"- name:Switch into newly installed Xcode contextshell:\"xcode-select --switch /Applications/Xcode.app/Contents/Developer\"  Example of software installation with Brew {% raw %}\n1 2 3 4 5 6 7 8  - name:Install common build softwarecommunity.general.homebrew:name:\"{{ item }}\"state:latestloop:- swiftlint- swiftformat- wget  {% endraw %}\nScreenSharing (remote desktop) configuration example 1 2 3 4 5 6 7 8 9  - name:Turn On Remote Managementshell:\"./kickstart -activate -configure -allowAccessFor -specifiedUsers\"args:chdir:/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/- name:Enable Remote Management for CI usershell:\"./kickstart -configure -users ec2-user -access -on -privs -all\"args:chdir:/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/  Shell rulez, yes.\nBuilding the AMI Packer by HashiCorp, of course.\nI would love to compare Packer with EC2 Image Builder, but it does not support macOS yet (as of Feb'21).\nPacker configuration is straightforward, so I want to highlight only the things specific to the “mac1.metal” use case.\nTimeouts As I mentioned in the previous article, the creation and deletion time of the “mac1.metal” Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.\nExample:\n1 2 3 4  \"aws_polling\": { \"delay_seconds\": 30, \"max_attempts\": 60 }   And it would be best if you also increased the SSH timeout:\n1  \"ssh_timeout\": \"1h\"   Fortunately, Packer’s AMI builder does not require an explicit declaration of the Dedicated Host ID. So you can just reference the same subnet where you allocated the Host, assuming you did it with the enabled “Auto placement” parameter during the host creation.\nExample:\n1 2  \"tenancy\": \"host\", \"subnet_id\": \"your-subnet-id\"   Provisioning Packer has Ansible Provisioner that I used for the AMI. Its documentation is also very clean and straightforward.\nBut it is still worth mentioning that if you want to parametrize the Ansible playbook, then the following configuration example will be handy:\n1 2 3 4 5 6 7 8  \"extra_arguments\": [ \"--extra-vars\", \"your-variable-foo=your-value-bar]\" ], \"ansible_env_vars\": [ \"ANSIBLE_PYTHON_INTERPRETER=auto_legacy_silent\", \"ANSIBLE_OTHER_ENV_VARIABLE=other_value\" ]   Configuration at launch If you’re familiar with AWS EC2, you probably know what the Instance user data is.\nA group of AWS developers made something similar for the macOS: EC2 macOS Init.\nIt does not support cloud-init as on Linux-based Instances, but it can run shell scripts, which is quite enough.\nEC2 macOS Init utility is a Launch Daemon (macOS terminology) that runs on behalf of the root user at system boot. It executes the commands according to the so-called Priority Groups, or the sequence in other words.\nThe number of the group corresponds to the execution order. You can put several tasks into a single Priority Group, and the tool will execute them simultaneously.\nEC2 macOS Init uses a human-readable configuration file in toml format.\nExample:\n1 2 3 4 5 6 7 8 9  [[Module]] Name = \"Create-some-folder\" PriorityGroup = 3 FatalOnError = false RunPerInstance = true [Module.Command] Cmd = [\"mkdir\", \"/Users/ec2-user/my-directory\"] RunAsUser = \"ec2-user\" EnvironmentVars = [\"MY_VAR_FOO=myValueBar\"]   I should clarify some things here.\nModules — a set of pre-defined modules for different purposes. It is something similar to the Ansible modules.\nYou can find the list of available modules here ec2-macos-init/lib/ec2macosinit\nThe RunPerInstance directive controls whether a module should run. There are three of such directives, and here is what they mean:\n RunPerBoot — module will run at every system boot RunPerInstance — module will run once for the Instance. Each Instance has a unique ID; the init tool fetches it from the AWS API before the execution and keeps its execution history per Instance ID. When you create a new Instance from the AMI, it will have a unique ID, and the module will run again. RunOnce — module will run only once, despite the instance ID change  I mentioned the execution history above. When EC2 macOS Init runs on the Instance first time, it creates a unique directory with the name per Instance ID to store the execution history and user data copy.\nRunPerInstance and RunOnce directives depend on the execution history, and modules with those directives will run again on the next boot if the previous execution failed. It was not obvious to me why RunOnce keeps repeating itself every boot until I dug into the source code.\nFinally, there is a module for user data. It runs at the end by default (priority group #4) and pulls the user data script from AWS API before script execution.\nI suggest looking into the default init.toml configuration file to get yourself more familiar with the capabilities of the tool.\nThe init tool can also clear its history, which is useful for the new AMI creation.\nExample:\n1  ec2-macos-init clean -all   And you can run the init manually for debugging purposes.\nExample:\n1  ec2-macos-init run   You can also combine the EC2 macOS Init actions (made by modules) with your script in user data for more accurate nontrivial configurations.\nWrapping up As a whole, building and operating macOS-based AMI does not differ from AMI management for other platforms.\nThere are the same principle stages: prepare, clear, build, execute deployment script (if necessary). Though, the particular implementation of each step has its nuances and constraints.\nSo the whole process may look as follows:\n Provision and configure needed software with Ansible playbook Clean-up system logs and EC2 macOS Init history (again, with Ansible task) Create the AMI Add more customizations at launch with EC2 macOS Init modules and user data (that also executes your Ansible playbook or shell commands)  Getting into all this was both fun and interesting. Sometimes painful, though. 😆\nI sincerely hope this article was helpful to you. Thank you for reading!\n","wordCount":"1252","inLanguage":"en","image":"https://serhii.vasylenko.info/2021-02-01-customizing-mac1-metal-ec2-ami.png","datePublished":"2021-02-01T00:00:00Z","dateModified":"2021-02-01T00:00:00Z","author":{"@type":"Person","name":"Serhii Vasylenko"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html"},"publisher":{"@type":"Person","name":"Serhii Vasylenko","logo":{"@type":"ImageObject","url":"https://serhii.vasylenko.info/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -139,87 +139,87 @@ How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer
 <p><em>Some values are hardcoded intentionally in the code examples for the sake of simplicity and easy reading. You would probably want to parametrize them.</em></p>
 <h2 id=xcode-installation-example>Xcode installation example<a hidden class=anchor aria-hidden=true href=#xcode-installation-example>#</a></h2>
 <p>The following tasks will help you to automate the basics.</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">12
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">13
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Install Xcode</span>
-      <span style=color:#f92672>shell</span>: <span style=color:#e6db74>&#34;xip --expand Xcode.xip&#34;</span>
-      <span style=color:#f92672>args</span>:
-        <span style=color:#f92672>chdir</span>: <span style=color:#ae81ff>/Applications</span>
-
-- <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Accept License Agreement</span>
-  <span style=color:#f92672>shell</span>: <span style=color:#e6db74>&#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -license accept&#34;</span>
-
-- <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Accept License Agreement</span>
-  <span style=color:#f92672>shell</span>: <span style=color:#e6db74>&#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -runFirstLaunch&#34;</span>
-
-- <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Switch into newly installed Xcode context</span>
-  <span style=color:#f92672>shell</span>: <span style=color:#e6db74>&#34;xcode-select --switch /Applications/Xcode.app/Contents/Developer&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#6ab825;font-weight:700>name</span>:<span style=color:#666> </span>Install Xcode<span style=color:#666>
+</span><span style=color:#666>      </span><span style=color:#6ab825;font-weight:700>shell</span>:<span style=color:#666> </span><span style=color:#ed9d13>&#34;xip --expand Xcode.xip&#34;</span><span style=color:#666>
+</span><span style=color:#666>      </span><span style=color:#6ab825;font-weight:700>args</span>:<span style=color:#666>
+</span><span style=color:#666>        </span><span style=color:#6ab825;font-weight:700>chdir</span>:<span style=color:#666> </span>/Applications<span style=color:#666>
+</span><span style=color:#666>
+</span><span style=color:#666></span>- <span style=color:#6ab825;font-weight:700>name</span>:<span style=color:#666> </span>Accept License Agreement<span style=color:#666>
+</span><span style=color:#666>  </span><span style=color:#6ab825;font-weight:700>shell</span>:<span style=color:#666> </span><span style=color:#ed9d13>&#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -license accept&#34;</span><span style=color:#666>
+</span><span style=color:#666>
+</span><span style=color:#666></span>- <span style=color:#6ab825;font-weight:700>name</span>:<span style=color:#666> </span>Accept License Agreement<span style=color:#666>
+</span><span style=color:#666>  </span><span style=color:#6ab825;font-weight:700>shell</span>:<span style=color:#666> </span><span style=color:#ed9d13>&#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -runFirstLaunch&#34;</span><span style=color:#666>
+</span><span style=color:#666>
+</span><span style=color:#666></span>- <span style=color:#6ab825;font-weight:700>name</span>:<span style=color:#666> </span>Switch into newly installed Xcode context<span style=color:#666>
+</span><span style=color:#666>  </span><span style=color:#6ab825;font-weight:700>shell</span>:<span style=color:#666> </span><span style=color:#ed9d13>&#34;xcode-select --switch /Applications/Xcode.app/Contents/Developer&#34;</span><span style=color:#666>
+</span></code></pre></td></tr></table>
 </div>
 </div><h2 id=example-of-software-installation-with-brew>Example of software installation with Brew<a hidden class=anchor aria-hidden=true href=#example-of-software-installation-with-brew>#</a></h2>
 <p>{% raw %}</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">8
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Install common build software</span>
-  <span style=color:#f92672>community.general.homebrew</span>:
-    <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#34;{{ item }}&#34;</span>
-    <span style=color:#f92672>state</span>: <span style=color:#ae81ff>latest</span>
-  <span style=color:#f92672>loop</span>:
-    - <span style=color:#ae81ff>swiftlint</span>
-    - <span style=color:#ae81ff>swiftformat</span>
-    - <span style=color:#ae81ff>wget</span>
-</code></pre></td></tr></table>
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#6ab825;font-weight:700>name</span>:<span style=color:#666> </span>Install common build software<span style=color:#666>
+</span><span style=color:#666>  </span><span style=color:#6ab825;font-weight:700>community.general.homebrew</span>:<span style=color:#666>
+</span><span style=color:#666>    </span><span style=color:#6ab825;font-weight:700>name</span>:<span style=color:#666> </span><span style=color:#ed9d13>&#34;{{ item }}&#34;</span><span style=color:#666>
+</span><span style=color:#666>    </span><span style=color:#6ab825;font-weight:700>state</span>:<span style=color:#666> </span>latest<span style=color:#666>
+</span><span style=color:#666>  </span><span style=color:#6ab825;font-weight:700>loop</span>:<span style=color:#666>
+</span><span style=color:#666>    </span>- swiftlint<span style=color:#666>
+</span><span style=color:#666>    </span>- swiftformat<span style=color:#666>
+</span><span style=color:#666>    </span>- wget<span style=color:#666>
+</span></code></pre></td></tr></table>
 </div>
 </div><p>{% endraw %}</p>
 <h2 id=screensharing-remote-desktop-configuration-example>ScreenSharing (remote desktop) configuration example<a hidden class=anchor aria-hidden=true href=#screensharing-remote-desktop-configuration-example>#</a></h2>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">9
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">9
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Turn On Remote Management</span>
-  <span style=color:#f92672>shell</span>: <span style=color:#e6db74>&#34;./kickstart -activate -configure -allowAccessFor -specifiedUsers&#34;</span>
-  <span style=color:#f92672>args</span>:
-    <span style=color:#f92672>chdir</span>: <span style=color:#ae81ff>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/</span>
-
-- <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Enable Remote Management for CI user</span>
-  <span style=color:#f92672>shell</span>: <span style=color:#e6db74>&#34;./kickstart -configure -users ec2-user -access -on -privs -all&#34;</span>
-  <span style=color:#f92672>args</span>:
-    <span style=color:#f92672>chdir</span>: <span style=color:#ae81ff>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/</span>
-</code></pre></td></tr></table>
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#6ab825;font-weight:700>name</span>:<span style=color:#666> </span>Turn On Remote Management<span style=color:#666>
+</span><span style=color:#666>  </span><span style=color:#6ab825;font-weight:700>shell</span>:<span style=color:#666> </span><span style=color:#ed9d13>&#34;./kickstart -activate -configure -allowAccessFor -specifiedUsers&#34;</span><span style=color:#666>
+</span><span style=color:#666>  </span><span style=color:#6ab825;font-weight:700>args</span>:<span style=color:#666>
+</span><span style=color:#666>    </span><span style=color:#6ab825;font-weight:700>chdir</span>:<span style=color:#666> </span>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/<span style=color:#666>
+</span><span style=color:#666>
+</span><span style=color:#666></span>- <span style=color:#6ab825;font-weight:700>name</span>:<span style=color:#666> </span>Enable Remote Management for CI user<span style=color:#666>
+</span><span style=color:#666>  </span><span style=color:#6ab825;font-weight:700>shell</span>:<span style=color:#666> </span><span style=color:#ed9d13>&#34;./kickstart -configure -users ec2-user -access -on -privs -all&#34;</span><span style=color:#666>
+</span><span style=color:#666>  </span><span style=color:#6ab825;font-weight:700>args</span>:<span style=color:#666>
+</span><span style=color:#666>    </span><span style=color:#6ab825;font-weight:700>chdir</span>:<span style=color:#666> </span>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/<span style=color:#666>
+</span></code></pre></td></tr></table>
 </div>
 </div><p>Shell rulez, yes.</p>
 <h1 id=building-the-ami>Building the AMI<a hidden class=anchor aria-hidden=true href=#building-the-ami>#</a></h1>
@@ -231,63 +231,63 @@ How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer
 <h2 id=timeouts>Timeouts<a hidden class=anchor aria-hidden=true href=#timeouts>#</a></h2>
 <p>As I mentioned in the <a href=https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html>previous article</a>, the creation and deletion time of the &ldquo;mac1.metal&rdquo; Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.</p>
 <p>Example:</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">4
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=color:#e6db74>&#34;aws_polling&#34;</span><span style=color:#960050;background-color:#1e0010>:</span> {
-        <span style=color:#f92672>&#34;delay_seconds&#34;</span>: <span style=color:#ae81ff>30</span>,
-        <span style=color:#f92672>&#34;max_attempts&#34;</span>: <span style=color:#ae81ff>60</span>
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=color:#ed9d13>&#34;aws_polling&#34;</span><span style=color:#a61717;background-color:#e3d2d2>:</span> {
+        <span style=color:#6ab825;font-weight:700>&#34;delay_seconds&#34;</span>: <span style=color:#3677a9>30</span>,
+        <span style=color:#6ab825;font-weight:700>&#34;max_attempts&#34;</span>: <span style=color:#3677a9>60</span>
 }
 </code></pre></td></tr></table>
 </div>
 </div><p>And it would be best if you also increased the SSH timeout:</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868">1
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>  <span style=color:#e6db74>&#34;ssh_timeout&#34;</span><span style=color:#960050;background-color:#1e0010>:</span> <span style=color:#e6db74>&#34;1h&#34;</span>
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>  <span style=color:#ed9d13>&#34;ssh_timeout&#34;</span><span style=color:#a61717;background-color:#e3d2d2>:</span> <span style=color:#ed9d13>&#34;1h&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>Fortunately, Packer&rsquo;s AMI builder does not require an explicit declaration of the Dedicated Host ID. So you can just reference the same subnet where you allocated the Host, assuming you did it with the enabled &ldquo;Auto placement&rdquo; parameter during the host creation.</p>
 <p>Example:</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">2
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>  <span style=color:#e6db74>&#34;tenancy&#34;</span><span style=color:#960050;background-color:#1e0010>:</span> <span style=color:#e6db74>&#34;host&#34;</span><span style=color:#960050;background-color:#1e0010>,</span>
-  <span style=color:#e6db74>&#34;subnet_id&#34;</span><span style=color:#960050;background-color:#1e0010>:</span> <span style=color:#e6db74>&#34;your-subnet-id&#34;</span>
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>  <span style=color:#ed9d13>&#34;tenancy&#34;</span><span style=color:#a61717;background-color:#e3d2d2>:</span> <span style=color:#ed9d13>&#34;host&#34;</span><span style=color:#a61717;background-color:#e3d2d2>,</span>
+  <span style=color:#ed9d13>&#34;subnet_id&#34;</span><span style=color:#a61717;background-color:#e3d2d2>:</span> <span style=color:#ed9d13>&#34;your-subnet-id&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id=provisioning>Provisioning<a hidden class=anchor aria-hidden=true href=#provisioning>#</a></h2>
 <p>Packer has <a href=https://www.packer.io/docs/provisioners/ansible>Ansible Provisioner</a> that I used for the AMI. Its documentation is also very clean and straightforward.</p>
 <p>But it is still worth mentioning that if you want to parametrize the Ansible playbook, then the following configuration example will be handy:</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">8
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>  <span style=color:#e6db74>&#34;extra_arguments&#34;</span><span style=color:#960050;background-color:#1e0010>:</span> [
-    <span style=color:#e6db74>&#34;--extra-vars&#34;</span>,
-    <span style=color:#e6db74>&#34;your-variable-foo=your-value-bar]&#34;</span>
-  ]<span style=color:#960050;background-color:#1e0010>,</span>
-  <span style=color:#e6db74>&#34;ansible_env_vars&#34;</span><span style=color:#960050;background-color:#1e0010>:</span> [
-    <span style=color:#e6db74>&#34;ANSIBLE_PYTHON_INTERPRETER=auto_legacy_silent&#34;</span>,
-    <span style=color:#e6db74>&#34;ANSIBLE_OTHER_ENV_VARIABLE=other_value&#34;</span>
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>  <span style=color:#ed9d13>&#34;extra_arguments&#34;</span><span style=color:#a61717;background-color:#e3d2d2>:</span> [
+    <span style=color:#ed9d13>&#34;--extra-vars&#34;</span>,
+    <span style=color:#ed9d13>&#34;your-variable-foo=your-value-bar]&#34;</span>
+  ]<span style=color:#a61717;background-color:#e3d2d2>,</span>
+  <span style=color:#ed9d13>&#34;ansible_env_vars&#34;</span><span style=color:#a61717;background-color:#e3d2d2>:</span> [
+    <span style=color:#ed9d13>&#34;ANSIBLE_PYTHON_INTERPRETER=auto_legacy_silent&#34;</span>,
+    <span style=color:#ed9d13>&#34;ANSIBLE_OTHER_ENV_VARIABLE=other_value&#34;</span>
   ]
 </code></pre></td></tr></table>
 </div>
@@ -299,20 +299,20 @@ How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer
 <p>The number of the group corresponds to the execution order. You can put several tasks into a single Priority Group, and the tool will execute them simultaneously.</p>
 <p>EC2 macOS Init uses a human-readable configuration file in <code>toml</code> format.</p>
 <p>Example:</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">9
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">9
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback>[[Module]]
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback>[[Module]]
   Name = &#34;Create-some-folder&#34;
   PriorityGroup = 3
   FatalOnError = false 
@@ -338,22 +338,22 @@ How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer
 <p>I suggest looking into the default <a href=https://github.com/aws/ec2-macos-init/blob/master/configuration/init.toml>init.toml</a> configuration file to get yourself more familiar with the capabilities of the tool.</p>
 <p>The init tool can also clear its history, which is useful for the new AMI creation.</p>
 <p>Example:</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868">1
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>ec2-macos-init clean -all
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>ec2-macos-init clean -all
 </code></pre></td></tr></table>
 </div>
 </div><p>And you can run the init manually for debugging purposes.</p>
 <p>Example:</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868">1
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>ec2-macos-init run
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>ec2-macos-init run
 </code></pre></td></tr></table>
 </div>
 </div><p>You can also combine the EC2 macOS Init actions (made by modules) with your script in user data for more accurate nontrivial configurations.</p>

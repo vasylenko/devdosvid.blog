@@ -22,43 +22,43 @@
 If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.</p>
 <h2 id="variables-with-ssm-parameter-store">Variables with SSM Parameter Store</h2>
 <p>Let&rsquo;s say you have some variables defined in &lsquo;defaults/main.yaml&rsquo; file of your role or maybe in group_vars.yaml file.</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-<span style="color:#75715e"># content of dev.vars.yaml to be included in your play or role</span>
-<span style="color:#f92672">use_tls</span>: <span style="color:#66d9ef">true</span>
-<span style="color:#f92672">application_port</span>: <span style="color:#ae81ff">3000</span>
-<span style="color:#f92672">app_env</span>: <span style="color:#ae81ff">development</span>
-<span style="color:#f92672">stripe_api_key</span>: <span style="color:#ae81ff">1HGASU2eZvKYlo2CT5MEcnC39HqLyjWD</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#447fcf;text-decoration:underline">---</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#999;font-style:italic"># content of dev.vars.yaml to be included in your play or role</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">use_tls</span>:<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">true</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">application_port</span>:<span style="color:#666"> </span><span style="color:#3677a9">3000</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">app_env</span>:<span style="color:#666"> </span>development<span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">stripe_api_key</span>:<span style="color:#666"> </span>1HGASU2eZvKYlo2CT5MEcnC39HqLyjWD<span style="color:#666">
+</span></code></pre></td></tr></table>
 </div>
 </div><p>If you store such things locally on Ansible control node, you probably encrypt it with <a href="https://docs.ansible.com/ansible/latest/user_guide/vault.html">ansible-vault</a></p>
 <p>SSM Parameter Store gives you more flexibility and security by centralized storage and management of parameters and secrets, so let&rsquo;s use it with Ansible:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># content of dev.vars.yaml to be included in your play or role</span>
-
-<span style="color:#f92672">use_tls</span>: <span style="color:#e6db74">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/use_tls&#39;)}}&#34;</span>
-<span style="color:#f92672">application_port</span>: <span style="color:#e6db74">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/application_port&#39;)}}&#34;</span>
-<span style="color:#f92672">app_env</span>: <span style="color:#e6db74">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/app_env&#39;)}}&#34;</span>
-<span style="color:#f92672">stripe_api_key</span>: <span style="color:#e6db74">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/stripe_api_key&#39;)}}&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#999;font-style:italic"># content of dev.vars.yaml to be included in your play or role</span><span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">use_tls</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/use_tls&#39;)}}&#34;</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">application_port</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/application_port&#39;)}}&#34;</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">app_env</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/app_env&#39;)}}&#34;</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">stripe_api_key</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/stripe_api_key&#39;)}}&#34;</span><span style="color:#666">
+</span></code></pre></td></tr></table>
 </div>
 </div><p>The syntax is fairly simple:</p>
 <p>The <code>aws_ssm</code> argument – is the name of plugin.</p>
@@ -68,47 +68,47 @@ If you manage some apps in AWS with Ansible, then using Parameter Store or Secre
 <h2 id="variables-with-secret-manager">Variables with Secret Manager</h2>
 <p>Another cool lookup plugin is Secrets Manager. In a nutshell, it has the same kind of functionality but it uses JSON format by feault.</p>
 <p>Here is a quick example of its functionality in a Playbook:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Extract something secrets from Secret Manager</span>
-  <span style="color:#f92672">debug</span>:
-    <span style="color:#f92672">msg</span>: <span style="color:#e6db74">&#34;{{ lookup(&#39;aws_secret&#39;, &#39;dev/some-secrets&#39;)}}&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#447fcf;text-decoration:underline">---</span><span style="color:#666">
+</span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Extract something secrets from Secret Manager<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">debug</span>:<span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">msg</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{ lookup(&#39;aws_secret&#39;, &#39;dev/some-secrets&#39;)}}&#34;</span><span style="color:#666">
+</span></code></pre></td></tr></table>
 </div>
 </div><p>The above task will generate the following output</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">TASK <span style="color:#f92672">[</span>Extract something secrets from Secret Manager<span style="color:#f92672">]</span> ****************************************************
-ok: <span style="color:#f92672">[</span>some_server<span style="color:#f92672">]</span> <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">{</span>
-    <span style="color:#e6db74">&#34;msg&#34;</span>: <span style="color:#f92672">{</span>
-        <span style="color:#e6db74">&#34;dbname&#34;</span>: <span style="color:#e6db74">&#34;database&#34;</span>,
-        <span style="color:#e6db74">&#34;engine&#34;</span>: <span style="color:#e6db74">&#34;mysql&#34;</span>,
-        <span style="color:#e6db74">&#34;host&#34;</span>: <span style="color:#e6db74">&#34;127.0.0.1&#34;</span>,
-        <span style="color:#e6db74">&#34;password&#34;</span>: <span style="color:#e6db74">&#34;password&#34;</span>,
-        <span style="color:#e6db74">&#34;port&#34;</span>: <span style="color:#e6db74">&#34;3306&#34;</span>,
-        <span style="color:#e6db74">&#34;username&#34;</span>: <span style="color:#e6db74">&#34;db_user&#34;</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">TASK [Extract something secrets from Secret Manager] ****************************************************
+ok: [some_server] =&gt; {
+    <span style="color:#ed9d13">&#34;msg&#34;</span>: {
+        <span style="color:#ed9d13">&#34;dbname&#34;</span>: <span style="color:#ed9d13">&#34;database&#34;</span>,
+        <span style="color:#ed9d13">&#34;engine&#34;</span>: <span style="color:#ed9d13">&#34;mysql&#34;</span>,
+        <span style="color:#ed9d13">&#34;host&#34;</span>: <span style="color:#ed9d13">&#34;127.0.0.1&#34;</span>,
+        <span style="color:#ed9d13">&#34;password&#34;</span>: <span style="color:#ed9d13">&#34;password&#34;</span>,
+        <span style="color:#ed9d13">&#34;port&#34;</span>: <span style="color:#ed9d13">&#34;3306&#34;</span>,
+        <span style="color:#ed9d13">&#34;username&#34;</span>: <span style="color:#ed9d13">&#34;db_user&#34;</span>
+    }
+}
 </code></pre></td></tr></table>
 </div>
 </div><p>This is nice if you want to insert a JSON as is, but you will need additional parsing in case you want to get only some of JSON elements.</p>

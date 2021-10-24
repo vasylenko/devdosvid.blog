@@ -8,7 +8,7 @@
 <meta name=description content="An overview of one-month user experience with the new mac1.metal EC2 Instances from AWS">
 <meta name=author content="Serhii Vasylenko">
 <link rel=canonical href=https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.937ee850c528aa20f87fe1894b57c5233bcd3d18b8c6bc7c4f7c8d84a7f8a10a.css integrity="sha256-k37oUMUoqiD4f+GJS1fFIzvNPRi4xrx8T3yNhKf4oQo=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.dceb688ab3beb6b0cf10660a549118a7bff6dcb779c898f5d0f897e26adb88f3.css integrity="sha256-3OtoirO+trDPEGYKVJEYp7/23Ld5yJj10PiX4mrbiPM=" rel="preload stylesheet" as=style>
 <link rel=preload href=/apple-touch-icon.png as=image>
 <script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://serhii.vasylenko.info/favicon.ico>
@@ -176,70 +176,70 @@ An overview of one-month user experience with the new mac1.metal EC2 Instances f
 <p>Get the identifier of EBS (look for the first one with GUID_partition_scheme):</p>
 <p><code>diskutil list physical external</code></p>
 <p>Or here is a more advanced version to be used in a script:</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868">1
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>DISK_ID<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>diskutil list physical external | grep <span style=color:#e6db74>&#39;GUID_partition_scheme&#39;</span>| tr -s <span style=color:#e6db74>&#39; &#39;</span> | cut -d<span style=color:#e6db74>&#39; &#39;</span> -f6<span style=color:#66d9ef>)</span>
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#40ffff>DISK_ID</span>=<span style=color:#6ab825;font-weight:700>$(</span>diskutil list physical external | grep <span style=color:#ed9d13>&#39;GUID_partition_scheme&#39;</span>| tr -s <span style=color:#ed9d13>&#39; &#39;</span> | cut -d<span style=color:#ed9d13>&#39; &#39;</span> -f6<span style=color:#6ab825;font-weight:700>)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>It would probably be <code>disk0</code> if you did not attach additional EBS.</p>
 <p>Then run the repair job for the disk, using its identifier:
 <code>diskutil repairDisk disk0</code></p>
 <p>Advanced version:</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868">1
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>yes | diskutil repairDisk $DISK_ID
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>yes | diskutil repairDisk <span style=color:#40ffff>$DISK_ID</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>Now get the APFS container identifier (look for Apple_APFS):
 <code>diskutil list physical external</code></p>
 <p>Advanced version:</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868">1
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>APFS_ID<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>diskutil list physical external | grep <span style=color:#e6db74>&#39;Apple_APFS&#39;</span> | tr -s <span style=color:#e6db74>&#39; &#39;</span> | cut -d<span style=color:#e6db74>&#39; &#39;</span> -f8<span style=color:#66d9ef>)</span>
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#40ffff>APFS_ID</span>=<span style=color:#6ab825;font-weight:700>$(</span>diskutil list physical external | grep <span style=color:#ed9d13>&#39;Apple_APFS&#39;</span> | tr -s <span style=color:#ed9d13>&#39; &#39;</span> | cut -d<span style=color:#ed9d13>&#39; &#39;</span> -f8<span style=color:#6ab825;font-weight:700>)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>It would probably be <code>disk0s2</code> if you did not attach additional EBS.</p>
 <p>Finally, resize the APFS container:
 <code>diskutil apfs resizeContainer disk0s2</code></p>
 <p>Advanced version</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868">1
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>diskutil apfs resizeContainer $APFS_ID
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>diskutil apfs resizeContainer <span style=color:#40ffff>$APFS_ID</span>
 </code></pre></td></tr></table>
 </div>
 </div><p><strong>[2]How to setup Screen Sharing at mac1.metal in Terminal</strong></p>
 <p>The <code>kickstart</code> command-line tool resides in <code>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/</code> so you&rsquo;ll better to cd into that directory for convenience:</p>
-<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<div class=highlight><div style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#686868">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#686868">8
 </span></code></pre></td>
 <td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
-<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#75715e># Turn On Remote Management for a user to be specified later</span>
+<pre tabindex=0 style=color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#999;font-style:italic># Turn On Remote Management for a user to be specified later</span>
 sudo ./kickstart -activate -configure -allowAccessFor -specifiedUsers
 
-<span style=color:#75715e># Enable Remote Management for ec2-user user</span>
+<span style=color:#999;font-style:italic># Enable Remote Management for ec2-user user</span>
 sudo ./kickstart -configure -users ec2-user -access -on -privs -all
 
-<span style=color:#75715e># Set the user password </span>
+<span style=color:#999;font-style:italic># Set the user password </span>
 sudo passwd ec2-user
 </code></pre></td></tr></table>
 </div>
