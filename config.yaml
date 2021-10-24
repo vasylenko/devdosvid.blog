@@ -48,8 +48,8 @@ markup:
         codeFences: true
         guessSyntax: true
         lineNos: true
-        # noClasses: false
-        style: monokai
+        noClasses: true
+        style: native
 
 # TAXONOMY
 taxonomies:
@@ -70,8 +70,8 @@ disqusShortname: serhii-vasylenko-info
 params:
     env: production # to enable google analytics, opengraph, twitter-cards and schema.
     title: Serhii Vasylenko — Personal Blog
-    description: "Personal blog of Serhii Vasylenko — aws community builder, devops, developer experience engineer at Grammarly"
-    keywords: [Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education]
+    description: "Personal blog of Serhii Vasylenko — AWS Community Builder, Developer Experience Engineer at Grammarly"
+    keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education]
     author: Serhii Vasylenko
     images: ["/assets/img/website-logo-open-graph.jpeg"]
     DateFormat: "January 2, 2006"
@@ -110,19 +110,19 @@ params:
 
     homeInfoParams:
         Title: "Hi! 👋 I am Serhii Vasylenko and this is my blog"
-        Content: "Here I write about my DevOps experience, technologies, tutorials and some day-to-day work as a Developer Experience engineer at Grammarly."
+        Content: "Here I write about my DevOps experience, technologies, tutorials and some day-to-day work as a Developer Experience engineer at Grammarly. I sincerely hope you’ll enjoy reading me!"
 
-    socialIcons:
-        - name: twitter
-          url: "https://twitter.com/vasylenko"
-        - name: dev
-          url: "https://dev.to/svasylenko"
-        - name: linkedin
-          url: "https://www.linkedin.com/in/svasylenko/"
-        - name: github
-          url: "https://github.com/vasylenko"
-        - name: "facebook"
-          url: "https://www.facebook.com/vasylenkos"
+#     socialIcons:
+#         - name: twitter
+#           url: "https://twitter.com/vasylenko"
+#         - name: dev
+#           url: "https://dev.to/svasylenko"
+#         - name: linkedin
+#           url: "https://www.linkedin.com/in/svasylenko/"
+#         - name: github
+#           url: "https://github.com/vasylenko"
+#         - name: "facebook"
+#           url: "https://www.facebook.com/vasylenkos"
 
     cover:
         hidden: false # hide everywhere but not in structured data
