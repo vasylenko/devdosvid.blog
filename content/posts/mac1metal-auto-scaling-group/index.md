@@ -1,5 +1,5 @@
 ---
-title: "Auto Scaling Group for your macOS EC2 Instances"
+title: "Auto Scaling Group for your macOS EC2 Instances fleet"
 date: 2021-10-24T02:00:31+03:00
 description:
 cover:
@@ -15,7 +15,7 @@ And I like this small but so helpful update of EC2 service very much: with mac1.
 
 While management of a single mac1.metal node (or a tiny number of ones) is not a big deal (especially when [Dedicated Host support](https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html) was added to Terraform provider), governing the fleet of instances is still complicated. Or it has been complicated until recent days.
 
-## Official / Unofficial Auto Scaling
+## Official / Unofficial Auto Scaling for macOS
 With a growing number of instances, the following challenges arise:
 - Scale mac1.metal instances horizontally
 - Automatically allocate and release Dedicated Hosts needed for instances
@@ -89,8 +89,8 @@ Keep that nuance in mind when selecting a subnet for the mac1.metal instances.
 
 When you know the AZ, specify the respective Subnet in the Auto Scaling Group settings, and you're ready to go! 
 
-## What about Infrastructure as Code?
-Of course, I suggest describing all that as a code. I prefer Terraform, and fortunately, the AWS provider supports the needed resources. Except one.
+## Bring Infrastructure as Code here
+I suggest describing all that as a code. I prefer Terraform, and its AWS provider supports the needed resources. Except one.
 
 As of October 2021, resources supported :
 - [aws_servicequotas_service_quota](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/servicequotas_service_quota)
@@ -191,13 +191,17 @@ If you manage an AWS Organization, I have good news: Host groups and Licenses ar
 
 To solve the “which AZ supports mac metal” puzzle, you can leverage the [aws_ec2_instance_type_offerings](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings) and [aws_subnet_ids](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet_ids) data sources.
 
-## What about costs?
-License Manager is a [free of charge service](https://aws.amazon.com/license-manager/pricing/), as well as [Auto Scaling](https://aws.amazon.com/autoscaling/pricing/), and [Launch Template](https://aws.amazon.com/about-aws/whats-new/2017/11/introducing-launch-templates-for-amazon-ec2-instances/). So it’s all about the price for mac1.metal Dedicated Host which is [$1.083 per hour](https://aws.amazon.com/ec2/dedicated-hosts/pricing/) as of October 2021. Please note that the minimum allocation time for that type of host is 24 hours. Maybe someday AWS will change that to 1-hour minimum someday (fingers crossed).
+## Costs considerations
+License Manager is a [free of charge service](https://aws.amazon.com/license-manager/pricing/), as well as [Auto Scaling](https://aws.amazon.com/autoscaling/pricing/), and [Launch Template](https://aws.amazon.com/about-aws/whats-new/2017/11/introducing-launch-templates-for-amazon-ec2-instances/).
+
+So it’s all about the price for mac1.metal Dedicated Host which is [$1.083 per hour](https://aws.amazon.com/ec2/dedicated-hosts/pricing/) as of October 2021. However, [Saving Plans](https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html) can be applied.
+
+Please note that the minimum allocation time for that type of host is 24 hours. Maybe someday AWS will change that to 1-hour minimum someday (fingers crossed).
 
 ## Oh. So. ASG.
-The Auto Scaling for mac1.metal opens new possibilities for CI/CD: you can combine that with your favorite tool (GitLab, Jenkins, whatsoever) using AWS Lambda and provision new instances when your development/testing environments need that. Or you can use other cool ASG stuff, such as Lifecycle hooks, to create even more custom scenarios.
+The Auto Scaling for mac1.metal opens new possibilities for CI/CD: you can integrate that to your favorite tool (GitLab, Jenkins, whatsoever) using AWS Lambda and provision new instances when your development/testing environments need that. Or you can use other cool ASG stuff, such as Lifecycle hooks, to create even more custom scenarios.
 
-Considering the “hidden” (undocumented) nature of the described setup, I suggest treating it as rather testing than production-ready. However, my tests show that everything works pretty well: hosts are allocated, instances are spawned, and the monthly bill grows.
+Considering the “hidden” (undocumented) nature of the described setup, I suggest treating it as rather testing than production-ready for now. However, my tests show that everything works pretty well: hosts are allocated, instances are spawned, and the monthly bill grows.
 
 I suppose AWS will officially announce all this in the nearest future. Along with that, I am looking forward to the announcement of Monterey-based AMIs and maybe even M1 chip-based instances (will it be mac2.metal?).
 

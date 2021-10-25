@@ -7,10 +7,9 @@
 }
 
 .post-content figure {
-    border: solid 1px #CCC;
-    -moz-box-shadow: 3px 3px 5px #999;
-    -webkit-box-shadow: 3px 3px 5px #999;
-    box-shadow: 3px 3px 5px #999;
+    -moz-box-shadow: 3px 3px 10px #999;
+    -webkit-box-shadow: 3px 3px 10px #999;
+    box-shadow: 3px 3px 10px #999;
 }
 
 :root {
