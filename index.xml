@@ -2408,14 +2408,15 @@ But my experience tells me that it is possible to answer them one by one. And I 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://serhii.vasylenko.info/about/</guid>
-      <description>I am an engineer from Ukraine. I like astronomy and everything related to DevOps. I thrive on developing great product offerings, great people, and great teams.
-AWS Community Builder and Engineer in Grammarly.
-Also, you can find me here and there:
-Twitter | Dev | LinkedIn | Github | Facebook
-Some highlights of the things I do Webinars, workshops, presentations:
-  Terraform webinar (RU): Start using Terraform if you still don&amp;rsquo;t</description>
-      <content:encoded><![CDATA[<p>I am an engineer from Ukraine. I like astronomy and everything related to DevOps. I thrive on developing great product offerings, great people, and great teams.</p>
-<p><a href="https://aws.amazon.com/developer/community/community-builders/">AWS Community Builder</a> and Engineer in <a href="https://grammarly.com">Grammarly</a>.</p>
+      <description>So you opened this page to read more about me? I am very pleased! 🤗 😊
+I live in Kyiv, Ukraine, but I like to travel to new, unseen places whenever I have enough time for that.
+Technical blogging is my hobby, and I am also fond of astronomy and history.
+I am the AWS Community Builder and Developer Experience Engineer at Grammarly.
+Also, you can find me here and there:</description>
+      <content:encoded><![CDATA[<p>So you opened this page to read more about me? I am very pleased! 🤗 😊</p>
+<p>I live in Kyiv, Ukraine, but I like to travel to new, unseen places whenever I have enough time for that.</p>
+<p>Technical blogging is my hobby, and I am also fond of astronomy and history.</p>
+<p>I am the <a href="https://aws.amazon.com/developer/community/community-builders/">AWS Community Builder</a> and Developer Experience Engineer at <a href="https://grammarly.com">Grammarly</a>.</p>
 <p>Also, you can find me here and there:<br>
 <a href="https://twitter.com/vasylenko">Twitter</a> | <a href="https://dev.to/svasylenko">Dev</a> | <a href="https://www.linkedin.com/in/svasylenko/">LinkedIn</a> | <a href="https://github.com/vasylenko">Github</a> | <a href="https://www.facebook.com/vasylenkos">Facebook</a></p>
 <h3 id="some-highlights-of-the-things-i-do">Some highlights of the things I do</h3>
