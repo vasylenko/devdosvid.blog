@@ -7,15 +7,22 @@
 }
 
 .post-content figure {
-    -moz-box-shadow: 3px 3px 10px #999;
-    -webkit-box-shadow: 3px 3px 10px #999;
-    box-shadow: 3px 3px 10px #999;
+    -moz-box-shadow: 0 0 10px #999;
+    -webkit-box-shadow: 0 0 10px #999;
+    box-shadow: 0 0 10px #999;
+}
+
+.post-content figure > figcaption {
+    text-align: center;
+    margin-top: 0;
+}
+
+.post-content figure > img {
+    margin-bottom: 5px;
 }
 
 :root {
     --main-width: 800px;
-    /*--code-bg: white;*/
-
 }
 
 .first-entry.home-info {
@@ -35,19 +42,19 @@
     }
     h1,h2,h3,h4,h4+ul,dd,dt{
         page-break-after: avoid;
-        color: #232F3E;
+    }
+    dd, ul, li {
+        page-break-inside: avoid;
     }
 
-    h6, .header, .footer, .post-footer, .breadcrumbs, .post-meta, .toc {
+    h6, .header, .footer, .post-footer, .breadcrumbs, .post-meta, .toc, .top-link {
         display: none !important;
     }
     a {
         font-weight: bold;
         text-decoration: none;
         color: black;
+        pointer-events: none;
+        cursor: default;
     }
-    /* a[href^=http]:after {
-        content:" (" attr(href) ") ";
-        } */
-
 }

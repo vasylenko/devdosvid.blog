@@ -12,9 +12,13 @@ title: About me
 kind: page
 ---
 
-I am an engineer from Ukraine. I like astronomy and everything related to DevOps. I thrive on developing great product offerings, great people, and great teams. 
+So you opened this page to read more about me? I am very pleased! 🤗 😊
 
-[AWS Community Builder](https://aws.amazon.com/developer/community/community-builders/) and Engineer in [Grammarly](https://grammarly.com).
+I live in Kyiv, Ukraine, but I like to travel to new, unseen places whenever I have enough time for that.
+
+Technical blogging is my hobby, and I am also fond of astronomy and history.
+
+I am the [AWS Community Builder](https://aws.amazon.com/developer/community/community-builders/) and Developer Experience Engineer at [Grammarly](https://grammarly.com).
 
 Also, you can find me here and there:\
 [Twitter](https://twitter.com/vasylenko) | [Dev](https://dev.to/svasylenko) | [LinkedIn](https://www.linkedin.com/in/svasylenko/) | [Github](https://github.com/vasylenko) | [Facebook](https://www.facebook.com/vasylenkos) 
