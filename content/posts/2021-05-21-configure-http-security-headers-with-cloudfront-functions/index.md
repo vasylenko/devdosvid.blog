@@ -10,6 +10,16 @@ title: Configure HTTP Security headers with CloudFront Functions
 url: /2021/05/21/configure-http-security-headers-with-cloudfront-functions.html
 ---
 
+{{< attention >}}
+**Attention!**
+
+In November 2021, AWS has added this functionality as a native CloudFront feature.
+
+Read more here: [Amazon CloudFront introduces Response Headers Policies](https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-response-headers-policies/).
+
+While you may still use the method described in this article, I suggest switching to the native implementation. But you can use the header settings from this article, though.  
+{{< /attention >}}
+
 A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.
 
 It is “true edge” because Functions work on 200+ edge locations ([link to doc](https://aws.amazon.com/cloudfront/features/?whats-new-cloudfront.sort-by=item.additionalFields.postDateTime&whats-new-cloudfront.sort-order=desc#Edge_Computing)) while its predecessor, the Lambda@Edge, runs on a small number of regional edge caches.

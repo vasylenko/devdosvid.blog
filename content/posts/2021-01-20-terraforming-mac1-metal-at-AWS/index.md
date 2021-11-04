@@ -12,7 +12,9 @@ title: Terraforming mac1.metal at AWS
 url: /2021/01/20/terraforming-mac1-metal-at-AWS.html
 ---
 
-> **Updated on the 23rd of October, 2021: Terraform AWS provider now [supports](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_host) Dedicated Hosts natively**
+{{< updatenotice >}}
+Updated on the 23rd of October, 2021: Terraform AWS provider now [supports](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_host) Dedicated Hosts natively
+{{< /updatenotice >}}
 
 In November 2021, AWS [announced](https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/) the support for Mac mini instances.
 

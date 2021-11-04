@@ -6,6 +6,32 @@
     font-size: 16px;
 }
 
+.attention {
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: lightyellow;
+    color: black;
+    -moz-box-shadow: 0 0 10px #999;
+    -webkit-box-shadow: 0 0 10px #999;
+    box-shadow: 0 0 10px #999;
+}
+.attention p {
+    margin-bottom: 0;
+}
+
+.updatenotice {
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: darkseagreen;
+    color: white;
+    -moz-box-shadow: 0 0 10px #999;
+    -webkit-box-shadow: 0 0 10px #999;
+    box-shadow: 0 0 10px #999;
+}
+.updatenotice p {
+    margin-bottom: 0;
+}
+
 .post-content figure {
     -moz-box-shadow: 0 0 10px #999;
     -webkit-box-shadow: 0 0 10px #999;
