@@ -18,7 +18,14 @@
       
       <guid>https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html</guid>
       <description>Modifying response headers to enforce the security of the web application</description>
-      <content:encoded><![CDATA[<p>A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.</p>
+      <content:encoded><![CDATA[<div class="attention">
+    <p><strong>Attention!</strong></p>
+<p>In November 2021, AWS has added this functionality as a native CloudFront feature.</p>
+<p>Read more here: <a href="https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-response-headers-policies/">Amazon CloudFront introduces Response Headers Policies</a>.</p>
+<p>While you may still use the method described in this article, I suggest switching to the native implementation. But you can use the header settings from this article, though.</p>
+
+</div>
+<p>A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.</p>
 <p>It is “true edge” because Functions work on 200+ edge locations (<a href="https://aws.amazon.com/cloudfront/features/?whats-new-cloudfront.sort-by=item.additionalFields.postDateTime&amp;whats-new-cloudfront.sort-order=desc#Edge_Computing">link to doc</a>) while its predecessor, the Lambda@Edge, runs on a small number of regional edge caches.</p>
 <p>One of the use cases for Lambda@Edge was adding security HTTP headers (it’s even listed on the <a href="https://aws.amazon.com/lambda/edge/">product page</a>), and now there is one more way to make it using CloudFront Functions.</p>
 <h2 id="what-are-security-headers-and-why-it-matters">What are security headers, and why it matters</h2>

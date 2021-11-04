@@ -8,7 +8,7 @@
 <meta name=description content="Personal blog of Serhii Vasylenko — AWS Community Builder, Developer Experience Engineer at Grammarly">
 <meta name=author content="Serhii Vasylenko">
 <link rel=canonical href=https://serhii.vasylenko.info/tags/cloudfront/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.f085903d71c539fbf182e4bf446ab2652058d1be05857adefce745bef9662582.css integrity="sha256-8IWQPXHFOfvxguS/RGqyZSBY0b4FhXre/OdFvvlmJYI=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.7961d7e03792123ea1f743968824e17641820c429ae6b5363084b12d61133039.css integrity="sha256-eWHX4DeSEj6h90OWiCThdkGCDEKa5rU2MISxLWETMDk=" rel="preload stylesheet" as=style>
 <link rel=preload href=/apple-touch-icon.png as=image>
 <link rel=icon href=https://serhii.vasylenko.info/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://serhii.vasylenko.info/favicon-16x16.png>
@@ -83,9 +83,11 @@
 </h2>
 </header>
 <section class=entry-content>
-<p>A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.
-It is “true edge” because Functions work on 200+ edge locations (link to doc) while its predecessor, the Lambda@Edge, runs on a small number of regional edge caches.
-One of the use cases for Lambda@Edge was adding security HTTP headers (it’s even listed on the product page), and now there is one more way to make it using CloudFront Functions....</p>
+<p>Attention!
+In November 2021, AWS has added this functionality as a native CloudFront feature.
+Read more here: Amazon CloudFront introduces Response Headers Policies.
+While you may still use the method described in this article, I suggest switching to the native implementation. But you can use the header settings from this article, though.
+A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront....</p>
 </section>
 <footer class=entry-footer><span title="2021-05-21 00:00:00 +0000 UTC">May 21, 2021</span>&nbsp;·&nbsp;Serhii Vasylenko</footer>
 <a class=entry-link aria-label="post link to Configure HTTP Security headers with CloudFront Functions" href=https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html></a>
