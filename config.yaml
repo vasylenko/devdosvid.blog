@@ -64,7 +64,7 @@ outputs:
 
 rssLimit: 20
 
-disqusShortname: serhii-vasylenko-info
+# disqusShortname:
 
 ### THEME SETTINGS
 params:
