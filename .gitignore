@@ -4,3 +4,4 @@ publishdir
 .idea
 resources
 code-samples/
+.hugo_build.lock
