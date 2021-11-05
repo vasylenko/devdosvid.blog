@@ -10,23 +10,53 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 24 Oct 2021 02:00:31 +0300</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 05 Nov 2021 14:20:58 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>aws</title>
+      <link>https://serhii.vasylenko.info/tags/aws/</link>
+      <pubDate>Fri, 05 Nov 2021 14:20:58 +0200</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/tags/aws/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>cloudfront</title>
+      <link>https://serhii.vasylenko.info/tags/cloudfront/</link>
+      <pubDate>Fri, 05 Nov 2021 14:20:58 +0200</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/tags/cloudfront/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>security</title>
+      <link>https://serhii.vasylenko.info/tags/security/</link>
+      <pubDate>Fri, 05 Nov 2021 14:20:58 +0200</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/tags/security/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>terraform</title>
+      <link>https://serhii.vasylenko.info/tags/terraform/</link>
+      <pubDate>Fri, 05 Nov 2021 14:20:58 +0200</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/tags/terraform/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
     <item>
       <title>architecture</title>
       <link>https://serhii.vasylenko.info/tags/architecture/</link>
       <pubDate>Sun, 24 Oct 2021 02:00:31 +0300</pubDate>
       
       <guid>https://serhii.vasylenko.info/tags/architecture/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>aws</title>
-      <link>https://serhii.vasylenko.info/tags/aws/</link>
-      <pubDate>Sun, 24 Oct 2021 02:00:31 +0300</pubDate>
-      
-      <guid>https://serhii.vasylenko.info/tags/aws/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
@@ -47,26 +77,6 @@
       <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://serhii.vasylenko.info/tags/ansible/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>cloudfront</title>
-      <link>https://serhii.vasylenko.info/tags/cloudfront/</link>
-      <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://serhii.vasylenko.info/tags/cloudfront/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>security</title>
-      <link>https://serhii.vasylenko.info/tags/security/</link>
-      <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://serhii.vasylenko.info/tags/security/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
@@ -117,16 +127,6 @@
       <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://serhii.vasylenko.info/tags/automation/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>terraform</title>
-      <link>https://serhii.vasylenko.info/tags/terraform/</link>
-      <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://serhii.vasylenko.info/tags/terraform/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>

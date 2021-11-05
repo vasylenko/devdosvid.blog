@@ -10,7 +10,147 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 24 Oct 2021 02:00:31 +0300</lastBuildDate><atom:link href="https://serhii.vasylenko.info/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 05 Nov 2021 14:20:58 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Apply Cloudfront Security Headers With Terraform</title>
+      <link>https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/</link>
+      <pubDate>Fri, 05 Nov 2021 14:20:58 +0200</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/</guid>
+      <description>This blog explains how to use Response Headers Policy and Terraform to configure security headers for CloudFront Distribution</description>
+      <content:encoded><![CDATA[<p>In November 2021, AWS announced Response Headers Policies — native support of response headers in CloudFront. You can read the full announcement here: <a href="https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-response-headers-policies/">Amazon CloudFront introduces Response Headers Policies</a></p>
+<p>I said &ldquo;native&rdquo; because previously you could set response headers either using <a href="https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html">CloudFront Functions</a> or <a href="https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/">Lambda@Edge</a>.</p>
+<p>And one of the common use cases for that was to set security headers. So now you don&rsquo;t need to add intermediate requests processing to modify the headers: CloudFront does that for you <strong>with no additional fee</strong>.</p>
+<h2 id="manage-security-headers-as-code">Manage Security Headers as Code</h2>
+<p>Starting from the <a href="https://github.com/hashicorp/terraform-provider-aws/blob/main/CHANGELOG.md#3640-november-04-2021">3.64.0</a> version of Terraform AWS provider, you can create the security headers policies and apply them for your distribution.</p>
+<p>Let&rsquo;s see how that looks!</p>
+<p>First, you need to describe the <code>aws_cloudfront_response_headers_policy</code> resource:</p>
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">31
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_cloudfront_response_headers_policy&#34; &#34;security_headers_policy&#34;</span> {
+  name = <span style="color:#ed9d13">&#34;my-security-headers-policy&#34;</span>
+  <span style="color:#6ab825;font-weight:bold">security_headers_config</span> {
+    <span style="color:#6ab825;font-weight:bold">content_type_options</span> {
+      override = <span style="color:#6ab825;font-weight:bold">true</span>
+    }
+    <span style="color:#6ab825;font-weight:bold">frame_options</span> {
+      frame_option = <span style="color:#ed9d13">&#34;DENY&#34;</span>
+      override     = <span style="color:#6ab825;font-weight:bold">true</span>
+    }
+    <span style="color:#6ab825;font-weight:bold">referrer_policy</span> {
+      referrer_policy = <span style="color:#ed9d13">&#34;same-origin&#34;</span>
+      override        = <span style="color:#6ab825;font-weight:bold">true</span>
+    }
+    <span style="color:#6ab825;font-weight:bold">xss_protection</span> {
+      mode_block = <span style="color:#6ab825;font-weight:bold">true</span>
+      protection = <span style="color:#6ab825;font-weight:bold">true</span>
+      override   = <span style="color:#6ab825;font-weight:bold">true</span>
+    }
+    <span style="color:#6ab825;font-weight:bold">strict_transport_security</span> {
+      access_control_max_age_sec = <span style="color:#ed9d13">&#34;63072000&#34;</span>
+      include_subdomains         = <span style="color:#6ab825;font-weight:bold">true</span>
+      preload                    = <span style="color:#6ab825;font-weight:bold">true</span>
+      override                   = <span style="color:#6ab825;font-weight:bold">true</span>
+    }
+    <span style="color:#6ab825;font-weight:bold">content_security_policy</span> {
+      content_security_policy = <span style="color:#ed9d13">&#34;frame-ancestors &#39;none&#39;; default-src &#39;none&#39;; img-src &#39;self&#39;; script-src &#39;self&#39;; style-src &#39;self&#39;; object-src &#39;none&#39;&#34;</span>
+      override                = <span style="color:#6ab825;font-weight:bold">true</span>
+    }
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>List of security headers used:</p>
+<ul>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#x-content-type-options">X-Content-Type-Options</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#x-frame-options">X-Frame-Options</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#referrer-policy">Referrer Policy</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#x-xss-protection">X-XSS-Protection</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#http-strict-transport-security">Strict Transport Security</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#content-security-policy">Content Security Policy</a></li>
+</ul>
+<p>The values for the security headers can be different, of course. However, the provided ones cover the majority of cases. And you can always get the up to date info about these headers and possible values here: <a href="https://infosec.mozilla.org/guidelines/web_security">Mozilla web Security Guidelines</a></p>
+<p>Also, you could notice that provided example uses the <code>override</code> argument a lot. The <code>override</code> argument tells CloudFront to set these values for specified headers despite the values received from the origin. This way, you can enforce your security headers configuration.</p>
+<p>Once you have the <code>aws_cloudfront_response_headers_policy</code> resource, you can refer to it in the code of <code>aws_cloudfront_distribution</code> resource inside cache behavior block (default or ordered). For example, in your <code>default_cache_behavior</code>:</p>
+<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_cloudfront_distribution&#34; &#34;test&#34;</span> {
+  <span style="color:#6ab825;font-weight:bold">default_cache_behavior</span> {
+    target_origin_id           = <span style="color:#6ab825;font-weight:bold">aws_s3_bucket</span>.<span style="color:#6ab825;font-weight:bold">my_origin</span>.<span style="color:#6ab825;font-weight:bold">id</span>
+    allowed_methods            = [<span style="color:#ed9d13">&#34;GET&#34;, &#34;HEAD&#34;, &#34;OPTIONS&#34;</span>]
+    cached_methods             = [<span style="color:#ed9d13">&#34;GET&#34;, &#34;HEAD&#34;</span>]
+    viewer_protocol_policy     = <span style="color:#ed9d13">&#34;redirect-to-https&#34;</span><span style="color:#999;font-style:italic">
+</span><span style="color:#999;font-style:italic">
+</span><span style="color:#999;font-style:italic">    # some arguments skipped from listing for the sake of simplicity
+</span><span style="color:#999;font-style:italic"></span>    
+    response_headers_policy_id = <span style="color:#6ab825;font-weight:bold">aws_cloudfront_response_headers_policy</span>.<span style="color:#6ab825;font-weight:bold">security_headers_policy</span>.<span style="color:#6ab825;font-weight:bold">id</span>
+    
+  }<span style="color:#999;font-style:italic">
+</span><span style="color:#999;font-style:italic">
+</span><span style="color:#999;font-style:italic">  # some arguments skipped from listing for the sake of simplicity
+</span><span style="color:#999;font-style:italic"></span>}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="more-to-read">More to read:</h3>
+<ul>
+<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_response_headers_policy">Terraform Resource: Resource: aws_cloudfront_response_headers_policy</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/creating-response-headers-policies.html">Creating response headers policies - Amazon CloudFront</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-managed-response-headers-policies.html">Using the managed response headers policies - Amazon CloudFront</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/understanding-response-headers-policies.html">Understanding response headers policies - Amazon CloudFront</a></li>
+</ul>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
       <link>https://serhii.vasylenko.info/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/</link>
