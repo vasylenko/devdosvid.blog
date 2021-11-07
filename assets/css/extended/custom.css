@@ -22,7 +22,7 @@
 .updatenotice {
     padding: 10px;
     margin-bottom: 20px;
-    background-color: darkseagreen;
+    background-color: #3c8700;
     color: white;
     -moz-box-shadow: 0 0 10px #999;
     -webkit-box-shadow: 0 0 10px #999;
@@ -32,7 +32,7 @@
     margin-bottom: 0;
 }
 
-.post-content figure {
+.post-content figure img {
     -moz-box-shadow: 0 0 10px #999;
     -webkit-box-shadow: 0 0 10px #999;
     box-shadow: 0 0 10px #999;
