@@ -1,25 +1,22 @@
 ---
 date: "2020-05-02T00:00:00Z"
-description: For those who want to understand the engineering team better and speak on the same technical language — terraform explained.
+description: For those who want to understand the engineering team better and speak with it in the same language — terraform explained.
 tags: ["terraform", "tutorials"]
 categories: [Tutorials]
-title: Terraform explained for managers
+title: Terraform explained in English
 url: /2020/05/02/Terraform-explained-for-managers.html
 cover:
     image: cover-image.png
 images: ["2020-05-02-terraform-explained-for-managers.png"]
 ---
 
-For example, I have a good technical background, yet sometimes I felt that my teammates saw that I didn’t understand them when discussing a project or a task in-depth. Moreover, I knew they were right. But, of course, plenty of managers do not have a technical background, and they perform great.
-
-Some might say that technical skills are not the priority for a manager. But I think that +1 to skills is always better than nothing. It is a question of time and personal interests, one way or another.
-
-That is why I decided to share my experience and explain Terraform in one blog post.
-
-The language of this article will be ‘techie’ but not too much: I want to highlight the main parts the Terraform consists of. Although this is not technical documentation (I hope), code examples will be based on AWS cloud configuration, but in-depth knowledge of AWS is not required to understand them.
+You might have heard about Terraform before, but if you have never tried it, this blog can help you to get the main point.
 
 ## A few words about “Infrastructure as Code"
-IaC is when you describe and manage your infrastructure as… (guess what?) …code, literally.
+
+First of all, Terraform is the way to manage the infrastructure in the form of code. The same way developers write the code to create applications, Terraform code can create the resources in virtual data centers (i.e., clouds). 
+
+Infrastructure as Code, or IaC, is when you describe and manage your infrastructure as… (guess what?) …code, literally.
 
 In a nutshell, that means you can define all the elements (servers, networks, storage, etc.) and resources (memory, CPU, etc.) of your infrastructure in configuration files, and manage it in a way similar to how you handle the source code of the applications: branches, releases, and all that stuff.
 
@@ -151,6 +148,8 @@ The expressions are used to set the values (for many things), such as the value 
 The functions in Terraform are built-in jobs you can call to transform and combine values. For example, the `tolist()` function converts its argument to a list value.
 
 ## And this is it?
+
+{{< figure src="done or.png" >}}
 
 Yes, in short words — this is what Terraform is. Not rocket science if it's about to manage a small infrastructure, but it gets more complicated with bigger infrastructure. Like any other engineering tool, though.
 
