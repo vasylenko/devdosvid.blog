@@ -28,6 +28,10 @@
     -webkit-box-shadow: 0 0 10px #999;
     box-shadow: 0 0 10px #999;
 }
+.updatenotice a {
+    color: white;
+    font-weight: bold;
+}
 .updatenotice p {
     margin-bottom: 0;
 }
