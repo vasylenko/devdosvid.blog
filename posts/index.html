@@ -8,7 +8,7 @@
 <meta name=description content="Posts - Serhii Vasylenko">
 <meta name=author content="Serhii Vasylenko">
 <link rel=canonical href=https://serhii.vasylenko.info/posts/>
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.b5a3078dbc96699be0e2d345b094cb3de8daf3c17fb6972acea643594279ae0d.css integrity="sha256-taMHjbyWaZvg4tNFsJTLPeja88F/tpcqzqZDWUJ5rg0=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.a3749d1e7416d7299baa293f136dc2736c36d21749c7095564b45be5ece4289e.css integrity="sha256-o3SdHnQW1ymbqik/E23Cc2w20hdJxwlVZLRb5ezkKJ4=" rel="preload stylesheet" as=style>
 <link rel=preload href=/apple-touch-icon.png as=image>
 <link rel=icon href=https://serhii.vasylenko.info/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://serhii.vasylenko.info/favicon-16x16.png>
@@ -148,11 +148,12 @@ And when you have a large instances fleet, the AWS Systems Manager becomes your 
 </h2>
 </header>
 <section class=entry-content>
-<p>Attention!
+<p>Updated!
 In November 2021, AWS has added this functionality as a native CloudFront feature.
-Read more here: Amazon CloudFront introduces Response Headers Policies.
-While you may still use the method described in this article, I suggest switching to the native implementation. But you can use the header settings from this article, though.
-A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront....</p>
+And I suggest switching to the native implementation. I have described how to configure Security Response Headers for CloudFront in the following article:
+🆕Apply Cloudfront Security Headers With Terraform🆕
+A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.
+It is “true edge” because Functions work on 200+ edge locations (link to doc) while its predecessor, the Lambda@Edge, runs on a small number of regional edge caches....</p>
 </section>
 <footer class=entry-footer><span title="2021-05-21 00:00:00 +0000 UTC">May 21, 2021</span>&nbsp;·&nbsp;Serhii Vasylenko</footer>
 <a class=entry-link aria-label="post link to Configure HTTP Security headers with CloudFront Functions" href=https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html></a>
