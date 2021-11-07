@@ -412,18 +412,16 @@ module &#34;network&#34; {
     </item>
     
     <item>
-      <title>Terraform explained for managers</title>
+      <title>Terraform explained in English</title>
       <link>https://serhii.vasylenko.info/2020/05/02/Terraform-explained-for-managers.html</link>
       <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://serhii.vasylenko.info/2020/05/02/Terraform-explained-for-managers.html</guid>
-      <description>For those who want to understand the engineering team better and speak on the same technical language — terraform explained.</description>
-      <content:encoded><![CDATA[<p>For example, I have a good technical background, yet sometimes I felt that my teammates saw that I didn’t understand them when discussing a project or a task in-depth. Moreover, I knew they were right. But, of course, plenty of managers do not have a technical background, and they perform great.</p>
-<p>Some might say that technical skills are not the priority for a manager. But I think that +1 to skills is always better than nothing. It is a question of time and personal interests, one way or another.</p>
-<p>That is why I decided to share my experience and explain Terraform in one blog post.</p>
-<p>The language of this article will be ‘techie’ but not too much: I want to highlight the main parts the Terraform consists of. Although this is not technical documentation (I hope), code examples will be based on AWS cloud configuration, but in-depth knowledge of AWS is not required to understand them.</p>
+      <description>For those who want to understand the engineering team better and speak with it in the same language — terraform explained.</description>
+      <content:encoded><![CDATA[<p>You might have heard about Terraform before, but if you have never tried it, this blog can help you to get the main point.</p>
 <h2 id="a-few-words-about-infrastructure-as-code">A few words about “Infrastructure as Code&quot;</h2>
-<p>IaC is when you describe and manage your infrastructure as… (guess what?) …code, literally.</p>
+<p>First of all, Terraform is the way to manage the infrastructure in the form of code. The same way developers write the code to create applications, Terraform code can create the resources in virtual data centers (i.e., clouds).</p>
+<p>Infrastructure as Code, or IaC, is when you describe and manage your infrastructure as… (guess what?) …code, literally.</p>
 <p>In a nutshell, that means you can define all the elements (servers, networks, storage, etc.) and resources (memory, CPU, etc.) of your infrastructure in configuration files, and manage it in a way similar to how you handle the source code of the applications: branches, releases, and all that stuff.</p>
 <p>And the main idea behind the IaC approach is that it manages the state of things and must remain the single source of truth (configuration truth) for your infrastructure.</p>
 <p>First, you define the state via the code. Then IaC tool (Terraform, for example) applies this state to the infrastructure: all that is missing according to the code will be created, all that differs from the code will be changed, and all that exists in the infrastructure but is not described via code — will be destroyed.</p>
@@ -583,6 +581,10 @@ module &#34;network&#34; {
 <p>The expressions are used to set the values (for many things), such as the value of some argument in resource configuration. For example, they used either to refer something (just as we referenced instance ID <code>&quot;${aws_instance.web_server.id}&quot;</code> in the example above) or to compute the value within your configuration.</p>
 <p>The functions in Terraform are built-in jobs you can call to transform and combine values. For example, the <code>tolist()</code> function converts its argument to a list value.</p>
 <h2 id="and-this-is-it">And this is it?</h2>
+<figure>
+    <img loading="lazy" src="done%20or.png"/> 
+</figure>
+
 <p>Yes, in short words — this is what Terraform is. Not rocket science if it&rsquo;s about to manage a small infrastructure, but it gets more complicated with bigger infrastructure. Like any other engineering tool, though.</p>
 <h2 id="okay-what-next">Okay, what next?</h2>
 <p>If you read down to this point, then it means it is worth &ldquo;get your hands dirty&rdquo; and to try building your Infrastructure with Terraform. There are plenty of courses and books (and the &ldquo;Terraform up and running&rdquo; is one of the most popular). Still, my learning path started from the following: <a href="https://learn.hashicorp.com/terraform">Official guide from Hashicorp</a> — comprehensive and free guide from Terraform developers. Just pick your favorite cloud (AWS, Azure, GCP) and go through the topics.</p>
