@@ -92,7 +92,7 @@ resource "aws_cloudfront_distribution" "test" {
 
 Here is what Mozilla Observatory reports about my test CF distribution where I enabled the policy described above:
 
-{{< figure src="observatory results.png" caption="Scan summary for CloudFront distribution with security headers policy" >}}
+{{< figure src="observatory-results.png" caption="Scan summary for CloudFront distribution with security headers policy" >}}
 
 So with just minimum effort, you can greatly boost your web application security posture.
 

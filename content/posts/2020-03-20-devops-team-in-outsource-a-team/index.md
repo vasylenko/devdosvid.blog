@@ -8,6 +8,7 @@ url: /2020/03/20/devops-team-in-outsource-a-team.html
 cover:
     image: 2020-03-20-devops-team-in-outsource-a-team_heading-image.png
 images: ["2020-03-20-devops-team-in-outsource-a-team_heading-image.png"]
+draft: true
 ---
 
 I am a team lead in an outsourcing company. That means I believe _(or convince myself)_ that I lead the team _(wait, wait, there will be even more obvious discoveries)_. 
