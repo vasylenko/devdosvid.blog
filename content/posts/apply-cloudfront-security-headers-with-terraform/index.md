@@ -13,7 +13,7 @@ In November 2021, AWS announced Response Headers Policies — native support of 
 
 I said "native" because previously you could set response headers either using [CloudFront Functions](https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html) or [Lambda@Edge](https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/).
 
-And one of the common use cases for that was to set security headers. So now you don't need to add intermediate requests processing to modify the headers: CloudFront does that for you **with no additional fee**.
+And one of the common use cases for that was to set security headers. Now you don't need to add intermediate requests processing to modify the headers: CloudFront does that for you **with no additional fee**.
 
 ## Manage Security Headers as Code
 Starting from the [3.64.0](https://github.com/hashicorp/terraform-provider-aws/blob/main/CHANGELOG.md#3640-november-04-2021) version of Terraform AWS provider, you can create the security headers policies and apply them for your distribution.
@@ -87,6 +87,14 @@ resource "aws_cloudfront_distribution" "test" {
   # some arguments skipped from listing for the sake of simplicity
 }
 ```
+
+### Security Scan Results
+
+Here is what Mozilla Observatory reports about my test CF distribution where I enabled the policy described above:
+
+{{< figure src="observatory results.png" caption="Scan summary for CloudFront distribution with security headers policy" >}}
+
+So with just minimum effort, you can greatly boost your web application security posture.
 
 ### More to read:
 - [Terraform Resource: aws_cloudfront_response_headers_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_response_headers_policy)
