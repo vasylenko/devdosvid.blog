@@ -41,7 +41,7 @@ markup:
     highlight:
         # anchorLineNos: true
         codeFences: true
-        guessSyntax: true
+        guessSyntax: false
         lineNos: false
         noClasses: true
         style: native
