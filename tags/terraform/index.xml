@@ -25,42 +25,7 @@
 <p>Starting from the <a href="https://github.com/hashicorp/terraform-provider-aws/blob/main/CHANGELOG.md#3640-november-04-2021">3.64.0</a> version of Terraform AWS provider, you can create the security headers policies and apply them for your distribution.</p>
 <p>Let&rsquo;s see how that looks!</p>
 <p>First, you need to describe the <code>aws_cloudfront_response_headers_policy</code> resource:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">31
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_cloudfront_response_headers_policy&#34; &#34;security_headers_policy&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_cloudfront_response_headers_policy&#34; &#34;security_headers_policy&#34;</span> {
   name = <span style="color:#ed9d13">&#34;my-security-headers-policy&#34;</span>
   <span style="color:#6ab825;font-weight:bold">security_headers_config</span> {
     <span style="color:#6ab825;font-weight:bold">content_type_options</span> {
@@ -91,9 +56,7 @@
     }
   }
 }
-</code></pre></td></tr></table>
-</div>
-</div><p>List of security headers used:</p>
+</code></pre></div><p>List of security headers used:</p>
 <ul>
 <li><a href="https://infosec.mozilla.org/guidelines/web_security#x-content-type-options">X-Content-Type-Options</a></li>
 <li><a href="https://infosec.mozilla.org/guidelines/web_security#x-frame-options">X-Frame-Options</a></li>
@@ -105,26 +68,7 @@
 <p>The values for the security headers can be different, of course. However, the provided ones cover the majority of cases. And you can always get the up to date info about these headers and possible values here: <a href="https://infosec.mozilla.org/guidelines/web_security">Mozilla web Security Guidelines</a></p>
 <p>Also, you could notice that provided example uses the <code>override</code> argument a lot. The <code>override</code> argument tells CloudFront to set these values for specified headers despite the values received from the origin. This way, you can enforce your security headers configuration.</p>
 <p>Once you have the <code>aws_cloudfront_response_headers_policy</code> resource, you can refer to it in the code of <code>aws_cloudfront_distribution</code> resource inside cache behavior block (default or ordered). For example, in your <code>default_cache_behavior</code>:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_cloudfront_distribution&#34; &#34;test&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_cloudfront_distribution&#34; &#34;test&#34;</span> {
   <span style="color:#6ab825;font-weight:bold">default_cache_behavior</span> {
     target_origin_id           = <span style="color:#6ab825;font-weight:bold">aws_s3_bucket</span>.<span style="color:#6ab825;font-weight:bold">my_origin</span>.<span style="color:#6ab825;font-weight:bold">id</span>
     allowed_methods            = [<span style="color:#ed9d13">&#34;GET&#34;, &#34;HEAD&#34;, &#34;OPTIONS&#34;</span>]
@@ -139,9 +83,7 @@
 </span><span style="color:#999;font-style:italic">
 </span><span style="color:#999;font-style:italic">  # some arguments skipped from listing for the sake of simplicity
 </span><span style="color:#999;font-style:italic"></span>}
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="security-scan-results">Security Scan Results</h3>
+</code></pre></div><h3 id="security-scan-results">Security Scan Results</h3>
 <p>Here is what Mozilla Observatory reports about my test CF distribution where I enabled the policy described above:</p>
 <figure>
     <img loading="lazy" src="observatory-results.png"
@@ -175,39 +117,7 @@
 <p>I believe this is huge, even despite the number of constraints this solution has. This offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.</p>
 <p>So here is a quick-start example of creating the dedicated host and the instance altogether using Terraform.</p>
 <p>I intentionally used some hardcoded values for the sake of simplicity in the example.</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">28
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_ec2_host&#34; &#34;example_host&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_ec2_host&#34; &#34;example_host&#34;</span> {
   instance_type     = <span style="color:#ed9d13">&#34;mac1.metal&#34;</span>
   availability_zone = <span style="color:#ed9d13">&#34;us-east-1a&#34;</span>
 }
@@ -235,9 +145,7 @@
     values = [<span style="color:#ed9d13">&#34;amzn-ec2-macos-11*&#34;</span>]<span style="color:#999;font-style:italic"> # get latest BigSur AMI
 </span><span style="color:#999;font-style:italic"></span>  }
 }
-</code></pre></td></tr></table>
-</div>
-</div><p>Simple as that, yes. Now, you can integrate it into your CI system and have the Mac instance with the underlying host in a bundle.</p>
+</code></pre></div><p>Simple as that, yes. Now, you can integrate it into your CI system and have the Mac instance with the underlying host in a bundle.</p>
 <p>💡 Pro tip: you can leverage the <code>aws_ec2_instance_type_offerings</code> <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings">Data Source</a> and use its output with <code>aws_subnet</code> source to avoid availability zone hardcoding.</p>
 <p>To make the code more uniform and reusable, you can wrap it into a <a href="https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html">Terraform module</a> that accepts specific parameters (such as <code>instance_type</code> or <code>availability_zone</code>) as input variables.</p>
 ]]></content:encoded>
@@ -328,43 +236,20 @@
 <h3 id="prepare">Prepare</h3>
 <p>You should create a resource block to be used later for the real object you’re going to import.</p>
 <p>You don’t need to fill the arguments in it at the start, so it may be just a blank resource block, for example:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">resource &#34;aws_s3_bucket&#34; &#34;someassetsbucket&#34; {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">resource &#34;aws_s3_bucket&#34; &#34;someassetsbucket&#34; {
 ‌‌
 }
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="import">Import</h3>
+</code></pre></div><h3 id="import">Import</h3>
 <p>Now you need to import the information about the real object into your existing Terraform state file.</p>
 <p>This can be done with the <code>terraform import</code> command, for example:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">terraform import aws_s3_bucket.assets &#34;someassetsbucket&#34;
-</code></pre></td></tr></table>
-</div>
-</div><p>‌Be sure to also check the list of possible options import accepts with <code>terraform import -h</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">terraform import aws_s3_bucket.assets &#34;someassetsbucket&#34;
+</code></pre></div><p>‌Be sure to also check the list of possible options import accepts with <code>terraform import -h</code></p>
 <h3 id="write-3">Write</h3>
 <p>Now you need to write the corresponding Terraform code for this bucket.</p>
 <p>To avoid modifying your real object on the <code>terraform apply</code> action, you should specify all needed arguments with the exact values from the import phase.</p>
 <p>You can see the details by running the <code>terraform state show</code> command, for example:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">terraform state show aws_s3_bucket.assets
-</code></pre></td></tr></table>
-</div>
-</div><p>The output of this command will be very similar to the configuration code. But it contains both arguments and attributes of the resource, so you need to clean it up before applying it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">terraform state show aws_s3_bucket.assets
+</code></pre></div><p>The output of this command will be very similar to the configuration code. But it contains both arguments and attributes of the resource, so you need to clean it up before applying it.</p>
 <p>You can use one of the following tactics:</p>
 <ul>
 <li>either copy/paste it, and then run <code>terraform validate</code> and <code>terraform plan</code> several times to make sure there are no errors like &ldquo;argument is not expected here&rdquo; or &ldquo;this field cannot be set&rdquo;</li>
@@ -468,27 +353,14 @@ For example, you can make a plan from the resources I outlined below in this art
 <p>Here is an example that illustrates how our &ldquo;server&rdquo; module might be called.
 &ldquo;To call a module&rdquo; means to use it in the configuration file.</p>
 <p>Here we create 5 instances of the &ldquo;server&rdquo; using single set of configurations (in the module):</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module &#34;server&#34; {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module &#34;server&#34; {
     
     count         = 5
     
     source        = &#34;./module_server&#34;
     some_variable = some_value
 }
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="modules-organisation-child-and-root">Modules organisation: child and root</h3>
+</code></pre></div><h3 id="modules-organisation-child-and-root">Modules organisation: child and root</h3>
 <p>Of course, you would probably want to create more than one module. Here are some common examples:</p>
 <ul>
 <li>for a network (i.e. VPC)</li>
@@ -498,20 +370,7 @@ For example, you can make a plan from the resources I outlined below in this art
 <li>and whatever else you consider a distinct logical component of the infrastructure</li>
 </ul>
 <p>Let&rsquo;s say we have two different modules: a &ldquo;server&rdquo; module and a &ldquo;network&rdquo; module. The module called &ldquo;network&rdquo; is where we define and configure our virtual network and place servers in it:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">9
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module &#34;server&#34; {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module &#34;server&#34; {
     source        = &#34;./module_server&#34;
     some_variable = some_value
 }
@@ -520,9 +379,7 @@ module &#34;network&#34; {
     source              = &#34;./module_network&#34;
     some_other_variable = some_other_value
 }
-</code></pre></td></tr></table>
-</div>
-</div><p>Once we have some custom modules, we can refer to them as &ldquo;child&rdquo; modules. And the configuration file where we call child modules relates to the root module.</p>
+</code></pre></div><p>Once we have some custom modules, we can refer to them as &ldquo;child&rdquo; modules. And the configuration file where we call child modules relates to the root module.</p>
 <p><img loading="lazy" src="2.png" alt=""  />
 </p>
 <p>A child module can be sourced from a number of places:</p>
@@ -540,32 +397,11 @@ module &#34;network&#34; {
 <h3 id="module-scope">Module Scope</h3>
 <p>All resource instances, names, and therefore, resource visibility, are isolated in a module&rsquo;s scope. For example, module &ldquo;A&rdquo; can&rsquo;t see and does not know about resources in module &ldquo;B&rdquo; by default.</p>
 <p>Resource visibility, sometimes called resource isolation, ensures that resources will have unique names within a module&rsquo;s namespace. For example, with our 5 instances of the &ldquo;server&rdquo; module:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module.server[0].resource_type.resource_name
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module.server[0].resource_type.resource_name
 module.server[1].resource_type.resource_name
 module.server[2].resource_type.resource_name
-</code></pre></td></tr></table>
-</div>
-</div><p>On the other hand, we could create two instances of the same module with different names:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">8
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module &#34;server-alpha&#34; {    
+</code></pre></div><p>On the other hand, we could create two instances of the same module with different names:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module &#34;server-alpha&#34; {    
     source        = &#34;./module_server&#34;
     some_variable = some_value
 }
@@ -573,22 +409,11 @@ module &#34;server-beta&#34; {
     source        = &#34;./module_server&#34;
     some_variable = some_value
 }
-</code></pre></td></tr></table>
-</div>
-</div><p>In this case, the naming or address of resources would be as follows:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module.server-alpha.resource_type.resource_name
+</code></pre></div><p>In this case, the naming or address of resources would be as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module.server-alpha.resource_type.resource_name
 
 module.server-beta.resource_type.resource_name
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="explicit-resources-exposure">Explicit resources exposure</h3>
+</code></pre></div><h3 id="explicit-resources-exposure">Explicit resources exposure</h3>
 <p>If you want to access some details for the resources in another module, you&rsquo;ll need to explicitly configure that.</p>
 <p>By default, our module &ldquo;server&rdquo; doesn&rsquo;t know about the network that was created in the &ldquo;network&rdquo; module.</p>
 <p><img loading="lazy" src="3.png" alt=""  />
@@ -599,31 +424,9 @@ module.server-beta.resource_type.resource_name
 </p>
 <p>This explicit declaration of the output is the way to expose some resource (or information about it) outside — to the scope of the &lsquo;root&rsquo; module, hence to make it available for other modules.</p>
 <p>Next, when we call the child module &ldquo;server&rdquo;  in the root module, we should assign the output from the &ldquo;network&rdquo; module to the variable of the &ldquo;server&rdquo; module:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">network_id = module.network.network_id
-</code></pre></td></tr></table>
-</div>
-</div><p>Here is how the final code for calling our child modules will look like in result:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module &#34;server&#34; {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">network_id = module.network.network_id
+</code></pre></div><p>Here is how the final code for calling our child modules will look like in result:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">module &#34;server&#34; {
     count         = 5
     source        = &#34;./module_server&#34;
     some_variable = some_value
@@ -634,9 +437,7 @@ module &#34;network&#34; {
     source              = &#34;./module_network&#34;
     some_other_variable = some_other_value
 }
-</code></pre></td></tr></table>
-</div>
-</div><p>This example configuration would create 5 instances of the same server, with all the necessary resources, in the network we created with as a separate module.</p>
+</code></pre></div><p>This example configuration would create 5 instances of the same server, with all the necessary resources, in the network we created with as a separate module.</p>
 <h3 id="wrap-up">Wrap up</h3>
 <p>Now you should understand what modules are and what do they do.</p>
 <p>If you&rsquo;re at the beginning of your Terraform journey, here are some suggestions for the next steps.</p>
@@ -661,43 +462,15 @@ Requirements &mdash; bash-compatible interpreter, because aliases and functions 
 <p>Then just source this file, for example: <code>source ~/.zshrc</code></p>
 <h2 id="function-list-outputs-and-variables-of-given-module">Function: list outputs and variables of given module</h2>
 <p>You need to provide the path to module directory, and this function will list all declared variables and outputs module has. It comes very useful when you don&rsquo;t remember them all and just need to take a quick look.</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#999;font-style:italic">## TerraForm MOdule Explained</span>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#999;font-style:italic">## TerraForm MOdule Explained</span>
 <span style="color:#6ab825;font-weight:bold">function</span> tfmoe {
   <span style="color:#24909d">echo</span> -e <span style="color:#ed9d13">&#34;\nOutputs:&#34;</span>
   grep -r <span style="color:#ed9d13">&#34;output \&#34;.*\&#34;&#34;</span> <span style="color:#40ffff">$1</span> |awk <span style="color:#ed9d13">&#39;{print &#34;\t&#34;,$2}&#39;</span> |tr -d <span style="color:#ed9d13">&#39;&#34;&#39;</span>
   <span style="color:#24909d">echo</span> -e <span style="color:#ed9d13">&#34;\nVariables:&#34;</span>
   grep -r <span style="color:#ed9d13">&#34;variable \&#34;.*\&#34;&#34;</span> <span style="color:#40ffff">$1</span> |awk <span style="color:#ed9d13">&#39;{print &#34;\t&#34;,$2}&#39;</span> |tr -d <span style="color:#ed9d13">&#39;&#34;&#39;</span>
-}</code></pre></td></tr></table>
-</div>
-</div>
+}</code></pre></div>
 <p>Example usage:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: tfmoe ./module_alb
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: tfmoe ./module_alb
 
 Outputs:
 	 alb_arn
@@ -708,90 +481,36 @@ Variables:
 	 alb_sg_list
 	 subnets_id_list
 	 tags
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="function-pre-fill-module-directory-with-configuration-files">Function: pre-fill module directory with configuration files</h2>
+</code></pre></div><h2 id="function-pre-fill-module-directory-with-configuration-files">Function: pre-fill module directory with configuration files</h2>
 <p>You need to provide a path to the module directory and this function will create a bunch of empty &lsquo;default&rsquo; .tf files in it.</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#999;font-style:italic">#TerraForm MOdule Initialize</span>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#999;font-style:italic">#TerraForm MOdule Initialize</span>
 <span style="color:#6ab825;font-weight:bold">function</span> tfmoi {
   touch <span style="color:#40ffff">$1</span>/variables.tf
   touch <span style="color:#40ffff">$1</span>/outputs.tf
   touch <span style="color:#40ffff">$1</span>/versions.tf
   touch <span style="color:#40ffff">$1</span>/main.tf
 }
-</code></pre></td></tr></table>
-</div>
-</div><p>Example usage:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: mkdir ./module_foo &amp;&amp; temoi $_
+</code></pre></div><p>Example usage:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: mkdir ./module_foo &amp;&amp; temoi $_
 
 user@localhost $: ls ./module_foo
 main.tf      outputs.tf   variables.tf versions.tf
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="aliases">Aliases</h2>
+</code></pre></div><h2 id="aliases">Aliases</h2>
 <p>The purpose of these aliases is just to keep you from typing long commands when you want to do a simple action.</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#24909d">alias</span> <span style="color:#40ffff">tf</span>=<span style="color:#ed9d13">&#39;terraform&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#24909d">alias</span> <span style="color:#40ffff">tf</span>=<span style="color:#ed9d13">&#39;terraform&#39;</span>
 
 <span style="color:#24909d">alias</span> <span style="color:#40ffff">tfv</span>=<span style="color:#ed9d13">&#39;terraform validate&#39;</span>
 
 <span style="color:#24909d">alias</span> <span style="color:#40ffff">tfi</span>=<span style="color:#ed9d13">&#39;terraform init&#39;</span>
 
 <span style="color:#24909d">alias</span> <span style="color:#40ffff">tfp</span>=<span style="color:#ed9d13">&#39;terraform plan&#39;</span> 
-</code></pre></td></tr></table>
-</div>
-</div><p>This one is useful because it makes format tool to go in-depth (recursively) through directories.</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#24909d">alias</span> <span style="color:#40ffff">tfm</span>=<span style="color:#ed9d13">&#39;terraform fmt -recursive&#39;</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>Example usage:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: tfm 
+</code></pre></div><p>This one is useful because it makes format tool to go in-depth (recursively) through directories.</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#24909d">alias</span> <span style="color:#40ffff">tfm</span>=<span style="color:#ed9d13">&#39;terraform fmt -recursive&#39;</span>
+</code></pre></div><p>Example usage:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: tfm 
 module_ecs_cluster/ecs.tf
 module_alb/alb.tf
-</code></pre></td></tr></table>
-</div>
-</div>]]></content:encoded>
+</code></pre></div>]]></content:encoded>
     </item>
     
     <item>
@@ -827,21 +546,11 @@ module_alb/alb.tf
 <p>Terraform supports many platforms: cloud providers such as AWS, Azure, GCP, DigitalOcean, and other platforms such as OVH, 1&amp;1, Hetzner, etc. It also supports infrastructure software such as Docker, Kubernetes, Chef, and even databases and monitoring software. That is why Terraform is so popular — it is an actual Swiss knife in the operations world.</p>
 <p>So to create, change, or destroy the infrastructure, Terraform needs the source code.</p>
 <p>The <strong>source code</strong> is a set of configuration files that defines your infrastructure state. The code uses its syntax, but it looks very user-friendly. Here is an example: the following configuration block describes the virtual server (EC2 instance) in AWS.</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_instance&#34; &#34;web_server&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_instance&#34; &#34;web_server&#34;</span> {
   ami           = <span style="color:#ed9d13">&#34;ami-a1b2c3d4&#34;</span>
   instance_type = <span style="color:#ed9d13">&#34;t3.micro&#34;</span>
   }
-</code></pre></td></tr></table>
-</div>
-</div><p>Terraform can automatically detect the dependencies between resources described in the code and also allows you to add custom dependencies when needed.</p>
+</code></pre></div><p>Terraform can automatically detect the dependencies between resources described in the code and also allows you to add custom dependencies when needed.</p>
 <p>When you apply the code the first time, Terraform creates a so-called “<strong>state file</strong>,&quot; which Terraform uses to map your code to resources created in the hosting platform. Terraform will use each subsequent “apply&quot; action to compare the code changes with the sate file to decide what should be done (and in what order) against real infrastructure.</p>
 <p>One of the essential functions of the state file is the management of dependencies between the resources. For example (some technical nuances are omitted for simplicity): if you have a server created inside some network and you are going to change the network configuration in Terraform code, Terraform will know it should change that server configuration, or the server should be re-created inside the updated network.</p>
 <h2 id="what-does-terraform-consist-of">What does Terraform consist of:</h2>
@@ -853,21 +562,11 @@ module_alb/alb.tf
 <p><strong>Resource</strong> is the essential part of the configuration code. That is where the definition of infrastructure objects happens.</p>
 <p>Resources are the main building blocks of the whole code. A resource can represent some object in the hosting provider (example: server) or the part of a compound object (example: attachable storage for a server)</p>
 <p>Every resource has a type and local name. For example, here is how EC2 instance configuration may look like:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_instance&#34; &#34;web_server&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_instance&#34; &#34;web_server&#34;</span> {
   ami           = <span style="color:#ed9d13">&#34;ami-a1b2c3d4&#34;</span>
   instance_type = <span style="color:#ed9d13">&#34;t3.micro&#34;</span>
   }
-</code></pre></td></tr></table>
-</div>
-</div><p>The <code>aws_instance</code> is a resource type, and <code>web_server</code> is the local resource name. Later, when Terraform applies this code, it will create an EC2 instance with some particular ID in AWS.</p>
+</code></pre></div><p>The <code>aws_instance</code> is a resource type, and <code>web_server</code> is the local resource name. Later, when Terraform applies this code, it will create an EC2 instance with some particular ID in AWS.</p>
 <p>Once created, Terraform will store the ID in the state file with mapping information that logically connects it with <code>web_server</code>.</p>
 <p>The <code>ami</code>, <code>instance_type</code>, and <code>private_ip</code> are the arguments with values that define the actual state of the resource. However, there are many value types, depending on the particular argument and particular resource type, so I will not focus on them here.</p>
 <h3 id="modules">Modules</h3>
@@ -880,46 +579,19 @@ module_alb/alb.tf
 
 <p><strong>Modules</strong> is the kind of logical containers or groups for resources you define and use together. The purpose of modules is the grouping of resources and the possibility of reusing the same code with different variables.</p>
 <p>Let’s get back to the example with the EC2 instance and say you need to have a static public IP address with it. In such a case, here is how the module for web server may look like:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_instance&#34; &#34;web_server&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_instance&#34; &#34;web_server&#34;</span> {
   ami           = <span style="color:#ed9d13">&#34;ami-a1b2c3d4&#34;</span>
   instance_type = <span style="color:#ed9d13">&#34;t3.micro&#34;</span>
   }
 <span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_eip&#34; &#34;web_server_public_ip&#34;</span> {
   instance      = <span style="color:#ed9d13">&#34;${aws_instance.web_server.id}&#34;</span>
   }
-</code></pre></td></tr></table>
-</div>
-</div><p>Having these two resources together allows us to think of it as a stand-alone unit you can reuse later, for example, in our development, staging, and production environments. And not by copying and pasting it, but via reference to the module defined only once.</p>
+</code></pre></div><p>Having these two resources together allows us to think of it as a stand-alone unit you can reuse later, for example, in our development, staging, and production environments. And not by copying and pasting it, but via reference to the module defined only once.</p>
 <p>Please note: we specified an instance argument inside the <code>aws_eip</code> resource to reference another resource details (the ID of an instance). It is possible because of the way how Terraform treats dependencies. For example, when it detects the dependency (or you define it explicitly), Terraform creates the leading resource first. Only after the resource is created and available Terraform will create the dependent one.</p>
 <p>The modules is a kind of standalone topic in Terraform. There is <a href="https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html">a separate article in my blog</a> that explains what modules are and how do they work.</p>
 <h3 id="variables">Variables</h3>
 <p><strong>Input variables</strong> work as parameters for the modules so module code could be reusable. Let’s look at the previous example: it has some hardcoded values — instance image ID and instance type. Here is how you can make it more abstract and reusable:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">variable</span> <span style="color:#ed9d13">&#34;image_id&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">variable</span> <span style="color:#ed9d13">&#34;image_id&#34;</span> {
   type          = <span style="color:#6ab825;font-weight:bold">string</span>
   }
 <span style="color:#6ab825;font-weight:bold">variable</span> <span style="color:#ed9d13">&#34;instance_type&#34;</span> {
@@ -929,24 +601,8 @@ module_alb/alb.tf
   ami           = <span style="color:#6ab825;font-weight:bold">var</span>.<span style="color:#6ab825;font-weight:bold">image_id</span>
   instance_type = <span style="color:#6ab825;font-weight:bold">var</span>.<span style="color:#6ab825;font-weight:bold">instance_type</span>
   }
-</code></pre></td></tr></table>
-</div>
-</div><p>Values for the variables then can be passed either via CLI and environment variables (if you have only the one, so-called root module) or via explicit values in the block where you call a module, for example:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">module</span> <span style="color:#ed9d13">&#34;web_server_production&#34;</span> {
+</code></pre></div><p>Values for the variables then can be passed either via CLI and environment variables (if you have only the one, so-called root module) or via explicit values in the block where you call a module, for example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">module</span> <span style="color:#ed9d13">&#34;web_server_production&#34;</span> {
   source        = <span style="color:#ed9d13">&#34;./modules/web_server&#34;</span>
   image_id      = <span style="color:#ed9d13">&#34;ami-a1b2c3d4&#34;</span>
   instance_type = <span style="color:#ed9d13">&#34;m5.large&#34;</span>
@@ -956,9 +612,7 @@ module_alb/alb.tf
   image_id      = <span style="color:#ed9d13">&#34;ami-a2b3c4d5&#34;</span>
   instance_type = <span style="color:#ed9d13">&#34;t3.micro&#34;</span>
  }
-</code></pre></td></tr></table>
-</div>
-</div><p><strong>Output values</strong> are similar to the &ldquo;return&rdquo; of a function in development language. You can use them for dependencies management (for example, when a module requires something from another module) and print specific values at the end of Terraform work (for example, to be used for notification in the CI/CD process).</p>
+</code></pre></div><p><strong>Output values</strong> are similar to the &ldquo;return&rdquo; of a function in development language. You can use them for dependencies management (for example, when a module requires something from another module) and print specific values at the end of Terraform work (for example, to be used for notification in the CI/CD process).</p>
 <p><strong>Local values</strong>, <strong>expressions</strong>, <strong>functions</strong> — three more things that augment the capabilities of Terraform and make it more similar to a programming language (which is excellent, by the way).</p>
 <p>The local values are used inside modules for extended data manipulations.</p>
 <p>The expressions are used to set the values (for many things), such as the value of some argument in resource configuration. For example, they used either to refer something (just as we referenced instance ID <code>&quot;${aws_instance.web_server.id}&quot;</code> in the example above) or to compute the value within your configuration.</p>

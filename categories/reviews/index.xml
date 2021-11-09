@@ -79,64 +79,24 @@
 <p>Get the identifier of EBS (look for the first one with GUID_partition_scheme):</p>
 <p><code>diskutil list physical external</code></p>
 <p>Or here is a more advanced version to be used in a script:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#40ffff">DISK_ID</span>=<span style="color:#6ab825;font-weight:bold">$(</span>diskutil list physical external | grep <span style="color:#ed9d13">&#39;GUID_partition_scheme&#39;</span>| tr -s <span style="color:#ed9d13">&#39; &#39;</span> | cut -d<span style="color:#ed9d13">&#39; &#39;</span> -f6<span style="color:#6ab825;font-weight:bold">)</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>It would probably be <code>disk0</code> if you did not attach additional EBS.</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#40ffff">DISK_ID</span>=<span style="color:#6ab825;font-weight:bold">$(</span>diskutil list physical external | grep <span style="color:#ed9d13">&#39;GUID_partition_scheme&#39;</span>| tr -s <span style="color:#ed9d13">&#39; &#39;</span> | cut -d<span style="color:#ed9d13">&#39; &#39;</span> -f6<span style="color:#6ab825;font-weight:bold">)</span>
+</code></pre></div><p>It would probably be <code>disk0</code> if you did not attach additional EBS.</p>
 <p>Then run the repair job for the disk, using its identifier:
 <code>diskutil repairDisk disk0</code></p>
 <p>Advanced version:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yes | diskutil repairDisk <span style="color:#40ffff">$DISK_ID</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>Now get the APFS container identifier (look for Apple_APFS):
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yes | diskutil repairDisk <span style="color:#40ffff">$DISK_ID</span>
+</code></pre></div><p>Now get the APFS container identifier (look for Apple_APFS):
 <code>diskutil list physical external</code></p>
 <p>Advanced version:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#40ffff">APFS_ID</span>=<span style="color:#6ab825;font-weight:bold">$(</span>diskutil list physical external | grep <span style="color:#ed9d13">&#39;Apple_APFS&#39;</span> | tr -s <span style="color:#ed9d13">&#39; &#39;</span> | cut -d<span style="color:#ed9d13">&#39; &#39;</span> -f8<span style="color:#6ab825;font-weight:bold">)</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>It would probably be <code>disk0s2</code> if you did not attach additional EBS.</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#40ffff">APFS_ID</span>=<span style="color:#6ab825;font-weight:bold">$(</span>diskutil list physical external | grep <span style="color:#ed9d13">&#39;Apple_APFS&#39;</span> | tr -s <span style="color:#ed9d13">&#39; &#39;</span> | cut -d<span style="color:#ed9d13">&#39; &#39;</span> -f8<span style="color:#6ab825;font-weight:bold">)</span>
+</code></pre></div><p>It would probably be <code>disk0s2</code> if you did not attach additional EBS.</p>
 <p>Finally, resize the APFS container:
 <code>diskutil apfs resizeContainer disk0s2</code></p>
 <p>Advanced version</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">diskutil apfs resizeContainer <span style="color:#40ffff">$APFS_ID</span>
-</code></pre></td></tr></table>
-</div>
-</div><p><strong>[2]How to setup Screen Sharing at mac1.metal in Terminal</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">diskutil apfs resizeContainer <span style="color:#40ffff">$APFS_ID</span>
+</code></pre></div><p><strong>[2]How to setup Screen Sharing at mac1.metal in Terminal</strong></p>
 <p>The <code>kickstart</code> command-line tool resides in <code>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/</code> so you&rsquo;ll better to cd into that directory for convenience:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">8
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#999;font-style:italic"># Turn On Remote Management for a user to be specified later</span>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#999;font-style:italic"># Turn On Remote Management for a user to be specified later</span>
 sudo ./kickstart -activate -configure -allowAccessFor -specifiedUsers
 
 <span style="color:#999;font-style:italic"># Enable Remote Management for ec2-user user</span>
@@ -144,9 +104,7 @@ sudo ./kickstart -configure -users ec2-user -access -on -privs -all
 
 <span style="color:#999;font-style:italic"># Set the user password </span>
 sudo passwd ec2-user
-</code></pre></td></tr></table>
-</div>
-</div>]]></content:encoded>
+</code></pre></div>]]></content:encoded>
     </item>
     
     <item>
@@ -196,32 +154,7 @@ So it is not another <a href="https://aws.amazon.com/devops-guru/">DevOps Guru</
 </ul>
 <p>In both workflows, the build job is performed within a container, which is different per workflow: Ruby for the blog and Pandoc for CV.</p>
 <p>Here is how the build job looks like for the blog:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#6ab825;font-weight:bold">jobs</span>:<span style="color:#666">
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#6ab825;font-weight:bold">jobs</span>:<span style="color:#666">
 </span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">build</span>:<span style="color:#666">
 </span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">runs-on</span>:<span style="color:#666"> </span>ubuntu-latest<span style="color:#666">
 </span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">container</span>:<span style="color:#666">
@@ -242,39 +175,9 @@ So it is not another <a href="https://aws.amazon.com/devops-guru/">DevOps Guru</
 </span><span style="color:#666">        </span><span style="color:#6ab825;font-weight:bold">with</span>:<span style="color:#666"> 
 </span><span style="color:#666">          </span><span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>_site<span style="color:#666">
 </span><span style="color:#666">          </span><span style="color:#6ab825;font-weight:bold">path</span>:<span style="color:#666"> </span>_site<span style="color:#666">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>As you can see, I run the steps within the Ruby container. This simplifies things related to file permissions and directory mounting because checkout is made inside the container.</p>
+</span></code></pre></div><p>As you can see, I run the steps within the Ruby container. This simplifies things related to file permissions and directory mounting because checkout is made inside the container.</p>
 <p>The deploy step is performed via shell run command for now, for better clearness (can be replaced to third-party action or custom-made one): it makes a commit to gh-pages branch which is configured for Github Pages.</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#6ab825;font-weight:bold">deploy</span>:<span style="color:#666">
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#6ab825;font-weight:bold">deploy</span>:<span style="color:#666">
 </span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">if</span>:<span style="color:#666"> </span>github.ref == &#39;refs/heads/master&#39;<span style="color:#666">
 </span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">needs</span>:<span style="color:#666"> </span>build<span style="color:#666">
 </span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">runs-on</span>:<span style="color:#666"> </span>ubuntu-latest<span style="color:#666">
@@ -298,9 +201,7 @@ So it is not another <a href="https://aws.amazon.com/devops-guru/">DevOps Guru</
 </span><span style="color:#ed9d13">          git commit -a -m &#34;Updated Website&#34;
 </span><span style="color:#ed9d13">          git remote set-url origin &#34;https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git&#34;
 </span><span style="color:#ed9d13">          git push --force-with-lease origin gh-pages</span><span style="color:#666">          
-</span></code></pre></td></tr></table>
-</div>
-</div><p><img loading="lazy" src="2020-03-18-github-actions-first-impression_github-actions-events.png" alt=""  />
+</span></code></pre></div><p><img loading="lazy" src="2020-03-18-github-actions-first-impression_github-actions-events.png" alt=""  />
 </p>
 <h3 id="old-good-things-made-better">Old good things made better</h3>
 <p>A lot of common things have been introduced to GitHubActions with some sweet additions:</p>

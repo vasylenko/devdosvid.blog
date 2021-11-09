@@ -79,21 +79,11 @@ However, Auto Scaling Group will maintain the desired number of instances if one
 <p>Here is an example for the us-east-1 region:
 <p><details >
 <summary markdown="span" style="font-size: 0.8em; font-weight: bold">🔍 Click here to see the code snippet</summary>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; aws ec2 describe-instance-type-offerings --location-type availability-zone-id --filters <span style="color:#40ffff">Name</span>=instance-type,Values=mac1.metal --region us-east-1 --output text
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; aws ec2 describe-instance-type-offerings --location-type availability-zone-id --filters <span style="color:#40ffff">Name</span>=instance-type,Values=mac1.metal --region us-east-1 --output text
 
 INSTANCETYPEOFFERINGS	mac1.metal	use1-az6	availability-zone-id
 INSTANCETYPEOFFERINGS	mac1.metal	use1-az4	availability-zone-id
-</code></pre></td></tr></table>
-</div>
-</div>
+</code></pre></div>
 </details></p>
 </p>
 <p>Keep that nuance in mind when selecting a subnet for the mac1.metal instances.</p>
@@ -111,24 +101,7 @@ INSTANCETYPEOFFERINGS	mac1.metal	use1-az4	availability-zone-id
 <p>Here is how it looks like:
 <p><details >
 <summary markdown="span" style="font-size: 0.8em; font-weight: bold">🔍 Click here to see the code snippet</summary>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_licensemanager_license_configuration&#34; &#34;this&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_licensemanager_license_configuration&#34; &#34;this&#34;</span> {
   name                     = <span style="color:#6ab825;font-weight:bold">local</span>.<span style="color:#6ab825;font-weight:bold">full_name</span>
   license_counting_type    = <span style="color:#ed9d13">&#34;Socket&#34;</span>
 }
@@ -141,77 +114,13 @@ INSTANCETYPEOFFERINGS	mac1.metal	use1-az4	availability-zone-id
 </span><span style="color:#999;font-style:italic"></span>  }
   on_failure = <span style="color:#ed9d13">&#34;DELETE&#34;</span>
 }
-</code></pre></td></tr></table>
-</div>
-</div>
+</code></pre></div>
 </details></p>
 </p>
 <p>And the next code snippet explains the CloudFromation template (which is the <code>resource-group-cf-stack-template.json</code> file in the code snippet above)</p>
 <p><details >
 <summary markdown="span" style="font-size: 0.8em; font-weight: bold">🔍 Click here to see the code snippet</summary>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">31
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">32
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">33
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">34
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">35
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">36
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">37
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">38
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">39
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">40
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">41
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">42
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">43
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">44
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">45
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">46
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">47
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">48
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">49
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">50
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">51
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">52
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">53
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">54
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">55
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">56
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">57
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">58
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#6ab825;font-weight:bold">&#34;Parameters&#34;</span> : {
     <span style="color:#6ab825;font-weight:bold">&#34;GroupName&#34;</span> : {
       <span style="color:#6ab825;font-weight:bold">&#34;Type&#34;</span> : <span style="color:#ed9d13">&#34;String&#34;</span>,
@@ -269,9 +178,7 @@ INSTANCETYPEOFFERINGS	mac1.metal	use1-az4	availability-zone-id
     }
   }
 }
-</code></pre></td></tr></table>
-</div>
-</div>
+</code></pre></div>
 </details></p>
 
 <p>The <code>aws_cloudformation_stack</code> resource will export the <code>DedicatedHostGroup</code> attribute (see the code of CloudFromation template), which you will use later in the Launch Template resource.</p>
@@ -342,24 +249,7 @@ In a nutshell, the RAM service allows you to share the AWS resources you create 
 <p>Finally, review the summary page of the resource share and create it.</p>
 <p>Only specific actions are available to the users of shared resources. These actions mostly have the &ldquo;read-only&rdquo; nature and <a href="https://docs.aws.amazon.com/ram/latest/userguide/shareable.html">vary by resource type</a>.</p>
 <p>Also, the RAM service is <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ram_resource_share">supported by Terraform</a>, so the resource sharing configuration may look like that, for example:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_ram_resource_share&#34; &#34;example&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_ram_resource_share&#34; &#34;example&#34;</span> {
   name                      = <span style="color:#ed9d13">&#34;example&#34;</span>
   allow_external_principals = <span style="color:#6ab825;font-weight:bold">false</span>
 
@@ -372,9 +262,7 @@ In a nutshell, the RAM service allows you to share the AWS resources you create 
   resource_arn       = <span style="color:#6ab825;font-weight:bold">aws_subnet</span>.<span style="color:#6ab825;font-weight:bold">example</span>.<span style="color:#6ab825;font-weight:bold">arn</span>
   resource_share_arn = <span style="color:#6ab825;font-weight:bold">aws_ram_resource_share</span>.<span style="color:#6ab825;font-weight:bold">example</span>.<span style="color:#6ab825;font-weight:bold">arn</span>
 }
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="example-use-cases">Example use cases</h2>
+</code></pre></div><h2 id="example-use-cases">Example use cases</h2>
 <p>One of the trivial but valuable examples of RAM service usage is sharing a Manged Prefix List.
 Suppose you have some service user across your Organization, a self-hosted VPN server, for example. And you have a static set of IPs for that VPN: you trust these IPs and would like them to be allow-listed in your other services.
 How to report these IPs to all organization accounts/users? And if the IP set changes, how to announce that change, and what should be done to reflect that change in services that depend on it, for example, Security Groups?</p>

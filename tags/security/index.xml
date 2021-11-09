@@ -25,42 +25,7 @@
 <p>Starting from the <a href="https://github.com/hashicorp/terraform-provider-aws/blob/main/CHANGELOG.md#3640-november-04-2021">3.64.0</a> version of Terraform AWS provider, you can create the security headers policies and apply them for your distribution.</p>
 <p>Let&rsquo;s see how that looks!</p>
 <p>First, you need to describe the <code>aws_cloudfront_response_headers_policy</code> resource:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">31
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_cloudfront_response_headers_policy&#34; &#34;security_headers_policy&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_cloudfront_response_headers_policy&#34; &#34;security_headers_policy&#34;</span> {
   name = <span style="color:#ed9d13">&#34;my-security-headers-policy&#34;</span>
   <span style="color:#6ab825;font-weight:bold">security_headers_config</span> {
     <span style="color:#6ab825;font-weight:bold">content_type_options</span> {
@@ -91,9 +56,7 @@
     }
   }
 }
-</code></pre></td></tr></table>
-</div>
-</div><p>List of security headers used:</p>
+</code></pre></div><p>List of security headers used:</p>
 <ul>
 <li><a href="https://infosec.mozilla.org/guidelines/web_security#x-content-type-options">X-Content-Type-Options</a></li>
 <li><a href="https://infosec.mozilla.org/guidelines/web_security#x-frame-options">X-Frame-Options</a></li>
@@ -105,26 +68,7 @@
 <p>The values for the security headers can be different, of course. However, the provided ones cover the majority of cases. And you can always get the up to date info about these headers and possible values here: <a href="https://infosec.mozilla.org/guidelines/web_security">Mozilla web Security Guidelines</a></p>
 <p>Also, you could notice that provided example uses the <code>override</code> argument a lot. The <code>override</code> argument tells CloudFront to set these values for specified headers despite the values received from the origin. This way, you can enforce your security headers configuration.</p>
 <p>Once you have the <code>aws_cloudfront_response_headers_policy</code> resource, you can refer to it in the code of <code>aws_cloudfront_distribution</code> resource inside cache behavior block (default or ordered). For example, in your <code>default_cache_behavior</code>:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_cloudfront_distribution&#34; &#34;test&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_cloudfront_distribution&#34; &#34;test&#34;</span> {
   <span style="color:#6ab825;font-weight:bold">default_cache_behavior</span> {
     target_origin_id           = <span style="color:#6ab825;font-weight:bold">aws_s3_bucket</span>.<span style="color:#6ab825;font-weight:bold">my_origin</span>.<span style="color:#6ab825;font-weight:bold">id</span>
     allowed_methods            = [<span style="color:#ed9d13">&#34;GET&#34;, &#34;HEAD&#34;, &#34;OPTIONS&#34;</span>]
@@ -139,9 +83,7 @@
 </span><span style="color:#999;font-style:italic">
 </span><span style="color:#999;font-style:italic">  # some arguments skipped from listing for the sake of simplicity
 </span><span style="color:#999;font-style:italic"></span>}
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="security-scan-results">Security Scan Results</h3>
+</code></pre></div><h3 id="security-scan-results">Security Scan Results</h3>
 <p>Here is what Mozilla Observatory reports about my test CF distribution where I enabled the policy described above:</p>
 <figure>
     <img loading="lazy" src="observatory-results.png"
@@ -214,24 +156,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
 <p><img loading="lazy" src="function_editor.png" alt=""  />
 </p>
 <p>Here is the source code of the function:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#6ab825;font-weight:bold">function</span> handler(event) {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#6ab825;font-weight:bold">function</span> handler(event) {
 <span style="color:#6ab825;font-weight:bold">var</span> response = event.response;
 <span style="color:#6ab825;font-weight:bold">var</span> headers = response.headers;
 
@@ -244,9 +169,7 @@ headers[<span style="color:#ed9d13">&#39;x-frame-options&#39;</span>] = {value: 
 
 <span style="color:#6ab825;font-weight:bold">return</span> response;
 }
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="test-function">Test Function</h4>
+</code></pre></div><h4 id="test-function">Test Function</h4>
 <p>Open the “Test” tab — let’s try our function first before it becomes live!</p>
 <p>Select Viewer Response event type and Development Stage, then select “Viewer response with headers” as a Sample test event (you will get a simple set of headers automatically).</p>
 <p>Now click the blue “Test” button and observe the output results:</p>
@@ -267,30 +190,7 @@ headers[<span style="color:#ed9d13">&#39;x-frame-options&#39;</span>] = {value: 
 </p>
 <p>Once you associate the function with the CloudFront distribution, you can test it in live mode.</p>
 <p>I will use curl here to demonstrate it:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; curl -i https://d30i87a4ss9ifz.cloudfront.net
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; curl -i https://d30i87a4ss9ifz.cloudfront.net
 HTTP/2 <span style="color:#3677a9">200</span>
 content-type: text/html
 content-length: <span style="color:#3677a9">140</span>
@@ -309,9 +209,7 @@ x-content-type-options: nosniff
 x-cache: Miss from cloudfront
 x-amz-cf-pop: WAW50-C1
 x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw==
-</code></pre></td></tr></table>
-</div>
-</div><p>You can also test your results here — <a href="https://observatory.mozilla.org/">Mozilla Observatory</a></p>
+</code></pre></div><p>You can also test your results here — <a href="https://observatory.mozilla.org/">Mozilla Observatory</a></p>
 <p><img loading="lazy" src="scan_result-1.png" alt=""  />
 
 <img loading="lazy" src="scan_result-2.png" alt=""  />
@@ -347,45 +245,21 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw==
 If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.</p>
 <h2 id="variables-with-ssm-parameter-store">Variables with SSM Parameter Store</h2>
 <p>Let&rsquo;s say you have some variables defined in &lsquo;defaults/main.yaml&rsquo; file of your role or maybe in group_vars.yaml file.</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#447fcf;text-decoration:underline">---</span><span style="color:#666">
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#447fcf;text-decoration:underline">---</span><span style="color:#666">
 </span><span style="color:#666"></span><span style="color:#999;font-style:italic"># content of dev.vars.yaml to be included in your play or role</span><span style="color:#666">
 </span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">use_tls</span>:<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">true</span><span style="color:#666">
 </span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">application_port</span>:<span style="color:#666"> </span><span style="color:#3677a9">3000</span><span style="color:#666">
 </span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">app_env</span>:<span style="color:#666"> </span>development<span style="color:#666">
 </span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">stripe_api_key</span>:<span style="color:#666"> </span>1HGASU2eZvKYlo2CT5MEcnC39HqLyjWD<span style="color:#666">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>If you store such things locally on Ansible control node, you probably encrypt it with <a href="https://docs.ansible.com/ansible/latest/user_guide/vault.html">ansible-vault</a></p>
+</span></code></pre></div><p>If you store such things locally on Ansible control node, you probably encrypt it with <a href="https://docs.ansible.com/ansible/latest/user_guide/vault.html">ansible-vault</a></p>
 <p>SSM Parameter Store gives you more flexibility and security by centralized storage and management of parameters and secrets, so let&rsquo;s use it with Ansible:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#999;font-style:italic"># content of dev.vars.yaml to be included in your play or role</span><span style="color:#666">
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#999;font-style:italic"># content of dev.vars.yaml to be included in your play or role</span><span style="color:#666">
 </span><span style="color:#666">
 </span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">use_tls</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/use_tls&#39;)}}&#34;</span><span style="color:#666">
 </span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">application_port</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/application_port&#39;)}}&#34;</span><span style="color:#666">
 </span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">app_env</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/app_env&#39;)}}&#34;</span><span style="color:#666">
 </span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">stripe_api_key</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/stripe_api_key&#39;)}}&#34;</span><span style="color:#666">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>The syntax is fairly simple:</p>
+</span></code></pre></div><p>The syntax is fairly simple:</p>
 <p>The <code>aws_ssm</code> argument – is the name of plugin.</p>
 <p>The <code>/dev/webserver/use_tls</code> argument – is the path to the key in Paramter Store.</p>
 <p>Surely you can do the same for a group of servers with group variables, for example:</p>
@@ -393,37 +267,12 @@ If you manage some apps in AWS with Ansible, then using Parameter Store or Secre
 <h2 id="variables-with-secret-manager">Variables with Secret Manager</h2>
 <p>Another cool lookup plugin is Secrets Manager. In a nutshell, it has the same kind of functionality but it uses JSON format by feault.</p>
 <p>Here is a quick example of its functionality in a Playbook:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#447fcf;text-decoration:underline">---</span><span style="color:#666">
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#447fcf;text-decoration:underline">---</span><span style="color:#666">
 </span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Extract something secrets from Secret Manager<span style="color:#666">
 </span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">debug</span>:<span style="color:#666">
 </span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">msg</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{ lookup(&#39;aws_secret&#39;, &#39;dev/some-secrets&#39;)}}&#34;</span><span style="color:#666">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>The above task will generate the following output</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">TASK [Extract something secrets from Secret Manager] ****************************************************
+</span></code></pre></div><p>The above task will generate the following output</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">TASK [Extract something secrets from Secret Manager] ****************************************************
 ok: [some_server] =&gt; {
     <span style="color:#ed9d13">&#34;msg&#34;</span>: {
         <span style="color:#ed9d13">&#34;dbname&#34;</span>: <span style="color:#ed9d13">&#34;database&#34;</span>,
@@ -434,9 +283,7 @@ ok: [some_server] =&gt; {
         <span style="color:#ed9d13">&#34;username&#34;</span>: <span style="color:#ed9d13">&#34;db_user&#34;</span>
     }
 }
-</code></pre></td></tr></table>
-</div>
-</div><p>This is nice if you want to insert a JSON as is, but you will need additional parsing in case you want to get only some of JSON elements.</p>
+</code></pre></div><p>This is nice if you want to insert a JSON as is, but you will need additional parsing in case you want to get only some of JSON elements.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>If you’re using Ansible in CI/CD, then having it on an EC2 Instance with the IAM role will make you avoid keeping any secrets on that instance at all.<br>
 The IAM role must allow at least the read access to SSM Parameter Store (+ KMS read access to be able to decrypt the keys) or the read access to Secrets Manager.</p>

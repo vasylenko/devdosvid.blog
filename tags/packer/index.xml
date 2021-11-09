@@ -36,24 +36,7 @@
 <p><em>Some values are hardcoded intentionally in the code examples for the sake of simplicity and easy reading. You would probably want to parametrize them.</em></p>
 <h2 id="xcode-installation-example">Xcode installation example</h2>
 <p>The following tasks will help you to automate the basics.</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Install Xcode<span style="color:#666">
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Install Xcode<span style="color:#666">
 </span><span style="color:#666">      </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;xip --expand Xcode.xip&#34;</span><span style="color:#666">
 </span><span style="color:#666">      </span><span style="color:#6ab825;font-weight:bold">args</span>:<span style="color:#666">
 </span><span style="color:#666">        </span><span style="color:#6ab825;font-weight:bold">chdir</span>:<span style="color:#666"> </span>/Applications<span style="color:#666">
@@ -66,23 +49,9 @@
 </span><span style="color:#666">
 </span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Switch into newly installed Xcode context<span style="color:#666">
 </span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;xcode-select --switch /Applications/Xcode.app/Contents/Developer&#34;</span><span style="color:#666">
-</span></code></pre></td></tr></table>
-</div>
-</div><h2 id="example-of-software-installation-with-brew">Example of software installation with Brew</h2>
+</span></code></pre></div><h2 id="example-of-software-installation-with-brew">Example of software installation with Brew</h2>
 <p>{% raw %}</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">8
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Install common build software<span style="color:#666">
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Install common build software<span style="color:#666">
 </span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">community.general.homebrew</span>:<span style="color:#666">
 </span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{ item }}&#34;</span><span style="color:#666">
 </span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">state</span>:<span style="color:#666"> </span>latest<span style="color:#666">
@@ -90,24 +59,9 @@
 </span><span style="color:#666">    </span>- swiftlint<span style="color:#666">
 </span><span style="color:#666">    </span>- swiftformat<span style="color:#666">
 </span><span style="color:#666">    </span>- wget<span style="color:#666">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>{% endraw %}</p>
+</span></code></pre></div><p>{% endraw %}</p>
 <h2 id="screensharing-remote-desktop-configuration-example">ScreenSharing (remote desktop) configuration example</h2>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">9
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Turn On Remote Management<span style="color:#666">
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Turn On Remote Management<span style="color:#666">
 </span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;./kickstart -activate -configure -allowAccessFor -specifiedUsers&#34;</span><span style="color:#666">
 </span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">args</span>:<span style="color:#666">
 </span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">chdir</span>:<span style="color:#666"> </span>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/<span style="color:#666">
@@ -116,9 +70,7 @@
 </span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;./kickstart -configure -users ec2-user -access -on -privs -all&#34;</span><span style="color:#666">
 </span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">args</span>:<span style="color:#666">
 </span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">chdir</span>:<span style="color:#666"> </span>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/<span style="color:#666">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>Shell rulez, yes.</p>
+</span></code></pre></div><p>Shell rulez, yes.</p>
 <h1 id="building-the-ami">Building the AMI</h1>
 <p><img loading="lazy" src="ami-build.gif" alt=""  />
 </p>
@@ -128,57 +80,20 @@
 <h2 id="timeouts">Timeouts</h2>
 <p>As I mentioned in the <a href="https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html">previous article</a>, the creation and deletion time of the &ldquo;mac1.metal&rdquo; Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.</p>
 <p>Example:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#ed9d13">&#34;aws_polling&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> {
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#ed9d13">&#34;aws_polling&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> {
         <span style="color:#6ab825;font-weight:bold">&#34;delay_seconds&#34;</span>: <span style="color:#3677a9">30</span>,
         <span style="color:#6ab825;font-weight:bold">&#34;max_attempts&#34;</span>: <span style="color:#3677a9">60</span>
 }
-</code></pre></td></tr></table>
-</div>
-</div><p>And it would be best if you also increased the SSH timeout:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#ed9d13">&#34;ssh_timeout&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#ed9d13">&#34;1h&#34;</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>Fortunately, Packer&rsquo;s AMI builder does not require an explicit declaration of the Dedicated Host ID. So you can just reference the same subnet where you allocated the Host, assuming you did it with the enabled &ldquo;Auto placement&rdquo; parameter during the host creation.</p>
+</code></pre></div><p>And it would be best if you also increased the SSH timeout:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#ed9d13">&#34;ssh_timeout&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#ed9d13">&#34;1h&#34;</span>
+</code></pre></div><p>Fortunately, Packer&rsquo;s AMI builder does not require an explicit declaration of the Dedicated Host ID. So you can just reference the same subnet where you allocated the Host, assuming you did it with the enabled &ldquo;Auto placement&rdquo; parameter during the host creation.</p>
 <p>Example:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#ed9d13">&#34;tenancy&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#ed9d13">&#34;host&#34;</span><span style="color:#a61717;background-color:#e3d2d2">,</span>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#ed9d13">&#34;tenancy&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#ed9d13">&#34;host&#34;</span><span style="color:#a61717;background-color:#e3d2d2">,</span>
   <span style="color:#ed9d13">&#34;subnet_id&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#ed9d13">&#34;your-subnet-id&#34;</span>
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="provisioning">Provisioning</h2>
+</code></pre></div><h2 id="provisioning">Provisioning</h2>
 <p>Packer has <a href="https://www.packer.io/docs/provisioners/ansible">Ansible Provisioner</a> that I used for the AMI. Its documentation is also very clean and straightforward.</p>
 <p>But it is still worth mentioning that if you want to parametrize the Ansible playbook, then the following configuration example will be handy:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">8
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#ed9d13">&#34;extra_arguments&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> [
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#ed9d13">&#34;extra_arguments&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> [
     <span style="color:#ed9d13">&#34;--extra-vars&#34;</span>,
     <span style="color:#ed9d13">&#34;your-variable-foo=your-value-bar]&#34;</span>
   ]<span style="color:#a61717;background-color:#e3d2d2">,</span>
@@ -186,9 +101,7 @@
     <span style="color:#ed9d13">&#34;ANSIBLE_PYTHON_INTERPRETER=auto_legacy_silent&#34;</span>,
     <span style="color:#ed9d13">&#34;ANSIBLE_OTHER_ENV_VARIABLE=other_value&#34;</span>
   ]
-</code></pre></td></tr></table>
-</div>
-</div><h1 id="configuration-at-launch">Configuration at launch</h1>
+</code></pre></div><h1 id="configuration-at-launch">Configuration at launch</h1>
 <p>If you&rsquo;re familiar with AWS EC2, you probably know what the Instance <code>user data</code> is.</p>
 <p>A group of AWS developers made something similar for the macOS: <a href="https://github.com/aws/ec2-macos-init">EC2 macOS Init</a>.</p>
 <p>It does not support <code>cloud-init</code> as on Linux-based Instances, but it can run shell scripts, which is quite enough.</p>
@@ -196,20 +109,7 @@
 <p>The number of the group corresponds to the execution order. You can put several tasks into a single Priority Group, and the tool will execute them simultaneously.</p>
 <p>EC2 macOS Init uses a human-readable configuration file in <code>toml</code> format.</p>
 <p>Example:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">9
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">[[Module]]
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">[[Module]]
   Name = &#34;Create-some-folder&#34;
   PriorityGroup = 3
   FatalOnError = false 
@@ -218,9 +118,7 @@
     Cmd = [&#34;mkdir&#34;, &#34;/Users/ec2-user/my-directory&#34;] 
     RunAsUser = &#34;ec2-user&#34;
     EnvironmentVars = [&#34;MY_VAR_FOO=myValueBar&#34;]
-</code></pre></td></tr></table>
-</div>
-</div><p>I should clarify some things here.</p>
+</code></pre></div><p>I should clarify some things here.</p>
 <p>Modules — a set of pre-defined modules for different purposes. It is something similar to the Ansible modules.</p>
 <p>You can find the list of available modules here <a href="https://github.com/aws/ec2-macos-init/tree/master/lib/ec2macosinit">ec2-macos-init/lib/ec2macosinit</a></p>
 <p>The <code>RunPerInstance</code> directive controls whether a module should run. There are three of such directives, and here is what they mean:</p>
@@ -235,25 +133,11 @@
 <p>I suggest looking into the default <a href="https://github.com/aws/ec2-macos-init/blob/master/configuration/init.toml">init.toml</a> configuration file to get yourself more familiar with the capabilities of the tool.</p>
 <p>The init tool can also clear its history, which is useful for the new AMI creation.</p>
 <p>Example:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ec2-macos-init clean -all
-</code></pre></td></tr></table>
-</div>
-</div><p>And you can run the init manually for debugging purposes.</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ec2-macos-init clean -all
+</code></pre></div><p>And you can run the init manually for debugging purposes.</p>
 <p>Example:</p>
-<div class="highlight"><div style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ec2-macos-init run
-</code></pre></td></tr></table>
-</div>
-</div><p>You can also combine the EC2 macOS Init actions (made by modules) with your script in user data for more accurate nontrivial configurations.</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ec2-macos-init run
+</code></pre></div><p>You can also combine the EC2 macOS Init actions (made by modules) with your script in user data for more accurate nontrivial configurations.</p>
 <h1 id="wrapping-up">Wrapping up</h1>
 <p>As a whole, building and operating macOS-based AMI does not differ from AMI management for other platforms.</p>
 <p>There are the same principle stages: prepare, clear, build, execute deployment script (if necessary). Though, the particular implementation of each step has its nuances and constraints.</p>
