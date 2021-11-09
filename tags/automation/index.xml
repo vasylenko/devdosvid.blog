@@ -19,6 +19,7 @@
       <guid>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</guid>
       <description>How to manage mac1.metal EC2 instances with Terraform</description>
       <content:encoded><![CDATA[<div class="updatenotice">
+    <p class="icon">ℹ</p>
     Updated on the 23rd of October, 2021: Terraform AWS provider now <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_host">supports</a> Dedicated Hosts natively
 </div>
 <p>In November 2021, AWS <a href="https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/">announced</a> the support for Mac mini instances.</p>
@@ -80,7 +81,7 @@ Requirements &mdash; bash-compatible interpreter, because aliases and functions 
   grep -r <span style="color:#ed9d13">&#34;variable \&#34;.*\&#34;&#34;</span> <span style="color:#40ffff">$1</span> |awk <span style="color:#ed9d13">&#39;{print &#34;\t&#34;,$2}&#39;</span> |tr -d <span style="color:#ed9d13">&#39;&#34;&#39;</span>
 }</code></pre></div>
 <p>Example usage:</p>
-<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: tfmoe ./module_alb
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">user@localhost $: tfmoe ./module_alb
 
 Outputs:
 	 alb_arn
@@ -91,7 +92,7 @@ Variables:
 	 alb_sg_list
 	 subnets_id_list
 	 tags
-</code></pre></div><h2 id="function-pre-fill-module-directory-with-configuration-files">Function: pre-fill module directory with configuration files</h2>
+</code></pre><h2 id="function-pre-fill-module-directory-with-configuration-files">Function: pre-fill module directory with configuration files</h2>
 <p>You need to provide a path to the module directory and this function will create a bunch of empty &lsquo;default&rsquo; .tf files in it.</p>
 <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#999;font-style:italic">#TerraForm MOdule Initialize</span>
 <span style="color:#6ab825;font-weight:bold">function</span> tfmoi {
@@ -101,11 +102,11 @@ Variables:
   touch <span style="color:#40ffff">$1</span>/main.tf
 }
 </code></pre></div><p>Example usage:</p>
-<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: mkdir ./module_foo &amp;&amp; temoi $_
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">user@localhost $: mkdir ./module_foo &amp;&amp; temoi $_
 
 user@localhost $: ls ./module_foo
 main.tf      outputs.tf   variables.tf versions.tf
-</code></pre></div><h2 id="aliases">Aliases</h2>
+</code></pre><h2 id="aliases">Aliases</h2>
 <p>The purpose of these aliases is just to keep you from typing long commands when you want to do a simple action.</p>
 <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#24909d">alias</span> <span style="color:#40ffff">tf</span>=<span style="color:#ed9d13">&#39;terraform&#39;</span>
 
@@ -117,10 +118,10 @@ main.tf      outputs.tf   variables.tf versions.tf
 </code></pre></div><p>This one is useful because it makes format tool to go in-depth (recursively) through directories.</p>
 <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#24909d">alias</span> <span style="color:#40ffff">tfm</span>=<span style="color:#ed9d13">&#39;terraform fmt -recursive&#39;</span>
 </code></pre></div><p>Example usage:</p>
-<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">user@localhost $: tfm 
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">user@localhost $: tfm 
 module_ecs_cluster/ecs.tf
 module_alb/alb.tf
-</code></pre></div>]]></content:encoded>
+</code></pre>]]></content:encoded>
     </item>
     
     <item>

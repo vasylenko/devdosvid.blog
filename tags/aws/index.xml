@@ -505,10 +505,10 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
       <guid>https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html</guid>
       <description>Modifying response headers to enforce the security of the web application</description>
       <content:encoded><![CDATA[<div class="updatenotice">
-    <p><strong>Updated!</strong></p>
-<p>In November 2021, AWS has added this functionality as a <a href="https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-response-headers-policies/">native CloudFront feature</a>.</p>
-<p>And I suggest switching to the native implementation. I have described how to configure Security Response Headers for CloudFront in the following article:</p>
-<p>🆕<a href="https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/">Apply Cloudfront Security Headers With Terraform</a>🆕</p>
+    <p class="icon">ℹ</p>
+    <p>In November 2021, AWS has added this functionality as a native CloudFront feature.</p>
+<p>I suggest switching to the native implementation. I have described how to configure Security Response Headers for CloudFront in the following article:</p>
+<p>🆕 <a href="https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/">Apply Cloudfront Security Headers With Terraform</a> 🆕</p>
 
 </div>
 <p>A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.</p>
@@ -726,16 +726,16 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw==
 <p>The number of the group corresponds to the execution order. You can put several tasks into a single Priority Group, and the tool will execute them simultaneously.</p>
 <p>EC2 macOS Init uses a human-readable configuration file in <code>toml</code> format.</p>
 <p>Example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">[[Module]]
-  Name = &#34;Create-some-folder&#34;
+<pre tabindex="0"><code>[[Module]]
+  Name = &quot;Create-some-folder&quot;
   PriorityGroup = 3
   FatalOnError = false 
   RunPerInstance = true 
   [Module.Command]
-    Cmd = [&#34;mkdir&#34;, &#34;/Users/ec2-user/my-directory&#34;] 
-    RunAsUser = &#34;ec2-user&#34;
-    EnvironmentVars = [&#34;MY_VAR_FOO=myValueBar&#34;]
-</code></pre></div><p>I should clarify some things here.</p>
+    Cmd = [&quot;mkdir&quot;, &quot;/Users/ec2-user/my-directory&quot;] 
+    RunAsUser = &quot;ec2-user&quot;
+    EnvironmentVars = [&quot;MY_VAR_FOO=myValueBar&quot;]
+</code></pre><p>I should clarify some things here.</p>
 <p>Modules — a set of pre-defined modules for different purposes. It is something similar to the Ansible modules.</p>
 <p>You can find the list of available modules here <a href="https://github.com/aws/ec2-macos-init/tree/master/lib/ec2macosinit">ec2-macos-init/lib/ec2macosinit</a></p>
 <p>The <code>RunPerInstance</code> directive controls whether a module should run. There are three of such directives, and here is what they mean:</p>
@@ -778,6 +778,7 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw==
       <guid>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</guid>
       <description>How to manage mac1.metal EC2 instances with Terraform</description>
       <content:encoded><![CDATA[<div class="updatenotice">
+    <p class="icon">ℹ</p>
     Updated on the 23rd of October, 2021: Terraform AWS provider now <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_host">supports</a> Dedicated Hosts natively
 </div>
 <p>In November 2021, AWS <a href="https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/">announced</a> the support for Mac mini instances.</p>

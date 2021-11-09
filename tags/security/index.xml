@@ -111,10 +111,10 @@
       <guid>https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html</guid>
       <description>Modifying response headers to enforce the security of the web application</description>
       <content:encoded><![CDATA[<div class="updatenotice">
-    <p><strong>Updated!</strong></p>
-<p>In November 2021, AWS has added this functionality as a <a href="https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-response-headers-policies/">native CloudFront feature</a>.</p>
-<p>And I suggest switching to the native implementation. I have described how to configure Security Response Headers for CloudFront in the following article:</p>
-<p>🆕<a href="https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/">Apply Cloudfront Security Headers With Terraform</a>🆕</p>
+    <p class="icon">ℹ</p>
+    <p>In November 2021, AWS has added this functionality as a native CloudFront feature.</p>
+<p>I suggest switching to the native implementation. I have described how to configure Security Response Headers for CloudFront in the following article:</p>
+<p>🆕 <a href="https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/">Apply Cloudfront Security Headers With Terraform</a> 🆕</p>
 
 </div>
 <p>A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.</p>

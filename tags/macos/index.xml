@@ -157,16 +157,16 @@
 <p>The number of the group corresponds to the execution order. You can put several tasks into a single Priority Group, and the tool will execute them simultaneously.</p>
 <p>EC2 macOS Init uses a human-readable configuration file in <code>toml</code> format.</p>
 <p>Example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">[[Module]]
-  Name = &#34;Create-some-folder&#34;
+<pre tabindex="0"><code>[[Module]]
+  Name = &quot;Create-some-folder&quot;
   PriorityGroup = 3
   FatalOnError = false 
   RunPerInstance = true 
   [Module.Command]
-    Cmd = [&#34;mkdir&#34;, &#34;/Users/ec2-user/my-directory&#34;] 
-    RunAsUser = &#34;ec2-user&#34;
-    EnvironmentVars = [&#34;MY_VAR_FOO=myValueBar&#34;]
-</code></pre></div><p>I should clarify some things here.</p>
+    Cmd = [&quot;mkdir&quot;, &quot;/Users/ec2-user/my-directory&quot;] 
+    RunAsUser = &quot;ec2-user&quot;
+    EnvironmentVars = [&quot;MY_VAR_FOO=myValueBar&quot;]
+</code></pre><p>I should clarify some things here.</p>
 <p>Modules — a set of pre-defined modules for different purposes. It is something similar to the Ansible modules.</p>
 <p>You can find the list of available modules here <a href="https://github.com/aws/ec2-macos-init/tree/master/lib/ec2macosinit">ec2-macos-init/lib/ec2macosinit</a></p>
 <p>The <code>RunPerInstance</code> directive controls whether a module should run. There are three of such directives, and here is what they mean:</p>
