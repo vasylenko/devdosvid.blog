@@ -1,13 +1,9 @@
 ### GENERAL
-baseURL: https://serhii.vasylenko.info
 languageCode: en-us
 
 theme: "PaperMod"
 
 ### BUILD
-buildDrafts: false
-buildFuture: false
-buildExpired: false
 publishDir: publishdir
 minify:
     disableXML: true
@@ -16,7 +12,6 @@ minify:
 ### SEO
 enableRobotsTXT: true
 title: Serhii Vasylenko
-googleAnalytics: G-GK7SE0XWGK
 
 ### NAVIGATION
 permalinks:
@@ -47,7 +42,7 @@ markup:
         # anchorLineNos: true
         codeFences: true
         guessSyntax: true
-        lineNos: true
+        lineNos: false
         noClasses: true
         style: native
 

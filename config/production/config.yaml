@@ -1,0 +1,17 @@
+baseURL: https://serhii.vasylenko.info
+googleAnalytics: G-GK7SE0XWGK
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+minify:
+  minifyOutput: true
+  tdewolff:
+    html:
+      keepComments: false
+      keepConditionalComments: true
+      keepDefaultAttrVals: true
+      keepDocumentTags: true
+      keepEndTags: true
+      keepQuotes: false
+      keepWhitespace: false
