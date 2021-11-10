@@ -111,10 +111,9 @@
       <guid>https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html</guid>
       <description>Modifying response headers to enforce the security of the web application</description>
       <content:encoded><![CDATA[<div class="updatenotice">
-    <p class="icon">ℹ</p>
     <p>In November 2021, AWS has added this functionality as a native CloudFront feature.</p>
 <p>I suggest switching to the native implementation. I have described how to configure Security Response Headers for CloudFront in the following article:</p>
-<p>🆕 <a href="https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/">Apply Cloudfront Security Headers With Terraform</a> 🆕</p>
+<p><a href="https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/">Apply Cloudfront Security Headers With Terraform</a></p>
 
 </div>
 <p>A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.</p>
@@ -169,7 +168,7 @@ headers[<span style="color:#ed9d13">&#39;x-frame-options&#39;</span>] = {value: 
 
 <span style="color:#6ab825;font-weight:bold">return</span> response;
 }
-</code></pre></div><h4 id="test-function">Test Function</h4>
+</code></pre></div><h3 id="test-function">Test Function</h3>
 <p>Open the “Test” tab — let’s try our function first before it becomes live!</p>
 <p>Select Viewer Response event type and Development Stage, then select “Viewer response with headers” as a Sample test event (you will get a simple set of headers automatically).</p>
 <p>Now click the blue “Test” button and observe the output results:</p>
