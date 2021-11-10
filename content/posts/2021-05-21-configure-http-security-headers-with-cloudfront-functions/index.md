@@ -15,7 +15,7 @@ In November 2021, AWS has added this functionality as a native CloudFront featur
 
 I suggest switching to the native implementation. I have described how to configure Security Response Headers for CloudFront in the following article:
 
-🆕 [Apply Cloudfront Security Headers With Terraform](https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/) 🆕
+[Apply Cloudfront Security Headers With Terraform](https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/)
 {{< /updatenotice >}}
 
 A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.
@@ -88,7 +88,7 @@ headers['x-frame-options'] = {value: 'DENY'};
 return response;
 }
 ```
-#### Test Function
+### Test Function
 Open the “Test” tab — let’s try our function first before it becomes live!
 
 Select Viewer Response event type and Development Stage, then select “Viewer response with headers” as a Sample test event (you will get a simple set of headers automatically).
