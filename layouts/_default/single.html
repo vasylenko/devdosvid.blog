@@ -35,11 +35,11 @@
   {{- end }}
 
   <footer class="post-footer">
+      <p class="substack-widget-preface">Did you like the article and want to stay in touch? Subscribe to my monthly newsletter with updates:</p>
+      <iframe class="substack-widget" src="https://devexp.substack.com/embed" frameborder="0" scrolling="no"></iframe>
+<!--    <p>Did you like the article and want to stay in touch? Subscribe to my monthly newsletter with updates:</p>-->
+<!--    <iframe class="substack-widget" src="https://devexp.substack.com/embed" frameborder="0" scrolling="no"></iframe>-->
     {{- if (and .Site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
-    <p>If you liked the article, please <b>support me by sharing</b> it on social networks 🙏</p>
-    <p>Also feel free to ask questions or <a href="{{ .Params.editPost.URL | default .Site.Params.editPost.URL }}" style="text-transform: lowercase; text-decoration: underline" rel="noopener noreferrer" target="_blank">
-      {{- .Params.editPost.Text | default (.Site.Params.editPost.Text | default (i18n "edit_post" | default "Edit")) -}}
-    </a> by emailing me.</p>
     {{- partial "share_icons.html" . -}}
     {{- end }}
     {{- if .Params.tags }}

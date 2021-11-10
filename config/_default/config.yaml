@@ -74,7 +74,7 @@ params:
     disableThemeToggle: false
     ShowFullTextinRSS: true
     ShowReadingTime: false
-    ShowShareButtons: true
+    ShowShareButtons: false
     ShareButtons: ["twitter", "linkedin", "facebook", "reddit"]
     ShowPostNavLinks: true
     ShowBreadCrumbs: true

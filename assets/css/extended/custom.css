@@ -6,6 +6,16 @@
     font-size: 16px;
 }
 
+.substack-subscribe {
+    box-sizing: border-box;
+    background-color: #3C8700;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-radius: 8px;
+    padding: 1em 0 1em 0;
+    text-align: center;
+}
+
 .attention {
     padding: 10px;
     margin-bottom: 20px;
@@ -25,10 +35,30 @@
     border-left-width: 0.5em;
     border-left-style: solid;
     position: relative;
-    border-left-color: darkgreen;
+    border-left-color: #3C8700;
     content: "foobar";
 }
-/*.updatenotice .icon{*/
+
+.substack-widget {
+    border-style: none;
+    height: 8em;
+    padding: 0;
+    margin-bottom: 0;
+    width: 100%;
+    border-radius: var(--radius);
+    display: inline-block;
+}
+
+.substack-widget-preface {
+    padding-top: 1em;
+    border-top: var(--border);
+    border-style: solid;
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+}
+
+    /*.updatenotice .icon{*/
 /*    position: absolute;*/
 /*    top: -1px;*/
 /*    left: -5px;*/
