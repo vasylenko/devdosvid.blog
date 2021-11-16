@@ -35,10 +35,9 @@
   {{- end }}
 
   <footer class="post-footer">
-      <p class="substack-widget-preface">Did you like the article and want to stay in touch? Subscribe to my monthly newsletter with updates:</p>
-      <iframe class="substack-widget" src="https://devexp.substack.com/embed" frameborder="0" scrolling="no"></iframe>
-<!--    <p>Did you like the article and want to stay in touch? Subscribe to my monthly newsletter with updates:</p>-->
-<!--    <iframe class="substack-widget" src="https://devexp.substack.com/embed" frameborder="0" scrolling="no"></iframe>-->
+    {{- if (and .Site.Params.SubscribeEngagement (ne .Params.DisableSubscribeEngagement true)) }}
+    {{- partial "subscribe_engagement.html" . -}}
+    {{- end }}
     {{- if (and .Site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
     {{- partial "share_icons.html" . -}}
     {{- end }}

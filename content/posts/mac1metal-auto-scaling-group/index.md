@@ -32,7 +32,8 @@ So how does all that work?
 
 Let’s review the diagram that illustrates the interconnection between involved services:
 
-{{< figure src="general-scheme_compressed.png" alt="Services interconnection" >}}
+{{< figure src="general-scheme_compressed.png" caption="Services logical interconnection" >}}
+
 
 With the help of Licence Manager service and Launch Templates, you can set up EC2 Auto Scaling Group for mac1.metal and leave the automated instance provisioning to the service.
 
@@ -43,7 +44,7 @@ Go to AWS License Manager -> Customer managed licenses -> Create customer-manage
 
 Specify **Sockets** as the Licence type. You may skip setting the Number of Sockets. However, the actual limit of mac1.metal instances per account is regulated by Service Quota. The default number of mac instances allowed per account is 3. Therefore, consider [increasing](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html) this to a more significant number.
 
-{{< figure src="license-configuration_compressed.png" alt="Licence configuration values" >}}
+{{< figure src="license-configuration_compressed.png" caption="Licence configuration values" >}}
 
 ### Host resource group
 Second, create the Host resource group: AWS License Manager -> Host resource groups -> Create host resource group.
@@ -53,7 +54,7 @@ However, Auto Scaling Group will maintain the desired number of instances if one
 
 Also, I recommend specifying “mac1” as an allowed Instance family for the sake of transparent resource management: only this instance type is permitted to allocate hosts in the group.
 
-{{< figure src="host-resource-group_compressed.png" alt="Host resource group configuration values" >}}
+{{< figure src="host-resource-group_compressed.png" caption="Host resource group configuration values" >}}
 
 Optionally, you may specify the license association here (the Host group will pick any compatible license) or select the license you created on step one. 
 
@@ -64,7 +65,7 @@ I will skip the description of all Launch Template parameters (but here is a nic
 
 Specify mac1.metal as the Instance type. Later, in Advanced details: find the **Tenancy** parameter and set it to “Dedicated host”; for **Target host by** select “Host resource group”, and once selected the new parameter **Tenancy host resource group** will appear where you should choose your host group; select your license in **License configurations** parameter.
 
-{{< figure src="launch-template_compressed.png" alt="Launch Template configuration values" >}}
+{{< figure src="launch-template_compressed.png" caption="Launch Template configuration values" >}}
 
 ### Auto Scaling Group
 Finally, create the Auto Scaling Group: EC2 -> Auto Scaling groups -> Create Auto Scaling group.

@@ -58,6 +58,11 @@
     border-left: none;
 }
 
+.substack-widget-preface a {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
     /*.updatenotice .icon{*/
 /*    position: absolute;*/
 /*    top: -1px;*/

@@ -11,6 +11,7 @@ ShowBreadCrumbs: false
 keywords: [devops, resume, hiring, cv, aws, terraform, teamlead, senior engineer, developer experience]
 summary: "Serhii Vasylenko — professional experience"
 title: "Serhii Vasylenko"
+DisableSubscribeEngagement: true
 ---
 
 Developer Experience engineer, DevOps enthusiast. In 2020 I switched from team management to an individual contributor role to feel the engineering world on the tip of my fingers again.

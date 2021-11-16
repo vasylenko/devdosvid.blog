@@ -63,7 +63,7 @@ rssLimit: 20
 
 ### THEME SETTINGS
 params:
-    env: production # to enable google analytics, opengraph, twitter-cards and schema.
+    SubscribeEngagement: true
     title: Serhii Vasylenko — Personal Blog
     description: "Personal blog of Serhii Vasylenko — AWS Community Builder, Developer Experience Engineer at Grammarly"
     keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education]
