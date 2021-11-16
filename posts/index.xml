@@ -130,7 +130,9 @@ While management of a single mac1.metal node (or a tiny number of ones) is not a
 <p>Let’s review the diagram that illustrates the interconnection between involved services:</p>
 <figure>
     <img loading="lazy" src="general-scheme_compressed.png"
-         alt="Services interconnection"/> 
+         alt="Services logical interconnection"/> <figcaption>
+            <p>Services logical interconnection</p>
+        </figcaption>
 </figure>
 
 <p>With the help of Licence Manager service and Launch Templates, you can set up EC2 Auto Scaling Group for mac1.metal and leave the automated instance provisioning to the service.</p>
@@ -140,7 +142,9 @@ While management of a single mac1.metal node (or a tiny number of ones) is not a
 <p>Specify <strong>Sockets</strong> as the Licence type. You may skip setting the Number of Sockets. However, the actual limit of mac1.metal instances per account is regulated by Service Quota. The default number of mac instances allowed per account is 3. Therefore, consider <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html">increasing</a> this to a more significant number.</p>
 <figure>
     <img loading="lazy" src="license-configuration_compressed.png"
-         alt="Licence configuration values"/> 
+         alt="Licence configuration values"/> <figcaption>
+            <p>Licence configuration values</p>
+        </figcaption>
 </figure>
 
 <h3 id="host-resource-group">Host resource group</h3>
@@ -150,7 +154,9 @@ However, Auto Scaling Group will maintain the desired number of instances if one
 <p>Also, I recommend specifying “mac1” as an allowed Instance family for the sake of transparent resource management: only this instance type is permitted to allocate hosts in the group.</p>
 <figure>
     <img loading="lazy" src="host-resource-group_compressed.png"
-         alt="Host resource group configuration values"/> 
+         alt="Host resource group configuration values"/> <figcaption>
+            <p>Host resource group configuration values</p>
+        </figcaption>
 </figure>
 
 <p>Optionally, you may specify the license association here (the Host group will pick any compatible license) or select the license you created on step one.</p>
@@ -160,7 +166,9 @@ However, Auto Scaling Group will maintain the desired number of instances if one
 <p>Specify mac1.metal as the Instance type. Later, in Advanced details: find the <strong>Tenancy</strong> parameter and set it to “Dedicated host”; for <strong>Target host by</strong> select “Host resource group”, and once selected the new parameter <strong>Tenancy host resource group</strong> will appear where you should choose your host group; select your license in <strong>License configurations</strong> parameter.</p>
 <figure>
     <img loading="lazy" src="launch-template_compressed.png"
-         alt="Launch Template configuration values"/> 
+         alt="Launch Template configuration values"/> <figcaption>
+            <p>Launch Template configuration values</p>
+        </figcaption>
 </figure>
 
 <h3 id="auto-scaling-group">Auto Scaling Group</h3>
