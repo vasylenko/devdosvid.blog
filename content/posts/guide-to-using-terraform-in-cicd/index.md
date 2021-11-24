@@ -1,14 +1,14 @@
 ---
 canonicalURL: https://spacelift.io/blog/terraform-in-ci-cd 
 title: "Guide to Using Terraform in CI/CD"
-date: 2021-11-24T02:20:45+02:00
+date: 2021-11-24T22:20:45+02:00
 description: "How to configure, how to run, and what to mind for when using Terraform in CI/CD"
 cover:
     image: cover-image.png
     relative: true
 tags: ["terraform", "cli", "automation"]
 categories: [Tutorials]
-draft: true
+showtoc: false
 ---
 
 Terraform by itself automates a lot of things: it creates, changes, and versions your cloud resources. Although many teams run Terraform locally (sometimes with wrapper scripts), running Terraform in CI/CD can boost the organization's performance and ensure consistent deployments.
@@ -23,8 +23,11 @@ This question has no strict and clear answer, but here are some insights that ma
 - Conversely, if you have a dedicated team that manages infrastructure (e.g., platform team), a separate repository for infrastructure is more convenient because it's a standalone project in that case.
 - When infrastructure code is stored with the application, sometimes you have to deal with additional rules for the pipeline to separate triggers for these code parts. But sometimes (e.g., serverless apps) changes to either part (app/infra) should trigger the deployment.
 
+{{< attention >}}
+
 There is no right or wrong approach, but whichever you choose, remember to follow the **Don’t Repeat Yourself (DRY)** principle: make the infrastructure code modular by logically grouping resources into higher abstractions and reusing these modules.
 
+{{< /attention >}}
 # Preparing Terraform execution environment
 Running Terraform locally generally means that all dependencies are already in-place: you have the binary installed and present in the user's `PATH` and perhaps even some providers already stored in the `.terraform` directory. 
 
@@ -70,8 +73,9 @@ So all you have to do is to maintain the provider versions in the shared cache a
 
 On the other hand, you can bake the provider binaries into the Docker image and inject the value for the `TF_PLUGIN_CACHE_DIR` environment variable right into the Dockerfile.
 
-This approach takes more operational effort **but makes the Terraform environment self-sufficient and stateless**. It also allows you to set strict boundaries around permitted provider versions as a security measure. 
-
+{{< attention >}}
+This approach takes more operational effort **but makes the Terraform environment self-sufficient and stateless**. It also allows you to set strict boundaries around permitted provider versions as a security measure.
+{{< /attention >}}
 # Planning and Applying changes
 Now let's review the ways to automate planning and applying of changes. Although `terraform apply` can do both, it's sometimes useful to separate these actions. 
 
@@ -131,9 +135,9 @@ Another way to see the information about changes, is to run the `plan` command w
 > terraform plan -json|jq 'select( .type == "change_summary")|."@message"'
 "Plan: 1 to add, 0 to change, 0 to destroy."
 ```
-
+{{< attention >}}
 This technique can make your Pull Request messages more informative and improve your collaboration with teammates.
-
+{{< /attention >}}
 You can write a custom script/function that sends a Pull Request comment to VCS using its API. Or you can try the existing features of your VCS: with GitHub Actions, you can use the [Terraform PR Commenter](https://github.com/marketplace/actions/terraform-pr-commenter) or similar action to achieve that; for GitLab, there is a built-in functionality that integrates plan results into the Merge Request — [Terraform integration in Merge Requests](https://docs.gitlab.com/ee/user/infrastructure/iac/mr_integration.html). 
 
 You can find more information about the specification of the JSON output here — [Terraform JSON Output Format](https://www.terraform.io/docs/internals/json-format.html).
@@ -203,3 +207,6 @@ There are two primary outcomes from automating Terraform executions: consistent 
 - A secure and controlled execution environment
 - Coherent runs of init, plan, apply phases
 - Leveraging of built-in Terraform capabilities
+
+
+##### I originally wrote this article for the Spacelift.io technical blog. But I decided to keep it here as well, for the history. The canonical link to their blog has been set accordingly. 

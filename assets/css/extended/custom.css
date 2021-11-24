@@ -17,19 +17,32 @@
 }
 
 .attention {
-    padding: 10px;
-    margin-bottom: 20px;
-    background-color: lightyellow;
-    color: black;
-    -moz-box-shadow: 0 0 10px #999;
-    -webkit-box-shadow: 0 0 10px #999;
-    box-shadow: 0 0 10px #999;
+    padding: 0.1em 0.1em 0.1em 1.5em;
+    margin-bottom: 1em;
+    border-left-width: 0.3em;
+    border-left-style: solid;
+    border-radius: var(--radius);
+    position: relative;
+    border-left-color: #31abff;
+    content: "foobar";
+    background-color: rgba(49, 171, 255, 0.1);
+    font-style: italic;
 }
+
 .attention p {
     margin-bottom: 0;
+    font-style: italic;
+}
+
+.attention:before {
+    content: "\1F4AC";
+    position: absolute;
+    margin-left: -1.25em;
+    font-style: normal;
 }
 
 .updatenotice {
+    border-radius: var(--radius);
     padding: 0.5em 0.5em 0.5em 1.5em;
     margin-bottom: 1em;
     border-left-width: 0.5em;
@@ -37,6 +50,7 @@
     position: relative;
     border-left-color: #3C8700;
     content: "foobar";
+    background-color: rgba(60,135,0,0.075);
 }
 
 .substack-widget {
