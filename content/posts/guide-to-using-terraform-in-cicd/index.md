@@ -99,7 +99,13 @@ For example, here is how you can use the same code with different roles in diffe
 -backend-config="role_arn=arn:aws:iam::012345678901:role/QADeploymentAutomation"
 ```
 
-However, I suggest checking in `.terraform.lock.hcl` as suggested by HashiCorp ([Dependency Lock File](https://www.terraform.io/docs/language/dependency-lock.html)): this way you will be able to control dependencies more thoroughly, and you will not worry about transferring this file between build stages.
+Terraform `init` produces two artifacts:
+- `.terraform` directory, which Terraform uses to manage cached provider plugins and modules, and record backend information
+- `.terraform.lock.hcl` file, which Terraform uses to track provider dependencies 
+
+They both must be present in the project directory to successfully run the subsequent plan and apply commands.
+
+However, I suggest checking in `.terraform.lock.hcl` to your repository as suggested by HashiCorp ([Dependency Lock File](https://www.terraform.io/docs/language/dependency-lock.html)): this way you will be able to control dependencies more thoroughly, and you will not worry about transferring this file between build stages.
 
 ## Plan
 The  `terraform plan` command helps you validate the changes manually. However, there are ways to use it in automation as well.
