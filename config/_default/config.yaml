@@ -64,9 +64,9 @@ rssLimit: 20
 ### THEME SETTINGS
 params:
     SubscribeEngagement: true
-    title: Serhii Vasylenko — Personal Blog
-    description: "Personal blog of Serhii Vasylenko — AWS Community Builder, Developer Experience Engineer at Grammarly"
-    keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education]
+    title: Serhii Vasylenko — Technical Blog
+    description: "Technical blog of Serhii Vasylenko — AWS Community Builder, Developer Experience Engineer at Grammarly"
+    keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education, DeveloperExperience]
     author: Serhii Vasylenko
     images: ["/assets/img/website-logo-open-graph.jpeg"]
     DateFormat: "January 2, 2006"
@@ -104,7 +104,7 @@ params:
         icon: "/apple-touch-icon.png"
 
     homeInfoParams:
-        Title: "Hi! 👋 I am Serhii Vasylenko and this is my blog"
+        Title: "Hi! 👋 and welcome to my technical blog!"
         Content: "Here I write about my DevOps experience, technologies, tutorials and some day-to-day work as a Developer Experience engineer at Grammarly. I sincerely hope you’ll enjoy reading me!"
 #     socialIcons:
 #         - name: twitter
