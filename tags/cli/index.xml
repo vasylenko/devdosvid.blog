@@ -10,7 +10,161 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 16 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/cli/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 24 Nov 2021 22:20:45 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/cli/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Guide to Using Terraform in CI/CD</title>
+      <link>https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/</link>
+      <pubDate>Wed, 24 Nov 2021 22:20:45 +0200</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/</guid>
+      <description>How to configure, how to run, and what to mind for when using Terraform in CI/CD</description>
+      <content:encoded><![CDATA[<p>Terraform by itself automates a lot of things: it creates, changes, and versions your cloud resources. Although many teams run Terraform locally (sometimes with wrapper scripts), running Terraform in CI/CD can boost the organization&rsquo;s performance and ensure consistent deployments.</p>
+<p>In this article, I would like to review different approaches to integrating Terraform into generic deployment pipelines.</p>
+<h1 id="where-to-store-the-terraform-code">Where to store the Terraform code</h1>
+<p>Storing Terraform code in the same repository as the application code or maintaining a separate repository for the infrastructure?</p>
+<p>This question has no strict and clear answer, but here are some insights that may help you decide:</p>
+<ul>
+<li>The Terraform and application code coupled together represent one unit, so it&rsquo;s simple to maintain by one team;</li>
+<li>Conversely, if you have a dedicated team that manages infrastructure (e.g., platform team), a separate repository for infrastructure is more convenient because it&rsquo;s a standalone project in that case.</li>
+<li>When infrastructure code is stored with the application, sometimes you have to deal with additional rules for the pipeline to separate triggers for these code parts. But sometimes (e.g., serverless apps) changes to either part (app/infra) should trigger the deployment.</li>
+</ul>
+<div class="attention">
+    There is no right or wrong approach, but whichever you choose, remember to follow the <strong>Don’t Repeat Yourself (DRY)</strong> principle: make the infrastructure code modular by logically grouping resources into higher abstractions and reusing these modules.
+</div>
+<h1 id="preparing-terraform-execution-environment">Preparing Terraform execution environment</h1>
+<p>Running Terraform locally generally means that all dependencies are already in-place: you have the binary installed and present in the user&rsquo;s <code>PATH</code> and perhaps even some providers already stored in the <code>.terraform</code> directory.</p>
+<p>But when you shift Terraform runs from your local machine to stateless pipelines, this is not the case. However, you can still have a pre-built environment — this will speed up the pipeline execution and provide control over the process.</p>
+<p>Docker image with a Terraform binary is one of the popular solutions that address this. Once created, you can execute Terraform within a container context with configuration files mounted as a Docker volume.</p>
+<p>You can use the official <a href="https://hub.docker.com/r/hashicorp/terraform/">image from Hashicorp</a>, but sometimes it makes sense to maintain your own Docker images with additional tools you may need. For instance, you can bake the <code>tfsec</code> tool into the image to use it for security inspection and have it ready inside the Docker container without the need to install it every time.</p>
+<p>Here is an example of a Dockerfile that builds an image with a custom Terraform version (you can override it as a build argument) and a <code>tfsec</code> tool. This example also shows how to verify the installed Terraform binary to make sure it&rsquo;s signed by HashiCorp before we run it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#6ab825;font-weight:bold">FROM</span><span style="color:#ed9d13"> alpine:3.14</span><span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#6ab825;font-weight:bold">ARG</span> <span style="color:#40ffff">TERRAFORM_VERSION</span>=<span style="color:#3677a9">1</span>.0.11<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#6ab825;font-weight:bold">ARG</span> <span style="color:#40ffff">TFSEC_VERSION</span>=<span style="color:#3677a9">0</span>.59.0<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#6ab825;font-weight:bold">RUN</span> apk add --no-cache --virtual .sig-check gnupg<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#6ab825;font-weight:bold">RUN</span> wget -O /usr/bin/tfsec https://github.com/aquasecurity/tfsec/releases/download/v<span style="color:#ed9d13">${</span><span style="color:#40ffff">TFSEC_VERSION</span><span style="color:#ed9d13">}</span>/tfsec-linux-amd64 <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>    &amp;&amp; chmod +x /usr/bin/tfsec<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#6ab825;font-weight:bold">RUN</span> <span style="color:#24909d">cd</span> /tmp <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>    &amp;&amp; wget <span style="color:#ed9d13">&#34;https://releases.hashicorp.com/terraform/</span><span style="color:#ed9d13">${</span><span style="color:#40ffff">TERRAFORM_VERSION</span><span style="color:#ed9d13">}</span><span style="color:#ed9d13">/terraform_</span><span style="color:#ed9d13">${</span><span style="color:#40ffff">TERRAFORM_VERSION</span><span style="color:#ed9d13">}</span><span style="color:#ed9d13">_linux_amd64.zip&#34;</span> <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>    &amp;&amp; wget https://keybase.io/hashicorp/pgp_keys.asc <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>    &amp;&amp; gpg --import pgp_keys.asc <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>    &amp;&amp; gpg --fingerprint --list-signatures <span style="color:#ed9d13">&#34;HashiCorp Security&#34;</span> | grep -q <span style="color:#ed9d13">&#34;C874 011F 0AB4 0511 0D02  1055 3436 5D94 72D7 468F&#34;</span> || <span style="color:#24909d">exit</span> <span style="color:#3677a9">1</span> <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>    &amp;&amp; gpg --fingerprint --list-signatures <span style="color:#ed9d13">&#34;HashiCorp Security&#34;</span> | grep -q <span style="color:#ed9d13">&#34;34365D9472D7468F&#34;</span> || <span style="color:#24909d">exit</span> <span style="color:#3677a9">1</span> <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>    &amp;&amp; wget https://releases.hashicorp.com/terraform/<span style="color:#ed9d13">${</span><span style="color:#40ffff">TERRAFORM_VERSION</span><span style="color:#ed9d13">}</span>/terraform_<span style="color:#ed9d13">${</span><span style="color:#40ffff">TERRAFORM_VERSION</span><span style="color:#ed9d13">}</span>_SHA256SUMS <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>    &amp;&amp; wget https://releases.hashicorp.com/terraform/<span style="color:#ed9d13">${</span><span style="color:#40ffff">TERRAFORM_VERSION</span><span style="color:#ed9d13">}</span>/terraform_<span style="color:#ed9d13">${</span><span style="color:#40ffff">TERRAFORM_VERSION</span><span style="color:#ed9d13">}</span>_SHA256SUMS.sig <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>    &amp;&amp; gpg --verify terraform_<span style="color:#ed9d13">${</span><span style="color:#40ffff">TERRAFORM_VERSION</span><span style="color:#ed9d13">}</span>_SHA256SUMS.sig terraform_<span style="color:#ed9d13">${</span><span style="color:#40ffff">TERRAFORM_VERSION</span><span style="color:#ed9d13">}</span>_SHA256SUMS || <span style="color:#24909d">exit</span> <span style="color:#3677a9">1</span> <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>    &amp;&amp; sha256sum -c terraform_<span style="color:#ed9d13">${</span><span style="color:#40ffff">TERRAFORM_VERSION</span><span style="color:#ed9d13">}</span>_SHA256SUMS 2&gt;&amp;<span style="color:#3677a9">1</span> | grep -q <span style="color:#ed9d13">&#34;terraform_</span><span style="color:#ed9d13">${</span><span style="color:#40ffff">TERRAFORM_VERSION</span><span style="color:#ed9d13">}</span><span style="color:#ed9d13">_linux_amd64.zip: OK&#34;</span> || <span style="color:#24909d">exit</span> <span style="color:#3677a9">1</span> <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>    &amp;&amp; unzip terraform_<span style="color:#ed9d13">${</span><span style="color:#40ffff">TERRAFORM_VERSION</span><span style="color:#ed9d13">}</span>_linux_amd64.zip -d /bin <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>    &amp;&amp; rm -rf /tmp/* &amp;&amp; apk del .sig-check<span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><p>But the main functionality of Terraform is delivered by provider plugins. It takes time to download the provider: for example, the AWS provider is about 250MB, and in a large scale, with hundreds of Terraform runs per day, this makes a difference.</p>
+<p>There are two common ways to deal with it: either use a shared cache available to your pipeline workloads or bake provider binaries into the runtime environment (i.e., Docker image).</p>
+<p>The critical element for both approaches is the configuration of the plugin cache directory path. By default, Terraform looks for plugins and downloads them in the <code>.terraform</code> directory, which is local to the main project directory. But you can override this, and you can leverage the <code>TF_PLUGIN_CACHE_DIR</code> environment variable to do that.</p>
+<p>If supported by your CI/CD tool, the shared cache can significantly reduce the operational burden because all your pipeline runtime environments can use it to get the needed provider versions.</p>
+<p>So all you have to do is to maintain the provider versions in the shared cache and instruct Terraform to use it:</p>
+<ul>
+<li>Mount the cache directory to the pipeline runtime (i.e., docker container) and specify its internal path</li>
+<li>Set the value of the <code>TF_PLUGIN_CACHE_DIR</code> environment variable accordingly</li>
+</ul>
+<p>On the other hand, you can bake the provider binaries into the Docker image and inject the value for the <code>TF_PLUGIN_CACHE_DIR</code> environment variable right into the Dockerfile.</p>
+<div class="attention">
+    This approach takes more operational effort <strong>but makes the Terraform environment self-sufficient and stateless</strong>. It also allows you to set strict boundaries around permitted provider versions as a security measure.
+</div>
+<h1 id="planning-and-applying-changes">Planning and Applying changes</h1>
+<p>Now let&rsquo;s review the ways to automate planning and applying of changes. Although <code>terraform apply</code> can do both, it&rsquo;s sometimes useful to separate these actions.</p>
+<h2 id="initialization">Initialization</h2>
+<p>CI/CD pipelines generally run in stateless environments. Thus, every subsequent run of Terraform looks like a fresh start, so the project needs to be initialized before other actions can be performed.</p>
+<p>The usage of the <code>init</code> command in CI/CD slightly differs from its common local usage:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; terraform init -input=<span style="color:#24909d">false</span>
+</code></pre></div><p>The <code>-input=false</code> option prevents Terraform CLI from asking for user actions (it will throw an error if the input was required).</p>
+<p><em>Also, there is <code>-no-color</code> option that prevents the usage of color codes in a shell, so the output will look much cleaner if your CI/CD logging system cannot render the terminal formatting.</em></p>
+<p>Another option of the init command that is useful in CI — is the <code>-backend-config</code>. That option allows you to override the backend configuration in your code or define it if you prefer to use partial configuration, thus creating more uniform pipelines.</p>
+<p>For example, here is how you can use the same code with different roles in different environments on AWS:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; terraform init -input=<span style="color:#24909d">false</span> <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>-backend-config=<span style="color:#ed9d13">&#34;role_arn=arn:aws:iam::012345678901:role/QADeploymentAutomation&#34;</span>
+</code></pre></div><p>Terraform <code>init</code> produces two artifacts:</p>
+<ul>
+<li><code>.terraform</code> directory, which Terraform uses to manage cached provider plugins and modules, and record backend information</li>
+<li><code>.terraform.lock.hcl</code> file, which Terraform uses to track provider dependencies</li>
+</ul>
+<p>They both must be present in the project directory to successfully run the subsequent plan and apply commands.</p>
+<p>However, I suggest checking in <code>.terraform.lock.hcl</code> to your repository as suggested by HashiCorp (<a href="https://www.terraform.io/docs/language/dependency-lock.html">Dependency Lock File</a>): this way you will be able to control dependencies more thoroughly, and you will not worry about transferring this file between build stages.</p>
+<h2 id="plan">Plan</h2>
+<p>The  <code>terraform plan</code> command helps you validate the changes manually. However, there are ways to use it in automation as well.</p>
+<p>By default, Terraform prints the plan output in a human-friendly format but also supports machine-readable JSON. With additional command-line options, you can extend your CI experience.</p>
+<p>For example, you can use your validation conditions to decide whether to apply the changes automatically; or you can parse the plan details and integrate the summary into a Pull Request description. Let’s review a simple example that illustrates it.</p>
+<p>First, you need to save the plan output to the file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; terraform plan -input=<span style="color:#24909d">false</span> -compact-warnings -out=plan.file
+</code></pre></div><p>The main point here is the <code>-out</code> option — it tells Terraform to save its output into a binary plan file, and we will talk about it in the next paragraph.</p>
+<p>The <code>-compact-warnings</code> option suppresses the warning-level messages produced by Terraform.</p>
+<p>Also, the <code>plan</code> command has the <code>-detailed-exitcode</code> option that returns detailed exit codes when the command exits. For example, you can leverage this in a script that wraps Terraform and adds more conditional logic to its execution, because CIs will generally fail the pipeline on a command’s non-zero exit code. However, that may add complexity to the pipeline logic.</p>
+<p>So if you need to get detailed info about the plan, I suggest parsing the plan output.</p>
+<p>When you have a plan file, you can read it in JSON format and parse it. Here is a code snippet that illustrates that:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; terraform show -json plan.file| jq -r <span style="color:#ed9d13">&#39;([.resource_changes[]?.change.actions?]|flatten)|{&#34;create&#34;:(map(select(.==&#34;create&#34;))|length),&#34;update&#34;:(map(select(.==&#34;update&#34;))|length),&#34;delete&#34;:(map(select(.==&#34;delete&#34;))|length)}&#39;</span>
+{
+  <span style="color:#ed9d13">&#34;create&#34;</span>: 1,
+  <span style="color:#ed9d13">&#34;update&#34;</span>: 0,
+  <span style="color:#ed9d13">&#34;delete&#34;</span>: <span style="color:#3677a9">0</span>
+}
+</code></pre></div><p>Another way to see the information about changes, is to run the <code>plan</code> command with <code>-json</code> option and parse its output to stdout (available starting from Terraform 1.0.5):</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; terraform plan -json|jq <span style="color:#ed9d13">&#39;select( .type == &#34;change_summary&#34;)|.&#34;@message&#34;&#39;</span>
+<span style="color:#ed9d13">&#34;Plan: 1 to add, 0 to change, 0 to destroy.&#34;</span>
+</code></pre></div><p><div class="attention">
+    This technique can make your Pull Request messages more informative and improve your collaboration with teammates.
+</div>
+You can write a custom script/function that sends a Pull Request comment to VCS using its API. Or you can try the existing features of your VCS: with GitHub Actions, you can use the <a href="https://github.com/marketplace/actions/terraform-pr-commenter">Terraform PR Commenter</a> or similar action to achieve that; for GitLab, there is a built-in functionality that integrates plan results into the Merge Request — <a href="https://docs.gitlab.com/ee/user/infrastructure/iac/mr_integration.html">Terraform integration in Merge Requests</a>.</p>
+<p>You can find more information about the specification of the JSON output here — <a href="https://www.terraform.io/docs/internals/json-format.html">Terraform JSON Output Format</a>.</p>
+<h2 id="apply">Apply</h2>
+<p>When the plan file is ready, and the proposed changes are expected and approved, it&rsquo;s time to <code>apply</code> them.</p>
+<p>Here is how the <code>apply</code> command may look like in automation:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">terraform apply -input=<span style="color:#24909d">false</span> -compact-warnings plan.file
+</code></pre></div><p>Here, the <code>plan.file</code> is the file we got from the previous plan step.</p>
+<p>Alternatively, you might want to omit the planning phase at all. In that case, the following command will apply the configuration immediately, without the need for a plan:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">terraform apply -input=<span style="color:#24909d">false</span> -compact-warnings -auto-approve
+</code></pre></div><p>Here, the <code>-auto-approve</code> option tells Terraform to create the plan implicitly and skip the interactive approval of that plan before applying.</p>
+<p>Whichever way you choose, keep in mind the destructive nature of the apply command. Hence, the fully automated apply of configuration generally works well with environments that tolerate unexpected downtimes, such as development or testing. Whereas plan review is recommended for production-grade environments, and in that case, the <code>apply</code> job is configured for a manual trigger.</p>
+<h1 id="dealing-with-stateless-environments">Dealing with stateless environments</h1>
+<p>If you run <code>init</code>, <code>plan</code>, and <code>apply</code> commands in different environments, you need to care for some artifacts produced by Terraform:</p>
+<ul>
+<li>The <code>.terraform</code> directory with information about modules, providers, and the state file (even in the case of remote state).</li>
+<li>The <code>.terraform.lock.hcl</code> file — the dependency lock file which Terraform uses to check the integrity of provider versions used for the project. If your VCS does not track it, you&rsquo;ll need to pass that file to the <code>plan</code> and <code>apply</code> commands to make them work after <code>init</code>.</li>
+<li>The output file of the <code>plan</code> command is essential for the <code>apply</code> command, so treat it as a vital artifact. This file includes a full copy of the project configuration, the state, and variables passed to the <code>plan</code> command (if any). Therefore, mind the security precautions because sensitive information may be present there.</li>
+</ul>
+<p>There is one shortcut, though. You can execute the <code>init</code> and <code>plan</code> commands within the same step/stage and transfer the artifacts only once — to the <code>apply</code> execution.</p>
+<h1 id="using-the-command-line-and-environments-variables">Using the command-line and environments variables</h1>
+<p>Last but not least, a few words about ways to maximize the advantage of variables when running Terraform in CI.</p>
+<p>There are two common ways how you can pass values for the variables used in the configuration:</p>
+<ol>
+<li>Using a <code>-var-file</code> option with the variable definitions file — a filename ending in <code>.tfvars</code> or <code>.tfvars.json</code>. For example:
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">terraform apply -var-file=development.tfvars -input=<span style="color:#24909d">false</span> -no-color -compact-warnings -auto-approve
+</code></pre></div>Also, Terraform can automatically load the variables from files named exactly <code>terraform.tfvars</code> or <code>terraform.tfvars.json</code>: with that approach, you don’t need to specify the tfvar file as a command option explicitly.</li>
+<li>Using environment variables with the prefix <code>TF_VAR_</code>. Implicitly, Terraform always looks for the environment variables (within its process context) with that prefix, so the same &ldquo;instance_type&rdquo; variables from the example above can be passed as follows:
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#24909d">export</span> <span style="color:#40ffff">TF_VAR_instance_type</span>=t3.nano
+terraform -input=<span style="color:#24909d">false</span> -no-color -compact-warnings -auto-approve
+</code></pre></div></li>
+</ol>
+<p>The latter method is widely used in CI because modern CI/CD tools support the management of the environment variables for automation jobs.</p>
+<p>Please refer to the following official documentation if you want to know more about variables — <a href="https://www.terraform.io/docs/language/values/variables.html">Terraform Input Variables</a>.</p>
+<p>Along with that, Terraform supports several configuration parameters in the form of environment variables. These parameters are optional; however, they can simplify the automation management and streamline its code.</p>
+<ul>
+<li><code>TF_INPUT</code> — when set to &ldquo;false&rdquo; or &ldquo;0&rdquo;, this tells Terraform to behave the same way as with the <code>-input=false</code> flag;</li>
+<li><code>TF_CLI_ARGS</code> — can contain a set of command-line options that will be passed to one or another Terraform command. Therefore, the following notation can simplify the execution of <code>apply</code> and <code>plan</code> commands by unifying their options for CI:
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#24909d">export</span> <span style="color:#40ffff">TF_CLI_ARGS</span>=<span style="color:#ed9d13">&#34;-input=false -no-color -compact-warnings&#34;</span>
+terraform plan ...
+terraform apply ...
+</code></pre></div>You can advantage this even more when using this variable as the environment configuration of stages or jobs in a CI/CD tool.</li>
+<li><code>TF_IN_AUTOMATION</code>  — when set to any non-empty value (e.g., &ldquo;true&rdquo;), Terraform stops suggesting commands run after the one you execute, hence producing less output.</li>
+</ul>
+<h1 id="key-takeaways">Key takeaways</h1>
+<p>There are two primary outcomes from automating Terraform executions: consistent results and integrating with the code or project management solutions. Although the exact implementation of Terraform in CI may vary per project or team, try to aim the following goals when working on it:</p>
+<ul>
+<li>Ease of code management</li>
+<li>A secure and controlled execution environment</li>
+<li>Coherent runs of init, plan, apply phases</li>
+<li>Leveraging of built-in Terraform capabilities</li>
+</ul>
+<h5 id="i-originally-wrote-this-article-for-the-spaceliftio-technical-blog-but-i-decided-to-keep-it-here-as-well-for-the-history-the-canonical-link-to-their-blog-has-been-set-accordingly">I originally wrote this article for the Spacelift.io technical blog. But I decided to keep it here as well, for the history. The canonical link to their blog has been set accordingly.</h5>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>AWS CloudShell</title>
       <link>https://serhii.vasylenko.info/2020/12/16/aws-cloudshell.html</link>

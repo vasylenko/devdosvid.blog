@@ -10,7 +10,37 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 05 Nov 2021 14:20:58 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 24 Nov 2021 22:20:45 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>automation</title>
+      <link>https://serhii.vasylenko.info/tags/automation/</link>
+      <pubDate>Wed, 24 Nov 2021 22:20:45 +0200</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/tags/automation/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>cli</title>
+      <link>https://serhii.vasylenko.info/tags/cli/</link>
+      <pubDate>Wed, 24 Nov 2021 22:20:45 +0200</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/tags/cli/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>terraform</title>
+      <link>https://serhii.vasylenko.info/tags/terraform/</link>
+      <pubDate>Wed, 24 Nov 2021 22:20:45 +0200</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/tags/terraform/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
     <item>
       <title>aws</title>
       <link>https://serhii.vasylenko.info/tags/aws/</link>
@@ -37,16 +67,6 @@
       <pubDate>Fri, 05 Nov 2021 14:20:58 +0200</pubDate>
       
       <guid>https://serhii.vasylenko.info/tags/security/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>terraform</title>
-      <link>https://serhii.vasylenko.info/tags/terraform/</link>
-      <pubDate>Fri, 05 Nov 2021 14:20:58 +0200</pubDate>
-      
-      <guid>https://serhii.vasylenko.info/tags/terraform/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
@@ -117,26 +137,6 @@
       <pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
       
       <guid>https://serhii.vasylenko.info/tags/packer/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>automation</title>
-      <link>https://serhii.vasylenko.info/tags/automation/</link>
-      <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://serhii.vasylenko.info/tags/automation/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>cli</title>
-      <link>https://serhii.vasylenko.info/tags/cli/</link>
-      <pubDate>Wed, 16 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://serhii.vasylenko.info/tags/cli/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>

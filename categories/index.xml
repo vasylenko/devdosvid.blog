@@ -10,23 +10,23 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 05 Nov 2021 14:20:58 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 24 Nov 2021 22:20:45 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tutorials</title>
+      <link>https://serhii.vasylenko.info/categories/tutorials/</link>
+      <pubDate>Wed, 24 Nov 2021 22:20:45 +0200</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/categories/tutorials/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
     <item>
       <title>Cloud-based DevOps</title>
       <link>https://serhii.vasylenko.info/categories/cloud-based-devops/</link>
       <pubDate>Fri, 05 Nov 2021 14:20:58 +0200</pubDate>
       
       <guid>https://serhii.vasylenko.info/categories/cloud-based-devops/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>Tutorials</title>
-      <link>https://serhii.vasylenko.info/categories/tutorials/</link>
-      <pubDate>Sun, 14 Feb 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://serhii.vasylenko.info/categories/tutorials/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
