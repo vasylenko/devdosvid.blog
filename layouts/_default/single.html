@@ -35,7 +35,10 @@
   {{- end }}
 
   <footer class="post-footer">
-    {{- if (and .Site.Params.SubscribeEngagement (ne .Params.DisableSubscribeEngagement true)) }}
+    {{- if (and .Site.Params.WriteMeOnTwitter (ne .Params.WriteMeOnTwitter false)) }}
+    {{- partial "write_me_on_twitter.html" . -}}
+    {{- end }}
+    {{- if (and .Site.Params.SubscribeEngagement (ne .Params.DisableSubscribeEngagement false)) }}
     {{- partial "subscribe_engagement.html" . -}}
     {{- end }}
     {{- if (and .Site.Params.ShowShareButtons (ne .Params.disableShare true)) }}

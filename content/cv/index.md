@@ -11,7 +11,8 @@ ShowBreadCrumbs: false
 keywords: [devops, resume, hiring, cv, aws, terraform, teamlead, senior engineer, developer experience]
 summary: "Serhii Vasylenko — professional experience"
 title: "Serhii Vasylenko"
-DisableSubscribeEngagement: true
+SubscribeEngagement: false
+WriteMeOnTwitter: false
 ---
 
 Developer Experience engineer, DevOps enthusiast. In 2020 I switched from team management to an individual contributor role to feel the engineering world on the tip of my fingers again.
@@ -33,7 +34,7 @@ From July'20
     Teaching DevOps and doing workshops about AWS and Terraform.
 
 Mar'17 – Jun'20
-:   **DevOps Teamlead at [ITCraft](https://itechcraft.com/)**
+:   **DevOps Teamlead at [ITCraft](https://itechcraft.com/blog/clients-amazon-aws-hosting/)**
 
     My biggest project — my team. A skilled and highly motivated team of engineers that sincerely cares about its work outcomes.
 

@@ -63,7 +63,8 @@ rssLimit: 20
 
 ### THEME SETTINGS
 params:
-    SubscribeEngagement: true
+    SubscribeEngagement: false
+    WriteMeOnTwitter: true
     title: Serhii Vasylenko — Technical Blog
     description: "Technical blog of Serhii Vasylenko — AWS Community Builder, Developer Experience Engineer at Grammarly"
     keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education, DeveloperExperience]
@@ -104,7 +105,7 @@ params:
         icon: "/apple-touch-icon.png"
 
     homeInfoParams:
-        Title: "Hi! 👋 and welcome to my technical blog!"
+        Title: "Hi! 👋 And welcome to my technical blog!"
         Content: "Here I write about my DevOps experience, technologies, tutorials and some day-to-day work as a Developer Experience engineer at Grammarly. I sincerely hope you’ll enjoy reading me!"
 #     socialIcons:
 #         - name: twitter

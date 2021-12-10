@@ -10,7 +10,8 @@ cover.hidden: true
 ShowBreadCrumbs: false
 title: About me
 kind: page
-DisableSubscribeEngagement: true
+SubscribeEngagement: false
+WriteMeOnTwitter: false
 ---
 
 ![](./hoodie-optimized.png#center)
