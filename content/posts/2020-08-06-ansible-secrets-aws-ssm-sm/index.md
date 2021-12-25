@@ -6,7 +6,7 @@ cover:
     image: "2020-08-06-ansible-secrets-aws-ssm-sm.png"
 description: A better way to store sensitive information for Ansible on EC2 or other services
 tags: ["ansible", "aws", "devops", "security", "ssm"]
-categories: [Cloud-based DevOps]
+categories: [Amazon Web Services, Ansible]
 title: Manage Ansible playbook secrets with AWS services
 url: /2020/08/06/ansible-secrets-aws-ssm-sm.html
 ---

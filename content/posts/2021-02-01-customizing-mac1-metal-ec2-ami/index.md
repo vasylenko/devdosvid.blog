@@ -5,7 +5,7 @@ images: ["2021-02-01-customizing-mac1-metal-ec2-ami.png"]
 cover:
   image: "2021-02-01-customizing-mac1-metal-ec2-ami.png"
 tags: ["aws", "ansible", "packer", "macos", "ec2"]
-categories: [Cloud-based DevOps]
+categories: [Amazon Web Services, Ansible]
 title: Customizing mac1.metal EC2 AMI — new guts, more glory
 url: /2021/02/01/customizing-mac1-metal-ec2-ami.html
 ---

@@ -6,7 +6,7 @@ images: ["tf-workflows.jpeg"]
 cover:
   image: tf-workflows.jpeg
 tags: ["Terraform", "Tutorials"]
-categories: [Tutorials]
+categories: [Terraform]
 title: Terraform Workflow — Working Individually and in a Team
 url: /2020/09/16/terraform-workflow-working-individually-and-in-a-team.html
 ---

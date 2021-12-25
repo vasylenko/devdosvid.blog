@@ -5,7 +5,7 @@ images: ["2020-12-16-aws-cloudshell.png"]
 cover:
     image: 2020-12-16-aws-cloudshell.png
 tags: ["aws", "cli"]
-categories: [Reviews]
+categories: [Amazon Web Services]
 title: AWS CloudShell
 url: /2020/12/16/aws-cloudshell.html
 ---

@@ -7,7 +7,7 @@ cover:
     image: cover-image.png
     relative: true
 tags: ["terraform", "cli", "automation"]
-categories: [Tutorials]
+categories: [Terraform]
 showtoc: false
 ---
 

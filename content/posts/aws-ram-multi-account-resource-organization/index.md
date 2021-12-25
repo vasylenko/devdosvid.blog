@@ -6,7 +6,7 @@ cover:
     image: cover-image.png
     relative: true
 tags: [aws, architecture, governance]
-categories: [Cloud-based DevOps]
+categories: [Amazon Web Services]
 ---
 
 With a multi-account approach of building the infrastructure, there is always a challenge of provision and governance of the resources to subordinate accounts within the Organization. Provision resources, keep them up to date, and decommission them properly — that's only a part of them.

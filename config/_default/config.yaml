@@ -106,7 +106,8 @@ params:
 
     homeInfoParams:
         Title: "Hi! 👋 And welcome to my technical blog!"
-        Content: "Here I write about my DevOps experience, technologies, tutorials and some day-to-day work as a Developer Experience engineer at Grammarly. I sincerely hope you’ll enjoy reading me!"
+        Content: "Here I write about my DevOps experience, technologies, tutorials and some day-to-day work as a Developer Experience engineer at Grammarly. I sincerely hope you’ll enjoy reading me! 💡 Btw, I'm **[hiring in US & CA](https://grmly.co/32pbQOu)**!"
+
 #     socialIcons:
 #         - name: twitter
 #           url: "https://twitter.com/vasylenko"

@@ -6,7 +6,7 @@ cover:
     image: cover-image.png
     relative: true
 tags: ["aws", "cloudfront", "security", "terraform"]
-categories: ["Cloud-based DevOps"]
+categories: [Amazon Web Services, Terraform]
 showtoc: false
 ---
 In November 2021, AWS announced Response Headers Policies — native support of response headers in CloudFront. You can read the full announcement here: [Amazon CloudFront introduces Response Headers Policies](https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-response-headers-policies/)

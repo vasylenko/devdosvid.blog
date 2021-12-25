@@ -6,7 +6,7 @@ cover:
     image: cover-image.png
     relative: true
 tags: [aws, architecture]
-categories: [Cloud-based DevOps]
+categories: [Amazon Web Services]
 ---
 
 It’s been almost a year since I started using macOS EC2 instances on AWS: there were [ups and downs in service offerings](https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html) and a lot of discoveries with [macOS AMI build](https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html) automation.
