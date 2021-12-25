@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>DIY on Serhii Vasylenko</title>
+    <link>https://serhii.vasylenko.info/categories/diy/</link>
+    <description>Recent content in DIY on Serhii Vasylenko</description>
+    <image>
+      <url>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</url>
+      <link>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 14 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/diy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using TinyPNG Image Compression From MacOS Finder Contextual Menu</title>
+      <link>https://serhii.vasylenko.info/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html</link>
+      <pubDate>Sun, 14 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html</guid>
+      <description>How to add TinyPNG image compression to your macOS Finder contextual menu</description>
+      <content:encoded><![CDATA[<p>I just wanted to compress one image, but went to far&hellip;</p>
+<p>or &ldquo;How to add TinyPNG image compression to your macOS Finder contextual menu.&rdquo;</p>
+<h1 id="what-is-it-and-how-it-works">What is it and how it works</h1>
+<p>You select needed files or folders, then right-click on them, click on the Services menu item and choose TinyPNG.</p>
+<p>After a moment, the new optimized versions of images will appear near to original files.</p>
+<p>If you selected a folder along with the files, the script would process all <code>png</code> and <code>jpeg</code> files in it.</p>
+<p><img loading="lazy" src="context_menu_full_compressed.gif" alt=""  />
+</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>You need to register at TinyPNG and get your API key here — <a href="https://tinypng.com/developers">Developer API</a>.</p>
+<p>They sometimes block some countries (for example, Ukraine) from registration; in that case, try to use a web-proxy or VPN.</p>
+<h1 id="how-to-create-quick-action-workflow">How to create Quick Action Workflow</h1>
+<p>Open Automator application. If you never used this app before, please read about it on the official <a href="https://support.apple.com/guide/automator/create-a-workflow-aut7cac58839/2.10/mac/11.0">user guide website</a>.</p>
+<p>On the New Action screen, chose <strong>Quick Action</strong></p>
+<p><img loading="lazy" src="quick_action_compressed.png" alt=""  />
+</p>
+<p>After you click the &ldquo;Choose&rdquo; button, you&rsquo;ll see the workflow configuration window.</p>
+<h1 id="workflow-configuration">Workflow configuration</h1>
+<p>Find the <strong>Run Shell Script</strong> action on the Utilities list in Library on the left, and drag it onto the right side of the panel.</p>
+<p>Set the following workflow configuration options as described below:</p>
+<p><strong>Workflow receives current</strong> <code>files and folders</code> <strong>in</strong> <code>Finder</code></p>
+<p><strong>Shell</strong> <code>/bin/zsh</code></p>
+<p><strong>Pass input</strong> <code>as arguments</code></p>
+<p>Click the <strong>Option</strong> button at the bottom of the Action window and <strong>Uncheck</strong> <code>Show this action when the workflow runs.</code></p>
+<p><img loading="lazy" src="run_shell_script_compressed.png" alt=""  />
+</p>
+<p>Put the following script into the <strong>Run Shell Script</strong> window, replacing the <em>YOUR_API_KEY_HERE</em> string with your API key obtained from TinyPNG.</p>
+<p>{% gist 13cb423aa83265e79ac5ad900195603f %}</p>
+<h2 id="utilities-used-in-the-script--explained">Utilities used in the script — explained</h2>
+<p><code>curl</code> — used to make web requests (like your browser does)</p>
+<p><code>grep</code> — used to parse the response for the needed header (i.e., field) with the file download link</p>
+<p><code>cut</code> — used to extract the URL from the parsed result</p>
+<p><code>sed</code> — used to remove the trailing &ldquo;carriage return&rdquo; symbol at the end of extracted string</p>
+<p>The response body also contains a JSON object that includes the download URL; you can parse it with <code>jq</code>, for example. But I intentionally refused to use the <code>jq</code> tool because it is not pre-installed in MacOS.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>It is simple, and it does its job fine. And you don&rsquo;t need to install anything to make it work.</p>
+<p>To make this a bit fancier, you might also like to add a &ldquo;Display Notification&rdquo; (from the Utilities library on the left) after the &ldquo;Run Shell Script&rdquo;. The action will display a notification once image processing is completed.</p>
+<p>Thank you for reading!</p>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

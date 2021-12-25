@@ -12,41 +12,41 @@
     <language>en-us</language>
     <lastBuildDate>Wed, 24 Nov 2021 22:20:45 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Tutorials</title>
-      <link>https://serhii.vasylenko.info/categories/tutorials/</link>
+      <title>Terraform</title>
+      <link>https://serhii.vasylenko.info/categories/terraform/</link>
       <pubDate>Wed, 24 Nov 2021 22:20:45 +0200</pubDate>
       
-      <guid>https://serhii.vasylenko.info/categories/tutorials/</guid>
+      <guid>https://serhii.vasylenko.info/categories/terraform/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
     
     <item>
-      <title>Cloud-based DevOps</title>
-      <link>https://serhii.vasylenko.info/categories/cloud-based-devops/</link>
+      <title>Amazon Web Services</title>
+      <link>https://serhii.vasylenko.info/categories/amazon-web-services/</link>
       <pubDate>Fri, 05 Nov 2021 14:20:58 +0200</pubDate>
       
-      <guid>https://serhii.vasylenko.info/categories/cloud-based-devops/</guid>
+      <guid>https://serhii.vasylenko.info/categories/amazon-web-services/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
     
     <item>
-      <title>Reviews</title>
-      <link>https://serhii.vasylenko.info/categories/reviews/</link>
-      <pubDate>Tue, 19 Jan 2021 00:00:00 +0000</pubDate>
+      <title>Ansible</title>
+      <link>https://serhii.vasylenko.info/categories/ansible/</link>
+      <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://serhii.vasylenko.info/categories/reviews/</guid>
+      <guid>https://serhii.vasylenko.info/categories/ansible/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
     
     <item>
-      <title>Learning tips</title>
-      <link>https://serhii.vasylenko.info/categories/learning-tips/</link>
-      <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
+      <title>DIY</title>
+      <link>https://serhii.vasylenko.info/categories/diy/</link>
+      <pubDate>Sun, 14 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://serhii.vasylenko.info/categories/learning-tips/</guid>
+      <guid>https://serhii.vasylenko.info/categories/diy/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
