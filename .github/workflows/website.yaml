@@ -42,7 +42,7 @@ jobs:
         run: |
           if [[ -z $(git status --porcelain) ]]; then
             echo "No changes to the site were detected. Cancelling the workflow execution..."
-            curl -X POST "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/cancel" \
+            curl -s -X POST -w "%{http_code}" "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/cancel" \
             	-H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
             	-H "Content-Type: application/json"
 
