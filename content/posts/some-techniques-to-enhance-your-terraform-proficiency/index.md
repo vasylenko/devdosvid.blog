@@ -1,7 +1,7 @@
 ---
 title: "Some Techniques to Enhance Your Terraform Proficiency"
 date: 2022-01-16T01:59:51+02:00
-description: Learn what cool things Terraform can do with its built-int functionality
+description: Learn what cool things Terraform can do with its built-in functionality
 cover:
     image: cover-image.png
     relative: true
