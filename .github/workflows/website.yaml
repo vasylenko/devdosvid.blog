@@ -41,10 +41,7 @@ jobs:
       - name: Deploy website
         run: |
           if [[ -z $(git status --porcelain) ]]; then
-            echo "No changes to the site were detected. Cancelling the workflow execution..."
-            curl -s -X POST -w "%{http_code}" "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/cancel" \
-            	-H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-            	-H "Content-Type: application/json"
+            echo "No changes to the site were detected"
 
           else
             git config user.name "$GITHUB_ACTOR"
@@ -53,15 +50,8 @@ jobs:
             git commit -a -m "Website deploy — ${GITHUB_RUN_NUMBER}"
             git remote set-url origin "https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git"
             git push --force origin ${{ env.BRANCH }}
+            curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLAREZONEID }}/purge_cache" \
+                           -H "Authorization: Bearer ${{ secrets.CLOUDFLAREPURGETOKEN }}" \
+                           -H "Content-Type: application/json" \
+                           --data '{"purge_everything":true}'
           fi
-
-  purge_cf_cache:
-    needs: deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: Purge CloudFlare cache for website
-        run: |
-          curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLAREZONEID }}/purge_cache" \
-               -H "Authorization: Bearer ${{ secrets.CLOUDFLAREPURGETOKEN }}" \
-               -H "Content-Type: application/json" \
-               --data '{"purge_everything":true}'
