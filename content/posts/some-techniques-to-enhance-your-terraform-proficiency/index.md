@@ -7,7 +7,6 @@ cover:
     relative: true
 tags: [terraform, experience, guide]
 categories: [Terraform]
-draft: true
 ---
 We all know what Terraform does for us: it creates, updates, deletes the resources and reads the info about them, and with the power of dozens of providers, it's capable of doing it almost everywhere.
 
