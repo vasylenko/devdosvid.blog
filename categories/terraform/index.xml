@@ -18,10 +18,9 @@
       
       <guid>https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</guid>
       <description>Learn what cool things Terraform can do with its built-int functionality</description>
-      <content:encoded><![CDATA[<p>We all know what Terraform does for us: it creates, updates, deletes the resources and reads the info about them, and with the power of dozens of providers, it&rsquo;s capable of doing it almost everywhere.</p>
-<p>Nonetheless, Terraform built-in functionality is also feature-rich, and I would like to highlight some valuable practices that can boost your Terraform expertise.</p>
+      <content:encoded><![CDATA[<p>Terraform built-in functionality is very feature-rich: functions, expressions,  and meta-arguments provide many ways to shape the code and fit it to a particular use case. I want to share a few valuable practices to boost your Terraform expertise in this blog.</p>
 <div class="attention">
-    Some code examples in this article will work with Terraform version 0.15 and onwards. But if you&rsquo;re still using 0.14 or lower, here&rsquo;s another motivation for you to upgrade ;-)
+    Some code examples in this article will work with Terraform version 0.15 and onwards. But if you&rsquo;re still using 0.14 or lower, here&rsquo;s another motivation for you to upgrade.
 </div>
 <h2 id="conditional-resources-creation">Conditional resources creation</h2>
 <p><figure>
@@ -217,12 +216,12 @@ bash /opt/system-init/register-monitoring.sh
 </code></pre></div><p>And of course, you can create a template from any file type. The only requirement here is that the template file must exist on the disk at the beginning of the Terraform execution.</p>
 <h2 id="key-takeaways">Key takeaways</h2>
 <p>Terraform is far beyond the standard resource management operations. With the power of built-in functions, you can write more versatile code and reusable Terraform modules.</p>
-<p>✅ Use <a href="https://www.terraform.io/language/expressions/conditionals">conditional expressions</a> with <a href="https://www.terraform.io/language/meta-arguments/count">count</a> and <a href="https://www.terraform.io/language/meta-arguments/for_each">for_each</a> meta-arguments, when the creation of a resource depends on some context or user inout.</p>
-<p>✅ Take advantage of <a href="https://www.terraform.io/language/expressions/types#type-conversion">implicit types conversion</a> when working with input variables and their values to keep your code cleaner.</p>
+<p>✅ Use <a href="https://www.terraform.io/language/expressions/conditionals">conditional expressions</a> with <a href="https://www.terraform.io/language/meta-arguments/count">count</a> and <a href="https://www.terraform.io/language/meta-arguments/for_each">for_each</a> meta-arguments, when the creation of a resource depends on some context or user input.</p>
+<p>✅ Take advantage of <a href="https://www.terraform.io/language/expressions/types#type-conversion">implicit type conversion</a> when working with input variables and their values to keep your code cleaner.</p>
 <p>✅ Embed YAML and JSON-based objects right into your Terraform code using built-in <a href="https://www.terraform.io/language/functions/jsonencode">encoding</a> <a href="https://www.terraform.io/language/functions/yamlencode">functions</a>.</p>
 <p>✅ And when you need to pass some files to the managed service, you can treat them as <a href="https://www.terraform.io/language/functions/templatefile">templates</a> and make them multipurpose.</p>
-<p>Thank you for reading down to this point! ☺️</p>
-<p>And if you have some favorite Terraform tricks — I would love to know!</p>
+<p>Thank you for reading down to this point! 🤗</p>
+<p>If you have some favorite Terraform tricks — I would love to know!</p>
 ]]></content:encoded>
     </item>
     
