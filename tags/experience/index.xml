@@ -17,7 +17,7 @@
       <pubDate>Sun, 16 Jan 2022 01:59:51 +0200</pubDate>
       
       <guid>https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</guid>
-      <description>Learn what cool things Terraform can do with its built-int functionality</description>
+      <description>Learn what cool things Terraform can do with its built-in functionality</description>
       <content:encoded><![CDATA[<p>Terraform built-in functionality is very feature-rich: functions, expressions,  and meta-arguments provide many ways to shape the code and fit it to a particular use case. I want to share a few valuable practices to boost your Terraform expertise in this blog.</p>
 <div class="attention">
     Some code examples in this article will work with Terraform version 0.15 and onwards. But if you&rsquo;re still using 0.14 or lower, here&rsquo;s another motivation for you to upgrade.
