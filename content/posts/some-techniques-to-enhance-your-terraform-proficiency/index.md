@@ -8,12 +8,10 @@ cover:
 tags: [terraform, experience, guide]
 categories: [Terraform]
 ---
-We all know what Terraform does for us: it creates, updates, deletes the resources and reads the info about them, and with the power of dozens of providers, it's capable of doing it almost everywhere.
-
-Nonetheless, Terraform built-in functionality is also feature-rich, and I would like to highlight some valuable practices that can boost your Terraform expertise.
+Terraform built-in functionality is very feature-rich: functions, expressions,  and meta-arguments provide many ways to shape the code and fit it to a particular use case. I want to share a few valuable practices to boost your Terraform expertise in this blog.
 
 {{<attention>}}
-Some code examples in this article will work with Terraform version 0.15 and onwards. But if you're still using 0.14 or lower, here's another motivation for you to upgrade ;-)
+Some code examples in this article will work with Terraform version 0.15 and onwards. But if you're still using 0.14 or lower, here's another motivation for you to upgrade.
 {{</attention>}}
 
 ## Conditional resources creation
@@ -272,14 +270,14 @@ And of course, you can create a template from any file type. The only requiremen
 ## Key takeaways
 Terraform is far beyond the standard resource management operations. With the power of built-in functions, you can write more versatile code and reusable Terraform modules.
 
-✅ Use [conditional expressions](https://www.terraform.io/language/expressions/conditionals) with [count](https://www.terraform.io/language/meta-arguments/count) and [for_each](https://www.terraform.io/language/meta-arguments/for_each) meta-arguments, when the creation of a resource depends on some context or user inout.
+✅ Use [conditional expressions](https://www.terraform.io/language/expressions/conditionals) with [count](https://www.terraform.io/language/meta-arguments/count) and [for_each](https://www.terraform.io/language/meta-arguments/for_each) meta-arguments, when the creation of a resource depends on some context or user input.
 
-✅ Take advantage of [implicit types conversion](https://www.terraform.io/language/expressions/types#type-conversion) when working with input variables and their values to keep your code cleaner.
+✅ Take advantage of [implicit type conversion](https://www.terraform.io/language/expressions/types#type-conversion) when working with input variables and their values to keep your code cleaner.
 
 ✅ Embed YAML and JSON-based objects right into your Terraform code using built-in [encoding](https://www.terraform.io/language/functions/jsonencode) [functions](https://www.terraform.io/language/functions/yamlencode).
 
 ✅ And when you need to pass some files to the managed service, you can treat them as [templates](https://www.terraform.io/language/functions/templatefile) and make them multipurpose.
 
-Thank you for reading down to this point! ☺️
+Thank you for reading down to this point! 🤗
 
-And if you have some favorite Terraform tricks — I would love to know!
+If you have some favorite Terraform tricks — I would love to know!
