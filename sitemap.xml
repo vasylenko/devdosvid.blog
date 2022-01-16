@@ -2,31 +2,40 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://serhii.vasylenko.info/tags/automation/</loc>
-    <lastmod>2021-11-24T22:20:45+02:00</lastmod>
-  </url><url>
     <loc>https://serhii.vasylenko.info/categories/</loc>
+    <lastmod>2022-01-16T01:59:51+02:00</lastmod>
+  </url><url>
+    <loc>https://serhii.vasylenko.info/tags/experience/</loc>
+    <lastmod>2022-01-16T01:59:51+02:00</lastmod>
+  </url><url>
+    <loc>https://serhii.vasylenko.info/tags/guide/</loc>
+    <lastmod>2022-01-16T01:59:51+02:00</lastmod>
+  </url><url>
+    <loc>https://serhii.vasylenko.info/posts/</loc>
+    <lastmod>2022-01-16T01:59:51+02:00</lastmod>
+  </url><url>
+    <loc>https://serhii.vasylenko.info/</loc>
+    <lastmod>2022-01-16T01:59:51+02:00</lastmod>
+  </url><url>
+    <loc>https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</loc>
+    <lastmod>2022-01-16T01:59:51+02:00</lastmod>
+  </url><url>
+    <loc>https://serhii.vasylenko.info/tags/</loc>
+    <lastmod>2022-01-16T01:59:51+02:00</lastmod>
+  </url><url>
+    <loc>https://serhii.vasylenko.info/categories/terraform/</loc>
+    <lastmod>2022-01-16T01:59:51+02:00</lastmod>
+  </url><url>
+    <loc>https://serhii.vasylenko.info/tags/terraform/</loc>
+    <lastmod>2022-01-16T01:59:51+02:00</lastmod>
+  </url><url>
+    <loc>https://serhii.vasylenko.info/tags/automation/</loc>
     <lastmod>2021-11-24T22:20:45+02:00</lastmod>
   </url><url>
     <loc>https://serhii.vasylenko.info/tags/cli/</loc>
     <lastmod>2021-11-24T22:20:45+02:00</lastmod>
   </url><url>
     <loc>https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/</loc>
-    <lastmod>2021-11-24T22:20:45+02:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/posts/</loc>
-    <lastmod>2021-11-24T22:20:45+02:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/</loc>
-    <lastmod>2021-11-24T22:20:45+02:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/</loc>
-    <lastmod>2021-11-24T22:20:45+02:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/categories/terraform/</loc>
-    <lastmod>2021-11-24T22:20:45+02:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/terraform/</loc>
     <lastmod>2021-11-24T22:20:45+02:00</lastmod>
   </url><url>
     <loc>https://serhii.vasylenko.info/categories/amazon-web-services/</loc>

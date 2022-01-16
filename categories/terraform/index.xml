@@ -10,7 +10,222 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 24 Nov 2021 22:20:45 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/terraform/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 Jan 2022 01:59:51 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/terraform/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Some Techniques to Enhance Your Terraform Proficiency</title>
+      <link>https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</link>
+      <pubDate>Sun, 16 Jan 2022 01:59:51 +0200</pubDate>
+      
+      <guid>https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</guid>
+      <description>Learn what cool things Terraform can do with its built-int functionality</description>
+      <content:encoded><![CDATA[<p>We all know what Terraform does for us: it creates, updates, deletes the resources and reads the info about them, and with the power of dozens of providers, it&rsquo;s capable of doing it almost everywhere.</p>
+<p>Nonetheless, Terraform built-in functionality is also feature-rich, and I would like to highlight some valuable practices that can boost your Terraform expertise.</p>
+<div class="attention">
+    Some code examples in this article will work with Terraform version 0.15 and onwards. But if you&rsquo;re still using 0.14 or lower, here&rsquo;s another motivation for you to upgrade ;-)
+</div>
+<h2 id="conditional-resources-creation">Conditional resources creation</h2>
+<p><figure>
+    <img loading="lazy" src="condiitonal-resource-creation.png"/> 
+</figure>
+
+Let&rsquo;s start from the most popular one (although, still may be new for somebody): whether to create a resource depending on some fact, e.g., the value of a variable. Terraform meta-argument <code>count</code> helps to describe that kind of logic.</p>
+<p>Here is how it may look like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#6ab825;font-weight:bold">data</span> <span style="color:#ed9d13">&#34;aws_ssm_parameter&#34;</span> <span style="color:#ed9d13">&#34;ami_id&#34;</span> {
+  <span style="color:#bbb">count</span>    = <span style="color:#24909d">var</span>.<span style="color:#bbb">ami_channel</span> == <span style="color:#ed9d13">&#34;&#34;</span> ? <span style="color:#3677a9">0</span> : <span style="color:#3677a9">1</span>
+
+  <span style="color:#bbb">name</span>     = local.ami_channels[<span style="color:#24909d">var</span>.ami_channel]
+}
+</code></pre></div><p>The notation <code>var.ami_channel == &quot;&quot; ? 0 : 1</code> is called <em>conditional expression</em> and means the following: if my variable is empty (<code>var.ami_channel == &quot;&quot;</code> — hence, true) then set the count to 0, otherwise set to 1.</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">condition ? true_val : false_val
+</code></pre></div><p>In this illustration, I want to get the AMI ID from the SSM Parameter only if the AMI channel (e.g., beta or alpha) is specified. Otherwise, providing that the <code>ami_channel</code> variable is an empty string by default (&quot;&quot;), the data source should not be created.</p>
+<p>When following this method, keep in mind that the resource address will contain the index identifier. So when I need to use the value of the SSM parameter from our example, I need to reference it the following way:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#bbb">ami_id</span> = <span style="color:#24909d">data</span>.aws_ssm_parameter.ami_id[<span style="color:#3677a9">0</span>].value
+</code></pre></div><p>The <code>count</code> meta-argument can also be used when you need to conditionally create a Terraform module.</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#6ab825;font-weight:bold">module</span> <span style="color:#ed9d13">&#34;bucket&#34;</span> {
+  <span style="color:#bbb">count</span>             = <span style="color:#24909d">var</span>.<span style="color:#bbb">create_bucket</span> == <span style="color:#6ab825;font-weight:bold">true</span> ? <span style="color:#3677a9">1</span> : <span style="color:#3677a9">0</span>
+  <span style="color:#bbb">source</span>            = <span style="color:#ed9d13">&#34;./modules/s3_bucket&#34;</span>
+
+  <span style="color:#bbb">name</span>              = <span style="color:#ed9d13">&#34;my-unique-bucket&#34;</span>
+  ...
+}
+</code></pre></div><p>The <code>var.create_bucket == true ? 1 : 0</code>  expression can be written even shorter: <code>var.create_bucket ? 1 : 0</code>  because the <code>create_bucket</code> variable has boolean type, apparently.</p>
+<p>But what if you need to produce more than one instance of a resource or module? And still be able to avoid their creation.</p>
+<p>Another meta-argument — <code>for_each</code> — will do the trick.</p>
+<p>For example, this is how it looks for a module:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#6ab825;font-weight:bold">module</span> <span style="color:#ed9d13">&#34;bucket&#34;</span> {
+  <span style="color:#bbb">for_each</span>          = <span style="color:#24909d">var</span>.<span style="color:#bbb">bucket_names</span> == [] ? [] : <span style="color:#24909d">var</span>.bucket_names
+  <span style="color:#bbb">source</span>            = <span style="color:#ed9d13">&#34;./modules/s3_bucket&#34;</span>
+  
+  <span style="color:#bbb">name</span>              = <span style="color:#ed9d13">&#34;</span><span style="color:#ed9d13">${</span><span style="color:#24909d">each</span>.key<span style="color:#ed9d13">}</span><span style="color:#ed9d13">&#34;</span>
+  <span style="color:#bbb">enable_encryption</span> = <span style="color:#6ab825;font-weight:bold">true</span>
+  ...
+}
+</code></pre></div><p>In this illustration, I also used a conditional expression that makes Terraform iterate through the set of values of <code>var.bucket_names</code> if it&rsquo;s not empty and create several modules. Otherwise, do not iterate at all and do not create anything.</p>
+<p>The same can be done for the resources. For example, when you need to create an arbitrary number of security group rules, e.g., to allowlist some IPs for your bastion host:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_security_group_rule&#34;</span> <span style="color:#ed9d13">&#34;allowlist&#34;</span> {
+  <span style="color:#bbb">for_each</span>           = <span style="color:#24909d">var</span>.<span style="color:#bbb">cidr_blocks</span> == [] ? [] : <span style="color:#24909d">var</span>.cidr_blocks
+  <span style="color:#bbb">type</span>               = <span style="color:#ed9d13">&#34;ingress&#34;</span>
+  <span style="color:#bbb">from_port</span>          = <span style="color:#3677a9">22</span>
+  <span style="color:#bbb">to_port</span>            = <span style="color:#3677a9">22</span>
+  <span style="color:#bbb">protocol</span>           = <span style="color:#ed9d13">&#34;tcp&#34;</span>
+  <span style="color:#bbb">cidr_blocks</span>        = [<span style="color:#24909d">each</span>.value]
+  <span style="color:#bbb">security_group_id</span>  = aws_security_group.bastion.id
+}
+</code></pre></div><p>And just like with the <code>count</code> meta-argument, with the  <code>for_each</code>, resource addresses will have the identifier named by the values provided to <code>for_each</code>.
+For example, here is how I would reference a resource created in the module with <code>for_each</code> described earlier:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#bbb">bucket_name</span> = <span style="color:#24909d">module</span>.bucket[<span style="color:#ed9d13">&#34;photos&#34;</span>].name
+</code></pre></div><h2 id="conditional-resource-arguments-attributes-setting">Conditional resource arguments (attributes) setting</h2>
+<figure>
+    <img loading="lazy" src="conditional-resource-argument.png"/> 
+</figure>
+
+<p>Now let&rsquo;s go deeper and see how resource arguments can be conditionally set (or not).
+First, let&rsquo;s review the conditional argument value setting with the <code>null</code> data type:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_launch_template&#34;</span> <span style="color:#ed9d13">&#34;this&#34;</span> {
+  <span style="color:#bbb">name</span>     = <span style="color:#ed9d13">&#34;my-launch-template&#34;</span>
+  ...
+  <span style="color:#bbb">key_name</span> = <span style="color:#24909d">var</span>.use_default_keypair ? <span style="color:#24909d">var</span>.keypair_name : null
+  ...
+</code></pre></div><p>Here I want to skip the usage of the EC2 Key Pair for the Launch Template in some instances and Terraform allows me to write the conditional expression that will set the <code>null</code> value for the argument. It means the <em>absence</em> or <em>omission</em> and Terraform would behave the same as if you did not specify the argument at all.</p>
+<p>Dynamic blocks are another case where conditional creation suits best. Take a look at the following piece of CloudFront resource code where I want to either describe the configuration for the custom error response or omit that completely:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_cloudfront_distribution&#34;</span> <span style="color:#ed9d13">&#34;cdn&#34;</span> {
+  <span style="color:#bbb">enabled</span> = <span style="color:#6ab825;font-weight:bold">true</span>
+  ...
+  dynamic <span style="color:#ed9d13">&#34;custom_error_response&#34;</span> {
+    <span style="color:#bbb">for_each</span> = <span style="color:#24909d">var</span>.<span style="color:#bbb">custom_error_response</span> == null ? [] : [<span style="color:#24909d">var</span>.custom_error_response]
+    <span style="color:#bbb">iterator</span> = cer
+    content {
+      <span style="color:#bbb">error_code</span>            =<span style="color:#24909d"> lookup</span>(cer.value, <span style="color:#ed9d13">&#34;error_code&#34;</span>, null)
+      <span style="color:#bbb">error_caching_min_ttl</span> =<span style="color:#24909d"> lookup</span>(cer.value, <span style="color:#ed9d13">&#34;error_caching_min_ttl&#34;</span>, null)
+      <span style="color:#bbb">response_code</span>         =<span style="color:#24909d"> lookup</span>(cer.value, <span style="color:#ed9d13">&#34;response_code&#34;</span>, null)
+      <span style="color:#bbb">response_page_path</span>    =<span style="color:#24909d"> lookup</span>(cer.value, <span style="color:#ed9d13">&#34;response_page_path&#34;</span>, null)
+    }
+  }
+  ...
+}
+</code></pre></div><p>The <code>custom_error_response</code> variable is <code>null</code> by default, but it has the <code>object</code> type, and users can assign the variable with the required nested specifications if needed. And when they do it, Terraform will add the <code>custom_error_response</code> block to the resource configuration. Otherwise, it will be omitted entirely.</p>
+<h2 id="convert-types-with-ease">Convert types with ease</h2>
+<p><figure>
+    <img loading="lazy" src="types-converstion.png"/> 
+</figure>
+
+Ok, let&rsquo;s move to the less conditional things now 😅</p>
+<p>Terraform has several type conversion functions: <code>tobool()</code>, <code>tolist()</code>,<code>tomap()</code>, <code>tonumber()</code>, <code>toset()</code>, and <code>tostring()</code>. Their purpose is to convert the input values to the compatible types.</p>
+<p>For example, suppose I need to pass the set to the <code>for_each</code> (it accepts only sets and maps types of value), but I got the list as an input; let&rsquo;s say I got it as an output from another module. In such a case, I would do something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#bbb">for_each</span> = <span style="color:#24909d">toset</span>(<span style="color:#24909d">var</span>.remote_access_ports)
+</code></pre></div><p>However, I can make my code cleaner and avoid the explicit conversion — I just need to define the value type in the configuration block of the <code>my_list</code> variable. Terraform will do the conversion automatically when the value is assigned.</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#6ab825;font-weight:bold">variable</span> <span style="color:#ed9d13">&#34;remote_access_ports&#34;</span> {
+  <span style="color:#bbb">description</span> = <span style="color:#ed9d13">&#34;Ports for remote access&#34;</span>
+  <span style="color:#bbb">type</span>        = set(string)
+}
+</code></pre></div><p>While Terraform can do a lot of implicit conversions for you, explicit type conversions are practical during values normalization or when you need to calculate some complex value for a variable. For example, the Local Values, known as <code>locals</code>, are the most suitable place for doing that.</p>
+<p>By the way, although there is a <code>tolist()</code> function, there is no such thing as the <code>tostring()</code> function. But what if you need to convert the list to string in Terraform?</p>
+<p>The <code>one()</code> function can help here: it takes a list, set, or tuple value with either zero or one element and returns either <code>null</code> or that one element in the form of string.</p>
+<p>It&rsquo;s useful in cases when a resource created using conditional expression is represented as either a zero- or one-element list, and you need to get a single value which may be either <code>null</code> or <code>string</code>, for example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_kms_key&#34;</span> <span style="color:#ed9d13">&#34;main&#34;</span> {
+  <span style="color:#bbb">count</span>               = <span style="color:#24909d">var</span>.ebs_encrypted ? <span style="color:#3677a9">1</span> : <span style="color:#3677a9">0</span>
+
+  <span style="color:#bbb">enable_key_rotation</span> = <span style="color:#6ab825;font-weight:bold">true</span>
+  <span style="color:#bbb">tags</span>                = <span style="color:#24909d">var</span>.tags
+}
+<span style="color:#6ab825;font-weight:bold">
+</span><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_kms_alias&#34;</span> <span style="color:#ed9d13">&#34;main&#34;</span> {
+  <span style="color:#bbb">count</span>         = <span style="color:#24909d">var</span>.ebs_encrypted ? <span style="color:#3677a9">1</span> : <span style="color:#3677a9">0</span>
+
+  <span style="color:#bbb">name</span>          = <span style="color:#ed9d13">&#34;alias/encrypt-ebs&#34;</span>
+  <span style="color:#bbb">target_key_id</span> = one(aws_kms_key.main[*]key_id)
+}
+
+</code></pre></div><h2 id="write-yaml-or-json-as-terraform-code-hcl">Write YAML or JSON as Terraform code (HCL)</h2>
+<p><figure>
+    <img loading="lazy" src="write-yaml-json-as-terraform-code.png"/> 
+</figure>
+
+Sometimes you need to supply JSON or YAML files to the services you manage with Terraform. For example, if you want to create something with CloudFormation using Terraform (and I am not kidding). Sometimes the AWS Terraform provider does not support the needed resource, and you want to maintain the whole infrastructure code using only one tool.</p>
+<p>Instead of maintaining another file in JSON or YAML format, you can embed JSON or YAML code management into HCL by taking benefit of the  <code>jsonencode()</code> or <code>yamlencode()</code>  functions.</p>
+<p>The attractiveness of this approach is that you can reference other Terraform resources or their attributes right in the code of your object, and you have more freedom in terms of the code syntax and its formatting comparable to native JSON or YAML.</p>
+<p>Here is how it looks like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform">locals {
+	<span style="color:#bbb">some_string</span> = <span style="color:#ed9d13">&#34;ult&#34;</span>
+  <span style="color:#bbb">myjson_object</span> =<span style="color:#24909d"> jsonencode</span>({
+    <span style="color:#ed9d13">&#34;Hashicorp Products&#34;</span>: {
+      Terra: <span style="color:#ed9d13">&#34;form&#34;</span>
+      Con:   <span style="color:#ed9d13">&#34;sul&#34;</span>
+      Vag:   <span style="color:#ed9d13">&#34;rant&#34;</span>
+      Va:    local.some_string
+    }
+  })
+}
+</code></pre></div><p>The value of the <code>myjson_object</code> local variable would look like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#6ab825;font-weight:bold">&#34;Hashicorp Products&#34;</span>: {
+    <span style="color:#6ab825;font-weight:bold">&#34;Con&#34;</span>: <span style="color:#ed9d13">&#34;sul&#34;</span>,
+    <span style="color:#6ab825;font-weight:bold">&#34;Terra&#34;</span>: <span style="color:#ed9d13">&#34;form&#34;</span>,
+    <span style="color:#6ab825;font-weight:bold">&#34;Va&#34;</span>: <span style="color:#ed9d13">&#34;ult&#34;</span>,
+    <span style="color:#6ab825;font-weight:bold">&#34;Vag&#34;</span>: <span style="color:#ed9d13">&#34;rant&#34;</span>
+  }
+}
+</code></pre></div><p>And here is a piece of real-world example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform">locals {
+  <span style="color:#bbb">cf_template_body</span> =<span style="color:#24909d"> jsonencode</span>({
+    Resources : {
+      DedicatedHostGroup : {
+        Type : <span style="color:#ed9d13">&#34;AWS::ResourceGroups::Group&#34;</span>
+        Properties : {
+          Name : <span style="color:#24909d">var</span>.service_name
+          Configuration : [
+            {
+              Type : <span style="color:#ed9d13">&#34;AWS::EC2::HostManagement&#34;</span>
+              Parameters : [
+                {
+                  Name : <span style="color:#ed9d13">&#34;auto-allocate-host&#34;</span>
+                  Values : [<span style="color:#24909d">var</span>.auto_allocate_host]
+                },
+			...
+			...
+</code></pre></div><h2 id="templatize-stuff">Templatize stuff</h2>
+<p><figure>
+    <img loading="lazy" src="templatize-stuff.png"/> 
+</figure>
+
+The last case in this blog but not the least by its efficacy — render source file content as a template in Terraform.</p>
+<p>Let&rsquo;s review the following scenario: you launch an EC2 instance and want to supply it with a bash script (via the user-data parameter) for some additional configuration at launch.</p>
+<p>Suppose we have the following bash script <code>instance-init.sh</code> that sets the hostname and registers our instance in a monitoring system:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#cd2828;font-weight:bold">#!/bin/bash
+</span><span style="color:#cd2828;font-weight:bold"></span>
+hostname example.com
+bash /opt/system-init/register-monitoring.sh
+</code></pre></div><p>But what if you want to set a different hostname per instance, and some instances should not be registered in the monitoring system?</p>
+<p>In such a case, here is how the script file content will look:</p>
+<pre tabindex="0"><code class="language-gotemplate" data-lang="gotemplate">#!/bin/bash
+
+hostname ${system_hostname}
+%{ if register_monitoring }
+bash /opt/system-init/register-monitoring.sh
+%{endif}
+</code></pre><p>And when you supply this file as an argument for the EC2 instance resource in Terraform, you will use the <code>templatefile()</code> function to make the magic happen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_instance&#34;</span> <span style="color:#ed9d13">&#34;web&#34;</span> {
+  <span style="color:#bbb">ami</span>           = <span style="color:#24909d">var</span>.my_ami_id
+  <span style="color:#bbb">instance_type</span> = <span style="color:#24909d">var</span>.instance_type
+  ...
+  <span style="color:#bbb">user_data</span> = <span style="color:#24909d">templatefile</span>(<span style="color:#ed9d13">&#34;</span><span style="color:#ed9d13">${</span>path.<span style="color:#24909d">module</span><span style="color:#ed9d13">}</span><span style="color:#ed9d13">/instance-init.tftpl&#34;</span>, {
+    <span style="color:#bbb">system_hostname</span>     = <span style="color:#24909d">var</span>.system_hostname
+    <span style="color:#bbb">register_monitoring</span> = <span style="color:#24909d">var</span>.add_to_monitoring
+  })
+  ...
+}
+</code></pre></div><p>And of course, you can create a template from any file type. The only requirement here is that the template file must exist on the disk at the beginning of the Terraform execution.</p>
+<h2 id="key-takeaways">Key takeaways</h2>
+<p>Terraform is far beyond the standard resource management operations. With the power of built-in functions, you can write more versatile code and reusable Terraform modules.</p>
+<p>✅ Use <a href="https://www.terraform.io/language/expressions/conditionals">conditional expressions</a> with <a href="https://www.terraform.io/language/meta-arguments/count">count</a> and <a href="https://www.terraform.io/language/meta-arguments/for_each">for_each</a> meta-arguments, when the creation of a resource depends on some context or user inout.</p>
+<p>✅ Take advantage of <a href="https://www.terraform.io/language/expressions/types#type-conversion">implicit types conversion</a> when working with input variables and their values to keep your code cleaner.</p>
+<p>✅ Embed YAML and JSON-based objects right into your Terraform code using built-in <a href="https://www.terraform.io/language/functions/jsonencode">encoding</a> <a href="https://www.terraform.io/language/functions/yamlencode">functions</a>.</p>
+<p>✅ And when you need to pass some files to the managed service, you can treat them as <a href="https://www.terraform.io/language/functions/templatefile">templates</a> and make them multipurpose.</p>
+<p>Thank you for reading down to this point! ☺️</p>
+<p>And if you have some favorite Terraform tricks — I would love to know!</p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>Guide to Using Terraform in CI/CD</title>
       <link>https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/</link>
