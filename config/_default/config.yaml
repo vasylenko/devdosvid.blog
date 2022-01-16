@@ -2,7 +2,7 @@
 languageCode: en-us
 
 theme: "PaperMod"
-
+paginate: 5
 ### BUILD
 publishDir: publishdir
 minify:
@@ -85,7 +85,7 @@ params:
     comments: false
     hidemeta: false
     hideSummary: false
-    showtoc: true
+    showtoc: false
     tocopen: false
 
     schema:
