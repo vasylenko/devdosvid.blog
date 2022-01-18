@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
     <channel>
         <title>macos on Serhii Vasylenko</title>
         <link>https://serhii.vasylenko.info/tags/macos/</link>
         <description>Recent content in macos on Serhii Vasylenko</description>
+        <image>
+            <url>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</url>
+            <link>https://serhii.vasylenko.info/tags/macos/</link>
+        </image>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
@@ -16,48 +20,48 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">5ac1a4d193bbbf701d52b9be8831b000</guid>
             <description>How to add TinyPNG image compression to your macOS Finder contextual menu</description>
+            <media:content url="https://serhii.vasylenko.info/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.htmlcover-image.png"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.htmlcover-image.png"</url>
-                </image>&lt;p&gt;I just wanted to compress one image, but went to far&amp;hellip;&lt;/p&gt;
-&lt;p&gt;or &amp;ldquo;How to add TinyPNG image compression to your macOS Finder contextual menu.&amp;rdquo;&lt;/p&gt;
-&lt;h1 id=&#34;what-is-it-and-how-it-works&#34;&gt;What is it and how it works&lt;/h1&gt;
-&lt;p&gt;You select needed files or folders, then right-click on them, click on the Services menu item and choose TinyPNG.&lt;/p&gt;
-&lt;p&gt;After a moment, the new optimized versions of images will appear near to original files.&lt;/p&gt;
-&lt;p&gt;If you selected a folder along with the files, the script would process all &lt;code&gt;png&lt;/code&gt; and &lt;code&gt;jpeg&lt;/code&gt; files in it.&lt;/p&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;context_menu_full_compressed.gif&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
-&lt;h1 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h1&gt;
-&lt;p&gt;You need to register at TinyPNG and get your API key here — &lt;a href=&#34;https://tinypng.com/developers&#34;&gt;Developer API&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;They sometimes block some countries (for example, Ukraine) from registration; in that case, try to use a web-proxy or VPN.&lt;/p&gt;
-&lt;h1 id=&#34;how-to-create-quick-action-workflow&#34;&gt;How to create Quick Action Workflow&lt;/h1&gt;
-&lt;p&gt;Open Automator application. If you never used this app before, please read about it on the official &lt;a href=&#34;https://support.apple.com/guide/automator/create-a-workflow-aut7cac58839/2.10/mac/11.0&#34;&gt;user guide website&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;On the New Action screen, chose &lt;strong&gt;Quick Action&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;quick_action_compressed.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
-&lt;p&gt;After you click the &amp;ldquo;Choose&amp;rdquo; button, you&amp;rsquo;ll see the workflow configuration window.&lt;/p&gt;
-&lt;h1 id=&#34;workflow-configuration&#34;&gt;Workflow configuration&lt;/h1&gt;
-&lt;p&gt;Find the &lt;strong&gt;Run Shell Script&lt;/strong&gt; action on the Utilities list in Library on the left, and drag it onto the right side of the panel.&lt;/p&gt;
-&lt;p&gt;Set the following workflow configuration options as described below:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Workflow receives current&lt;/strong&gt; &lt;code&gt;files and folders&lt;/code&gt; &lt;strong&gt;in&lt;/strong&gt; &lt;code&gt;Finder&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Shell&lt;/strong&gt; &lt;code&gt;/bin/zsh&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Pass input&lt;/strong&gt; &lt;code&gt;as arguments&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Click the &lt;strong&gt;Option&lt;/strong&gt; button at the bottom of the Action window and &lt;strong&gt;Uncheck&lt;/strong&gt; &lt;code&gt;Show this action when the workflow runs.&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;run_shell_script_compressed.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
-&lt;p&gt;Put the following script into the &lt;strong&gt;Run Shell Script&lt;/strong&gt; window, replacing the &lt;em&gt;YOUR_API_KEY_HERE&lt;/em&gt; string with your API key obtained from TinyPNG.&lt;/p&gt;
-&lt;p&gt;{% gist 13cb423aa83265e79ac5ad900195603f %}&lt;/p&gt;
-&lt;h2 id=&#34;utilities-used-in-the-script--explained&#34;&gt;Utilities used in the script — explained&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;curl&lt;/code&gt; — used to make web requests (like your browser does)&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;grep&lt;/code&gt; — used to parse the response for the needed header (i.e., field) with the file download link&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;cut&lt;/code&gt; — used to extract the URL from the parsed result&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;sed&lt;/code&gt; — used to remove the trailing &amp;ldquo;carriage return&amp;rdquo; symbol at the end of extracted string&lt;/p&gt;
-&lt;p&gt;The response body also contains a JSON object that includes the download URL; you can parse it with &lt;code&gt;jq&lt;/code&gt;, for example. But I intentionally refused to use the &lt;code&gt;jq&lt;/code&gt; tool because it is not pre-installed in MacOS.&lt;/p&gt;
-&lt;h1 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h1&gt;
-&lt;p&gt;It is simple, and it does its job fine. And you don&amp;rsquo;t need to install anything to make it work.&lt;/p&gt;
-&lt;p&gt;To make this a bit fancier, you might also like to add a &amp;ldquo;Display Notification&amp;rdquo; (from the Utilities library on the left) after the &amp;ldquo;Run Shell Script&amp;rdquo;. The action will display a notification once image processing is completed.&lt;/p&gt;
-&lt;p&gt;Thank you for reading!&lt;/p&gt;
-</content>
+                <![CDATA[<p>I just wanted to compress one image, but went to far&hellip;</p>
+<p>or &ldquo;How to add TinyPNG image compression to your macOS Finder contextual menu.&rdquo;</p>
+<h1 id="what-is-it-and-how-it-works">What is it and how it works</h1>
+<p>You select needed files or folders, then right-click on them, click on the Services menu item and choose TinyPNG.</p>
+<p>After a moment, the new optimized versions of images will appear near to original files.</p>
+<p>If you selected a folder along with the files, the script would process all <code>png</code> and <code>jpeg</code> files in it.</p>
+<p><img loading="lazy" src="context_menu_full_compressed.gif" alt=""  />
+</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>You need to register at TinyPNG and get your API key here — <a href="https://tinypng.com/developers">Developer API</a>.</p>
+<p>They sometimes block some countries (for example, Ukraine) from registration; in that case, try to use a web-proxy or VPN.</p>
+<h1 id="how-to-create-quick-action-workflow">How to create Quick Action Workflow</h1>
+<p>Open Automator application. If you never used this app before, please read about it on the official <a href="https://support.apple.com/guide/automator/create-a-workflow-aut7cac58839/2.10/mac/11.0">user guide website</a>.</p>
+<p>On the New Action screen, chose <strong>Quick Action</strong></p>
+<p><img loading="lazy" src="quick_action_compressed.png" alt=""  />
+</p>
+<p>After you click the &ldquo;Choose&rdquo; button, you&rsquo;ll see the workflow configuration window.</p>
+<h1 id="workflow-configuration">Workflow configuration</h1>
+<p>Find the <strong>Run Shell Script</strong> action on the Utilities list in Library on the left, and drag it onto the right side of the panel.</p>
+<p>Set the following workflow configuration options as described below:</p>
+<p><strong>Workflow receives current</strong> <code>files and folders</code> <strong>in</strong> <code>Finder</code></p>
+<p><strong>Shell</strong> <code>/bin/zsh</code></p>
+<p><strong>Pass input</strong> <code>as arguments</code></p>
+<p>Click the <strong>Option</strong> button at the bottom of the Action window and <strong>Uncheck</strong> <code>Show this action when the workflow runs.</code></p>
+<p><img loading="lazy" src="run_shell_script_compressed.png" alt=""  />
+</p>
+<p>Put the following script into the <strong>Run Shell Script</strong> window, replacing the <em>YOUR_API_KEY_HERE</em> string with your API key obtained from TinyPNG.</p>
+<p>{% gist 13cb423aa83265e79ac5ad900195603f %}</p>
+<h2 id="utilities-used-in-the-script--explained">Utilities used in the script — explained</h2>
+<p><code>curl</code> — used to make web requests (like your browser does)</p>
+<p><code>grep</code> — used to parse the response for the needed header (i.e., field) with the file download link</p>
+<p><code>cut</code> — used to extract the URL from the parsed result</p>
+<p><code>sed</code> — used to remove the trailing &ldquo;carriage return&rdquo; symbol at the end of extracted string</p>
+<p>The response body also contains a JSON object that includes the download URL; you can parse it with <code>jq</code>, for example. But I intentionally refused to use the <code>jq</code> tool because it is not pre-installed in MacOS.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>It is simple, and it does its job fine. And you don&rsquo;t need to install anything to make it work.</p>
+<p>To make this a bit fancier, you might also like to add a &ldquo;Display Notification&rdquo; (from the Utilities library on the left) after the &ldquo;Run Shell Script&rdquo;. The action will display a notification once image processing is completed.</p>
+<p>Thank you for reading!</p>
+]]>
+            </content>
         </item>
         
         <item>
@@ -67,142 +71,142 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">e5eb1b6e92f79c7495c1ea711e61599d</guid>
             <description>How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer</description>
+            <media:content url="https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html2021-02-01-customizing-mac1-metal-ec2-ami.png"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html2021-02-01-customizing-mac1-metal-ec2-ami.png"</url>
-                </image>&lt;p&gt;I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?&lt;/p&gt;
-&lt;h1 id=&#34;configuration-management&#34;&gt;Configuration Management&lt;/h1&gt;
-&lt;p&gt;Native Apple&amp;rsquo;s Mobile device management (a.k.a MDM) and Jamf is probably the most potent combination for macOS configuration. But as much as it&amp;rsquo;s mighty, it is a cumbersome combination, and Jamf is not free.&lt;/p&gt;
-&lt;p&gt;Then we have Ansible, Chef, Puppet, SaltStack — they all are good with Linux, but what about macOS?&lt;/p&gt;
-&lt;p&gt;I tried to search for use cases of mentioned CM tools for macOS. However, I concluded that they wrap the execution of native macOS command-line utilities most of the time.&lt;/p&gt;
-&lt;p&gt;And if you search for the &amp;lsquo;macos&amp;rsquo; word in Chef Supermarket or Puppet Forge, you won&amp;rsquo;t be impressed by the number of actively maintained packages. Although, here is a motivating article about using Chef &lt;a href=&#34;https://pspdfkit.com/blog/2016/chef-on-macos/&#34;&gt;automating-macos-provisioning-with-chef&lt;/a&gt; if you prefer it. I could not find something similar and fresh for Puppet, so I am sorry, Puppet fans.&lt;/p&gt;
-&lt;p&gt;That is why I decided to follow the KISS principle and chose Ansible.&lt;/p&gt;
-&lt;p&gt;It&amp;rsquo;s easy to write and read the configuration, it allows to group tasks and to add execution logic &lt;del&gt;, and it feels more DevOps executing shell commands inside Ansible tasks instead of shell scripts; I know you know that 😂&lt;/del&gt;&lt;/p&gt;
-&lt;p&gt;By the way, Ansible Galaxy does not have many management packages for macOS, either. But thankfully, it has the basics:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_module.html#ansible-collections-community-general-homebrew-module&#34;&gt;homebrew&lt;/a&gt; with &lt;a href=&#34;https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_cask_module.html#ansible-collections-community-general-homebrew-cask-module&#34;&gt;homebrew_cask&lt;/a&gt; and &lt;a href=&#34;https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_tap_module.html#ansible-collections-community-general-homebrew-tap-module&#34;&gt;homebrew_tap&lt;/a&gt; — to install software&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.ansible.com/ansible/latest/collections/community/general/launchd_module.html#ansible-collections-community-general-launchd-module&#34;&gt;launchd&lt;/a&gt; — to manage services&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.ansible.com/ansible/latest/collections/community/general/osx_defaults_module.html#ansible-collections-community-general-osx-defaults-module&#34;&gt;osx_defaults&lt;/a&gt; — to manage some user settings (not all!)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;I used Ansible to build the macOS AMI for CI/CD, so here are some tips for such a case.&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Some values are hardcoded intentionally in the code examples for the sake of simplicity and easy reading. You would probably want to parametrize them.&lt;/em&gt;&lt;/p&gt;
-&lt;h2 id=&#34;xcode-installation-example&#34;&gt;Xcode installation example&lt;/h2&gt;
-&lt;p&gt;The following tasks will help you to automate the basics.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Install Xcode&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;      &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;shell&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;xip --expand Xcode.xip&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;      &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;args&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;chdir&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;/Applications&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Accept License Agreement&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;shell&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -license accept&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Accept License Agreement&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;shell&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -runFirstLaunch&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Switch into newly installed Xcode context&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;shell&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;xcode-select --switch /Applications/Xcode.app/Contents/Developer&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;example-of-software-installation-with-brew&#34;&gt;Example of software installation with Brew&lt;/h2&gt;
-&lt;p&gt;{% raw %}&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Install common build software&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;community.general.homebrew&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{ item }}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;state&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;latest&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;loop&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;- swiftlint&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;- swiftformat&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;- wget&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;{% endraw %}&lt;/p&gt;
-&lt;h2 id=&#34;screensharing-remote-desktop-configuration-example&#34;&gt;ScreenSharing (remote desktop) configuration example&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Turn On Remote Management&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;shell&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;./kickstart -activate -configure -allowAccessFor -specifiedUsers&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;args&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;chdir&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Enable Remote Management for CI user&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;shell&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;./kickstart -configure -users ec2-user -access -on -privs -all&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;args&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;chdir&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Shell rulez, yes.&lt;/p&gt;
-&lt;h1 id=&#34;building-the-ami&#34;&gt;Building the AMI&lt;/h1&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;ami-build.gif&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.packer.io/docs/builders/amazon/ebs&#34;&gt;Packer by HashiCorp&lt;/a&gt;, of course.&lt;/p&gt;
-&lt;p&gt;I would love to compare Packer with EC2 Image Builder, but it &lt;a href=&#34;https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html#image-builder-os&#34;&gt;does not support macOS&lt;/a&gt; yet (as of Feb&#39;21).&lt;/p&gt;
-&lt;p&gt;Packer configuration is straightforward, so I want to highlight only the things specific to the &amp;ldquo;mac1.metal&amp;rdquo; use case.&lt;/p&gt;
-&lt;h2 id=&#34;timeouts&#34;&gt;Timeouts&lt;/h2&gt;
-&lt;p&gt;As I mentioned in the &lt;a href=&#34;https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html&#34;&gt;previous article&lt;/a&gt;, the creation and deletion time of the &amp;ldquo;mac1.metal&amp;rdquo; Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.&lt;/p&gt;
-&lt;p&gt;Example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;aws_polling&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;:&lt;/span&gt; {
-        &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;delay_seconds&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#3677a9&#34;&gt;30&lt;/span&gt;,
-        &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;max_attempts&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#3677a9&#34;&gt;60&lt;/span&gt;
+                <![CDATA[<p>I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?</p>
+<h1 id="configuration-management">Configuration Management</h1>
+<p>Native Apple&rsquo;s Mobile device management (a.k.a MDM) and Jamf is probably the most potent combination for macOS configuration. But as much as it&rsquo;s mighty, it is a cumbersome combination, and Jamf is not free.</p>
+<p>Then we have Ansible, Chef, Puppet, SaltStack — they all are good with Linux, but what about macOS?</p>
+<p>I tried to search for use cases of mentioned CM tools for macOS. However, I concluded that they wrap the execution of native macOS command-line utilities most of the time.</p>
+<p>And if you search for the &lsquo;macos&rsquo; word in Chef Supermarket or Puppet Forge, you won&rsquo;t be impressed by the number of actively maintained packages. Although, here is a motivating article about using Chef <a href="https://pspdfkit.com/blog/2016/chef-on-macos/">automating-macos-provisioning-with-chef</a> if you prefer it. I could not find something similar and fresh for Puppet, so I am sorry, Puppet fans.</p>
+<p>That is why I decided to follow the KISS principle and chose Ansible.</p>
+<p>It&rsquo;s easy to write and read the configuration, it allows to group tasks and to add execution logic <del>, and it feels more DevOps executing shell commands inside Ansible tasks instead of shell scripts; I know you know that 😂</del></p>
+<p>By the way, Ansible Galaxy does not have many management packages for macOS, either. But thankfully, it has the basics:</p>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_module.html#ansible-collections-community-general-homebrew-module">homebrew</a> with <a href="https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_cask_module.html#ansible-collections-community-general-homebrew-cask-module">homebrew_cask</a> and <a href="https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_tap_module.html#ansible-collections-community-general-homebrew-tap-module">homebrew_tap</a> — to install software</li>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/community/general/launchd_module.html#ansible-collections-community-general-launchd-module">launchd</a> — to manage services</li>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/community/general/osx_defaults_module.html#ansible-collections-community-general-osx-defaults-module">osx_defaults</a> — to manage some user settings (not all!)</li>
+</ul>
+<p>I used Ansible to build the macOS AMI for CI/CD, so here are some tips for such a case.</p>
+<p><em>Some values are hardcoded intentionally in the code examples for the sake of simplicity and easy reading. You would probably want to parametrize them.</em></p>
+<h2 id="xcode-installation-example">Xcode installation example</h2>
+<p>The following tasks will help you to automate the basics.</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Install Xcode<span style="color:#666">
+</span><span style="color:#666">      </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;xip --expand Xcode.xip&#34;</span><span style="color:#666">
+</span><span style="color:#666">      </span><span style="color:#6ab825;font-weight:bold">args</span>:<span style="color:#666">
+</span><span style="color:#666">        </span><span style="color:#6ab825;font-weight:bold">chdir</span>:<span style="color:#666"> </span>/Applications<span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Accept License Agreement<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -license accept&#34;</span><span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Accept License Agreement<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -runFirstLaunch&#34;</span><span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Switch into newly installed Xcode context<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;xcode-select --switch /Applications/Xcode.app/Contents/Developer&#34;</span><span style="color:#666">
+</span></code></pre></div><h2 id="example-of-software-installation-with-brew">Example of software installation with Brew</h2>
+<p>{% raw %}</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Install common build software<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">community.general.homebrew</span>:<span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{ item }}&#34;</span><span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">state</span>:<span style="color:#666"> </span>latest<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">loop</span>:<span style="color:#666">
+</span><span style="color:#666">    </span>- swiftlint<span style="color:#666">
+</span><span style="color:#666">    </span>- swiftformat<span style="color:#666">
+</span><span style="color:#666">    </span>- wget<span style="color:#666">
+</span></code></pre></div><p>{% endraw %}</p>
+<h2 id="screensharing-remote-desktop-configuration-example">ScreenSharing (remote desktop) configuration example</h2>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Turn On Remote Management<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;./kickstart -activate -configure -allowAccessFor -specifiedUsers&#34;</span><span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">args</span>:<span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">chdir</span>:<span style="color:#666"> </span>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/<span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Enable Remote Management for CI user<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;./kickstart -configure -users ec2-user -access -on -privs -all&#34;</span><span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">args</span>:<span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">chdir</span>:<span style="color:#666"> </span>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/<span style="color:#666">
+</span></code></pre></div><p>Shell rulez, yes.</p>
+<h1 id="building-the-ami">Building the AMI</h1>
+<p><img loading="lazy" src="ami-build.gif" alt=""  />
+</p>
+<p><a href="https://www.packer.io/docs/builders/amazon/ebs">Packer by HashiCorp</a>, of course.</p>
+<p>I would love to compare Packer with EC2 Image Builder, but it <a href="https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html#image-builder-os">does not support macOS</a> yet (as of Feb'21).</p>
+<p>Packer configuration is straightforward, so I want to highlight only the things specific to the &ldquo;mac1.metal&rdquo; use case.</p>
+<h2 id="timeouts">Timeouts</h2>
+<p>As I mentioned in the <a href="https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html">previous article</a>, the creation and deletion time of the &ldquo;mac1.metal&rdquo; Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.</p>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#ed9d13">&#34;aws_polling&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> {
+        <span style="color:#6ab825;font-weight:bold">&#34;delay_seconds&#34;</span>: <span style="color:#3677a9">30</span>,
+        <span style="color:#6ab825;font-weight:bold">&#34;max_attempts&#34;</span>: <span style="color:#3677a9">60</span>
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And it would be best if you also increased the SSH timeout:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;  &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;ssh_timeout&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;1h&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Fortunately, Packer&amp;rsquo;s AMI builder does not require an explicit declaration of the Dedicated Host ID. So you can just reference the same subnet where you allocated the Host, assuming you did it with the enabled &amp;ldquo;Auto placement&amp;rdquo; parameter during the host creation.&lt;/p&gt;
-&lt;p&gt;Example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;  &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;tenancy&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;host&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;,&lt;/span&gt;
-  &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;subnet_id&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;your-subnet-id&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;provisioning&#34;&gt;Provisioning&lt;/h2&gt;
-&lt;p&gt;Packer has &lt;a href=&#34;https://www.packer.io/docs/provisioners/ansible&#34;&gt;Ansible Provisioner&lt;/a&gt; that I used for the AMI. Its documentation is also very clean and straightforward.&lt;/p&gt;
-&lt;p&gt;But it is still worth mentioning that if you want to parametrize the Ansible playbook, then the following configuration example will be handy:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;  &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;extra_arguments&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;:&lt;/span&gt; [
-    &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;--extra-vars&amp;#34;&lt;/span&gt;,
-    &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;your-variable-foo=your-value-bar]&amp;#34;&lt;/span&gt;
-  ]&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;,&lt;/span&gt;
-  &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;ansible_env_vars&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;:&lt;/span&gt; [
-    &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;ANSIBLE_PYTHON_INTERPRETER=auto_legacy_silent&amp;#34;&lt;/span&gt;,
-    &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;ANSIBLE_OTHER_ENV_VARIABLE=other_value&amp;#34;&lt;/span&gt;
+</code></pre></div><p>And it would be best if you also increased the SSH timeout:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#ed9d13">&#34;ssh_timeout&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#ed9d13">&#34;1h&#34;</span>
+</code></pre></div><p>Fortunately, Packer&rsquo;s AMI builder does not require an explicit declaration of the Dedicated Host ID. So you can just reference the same subnet where you allocated the Host, assuming you did it with the enabled &ldquo;Auto placement&rdquo; parameter during the host creation.</p>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#ed9d13">&#34;tenancy&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#ed9d13">&#34;host&#34;</span><span style="color:#a61717;background-color:#e3d2d2">,</span>
+  <span style="color:#ed9d13">&#34;subnet_id&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#ed9d13">&#34;your-subnet-id&#34;</span>
+</code></pre></div><h2 id="provisioning">Provisioning</h2>
+<p>Packer has <a href="https://www.packer.io/docs/provisioners/ansible">Ansible Provisioner</a> that I used for the AMI. Its documentation is also very clean and straightforward.</p>
+<p>But it is still worth mentioning that if you want to parametrize the Ansible playbook, then the following configuration example will be handy:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#ed9d13">&#34;extra_arguments&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> [
+    <span style="color:#ed9d13">&#34;--extra-vars&#34;</span>,
+    <span style="color:#ed9d13">&#34;your-variable-foo=your-value-bar]&#34;</span>
+  ]<span style="color:#a61717;background-color:#e3d2d2">,</span>
+  <span style="color:#ed9d13">&#34;ansible_env_vars&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> [
+    <span style="color:#ed9d13">&#34;ANSIBLE_PYTHON_INTERPRETER=auto_legacy_silent&#34;</span>,
+    <span style="color:#ed9d13">&#34;ANSIBLE_OTHER_ENV_VARIABLE=other_value&#34;</span>
   ]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;configuration-at-launch&#34;&gt;Configuration at launch&lt;/h1&gt;
-&lt;p&gt;If you&amp;rsquo;re familiar with AWS EC2, you probably know what the Instance &lt;code&gt;user data&lt;/code&gt; is.&lt;/p&gt;
-&lt;p&gt;A group of AWS developers made something similar for the macOS: &lt;a href=&#34;https://github.com/aws/ec2-macos-init&#34;&gt;EC2 macOS Init&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;It does not support &lt;code&gt;cloud-init&lt;/code&gt; as on Linux-based Instances, but it can run shell scripts, which is quite enough.&lt;/p&gt;
-&lt;p&gt;EC2 macOS Init utility is a Launch Daemon (macOS terminology) that runs on behalf of the &lt;code&gt;root&lt;/code&gt; user at system boot. It executes the commands according to the so-called Priority Groups, or the sequence in other words.&lt;/p&gt;
-&lt;p&gt;The number of the group corresponds to the execution order. You can put several tasks into a single Priority Group, and the tool will execute them simultaneously.&lt;/p&gt;
-&lt;p&gt;EC2 macOS Init uses a human-readable configuration file in &lt;code&gt;toml&lt;/code&gt; format.&lt;/p&gt;
-&lt;p&gt;Example:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[[Module]]
-  Name = &amp;quot;Create-some-folder&amp;quot;
+</code></pre></div><h1 id="configuration-at-launch">Configuration at launch</h1>
+<p>If you&rsquo;re familiar with AWS EC2, you probably know what the Instance <code>user data</code> is.</p>
+<p>A group of AWS developers made something similar for the macOS: <a href="https://github.com/aws/ec2-macos-init">EC2 macOS Init</a>.</p>
+<p>It does not support <code>cloud-init</code> as on Linux-based Instances, but it can run shell scripts, which is quite enough.</p>
+<p>EC2 macOS Init utility is a Launch Daemon (macOS terminology) that runs on behalf of the <code>root</code> user at system boot. It executes the commands according to the so-called Priority Groups, or the sequence in other words.</p>
+<p>The number of the group corresponds to the execution order. You can put several tasks into a single Priority Group, and the tool will execute them simultaneously.</p>
+<p>EC2 macOS Init uses a human-readable configuration file in <code>toml</code> format.</p>
+<p>Example:</p>
+<pre tabindex="0"><code>[[Module]]
+  Name = &quot;Create-some-folder&quot;
   PriorityGroup = 3
   FatalOnError = false 
   RunPerInstance = true 
   [Module.Command]
-    Cmd = [&amp;quot;mkdir&amp;quot;, &amp;quot;/Users/ec2-user/my-directory&amp;quot;] 
-    RunAsUser = &amp;quot;ec2-user&amp;quot;
-    EnvironmentVars = [&amp;quot;MY_VAR_FOO=myValueBar&amp;quot;]
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I should clarify some things here.&lt;/p&gt;
-&lt;p&gt;Modules — a set of pre-defined modules for different purposes. It is something similar to the Ansible modules.&lt;/p&gt;
-&lt;p&gt;You can find the list of available modules here &lt;a href=&#34;https://github.com/aws/ec2-macos-init/tree/master/lib/ec2macosinit&#34;&gt;ec2-macos-init/lib/ec2macosinit&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;RunPerInstance&lt;/code&gt; directive controls whether a module should run. There are three of such directives, and here is what they mean:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;RunPerBoot&lt;/code&gt; — module will run at every system boot&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;RunPerInstance&lt;/code&gt; — module will run once for the Instance. Each Instance has a unique ID; the init tool fetches it from the AWS API before the execution and keeps its execution history per Instance ID. When you create a new Instance from the AMI, it will have a unique ID, and the module will run again.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;RunOnce&lt;/code&gt; — module will run only once, despite the instance ID change&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;I mentioned the execution history above. When EC2 macOS Init runs on the Instance first time, it creates a unique directory with the name per Instance ID to store the execution history and user data copy.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;RunPerInstance&lt;/code&gt; and &lt;code&gt;RunOnce&lt;/code&gt; directives depend on the execution history, and modules with those directives will run again on the next boot if the previous execution failed. It was not obvious to me why RunOnce keeps repeating itself every boot until I dug into &lt;a href=&#34;https://github.com/aws/ec2-macos-init/blob/master/lib/ec2macosinit/module.go#L110&#34;&gt;the source code&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Finally, there is a module for user data. It runs at the end by default (priority group #4) and pulls the user data script from AWS API before script execution.&lt;/p&gt;
-&lt;p&gt;I suggest looking into the default &lt;a href=&#34;https://github.com/aws/ec2-macos-init/blob/master/configuration/init.toml&#34;&gt;init.toml&lt;/a&gt; configuration file to get yourself more familiar with the capabilities of the tool.&lt;/p&gt;
-&lt;p&gt;The init tool can also clear its history, which is useful for the new AMI creation.&lt;/p&gt;
-&lt;p&gt;Example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ec2-macos-init clean -all
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And you can run the init manually for debugging purposes.&lt;/p&gt;
-&lt;p&gt;Example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ec2-macos-init run
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can also combine the EC2 macOS Init actions (made by modules) with your script in user data for more accurate nontrivial configurations.&lt;/p&gt;
-&lt;h1 id=&#34;wrapping-up&#34;&gt;Wrapping up&lt;/h1&gt;
-&lt;p&gt;As a whole, building and operating macOS-based AMI does not differ from AMI management for other platforms.&lt;/p&gt;
-&lt;p&gt;There are the same principle stages: prepare, clear, build, execute deployment script (if necessary). Though, the particular implementation of each step has its nuances and constraints.&lt;/p&gt;
-&lt;p&gt;So the whole process may look as follows:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Provision and configure needed software with Ansible playbook&lt;/li&gt;
-&lt;li&gt;Clean-up system logs and EC2 macOS Init history (again, with Ansible task)&lt;/li&gt;
-&lt;li&gt;Create the AMI&lt;/li&gt;
-&lt;li&gt;Add more customizations at launch with EC2 macOS Init modules and user data (that also executes your Ansible playbook or shell commands)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Getting into all this was both fun and interesting. Sometimes painful, though. 😆&lt;/p&gt;
-&lt;p&gt;I sincerely hope this article was helpful to you. Thank you for reading!&lt;/p&gt;
-</content>
+    Cmd = [&quot;mkdir&quot;, &quot;/Users/ec2-user/my-directory&quot;] 
+    RunAsUser = &quot;ec2-user&quot;
+    EnvironmentVars = [&quot;MY_VAR_FOO=myValueBar&quot;]
+</code></pre><p>I should clarify some things here.</p>
+<p>Modules — a set of pre-defined modules for different purposes. It is something similar to the Ansible modules.</p>
+<p>You can find the list of available modules here <a href="https://github.com/aws/ec2-macos-init/tree/master/lib/ec2macosinit">ec2-macos-init/lib/ec2macosinit</a></p>
+<p>The <code>RunPerInstance</code> directive controls whether a module should run. There are three of such directives, and here is what they mean:</p>
+<ul>
+<li><code>RunPerBoot</code> — module will run at every system boot</li>
+<li><code>RunPerInstance</code> — module will run once for the Instance. Each Instance has a unique ID; the init tool fetches it from the AWS API before the execution and keeps its execution history per Instance ID. When you create a new Instance from the AMI, it will have a unique ID, and the module will run again.</li>
+<li><code>RunOnce</code> — module will run only once, despite the instance ID change</li>
+</ul>
+<p>I mentioned the execution history above. When EC2 macOS Init runs on the Instance first time, it creates a unique directory with the name per Instance ID to store the execution history and user data copy.</p>
+<p><code>RunPerInstance</code> and <code>RunOnce</code> directives depend on the execution history, and modules with those directives will run again on the next boot if the previous execution failed. It was not obvious to me why RunOnce keeps repeating itself every boot until I dug into <a href="https://github.com/aws/ec2-macos-init/blob/master/lib/ec2macosinit/module.go#L110">the source code</a>.</p>
+<p>Finally, there is a module for user data. It runs at the end by default (priority group #4) and pulls the user data script from AWS API before script execution.</p>
+<p>I suggest looking into the default <a href="https://github.com/aws/ec2-macos-init/blob/master/configuration/init.toml">init.toml</a> configuration file to get yourself more familiar with the capabilities of the tool.</p>
+<p>The init tool can also clear its history, which is useful for the new AMI creation.</p>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ec2-macos-init clean -all
+</code></pre></div><p>And you can run the init manually for debugging purposes.</p>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ec2-macos-init run
+</code></pre></div><p>You can also combine the EC2 macOS Init actions (made by modules) with your script in user data for more accurate nontrivial configurations.</p>
+<h1 id="wrapping-up">Wrapping up</h1>
+<p>As a whole, building and operating macOS-based AMI does not differ from AMI management for other platforms.</p>
+<p>There are the same principle stages: prepare, clear, build, execute deployment script (if necessary). Though, the particular implementation of each step has its nuances and constraints.</p>
+<p>So the whole process may look as follows:</p>
+<ul>
+<li>Provision and configure needed software with Ansible playbook</li>
+<li>Clean-up system logs and EC2 macOS Init history (again, with Ansible task)</li>
+<li>Create the AMI</li>
+<li>Add more customizations at launch with EC2 macOS Init modules and user data (that also executes your Ansible playbook or shell commands)</li>
+</ul>
+<p>Getting into all this was both fun and interesting. Sometimes painful, though. 😆</p>
+<p>I sincerely hope this article was helpful to you. Thank you for reading!</p>
+]]>
+            </content>
         </item>
         
         <item>
@@ -212,96 +216,96 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">4fb5af676ce68f015297b6d7e8088a38</guid>
             <description>An overview of one-month user experience with the new mac1.metal EC2 Instances from AWS</description>
+            <media:content url="https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg"</url>
-                </image>&lt;h2 id=&#34;amazon-ec2-mac-instances&#34;&gt;Amazon EC2 Mac Instances&lt;/h2&gt;
-&lt;p&gt;Something cool and powerful with inevitable trade-offs. As everything in this world.&lt;/p&gt;
-&lt;p&gt;AWS announced EC2 macOS-based instances on the 30th of November 2020, and after more than a month of tests, I would like to share some findings and impressions about it.&lt;/p&gt;
-&lt;p&gt;First of all, the things you can easily find, but it&amp;rsquo;s still worth to say:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;The new instance family is called &lt;code&gt;mac1.metal&lt;/code&gt;. Guess we should expect mac2 or mac3; otherwise, why did they put a number in the name?&lt;/li&gt;
-&lt;li&gt;They added &lt;a href=&#34;https://aws.amazon.com/ec2/nitro/&#34;&gt;AWS Nitro System&lt;/a&gt; to integrate them with many AWS services.&lt;/li&gt;
-&lt;li&gt;The Instance must be placed onto a &lt;a href=&#34;https://aws.amazon.com/ec2/dedicated-hosts/&#34;&gt;Dedicated Host&lt;/a&gt;. Only one Instance per Host is allowed because the Host is an actual Mac Mini in that case.&lt;/li&gt;
-&lt;li&gt;You don&amp;rsquo;t pay anything for the Instance itself, but you pay for the Dedicated Host leasing — $1.083, and the minimum lease time is 24 hours. So the launch of the &amp;ldquo;mac1.metal&amp;rdquo; Instance costs $26 at minimum. Prices provided for the cheapest region — North Virginia.&lt;/li&gt;
-&lt;li&gt;You can apply &lt;a href=&#34;https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html&#34;&gt;Saving Plans&lt;/a&gt; to save some money.&lt;/li&gt;
-&lt;li&gt;Mojave (10.14) and Catalina (10.15) are supported at the moment, with &lt;a href=&#34;https://aws.amazon.com/ec2/instance-types/mac/&#34;&gt;&amp;ldquo;support for macOS Big Sur (11.0) coming soon&amp;rdquo;&lt;/a&gt;. I expect it to be in 2021, though.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;what-can-it-do&#34;&gt;What can it do&lt;/h2&gt;
-&lt;p&gt;Here is a list of some features that the &amp;ldquo;mac1.metal&amp;rdquo; instance has:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;It lives in your VPC because it is an EC2 Instance so that you can access many other services.&lt;/li&gt;
-&lt;li&gt;It supports the new gp3 EBS type (and other types as well).&lt;/li&gt;
-&lt;li&gt;It supports SSM Agent and Session Manager.&lt;/li&gt;
-&lt;li&gt;It has several AWS tools pre-installed.&lt;/li&gt;
-&lt;li&gt;It has pre-installed Enhanced Network Interface drivers. My test upload/download to S3 was about 300GB/s.&lt;/li&gt;
-&lt;li&gt;It can report CPU metrics to CloudWatch (if you ever need it, though).&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;what-cant-it-do&#34;&gt;What can&amp;rsquo;t it do&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;It can&amp;rsquo;t be used in Auto Scaling because of a Dedicated Host.&lt;/li&gt;
-&lt;li&gt;It can&amp;rsquo;t recognize the attached EBS if you connected it while the Instance was running — you must reboot the Instance to make it visible.&lt;/li&gt;
-&lt;li&gt;It does not support several services that rely on additional custom software, such as &amp;ldquo;EC2 Instance Connect&amp;rdquo; and &amp;ldquo;AWS Inspect.&amp;rdquo; But I think that AWS will add macOS distros for those soon.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;launching-the-instance&#34;&gt;Launching the Instance&lt;/h2&gt;
-&lt;p&gt;Jeff Bar &lt;a href=&#34;https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/&#34;&gt;published&lt;/a&gt; an excellent how-to about kickstart of the &amp;ldquo;mac1.metal&amp;rdquo;, so I will focus on things he did not mention.&lt;/p&gt;
-&lt;p&gt;Once you allocated the Dedicated Host and launched an Instance on it, the underlying system connects the EBS with a root file system to the Mac Mini.&lt;/p&gt;
-&lt;p&gt;It is an AMI with 32G EBS (as per Jan&#39;21) with macOS pre-installed.&lt;/p&gt;
-&lt;p&gt;That means two things:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;The built-it physical SSD is still there and still yours to use; however, AWS does not manage or support the Apple hardware&amp;rsquo;s internal SSD.&lt;/li&gt;
-&lt;li&gt;You must resize the disk manually (if you specified the EBS size to be more than 32G)[1].&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;The time from the Instance launch till you&amp;rsquo;re able to SSH into it varies between 15 and 20 minutes.&lt;/p&gt;
-&lt;p&gt;You have the option to access it over SSH with your private key. If you need to set up Screen Sharing, you have to allow it through the &amp;ldquo;kickstart&amp;rdquo; command-line utility and setting the user password [2].&lt;/p&gt;
-&lt;h2 id=&#34;destroying-the-instance&#34;&gt;Destroying the Instance&lt;/h2&gt;
-&lt;p&gt;What an easy thing to do, right? Well, it depends.&lt;/p&gt;
-&lt;p&gt;When you click on the &amp;ldquo;Terminate&amp;rdquo; item in the Instance actions menu, the complex Instance scrubbing process begins.&lt;/p&gt;
-&lt;p&gt;AWS wants to make sure that anyone who uses the Host (Mac mini) after you will get your data stored neither on disks (including physical SSD mentioned earlier), nor inside memory or NVRAM, nor anywhere else. They do not share the info about this scrubbing process&amp;rsquo;s details, but it takes more than an hour to complete.&lt;/p&gt;
-&lt;p&gt;When scrubbing is started, the Dedicated Host transitions to the Pending state. Dedicated Host transitions to Available state once scrubbing is finished. But you must wait for another 10-15 minutes to be able to release it finally.&lt;/p&gt;
-&lt;p&gt;I don&amp;rsquo;t know why they set the Available state value earlier than the Host is available for operations, but this is how it works now (Jan&#39;21).&lt;/p&gt;
-&lt;p&gt;Therefore, you can launch the next Instance on the same Host not earlier than ~1,5 hours after you terminated the previous. That doesn&amp;rsquo;t seem very pleasant in the first couple of weeks, but you will get used to it. 😄&lt;/p&gt;
-&lt;p&gt;And again: you can release the &amp;ldquo;mac1.metal&amp;rdquo; Dedicated Host not earlier than 24 hours after it was allocated. So plan your tests wisely.&lt;/p&gt;
-&lt;h2 id=&#34;legal-things&#34;&gt;Legal things&lt;/h2&gt;
-&lt;p&gt;I could not find it on a documentation page, but A Cloud Guru folks &lt;a href=&#34;https://acloudguru.com/blog/engineering/what-you-need-to-know-about-awss-new-ec2-mac-instances&#34;&gt;say&lt;/a&gt; that you must use new Instances solely for developer services, and you must agree to all of the EULAs.&lt;/p&gt;
-&lt;p&gt;Sounds reasonable to me, but that could be written somewhere in the docs still, at least. Please let me know if you found it there.&lt;/p&gt;
-&lt;h2 id=&#34;some-more-cool-stuff-to-check&#34;&gt;Some more cool stuff to check:&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/aws/ec2-macos-init&#34;&gt;EC2 macOS Init&lt;/a&gt; launch daemon, which is used to initialize Mac instances.
-&lt;a href=&#34;https://github.com/aws/homebrew-aws&#34;&gt;EC2 macOS Homebrew Tap&lt;/a&gt; (Third-Party Repository) with several management tools which come pre-installed into macOS AMI from AWS.&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;Indeed it is powerful, and it has its trade-offs, such as price and some technical constraints. But it is a real MacOS device natively integrated into the AWS environment. So I guess it worth to be tried!&lt;/p&gt;
-&lt;p&gt;Thanks for reading this! Stay tuned for more user experience feedback about baking custom AMI&amp;rsquo;s, automated software provisioning with Ansible, and other adventures with mac1.metal!&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;[1] How to resize the EBS at mac1.metal in Terminal&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Get the identifier of EBS (look for the first one with GUID_partition_scheme):&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;diskutil list physical external&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Or here is a more advanced version to be used in a script:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;DISK_ID&lt;/span&gt;=&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;$(&lt;/span&gt;diskutil list physical external | grep &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;GUID_partition_scheme&amp;#39;&lt;/span&gt;| tr -s &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; | cut -d&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; -f6&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It would probably be &lt;code&gt;disk0&lt;/code&gt; if you did not attach additional EBS.&lt;/p&gt;
-&lt;p&gt;Then run the repair job for the disk, using its identifier:
-&lt;code&gt;diskutil repairDisk disk0&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Advanced version:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;yes | diskutil repairDisk &lt;span style=&#34;color:#40ffff&#34;&gt;$DISK_ID&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now get the APFS container identifier (look for Apple_APFS):
-&lt;code&gt;diskutil list physical external&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Advanced version:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;APFS_ID&lt;/span&gt;=&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;$(&lt;/span&gt;diskutil list physical external | grep &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;Apple_APFS&amp;#39;&lt;/span&gt; | tr -s &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; | cut -d&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; -f8&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It would probably be &lt;code&gt;disk0s2&lt;/code&gt; if you did not attach additional EBS.&lt;/p&gt;
-&lt;p&gt;Finally, resize the APFS container:
-&lt;code&gt;diskutil apfs resizeContainer disk0s2&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Advanced version&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;diskutil apfs resizeContainer &lt;span style=&#34;color:#40ffff&#34;&gt;$APFS_ID&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;[2]How to setup Screen Sharing at mac1.metal in Terminal&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;kickstart&lt;/code&gt; command-line tool resides in &lt;code&gt;/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/&lt;/code&gt; so you&amp;rsquo;ll better to cd into that directory for convenience:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;# Turn On Remote Management for a user to be specified later&lt;/span&gt;
+                <![CDATA[<h2 id="amazon-ec2-mac-instances">Amazon EC2 Mac Instances</h2>
+<p>Something cool and powerful with inevitable trade-offs. As everything in this world.</p>
+<p>AWS announced EC2 macOS-based instances on the 30th of November 2020, and after more than a month of tests, I would like to share some findings and impressions about it.</p>
+<p>First of all, the things you can easily find, but it&rsquo;s still worth to say:</p>
+<ul>
+<li>The new instance family is called <code>mac1.metal</code>. Guess we should expect mac2 or mac3; otherwise, why did they put a number in the name?</li>
+<li>They added <a href="https://aws.amazon.com/ec2/nitro/">AWS Nitro System</a> to integrate them with many AWS services.</li>
+<li>The Instance must be placed onto a <a href="https://aws.amazon.com/ec2/dedicated-hosts/">Dedicated Host</a>. Only one Instance per Host is allowed because the Host is an actual Mac Mini in that case.</li>
+<li>You don&rsquo;t pay anything for the Instance itself, but you pay for the Dedicated Host leasing — $1.083, and the minimum lease time is 24 hours. So the launch of the &ldquo;mac1.metal&rdquo; Instance costs $26 at minimum. Prices provided for the cheapest region — North Virginia.</li>
+<li>You can apply <a href="https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html">Saving Plans</a> to save some money.</li>
+<li>Mojave (10.14) and Catalina (10.15) are supported at the moment, with <a href="https://aws.amazon.com/ec2/instance-types/mac/">&ldquo;support for macOS Big Sur (11.0) coming soon&rdquo;</a>. I expect it to be in 2021, though.</li>
+</ul>
+<h2 id="what-can-it-do">What can it do</h2>
+<p>Here is a list of some features that the &ldquo;mac1.metal&rdquo; instance has:</p>
+<ul>
+<li>It lives in your VPC because it is an EC2 Instance so that you can access many other services.</li>
+<li>It supports the new gp3 EBS type (and other types as well).</li>
+<li>It supports SSM Agent and Session Manager.</li>
+<li>It has several AWS tools pre-installed.</li>
+<li>It has pre-installed Enhanced Network Interface drivers. My test upload/download to S3 was about 300GB/s.</li>
+<li>It can report CPU metrics to CloudWatch (if you ever need it, though).</li>
+</ul>
+<h2 id="what-cant-it-do">What can&rsquo;t it do</h2>
+<ul>
+<li>It can&rsquo;t be used in Auto Scaling because of a Dedicated Host.</li>
+<li>It can&rsquo;t recognize the attached EBS if you connected it while the Instance was running — you must reboot the Instance to make it visible.</li>
+<li>It does not support several services that rely on additional custom software, such as &ldquo;EC2 Instance Connect&rdquo; and &ldquo;AWS Inspect.&rdquo; But I think that AWS will add macOS distros for those soon.</li>
+</ul>
+<h2 id="launching-the-instance">Launching the Instance</h2>
+<p>Jeff Bar <a href="https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/">published</a> an excellent how-to about kickstart of the &ldquo;mac1.metal&rdquo;, so I will focus on things he did not mention.</p>
+<p>Once you allocated the Dedicated Host and launched an Instance on it, the underlying system connects the EBS with a root file system to the Mac Mini.</p>
+<p>It is an AMI with 32G EBS (as per Jan'21) with macOS pre-installed.</p>
+<p>That means two things:</p>
+<ul>
+<li>The built-it physical SSD is still there and still yours to use; however, AWS does not manage or support the Apple hardware&rsquo;s internal SSD.</li>
+<li>You must resize the disk manually (if you specified the EBS size to be more than 32G)[1].</li>
+</ul>
+<p>The time from the Instance launch till you&rsquo;re able to SSH into it varies between 15 and 20 minutes.</p>
+<p>You have the option to access it over SSH with your private key. If you need to set up Screen Sharing, you have to allow it through the &ldquo;kickstart&rdquo; command-line utility and setting the user password [2].</p>
+<h2 id="destroying-the-instance">Destroying the Instance</h2>
+<p>What an easy thing to do, right? Well, it depends.</p>
+<p>When you click on the &ldquo;Terminate&rdquo; item in the Instance actions menu, the complex Instance scrubbing process begins.</p>
+<p>AWS wants to make sure that anyone who uses the Host (Mac mini) after you will get your data stored neither on disks (including physical SSD mentioned earlier), nor inside memory or NVRAM, nor anywhere else. They do not share the info about this scrubbing process&rsquo;s details, but it takes more than an hour to complete.</p>
+<p>When scrubbing is started, the Dedicated Host transitions to the Pending state. Dedicated Host transitions to Available state once scrubbing is finished. But you must wait for another 10-15 minutes to be able to release it finally.</p>
+<p>I don&rsquo;t know why they set the Available state value earlier than the Host is available for operations, but this is how it works now (Jan'21).</p>
+<p>Therefore, you can launch the next Instance on the same Host not earlier than ~1,5 hours after you terminated the previous. That doesn&rsquo;t seem very pleasant in the first couple of weeks, but you will get used to it. 😄</p>
+<p>And again: you can release the &ldquo;mac1.metal&rdquo; Dedicated Host not earlier than 24 hours after it was allocated. So plan your tests wisely.</p>
+<h2 id="legal-things">Legal things</h2>
+<p>I could not find it on a documentation page, but A Cloud Guru folks <a href="https://acloudguru.com/blog/engineering/what-you-need-to-know-about-awss-new-ec2-mac-instances">say</a> that you must use new Instances solely for developer services, and you must agree to all of the EULAs.</p>
+<p>Sounds reasonable to me, but that could be written somewhere in the docs still, at least. Please let me know if you found it there.</p>
+<h2 id="some-more-cool-stuff-to-check">Some more cool stuff to check:</h2>
+<p><a href="https://github.com/aws/ec2-macos-init">EC2 macOS Init</a> launch daemon, which is used to initialize Mac instances.
+<a href="https://github.com/aws/homebrew-aws">EC2 macOS Homebrew Tap</a> (Third-Party Repository) with several management tools which come pre-installed into macOS AMI from AWS.</p>
+<hr>
+<p>Indeed it is powerful, and it has its trade-offs, such as price and some technical constraints. But it is a real MacOS device natively integrated into the AWS environment. So I guess it worth to be tried!</p>
+<p>Thanks for reading this! Stay tuned for more user experience feedback about baking custom AMI&rsquo;s, automated software provisioning with Ansible, and other adventures with mac1.metal!</p>
+<hr>
+<p><strong>[1] How to resize the EBS at mac1.metal in Terminal</strong></p>
+<p>Get the identifier of EBS (look for the first one with GUID_partition_scheme):</p>
+<p><code>diskutil list physical external</code></p>
+<p>Or here is a more advanced version to be used in a script:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#40ffff">DISK_ID</span>=<span style="color:#6ab825;font-weight:bold">$(</span>diskutil list physical external | grep <span style="color:#ed9d13">&#39;GUID_partition_scheme&#39;</span>| tr -s <span style="color:#ed9d13">&#39; &#39;</span> | cut -d<span style="color:#ed9d13">&#39; &#39;</span> -f6<span style="color:#6ab825;font-weight:bold">)</span>
+</code></pre></div><p>It would probably be <code>disk0</code> if you did not attach additional EBS.</p>
+<p>Then run the repair job for the disk, using its identifier:
+<code>diskutil repairDisk disk0</code></p>
+<p>Advanced version:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yes | diskutil repairDisk <span style="color:#40ffff">$DISK_ID</span>
+</code></pre></div><p>Now get the APFS container identifier (look for Apple_APFS):
+<code>diskutil list physical external</code></p>
+<p>Advanced version:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#40ffff">APFS_ID</span>=<span style="color:#6ab825;font-weight:bold">$(</span>diskutil list physical external | grep <span style="color:#ed9d13">&#39;Apple_APFS&#39;</span> | tr -s <span style="color:#ed9d13">&#39; &#39;</span> | cut -d<span style="color:#ed9d13">&#39; &#39;</span> -f8<span style="color:#6ab825;font-weight:bold">)</span>
+</code></pre></div><p>It would probably be <code>disk0s2</code> if you did not attach additional EBS.</p>
+<p>Finally, resize the APFS container:
+<code>diskutil apfs resizeContainer disk0s2</code></p>
+<p>Advanced version</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">diskutil apfs resizeContainer <span style="color:#40ffff">$APFS_ID</span>
+</code></pre></div><p><strong>[2]How to setup Screen Sharing at mac1.metal in Terminal</strong></p>
+<p>The <code>kickstart</code> command-line tool resides in <code>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/</code> so you&rsquo;ll better to cd into that directory for convenience:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#999;font-style:italic"># Turn On Remote Management for a user to be specified later</span>
 sudo ./kickstart -activate -configure -allowAccessFor -specifiedUsers
 
-&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;# Enable Remote Management for ec2-user user&lt;/span&gt;
+<span style="color:#999;font-style:italic"># Enable Remote Management for ec2-user user</span>
 sudo ./kickstart -configure -users ec2-user -access -on -privs -all
 
-&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;# Set the user password &lt;/span&gt;
+<span style="color:#999;font-style:italic"># Set the user password </span>
 sudo passwd ec2-user
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+</code></pre></div>]]>
+            </content>
         </item>
         
     </channel>

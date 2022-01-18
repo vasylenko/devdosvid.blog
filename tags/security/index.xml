@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
     <channel>
         <title>security on Serhii Vasylenko</title>
         <link>https://serhii.vasylenko.info/tags/security/</link>
         <description>Recent content in security on Serhii Vasylenko</description>
+        <image>
+            <url>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</url>
+            <link>https://serhii.vasylenko.info/tags/security/</link>
+        </image>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
@@ -16,92 +20,92 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">f515b1f59c0c5a95c4b9a1a06c7d17b0</guid>
             <description>This blog explains how to use Response Headers Policy and Terraform to configure security headers for CloudFront Distribution</description>
+            <media:content url="https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/cover-image.png"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/cover-image.png"</url>
-                </image>&lt;p&gt;In November 2021, AWS announced Response Headers Policies — native support of response headers in CloudFront. You can read the full announcement here: &lt;a href=&#34;https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-response-headers-policies/&#34;&gt;Amazon CloudFront introduces Response Headers Policies&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;I said &amp;ldquo;native&amp;rdquo; because previously you could set response headers either using &lt;a href=&#34;https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html&#34;&gt;CloudFront Functions&lt;/a&gt; or &lt;a href=&#34;https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/&#34;&gt;Lambda@Edge&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;And one of the common use cases for that was to set security headers. Now you don&amp;rsquo;t need to add intermediate requests processing to modify the headers: CloudFront does that for you &lt;strong&gt;with no additional fee&lt;/strong&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;manage-security-headers-as-code&#34;&gt;Manage Security Headers as Code&lt;/h2&gt;
-&lt;p&gt;Starting from the &lt;a href=&#34;https://github.com/hashicorp/terraform-provider-aws/blob/main/CHANGELOG.md#3640-november-04-2021&#34;&gt;3.64.0&lt;/a&gt; version of Terraform AWS provider, you can create the security headers policies and apply them for your distribution.&lt;/p&gt;
-&lt;p&gt;Let&amp;rsquo;s see how that looks!&lt;/p&gt;
-&lt;p&gt;First, you need to describe the &lt;code&gt;aws_cloudfront_response_headers_policy&lt;/code&gt; resource:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;aws_cloudfront_response_headers_policy&amp;#34; &amp;#34;security_headers_policy&amp;#34;&lt;/span&gt; {
-  name = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;my-security-headers-policy&amp;#34;&lt;/span&gt;
-  &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;security_headers_config&lt;/span&gt; {
-    &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;content_type_options&lt;/span&gt; {
-      override = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;true&lt;/span&gt;
+                <![CDATA[<p>In November 2021, AWS announced Response Headers Policies — native support of response headers in CloudFront. You can read the full announcement here: <a href="https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-response-headers-policies/">Amazon CloudFront introduces Response Headers Policies</a></p>
+<p>I said &ldquo;native&rdquo; because previously you could set response headers either using <a href="https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html">CloudFront Functions</a> or <a href="https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/">Lambda@Edge</a>.</p>
+<p>And one of the common use cases for that was to set security headers. Now you don&rsquo;t need to add intermediate requests processing to modify the headers: CloudFront does that for you <strong>with no additional fee</strong>.</p>
+<h2 id="manage-security-headers-as-code">Manage Security Headers as Code</h2>
+<p>Starting from the <a href="https://github.com/hashicorp/terraform-provider-aws/blob/main/CHANGELOG.md#3640-november-04-2021">3.64.0</a> version of Terraform AWS provider, you can create the security headers policies and apply them for your distribution.</p>
+<p>Let&rsquo;s see how that looks!</p>
+<p>First, you need to describe the <code>aws_cloudfront_response_headers_policy</code> resource:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_cloudfront_response_headers_policy&#34; &#34;security_headers_policy&#34;</span> {
+  name = <span style="color:#ed9d13">&#34;my-security-headers-policy&#34;</span>
+  <span style="color:#6ab825;font-weight:bold">security_headers_config</span> {
+    <span style="color:#6ab825;font-weight:bold">content_type_options</span> {
+      override = <span style="color:#6ab825;font-weight:bold">true</span>
     }
-    &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;frame_options&lt;/span&gt; {
-      frame_option = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;DENY&amp;#34;&lt;/span&gt;
-      override     = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;true&lt;/span&gt;
+    <span style="color:#6ab825;font-weight:bold">frame_options</span> {
+      frame_option = <span style="color:#ed9d13">&#34;DENY&#34;</span>
+      override     = <span style="color:#6ab825;font-weight:bold">true</span>
     }
-    &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;referrer_policy&lt;/span&gt; {
-      referrer_policy = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;same-origin&amp;#34;&lt;/span&gt;
-      override        = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;true&lt;/span&gt;
+    <span style="color:#6ab825;font-weight:bold">referrer_policy</span> {
+      referrer_policy = <span style="color:#ed9d13">&#34;same-origin&#34;</span>
+      override        = <span style="color:#6ab825;font-weight:bold">true</span>
     }
-    &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;xss_protection&lt;/span&gt; {
-      mode_block = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;true&lt;/span&gt;
-      protection = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;true&lt;/span&gt;
-      override   = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;true&lt;/span&gt;
+    <span style="color:#6ab825;font-weight:bold">xss_protection</span> {
+      mode_block = <span style="color:#6ab825;font-weight:bold">true</span>
+      protection = <span style="color:#6ab825;font-weight:bold">true</span>
+      override   = <span style="color:#6ab825;font-weight:bold">true</span>
     }
-    &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;strict_transport_security&lt;/span&gt; {
-      access_control_max_age_sec = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;63072000&amp;#34;&lt;/span&gt;
-      include_subdomains         = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;true&lt;/span&gt;
-      preload                    = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;true&lt;/span&gt;
-      override                   = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;true&lt;/span&gt;
+    <span style="color:#6ab825;font-weight:bold">strict_transport_security</span> {
+      access_control_max_age_sec = <span style="color:#ed9d13">&#34;63072000&#34;</span>
+      include_subdomains         = <span style="color:#6ab825;font-weight:bold">true</span>
+      preload                    = <span style="color:#6ab825;font-weight:bold">true</span>
+      override                   = <span style="color:#6ab825;font-weight:bold">true</span>
     }
-    &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;content_security_policy&lt;/span&gt; {
-      content_security_policy = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;frame-ancestors &amp;#39;none&amp;#39;; default-src &amp;#39;none&amp;#39;; img-src &amp;#39;self&amp;#39;; script-src &amp;#39;self&amp;#39;; style-src &amp;#39;self&amp;#39;; object-src &amp;#39;none&amp;#39;&amp;#34;&lt;/span&gt;
-      override                = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;true&lt;/span&gt;
+    <span style="color:#6ab825;font-weight:bold">content_security_policy</span> {
+      content_security_policy = <span style="color:#ed9d13">&#34;frame-ancestors &#39;none&#39;; default-src &#39;none&#39;; img-src &#39;self&#39;; script-src &#39;self&#39;; style-src &#39;self&#39;; object-src &#39;none&#39;&#34;</span>
+      override                = <span style="color:#6ab825;font-weight:bold">true</span>
     }
   }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;List of security headers used:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://infosec.mozilla.org/guidelines/web_security#x-content-type-options&#34;&gt;X-Content-Type-Options&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://infosec.mozilla.org/guidelines/web_security#x-frame-options&#34;&gt;X-Frame-Options&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://infosec.mozilla.org/guidelines/web_security#referrer-policy&#34;&gt;Referrer Policy&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://infosec.mozilla.org/guidelines/web_security#x-xss-protection&#34;&gt;X-XSS-Protection&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://infosec.mozilla.org/guidelines/web_security#http-strict-transport-security&#34;&gt;Strict Transport Security&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://infosec.mozilla.org/guidelines/web_security#content-security-policy&#34;&gt;Content Security Policy&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;The values for the security headers can be different, of course. However, the provided ones cover the majority of cases. And you can always get the up to date info about these headers and possible values here: &lt;a href=&#34;https://infosec.mozilla.org/guidelines/web_security&#34;&gt;Mozilla web Security Guidelines&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Also, you could notice that provided example uses the &lt;code&gt;override&lt;/code&gt; argument a lot. The &lt;code&gt;override&lt;/code&gt; argument tells CloudFront to set these values for specified headers despite the values received from the origin. This way, you can enforce your security headers configuration.&lt;/p&gt;
-&lt;p&gt;Once you have the &lt;code&gt;aws_cloudfront_response_headers_policy&lt;/code&gt; resource, you can refer to it in the code of &lt;code&gt;aws_cloudfront_distribution&lt;/code&gt; resource inside cache behavior block (default or ordered). For example, in your &lt;code&gt;default_cache_behavior&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;aws_cloudfront_distribution&amp;#34; &amp;#34;test&amp;#34;&lt;/span&gt; {
-  &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;default_cache_behavior&lt;/span&gt; {
-    target_origin_id           = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;aws_s3_bucket&lt;/span&gt;.&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;my_origin&lt;/span&gt;.&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;id&lt;/span&gt;
-    allowed_methods            = [&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;GET&amp;#34;, &amp;#34;HEAD&amp;#34;, &amp;#34;OPTIONS&amp;#34;&lt;/span&gt;]
-    cached_methods             = [&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;GET&amp;#34;, &amp;#34;HEAD&amp;#34;&lt;/span&gt;]
-    viewer_protocol_policy     = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;redirect-to-https&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;    # some arguments skipped from listing for the sake of simplicity
-&lt;/span&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;&lt;/span&gt;    
-    response_headers_policy_id = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;aws_cloudfront_response_headers_policy&lt;/span&gt;.&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;security_headers_policy&lt;/span&gt;.&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;id&lt;/span&gt;
+</code></pre></div><p>List of security headers used:</p>
+<ul>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#x-content-type-options">X-Content-Type-Options</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#x-frame-options">X-Frame-Options</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#referrer-policy">Referrer Policy</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#x-xss-protection">X-XSS-Protection</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#http-strict-transport-security">Strict Transport Security</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#content-security-policy">Content Security Policy</a></li>
+</ul>
+<p>The values for the security headers can be different, of course. However, the provided ones cover the majority of cases. And you can always get the up to date info about these headers and possible values here: <a href="https://infosec.mozilla.org/guidelines/web_security">Mozilla web Security Guidelines</a></p>
+<p>Also, you could notice that provided example uses the <code>override</code> argument a lot. The <code>override</code> argument tells CloudFront to set these values for specified headers despite the values received from the origin. This way, you can enforce your security headers configuration.</p>
+<p>Once you have the <code>aws_cloudfront_response_headers_policy</code> resource, you can refer to it in the code of <code>aws_cloudfront_distribution</code> resource inside cache behavior block (default or ordered). For example, in your <code>default_cache_behavior</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#6ab825;font-weight:bold">resource</span> <span style="color:#ed9d13">&#34;aws_cloudfront_distribution&#34; &#34;test&#34;</span> {
+  <span style="color:#6ab825;font-weight:bold">default_cache_behavior</span> {
+    target_origin_id           = <span style="color:#6ab825;font-weight:bold">aws_s3_bucket</span>.<span style="color:#6ab825;font-weight:bold">my_origin</span>.<span style="color:#6ab825;font-weight:bold">id</span>
+    allowed_methods            = [<span style="color:#ed9d13">&#34;GET&#34;, &#34;HEAD&#34;, &#34;OPTIONS&#34;</span>]
+    cached_methods             = [<span style="color:#ed9d13">&#34;GET&#34;, &#34;HEAD&#34;</span>]
+    viewer_protocol_policy     = <span style="color:#ed9d13">&#34;redirect-to-https&#34;</span><span style="color:#999;font-style:italic">
+</span><span style="color:#999;font-style:italic">
+</span><span style="color:#999;font-style:italic">    # some arguments skipped from listing for the sake of simplicity
+</span><span style="color:#999;font-style:italic"></span>    
+    response_headers_policy_id = <span style="color:#6ab825;font-weight:bold">aws_cloudfront_response_headers_policy</span>.<span style="color:#6ab825;font-weight:bold">security_headers_policy</span>.<span style="color:#6ab825;font-weight:bold">id</span>
     
-  }&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;  # some arguments skipped from listing for the sake of simplicity
-&lt;/span&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;&lt;/span&gt;}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;security-scan-results&#34;&gt;Security Scan Results&lt;/h3&gt;
-&lt;p&gt;Here is what Mozilla Observatory reports about my test CF distribution where I enabled the policy described above:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;observatory-results.png&#34;
-         alt=&#34;Scan summary for CloudFront distribution with security headers policy&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Scan summary for CloudFront distribution with security headers policy&lt;/p&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
+  }<span style="color:#999;font-style:italic">
+</span><span style="color:#999;font-style:italic">
+</span><span style="color:#999;font-style:italic">  # some arguments skipped from listing for the sake of simplicity
+</span><span style="color:#999;font-style:italic"></span>}
+</code></pre></div><h3 id="security-scan-results">Security Scan Results</h3>
+<p>Here is what Mozilla Observatory reports about my test CF distribution where I enabled the policy described above:</p>
+<figure>
+    <img loading="lazy" src="observatory-results.png"
+         alt="Scan summary for CloudFront distribution with security headers policy"/> <figcaption>
+            <p>Scan summary for CloudFront distribution with security headers policy</p>
+        </figcaption>
+</figure>
 
-&lt;p&gt;So with just minimum effort, you can greatly boost your web application security posture.&lt;/p&gt;
-&lt;h3 id=&#34;more-to-read&#34;&gt;More to read:&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_response_headers_policy&#34;&gt;Terraform Resource: aws_cloudfront_response_headers_policy&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/creating-response-headers-policies.html&#34;&gt;Creating response headers policies - Amazon CloudFront&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-managed-response-headers-policies.html&#34;&gt;Using the managed response headers policies - Amazon CloudFront&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/understanding-response-headers-policies.html&#34;&gt;Understanding response headers policies - Amazon CloudFront&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content>
+<p>So with just minimum effort, you can greatly boost your web application security posture.</p>
+<h3 id="more-to-read">More to read:</h3>
+<ul>
+<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_response_headers_policy">Terraform Resource: aws_cloudfront_response_headers_policy</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/creating-response-headers-policies.html">Creating response headers policies - Amazon CloudFront</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-managed-response-headers-policies.html">Using the managed response headers policies - Amazon CloudFront</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/understanding-response-headers-policies.html">Understanding response headers policies - Amazon CloudFront</a></li>
+</ul>
+]]>
+            </content>
         </item>
         
         <item>
@@ -111,130 +115,130 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">aba2bd003c4b5c838f4a7bd678ac6648</guid>
             <description>Modifying response headers to enforce the security of the web application</description>
+            <media:content url="https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.htmlcover_image.png"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.htmlcover_image.png"</url>
-                </image>&lt;div class=&#34;updatenotice&#34;&gt;
-    &lt;p&gt;In November 2021, AWS has added this functionality as a native CloudFront feature.&lt;/p&gt;
-&lt;p&gt;I suggest switching to the native implementation. I have described how to configure Security Response Headers for CloudFront in the following article:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/&#34;&gt;Apply Cloudfront Security Headers With Terraform&lt;/a&gt;&lt;/p&gt;
+                <![CDATA[<div class="updatenotice">
+    <p>In November 2021, AWS has added this functionality as a native CloudFront feature.</p>
+<p>I suggest switching to the native implementation. I have described how to configure Security Response Headers for CloudFront in the following article:</p>
+<p><a href="https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/">Apply Cloudfront Security Headers With Terraform</a></p>
 
-&lt;/div&gt;
-&lt;p&gt;A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.&lt;/p&gt;
-&lt;p&gt;It is “true edge” because Functions work on 200+ edge locations (&lt;a href=&#34;https://aws.amazon.com/cloudfront/features/?whats-new-cloudfront.sort-by=item.additionalFields.postDateTime&amp;amp;whats-new-cloudfront.sort-order=desc#Edge_Computing&#34;&gt;link to doc&lt;/a&gt;) while its predecessor, the Lambda@Edge, runs on a small number of regional edge caches.&lt;/p&gt;
-&lt;p&gt;One of the use cases for Lambda@Edge was adding security HTTP headers (it’s even listed on the &lt;a href=&#34;https://aws.amazon.com/lambda/edge/&#34;&gt;product page&lt;/a&gt;), and now there is one more way to make it using CloudFront Functions.&lt;/p&gt;
-&lt;h2 id=&#34;what-are-security-headers-and-why-it-matters&#34;&gt;What are security headers, and why it matters&lt;/h2&gt;
-&lt;p&gt;Security Headers are one of the web security pillars.&lt;/p&gt;
-&lt;p&gt;They specify security-related information of communication between a web application (i.e., website) and a client (i.e., browser) and protect the web app from different types of attacks. Also, HIPAA and PCI, and other security standard certifications generally include these headers in their rankings.&lt;/p&gt;
-&lt;p&gt;We will use CloudFront Functions to set the following headers:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://infosec.mozilla.org/guidelines/web_security#content-security-policy&#34;&gt;Content Security Policy&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://infosec.mozilla.org/guidelines/web_security#http-strict-transport-security&#34;&gt;Strict Transport Security&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://infosec.mozilla.org/guidelines/web_security#x-content-type-options&#34;&gt;X-Content-Type-Options&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://infosec.mozilla.org/guidelines/web_security#x-xss-protection&#34;&gt;X-XSS-Protection&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://infosec.mozilla.org/guidelines/web_security#x-frame-options&#34;&gt;X-Frame-Options&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://infosec.mozilla.org/guidelines/web_security#referrer-policy&#34;&gt;Referrer Policy&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;You can find a short and detailed explanation for each security header on &lt;a href=&#34;https://infosec.mozilla.org/guidelines/web_security&#34;&gt;Web Security cheatsheet made by Mozilla&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;cloudfront-functions-overview&#34;&gt;CloudFront Functions overview&lt;/h2&gt;
-&lt;p&gt;In a nutshell, CloudFront Functions allow performing simple actions against HTTP(s) request (from the client) and response (from the CloudFront cache at the edge). Functions take less than one millisecond to execute, support JavaScript (ECMAScript 5.1 compliant), and cost $0.10 per 1 million invocations.&lt;/p&gt;
-&lt;p&gt;Every CloudFront distribution has one (default) or more Cache behaviors, and Functions can be associated with these behaviors to execute upon a specific event.&lt;/p&gt;
-&lt;p&gt;That is how the request flow looks like in general, and here is where CloudFront Functions execution happens:&lt;/p&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;request_flow.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
-&lt;p&gt;CloudFront Functions support Viewer Request (after CloudFront receives a request from a client) and Viewer Response (before CloudFront forwards the response to the client) events.&lt;/p&gt;
-&lt;p&gt;You can read more about the events types and their properties here — &lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-cloudfront-trigger-events.html&#34;&gt;CloudFront Events That Can Trigger a Lambda Function - Amazon CloudFront&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Also, the CloudFront Functions allow you to manage and operate the code and lifecycle of the functions directly from the CloudFront web interface.&lt;/p&gt;
-&lt;h2 id=&#34;solution-overview&#34;&gt;Solution overview&lt;/h2&gt;
-&lt;p&gt;CloudFront distribution should exist before Function creation so you could associate the Function with the distribution.&lt;/p&gt;
-&lt;p&gt;Creation and configuration of the CloudFront Function consist of the following steps:&lt;/p&gt;
-&lt;h3 id=&#34;create-function&#34;&gt;Create Function&lt;/h3&gt;
-&lt;p&gt;In the AWS Console, open CloudFront service and lick on the Functions on the left navigation bar, then click Create function button.
-&lt;img loading=&#34;lazy&#34; src=&#34;create_function.png&#34; alt=&#34;&#34;  /&gt;
+</div>
+<p>A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.</p>
+<p>It is “true edge” because Functions work on 200+ edge locations (<a href="https://aws.amazon.com/cloudfront/features/?whats-new-cloudfront.sort-by=item.additionalFields.postDateTime&amp;whats-new-cloudfront.sort-order=desc#Edge_Computing">link to doc</a>) while its predecessor, the Lambda@Edge, runs on a small number of regional edge caches.</p>
+<p>One of the use cases for Lambda@Edge was adding security HTTP headers (it’s even listed on the <a href="https://aws.amazon.com/lambda/edge/">product page</a>), and now there is one more way to make it using CloudFront Functions.</p>
+<h2 id="what-are-security-headers-and-why-it-matters">What are security headers, and why it matters</h2>
+<p>Security Headers are one of the web security pillars.</p>
+<p>They specify security-related information of communication between a web application (i.e., website) and a client (i.e., browser) and protect the web app from different types of attacks. Also, HIPAA and PCI, and other security standard certifications generally include these headers in their rankings.</p>
+<p>We will use CloudFront Functions to set the following headers:</p>
+<ul>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#content-security-policy">Content Security Policy</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#http-strict-transport-security">Strict Transport Security</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#x-content-type-options">X-Content-Type-Options</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#x-xss-protection">X-XSS-Protection</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#x-frame-options">X-Frame-Options</a></li>
+<li><a href="https://infosec.mozilla.org/guidelines/web_security#referrer-policy">Referrer Policy</a></li>
+</ul>
+<p>You can find a short and detailed explanation for each security header on <a href="https://infosec.mozilla.org/guidelines/web_security">Web Security cheatsheet made by Mozilla</a></p>
+<h2 id="cloudfront-functions-overview">CloudFront Functions overview</h2>
+<p>In a nutshell, CloudFront Functions allow performing simple actions against HTTP(s) request (from the client) and response (from the CloudFront cache at the edge). Functions take less than one millisecond to execute, support JavaScript (ECMAScript 5.1 compliant), and cost $0.10 per 1 million invocations.</p>
+<p>Every CloudFront distribution has one (default) or more Cache behaviors, and Functions can be associated with these behaviors to execute upon a specific event.</p>
+<p>That is how the request flow looks like in general, and here is where CloudFront Functions execution happens:</p>
+<p><img loading="lazy" src="request_flow.png" alt=""  />
+</p>
+<p>CloudFront Functions support Viewer Request (after CloudFront receives a request from a client) and Viewer Response (before CloudFront forwards the response to the client) events.</p>
+<p>You can read more about the events types and their properties here — <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-cloudfront-trigger-events.html">CloudFront Events That Can Trigger a Lambda Function - Amazon CloudFront</a>.</p>
+<p>Also, the CloudFront Functions allow you to manage and operate the code and lifecycle of the functions directly from the CloudFront web interface.</p>
+<h2 id="solution-overview">Solution overview</h2>
+<p>CloudFront distribution should exist before Function creation so you could associate the Function with the distribution.</p>
+<p>Creation and configuration of the CloudFront Function consist of the following steps:</p>
+<h3 id="create-function">Create Function</h3>
+<p>In the AWS Console, open CloudFront service and lick on the Functions on the left navigation bar, then click Create function button.
+<img loading="lazy" src="create_function.png" alt=""  />
 
-Enter the name of your Function (e.g., “security-headers”) and click Continue.&lt;/p&gt;
-&lt;h3 id=&#34;build-function&#34;&gt;Build Function&lt;/h3&gt;
-&lt;p&gt;On the function settings page, you will see four tabs with the four lifecycle steps: Build, Test, Publish, Associate.&lt;/p&gt;
-&lt;p&gt;Paste the function code into the editor and click “Save.”&lt;/p&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;function_editor.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
-&lt;p&gt;Here is the source code of the function:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;function&lt;/span&gt; handler(event) {
-&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;var&lt;/span&gt; response = event.response;
-&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;var&lt;/span&gt; headers = response.headers;
+Enter the name of your Function (e.g., “security-headers”) and click Continue.</p>
+<h3 id="build-function">Build Function</h3>
+<p>On the function settings page, you will see four tabs with the four lifecycle steps: Build, Test, Publish, Associate.</p>
+<p>Paste the function code into the editor and click “Save.”</p>
+<p><img loading="lazy" src="function_editor.png" alt=""  />
+</p>
+<p>Here is the source code of the function:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#6ab825;font-weight:bold">function</span> handler(event) {
+<span style="color:#6ab825;font-weight:bold">var</span> response = event.response;
+<span style="color:#6ab825;font-weight:bold">var</span> headers = response.headers;
 
-headers[&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;strict-transport-security&amp;#39;&lt;/span&gt;] = { value: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;max-age=63072000; includeSubdomains; preload&amp;#39;&lt;/span&gt;}; 
-headers[&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;content-security-policy&amp;#39;&lt;/span&gt;] = { value: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;default-src &amp;#39;none&amp;#39;; img-src &amp;#39;self&amp;#39;; script-src &amp;#39;self&amp;#39;; style-src &amp;#39;self&amp;#39;; object-src &amp;#39;none&amp;#39;; frame-ancestors &amp;#39;none&amp;#39;&amp;#34;&lt;/span&gt;}; 
-headers[&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;x-content-type-options&amp;#39;&lt;/span&gt;] = { value: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;nosniff&amp;#39;&lt;/span&gt;}; 
-headers[&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;x-xss-protection&amp;#39;&lt;/span&gt;] = {value: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;1; mode=block&amp;#39;&lt;/span&gt;};
-headers[&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;referrer-policy&amp;#39;&lt;/span&gt;] = {value: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;same-origin&amp;#39;&lt;/span&gt;};
-headers[&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;x-frame-options&amp;#39;&lt;/span&gt;] = {value: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;DENY&amp;#39;&lt;/span&gt;};
+headers[<span style="color:#ed9d13">&#39;strict-transport-security&#39;</span>] = { value: <span style="color:#ed9d13">&#39;max-age=63072000; includeSubdomains; preload&#39;</span>}; 
+headers[<span style="color:#ed9d13">&#39;content-security-policy&#39;</span>] = { value: <span style="color:#ed9d13">&#34;default-src &#39;none&#39;; img-src &#39;self&#39;; script-src &#39;self&#39;; style-src &#39;self&#39;; object-src &#39;none&#39;; frame-ancestors &#39;none&#39;&#34;</span>}; 
+headers[<span style="color:#ed9d13">&#39;x-content-type-options&#39;</span>] = { value: <span style="color:#ed9d13">&#39;nosniff&#39;</span>}; 
+headers[<span style="color:#ed9d13">&#39;x-xss-protection&#39;</span>] = {value: <span style="color:#ed9d13">&#39;1; mode=block&#39;</span>};
+headers[<span style="color:#ed9d13">&#39;referrer-policy&#39;</span>] = {value: <span style="color:#ed9d13">&#39;same-origin&#39;</span>};
+headers[<span style="color:#ed9d13">&#39;x-frame-options&#39;</span>] = {value: <span style="color:#ed9d13">&#39;DENY&#39;</span>};
 
-&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;return&lt;/span&gt; response;
+<span style="color:#6ab825;font-weight:bold">return</span> response;
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;test-function&#34;&gt;Test Function&lt;/h3&gt;
-&lt;p&gt;Open the “Test” tab — let’s try our function first before it becomes live!&lt;/p&gt;
-&lt;p&gt;Select Viewer Response event type and Development Stage, then select “Viewer response with headers” as a Sample test event (you will get a simple set of headers automatically).&lt;/p&gt;
-&lt;p&gt;Now click the blue “Test” button and observe the output results:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Compute utilization represents the relative amount of time (on a scale between 0 and 100) your function took to run&lt;/li&gt;
-&lt;li&gt;Check the Response headers tab and take a look at how the function added custom headers.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;function_test.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
-&lt;h3 id=&#34;publish-function&#34;&gt;Publish Function&lt;/h3&gt;
-&lt;p&gt;Let’s publish our function. To do that, open the Publish tab and click on the blue button “Publish and update.”
-&lt;img loading=&#34;lazy&#34; src=&#34;function_publish.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
-&lt;h3 id=&#34;associate-your-function-with-cloudfront-distribution&#34;&gt;Associate your Function with CloudFront distribution&lt;/h3&gt;
-&lt;p&gt;Now, you can associate the function with the CloudFront distribution.&lt;/p&gt;
-&lt;p&gt;To do so, open the Associate tab, select the distribution and event type (Viewer Response), and select the Cache behavior of your distribution which you want to use for the association.&lt;/p&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;function_associate.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
-&lt;p&gt;Once you associate the function with the CloudFront distribution, you can test it in live mode.&lt;/p&gt;
-&lt;p&gt;I will use curl here to demonstrate it:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&amp;gt; curl -i https://d30i87a4ss9ifz.cloudfront.net
-HTTP/2 &lt;span style=&#34;color:#3677a9&#34;&gt;200&lt;/span&gt;
+</code></pre></div><h3 id="test-function">Test Function</h3>
+<p>Open the “Test” tab — let’s try our function first before it becomes live!</p>
+<p>Select Viewer Response event type and Development Stage, then select “Viewer response with headers” as a Sample test event (you will get a simple set of headers automatically).</p>
+<p>Now click the blue “Test” button and observe the output results:</p>
+<ul>
+<li>Compute utilization represents the relative amount of time (on a scale between 0 and 100) your function took to run</li>
+<li>Check the Response headers tab and take a look at how the function added custom headers.</li>
+</ul>
+<p><img loading="lazy" src="function_test.png" alt=""  />
+</p>
+<h3 id="publish-function">Publish Function</h3>
+<p>Let’s publish our function. To do that, open the Publish tab and click on the blue button “Publish and update.”
+<img loading="lazy" src="function_publish.png" alt=""  />
+</p>
+<h3 id="associate-your-function-with-cloudfront-distribution">Associate your Function with CloudFront distribution</h3>
+<p>Now, you can associate the function with the CloudFront distribution.</p>
+<p>To do so, open the Associate tab, select the distribution and event type (Viewer Response), and select the Cache behavior of your distribution which you want to use for the association.</p>
+<p><img loading="lazy" src="function_associate.png" alt=""  />
+</p>
+<p>Once you associate the function with the CloudFront distribution, you can test it in live mode.</p>
+<p>I will use curl here to demonstrate it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; curl -i https://d30i87a4ss9ifz.cloudfront.net
+HTTP/2 <span style="color:#3677a9">200</span>
 content-type: text/html
-content-length: &lt;span style=&#34;color:#3677a9&#34;&gt;140&lt;/span&gt;
-date: Sat, &lt;span style=&#34;color:#3677a9&#34;&gt;22&lt;/span&gt; May &lt;span style=&#34;color:#3677a9&#34;&gt;2021&lt;/span&gt; 00:22:18 GMT
-last-modified: Tue, &lt;span style=&#34;color:#3677a9&#34;&gt;27&lt;/span&gt; Apr &lt;span style=&#34;color:#3677a9&#34;&gt;2021&lt;/span&gt; 23:07:14 GMT
-etag: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;a855a3189f8223db53df8a0ca362dd62&amp;#34;&lt;/span&gt;
+content-length: <span style="color:#3677a9">140</span>
+date: Sat, <span style="color:#3677a9">22</span> May <span style="color:#3677a9">2021</span> 00:22:18 GMT
+last-modified: Tue, <span style="color:#3677a9">27</span> Apr <span style="color:#3677a9">2021</span> 23:07:14 GMT
+etag: <span style="color:#ed9d13">&#34;a855a3189f8223db53df8a0ca362dd62&#34;</span>
 accept-ranges: bytes
 server: AmazonS3
 via: 1.1 50f21cb925e6471490e080147e252d7d.cloudfront.net (CloudFront)
-content-security-policy: default-src &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;; img-src &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;self&amp;#39;&lt;/span&gt;; script-src &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;self&amp;#39;&lt;/span&gt;; style-src &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;self&amp;#39;&lt;/span&gt;; object-src &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;; frame-ancestors &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;
+content-security-policy: default-src <span style="color:#ed9d13">&#39;none&#39;</span>; img-src <span style="color:#ed9d13">&#39;self&#39;</span>; script-src <span style="color:#ed9d13">&#39;self&#39;</span>; style-src <span style="color:#ed9d13">&#39;self&#39;</span>; object-src <span style="color:#ed9d13">&#39;none&#39;</span>; frame-ancestors <span style="color:#ed9d13">&#39;none&#39;</span>
 strict-transport-security: max-age=63072000; includeSubdomains; preload
-x-xss-protection: 1; &lt;span style=&#34;color:#40ffff&#34;&gt;mode&lt;/span&gt;=block
+x-xss-protection: 1; <span style="color:#40ffff">mode</span>=block
 x-frame-options: DENY
 referrer-policy: same-origin
 x-content-type-options: nosniff
 x-cache: Miss from cloudfront
 x-amz-cf-pop: WAW50-C1
 x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw==
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can also test your results here — &lt;a href=&#34;https://observatory.mozilla.org/&#34;&gt;Mozilla Observatory&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;scan_result-1.png&#34; alt=&#34;&#34;  /&gt;
+</code></pre></div><p>You can also test your results here — <a href="https://observatory.mozilla.org/">Mozilla Observatory</a></p>
+<p><img loading="lazy" src="scan_result-1.png" alt=""  />
 
-&lt;img loading=&#34;lazy&#34; src=&#34;scan_result-2.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
-&lt;h2 id=&#34;read-more&#34;&gt;Read more&lt;/h2&gt;
-&lt;p&gt;That was a simplified overview of the CloudFront Functions capabilities.&lt;/p&gt;
-&lt;p&gt;But if you want to get deeper, here is a couple of useful links to start:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Another overview from AWS — &lt;a href=&#34;https://aws.amazon.com/blogs/aws/introducing-cloudfront-functions-run-your-code-at-the-edge-with-low-latency-at-any-scale&#34;&gt;CloudFront Functions Launch Blog&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;More about creating, testing, updating and publishing of CloudFront Functions — &lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/managing-functions.html&#34;&gt;Managing functions in CloudFront Functions - Amazon CloudFront&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;so-what-to-choose&#34;&gt;So what to choose?&lt;/h2&gt;
-&lt;p&gt;CloudFront Functions are simpler than Lambda@Edge and run faster with minimal latency and minimal time penalty for your web clients.&lt;/p&gt;
-&lt;p&gt;Lambda@Edge takes more time to invoke, but it can run upon Origin Response event so that CloudFront can cache the processed response (including headers) and return it faster afterward.&lt;/p&gt;
-&lt;p&gt;But again, the CloudFront Functions invocations are much cheaper (6x times) than Lambda@Edge, and you do not pay for the function execution duration.&lt;/p&gt;
-&lt;p&gt;The final decision would also depend on the dynamic/static nature of the content you have at your origin.&lt;/p&gt;
-&lt;p&gt;To make a wise and deliberate decision, try to analyze your use case using these two documentation articles:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions.html&#34;&gt;Choosing between CloudFront Functions and Lambda@Edge&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-how-to-choose-event.html&#34;&gt;How to Decide Which CloudFront Event to Use to Trigger a Lambda Function&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content>
+<img loading="lazy" src="scan_result-2.png" alt=""  />
+</p>
+<h2 id="read-more">Read more</h2>
+<p>That was a simplified overview of the CloudFront Functions capabilities.</p>
+<p>But if you want to get deeper, here is a couple of useful links to start:</p>
+<ul>
+<li>Another overview from AWS — <a href="https://aws.amazon.com/blogs/aws/introducing-cloudfront-functions-run-your-code-at-the-edge-with-low-latency-at-any-scale">CloudFront Functions Launch Blog</a></li>
+<li>More about creating, testing, updating and publishing of CloudFront Functions — <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/managing-functions.html">Managing functions in CloudFront Functions - Amazon CloudFront</a></li>
+</ul>
+<h2 id="so-what-to-choose">So what to choose?</h2>
+<p>CloudFront Functions are simpler than Lambda@Edge and run faster with minimal latency and minimal time penalty for your web clients.</p>
+<p>Lambda@Edge takes more time to invoke, but it can run upon Origin Response event so that CloudFront can cache the processed response (including headers) and return it faster afterward.</p>
+<p>But again, the CloudFront Functions invocations are much cheaper (6x times) than Lambda@Edge, and you do not pay for the function execution duration.</p>
+<p>The final decision would also depend on the dynamic/static nature of the content you have at your origin.</p>
+<p>To make a wise and deliberate decision, try to analyze your use case using these two documentation articles:</p>
+<ul>
+<li><a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions.html">Choosing between CloudFront Functions and Lambda@Edge</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-how-to-choose-event.html">How to Decide Which CloudFront Event to Use to Trigger a Lambda Function</a></li>
+</ul>
+]]>
+            </content>
         </item>
         
         <item>
@@ -244,58 +248,58 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw==
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">aac5469178cea7c40b07a137dcfdd56e</guid>
             <description>A better way to store sensitive information for Ansible on EC2 or other services</description>
+            <media:content url="https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html2020-08-06-ansible-secrets-aws-ssm-sm.png"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html2020-08-06-ansible-secrets-aws-ssm-sm.png"</url>
-                </image>&lt;p&gt;Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks.
-If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.&lt;/p&gt;
-&lt;h2 id=&#34;variables-with-ssm-parameter-store&#34;&gt;Variables with SSM Parameter Store&lt;/h2&gt;
-&lt;p&gt;Let&amp;rsquo;s say you have some variables defined in &amp;lsquo;defaults/main.yaml&amp;rsquo; file of your role or maybe in group_vars.yaml file.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#447fcf;text-decoration:underline&#34;&gt;---&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;# content of dev.vars.yaml to be included in your play or role&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;use_tls&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;application_port&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#3677a9&#34;&gt;3000&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;app_env&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;development&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;stripe_api_key&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;1HGASU2eZvKYlo2CT5MEcnC39HqLyjWD&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you store such things locally on Ansible control node, you probably encrypt it with &lt;a href=&#34;https://docs.ansible.com/ansible/latest/user_guide/vault.html&#34;&gt;ansible-vault&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;SSM Parameter Store gives you more flexibility and security by centralized storage and management of parameters and secrets, so let&amp;rsquo;s use it with Ansible:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;# content of dev.vars.yaml to be included in your play or role&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;use_tls&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{lookup(&amp;#39;aws_ssm&amp;#39;, &amp;#39;/dev/webserver/use_tls&amp;#39;)}}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;application_port&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{lookup(&amp;#39;aws_ssm&amp;#39;, &amp;#39;/dev/webserver/application_port&amp;#39;)}}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;app_env&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{lookup(&amp;#39;aws_ssm&amp;#39;, &amp;#39;/dev/webserver/app_env&amp;#39;)}}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;stripe_api_key&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{lookup(&amp;#39;aws_ssm&amp;#39;, &amp;#39;/dev/webserver/stripe_api_key&amp;#39;)}}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The syntax is fairly simple:&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;aws_ssm&lt;/code&gt; argument – is the name of plugin.&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;/dev/webserver/use_tls&lt;/code&gt; argument – is the path to the key in Paramter Store.&lt;/p&gt;
-&lt;p&gt;Surely you can do the same for a group of servers with group variables, for example:&lt;/p&gt;
-&lt;p&gt;You can use this anywhere you can use templating: in a play, in variables file, or a Jinja2 template.&lt;/p&gt;
-&lt;h2 id=&#34;variables-with-secret-manager&#34;&gt;Variables with Secret Manager&lt;/h2&gt;
-&lt;p&gt;Another cool lookup plugin is Secrets Manager. In a nutshell, it has the same kind of functionality but it uses JSON format by feault.&lt;/p&gt;
-&lt;p&gt;Here is a quick example of its functionality in a Playbook:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#447fcf;text-decoration:underline&#34;&gt;---&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Extract something secrets from Secret Manager&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;debug&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;msg&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{ lookup(&amp;#39;aws_secret&amp;#39;, &amp;#39;dev/some-secrets&amp;#39;)}}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The above task will generate the following output&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;TASK [Extract something secrets from Secret Manager] ****************************************************
-ok: [some_server] =&amp;gt; {
-    &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;msg&amp;#34;&lt;/span&gt;: {
-        &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;dbname&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;database&amp;#34;&lt;/span&gt;,
-        &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;engine&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;mysql&amp;#34;&lt;/span&gt;,
-        &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;host&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;,
-        &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;password&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;password&amp;#34;&lt;/span&gt;,
-        &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;port&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;3306&amp;#34;&lt;/span&gt;,
-        &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;username&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;db_user&amp;#34;&lt;/span&gt;
+                <![CDATA[<p>Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks.
+If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.</p>
+<h2 id="variables-with-ssm-parameter-store">Variables with SSM Parameter Store</h2>
+<p>Let&rsquo;s say you have some variables defined in &lsquo;defaults/main.yaml&rsquo; file of your role or maybe in group_vars.yaml file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#447fcf;text-decoration:underline">---</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#999;font-style:italic"># content of dev.vars.yaml to be included in your play or role</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">use_tls</span>:<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">true</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">application_port</span>:<span style="color:#666"> </span><span style="color:#3677a9">3000</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">app_env</span>:<span style="color:#666"> </span>development<span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">stripe_api_key</span>:<span style="color:#666"> </span>1HGASU2eZvKYlo2CT5MEcnC39HqLyjWD<span style="color:#666">
+</span></code></pre></div><p>If you store such things locally on Ansible control node, you probably encrypt it with <a href="https://docs.ansible.com/ansible/latest/user_guide/vault.html">ansible-vault</a></p>
+<p>SSM Parameter Store gives you more flexibility and security by centralized storage and management of parameters and secrets, so let&rsquo;s use it with Ansible:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#999;font-style:italic"># content of dev.vars.yaml to be included in your play or role</span><span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">use_tls</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/use_tls&#39;)}}&#34;</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">application_port</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/application_port&#39;)}}&#34;</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">app_env</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/app_env&#39;)}}&#34;</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">stripe_api_key</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/stripe_api_key&#39;)}}&#34;</span><span style="color:#666">
+</span></code></pre></div><p>The syntax is fairly simple:</p>
+<p>The <code>aws_ssm</code> argument – is the name of plugin.</p>
+<p>The <code>/dev/webserver/use_tls</code> argument – is the path to the key in Paramter Store.</p>
+<p>Surely you can do the same for a group of servers with group variables, for example:</p>
+<p>You can use this anywhere you can use templating: in a play, in variables file, or a Jinja2 template.</p>
+<h2 id="variables-with-secret-manager">Variables with Secret Manager</h2>
+<p>Another cool lookup plugin is Secrets Manager. In a nutshell, it has the same kind of functionality but it uses JSON format by feault.</p>
+<p>Here is a quick example of its functionality in a Playbook:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#447fcf;text-decoration:underline">---</span><span style="color:#666">
+</span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Extract something secrets from Secret Manager<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">debug</span>:<span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">msg</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{ lookup(&#39;aws_secret&#39;, &#39;dev/some-secrets&#39;)}}&#34;</span><span style="color:#666">
+</span></code></pre></div><p>The above task will generate the following output</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">TASK [Extract something secrets from Secret Manager] ****************************************************
+ok: [some_server] =&gt; {
+    <span style="color:#ed9d13">&#34;msg&#34;</span>: {
+        <span style="color:#ed9d13">&#34;dbname&#34;</span>: <span style="color:#ed9d13">&#34;database&#34;</span>,
+        <span style="color:#ed9d13">&#34;engine&#34;</span>: <span style="color:#ed9d13">&#34;mysql&#34;</span>,
+        <span style="color:#ed9d13">&#34;host&#34;</span>: <span style="color:#ed9d13">&#34;127.0.0.1&#34;</span>,
+        <span style="color:#ed9d13">&#34;password&#34;</span>: <span style="color:#ed9d13">&#34;password&#34;</span>,
+        <span style="color:#ed9d13">&#34;port&#34;</span>: <span style="color:#ed9d13">&#34;3306&#34;</span>,
+        <span style="color:#ed9d13">&#34;username&#34;</span>: <span style="color:#ed9d13">&#34;db_user&#34;</span>
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This is nice if you want to insert a JSON as is, but you will need additional parsing in case you want to get only some of JSON elements.&lt;/p&gt;
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;If you’re using Ansible in CI/CD, then having it on an EC2 Instance with the IAM role will make you avoid keeping any secrets on that instance at all.&lt;br&gt;
-The IAM role must allow at least the read access to SSM Parameter Store (+ KMS read access to be able to decrypt the keys) or the read access to Secrets Manager.&lt;/p&gt;
-&lt;p&gt;You can find documentation for described plugins here &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup/aws_ssm.html&#34;&gt;aws_ssm&lt;/a&gt; and here &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup/aws_secret.html&#34;&gt;aws_secret&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;More about lookup plugins: &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup.html&#34;&gt;https://docs.ansible.com/ansible/latest/plugins/lookup.html&lt;/a&gt;&lt;/p&gt;
-</content>
+</code></pre></div><p>This is nice if you want to insert a JSON as is, but you will need additional parsing in case you want to get only some of JSON elements.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>If you’re using Ansible in CI/CD, then having it on an EC2 Instance with the IAM role will make you avoid keeping any secrets on that instance at all.<br>
+The IAM role must allow at least the read access to SSM Parameter Store (+ KMS read access to be able to decrypt the keys) or the read access to Secrets Manager.</p>
+<p>You can find documentation for described plugins here <a href="https://docs.ansible.com/ansible/latest/plugins/lookup/aws_ssm.html">aws_ssm</a> and here <a href="https://docs.ansible.com/ansible/latest/plugins/lookup/aws_secret.html">aws_secret</a>.</p>
+<p>More about lookup plugins: <a href="https://docs.ansible.com/ansible/latest/plugins/lookup.html">https://docs.ansible.com/ansible/latest/plugins/lookup.html</a></p>
+]]>
+            </content>
         </item>
         
     </channel>

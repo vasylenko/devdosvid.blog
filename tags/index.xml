@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
     <channel>
         <title>Tags on Serhii Vasylenko</title>
         <link>https://serhii.vasylenko.info/tags/</link>
         <description>Recent content in Tags on Serhii Vasylenko</description>
+        <image>
+            <url>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</url>
+            <link>https://serhii.vasylenko.info/tags/</link>
+        </image>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
@@ -16,10 +20,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">4794d5fac5f57412afd7ba24392a5a5d</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/experience/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/experience/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -29,10 +33,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">e76728b3c3637cf86303b829381da5a2</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/guide/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/guide/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -42,10 +46,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">8c92ef2958e33eb8f0c2af33e5c69661</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/terraform/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/terraform/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -55,10 +59,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">646192c61d42c27622667d6f622966f9</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/automation/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/automation/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -68,10 +72,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">9528933428e3815adf95a4342413e944</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/cli/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/cli/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -81,10 +85,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">886f68f8fb10434a55f2c74120bceac0</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/aws/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/aws/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -94,10 +98,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">347712be3cd65e674819ddf52a8223ac</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/cloudfront/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/cloudfront/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -107,10 +111,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">dada3a6cfe81c9dd2e02e95d3d89a342</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/security/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/security/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -120,10 +124,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">db9070bb388f40b903439328bd4a3251</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/architecture/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/architecture/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -133,10 +137,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">8756958e1fba7ec883ef6ae2e93ea6df</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/governance/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/governance/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -146,10 +150,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">bbd5ebce7bcb0cfcb88d036c41e554bd</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/ansible/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/ansible/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -159,10 +163,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">c656cc2a728f7a550b8ba99c6d6cf9db</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/fun/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/fun/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -172,10 +176,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">94b9bec10edd2cdd06896dbe7db2a131</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/macos/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/macos/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -185,10 +189,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">7e1339e173ddd7a589677638e05d2174</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/ec2/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/ec2/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -198,10 +202,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">1cee4cfd3c88919d4b67189c58360855</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/packer/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/packer/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -211,10 +215,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">69fb45542ea62c2d630adc4923b0083b</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/tutorials/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/tutorials/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -224,10 +228,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">fc8fe0f6b26afa5b8d2d2fde56dc1416</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/devops/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/devops/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -237,10 +241,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">6ffa332a31d3466548294a53b5c5a010</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/ssm/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/ssm/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -250,10 +254,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">91503b01edfec2d842ca5910fa2d33eb</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/github/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/github/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -263,10 +267,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">8dfc0cc7c596cd335ef9836cc207218f</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/tags/certification/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/tags/certification/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
     </channel>

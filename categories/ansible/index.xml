@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
     <channel>
         <title>Ansible on Serhii Vasylenko</title>
         <link>https://serhii.vasylenko.info/categories/ansible/</link>
         <description>Recent content in Ansible on Serhii Vasylenko</description>
+        <image>
+            <url>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</url>
+            <link>https://serhii.vasylenko.info/categories/ansible/</link>
+        </image>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
@@ -16,132 +20,132 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">4d71fce68d0d4e4b80d8fbc604c48035</guid>
             <description>A small adjustment for big capabilities</description>
+            <media:content url="https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.htmlcover_image.png"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.htmlcover_image.png"</url>
-                </image>&lt;p&gt;In days of containers and serverless applications, Ansible looks not such a trendy thing.&lt;/p&gt;
-&lt;p&gt;But still, there are cases when it helps, and there are cases when it combines very well with brand new product offerings, such as EC2 Mac instances.&lt;/p&gt;
-&lt;p&gt;The &lt;a href=&#34;https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html&#34;&gt;more I use mac1.metal&lt;/a&gt; in AWS, the more I see that Ansible becomes a bedrock of software customization in my case.&lt;/p&gt;
-&lt;p&gt;And when you have a large instances fleet, the AWS Systems Manager becomes your best friend (the sooner you get along together, the better).&lt;/p&gt;
-&lt;p&gt;So is it possible to use Ansible playbooks for mac1.metal on a big scale, with the help of AWS Systems Manager?&lt;/p&gt;
-&lt;h2 id=&#34;not-available-out-of-the-box&#34;&gt;(Not) Available out of the box&lt;/h2&gt;
-&lt;p&gt;AWS Systems Manager (SSM hereafter) has a pre-defined, shared Document that allows running Ansible playbooks.&lt;/p&gt;
-&lt;p&gt;It’s called “AWS-RunAnsiblePlaybook,” and you can find it in AWS SSM → Documents → Owned by Amazon.&lt;/p&gt;
-&lt;p&gt;However, this Document is not quite “friendly” to macOS. When the SSM agent calls Ansible on the Mac EC2 instance, it does not recognize the Ansible installed with Homebrew (de-facto most used macOS package manager).&lt;/p&gt;
-&lt;p&gt;So if you try to run a command on the mac1.metal instance using this Document, you will get the following error:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;Ansible is not installed. Please install Ansible and rerun the command.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The root cause is trivial: the path to Ansible binary is not present on the list of paths available to the SSM agent by default.&lt;/p&gt;
-&lt;p&gt;There are several ways to solve that, but I believe that the most convenient one would be to create your custom Document — a slightly adjusted version of the default one provided by AWS.&lt;/p&gt;
-&lt;h2 id=&#34;creating-own-ssm-document-for-ansible-installed-with-homebrew&#34;&gt;Creating own SSM Document for Ansible installed with Homebrew&lt;/h2&gt;
-&lt;p&gt;All you need to do is clone the Document provided by AWS and change its code a little — replace the callouts of &lt;code&gt;ansible&lt;/code&gt; with the full path to the binary.&lt;/p&gt;
-&lt;p&gt;Navigate to AWS SSM → Documents → Owned by Amazon and type &lt;code&gt;AWS-RunAnsiblePlaybook&lt;/code&gt; in the search field.&lt;/p&gt;
-&lt;p&gt;Select the Document by pressing the circle on its top-right corner and then click Actions → Clone document.&lt;/p&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;aws_ssm_document_clone.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
-&lt;p&gt;Give the new SSM Document a name, e.g., &lt;code&gt;macos-arbitrary-ansible-playbook&lt;/code&gt;, and change the &lt;code&gt;ansible&lt;/code&gt; callouts (at the end of the code) with the full path to the ansible symlink made by Homebrew which is &lt;code&gt;/usr/local/bin/ansible&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Here is the complete source code of the Document with adjusted Ansible path:&lt;/p&gt;
+                <![CDATA[<p>In days of containers and serverless applications, Ansible looks not such a trendy thing.</p>
+<p>But still, there are cases when it helps, and there are cases when it combines very well with brand new product offerings, such as EC2 Mac instances.</p>
+<p>The <a href="https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html">more I use mac1.metal</a> in AWS, the more I see that Ansible becomes a bedrock of software customization in my case.</p>
+<p>And when you have a large instances fleet, the AWS Systems Manager becomes your best friend (the sooner you get along together, the better).</p>
+<p>So is it possible to use Ansible playbooks for mac1.metal on a big scale, with the help of AWS Systems Manager?</p>
+<h2 id="not-available-out-of-the-box">(Not) Available out of the box</h2>
+<p>AWS Systems Manager (SSM hereafter) has a pre-defined, shared Document that allows running Ansible playbooks.</p>
+<p>It’s called “AWS-RunAnsiblePlaybook,” and you can find it in AWS SSM → Documents → Owned by Amazon.</p>
+<p>However, this Document is not quite “friendly” to macOS. When the SSM agent calls Ansible on the Mac EC2 instance, it does not recognize the Ansible installed with Homebrew (de-facto most used macOS package manager).</p>
+<p>So if you try to run a command on the mac1.metal instance using this Document, you will get the following error:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Ansible is not installed. Please install Ansible and rerun the command.
+</code></pre></div><p>The root cause is trivial: the path to Ansible binary is not present on the list of paths available to the SSM agent by default.</p>
+<p>There are several ways to solve that, but I believe that the most convenient one would be to create your custom Document — a slightly adjusted version of the default one provided by AWS.</p>
+<h2 id="creating-own-ssm-document-for-ansible-installed-with-homebrew">Creating own SSM Document for Ansible installed with Homebrew</h2>
+<p>All you need to do is clone the Document provided by AWS and change its code a little — replace the callouts of <code>ansible</code> with the full path to the binary.</p>
+<p>Navigate to AWS SSM → Documents → Owned by Amazon and type <code>AWS-RunAnsiblePlaybook</code> in the search field.</p>
+<p>Select the Document by pressing the circle on its top-right corner and then click Actions → Clone document.</p>
+<p><img loading="lazy" src="aws_ssm_document_clone.png" alt=""  />
+</p>
+<p>Give the new SSM Document a name, e.g., <code>macos-arbitrary-ansible-playbook</code>, and change the <code>ansible</code> callouts (at the end of the code) with the full path to the ansible symlink made by Homebrew which is <code>/usr/local/bin/ansible</code></p>
+<p>Here is the complete source code of the Document with adjusted Ansible path:</p>
 
 
-&lt;p&gt;&lt;details &gt;
-  &lt;summary markdown=&#34;span&#34;&gt;Click to expand the code block&lt;/summary&gt;
-  &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
-  &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;schemaVersion&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;2.0&amp;#34;&lt;/span&gt;,
-  &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;description&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;Use this document to run arbitrary Ansible playbooks on macOS EC2 instances. Specify either YAML text or URL. If you specify both, the URL parameter will be used. Use the extravar parameter to send runtime variables to the Ansible execution. Use the check parameter to perform a dry run of the Ansible execution. The output of the dry run shows the changes that will be made when the playbook is executed.&amp;#34;&lt;/span&gt;,
-  &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;parameters&amp;#34;&lt;/span&gt;: {
-    &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;playbook&amp;#34;&lt;/span&gt;: {
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;String&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;description&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;(Optional) If you don&amp;#39;t specify a URL, then you must specify playbook YAML in this field.&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;default&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;displayType&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;textarea&amp;#34;&lt;/span&gt;
+<p><details >
+  <summary markdown="span">Click to expand the code block</summary>
+  <div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#6ab825;font-weight:bold">&#34;schemaVersion&#34;</span>: <span style="color:#ed9d13">&#34;2.0&#34;</span>,
+  <span style="color:#6ab825;font-weight:bold">&#34;description&#34;</span>: <span style="color:#ed9d13">&#34;Use this document to run arbitrary Ansible playbooks on macOS EC2 instances. Specify either YAML text or URL. If you specify both, the URL parameter will be used. Use the extravar parameter to send runtime variables to the Ansible execution. Use the check parameter to perform a dry run of the Ansible execution. The output of the dry run shows the changes that will be made when the playbook is executed.&#34;</span>,
+  <span style="color:#6ab825;font-weight:bold">&#34;parameters&#34;</span>: {
+    <span style="color:#6ab825;font-weight:bold">&#34;playbook&#34;</span>: {
+      <span style="color:#6ab825;font-weight:bold">&#34;type&#34;</span>: <span style="color:#ed9d13">&#34;String&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;description&#34;</span>: <span style="color:#ed9d13">&#34;(Optional) If you don&#39;t specify a URL, then you must specify playbook YAML in this field.&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;default&#34;</span>: <span style="color:#ed9d13">&#34;&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;displayType&#34;</span>: <span style="color:#ed9d13">&#34;textarea&#34;</span>
     },
-    &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;playbookurl&amp;#34;&lt;/span&gt;: {
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;String&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;description&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;(Optional) If you don&amp;#39;t specify playbook YAML, then you must specify a URL where the playbook is stored. You can specify the URL in the following formats: http://example.com/playbook.yml  or s3://examplebucket/plabook.url. For security reasons, you can&amp;#39;t specify a URL with quotes.&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;default&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;allowedPattern&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;^\\s*$|^(http|https|s3)://[^&amp;#39;]*$&amp;#34;&lt;/span&gt;
+    <span style="color:#6ab825;font-weight:bold">&#34;playbookurl&#34;</span>: {
+      <span style="color:#6ab825;font-weight:bold">&#34;type&#34;</span>: <span style="color:#ed9d13">&#34;String&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;description&#34;</span>: <span style="color:#ed9d13">&#34;(Optional) If you don&#39;t specify playbook YAML, then you must specify a URL where the playbook is stored. You can specify the URL in the following formats: http://example.com/playbook.yml  or s3://examplebucket/plabook.url. For security reasons, you can&#39;t specify a URL with quotes.&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;default&#34;</span>: <span style="color:#ed9d13">&#34;&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;allowedPattern&#34;</span>: <span style="color:#ed9d13">&#34;^\\s*$|^(http|https|s3)://[^&#39;]*$&#34;</span>
     },
-    &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;extravars&amp;#34;&lt;/span&gt;: {
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;String&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;description&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;(Optional) Additional variables to pass to Ansible at runtime. Enter a space separated list of key/value pairs. For example: color=red or fruits=[apples,pears]&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;default&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;foo=bar&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;displayType&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;textarea&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;allowedPattern&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;^((^|\\s)\\w+=(\\S+|&amp;#39;.*&amp;#39;))*$&amp;#34;&lt;/span&gt;
+    <span style="color:#6ab825;font-weight:bold">&#34;extravars&#34;</span>: {
+      <span style="color:#6ab825;font-weight:bold">&#34;type&#34;</span>: <span style="color:#ed9d13">&#34;String&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;description&#34;</span>: <span style="color:#ed9d13">&#34;(Optional) Additional variables to pass to Ansible at runtime. Enter a space separated list of key/value pairs. For example: color=red or fruits=[apples,pears]&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;default&#34;</span>: <span style="color:#ed9d13">&#34;foo=bar&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;displayType&#34;</span>: <span style="color:#ed9d13">&#34;textarea&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;allowedPattern&#34;</span>: <span style="color:#ed9d13">&#34;^((^|\\s)\\w+=(\\S+|&#39;.*&#39;))*$&#34;</span>
     },
-    &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;check&amp;#34;&lt;/span&gt;: {
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;String&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;description&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34; (Optional) Use the check parameter to perform a dry run of the Ansible execution.&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;allowedValues&amp;#34;&lt;/span&gt;: [
-        &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;True&amp;#34;&lt;/span&gt;,
-        &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;False&amp;#34;&lt;/span&gt;
+    <span style="color:#6ab825;font-weight:bold">&#34;check&#34;</span>: {
+      <span style="color:#6ab825;font-weight:bold">&#34;type&#34;</span>: <span style="color:#ed9d13">&#34;String&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;description&#34;</span>: <span style="color:#ed9d13">&#34; (Optional) Use the check parameter to perform a dry run of the Ansible execution.&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;allowedValues&#34;</span>: [
+        <span style="color:#ed9d13">&#34;True&#34;</span>,
+        <span style="color:#ed9d13">&#34;False&#34;</span>
       ],
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;default&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;False&amp;#34;&lt;/span&gt;
+      <span style="color:#6ab825;font-weight:bold">&#34;default&#34;</span>: <span style="color:#ed9d13">&#34;False&#34;</span>
     },
-    &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;timeoutSeconds&amp;#34;&lt;/span&gt;: {
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;String&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;description&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;(Optional) The time in seconds for a command to be completed before it is considered to have failed.&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;default&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;3600&amp;#34;&lt;/span&gt;
+    <span style="color:#6ab825;font-weight:bold">&#34;timeoutSeconds&#34;</span>: {
+      <span style="color:#6ab825;font-weight:bold">&#34;type&#34;</span>: <span style="color:#ed9d13">&#34;String&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;description&#34;</span>: <span style="color:#ed9d13">&#34;(Optional) The time in seconds for a command to be completed before it is considered to have failed.&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;default&#34;</span>: <span style="color:#ed9d13">&#34;3600&#34;</span>
     }
   },
-  &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;mainSteps&amp;#34;&lt;/span&gt;: [
+  <span style="color:#6ab825;font-weight:bold">&#34;mainSteps&#34;</span>: [
     {
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;action&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;aws:runShellScript&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;runShellScript&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;inputs&amp;#34;&lt;/span&gt;: {
-        &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;timeoutSeconds&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{ timeoutSeconds }}&amp;#34;&lt;/span&gt;,
-        &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;runCommand&amp;#34;&lt;/span&gt;: [
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;#!/bin/bash&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;/usr/local/bin/ansible --version&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;if [ $? -ne 0 ]; then&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34; echo \&amp;#34;Ansible is not installed. Please install Ansible and rerun the command\&amp;#34; &amp;gt;&amp;amp;2&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34; exit 1&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;fi&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;execdir=$(dirname $0)&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;cd $execdir&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;if [ -z &amp;#39;{{playbook}}&amp;#39; ] ; then&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34; if [[ \&amp;#34;{{playbookurl}}\&amp;#34; == http* ]]; then&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;   wget &amp;#39;{{playbookurl}}&amp;#39; -O playbook.yml&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;   if [ $? -ne 0 ]; then&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;       echo \&amp;#34;There was a problem downloading the playbook. Make sure the URL is correct and that the playbook exists.\&amp;#34; &amp;gt;&amp;amp;2&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;       exit 1&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;   fi&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34; elif [[ \&amp;#34;{{playbookurl}}\&amp;#34; == s3* ]] ; then&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;   aws --version&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;   if [ $? -ne 0 ]; then&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;       echo \&amp;#34;The AWS CLI is not installed. The CLI is required to process Amazon S3 URLs. Install the AWS CLI and run the command again.\&amp;#34; &amp;gt;&amp;amp;2&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;       exit 1&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;   fi&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;   aws s3 cp &amp;#39;{{playbookurl}}&amp;#39; playbook.yml&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;   if [ $? -ne 0 ]; then&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;       echo \&amp;#34;Error while downloading the document from S3\&amp;#34; &amp;gt;&amp;amp;2&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;       exit 1&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;   fi&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34; else&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;   echo \&amp;#34;The playbook URL is not valid. Verify the URL and try again.\&amp;#34;&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34; fi&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;else&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34; echo &amp;#39;{{playbook}}&amp;#39; &amp;gt; playbook.yml&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;fi&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;if  [[ \&amp;#34;{{check}}\&amp;#34; == True ]] ; then&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;   /usr/local/bin/ansible-playbook -i \&amp;#34;localhost,\&amp;#34; --check -c local -e \&amp;#34;{{extravars}}\&amp;#34; playbook.yml&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;else&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;   /usr/local/bin/ansible-playbook -i \&amp;#34;localhost,\&amp;#34; -c local -e \&amp;#34;{{extravars}}\&amp;#34; playbook.yml&amp;#34;&lt;/span&gt;,
-          &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;fi&amp;#34;&lt;/span&gt;
+      <span style="color:#6ab825;font-weight:bold">&#34;action&#34;</span>: <span style="color:#ed9d13">&#34;aws:runShellScript&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;name&#34;</span>: <span style="color:#ed9d13">&#34;runShellScript&#34;</span>,
+      <span style="color:#6ab825;font-weight:bold">&#34;inputs&#34;</span>: {
+        <span style="color:#6ab825;font-weight:bold">&#34;timeoutSeconds&#34;</span>: <span style="color:#ed9d13">&#34;{{ timeoutSeconds }}&#34;</span>,
+        <span style="color:#6ab825;font-weight:bold">&#34;runCommand&#34;</span>: [
+          <span style="color:#ed9d13">&#34;#!/bin/bash&#34;</span>,
+          <span style="color:#ed9d13">&#34;/usr/local/bin/ansible --version&#34;</span>,
+          <span style="color:#ed9d13">&#34;if [ $? -ne 0 ]; then&#34;</span>,
+          <span style="color:#ed9d13">&#34; echo \&#34;Ansible is not installed. Please install Ansible and rerun the command\&#34; &gt;&amp;2&#34;</span>,
+          <span style="color:#ed9d13">&#34; exit 1&#34;</span>,
+          <span style="color:#ed9d13">&#34;fi&#34;</span>,
+          <span style="color:#ed9d13">&#34;execdir=$(dirname $0)&#34;</span>,
+          <span style="color:#ed9d13">&#34;cd $execdir&#34;</span>,
+          <span style="color:#ed9d13">&#34;if [ -z &#39;{{playbook}}&#39; ] ; then&#34;</span>,
+          <span style="color:#ed9d13">&#34; if [[ \&#34;{{playbookurl}}\&#34; == http* ]]; then&#34;</span>,
+          <span style="color:#ed9d13">&#34;   wget &#39;{{playbookurl}}&#39; -O playbook.yml&#34;</span>,
+          <span style="color:#ed9d13">&#34;   if [ $? -ne 0 ]; then&#34;</span>,
+          <span style="color:#ed9d13">&#34;       echo \&#34;There was a problem downloading the playbook. Make sure the URL is correct and that the playbook exists.\&#34; &gt;&amp;2&#34;</span>,
+          <span style="color:#ed9d13">&#34;       exit 1&#34;</span>,
+          <span style="color:#ed9d13">&#34;   fi&#34;</span>,
+          <span style="color:#ed9d13">&#34; elif [[ \&#34;{{playbookurl}}\&#34; == s3* ]] ; then&#34;</span>,
+          <span style="color:#ed9d13">&#34;   aws --version&#34;</span>,
+          <span style="color:#ed9d13">&#34;   if [ $? -ne 0 ]; then&#34;</span>,
+          <span style="color:#ed9d13">&#34;       echo \&#34;The AWS CLI is not installed. The CLI is required to process Amazon S3 URLs. Install the AWS CLI and run the command again.\&#34; &gt;&amp;2&#34;</span>,
+          <span style="color:#ed9d13">&#34;       exit 1&#34;</span>,
+          <span style="color:#ed9d13">&#34;   fi&#34;</span>,
+          <span style="color:#ed9d13">&#34;   aws s3 cp &#39;{{playbookurl}}&#39; playbook.yml&#34;</span>,
+          <span style="color:#ed9d13">&#34;   if [ $? -ne 0 ]; then&#34;</span>,
+          <span style="color:#ed9d13">&#34;       echo \&#34;Error while downloading the document from S3\&#34; &gt;&amp;2&#34;</span>,
+          <span style="color:#ed9d13">&#34;       exit 1&#34;</span>,
+          <span style="color:#ed9d13">&#34;   fi&#34;</span>,
+          <span style="color:#ed9d13">&#34; else&#34;</span>,
+          <span style="color:#ed9d13">&#34;   echo \&#34;The playbook URL is not valid. Verify the URL and try again.\&#34;&#34;</span>,
+          <span style="color:#ed9d13">&#34; fi&#34;</span>,
+          <span style="color:#ed9d13">&#34;else&#34;</span>,
+          <span style="color:#ed9d13">&#34; echo &#39;{{playbook}}&#39; &gt; playbook.yml&#34;</span>,
+          <span style="color:#ed9d13">&#34;fi&#34;</span>,
+          <span style="color:#ed9d13">&#34;if  [[ \&#34;{{check}}\&#34; == True ]] ; then&#34;</span>,
+          <span style="color:#ed9d13">&#34;   /usr/local/bin/ansible-playbook -i \&#34;localhost,\&#34; --check -c local -e \&#34;{{extravars}}\&#34; playbook.yml&#34;</span>,
+          <span style="color:#ed9d13">&#34;else&#34;</span>,
+          <span style="color:#ed9d13">&#34;   /usr/local/bin/ansible-playbook -i \&#34;localhost,\&#34; -c local -e \&#34;{{extravars}}\&#34; playbook.yml&#34;</span>,
+          <span style="color:#ed9d13">&#34;fi&#34;</span>
         ]
       }
     }
   ]
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/details&gt;&lt;/p&gt;
+</code></pre></div>
+</details></p>
 
-&lt;h2 id=&#34;applying-ansible-playbook-to-the-fleet-of-mac1metal&#34;&gt;Applying Ansible playbook to the fleet of mac1.metal&lt;/h2&gt;
-&lt;p&gt;Let’s give our new SSM Document a try! (I suppose you have at least one mac1 instance running, right?)&lt;/p&gt;
-&lt;p&gt;In AWS SSM, go to the Run Command feature, then click on the Run Command button.&lt;/p&gt;
-&lt;p&gt;On the new panel, type the name of your Document (&lt;code&gt;macos-arbitrary-ansible-playbook&lt;/code&gt; in this example) in the search field and press enter.&lt;/p&gt;
-&lt;p&gt;Select the Document, and you’ll see its parameters and settings.&lt;/p&gt;
-&lt;p&gt;The rest is self-explanatory. Enter either a playbook code or a link to the source file, add extra variables if needed, and select the target host or a filtered bunch (I like that feature with tags filtering!). Finally, click on the “Run” orange button to apply your playbook.&lt;/p&gt;
-&lt;p&gt;That’s it! Now you can make all your ansible-playbook dreams come true! 😁&lt;/p&gt;
-</content>
+<h2 id="applying-ansible-playbook-to-the-fleet-of-mac1metal">Applying Ansible playbook to the fleet of mac1.metal</h2>
+<p>Let’s give our new SSM Document a try! (I suppose you have at least one mac1 instance running, right?)</p>
+<p>In AWS SSM, go to the Run Command feature, then click on the Run Command button.</p>
+<p>On the new panel, type the name of your Document (<code>macos-arbitrary-ansible-playbook</code> in this example) in the search field and press enter.</p>
+<p>Select the Document, and you’ll see its parameters and settings.</p>
+<p>The rest is self-explanatory. Enter either a playbook code or a link to the source file, add extra variables if needed, and select the target host or a filtered bunch (I like that feature with tags filtering!). Finally, click on the “Run” orange button to apply your playbook.</p>
+<p>That’s it! Now you can make all your ansible-playbook dreams come true! 😁</p>
+]]>
+            </content>
         </item>
         
         <item>
@@ -151,142 +155,142 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">e5eb1b6e92f79c7495c1ea711e61599d</guid>
             <description>How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer</description>
+            <media:content url="https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html2021-02-01-customizing-mac1-metal-ec2-ami.png"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html2021-02-01-customizing-mac1-metal-ec2-ami.png"</url>
-                </image>&lt;p&gt;I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?&lt;/p&gt;
-&lt;h1 id=&#34;configuration-management&#34;&gt;Configuration Management&lt;/h1&gt;
-&lt;p&gt;Native Apple&amp;rsquo;s Mobile device management (a.k.a MDM) and Jamf is probably the most potent combination for macOS configuration. But as much as it&amp;rsquo;s mighty, it is a cumbersome combination, and Jamf is not free.&lt;/p&gt;
-&lt;p&gt;Then we have Ansible, Chef, Puppet, SaltStack — they all are good with Linux, but what about macOS?&lt;/p&gt;
-&lt;p&gt;I tried to search for use cases of mentioned CM tools for macOS. However, I concluded that they wrap the execution of native macOS command-line utilities most of the time.&lt;/p&gt;
-&lt;p&gt;And if you search for the &amp;lsquo;macos&amp;rsquo; word in Chef Supermarket or Puppet Forge, you won&amp;rsquo;t be impressed by the number of actively maintained packages. Although, here is a motivating article about using Chef &lt;a href=&#34;https://pspdfkit.com/blog/2016/chef-on-macos/&#34;&gt;automating-macos-provisioning-with-chef&lt;/a&gt; if you prefer it. I could not find something similar and fresh for Puppet, so I am sorry, Puppet fans.&lt;/p&gt;
-&lt;p&gt;That is why I decided to follow the KISS principle and chose Ansible.&lt;/p&gt;
-&lt;p&gt;It&amp;rsquo;s easy to write and read the configuration, it allows to group tasks and to add execution logic &lt;del&gt;, and it feels more DevOps executing shell commands inside Ansible tasks instead of shell scripts; I know you know that 😂&lt;/del&gt;&lt;/p&gt;
-&lt;p&gt;By the way, Ansible Galaxy does not have many management packages for macOS, either. But thankfully, it has the basics:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_module.html#ansible-collections-community-general-homebrew-module&#34;&gt;homebrew&lt;/a&gt; with &lt;a href=&#34;https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_cask_module.html#ansible-collections-community-general-homebrew-cask-module&#34;&gt;homebrew_cask&lt;/a&gt; and &lt;a href=&#34;https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_tap_module.html#ansible-collections-community-general-homebrew-tap-module&#34;&gt;homebrew_tap&lt;/a&gt; — to install software&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.ansible.com/ansible/latest/collections/community/general/launchd_module.html#ansible-collections-community-general-launchd-module&#34;&gt;launchd&lt;/a&gt; — to manage services&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.ansible.com/ansible/latest/collections/community/general/osx_defaults_module.html#ansible-collections-community-general-osx-defaults-module&#34;&gt;osx_defaults&lt;/a&gt; — to manage some user settings (not all!)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;I used Ansible to build the macOS AMI for CI/CD, so here are some tips for such a case.&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Some values are hardcoded intentionally in the code examples for the sake of simplicity and easy reading. You would probably want to parametrize them.&lt;/em&gt;&lt;/p&gt;
-&lt;h2 id=&#34;xcode-installation-example&#34;&gt;Xcode installation example&lt;/h2&gt;
-&lt;p&gt;The following tasks will help you to automate the basics.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Install Xcode&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;      &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;shell&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;xip --expand Xcode.xip&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;      &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;args&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;chdir&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;/Applications&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Accept License Agreement&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;shell&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -license accept&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Accept License Agreement&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;shell&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -runFirstLaunch&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Switch into newly installed Xcode context&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;shell&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;xcode-select --switch /Applications/Xcode.app/Contents/Developer&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;example-of-software-installation-with-brew&#34;&gt;Example of software installation with Brew&lt;/h2&gt;
-&lt;p&gt;{% raw %}&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Install common build software&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;community.general.homebrew&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{ item }}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;state&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;latest&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;loop&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;- swiftlint&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;- swiftformat&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;- wget&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;{% endraw %}&lt;/p&gt;
-&lt;h2 id=&#34;screensharing-remote-desktop-configuration-example&#34;&gt;ScreenSharing (remote desktop) configuration example&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Turn On Remote Management&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;shell&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;./kickstart -activate -configure -allowAccessFor -specifiedUsers&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;args&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;chdir&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Enable Remote Management for CI user&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;shell&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;./kickstart -configure -users ec2-user -access -on -privs -all&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;args&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;chdir&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Shell rulez, yes.&lt;/p&gt;
-&lt;h1 id=&#34;building-the-ami&#34;&gt;Building the AMI&lt;/h1&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;ami-build.gif&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.packer.io/docs/builders/amazon/ebs&#34;&gt;Packer by HashiCorp&lt;/a&gt;, of course.&lt;/p&gt;
-&lt;p&gt;I would love to compare Packer with EC2 Image Builder, but it &lt;a href=&#34;https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html#image-builder-os&#34;&gt;does not support macOS&lt;/a&gt; yet (as of Feb&#39;21).&lt;/p&gt;
-&lt;p&gt;Packer configuration is straightforward, so I want to highlight only the things specific to the &amp;ldquo;mac1.metal&amp;rdquo; use case.&lt;/p&gt;
-&lt;h2 id=&#34;timeouts&#34;&gt;Timeouts&lt;/h2&gt;
-&lt;p&gt;As I mentioned in the &lt;a href=&#34;https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html&#34;&gt;previous article&lt;/a&gt;, the creation and deletion time of the &amp;ldquo;mac1.metal&amp;rdquo; Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.&lt;/p&gt;
-&lt;p&gt;Example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;aws_polling&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;:&lt;/span&gt; {
-        &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;delay_seconds&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#3677a9&#34;&gt;30&lt;/span&gt;,
-        &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;max_attempts&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#3677a9&#34;&gt;60&lt;/span&gt;
+                <![CDATA[<p>I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?</p>
+<h1 id="configuration-management">Configuration Management</h1>
+<p>Native Apple&rsquo;s Mobile device management (a.k.a MDM) and Jamf is probably the most potent combination for macOS configuration. But as much as it&rsquo;s mighty, it is a cumbersome combination, and Jamf is not free.</p>
+<p>Then we have Ansible, Chef, Puppet, SaltStack — they all are good with Linux, but what about macOS?</p>
+<p>I tried to search for use cases of mentioned CM tools for macOS. However, I concluded that they wrap the execution of native macOS command-line utilities most of the time.</p>
+<p>And if you search for the &lsquo;macos&rsquo; word in Chef Supermarket or Puppet Forge, you won&rsquo;t be impressed by the number of actively maintained packages. Although, here is a motivating article about using Chef <a href="https://pspdfkit.com/blog/2016/chef-on-macos/">automating-macos-provisioning-with-chef</a> if you prefer it. I could not find something similar and fresh for Puppet, so I am sorry, Puppet fans.</p>
+<p>That is why I decided to follow the KISS principle and chose Ansible.</p>
+<p>It&rsquo;s easy to write and read the configuration, it allows to group tasks and to add execution logic <del>, and it feels more DevOps executing shell commands inside Ansible tasks instead of shell scripts; I know you know that 😂</del></p>
+<p>By the way, Ansible Galaxy does not have many management packages for macOS, either. But thankfully, it has the basics:</p>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_module.html#ansible-collections-community-general-homebrew-module">homebrew</a> with <a href="https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_cask_module.html#ansible-collections-community-general-homebrew-cask-module">homebrew_cask</a> and <a href="https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_tap_module.html#ansible-collections-community-general-homebrew-tap-module">homebrew_tap</a> — to install software</li>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/community/general/launchd_module.html#ansible-collections-community-general-launchd-module">launchd</a> — to manage services</li>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/community/general/osx_defaults_module.html#ansible-collections-community-general-osx-defaults-module">osx_defaults</a> — to manage some user settings (not all!)</li>
+</ul>
+<p>I used Ansible to build the macOS AMI for CI/CD, so here are some tips for such a case.</p>
+<p><em>Some values are hardcoded intentionally in the code examples for the sake of simplicity and easy reading. You would probably want to parametrize them.</em></p>
+<h2 id="xcode-installation-example">Xcode installation example</h2>
+<p>The following tasks will help you to automate the basics.</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Install Xcode<span style="color:#666">
+</span><span style="color:#666">      </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;xip --expand Xcode.xip&#34;</span><span style="color:#666">
+</span><span style="color:#666">      </span><span style="color:#6ab825;font-weight:bold">args</span>:<span style="color:#666">
+</span><span style="color:#666">        </span><span style="color:#6ab825;font-weight:bold">chdir</span>:<span style="color:#666"> </span>/Applications<span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Accept License Agreement<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -license accept&#34;</span><span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Accept License Agreement<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -runFirstLaunch&#34;</span><span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Switch into newly installed Xcode context<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;xcode-select --switch /Applications/Xcode.app/Contents/Developer&#34;</span><span style="color:#666">
+</span></code></pre></div><h2 id="example-of-software-installation-with-brew">Example of software installation with Brew</h2>
+<p>{% raw %}</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Install common build software<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">community.general.homebrew</span>:<span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{ item }}&#34;</span><span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">state</span>:<span style="color:#666"> </span>latest<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">loop</span>:<span style="color:#666">
+</span><span style="color:#666">    </span>- swiftlint<span style="color:#666">
+</span><span style="color:#666">    </span>- swiftformat<span style="color:#666">
+</span><span style="color:#666">    </span>- wget<span style="color:#666">
+</span></code></pre></div><p>{% endraw %}</p>
+<h2 id="screensharing-remote-desktop-configuration-example">ScreenSharing (remote desktop) configuration example</h2>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Turn On Remote Management<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;./kickstart -activate -configure -allowAccessFor -specifiedUsers&#34;</span><span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">args</span>:<span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">chdir</span>:<span style="color:#666"> </span>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/<span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Enable Remote Management for CI user<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">shell</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;./kickstart -configure -users ec2-user -access -on -privs -all&#34;</span><span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">args</span>:<span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">chdir</span>:<span style="color:#666"> </span>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/<span style="color:#666">
+</span></code></pre></div><p>Shell rulez, yes.</p>
+<h1 id="building-the-ami">Building the AMI</h1>
+<p><img loading="lazy" src="ami-build.gif" alt=""  />
+</p>
+<p><a href="https://www.packer.io/docs/builders/amazon/ebs">Packer by HashiCorp</a>, of course.</p>
+<p>I would love to compare Packer with EC2 Image Builder, but it <a href="https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html#image-builder-os">does not support macOS</a> yet (as of Feb'21).</p>
+<p>Packer configuration is straightforward, so I want to highlight only the things specific to the &ldquo;mac1.metal&rdquo; use case.</p>
+<h2 id="timeouts">Timeouts</h2>
+<p>As I mentioned in the <a href="https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html">previous article</a>, the creation and deletion time of the &ldquo;mac1.metal&rdquo; Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.</p>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#ed9d13">&#34;aws_polling&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> {
+        <span style="color:#6ab825;font-weight:bold">&#34;delay_seconds&#34;</span>: <span style="color:#3677a9">30</span>,
+        <span style="color:#6ab825;font-weight:bold">&#34;max_attempts&#34;</span>: <span style="color:#3677a9">60</span>
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And it would be best if you also increased the SSH timeout:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;  &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;ssh_timeout&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;1h&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Fortunately, Packer&amp;rsquo;s AMI builder does not require an explicit declaration of the Dedicated Host ID. So you can just reference the same subnet where you allocated the Host, assuming you did it with the enabled &amp;ldquo;Auto placement&amp;rdquo; parameter during the host creation.&lt;/p&gt;
-&lt;p&gt;Example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;  &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;tenancy&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;host&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;,&lt;/span&gt;
-  &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;subnet_id&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;your-subnet-id&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;provisioning&#34;&gt;Provisioning&lt;/h2&gt;
-&lt;p&gt;Packer has &lt;a href=&#34;https://www.packer.io/docs/provisioners/ansible&#34;&gt;Ansible Provisioner&lt;/a&gt; that I used for the AMI. Its documentation is also very clean and straightforward.&lt;/p&gt;
-&lt;p&gt;But it is still worth mentioning that if you want to parametrize the Ansible playbook, then the following configuration example will be handy:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;  &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;extra_arguments&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;:&lt;/span&gt; [
-    &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;--extra-vars&amp;#34;&lt;/span&gt;,
-    &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;your-variable-foo=your-value-bar]&amp;#34;&lt;/span&gt;
-  ]&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;,&lt;/span&gt;
-  &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;ansible_env_vars&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;:&lt;/span&gt; [
-    &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;ANSIBLE_PYTHON_INTERPRETER=auto_legacy_silent&amp;#34;&lt;/span&gt;,
-    &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;ANSIBLE_OTHER_ENV_VARIABLE=other_value&amp;#34;&lt;/span&gt;
+</code></pre></div><p>And it would be best if you also increased the SSH timeout:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#ed9d13">&#34;ssh_timeout&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#ed9d13">&#34;1h&#34;</span>
+</code></pre></div><p>Fortunately, Packer&rsquo;s AMI builder does not require an explicit declaration of the Dedicated Host ID. So you can just reference the same subnet where you allocated the Host, assuming you did it with the enabled &ldquo;Auto placement&rdquo; parameter during the host creation.</p>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#ed9d13">&#34;tenancy&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#ed9d13">&#34;host&#34;</span><span style="color:#a61717;background-color:#e3d2d2">,</span>
+  <span style="color:#ed9d13">&#34;subnet_id&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#ed9d13">&#34;your-subnet-id&#34;</span>
+</code></pre></div><h2 id="provisioning">Provisioning</h2>
+<p>Packer has <a href="https://www.packer.io/docs/provisioners/ansible">Ansible Provisioner</a> that I used for the AMI. Its documentation is also very clean and straightforward.</p>
+<p>But it is still worth mentioning that if you want to parametrize the Ansible playbook, then the following configuration example will be handy:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#ed9d13">&#34;extra_arguments&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> [
+    <span style="color:#ed9d13">&#34;--extra-vars&#34;</span>,
+    <span style="color:#ed9d13">&#34;your-variable-foo=your-value-bar]&#34;</span>
+  ]<span style="color:#a61717;background-color:#e3d2d2">,</span>
+  <span style="color:#ed9d13">&#34;ansible_env_vars&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> [
+    <span style="color:#ed9d13">&#34;ANSIBLE_PYTHON_INTERPRETER=auto_legacy_silent&#34;</span>,
+    <span style="color:#ed9d13">&#34;ANSIBLE_OTHER_ENV_VARIABLE=other_value&#34;</span>
   ]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;configuration-at-launch&#34;&gt;Configuration at launch&lt;/h1&gt;
-&lt;p&gt;If you&amp;rsquo;re familiar with AWS EC2, you probably know what the Instance &lt;code&gt;user data&lt;/code&gt; is.&lt;/p&gt;
-&lt;p&gt;A group of AWS developers made something similar for the macOS: &lt;a href=&#34;https://github.com/aws/ec2-macos-init&#34;&gt;EC2 macOS Init&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;It does not support &lt;code&gt;cloud-init&lt;/code&gt; as on Linux-based Instances, but it can run shell scripts, which is quite enough.&lt;/p&gt;
-&lt;p&gt;EC2 macOS Init utility is a Launch Daemon (macOS terminology) that runs on behalf of the &lt;code&gt;root&lt;/code&gt; user at system boot. It executes the commands according to the so-called Priority Groups, or the sequence in other words.&lt;/p&gt;
-&lt;p&gt;The number of the group corresponds to the execution order. You can put several tasks into a single Priority Group, and the tool will execute them simultaneously.&lt;/p&gt;
-&lt;p&gt;EC2 macOS Init uses a human-readable configuration file in &lt;code&gt;toml&lt;/code&gt; format.&lt;/p&gt;
-&lt;p&gt;Example:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[[Module]]
-  Name = &amp;quot;Create-some-folder&amp;quot;
+</code></pre></div><h1 id="configuration-at-launch">Configuration at launch</h1>
+<p>If you&rsquo;re familiar with AWS EC2, you probably know what the Instance <code>user data</code> is.</p>
+<p>A group of AWS developers made something similar for the macOS: <a href="https://github.com/aws/ec2-macos-init">EC2 macOS Init</a>.</p>
+<p>It does not support <code>cloud-init</code> as on Linux-based Instances, but it can run shell scripts, which is quite enough.</p>
+<p>EC2 macOS Init utility is a Launch Daemon (macOS terminology) that runs on behalf of the <code>root</code> user at system boot. It executes the commands according to the so-called Priority Groups, or the sequence in other words.</p>
+<p>The number of the group corresponds to the execution order. You can put several tasks into a single Priority Group, and the tool will execute them simultaneously.</p>
+<p>EC2 macOS Init uses a human-readable configuration file in <code>toml</code> format.</p>
+<p>Example:</p>
+<pre tabindex="0"><code>[[Module]]
+  Name = &quot;Create-some-folder&quot;
   PriorityGroup = 3
   FatalOnError = false 
   RunPerInstance = true 
   [Module.Command]
-    Cmd = [&amp;quot;mkdir&amp;quot;, &amp;quot;/Users/ec2-user/my-directory&amp;quot;] 
-    RunAsUser = &amp;quot;ec2-user&amp;quot;
-    EnvironmentVars = [&amp;quot;MY_VAR_FOO=myValueBar&amp;quot;]
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I should clarify some things here.&lt;/p&gt;
-&lt;p&gt;Modules — a set of pre-defined modules for different purposes. It is something similar to the Ansible modules.&lt;/p&gt;
-&lt;p&gt;You can find the list of available modules here &lt;a href=&#34;https://github.com/aws/ec2-macos-init/tree/master/lib/ec2macosinit&#34;&gt;ec2-macos-init/lib/ec2macosinit&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;RunPerInstance&lt;/code&gt; directive controls whether a module should run. There are three of such directives, and here is what they mean:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;RunPerBoot&lt;/code&gt; — module will run at every system boot&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;RunPerInstance&lt;/code&gt; — module will run once for the Instance. Each Instance has a unique ID; the init tool fetches it from the AWS API before the execution and keeps its execution history per Instance ID. When you create a new Instance from the AMI, it will have a unique ID, and the module will run again.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;RunOnce&lt;/code&gt; — module will run only once, despite the instance ID change&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;I mentioned the execution history above. When EC2 macOS Init runs on the Instance first time, it creates a unique directory with the name per Instance ID to store the execution history and user data copy.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;RunPerInstance&lt;/code&gt; and &lt;code&gt;RunOnce&lt;/code&gt; directives depend on the execution history, and modules with those directives will run again on the next boot if the previous execution failed. It was not obvious to me why RunOnce keeps repeating itself every boot until I dug into &lt;a href=&#34;https://github.com/aws/ec2-macos-init/blob/master/lib/ec2macosinit/module.go#L110&#34;&gt;the source code&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Finally, there is a module for user data. It runs at the end by default (priority group #4) and pulls the user data script from AWS API before script execution.&lt;/p&gt;
-&lt;p&gt;I suggest looking into the default &lt;a href=&#34;https://github.com/aws/ec2-macos-init/blob/master/configuration/init.toml&#34;&gt;init.toml&lt;/a&gt; configuration file to get yourself more familiar with the capabilities of the tool.&lt;/p&gt;
-&lt;p&gt;The init tool can also clear its history, which is useful for the new AMI creation.&lt;/p&gt;
-&lt;p&gt;Example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ec2-macos-init clean -all
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And you can run the init manually for debugging purposes.&lt;/p&gt;
-&lt;p&gt;Example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ec2-macos-init run
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can also combine the EC2 macOS Init actions (made by modules) with your script in user data for more accurate nontrivial configurations.&lt;/p&gt;
-&lt;h1 id=&#34;wrapping-up&#34;&gt;Wrapping up&lt;/h1&gt;
-&lt;p&gt;As a whole, building and operating macOS-based AMI does not differ from AMI management for other platforms.&lt;/p&gt;
-&lt;p&gt;There are the same principle stages: prepare, clear, build, execute deployment script (if necessary). Though, the particular implementation of each step has its nuances and constraints.&lt;/p&gt;
-&lt;p&gt;So the whole process may look as follows:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Provision and configure needed software with Ansible playbook&lt;/li&gt;
-&lt;li&gt;Clean-up system logs and EC2 macOS Init history (again, with Ansible task)&lt;/li&gt;
-&lt;li&gt;Create the AMI&lt;/li&gt;
-&lt;li&gt;Add more customizations at launch with EC2 macOS Init modules and user data (that also executes your Ansible playbook or shell commands)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Getting into all this was both fun and interesting. Sometimes painful, though. 😆&lt;/p&gt;
-&lt;p&gt;I sincerely hope this article was helpful to you. Thank you for reading!&lt;/p&gt;
-</content>
+    Cmd = [&quot;mkdir&quot;, &quot;/Users/ec2-user/my-directory&quot;] 
+    RunAsUser = &quot;ec2-user&quot;
+    EnvironmentVars = [&quot;MY_VAR_FOO=myValueBar&quot;]
+</code></pre><p>I should clarify some things here.</p>
+<p>Modules — a set of pre-defined modules for different purposes. It is something similar to the Ansible modules.</p>
+<p>You can find the list of available modules here <a href="https://github.com/aws/ec2-macos-init/tree/master/lib/ec2macosinit">ec2-macos-init/lib/ec2macosinit</a></p>
+<p>The <code>RunPerInstance</code> directive controls whether a module should run. There are three of such directives, and here is what they mean:</p>
+<ul>
+<li><code>RunPerBoot</code> — module will run at every system boot</li>
+<li><code>RunPerInstance</code> — module will run once for the Instance. Each Instance has a unique ID; the init tool fetches it from the AWS API before the execution and keeps its execution history per Instance ID. When you create a new Instance from the AMI, it will have a unique ID, and the module will run again.</li>
+<li><code>RunOnce</code> — module will run only once, despite the instance ID change</li>
+</ul>
+<p>I mentioned the execution history above. When EC2 macOS Init runs on the Instance first time, it creates a unique directory with the name per Instance ID to store the execution history and user data copy.</p>
+<p><code>RunPerInstance</code> and <code>RunOnce</code> directives depend on the execution history, and modules with those directives will run again on the next boot if the previous execution failed. It was not obvious to me why RunOnce keeps repeating itself every boot until I dug into <a href="https://github.com/aws/ec2-macos-init/blob/master/lib/ec2macosinit/module.go#L110">the source code</a>.</p>
+<p>Finally, there is a module for user data. It runs at the end by default (priority group #4) and pulls the user data script from AWS API before script execution.</p>
+<p>I suggest looking into the default <a href="https://github.com/aws/ec2-macos-init/blob/master/configuration/init.toml">init.toml</a> configuration file to get yourself more familiar with the capabilities of the tool.</p>
+<p>The init tool can also clear its history, which is useful for the new AMI creation.</p>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ec2-macos-init clean -all
+</code></pre></div><p>And you can run the init manually for debugging purposes.</p>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ec2-macos-init run
+</code></pre></div><p>You can also combine the EC2 macOS Init actions (made by modules) with your script in user data for more accurate nontrivial configurations.</p>
+<h1 id="wrapping-up">Wrapping up</h1>
+<p>As a whole, building and operating macOS-based AMI does not differ from AMI management for other platforms.</p>
+<p>There are the same principle stages: prepare, clear, build, execute deployment script (if necessary). Though, the particular implementation of each step has its nuances and constraints.</p>
+<p>So the whole process may look as follows:</p>
+<ul>
+<li>Provision and configure needed software with Ansible playbook</li>
+<li>Clean-up system logs and EC2 macOS Init history (again, with Ansible task)</li>
+<li>Create the AMI</li>
+<li>Add more customizations at launch with EC2 macOS Init modules and user data (that also executes your Ansible playbook or shell commands)</li>
+</ul>
+<p>Getting into all this was both fun and interesting. Sometimes painful, though. 😆</p>
+<p>I sincerely hope this article was helpful to you. Thank you for reading!</p>
+]]>
+            </content>
         </item>
         
         <item>
@@ -296,58 +300,58 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">aac5469178cea7c40b07a137dcfdd56e</guid>
             <description>A better way to store sensitive information for Ansible on EC2 or other services</description>
+            <media:content url="https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html2020-08-06-ansible-secrets-aws-ssm-sm.png"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html2020-08-06-ansible-secrets-aws-ssm-sm.png"</url>
-                </image>&lt;p&gt;Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks.
-If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.&lt;/p&gt;
-&lt;h2 id=&#34;variables-with-ssm-parameter-store&#34;&gt;Variables with SSM Parameter Store&lt;/h2&gt;
-&lt;p&gt;Let&amp;rsquo;s say you have some variables defined in &amp;lsquo;defaults/main.yaml&amp;rsquo; file of your role or maybe in group_vars.yaml file.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#447fcf;text-decoration:underline&#34;&gt;---&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;# content of dev.vars.yaml to be included in your play or role&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;use_tls&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;application_port&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#3677a9&#34;&gt;3000&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;app_env&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;development&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;stripe_api_key&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;1HGASU2eZvKYlo2CT5MEcnC39HqLyjWD&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you store such things locally on Ansible control node, you probably encrypt it with &lt;a href=&#34;https://docs.ansible.com/ansible/latest/user_guide/vault.html&#34;&gt;ansible-vault&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;SSM Parameter Store gives you more flexibility and security by centralized storage and management of parameters and secrets, so let&amp;rsquo;s use it with Ansible:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;# content of dev.vars.yaml to be included in your play or role&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;use_tls&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{lookup(&amp;#39;aws_ssm&amp;#39;, &amp;#39;/dev/webserver/use_tls&amp;#39;)}}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;application_port&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{lookup(&amp;#39;aws_ssm&amp;#39;, &amp;#39;/dev/webserver/application_port&amp;#39;)}}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;app_env&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{lookup(&amp;#39;aws_ssm&amp;#39;, &amp;#39;/dev/webserver/app_env&amp;#39;)}}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;stripe_api_key&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{lookup(&amp;#39;aws_ssm&amp;#39;, &amp;#39;/dev/webserver/stripe_api_key&amp;#39;)}}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The syntax is fairly simple:&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;aws_ssm&lt;/code&gt; argument – is the name of plugin.&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;/dev/webserver/use_tls&lt;/code&gt; argument – is the path to the key in Paramter Store.&lt;/p&gt;
-&lt;p&gt;Surely you can do the same for a group of servers with group variables, for example:&lt;/p&gt;
-&lt;p&gt;You can use this anywhere you can use templating: in a play, in variables file, or a Jinja2 template.&lt;/p&gt;
-&lt;h2 id=&#34;variables-with-secret-manager&#34;&gt;Variables with Secret Manager&lt;/h2&gt;
-&lt;p&gt;Another cool lookup plugin is Secrets Manager. In a nutshell, it has the same kind of functionality but it uses JSON format by feault.&lt;/p&gt;
-&lt;p&gt;Here is a quick example of its functionality in a Playbook:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#447fcf;text-decoration:underline&#34;&gt;---&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Extract something secrets from Secret Manager&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;debug&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;msg&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{ lookup(&amp;#39;aws_secret&amp;#39;, &amp;#39;dev/some-secrets&amp;#39;)}}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The above task will generate the following output&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;TASK [Extract something secrets from Secret Manager] ****************************************************
-ok: [some_server] =&amp;gt; {
-    &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;msg&amp;#34;&lt;/span&gt;: {
-        &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;dbname&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;database&amp;#34;&lt;/span&gt;,
-        &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;engine&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;mysql&amp;#34;&lt;/span&gt;,
-        &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;host&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;,
-        &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;password&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;password&amp;#34;&lt;/span&gt;,
-        &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;port&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;3306&amp;#34;&lt;/span&gt;,
-        &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;username&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;db_user&amp;#34;&lt;/span&gt;
+                <![CDATA[<p>Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks.
+If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.</p>
+<h2 id="variables-with-ssm-parameter-store">Variables with SSM Parameter Store</h2>
+<p>Let&rsquo;s say you have some variables defined in &lsquo;defaults/main.yaml&rsquo; file of your role or maybe in group_vars.yaml file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#447fcf;text-decoration:underline">---</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#999;font-style:italic"># content of dev.vars.yaml to be included in your play or role</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">use_tls</span>:<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">true</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">application_port</span>:<span style="color:#666"> </span><span style="color:#3677a9">3000</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">app_env</span>:<span style="color:#666"> </span>development<span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">stripe_api_key</span>:<span style="color:#666"> </span>1HGASU2eZvKYlo2CT5MEcnC39HqLyjWD<span style="color:#666">
+</span></code></pre></div><p>If you store such things locally on Ansible control node, you probably encrypt it with <a href="https://docs.ansible.com/ansible/latest/user_guide/vault.html">ansible-vault</a></p>
+<p>SSM Parameter Store gives you more flexibility and security by centralized storage and management of parameters and secrets, so let&rsquo;s use it with Ansible:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#999;font-style:italic"># content of dev.vars.yaml to be included in your play or role</span><span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">use_tls</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/use_tls&#39;)}}&#34;</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">application_port</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/application_port&#39;)}}&#34;</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">app_env</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/app_env&#39;)}}&#34;</span><span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">stripe_api_key</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{lookup(&#39;aws_ssm&#39;, &#39;/dev/webserver/stripe_api_key&#39;)}}&#34;</span><span style="color:#666">
+</span></code></pre></div><p>The syntax is fairly simple:</p>
+<p>The <code>aws_ssm</code> argument – is the name of plugin.</p>
+<p>The <code>/dev/webserver/use_tls</code> argument – is the path to the key in Paramter Store.</p>
+<p>Surely you can do the same for a group of servers with group variables, for example:</p>
+<p>You can use this anywhere you can use templating: in a play, in variables file, or a Jinja2 template.</p>
+<h2 id="variables-with-secret-manager">Variables with Secret Manager</h2>
+<p>Another cool lookup plugin is Secrets Manager. In a nutshell, it has the same kind of functionality but it uses JSON format by feault.</p>
+<p>Here is a quick example of its functionality in a Playbook:</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#447fcf;text-decoration:underline">---</span><span style="color:#666">
+</span><span style="color:#666"></span>- <span style="color:#6ab825;font-weight:bold">name</span>:<span style="color:#666"> </span>Extract something secrets from Secret Manager<span style="color:#666">
+</span><span style="color:#666">  </span><span style="color:#6ab825;font-weight:bold">debug</span>:<span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">msg</span>:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;{{ lookup(&#39;aws_secret&#39;, &#39;dev/some-secrets&#39;)}}&#34;</span><span style="color:#666">
+</span></code></pre></div><p>The above task will generate the following output</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">TASK [Extract something secrets from Secret Manager] ****************************************************
+ok: [some_server] =&gt; {
+    <span style="color:#ed9d13">&#34;msg&#34;</span>: {
+        <span style="color:#ed9d13">&#34;dbname&#34;</span>: <span style="color:#ed9d13">&#34;database&#34;</span>,
+        <span style="color:#ed9d13">&#34;engine&#34;</span>: <span style="color:#ed9d13">&#34;mysql&#34;</span>,
+        <span style="color:#ed9d13">&#34;host&#34;</span>: <span style="color:#ed9d13">&#34;127.0.0.1&#34;</span>,
+        <span style="color:#ed9d13">&#34;password&#34;</span>: <span style="color:#ed9d13">&#34;password&#34;</span>,
+        <span style="color:#ed9d13">&#34;port&#34;</span>: <span style="color:#ed9d13">&#34;3306&#34;</span>,
+        <span style="color:#ed9d13">&#34;username&#34;</span>: <span style="color:#ed9d13">&#34;db_user&#34;</span>
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This is nice if you want to insert a JSON as is, but you will need additional parsing in case you want to get only some of JSON elements.&lt;/p&gt;
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;If you’re using Ansible in CI/CD, then having it on an EC2 Instance with the IAM role will make you avoid keeping any secrets on that instance at all.&lt;br&gt;
-The IAM role must allow at least the read access to SSM Parameter Store (+ KMS read access to be able to decrypt the keys) or the read access to Secrets Manager.&lt;/p&gt;
-&lt;p&gt;You can find documentation for described plugins here &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup/aws_ssm.html&#34;&gt;aws_ssm&lt;/a&gt; and here &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup/aws_secret.html&#34;&gt;aws_secret&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;More about lookup plugins: &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup.html&#34;&gt;https://docs.ansible.com/ansible/latest/plugins/lookup.html&lt;/a&gt;&lt;/p&gt;
-</content>
+</code></pre></div><p>This is nice if you want to insert a JSON as is, but you will need additional parsing in case you want to get only some of JSON elements.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>If you’re using Ansible in CI/CD, then having it on an EC2 Instance with the IAM role will make you avoid keeping any secrets on that instance at all.<br>
+The IAM role must allow at least the read access to SSM Parameter Store (+ KMS read access to be able to decrypt the keys) or the read access to Secrets Manager.</p>
+<p>You can find documentation for described plugins here <a href="https://docs.ansible.com/ansible/latest/plugins/lookup/aws_ssm.html">aws_ssm</a> and here <a href="https://docs.ansible.com/ansible/latest/plugins/lookup/aws_secret.html">aws_secret</a>.</p>
+<p>More about lookup plugins: <a href="https://docs.ansible.com/ansible/latest/plugins/lookup.html">https://docs.ansible.com/ansible/latest/plugins/lookup.html</a></p>
+]]>
+            </content>
         </item>
         
     </channel>

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
     <channel>
         <title>Categories on Serhii Vasylenko</title>
         <link>https://serhii.vasylenko.info/categories/</link>
         <description>Recent content in Categories on Serhii Vasylenko</description>
+        <image>
+            <url>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</url>
+            <link>https://serhii.vasylenko.info/categories/</link>
+        </image>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
@@ -16,10 +20,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">4d861e72e24d1525026f68dcf6549454</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/categories/terraform/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/categories/terraform/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -29,10 +33,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">4ce8e1552d5aa5e05971a6a5441c1f8a</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/categories/amazon-web-services/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/categories/amazon-web-services/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -42,10 +46,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">b008462108b394c5eae82408f833bfb2</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/categories/ansible/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/categories/ansible/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
         <item>
@@ -55,10 +59,10 @@
             <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
             <guid isPermaLink="false">91546937b60839de9143585270c72d32</guid>
             <description></description>
+            <media:content url="https://serhii.vasylenko.info/categories/diy/"/>
             <content>
-                <image>
-                    <url>"https://serhii.vasylenko.info/categories/diy/"</url>
-                </image></content>
+                <![CDATA[]]>
+            </content>
         </item>
         
     </channel>
