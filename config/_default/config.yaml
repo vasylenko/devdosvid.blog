@@ -72,7 +72,7 @@ params:
     description: "Technical blog of Serhii Vasylenko — AWS Community Builder, Developer Experience Engineer at Grammarly"
     keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education, DeveloperExperience]
     author: Serhii Vasylenko
-    images: ["/assets/img/website-logo-open-graph.jpeg"]
+    images: ["/assets/img/website-logo.png"]
     DateFormat: "January 2, 2006"
     defaultTheme: auto # dark, light
     disableThemeToggle: false

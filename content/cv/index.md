@@ -6,7 +6,9 @@ disableshare: true
 disableHLJS: true
 disableAnchoredHeadings: true
 hideSummary: true
-cover.hidden: true
+cover:
+    hidden: true
+    image: professional-experience.png
 ShowBreadCrumbs: false
 keywords: [devops, resume, hiring, cv, aws, terraform, teamlead, senior engineer, developer experience]
 summary: "Serhii Vasylenko — professional experience"
