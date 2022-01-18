@@ -11,11 +11,15 @@
 {{- $pages = $pages | first $limit -}}
 {{- end -}}
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
     <channel>
         <title>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{ end }}{{ .Site.Title }}{{ end }}</title>
         <link>{{ .Permalink }}</link>
         <description>Recent content {{ if ne  .Title  .Site.Title }}{{ with .Title }}in {{.}} {{ end }}{{ end }}on {{ .Site.Title }}</description>
+        <image>
+            <url>{{ index $.Site.Params.images 0 | absURL }}</url>
+            <link>{{ .Permalink }}</link>
+        </image>
         <generator>Hugo -- gohugo.io</generator>{{ with .Site.LanguageCode }}
         <language>{{.}}</language>{{end}}{{ with .Site.Author.email }}
         <managingEditor>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</managingEditor>{{end}}{{ with .Site.Author.email }}
@@ -33,11 +37,11 @@
             {{ with .Site.Author.email }}<author>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</author>{{end}}
             <guid isPermaLink="false">{{ md5 .Permalink }}</guid>
             <description>{{- .Description | html -}}</description>
+            <media:content url="{{ .Permalink }}{{ .Params.cover.image }}"/>
             <content>
-                <image>
-                    <url>"{{ .Permalink }}{{- .Params.Cover.image }}"</url>
-                </image>
-                {{- .Content | html -}}
+                {{ printf "<![CDATA[" | safeHTML }}
+                {{- printf "%s" .Content | safeHTML }}
+                {{- printf "]]>" | safeHTML }}
             </content>
         </item>
         {{ end }}
