@@ -6,14 +6,20 @@
         <description>Recent content in macos on Serhii Vasylenko</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
+        <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
+        <webMaster>email-from-blog@vasylenko.info (Serhii Vasylenko)</webMaster>
         <lastBuildDate>Sun, 14 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/macos/index.xml" rel="self" type="application/rss+xml" />
         <item>
             <title>Using TinyPNG Image Compression From MacOS Finder Contextual Menu</title>
             <link>https://serhii.vasylenko.info/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html</link>
             <pubDate>Sun, 14 Feb 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html</guid>
-            <description>&lt;p&gt;I just wanted to compress one image, but went to far&amp;hellip;&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">5ac1a4d193bbbf701d52b9be8831b000</guid>
+            <description>How to add TinyPNG image compression to your macOS Finder contextual menu</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.htmlcover-image.png"</url>
+                </image>&lt;p&gt;I just wanted to compress one image, but went to far&amp;hellip;&lt;/p&gt;
 &lt;p&gt;or &amp;ldquo;How to add TinyPNG image compression to your macOS Finder contextual menu.&amp;rdquo;&lt;/p&gt;
 &lt;h1 id=&#34;what-is-it-and-how-it-works&#34;&gt;What is it and how it works&lt;/h1&gt;
 &lt;p&gt;You select needed files or folders, then right-click on them, click on the Services menu item and choose TinyPNG.&lt;/p&gt;
@@ -51,16 +57,20 @@
 &lt;p&gt;It is simple, and it does its job fine. And you don&amp;rsquo;t need to install anything to make it work.&lt;/p&gt;
 &lt;p&gt;To make this a bit fancier, you might also like to add a &amp;ldquo;Display Notification&amp;rdquo; (from the Utilities library on the left) after the &amp;ldquo;Run Shell Script&amp;rdquo;. The action will display a notification once image processing is completed.&lt;/p&gt;
 &lt;p&gt;Thank you for reading!&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Customizing mac1.metal EC2 AMI — new guts, more glory</title>
             <link>https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html</link>
             <pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html</guid>
-            <description>&lt;p&gt;I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">e5eb1b6e92f79c7495c1ea711e61599d</guid>
+            <description>How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html2021-02-01-customizing-mac1-metal-ec2-ami.png"</url>
+                </image>&lt;p&gt;I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?&lt;/p&gt;
 &lt;h1 id=&#34;configuration-management&#34;&gt;Configuration Management&lt;/h1&gt;
 &lt;p&gt;Native Apple&amp;rsquo;s Mobile device management (a.k.a MDM) and Jamf is probably the most potent combination for macOS configuration. But as much as it&amp;rsquo;s mighty, it is a cumbersome combination, and Jamf is not free.&lt;/p&gt;
 &lt;p&gt;Then we have Ansible, Chef, Puppet, SaltStack — they all are good with Linux, but what about macOS?&lt;/p&gt;
@@ -192,16 +202,20 @@
 &lt;/ul&gt;
 &lt;p&gt;Getting into all this was both fun and interesting. Sometimes painful, though. 😆&lt;/p&gt;
 &lt;p&gt;I sincerely hope this article was helpful to you. Thank you for reading!&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>mac1.metal EC2 Instance — user experience</title>
             <link>https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html</link>
             <pubDate>Tue, 19 Jan 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html</guid>
-            <description>&lt;h2 id=&#34;amazon-ec2-mac-instances&#34;&gt;Amazon EC2 Mac Instances&lt;/h2&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">4fb5af676ce68f015297b6d7e8088a38</guid>
+            <description>An overview of one-month user experience with the new mac1.metal EC2 Instances from AWS</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg"</url>
+                </image>&lt;h2 id=&#34;amazon-ec2-mac-instances&#34;&gt;Amazon EC2 Mac Instances&lt;/h2&gt;
 &lt;p&gt;Something cool and powerful with inevitable trade-offs. As everything in this world.&lt;/p&gt;
 &lt;p&gt;AWS announced EC2 macOS-based instances on the 30th of November 2020, and after more than a month of tests, I would like to share some findings and impressions about it.&lt;/p&gt;
 &lt;p&gt;First of all, the things you can easily find, but it&amp;rsquo;s still worth to say:&lt;/p&gt;
@@ -287,7 +301,7 @@ sudo ./kickstart -configure -users ec2-user -access -on -privs -all
 
 &lt;span style=&#34;color:#999;font-style:italic&#34;&gt;# Set the user password &lt;/span&gt;
 sudo passwd ec2-user
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
         </item>
         
     </channel>

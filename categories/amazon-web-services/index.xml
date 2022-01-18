@@ -6,14 +6,20 @@
         <description>Recent content in Amazon Web Services on Serhii Vasylenko</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
+        <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
+        <webMaster>email-from-blog@vasylenko.info (Serhii Vasylenko)</webMaster>
         <lastBuildDate>Fri, 05 Nov 2021 14:20:58 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/amazon-web-services/index.xml" rel="self" type="application/rss+xml" />
         <item>
             <title>Apply Cloudfront Security Headers With Terraform</title>
             <link>https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/</link>
             <pubDate>Fri, 05 Nov 2021 14:20:58 +0200</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/</guid>
-            <description>&lt;p&gt;In November 2021, AWS announced Response Headers Policies — native support of response headers in CloudFront. You can read the full announcement here: &lt;a href=&#34;https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-response-headers-policies/&#34;&gt;Amazon CloudFront introduces Response Headers Policies&lt;/a&gt;&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">f515b1f59c0c5a95c4b9a1a06c7d17b0</guid>
+            <description>This blog explains how to use Response Headers Policy and Terraform to configure security headers for CloudFront Distribution</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/cover-image.png"</url>
+                </image>&lt;p&gt;In November 2021, AWS announced Response Headers Policies — native support of response headers in CloudFront. You can read the full announcement here: &lt;a href=&#34;https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-response-headers-policies/&#34;&gt;Amazon CloudFront introduces Response Headers Policies&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;I said &amp;ldquo;native&amp;rdquo; because previously you could set response headers either using &lt;a href=&#34;https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html&#34;&gt;CloudFront Functions&lt;/a&gt; or &lt;a href=&#34;https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/&#34;&gt;Lambda@Edge&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;And one of the common use cases for that was to set security headers. Now you don&amp;rsquo;t need to add intermediate requests processing to modify the headers: CloudFront does that for you &lt;strong&gt;with no additional fee&lt;/strong&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;manage-security-headers-as-code&#34;&gt;Manage Security Headers as Code&lt;/h2&gt;
@@ -95,16 +101,20 @@
 &lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-managed-response-headers-policies.html&#34;&gt;Using the managed response headers policies - Amazon CloudFront&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/understanding-response-headers-policies.html&#34;&gt;Understanding response headers policies - Amazon CloudFront&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
             <link>https://serhii.vasylenko.info/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/</link>
             <pubDate>Sun, 24 Oct 2021 02:00:31 +0300</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/</guid>
-            <description>&lt;p&gt;It’s been almost a year since I started using macOS EC2 instances on AWS: there were &lt;a href=&#34;https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html&#34;&gt;ups and downs in service offerings&lt;/a&gt; and a lot of discoveries with &lt;a href=&#34;https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html&#34;&gt;macOS AMI build&lt;/a&gt; automation.&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">89697bf666f6aaeeff5d693d3a1a0f1f</guid>
+            <description></description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/cover-image.png"</url>
+                </image>&lt;p&gt;It’s been almost a year since I started using macOS EC2 instances on AWS: there were &lt;a href=&#34;https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html&#34;&gt;ups and downs in service offerings&lt;/a&gt; and a lot of discoveries with &lt;a href=&#34;https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html&#34;&gt;macOS AMI build&lt;/a&gt; automation.&lt;/p&gt;
 &lt;p&gt;And I like this small but so helpful update of EC2 service very much: with mac1.metal instances, seamless integration of Apple-oriented CI/CD with other AWS infrastructure could finally happen.&lt;/p&gt;
 &lt;p&gt;While management of a single mac1.metal node (or a tiny number of ones) is not a big deal (especially when &lt;a href=&#34;https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html&#34;&gt;Dedicated Host support&lt;/a&gt; was added to Terraform provider), governing the fleet of instances is still complicated. Or it has been complicated until recent days.&lt;/p&gt;
 &lt;h2 id=&#34;official--unofficial-auto-scaling-for-macos&#34;&gt;Official / Unofficial Auto Scaling for macOS&lt;/h2&gt;
@@ -286,16 +296,20 @@ INSTANCETYPEOFFERINGS	mac1.metal	use1-az4	availability-zone-id
 &lt;p&gt;Considering the “hidden” (undocumented) nature of the described setup, I suggest treating it as rather testing than production-ready for now. However, my tests show that everything works pretty well: hosts are allocated, instances are spawned, and the monthly bill grows.&lt;/p&gt;
 &lt;p&gt;I suppose AWS will officially announce all this in the nearest future. Along with that, I am looking forward to the announcement of Monterey-based AMIs and maybe even M1 chip-based instances (will it be mac2.metal?).&lt;/p&gt;
 &lt;p&gt;And I want to say thanks (thanks, pal!) to &lt;a href=&#34;https://github.com/hashicorp/terraform/issues/28531&#34;&gt;OliverKoo&lt;/a&gt;, who started digging into that back in April&#39;21.&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>AWS Resource Access Manager — Multi Account Resource Governance</title>
             <link>https://serhii.vasylenko.info/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</link>
             <pubDate>Sat, 25 Sep 2021 00:54:23 +0300</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</guid>
-            <description>&lt;p&gt;With a multi-account approach of building the infrastructure, there is always a challenge of provision and governance of the resources to subordinate accounts within the Organization. Provision resources, keep them up to date, and decommission them properly — that&amp;rsquo;s only a part of them.&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">be9463cb2f01a696d778cc3636ada3c1</guid>
+            <description>Provision and manage resources within the AWS Organization with ease</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/cover-image.png"</url>
+                </image>&lt;p&gt;With a multi-account approach of building the infrastructure, there is always a challenge of provision and governance of the resources to subordinate accounts within the Organization. Provision resources, keep them up to date, and decommission them properly — that&amp;rsquo;s only a part of them.&lt;/p&gt;
 &lt;p&gt;AWS has numerous solutions that help make this process reliable and secure, and the Resource Access Manager (RAM) is one of them.
 In a nutshell, the RAM service allows you to share the AWS resources you create in one AWS account with other AWS accounts. They can be your organizations&#39; accounts, organizational units (OU), or even third-party accounts.&lt;/p&gt;
 &lt;p&gt;So let&amp;rsquo;s see what the RAM is and review some of its usage examples.&lt;/p&gt;
@@ -361,16 +375,20 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
 &lt;p&gt;Another everyday use case of RAM is the VPC sharing that can form the foundation of the &lt;a href=&#34;https://aws.amazon.com/blogs/networking-and-content-delivery/vpc-sharing-a-new-approach-to-multiple-accounts-and-vpc-management/&#34;&gt;multi-account AWS architectures&lt;/a&gt;.&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;Of course, the RAM service is not the only way to organize and centralize resource management in AWS. There are Service Catalog, Control Tower, Systems Manager, Config, and others. However, the RAM is relatively simple to adopt but is capable of providing worthy outcomes.&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Run Ansible playbook on mac1.metal instances fleet with AWS Systems Manager</title>
             <link>https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html</link>
             <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html</guid>
-            <description>&lt;p&gt;In days of containers and serverless applications, Ansible looks not such a trendy thing.&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">4d71fce68d0d4e4b80d8fbc604c48035</guid>
+            <description>A small adjustment for big capabilities</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.htmlcover_image.png"</url>
+                </image>&lt;p&gt;In days of containers and serverless applications, Ansible looks not such a trendy thing.&lt;/p&gt;
 &lt;p&gt;But still, there are cases when it helps, and there are cases when it combines very well with brand new product offerings, such as EC2 Mac instances.&lt;/p&gt;
 &lt;p&gt;The &lt;a href=&#34;https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html&#34;&gt;more I use mac1.metal&lt;/a&gt; in AWS, the more I see that Ansible becomes a bedrock of software customization in my case.&lt;/p&gt;
 &lt;p&gt;And when you have a large instances fleet, the AWS Systems Manager becomes your best friend (the sooner you get along together, the better).&lt;/p&gt;
@@ -492,16 +510,20 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
 &lt;p&gt;Select the Document, and you’ll see its parameters and settings.&lt;/p&gt;
 &lt;p&gt;The rest is self-explanatory. Enter either a playbook code or a link to the source file, add extra variables if needed, and select the target host or a filtered bunch (I like that feature with tags filtering!). Finally, click on the “Run” orange button to apply your playbook.&lt;/p&gt;
 &lt;p&gt;That’s it! Now you can make all your ansible-playbook dreams come true! 😁&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Configure HTTP Security headers with CloudFront Functions</title>
             <link>https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html</link>
             <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html</guid>
-            <description>&lt;div class=&#34;updatenotice&#34;&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">aba2bd003c4b5c838f4a7bd678ac6648</guid>
+            <description>Modifying response headers to enforce the security of the web application</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.htmlcover_image.png"</url>
+                </image>&lt;div class=&#34;updatenotice&#34;&gt;
     &lt;p&gt;In November 2021, AWS has added this functionality as a native CloudFront feature.&lt;/p&gt;
 &lt;p&gt;I suggest switching to the native implementation. I have described how to configure Security Response Headers for CloudFront in the following article:&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/&#34;&gt;Apply Cloudfront Security Headers With Terraform&lt;/a&gt;&lt;/p&gt;
@@ -621,16 +643,20 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw==
 &lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions.html&#34;&gt;Choosing between CloudFront Functions and Lambda@Edge&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-how-to-choose-event.html&#34;&gt;How to Decide Which CloudFront Event to Use to Trigger a Lambda Function&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Customizing mac1.metal EC2 AMI — new guts, more glory</title>
             <link>https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html</link>
             <pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html</guid>
-            <description>&lt;p&gt;I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">e5eb1b6e92f79c7495c1ea711e61599d</guid>
+            <description>How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html2021-02-01-customizing-mac1-metal-ec2-ami.png"</url>
+                </image>&lt;p&gt;I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?&lt;/p&gt;
 &lt;h1 id=&#34;configuration-management&#34;&gt;Configuration Management&lt;/h1&gt;
 &lt;p&gt;Native Apple&amp;rsquo;s Mobile device management (a.k.a MDM) and Jamf is probably the most potent combination for macOS configuration. But as much as it&amp;rsquo;s mighty, it is a cumbersome combination, and Jamf is not free.&lt;/p&gt;
 &lt;p&gt;Then we have Ansible, Chef, Puppet, SaltStack — they all are good with Linux, but what about macOS?&lt;/p&gt;
@@ -762,16 +788,20 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw==
 &lt;/ul&gt;
 &lt;p&gt;Getting into all this was both fun and interesting. Sometimes painful, though. 😆&lt;/p&gt;
 &lt;p&gt;I sincerely hope this article was helpful to you. Thank you for reading!&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Terraforming mac1.metal at AWS</title>
             <link>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</link>
             <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</guid>
-            <description>&lt;div class=&#34;updatenotice&#34;&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">b59ec6d3701cd18d92607e4c6a6503dd</guid>
+            <description>How to manage mac1.metal EC2 instances with Terraform</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html2021-01-20-terraforming-mac1-metal-at-AWS.jpg"</url>
+                </image>&lt;div class=&#34;updatenotice&#34;&gt;
     Updated on the 23rd of October, 2021: Terraform AWS provider now &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_host&#34;&gt;supports&lt;/a&gt; Dedicated Hosts natively
 &lt;/div&gt;
 &lt;p&gt;In November 2021, AWS &lt;a href=&#34;https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/&#34;&gt;announced&lt;/a&gt; the support for Mac mini instances.&lt;/p&gt;
@@ -809,16 +839,20 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw==
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Simple as that, yes. Now, you can integrate it into your CI system and have the Mac instance with the underlying host in a bundle.&lt;/p&gt;
 &lt;p&gt;💡 Pro tip: you can leverage the &lt;code&gt;aws_ec2_instance_type_offerings&lt;/code&gt; &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings&#34;&gt;Data Source&lt;/a&gt; and use its output with &lt;code&gt;aws_subnet&lt;/code&gt; source to avoid availability zone hardcoding.&lt;/p&gt;
 &lt;p&gt;To make the code more uniform and reusable, you can wrap it into a &lt;a href=&#34;https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html&#34;&gt;Terraform module&lt;/a&gt; that accepts specific parameters (such as &lt;code&gt;instance_type&lt;/code&gt; or &lt;code&gt;availability_zone&lt;/code&gt;) as input variables.&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>mac1.metal EC2 Instance — user experience</title>
             <link>https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html</link>
             <pubDate>Tue, 19 Jan 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html</guid>
-            <description>&lt;h2 id=&#34;amazon-ec2-mac-instances&#34;&gt;Amazon EC2 Mac Instances&lt;/h2&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">4fb5af676ce68f015297b6d7e8088a38</guid>
+            <description>An overview of one-month user experience with the new mac1.metal EC2 Instances from AWS</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg"</url>
+                </image>&lt;h2 id=&#34;amazon-ec2-mac-instances&#34;&gt;Amazon EC2 Mac Instances&lt;/h2&gt;
 &lt;p&gt;Something cool and powerful with inevitable trade-offs. As everything in this world.&lt;/p&gt;
 &lt;p&gt;AWS announced EC2 macOS-based instances on the 30th of November 2020, and after more than a month of tests, I would like to share some findings and impressions about it.&lt;/p&gt;
 &lt;p&gt;First of all, the things you can easily find, but it&amp;rsquo;s still worth to say:&lt;/p&gt;
@@ -904,16 +938,20 @@ sudo ./kickstart -configure -users ec2-user -access -on -privs -all
 
 &lt;span style=&#34;color:#999;font-style:italic&#34;&gt;# Set the user password &lt;/span&gt;
 sudo passwd ec2-user
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
         </item>
         
         <item>
             <title>AWS CloudShell</title>
             <link>https://serhii.vasylenko.info/2020/12/16/aws-cloudshell.html</link>
             <pubDate>Wed, 16 Dec 2020 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2020/12/16/aws-cloudshell.html</guid>
-            <description>&lt;p&gt;A simple but cool announcement from AWS — &lt;a href=&#34;https://aws.amazon.com/cloudshell/&#34;&gt;AWS CloudShell&lt;/a&gt;.
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">afadfb0a0acf3169a27eb22d7a65cac3</guid>
+            <description>Native and official way to run AWS CLI in a browser</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2020/12/16/aws-cloudshell.html2020-12-16-aws-cloudshell.png"</url>
+                </image>&lt;p&gt;A simple but cool announcement from AWS — &lt;a href=&#34;https://aws.amazon.com/cloudshell/&#34;&gt;AWS CloudShell&lt;/a&gt;.
 A tool for ad-hoc AWS management via CLI directly in your browser.&lt;/p&gt;
 &lt;p&gt;I like when AWS releases something simple to understand and yet powerful.&lt;br&gt;
 So it is not another &lt;a href=&#34;https://aws.amazon.com/devops-guru/&#34;&gt;DevOps Guru&lt;/a&gt;, believe me :)&lt;/p&gt;
@@ -929,16 +967,20 @@ So it is not another &lt;a href=&#34;https://aws.amazon.com/devops-guru/&#34;&gt
 &lt;h5 id=&#34;more-yes-and-nos-here&#34;&gt;More Yes and No’s here:&lt;/h5&gt;
 &lt;p&gt;&lt;a href=&#34;https://docs.aws.amazon.com/cloudshell/latest/userguide/faq-list.html&#34;&gt;https://docs.aws.amazon.com/cloudshell/latest/userguide/faq-list.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://aws.amazon.com/cloudshell/faqs/&#34;&gt;https://aws.amazon.com/cloudshell/faqs/&lt;/a&gt;&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Manage Ansible playbook secrets with AWS services</title>
             <link>https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html</link>
             <pubDate>Thu, 06 Aug 2020 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html</guid>
-            <description>&lt;p&gt;Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks.
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">aac5469178cea7c40b07a137dcfdd56e</guid>
+            <description>A better way to store sensitive information for Ansible on EC2 or other services</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html2020-08-06-ansible-secrets-aws-ssm-sm.png"</url>
+                </image>&lt;p&gt;Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks.
 If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.&lt;/p&gt;
 &lt;h2 id=&#34;variables-with-ssm-parameter-store&#34;&gt;Variables with SSM Parameter Store&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s say you have some variables defined in &amp;lsquo;defaults/main.yaml&amp;rsquo; file of your role or maybe in group_vars.yaml file.&lt;/p&gt;
@@ -986,16 +1028,20 @@ ok: [some_server] =&amp;gt; {
 The IAM role must allow at least the read access to SSM Parameter Store (+ KMS read access to be able to decrypt the keys) or the read access to Secrets Manager.&lt;/p&gt;
 &lt;p&gt;You can find documentation for described plugins here &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup/aws_ssm.html&#34;&gt;aws_ssm&lt;/a&gt; and here &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup/aws_secret.html&#34;&gt;aws_secret&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;More about lookup plugins: &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup.html&#34;&gt;https://docs.ansible.com/ansible/latest/plugins/lookup.html&lt;/a&gt;&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>AWS SAA exam results</title>
             <link>https://serhii.vasylenko.info/2020/03/15/aws-solutions-architect-associate-exam-tips.html</link>
             <pubDate>Sun, 15 Mar 2020 20:16:20 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2020/03/15/aws-solutions-architect-associate-exam-tips.html</guid>
-            <description>&lt;h3 id=&#34;926-out-of-1000&#34;&gt;926 out of 1000&lt;/h3&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">956531ad188e828e10ed1590ad651069</guid>
+            <description>Sharing my AWS SAA exam results</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2020/03/15/aws-solutions-architect-associate-exam-tips.html2020-03-15-aws-solutions-architect-associate-exam-tips_AWS-Certified_Solutions-Architect_Associate.png"</url>
+                </image>&lt;h3 id=&#34;926-out-of-1000&#34;&gt;926 out of 1000&lt;/h3&gt;
 &lt;p&gt;Last week I&amp;rsquo;ve successfully passed AWS SAA exam with 926 points from 1000 possible. I can&amp;rsquo;t help saying this and showing off my &lt;a href=&#34;https://www.youracclaim.com/badges/7c6c7a70-63f5-4854-97ab-e5c1ad251231&#34;&gt;verification page&lt;/a&gt;{:target=&amp;quot;_blank&amp;quot;}, just because I am very happy so please excuse me my bragging.&lt;/p&gt;
 &lt;h3 id=&#34;what-helped-me&#34;&gt;What helped me&lt;/h3&gt;
 &lt;p&gt;But I would like to share some advices and tips with anyone who reads this and wants to pass the exam. I mean, I could just twit about it if that was only about saying &amp;ldquo;hey look at me!&amp;rdquo;, right?&lt;/p&gt;
@@ -1021,7 +1067,7 @@ The IAM role must allow at least the read access to SSM Parameter Store (+ KMS r
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Thank you for reading down to this point. I hope my advices were helpful and you will pass the exam!&lt;/p&gt;
-</description>
+</content>
         </item>
         
     </channel>

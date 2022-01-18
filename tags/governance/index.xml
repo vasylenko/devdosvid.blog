@@ -6,14 +6,20 @@
         <description>Recent content in governance on Serhii Vasylenko</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
+        <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
+        <webMaster>email-from-blog@vasylenko.info (Serhii Vasylenko)</webMaster>
         <lastBuildDate>Sat, 25 Sep 2021 00:54:23 +0300</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/governance/index.xml" rel="self" type="application/rss+xml" />
         <item>
             <title>AWS Resource Access Manager — Multi Account Resource Governance</title>
             <link>https://serhii.vasylenko.info/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</link>
             <pubDate>Sat, 25 Sep 2021 00:54:23 +0300</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</guid>
-            <description>&lt;p&gt;With a multi-account approach of building the infrastructure, there is always a challenge of provision and governance of the resources to subordinate accounts within the Organization. Provision resources, keep them up to date, and decommission them properly — that&amp;rsquo;s only a part of them.&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">be9463cb2f01a696d778cc3636ada3c1</guid>
+            <description>Provision and manage resources within the AWS Organization with ease</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/cover-image.png"</url>
+                </image>&lt;p&gt;With a multi-account approach of building the infrastructure, there is always a challenge of provision and governance of the resources to subordinate accounts within the Organization. Provision resources, keep them up to date, and decommission them properly — that&amp;rsquo;s only a part of them.&lt;/p&gt;
 &lt;p&gt;AWS has numerous solutions that help make this process reliable and secure, and the Resource Access Manager (RAM) is one of them.
 In a nutshell, the RAM service allows you to share the AWS resources you create in one AWS account with other AWS accounts. They can be your organizations&#39; accounts, organizational units (OU), or even third-party accounts.&lt;/p&gt;
 &lt;p&gt;So let&amp;rsquo;s see what the RAM is and review some of its usage examples.&lt;/p&gt;
@@ -79,7 +85,7 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
 &lt;p&gt;Another everyday use case of RAM is the VPC sharing that can form the foundation of the &lt;a href=&#34;https://aws.amazon.com/blogs/networking-and-content-delivery/vpc-sharing-a-new-approach-to-multiple-accounts-and-vpc-management/&#34;&gt;multi-account AWS architectures&lt;/a&gt;.&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;Of course, the RAM service is not the only way to organize and centralize resource management in AWS. There are Service Catalog, Control Tower, Systems Manager, Config, and others. However, the RAM is relatively simple to adopt but is capable of providing worthy outcomes.&lt;/p&gt;
-</description>
+</content>
         </item>
         
     </channel>

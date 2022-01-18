@@ -6,14 +6,20 @@
         <description>Recent content in certification on Serhii Vasylenko</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
+        <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
+        <webMaster>email-from-blog@vasylenko.info (Serhii Vasylenko)</webMaster>
         <lastBuildDate>Sun, 15 Mar 2020 20:16:20 +0000</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/certification/index.xml" rel="self" type="application/rss+xml" />
         <item>
             <title>AWS SAA exam results</title>
             <link>https://serhii.vasylenko.info/2020/03/15/aws-solutions-architect-associate-exam-tips.html</link>
             <pubDate>Sun, 15 Mar 2020 20:16:20 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2020/03/15/aws-solutions-architect-associate-exam-tips.html</guid>
-            <description>&lt;h3 id=&#34;926-out-of-1000&#34;&gt;926 out of 1000&lt;/h3&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">956531ad188e828e10ed1590ad651069</guid>
+            <description>Sharing my AWS SAA exam results</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2020/03/15/aws-solutions-architect-associate-exam-tips.html2020-03-15-aws-solutions-architect-associate-exam-tips_AWS-Certified_Solutions-Architect_Associate.png"</url>
+                </image>&lt;h3 id=&#34;926-out-of-1000&#34;&gt;926 out of 1000&lt;/h3&gt;
 &lt;p&gt;Last week I&amp;rsquo;ve successfully passed AWS SAA exam with 926 points from 1000 possible. I can&amp;rsquo;t help saying this and showing off my &lt;a href=&#34;https://www.youracclaim.com/badges/7c6c7a70-63f5-4854-97ab-e5c1ad251231&#34;&gt;verification page&lt;/a&gt;{:target=&amp;quot;_blank&amp;quot;}, just because I am very happy so please excuse me my bragging.&lt;/p&gt;
 &lt;h3 id=&#34;what-helped-me&#34;&gt;What helped me&lt;/h3&gt;
 &lt;p&gt;But I would like to share some advices and tips with anyone who reads this and wants to pass the exam. I mean, I could just twit about it if that was only about saying &amp;ldquo;hey look at me!&amp;rdquo;, right?&lt;/p&gt;
@@ -39,7 +45,7 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Thank you for reading down to this point. I hope my advices were helpful and you will pass the exam!&lt;/p&gt;
-</description>
+</content>
         </item>
         
     </channel>

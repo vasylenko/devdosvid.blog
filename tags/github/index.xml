@@ -6,14 +6,20 @@
         <description>Recent content in github on Serhii Vasylenko</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
+        <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
+        <webMaster>email-from-blog@vasylenko.info (Serhii Vasylenko)</webMaster>
         <lastBuildDate>Wed, 18 Mar 2020 00:30:20 +0000</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/github/index.xml" rel="self" type="application/rss+xml" />
         <item>
             <title>Github Actions - First impression</title>
             <link>https://serhii.vasylenko.info/2020/03/18/github-actions-first-impression.html</link>
             <pubDate>Wed, 18 Mar 2020 00:30:20 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2020/03/18/github-actions-first-impression.html</guid>
-            <description>&lt;p&gt;Although Github Actions service is generally available since November 13, 2020, and there are about 243,000,000 results for &amp;ldquo;github actions&amp;rdquo; in Google search already, I have just reached it&amp;hellip;&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">f07e8978b0a71f137e4d8f08efb6ff42</guid>
+            <description>My first meet with github actions... in action.</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2020/03/18/github-actions-first-impression.htmlcover.png"</url>
+                </image>&lt;p&gt;Although Github Actions service is generally available since November 13, 2020, and there are about 243,000,000 results for &amp;ldquo;github actions&amp;rdquo; in Google search already, I have just reached it&amp;hellip;&lt;/p&gt;
 &lt;p&gt;It&amp;rsquo;s half past midnight, it took me about 35 commits to make my first github automation work, but it finally works and this blog post was built and published automatically!&lt;/p&gt;
 &lt;h3 id=&#34;actions-everywhere&#34;&gt;Actions everywhere&lt;/h3&gt;
 &lt;p&gt;One of the most (or maybe the most one) powerful things in Actions is &amp;hellip; Actions! Github made a simple but genius thing: they turned well-known snippets (we do with pipelines) into the marketplace of well-made (sometimes not) simple and complex applications you can use in your automation workflow. &lt;a href=&#34;https://github.com/marketplace?type=actions&#34;&gt;https://github.com/marketplace?type=actions&lt;/a&gt;&lt;/p&gt;
@@ -86,7 +92,7 @@
 &lt;li&gt;you can pass artifacts between jobs inside a workflow with ease - Github provides simple actions for this, so you don&amp;rsquo;t need to dance around temporary directories or files;&lt;/li&gt;
 &lt;li&gt;and much more&lt;/li&gt;
 &lt;/ul&gt;
-</description>
+</content>
         </item>
         
     </channel>

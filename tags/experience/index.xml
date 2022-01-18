@@ -6,14 +6,20 @@
         <description>Recent content in experience on Serhii Vasylenko</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
+        <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
+        <webMaster>email-from-blog@vasylenko.info (Serhii Vasylenko)</webMaster>
         <lastBuildDate>Sun, 16 Jan 2022 01:59:51 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/experience/index.xml" rel="self" type="application/rss+xml" />
         <item>
             <title>Some Techniques to Enhance Your Terraform Proficiency</title>
             <link>https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</link>
             <pubDate>Sun, 16 Jan 2022 01:59:51 +0200</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</guid>
-            <description>&lt;p&gt;Terraform built-in functionality is very feature-rich: functions, expressions,  and meta-arguments provide many ways to shape the code and fit it to a particular use case. I want to share a few valuable practices to boost your Terraform expertise in this blog.&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">009d86d5f56c5c84299d35b176ec9316</guid>
+            <description>Learn what cool things Terraform can do with its built-in functionality</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/cover-image.png"</url>
+                </image>&lt;p&gt;Terraform built-in functionality is very feature-rich: functions, expressions,  and meta-arguments provide many ways to shape the code and fit it to a particular use case. I want to share a few valuable practices to boost your Terraform expertise in this blog.&lt;/p&gt;
 &lt;div class=&#34;attention&#34;&gt;
     Some code examples in this article will work with Terraform version 0.15 and onwards. But if you&amp;rsquo;re still using 0.14 or lower, here&amp;rsquo;s another motivation for you to upgrade.
 &lt;/div&gt;
@@ -217,7 +223,7 @@ bash /opt/system-init/register-monitoring.sh
 &lt;p&gt;✅ And when you need to pass some files to the managed service, you can treat them as &lt;a href=&#34;https://www.terraform.io/language/functions/templatefile&#34;&gt;templates&lt;/a&gt; and make them multipurpose.&lt;/p&gt;
 &lt;p&gt;Thank you for reading down to this point! 🤗&lt;/p&gt;
 &lt;p&gt;If you have some favorite Terraform tricks — I would love to know!&lt;/p&gt;
-</description>
+</content>
         </item>
         
     </channel>

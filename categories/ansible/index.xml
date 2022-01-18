@@ -6,14 +6,20 @@
         <description>Recent content in Ansible on Serhii Vasylenko</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
+        <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
+        <webMaster>email-from-blog@vasylenko.info (Serhii Vasylenko)</webMaster>
         <lastBuildDate>Thu, 27 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/ansible/index.xml" rel="self" type="application/rss+xml" />
         <item>
             <title>Run Ansible playbook on mac1.metal instances fleet with AWS Systems Manager</title>
             <link>https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html</link>
             <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html</guid>
-            <description>&lt;p&gt;In days of containers and serverless applications, Ansible looks not such a trendy thing.&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">4d71fce68d0d4e4b80d8fbc604c48035</guid>
+            <description>A small adjustment for big capabilities</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.htmlcover_image.png"</url>
+                </image>&lt;p&gt;In days of containers and serverless applications, Ansible looks not such a trendy thing.&lt;/p&gt;
 &lt;p&gt;But still, there are cases when it helps, and there are cases when it combines very well with brand new product offerings, such as EC2 Mac instances.&lt;/p&gt;
 &lt;p&gt;The &lt;a href=&#34;https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html&#34;&gt;more I use mac1.metal&lt;/a&gt; in AWS, the more I see that Ansible becomes a bedrock of software customization in my case.&lt;/p&gt;
 &lt;p&gt;And when you have a large instances fleet, the AWS Systems Manager becomes your best friend (the sooner you get along together, the better).&lt;/p&gt;
@@ -135,16 +141,20 @@
 &lt;p&gt;Select the Document, and you’ll see its parameters and settings.&lt;/p&gt;
 &lt;p&gt;The rest is self-explanatory. Enter either a playbook code or a link to the source file, add extra variables if needed, and select the target host or a filtered bunch (I like that feature with tags filtering!). Finally, click on the “Run” orange button to apply your playbook.&lt;/p&gt;
 &lt;p&gt;That’s it! Now you can make all your ansible-playbook dreams come true! 😁&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Customizing mac1.metal EC2 AMI — new guts, more glory</title>
             <link>https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html</link>
             <pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html</guid>
-            <description>&lt;p&gt;I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">e5eb1b6e92f79c7495c1ea711e61599d</guid>
+            <description>How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html2021-02-01-customizing-mac1-metal-ec2-ami.png"</url>
+                </image>&lt;p&gt;I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?&lt;/p&gt;
 &lt;h1 id=&#34;configuration-management&#34;&gt;Configuration Management&lt;/h1&gt;
 &lt;p&gt;Native Apple&amp;rsquo;s Mobile device management (a.k.a MDM) and Jamf is probably the most potent combination for macOS configuration. But as much as it&amp;rsquo;s mighty, it is a cumbersome combination, and Jamf is not free.&lt;/p&gt;
 &lt;p&gt;Then we have Ansible, Chef, Puppet, SaltStack — they all are good with Linux, but what about macOS?&lt;/p&gt;
@@ -276,16 +286,20 @@
 &lt;/ul&gt;
 &lt;p&gt;Getting into all this was both fun and interesting. Sometimes painful, though. 😆&lt;/p&gt;
 &lt;p&gt;I sincerely hope this article was helpful to you. Thank you for reading!&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Manage Ansible playbook secrets with AWS services</title>
             <link>https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html</link>
             <pubDate>Thu, 06 Aug 2020 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html</guid>
-            <description>&lt;p&gt;Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks.
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">aac5469178cea7c40b07a137dcfdd56e</guid>
+            <description>A better way to store sensitive information for Ansible on EC2 or other services</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html2020-08-06-ansible-secrets-aws-ssm-sm.png"</url>
+                </image>&lt;p&gt;Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks.
 If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.&lt;/p&gt;
 &lt;h2 id=&#34;variables-with-ssm-parameter-store&#34;&gt;Variables with SSM Parameter Store&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s say you have some variables defined in &amp;lsquo;defaults/main.yaml&amp;rsquo; file of your role or maybe in group_vars.yaml file.&lt;/p&gt;
@@ -333,7 +347,7 @@ ok: [some_server] =&amp;gt; {
 The IAM role must allow at least the read access to SSM Parameter Store (+ KMS read access to be able to decrypt the keys) or the read access to Secrets Manager.&lt;/p&gt;
 &lt;p&gt;You can find documentation for described plugins here &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup/aws_ssm.html&#34;&gt;aws_ssm&lt;/a&gt; and here &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup/aws_secret.html&#34;&gt;aws_secret&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;More about lookup plugins: &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup.html&#34;&gt;https://docs.ansible.com/ansible/latest/plugins/lookup.html&lt;/a&gt;&lt;/p&gt;
-</description>
+</content>
         </item>
         
     </channel>

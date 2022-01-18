@@ -6,41 +6,59 @@
         <description>Recent content in Categories on Serhii Vasylenko</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
+        <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
+        <webMaster>email-from-blog@vasylenko.info (Serhii Vasylenko)</webMaster>
         <lastBuildDate>Sun, 16 Jan 2022 01:59:51 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/index.xml" rel="self" type="application/rss+xml" />
         <item>
             <title>Terraform</title>
             <link>https://serhii.vasylenko.info/categories/terraform/</link>
             <pubDate>Sun, 16 Jan 2022 01:59:51 +0200</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/categories/terraform/</guid>
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">4d861e72e24d1525026f68dcf6549454</guid>
             <description></description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/categories/terraform/"</url>
+                </image></content>
         </item>
         
         <item>
             <title>Amazon Web Services</title>
             <link>https://serhii.vasylenko.info/categories/amazon-web-services/</link>
             <pubDate>Fri, 05 Nov 2021 14:20:58 +0200</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/categories/amazon-web-services/</guid>
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">4ce8e1552d5aa5e05971a6a5441c1f8a</guid>
             <description></description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/categories/amazon-web-services/"</url>
+                </image></content>
         </item>
         
         <item>
             <title>Ansible</title>
             <link>https://serhii.vasylenko.info/categories/ansible/</link>
             <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/categories/ansible/</guid>
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">b008462108b394c5eae82408f833bfb2</guid>
             <description></description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/categories/ansible/"</url>
+                </image></content>
         </item>
         
         <item>
             <title>DIY</title>
             <link>https://serhii.vasylenko.info/categories/diy/</link>
             <pubDate>Sun, 14 Feb 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/categories/diy/</guid>
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">91546937b60839de9143585270c72d32</guid>
             <description></description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/categories/diy/"</url>
+                </image></content>
         </item>
         
     </channel>

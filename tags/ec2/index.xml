@@ -6,14 +6,20 @@
         <description>Recent content in ec2 on Serhii Vasylenko</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
+        <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
+        <webMaster>email-from-blog@vasylenko.info (Serhii Vasylenko)</webMaster>
         <lastBuildDate>Mon, 01 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/ec2/index.xml" rel="self" type="application/rss+xml" />
         <item>
             <title>Customizing mac1.metal EC2 AMI — new guts, more glory</title>
             <link>https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html</link>
             <pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html</guid>
-            <description>&lt;p&gt;I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">e5eb1b6e92f79c7495c1ea711e61599d</guid>
+            <description>How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html2021-02-01-customizing-mac1-metal-ec2-ami.png"</url>
+                </image>&lt;p&gt;I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?&lt;/p&gt;
 &lt;h1 id=&#34;configuration-management&#34;&gt;Configuration Management&lt;/h1&gt;
 &lt;p&gt;Native Apple&amp;rsquo;s Mobile device management (a.k.a MDM) and Jamf is probably the most potent combination for macOS configuration. But as much as it&amp;rsquo;s mighty, it is a cumbersome combination, and Jamf is not free.&lt;/p&gt;
 &lt;p&gt;Then we have Ansible, Chef, Puppet, SaltStack — they all are good with Linux, but what about macOS?&lt;/p&gt;
@@ -145,16 +151,20 @@
 &lt;/ul&gt;
 &lt;p&gt;Getting into all this was both fun and interesting. Sometimes painful, though. 😆&lt;/p&gt;
 &lt;p&gt;I sincerely hope this article was helpful to you. Thank you for reading!&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Terraforming mac1.metal at AWS</title>
             <link>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</link>
             <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</guid>
-            <description>&lt;div class=&#34;updatenotice&#34;&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">b59ec6d3701cd18d92607e4c6a6503dd</guid>
+            <description>How to manage mac1.metal EC2 instances with Terraform</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html2021-01-20-terraforming-mac1-metal-at-AWS.jpg"</url>
+                </image>&lt;div class=&#34;updatenotice&#34;&gt;
     Updated on the 23rd of October, 2021: Terraform AWS provider now &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_host&#34;&gt;supports&lt;/a&gt; Dedicated Hosts natively
 &lt;/div&gt;
 &lt;p&gt;In November 2021, AWS &lt;a href=&#34;https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/&#34;&gt;announced&lt;/a&gt; the support for Mac mini instances.&lt;/p&gt;
@@ -192,16 +202,20 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Simple as that, yes. Now, you can integrate it into your CI system and have the Mac instance with the underlying host in a bundle.&lt;/p&gt;
 &lt;p&gt;💡 Pro tip: you can leverage the &lt;code&gt;aws_ec2_instance_type_offerings&lt;/code&gt; &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings&#34;&gt;Data Source&lt;/a&gt; and use its output with &lt;code&gt;aws_subnet&lt;/code&gt; source to avoid availability zone hardcoding.&lt;/p&gt;
 &lt;p&gt;To make the code more uniform and reusable, you can wrap it into a &lt;a href=&#34;https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html&#34;&gt;Terraform module&lt;/a&gt; that accepts specific parameters (such as &lt;code&gt;instance_type&lt;/code&gt; or &lt;code&gt;availability_zone&lt;/code&gt;) as input variables.&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>mac1.metal EC2 Instance — user experience</title>
             <link>https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html</link>
             <pubDate>Tue, 19 Jan 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html</guid>
-            <description>&lt;h2 id=&#34;amazon-ec2-mac-instances&#34;&gt;Amazon EC2 Mac Instances&lt;/h2&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">4fb5af676ce68f015297b6d7e8088a38</guid>
+            <description>An overview of one-month user experience with the new mac1.metal EC2 Instances from AWS</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg"</url>
+                </image>&lt;h2 id=&#34;amazon-ec2-mac-instances&#34;&gt;Amazon EC2 Mac Instances&lt;/h2&gt;
 &lt;p&gt;Something cool and powerful with inevitable trade-offs. As everything in this world.&lt;/p&gt;
 &lt;p&gt;AWS announced EC2 macOS-based instances on the 30th of November 2020, and after more than a month of tests, I would like to share some findings and impressions about it.&lt;/p&gt;
 &lt;p&gt;First of all, the things you can easily find, but it&amp;rsquo;s still worth to say:&lt;/p&gt;
@@ -287,7 +301,7 @@ sudo ./kickstart -configure -users ec2-user -access -on -privs -all
 
 &lt;span style=&#34;color:#999;font-style:italic&#34;&gt;# Set the user password &lt;/span&gt;
 sudo passwd ec2-user
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
         </item>
         
     </channel>

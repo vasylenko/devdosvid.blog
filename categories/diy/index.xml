@@ -6,14 +6,20 @@
         <description>Recent content in DIY on Serhii Vasylenko</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
+        <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
+        <webMaster>email-from-blog@vasylenko.info (Serhii Vasylenko)</webMaster>
         <lastBuildDate>Sun, 14 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/diy/index.xml" rel="self" type="application/rss+xml" />
         <item>
             <title>Using TinyPNG Image Compression From MacOS Finder Contextual Menu</title>
             <link>https://serhii.vasylenko.info/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html</link>
             <pubDate>Sun, 14 Feb 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html</guid>
-            <description>&lt;p&gt;I just wanted to compress one image, but went to far&amp;hellip;&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">5ac1a4d193bbbf701d52b9be8831b000</guid>
+            <description>How to add TinyPNG image compression to your macOS Finder contextual menu</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.htmlcover-image.png"</url>
+                </image>&lt;p&gt;I just wanted to compress one image, but went to far&amp;hellip;&lt;/p&gt;
 &lt;p&gt;or &amp;ldquo;How to add TinyPNG image compression to your macOS Finder contextual menu.&amp;rdquo;&lt;/p&gt;
 &lt;h1 id=&#34;what-is-it-and-how-it-works&#34;&gt;What is it and how it works&lt;/h1&gt;
 &lt;p&gt;You select needed files or folders, then right-click on them, click on the Services menu item and choose TinyPNG.&lt;/p&gt;
@@ -51,7 +57,7 @@
 &lt;p&gt;It is simple, and it does its job fine. And you don&amp;rsquo;t need to install anything to make it work.&lt;/p&gt;
 &lt;p&gt;To make this a bit fancier, you might also like to add a &amp;ldquo;Display Notification&amp;rdquo; (from the Utilities library on the left) after the &amp;ldquo;Run Shell Script&amp;rdquo;. The action will display a notification once image processing is completed.&lt;/p&gt;
 &lt;p&gt;Thank you for reading!&lt;/p&gt;
-</description>
+</content>
         </item>
         
     </channel>

@@ -6,14 +6,20 @@
         <description>Recent content in ssm on Serhii Vasylenko</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
+        <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
+        <webMaster>email-from-blog@vasylenko.info (Serhii Vasylenko)</webMaster>
         <lastBuildDate>Thu, 06 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/ssm/index.xml" rel="self" type="application/rss+xml" />
         <item>
             <title>Manage Ansible playbook secrets with AWS services</title>
             <link>https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html</link>
             <pubDate>Thu, 06 Aug 2020 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html</guid>
-            <description>&lt;p&gt;Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks.
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">aac5469178cea7c40b07a137dcfdd56e</guid>
+            <description>A better way to store sensitive information for Ansible on EC2 or other services</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html2020-08-06-ansible-secrets-aws-ssm-sm.png"</url>
+                </image>&lt;p&gt;Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks.
 If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.&lt;/p&gt;
 &lt;h2 id=&#34;variables-with-ssm-parameter-store&#34;&gt;Variables with SSM Parameter Store&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s say you have some variables defined in &amp;lsquo;defaults/main.yaml&amp;rsquo; file of your role or maybe in group_vars.yaml file.&lt;/p&gt;
@@ -61,7 +67,7 @@ ok: [some_server] =&amp;gt; {
 The IAM role must allow at least the read access to SSM Parameter Store (+ KMS read access to be able to decrypt the keys) or the read access to Secrets Manager.&lt;/p&gt;
 &lt;p&gt;You can find documentation for described plugins here &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup/aws_ssm.html&#34;&gt;aws_ssm&lt;/a&gt; and here &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup/aws_secret.html&#34;&gt;aws_secret&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;More about lookup plugins: &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup.html&#34;&gt;https://docs.ansible.com/ansible/latest/plugins/lookup.html&lt;/a&gt;&lt;/p&gt;
-</description>
+</content>
         </item>
         
     </channel>

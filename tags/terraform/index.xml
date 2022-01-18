@@ -6,14 +6,20 @@
         <description>Recent content in terraform on Serhii Vasylenko</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
+        <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
+        <webMaster>email-from-blog@vasylenko.info (Serhii Vasylenko)</webMaster>
         <lastBuildDate>Sun, 16 Jan 2022 01:59:51 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
         <item>
             <title>Some Techniques to Enhance Your Terraform Proficiency</title>
             <link>https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</link>
             <pubDate>Sun, 16 Jan 2022 01:59:51 +0200</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</guid>
-            <description>&lt;p&gt;Terraform built-in functionality is very feature-rich: functions, expressions,  and meta-arguments provide many ways to shape the code and fit it to a particular use case. I want to share a few valuable practices to boost your Terraform expertise in this blog.&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">009d86d5f56c5c84299d35b176ec9316</guid>
+            <description>Learn what cool things Terraform can do with its built-in functionality</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/cover-image.png"</url>
+                </image>&lt;p&gt;Terraform built-in functionality is very feature-rich: functions, expressions,  and meta-arguments provide many ways to shape the code and fit it to a particular use case. I want to share a few valuable practices to boost your Terraform expertise in this blog.&lt;/p&gt;
 &lt;div class=&#34;attention&#34;&gt;
     Some code examples in this article will work with Terraform version 0.15 and onwards. But if you&amp;rsquo;re still using 0.14 or lower, here&amp;rsquo;s another motivation for you to upgrade.
 &lt;/div&gt;
@@ -217,16 +223,20 @@ bash /opt/system-init/register-monitoring.sh
 &lt;p&gt;✅ And when you need to pass some files to the managed service, you can treat them as &lt;a href=&#34;https://www.terraform.io/language/functions/templatefile&#34;&gt;templates&lt;/a&gt; and make them multipurpose.&lt;/p&gt;
 &lt;p&gt;Thank you for reading down to this point! 🤗&lt;/p&gt;
 &lt;p&gt;If you have some favorite Terraform tricks — I would love to know!&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Guide to Using Terraform in CI/CD</title>
             <link>https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/</link>
             <pubDate>Wed, 24 Nov 2021 22:20:45 +0200</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/</guid>
-            <description>&lt;p&gt;Terraform by itself automates a lot of things: it creates, changes, and versions your cloud resources. Although many teams run Terraform locally (sometimes with wrapper scripts), running Terraform in CI/CD can boost the organization&amp;rsquo;s performance and ensure consistent deployments.&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">e85bdae73a7056172fc1bab1cabfdbbe</guid>
+            <description>How to configure, how to run, and what to mind for when using Terraform in CI/CD</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/cover-image.png"</url>
+                </image>&lt;p&gt;Terraform by itself automates a lot of things: it creates, changes, and versions your cloud resources. Although many teams run Terraform locally (sometimes with wrapper scripts), running Terraform in CI/CD can boost the organization&amp;rsquo;s performance and ensure consistent deployments.&lt;/p&gt;
 &lt;p&gt;In this article, I would like to review different approaches to integrating Terraform into generic deployment pipelines.&lt;/p&gt;
 &lt;h1 id=&#34;where-to-store-the-terraform-code&#34;&gt;Where to store the Terraform code&lt;/h1&gt;
 &lt;p&gt;Storing Terraform code in the same repository as the application code or maintaining a separate repository for the infrastructure?&lt;/p&gt;
@@ -370,16 +380,20 @@ terraform apply ...
 &lt;li&gt;Leveraging of built-in Terraform capabilities&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h5 id=&#34;i-originally-wrote-this-article-for-the-spaceliftio-technical-blog-but-i-decided-to-keep-it-here-as-well-for-the-history-the-canonical-link-to-their-blog-has-been-set-accordingly&#34;&gt;I originally wrote this article for the Spacelift.io technical blog. But I decided to keep it here as well, for the history. The canonical link to their blog has been set accordingly.&lt;/h5&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Apply Cloudfront Security Headers With Terraform</title>
             <link>https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/</link>
             <pubDate>Fri, 05 Nov 2021 14:20:58 +0200</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/</guid>
-            <description>&lt;p&gt;In November 2021, AWS announced Response Headers Policies — native support of response headers in CloudFront. You can read the full announcement here: &lt;a href=&#34;https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-response-headers-policies/&#34;&gt;Amazon CloudFront introduces Response Headers Policies&lt;/a&gt;&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">f515b1f59c0c5a95c4b9a1a06c7d17b0</guid>
+            <description>This blog explains how to use Response Headers Policy and Terraform to configure security headers for CloudFront Distribution</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/cover-image.png"</url>
+                </image>&lt;p&gt;In November 2021, AWS announced Response Headers Policies — native support of response headers in CloudFront. You can read the full announcement here: &lt;a href=&#34;https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-response-headers-policies/&#34;&gt;Amazon CloudFront introduces Response Headers Policies&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;I said &amp;ldquo;native&amp;rdquo; because previously you could set response headers either using &lt;a href=&#34;https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html&#34;&gt;CloudFront Functions&lt;/a&gt; or &lt;a href=&#34;https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/&#34;&gt;Lambda@Edge&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;And one of the common use cases for that was to set security headers. Now you don&amp;rsquo;t need to add intermediate requests processing to modify the headers: CloudFront does that for you &lt;strong&gt;with no additional fee&lt;/strong&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;manage-security-headers-as-code&#34;&gt;Manage Security Headers as Code&lt;/h2&gt;
@@ -461,16 +475,20 @@ terraform apply ...
 &lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-managed-response-headers-policies.html&#34;&gt;Using the managed response headers policies - Amazon CloudFront&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/understanding-response-headers-policies.html&#34;&gt;Understanding response headers policies - Amazon CloudFront&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Terraforming mac1.metal at AWS</title>
             <link>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</link>
             <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</guid>
-            <description>&lt;div class=&#34;updatenotice&#34;&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">b59ec6d3701cd18d92607e4c6a6503dd</guid>
+            <description>How to manage mac1.metal EC2 instances with Terraform</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html2021-01-20-terraforming-mac1-metal-at-AWS.jpg"</url>
+                </image>&lt;div class=&#34;updatenotice&#34;&gt;
     Updated on the 23rd of October, 2021: Terraform AWS provider now &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_host&#34;&gt;supports&lt;/a&gt; Dedicated Hosts natively
 &lt;/div&gt;
 &lt;p&gt;In November 2021, AWS &lt;a href=&#34;https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/&#34;&gt;announced&lt;/a&gt; the support for Mac mini instances.&lt;/p&gt;
@@ -508,16 +526,20 @@ terraform apply ...
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Simple as that, yes. Now, you can integrate it into your CI system and have the Mac instance with the underlying host in a bundle.&lt;/p&gt;
 &lt;p&gt;💡 Pro tip: you can leverage the &lt;code&gt;aws_ec2_instance_type_offerings&lt;/code&gt; &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings&#34;&gt;Data Source&lt;/a&gt; and use its output with &lt;code&gt;aws_subnet&lt;/code&gt; source to avoid availability zone hardcoding.&lt;/p&gt;
 &lt;p&gt;To make the code more uniform and reusable, you can wrap it into a &lt;a href=&#34;https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html&#34;&gt;Terraform module&lt;/a&gt; that accepts specific parameters (such as &lt;code&gt;instance_type&lt;/code&gt; or &lt;code&gt;availability_zone&lt;/code&gt;) as input variables.&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Terraform Workflow — Working Individually and in a Team</title>
             <link>https://serhii.vasylenko.info/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html</link>
             <pubDate>Wed, 16 Sep 2020 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html</guid>
-            <description>&lt;p&gt;The work with Terraform code may become tangled sometimes. Here are some guides on how to streamline it and make it transparent for you and your team.&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">5ecaef6db275b898f1823d89b89b3bef</guid>
+            <description>An overview of best practices for working with Terraform individually or in a team</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2020/09/16/terraform-workflow-working-individually-and-in-a-team.htmltf-workflows.jpeg"</url>
+                </image>&lt;p&gt;The work with Terraform code may become tangled sometimes. Here are some guides on how to streamline it and make it transparent for you and your team.&lt;/p&gt;
 &lt;p&gt;It is extremely helpful in a team, and can benefit you even if you work individually. A good workflow enables you to streamline a process, organize it, and make it less error-prone.&lt;/p&gt;
 &lt;p&gt;This article summaries several approaches when working with Terraform, both individually and in a team. I tried to gather the most common ones, but you might also want to develop your own.&lt;/p&gt;
 &lt;p&gt;The common requirement for all of them is a version control system (such as Git). This is how you ensure nothing is lost and all your code changes are properly versioned tracked.&lt;/p&gt;
@@ -628,16 +650,20 @@ terraform apply ...
 &lt;p&gt;Thank you for reading. I hope you will try one of these workflows, or develop your own!‌‌&lt;/p&gt;
 &lt;hr&gt;
 &lt;h6 id=&#34;this-article-was-originaly-published-on-freecodecamp-paltform-by-me-but-i-still-want-to-keep-it-here-for-the-record-canonical-link-to-original-publication-was-properly-set-in-the-page-headers&#34;&gt;This article was originaly published on FreeCodeCamp paltform by me, but I still want to keep it here for the record. Canonical link to original publication was properly set in the page headers.&lt;/h6&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Terraform Certification Tips</title>
             <link>https://serhii.vasylenko.info/2020/09/15/terraform-certification-tips.html</link>
             <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2020/09/15/terraform-certification-tips.html</guid>
-            <description>&lt;p&gt;I successfully passed the &amp;ldquo;HashiCorp Certified — Terraform Associate&amp;rdquo; exam last Friday and decided to share some advice for exam preparation.&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">e31208d7d4c65613474da2bcbaef6ddb</guid>
+            <description>Summary of a learning path to HashiCorp Certified — Terraform Associate</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2020/09/15/terraform-certification-tips.htmlterraform-associate.png"</url>
+                </image>&lt;p&gt;I successfully passed the &amp;ldquo;HashiCorp Certified — Terraform Associate&amp;rdquo; exam last Friday and decided to share some advice for exam preparation.&lt;/p&gt;
 &lt;h2 id=&#34;make-yourself-a-plan&#34;&gt;Make yourself a plan&lt;/h2&gt;
 &lt;p&gt;Make a list of things you are going to go through: links to the study materials, practice tasks, some labs, some articles on relative blogs (Medium, Dev.to, etc.).
 It should look at a &amp;ldquo;todo&amp;rdquo; or &amp;ldquo;check&amp;rdquo;-list. It may seem silly at first glance, but the list with checkboxes does its &amp;ldquo;cognitive magic&amp;rdquo;. When you go point by point, marking items as &amp;ldquo;done&amp;rdquo;, you feel the progress and this motivates you to keep going further.
@@ -680,16 +706,20 @@ For example, you can make a plan from the resources I outlined below in this art
 &lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;tf-forum.jpg&#34; alt=&#34;&#34;  /&gt;
 &lt;/p&gt;
 &lt;h4 id=&#34;-i-sincerely-wish-you-exciting-preparation-and-a-successful-exam-&#34;&gt;🍀 I sincerely wish you exciting preparation and a successful exam! 🍀&lt;/h4&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>What are Terraform Modules and how do they work?</title>
             <link>https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html</link>
             <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html</guid>
-            <description>&lt;p&gt;Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds of lines of configuration code.&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">701d1f90a61dcbb6b1edac29a46381f8</guid>
+            <description>Explanation of Terraform modules and their main concepts in English.</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.htmlterraform-modules.jpeg"</url>
+                </image>&lt;p&gt;Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds of lines of configuration code.&lt;/p&gt;
 &lt;p&gt;I assume you already know some basics about Terraform or even tried to use it in some way before reading the article.&lt;/p&gt;
 &lt;p&gt;Please note: I do not use real code examples with some specific provider like AWS or Google intentionally, just for the sake of simplicity.&lt;/p&gt;
 &lt;h2 id=&#34;terraform-modules&#34;&gt;Terraform modules&lt;/h2&gt;
@@ -803,16 +833,20 @@ module &amp;quot;network&amp;quot; {
 &lt;p&gt;The modular code structure makes your configuration more flexible and yet easy to be understood by others. The latter is especially useful in teamwork.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h6 id=&#34;this-article-was-originaly-published-on-freecodecamp-paltform-by-me-but-i-still-want-to-keep-it-here-for-the-record-canonical-link-to-original-publication-was-properly-set-in-the-page-headers&#34;&gt;This article was originaly published on FreeCodeCamp paltform by me, but I still want to keep it here for the record. Canonical link to original publication was properly set in the page headers.&lt;/h6&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Terraform CLI shortcuts</title>
             <link>https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html</link>
             <pubDate>Tue, 25 Aug 2020 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html</guid>
-            <description>&lt;p&gt;Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">13f3aff0fd1d66455aacc876aca317a5</guid>
+            <description>A bunch of small tools I use to simplify Terraform workflow</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html2020-08-25-terraform-cli-shortcuts.jpg"</url>
+                </image>&lt;p&gt;Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
 Requirements &amp;mdash; bash-compatible interpreter, because aliases and functions described below will work with bash, zsh and ohmyzsh.&lt;/p&gt;
 &lt;p&gt;In order to use any of described aliases of functions, you need to place it in your &lt;code&gt;~/.bashrc&lt;/code&gt; or &lt;code&gt;~/.zshrc&lt;/code&gt; file (or any other configuration file you have for your shell).&lt;/p&gt;
 &lt;p&gt;Then just source this file, for example: &lt;code&gt;source ~/.zshrc&lt;/code&gt;&lt;/p&gt;
@@ -866,16 +900,20 @@ main.tf      outputs.tf   variables.tf versions.tf
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-terminal&#34; data-lang=&#34;terminal&#34;&gt;user@localhost $: tfm 
 module_ecs_cluster/ecs.tf
 module_alb/alb.tf
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</content>
         </item>
         
         <item>
             <title>Terraform explained in English</title>
             <link>https://serhii.vasylenko.info/2020/05/02/Terraform-explained-for-managers.html</link>
             <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2020/05/02/Terraform-explained-for-managers.html</guid>
-            <description>&lt;p&gt;You might have heard about Terraform before, but if you have never tried it, this blog can help you to get the main point.&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">8adc962bf9a5d4270dd8d68314326c77</guid>
+            <description>For those who want to understand the engineering team better and speak with it in the same language — terraform explained.</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2020/05/02/Terraform-explained-for-managers.htmlcover-image.png"</url>
+                </image>&lt;p&gt;You might have heard about Terraform before, but if you have never tried it, this blog can help you to get the main point.&lt;/p&gt;
 &lt;h2 id=&#34;a-few-words-about-infrastructure-as-code&#34;&gt;A few words about “Infrastructure as Code&amp;quot;&lt;/h2&gt;
 &lt;p&gt;First of all, Terraform is the way to manage the infrastructure in the form of code. The same way developers write the code to create applications, Terraform code can create the resources in virtual data centers (i.e., clouds).&lt;/p&gt;
 &lt;p&gt;Infrastructure as Code, or IaC, is when you describe and manage your infrastructure as… (guess what?) …code, literally.&lt;/p&gt;
@@ -983,7 +1021,7 @@ module_alb/alb.tf
 &lt;p&gt;Another thing worth your attention is &lt;a href=&#34;https://blog.gruntwork.io/a-comprehensive-guide-to-terraform-b3d32832baca&#34;&gt;A Comprehensive Guide to Terraform&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Once you finish this guide, I suggest jumping into the more real-world things and describing the infrastructure of the most common project you work with.&lt;/p&gt;
 &lt;p&gt;Your hands-on experience is the best way to learn Terraform!&lt;/p&gt;
-</description>
+</content>
         </item>
         
     </channel>

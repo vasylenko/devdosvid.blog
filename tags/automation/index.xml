@@ -6,14 +6,20 @@
         <description>Recent content in automation on Serhii Vasylenko</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
+        <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
+        <webMaster>email-from-blog@vasylenko.info (Serhii Vasylenko)</webMaster>
         <lastBuildDate>Wed, 24 Nov 2021 22:20:45 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/automation/index.xml" rel="self" type="application/rss+xml" />
         <item>
             <title>Guide to Using Terraform in CI/CD</title>
             <link>https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/</link>
             <pubDate>Wed, 24 Nov 2021 22:20:45 +0200</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/</guid>
-            <description>&lt;p&gt;Terraform by itself automates a lot of things: it creates, changes, and versions your cloud resources. Although many teams run Terraform locally (sometimes with wrapper scripts), running Terraform in CI/CD can boost the organization&amp;rsquo;s performance and ensure consistent deployments.&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">e85bdae73a7056172fc1bab1cabfdbbe</guid>
+            <description>How to configure, how to run, and what to mind for when using Terraform in CI/CD</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/cover-image.png"</url>
+                </image>&lt;p&gt;Terraform by itself automates a lot of things: it creates, changes, and versions your cloud resources. Although many teams run Terraform locally (sometimes with wrapper scripts), running Terraform in CI/CD can boost the organization&amp;rsquo;s performance and ensure consistent deployments.&lt;/p&gt;
 &lt;p&gt;In this article, I would like to review different approaches to integrating Terraform into generic deployment pipelines.&lt;/p&gt;
 &lt;h1 id=&#34;where-to-store-the-terraform-code&#34;&gt;Where to store the Terraform code&lt;/h1&gt;
 &lt;p&gt;Storing Terraform code in the same repository as the application code or maintaining a separate repository for the infrastructure?&lt;/p&gt;
@@ -157,16 +163,20 @@ terraform apply ...
 &lt;li&gt;Leveraging of built-in Terraform capabilities&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h5 id=&#34;i-originally-wrote-this-article-for-the-spaceliftio-technical-blog-but-i-decided-to-keep-it-here-as-well-for-the-history-the-canonical-link-to-their-blog-has-been-set-accordingly&#34;&gt;I originally wrote this article for the Spacelift.io technical blog. But I decided to keep it here as well, for the history. The canonical link to their blog has been set accordingly.&lt;/h5&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Terraforming mac1.metal at AWS</title>
             <link>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</link>
             <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</guid>
-            <description>&lt;div class=&#34;updatenotice&#34;&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">b59ec6d3701cd18d92607e4c6a6503dd</guid>
+            <description>How to manage mac1.metal EC2 instances with Terraform</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html2021-01-20-terraforming-mac1-metal-at-AWS.jpg"</url>
+                </image>&lt;div class=&#34;updatenotice&#34;&gt;
     Updated on the 23rd of October, 2021: Terraform AWS provider now &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_host&#34;&gt;supports&lt;/a&gt; Dedicated Hosts natively
 &lt;/div&gt;
 &lt;p&gt;In November 2021, AWS &lt;a href=&#34;https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/&#34;&gt;announced&lt;/a&gt; the support for Mac mini instances.&lt;/p&gt;
@@ -204,16 +214,20 @@ terraform apply ...
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Simple as that, yes. Now, you can integrate it into your CI system and have the Mac instance with the underlying host in a bundle.&lt;/p&gt;
 &lt;p&gt;💡 Pro tip: you can leverage the &lt;code&gt;aws_ec2_instance_type_offerings&lt;/code&gt; &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings&#34;&gt;Data Source&lt;/a&gt; and use its output with &lt;code&gt;aws_subnet&lt;/code&gt; source to avoid availability zone hardcoding.&lt;/p&gt;
 &lt;p&gt;To make the code more uniform and reusable, you can wrap it into a &lt;a href=&#34;https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html&#34;&gt;Terraform module&lt;/a&gt; that accepts specific parameters (such as &lt;code&gt;instance_type&lt;/code&gt; or &lt;code&gt;availability_zone&lt;/code&gt;) as input variables.&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Terraform CLI shortcuts</title>
             <link>https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html</link>
             <pubDate>Tue, 25 Aug 2020 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html</guid>
-            <description>&lt;p&gt;Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">13f3aff0fd1d66455aacc876aca317a5</guid>
+            <description>A bunch of small tools I use to simplify Terraform workflow</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html2020-08-25-terraform-cli-shortcuts.jpg"</url>
+                </image>&lt;p&gt;Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
 Requirements &amp;mdash; bash-compatible interpreter, because aliases and functions described below will work with bash, zsh and ohmyzsh.&lt;/p&gt;
 &lt;p&gt;In order to use any of described aliases of functions, you need to place it in your &lt;code&gt;~/.bashrc&lt;/code&gt; or &lt;code&gt;~/.zshrc&lt;/code&gt; file (or any other configuration file you have for your shell).&lt;/p&gt;
 &lt;p&gt;Then just source this file, for example: &lt;code&gt;source ~/.zshrc&lt;/code&gt;&lt;/p&gt;
@@ -267,16 +281,20 @@ main.tf      outputs.tf   variables.tf versions.tf
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-terminal&#34; data-lang=&#34;terminal&#34;&gt;user@localhost $: tfm 
 module_ecs_cluster/ecs.tf
 module_alb/alb.tf
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</content>
         </item>
         
         <item>
             <title>Github Actions - First impression</title>
             <link>https://serhii.vasylenko.info/2020/03/18/github-actions-first-impression.html</link>
             <pubDate>Wed, 18 Mar 2020 00:30:20 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2020/03/18/github-actions-first-impression.html</guid>
-            <description>&lt;p&gt;Although Github Actions service is generally available since November 13, 2020, and there are about 243,000,000 results for &amp;ldquo;github actions&amp;rdquo; in Google search already, I have just reached it&amp;hellip;&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">f07e8978b0a71f137e4d8f08efb6ff42</guid>
+            <description>My first meet with github actions... in action.</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2020/03/18/github-actions-first-impression.htmlcover.png"</url>
+                </image>&lt;p&gt;Although Github Actions service is generally available since November 13, 2020, and there are about 243,000,000 results for &amp;ldquo;github actions&amp;rdquo; in Google search already, I have just reached it&amp;hellip;&lt;/p&gt;
 &lt;p&gt;It&amp;rsquo;s half past midnight, it took me about 35 commits to make my first github automation work, but it finally works and this blog post was built and published automatically!&lt;/p&gt;
 &lt;h3 id=&#34;actions-everywhere&#34;&gt;Actions everywhere&lt;/h3&gt;
 &lt;p&gt;One of the most (or maybe the most one) powerful things in Actions is &amp;hellip; Actions! Github made a simple but genius thing: they turned well-known snippets (we do with pipelines) into the marketplace of well-made (sometimes not) simple and complex applications you can use in your automation workflow. &lt;a href=&#34;https://github.com/marketplace?type=actions&#34;&gt;https://github.com/marketplace?type=actions&lt;/a&gt;&lt;/p&gt;
@@ -349,7 +367,7 @@ module_alb/alb.tf
 &lt;li&gt;you can pass artifacts between jobs inside a workflow with ease - Github provides simple actions for this, so you don&amp;rsquo;t need to dance around temporary directories or files;&lt;/li&gt;
 &lt;li&gt;and much more&lt;/li&gt;
 &lt;/ul&gt;
-</description>
+</content>
         </item>
         
     </channel>

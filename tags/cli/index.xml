@@ -6,14 +6,20 @@
         <description>Recent content in cli on Serhii Vasylenko</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
+        <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
+        <webMaster>email-from-blog@vasylenko.info (Serhii Vasylenko)</webMaster>
         <lastBuildDate>Wed, 24 Nov 2021 22:20:45 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/cli/index.xml" rel="self" type="application/rss+xml" />
         <item>
             <title>Guide to Using Terraform in CI/CD</title>
             <link>https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/</link>
             <pubDate>Wed, 24 Nov 2021 22:20:45 +0200</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/</guid>
-            <description>&lt;p&gt;Terraform by itself automates a lot of things: it creates, changes, and versions your cloud resources. Although many teams run Terraform locally (sometimes with wrapper scripts), running Terraform in CI/CD can boost the organization&amp;rsquo;s performance and ensure consistent deployments.&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">e85bdae73a7056172fc1bab1cabfdbbe</guid>
+            <description>How to configure, how to run, and what to mind for when using Terraform in CI/CD</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/cover-image.png"</url>
+                </image>&lt;p&gt;Terraform by itself automates a lot of things: it creates, changes, and versions your cloud resources. Although many teams run Terraform locally (sometimes with wrapper scripts), running Terraform in CI/CD can boost the organization&amp;rsquo;s performance and ensure consistent deployments.&lt;/p&gt;
 &lt;p&gt;In this article, I would like to review different approaches to integrating Terraform into generic deployment pipelines.&lt;/p&gt;
 &lt;h1 id=&#34;where-to-store-the-terraform-code&#34;&gt;Where to store the Terraform code&lt;/h1&gt;
 &lt;p&gt;Storing Terraform code in the same repository as the application code or maintaining a separate repository for the infrastructure?&lt;/p&gt;
@@ -157,16 +163,20 @@ terraform apply ...
 &lt;li&gt;Leveraging of built-in Terraform capabilities&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h5 id=&#34;i-originally-wrote-this-article-for-the-spaceliftio-technical-blog-but-i-decided-to-keep-it-here-as-well-for-the-history-the-canonical-link-to-their-blog-has-been-set-accordingly&#34;&gt;I originally wrote this article for the Spacelift.io technical blog. But I decided to keep it here as well, for the history. The canonical link to their blog has been set accordingly.&lt;/h5&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>AWS CloudShell</title>
             <link>https://serhii.vasylenko.info/2020/12/16/aws-cloudshell.html</link>
             <pubDate>Wed, 16 Dec 2020 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2020/12/16/aws-cloudshell.html</guid>
-            <description>&lt;p&gt;A simple but cool announcement from AWS — &lt;a href=&#34;https://aws.amazon.com/cloudshell/&#34;&gt;AWS CloudShell&lt;/a&gt;.
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">afadfb0a0acf3169a27eb22d7a65cac3</guid>
+            <description>Native and official way to run AWS CLI in a browser</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2020/12/16/aws-cloudshell.html2020-12-16-aws-cloudshell.png"</url>
+                </image>&lt;p&gt;A simple but cool announcement from AWS — &lt;a href=&#34;https://aws.amazon.com/cloudshell/&#34;&gt;AWS CloudShell&lt;/a&gt;.
 A tool for ad-hoc AWS management via CLI directly in your browser.&lt;/p&gt;
 &lt;p&gt;I like when AWS releases something simple to understand and yet powerful.&lt;br&gt;
 So it is not another &lt;a href=&#34;https://aws.amazon.com/devops-guru/&#34;&gt;DevOps Guru&lt;/a&gt;, believe me :)&lt;/p&gt;
@@ -182,16 +192,20 @@ So it is not another &lt;a href=&#34;https://aws.amazon.com/devops-guru/&#34;&gt
 &lt;h5 id=&#34;more-yes-and-nos-here&#34;&gt;More Yes and No’s here:&lt;/h5&gt;
 &lt;p&gt;&lt;a href=&#34;https://docs.aws.amazon.com/cloudshell/latest/userguide/faq-list.html&#34;&gt;https://docs.aws.amazon.com/cloudshell/latest/userguide/faq-list.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://aws.amazon.com/cloudshell/faqs/&#34;&gt;https://aws.amazon.com/cloudshell/faqs/&lt;/a&gt;&lt;/p&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Terraform CLI shortcuts</title>
             <link>https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html</link>
             <pubDate>Tue, 25 Aug 2020 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html</guid>
-            <description>&lt;p&gt;Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">13f3aff0fd1d66455aacc876aca317a5</guid>
+            <description>A bunch of small tools I use to simplify Terraform workflow</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html2020-08-25-terraform-cli-shortcuts.jpg"</url>
+                </image>&lt;p&gt;Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
 Requirements &amp;mdash; bash-compatible interpreter, because aliases and functions described below will work with bash, zsh and ohmyzsh.&lt;/p&gt;
 &lt;p&gt;In order to use any of described aliases of functions, you need to place it in your &lt;code&gt;~/.bashrc&lt;/code&gt; or &lt;code&gt;~/.zshrc&lt;/code&gt; file (or any other configuration file you have for your shell).&lt;/p&gt;
 &lt;p&gt;Then just source this file, for example: &lt;code&gt;source ~/.zshrc&lt;/code&gt;&lt;/p&gt;
@@ -245,7 +259,7 @@ main.tf      outputs.tf   variables.tf versions.tf
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-terminal&#34; data-lang=&#34;terminal&#34;&gt;user@localhost $: tfm 
 module_ecs_cluster/ecs.tf
 module_alb/alb.tf
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</content>
         </item>
         
     </channel>

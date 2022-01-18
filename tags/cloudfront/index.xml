@@ -6,14 +6,20 @@
         <description>Recent content in cloudfront on Serhii Vasylenko</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
+        <managingEditor>email-from-blog@vasylenko.info (Serhii Vasylenko)</managingEditor>
+        <webMaster>email-from-blog@vasylenko.info (Serhii Vasylenko)</webMaster>
         <lastBuildDate>Fri, 05 Nov 2021 14:20:58 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/tags/cloudfront/index.xml" rel="self" type="application/rss+xml" />
         <item>
             <title>Apply Cloudfront Security Headers With Terraform</title>
             <link>https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/</link>
             <pubDate>Fri, 05 Nov 2021 14:20:58 +0200</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/</guid>
-            <description>&lt;p&gt;In November 2021, AWS announced Response Headers Policies — native support of response headers in CloudFront. You can read the full announcement here: &lt;a href=&#34;https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-response-headers-policies/&#34;&gt;Amazon CloudFront introduces Response Headers Policies&lt;/a&gt;&lt;/p&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">f515b1f59c0c5a95c4b9a1a06c7d17b0</guid>
+            <description>This blog explains how to use Response Headers Policy and Terraform to configure security headers for CloudFront Distribution</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/cover-image.png"</url>
+                </image>&lt;p&gt;In November 2021, AWS announced Response Headers Policies — native support of response headers in CloudFront. You can read the full announcement here: &lt;a href=&#34;https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-response-headers-policies/&#34;&gt;Amazon CloudFront introduces Response Headers Policies&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;I said &amp;ldquo;native&amp;rdquo; because previously you could set response headers either using &lt;a href=&#34;https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html&#34;&gt;CloudFront Functions&lt;/a&gt; or &lt;a href=&#34;https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/&#34;&gt;Lambda@Edge&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;And one of the common use cases for that was to set security headers. Now you don&amp;rsquo;t need to add intermediate requests processing to modify the headers: CloudFront does that for you &lt;strong&gt;with no additional fee&lt;/strong&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;manage-security-headers-as-code&#34;&gt;Manage Security Headers as Code&lt;/h2&gt;
@@ -95,16 +101,20 @@
 &lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-managed-response-headers-policies.html&#34;&gt;Using the managed response headers policies - Amazon CloudFront&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/understanding-response-headers-policies.html&#34;&gt;Understanding response headers policies - Amazon CloudFront&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description>
+</content>
         </item>
         
         <item>
             <title>Configure HTTP Security headers with CloudFront Functions</title>
             <link>https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html</link>
             <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
-            
-            <guid>https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html</guid>
-            <description>&lt;div class=&#34;updatenotice&#34;&gt;
+            <author>email-from-blog@vasylenko.info (Serhii Vasylenko)</author>
+            <guid isPermaLink="false">aba2bd003c4b5c838f4a7bd678ac6648</guid>
+            <description>Modifying response headers to enforce the security of the web application</description>
+            <content>
+                <image>
+                    <url>"https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.htmlcover_image.png"</url>
+                </image>&lt;div class=&#34;updatenotice&#34;&gt;
     &lt;p&gt;In November 2021, AWS has added this functionality as a native CloudFront feature.&lt;/p&gt;
 &lt;p&gt;I suggest switching to the native implementation. I have described how to configure Security Response Headers for CloudFront in the following article:&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/&#34;&gt;Apply Cloudfront Security Headers With Terraform&lt;/a&gt;&lt;/p&gt;
@@ -224,7 +234,7 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw==
 &lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions.html&#34;&gt;Choosing between CloudFront Functions and Lambda@Edge&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-how-to-choose-event.html&#34;&gt;How to Decide Which CloudFront Event to Use to Trigger a Lambda Function&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description>
+</content>
         </item>
         
     </channel>
