@@ -152,3 +152,7 @@
         cursor: default;
     }
 }
+
+[title^='RSS Feed'] {
+    font-weight: bold;
+}
