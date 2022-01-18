@@ -14,7 +14,7 @@ minify:
 
 ### SEO
 enableRobotsTXT: true
-title: Serhii Vasylenko
+title: Serhii Vasylenko — Technical Blog
 
 ### NAVIGATION
 permalinks:
@@ -57,8 +57,8 @@ taxonomies:
 outputs:
     home:
         - HTML
-        - RSS
         - JSON # is necessary
+        - RSS
 
 rssLimit: 20
 
