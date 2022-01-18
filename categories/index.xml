@@ -1,55 +1,47 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>Categories on Serhii Vasylenko</title>
-    <link>https://serhii.vasylenko.info/categories/</link>
-    <description>Recent content in Categories on Serhii Vasylenko</description>
-    <image>
-      <url>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</url>
-      <link>https://serhii.vasylenko.info/assets/img/website-logo-open-graph.jpeg</link>
-    </image>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 16 Jan 2022 01:59:51 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Terraform</title>
-      <link>https://serhii.vasylenko.info/categories/terraform/</link>
-      <pubDate>Sun, 16 Jan 2022 01:59:51 +0200</pubDate>
-      
-      <guid>https://serhii.vasylenko.info/categories/terraform/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>Amazon Web Services</title>
-      <link>https://serhii.vasylenko.info/categories/amazon-web-services/</link>
-      <pubDate>Fri, 05 Nov 2021 14:20:58 +0200</pubDate>
-      
-      <guid>https://serhii.vasylenko.info/categories/amazon-web-services/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>Ansible</title>
-      <link>https://serhii.vasylenko.info/categories/ansible/</link>
-      <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://serhii.vasylenko.info/categories/ansible/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>DIY</title>
-      <link>https://serhii.vasylenko.info/categories/diy/</link>
-      <pubDate>Sun, 14 Feb 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://serhii.vasylenko.info/categories/diy/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-  </channel>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Categories on Serhii Vasylenko</title>
+        <link>https://serhii.vasylenko.info/categories/</link>
+        <description>Recent content in Categories on Serhii Vasylenko</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Sun, 16 Jan 2022 01:59:51 +0200</lastBuildDate><atom:link href="https://serhii.vasylenko.info/categories/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+            <title>Terraform</title>
+            <link>https://serhii.vasylenko.info/categories/terraform/</link>
+            <pubDate>Sun, 16 Jan 2022 01:59:51 +0200</pubDate>
+            
+            <guid>https://serhii.vasylenko.info/categories/terraform/</guid>
+            <description></description>
+        </item>
+        
+        <item>
+            <title>Amazon Web Services</title>
+            <link>https://serhii.vasylenko.info/categories/amazon-web-services/</link>
+            <pubDate>Fri, 05 Nov 2021 14:20:58 +0200</pubDate>
+            
+            <guid>https://serhii.vasylenko.info/categories/amazon-web-services/</guid>
+            <description></description>
+        </item>
+        
+        <item>
+            <title>Ansible</title>
+            <link>https://serhii.vasylenko.info/categories/ansible/</link>
+            <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
+            
+            <guid>https://serhii.vasylenko.info/categories/ansible/</guid>
+            <description></description>
+        </item>
+        
+        <item>
+            <title>DIY</title>
+            <link>https://serhii.vasylenko.info/categories/diy/</link>
+            <pubDate>Sun, 14 Feb 2021 00:00:00 +0000</pubDate>
+            
+            <guid>https://serhii.vasylenko.info/categories/diy/</guid>
+            <description></description>
+        </item>
+        
+    </channel>
 </rss>
