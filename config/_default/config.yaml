@@ -2,6 +2,7 @@
 languageCode: en-us
 author:
     name: Serhii Vasylenko
+    email: email-from-blog@vasylenko.info
 
 theme: "PaperMod"
 paginate: 5
@@ -27,7 +28,7 @@ menu:
           weight: 22
         - identifier: category
           name: "RSS Feed 📰"
-          url: https://serhii.vasylenko.info/index.xml
+          url: /index.xml
           weight: 1
         - identifier: search
           name: "Search"
