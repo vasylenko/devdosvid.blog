@@ -8,6 +8,7 @@ tags: ["aws", "ansible", "packer", "macos", "ec2"]
 categories: [Amazon Web Services, Ansible]
 title: Customizing mac1.metal EC2 AMI — new guts, more glory
 url: /2021/02/01/customizing-mac1-metal-ec2-ami.html
+series: "mac1.metal at AWS"
 ---
 
 I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?

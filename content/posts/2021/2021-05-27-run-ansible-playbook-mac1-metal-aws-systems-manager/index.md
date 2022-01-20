@@ -9,6 +9,7 @@ tags: [aws, ansible]
 categories: [Amazon Web Services, Ansible]
 title: Run Ansible playbook on mac1.metal instances fleet with AWS Systems Manager
 url: /2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html
+series: "mac1.metal at AWS"
 ---
 
 In days of containers and serverless applications, Ansible looks not such a trendy thing.

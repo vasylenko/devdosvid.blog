@@ -8,6 +8,7 @@ cover:
 tags: ["aws", "macos", "ec2"]
 categories: [Amazon Web Services]
 url: /2021/01/19/mac1-metal-EC2-Instance-user-experience.html
+series: "mac1.metal at AWS"
 ---
 
 ## Amazon EC2 Mac Instances

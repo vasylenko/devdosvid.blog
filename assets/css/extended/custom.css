@@ -28,7 +28,6 @@
     border-radius: var(--radius);
     position: relative;
     border-left-color: #31abff;
-    content: "foobar";
     background-color: rgba(49, 171, 255, 0.1);
     font-style: italic;
 }
@@ -53,7 +52,6 @@
     border-left-style: solid;
     position: relative;
     border-left-color: #3C8700;
-    content: "foobar";
     background-color: rgba(60,135,0,0.075);
 }
 
@@ -82,7 +80,7 @@
 }
 
 .write_me_on_twitter {
-    margin-bottom: 2em;
+    margin-bottom: 1em;
 }
 
 .write_me_on_twitter a {
@@ -155,4 +153,25 @@
 
 [title^='RSS Feed'] {
     font-weight: bold;
+}
+
+.post-series {
+    border-top:1px solid black;
+    padding-top: 1em;
+    /* font-family: 'Roboto Mono'; */
+    /* font-size: 14px; */
+    font-style: italic;
+    position: relative;
+    margin-bottom: 2em;
+
+}
+
+.post-series ul {
+    padding-left: 1em;
+    list-style: none;
+    list-style-type: none;
+}
+
+.post-series a {
+    text-decoration: underline;
 }
