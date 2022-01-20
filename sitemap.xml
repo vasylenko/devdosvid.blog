@@ -2,74 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://serhii.vasylenko.info/categories/</loc>
-    <lastmod>2022-01-16T01:59:51+02:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/experience/</loc>
-    <lastmod>2022-01-16T01:59:51+02:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/guide/</loc>
-    <lastmod>2022-01-16T01:59:51+02:00</lastmod>
-  </url><url>
     <loc>https://serhii.vasylenko.info/posts/</loc>
     <lastmod>2022-01-16T01:59:51+02:00</lastmod>
   </url><url>
     <loc>https://serhii.vasylenko.info/</loc>
     <lastmod>2022-01-16T01:59:51+02:00</lastmod>
   </url><url>
+    <loc>https://serhii.vasylenko.info/series/</loc>
+    <lastmod>2022-01-16T01:59:51+02:00</lastmod>
+  </url><url>
     <loc>https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</loc>
     <lastmod>2022-01-16T01:59:51+02:00</lastmod>
   </url><url>
-    <loc>https://serhii.vasylenko.info/tags/</loc>
+    <loc>https://serhii.vasylenko.info/series/terraform-proficiency/</loc>
     <lastmod>2022-01-16T01:59:51+02:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/categories/terraform/</loc>
-    <lastmod>2022-01-16T01:59:51+02:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/terraform/</loc>
-    <lastmod>2022-01-16T01:59:51+02:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/automation/</loc>
-    <lastmod>2021-11-24T22:20:45+02:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/cli/</loc>
-    <lastmod>2021-11-24T22:20:45+02:00</lastmod>
   </url><url>
     <loc>https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/</loc>
     <lastmod>2021-11-24T22:20:45+02:00</lastmod>
   </url><url>
-    <loc>https://serhii.vasylenko.info/categories/amazon-web-services/</loc>
-    <lastmod>2021-11-05T14:20:58+02:00</lastmod>
-  </url><url>
     <loc>https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/</loc>
     <lastmod>2021-11-05T14:20:58+02:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/aws/</loc>
-    <lastmod>2021-11-05T14:20:58+02:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/cloudfront/</loc>
-    <lastmod>2021-11-05T14:20:58+02:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/security/</loc>
-    <lastmod>2021-11-05T14:20:58+02:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/architecture/</loc>
-    <lastmod>2021-10-24T02:00:31+03:00</lastmod>
   </url><url>
     <loc>https://serhii.vasylenko.info/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/</loc>
     <lastmod>2021-10-24T02:00:31+03:00</lastmod>
   </url><url>
+    <loc>https://serhii.vasylenko.info/series/mac1.metal-at-aws/</loc>
+    <lastmod>2021-10-24T02:00:31+03:00</lastmod>
+  </url><url>
     <loc>https://serhii.vasylenko.info/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</loc>
     <lastmod>2021-09-25T00:54:23+03:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/governance/</loc>
-    <lastmod>2021-09-25T00:54:23+03:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/categories/ansible/</loc>
-    <lastmod>2021-05-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/ansible/</loc>
-    <lastmod>2021-05-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-mac1-metal-aws-systems-manager.html</loc>
     <lastmod>2021-05-27T00:00:00+00:00</lastmod>
@@ -77,25 +38,10 @@
     <loc>https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html</loc>
     <lastmod>2021-05-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://serhii.vasylenko.info/categories/diy/</loc>
-    <lastmod>2021-02-14T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/fun/</loc>
-    <lastmod>2021-02-14T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/macos/</loc>
-    <lastmod>2021-02-14T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://serhii.vasylenko.info/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html</loc>
     <lastmod>2021-02-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html</loc>
-    <lastmod>2021-02-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/ec2/</loc>
-    <lastmod>2021-02-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/packer/</loc>
     <lastmod>2021-02-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</loc>
@@ -110,9 +56,6 @@
     <loc>https://serhii.vasylenko.info/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html</loc>
     <lastmod>2020-09-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://serhii.vasylenko.info/tags/tutorials/</loc>
-    <lastmod>2020-09-16T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://serhii.vasylenko.info/2020/09/15/terraform-certification-tips.html</loc>
     <lastmod>2020-09-15T00:00:00+00:00</lastmod>
   </url><url>
@@ -122,28 +65,16 @@
     <loc>https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html</loc>
     <lastmod>2020-08-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://serhii.vasylenko.info/tags/devops/</loc>
-    <lastmod>2020-08-06T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html</loc>
-    <lastmod>2020-08-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/ssm/</loc>
     <lastmod>2020-08-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://serhii.vasylenko.info/2020/05/02/Terraform-explained-for-managers.html</loc>
     <lastmod>2020-05-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://serhii.vasylenko.info/tags/github/</loc>
-    <lastmod>2020-03-18T00:30:20+00:00</lastmod>
-  </url><url>
     <loc>https://serhii.vasylenko.info/2020/03/18/github-actions-first-impression.html</loc>
     <lastmod>2020-03-18T00:30:20+00:00</lastmod>
   </url><url>
     <loc>https://serhii.vasylenko.info/2020/03/15/aws-solutions-architect-associate-exam-tips.html</loc>
-    <lastmod>2020-03-15T20:16:20+00:00</lastmod>
-  </url><url>
-    <loc>https://serhii.vasylenko.info/tags/certification/</loc>
     <lastmod>2020-03-15T20:16:20+00:00</lastmod>
   </url><url>
     <loc>https://serhii.vasylenko.info/about/</loc>

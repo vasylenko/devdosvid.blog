@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
     <title>Serhii Vasylenko — Technical Blog</title>
     <id>https://serhii.vasylenko.info/</id>
-    <link href="https://serhii.vasylenko.info/posts/"/>
+    <link href="https://serhii.vasylenko.info/series/mac1.metal-at-aws/"/>
     <updated>2022-01-20T14:20:30Z</updated>
     <author>
         <name>Serhii Vasylenko — Technical Blog</name>
@@ -10,7 +10,7 @@
     </author>
     <generator>Hugo gohugo.io</generator>
     <logo>https://serhii.vasylenko.info/assets/img/website-logo.png</logo>
-    <link rel="alternate" type="text/html" href="https://serhii.vasylenko.info/posts/" hreflang="en-us"/>
+    <link rel="alternate" type="text/html" href="https://serhii.vasylenko.info/series/mac1.metal-at-aws/" hreflang="en-us"/>
     <entry>
         <title>Some Techniques to Enhance Your Terraform Proficiency</title>
         <link href="https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/" hreflang="en" rel="alternate"/>
