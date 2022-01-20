@@ -2,6 +2,8 @@ name: Build and Deploy Blog
 on:
   push:
   workflow_dispatch:
+env:
+  GHPAGES_BRANCH: gh-pages-hugo
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,13 +26,11 @@ jobs:
     if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
-    env:
-      BRANCH: gh-pages-hugo
     steps:
       - name: Checkout the branch for website hosting
         uses: actions/checkout@v2
         with:
-          ref: '${{ env.BRANCH }}'
+          ref: '${{ env.GHPAGES_BRANCH }}'
 
       - name: Get the new website content
         uses: actions/download-artifact@v2
@@ -51,9 +51,17 @@ jobs:
             git add -A
             git commit -a -m "Website deploy — ${GITHUB_RUN_NUMBER}"
             git remote set-url origin "https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git"
-            git push --force origin ${{ env.BRANCH }}
-            curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLAREZONEID }}/purge_cache" \
+            git push --force origin ${{ env.GHPAGES_BRANCH }}          
+          fi
+
+  cdn_cache_purge:
+    if: github.ref == 'refs/heads/gh-hugo'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge Cache
+        run: |
+          set -ex
+          curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLAREZONEID }}/purge_cache" \
                            -H "Authorization: Bearer ${{ secrets.CLOUDFLAREPURGETOKEN }}" \
                            -H "Content-Type: application/json" \
                            --data '{"purge_everything":true}'
-          fi
