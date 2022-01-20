@@ -1,14 +1,17 @@
 {{ if .Params.series }}
+{{ $series_name := index .Params.series 0 }}
 <div class="post-series">
-    <p>This post is a part of the <b>"{{$.Page.Params.series}}"</b> series.<br/>Other posts in this series:</p>
-    <ul>    
+    <p>This post is a part of the <b>"{{ $series_name }}"</b> series.<br/>Other posts in this series:</p>
+    {{ $series_name := $series_name | urlize }}
+    {{ $series := index .Site.Taxonomies.series $series_name }}
+    <ul> 
         {{$pagetitle := .Title }}
-        {{ range where .Site.RegularPages "Params.series" $.Page.Params.series }}
-        {{ if eq $pagetitle .Title }}
-            <li style="opacity: 0.75;">{{.Date.Format "Jan 02, 2006"}} — {{.Title}}</li>
-        {{ else }}
-            <li>{{.Date.Format "Jan 02, 2006"}} — <a href="{{.Permalink}}">{{.Title}}</a></li>
-        {{ end }}
+        {{ range $series.Pages }}   
+            {{ if eq $pagetitle .Title }}
+                <li style="opacity: 0.75;">{{.Date.Format "Jan 02, 2006"}} — {{.Title}}</li>
+            {{ else }}
+                <li>{{.Date.Format "Jan 02, 2006"}} — <a href="{{.Permalink}}">{{.Title}}</a></li>
+            {{ end }}
         {{ end }}
     </ul>
 </div>

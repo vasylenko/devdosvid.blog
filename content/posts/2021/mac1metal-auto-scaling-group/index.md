@@ -8,7 +8,7 @@ cover:
 tags: [aws, architecture]
 categories: [Amazon Web Services]
 aliases: ["/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances"]
-series: "mac1.metal at AWS"
+series: ["mac1.metal at AWS"]
 ---
 
 It’s been almost a year since I started using macOS EC2 instances on AWS: there were [ups and downs in service offerings](https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html) and a lot of discoveries with [macOS AMI build](https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html) automation.

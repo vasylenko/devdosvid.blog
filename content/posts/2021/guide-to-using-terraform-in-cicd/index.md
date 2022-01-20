@@ -9,7 +9,7 @@ cover:
 tags: ["terraform", "cli", "automation"]
 categories: [Terraform]
 showtoc: false
-series: "Terraform Proficiency"
+series: ["Terraform Proficiency"]
 ---
 
 Terraform by itself automates a lot of things: it creates, changes, and versions your cloud resources. Although many teams run Terraform locally (sometimes with wrapper scripts), running Terraform in CI/CD can boost the organization's performance and ensure consistent deployments.

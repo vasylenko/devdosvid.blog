@@ -7,7 +7,7 @@ cover:
     relative: true
 tags: [terraform, experience, guide]
 categories: [Terraform]
-series: "Terraform Proficiency"
+series: ["Terraform Proficiency"]
 ---
 Terraform built-in functionality is very feature-rich: functions, expressions,  and meta-arguments provide many ways to shape the code and fit it to a particular use case. I want to share a few valuable practices to boost your Terraform expertise in this blog.
 
