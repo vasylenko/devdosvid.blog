@@ -51,6 +51,10 @@ jobs:
             git add -A
             git commit -a -m "Website deploy — ${GITHUB_RUN_NUMBER}"
             git remote set-url origin "https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git"
-            git push --force origin ${{ env.GHPAGES_BRANCH }}          
-          fi
+            git push --force origin ${{ env.GHPAGES_BRANCH }}
 
+            curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLAREZONEID }}/purge_cache" \
+                            -H "Authorization: Bearer ${{ secrets.CLOUDFLAREPURGETOKEN }}" \
+                            -H "Content-Type: application/json" \
+                            --data '{"purge_everything":true}'             
+          fi
