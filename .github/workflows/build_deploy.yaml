@@ -54,14 +54,3 @@ jobs:
             git push --force origin ${{ env.GHPAGES_BRANCH }}          
           fi
 
-  cdn_cache_purge:
-    if: github.ref == 'refs/heads/gh-hugo'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Purge Cache
-        run: |
-          set -ex
-          curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLAREZONEID }}/purge_cache" \
-                           -H "Authorization: Bearer ${{ secrets.CLOUDFLAREPURGETOKEN }}" \
-                           -H "Content-Type: application/json" \
-                           --data '{"purge_everything":true}'
