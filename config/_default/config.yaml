@@ -3,7 +3,7 @@ languageCode: en-us
 author:
     name: Serhii Vasylenko
     email: email-from-blog@vasylenko.info
-
+    
 theme: "PaperMod"
 paginate: 5
 ### BUILD
@@ -66,6 +66,7 @@ rssLimit: 20
 ### THEME SETTINGS
 params:
     SubscribeEngagement: false
+    ShowLicense: true
     WriteMeOnTwitter: true
     title: Serhii Vasylenko — Technical Blog
     description: "Developer Experience Engineer at Grammarly and AWS Community Builder. The blog is about AWS, Terraform, and different DevOps stuff."

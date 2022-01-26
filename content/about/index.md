@@ -12,6 +12,7 @@ title: About me
 kind: page
 SubscribeEngagement: false
 WriteMeOnTwitter: false
+ShowLicense: false
 ---
 
 ![](./hoodie-optimized.png#center)

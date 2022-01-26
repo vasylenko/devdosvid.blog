@@ -52,8 +52,11 @@
       {{- end }}
     </ul>
     {{- end }}
+    {{- if (and .Site.Params.ShowLicense (ne .Params.ShowLicense false))}}
+      {{- partial "license.html" . -}}
+    {{- end }}
     {{- if (.Param "ShowPostNavLinks") }}
-    {{- partial "post_nav_links.html" . }}
+      {{- partial "post_nav_links.html" . }}
     {{- end }}
   </footer>
 

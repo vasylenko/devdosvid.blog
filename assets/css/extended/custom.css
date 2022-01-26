@@ -175,3 +175,11 @@
 .post-series a {
     text-decoration: underline;
 }
+
+.license {
+    font-size: 0.8em;
+    text-align: center;
+}
+.license a {
+    text-decoration: underline;
+}
