@@ -3,10 +3,10 @@ on:
   push:
   workflow_dispatch:
 env:
-  GHPAGES_BRANCH: gh-pages-hugo
+  GHPAGES_BRANCH:
 jobs:
   clear-cache:
-    if: github.ref_name == ${GHPAGES_BRANCH}
+    if: github.ref_name == ${{ GHPAGES_BRANCH }}
     needs: build
     runs-on: ubuntu-latest
     steps:
