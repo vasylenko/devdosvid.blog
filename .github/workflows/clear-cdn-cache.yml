@@ -1,0 +1,19 @@
+name: Clear CDN Cache
+on:
+  push:
+  workflow_dispatch:
+env:
+  GHPAGES_BRANCH: gh-pages-hugo
+jobs:
+  clear-cache:
+    if: github.ref_name == ${GHPAGES_BRANCH}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clear CDN Cache
+        run: |
+          set -ex
+          curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLAREZONEID }}/purge_cache" \
+                            -H "Authorization: Bearer ${{ secrets.CLOUDFLAREPURGETOKEN }}" \
+                            -H "Content-Type: application/json" \
+                            --data '{"purge_everything":true}'             
