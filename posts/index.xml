@@ -3,7 +3,7 @@
     <title>Serhii Vasylenko — Technical Blog</title>
     <id>https://serhii.vasylenko.info/</id>
     <link href="https://serhii.vasylenko.info/posts/"/>
-    <updated>2022-01-26T18:16:38Z</updated>
+    <updated>2022-01-28T21:45:12Z</updated>
     <author>
         <name>Serhii Vasylenko — Technical Blog</name>
         <uri>https://serhii.vasylenko.info/</uri>
@@ -1743,20 +1743,23 @@ module_alb/alb.tf
     </entry>
     <entry>
         <title>Manage Ansible playbook secrets with AWS services</title>
-        <link href="https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html" hreflang="en" rel="alternate"/>
+        <link href="https://serhii.vasylenko.info/2020/08/06/manage-ansible-playbook-secrets-with-aws-services/" hreflang="en" rel="alternate"/>
         <published>2020-08-06T00:00:00Z</published>
         <updated>2020-08-06T00:00:00Z</updated>
-        <id>https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html</id>
+        <id>https://serhii.vasylenko.info/2020/08/06/manage-ansible-playbook-secrets-with-aws-services/</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2020/08/06/ansible-secrets-aws-ssm-sm.html2020-08-06-ansible-secrets-aws-ssm-sm.png</logo>
-        <content type="html">&lt;p&gt;Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks.
-If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.&lt;/p&gt;
-&lt;h2 id=&#34;variables-with-ssm-parameter-store&#34;&gt;Variables with SSM Parameter Store&lt;/h2&gt;
+        <logo>https://serhii.vasylenko.info/2020/08/06/manage-ansible-playbook-secrets-with-aws-services/2020-08-06-ansible-secrets-aws-ssm-sm.png</logo>
+        <content type="html">&lt;p&gt;Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks.&lt;/p&gt;
+&lt;p&gt;If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.&lt;/p&gt;
+&lt;p&gt;Described plugins are the part of &lt;code&gt;amazon.aws&lt;/code&gt; collection in &lt;a href=&#34;https://galaxy.ansible.com/amazon/aws&#34;&gt;Ansible Galaxy.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Run the following command to install this collection:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ansible-galaxy collection install amazon.aws
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;variables-with-ssm-parameter-store&#34;&gt;Variables with SSM Parameter Store&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s say you have some variables defined in &amp;lsquo;defaults/main.yaml&amp;rsquo; file of your role or maybe in group_vars.yaml file.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#447fcf;text-decoration:underline&#34;&gt;---&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;# content of dev.vars.yaml to be included in your play or role&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;# content of dev.vars.yaml to be included in your play or role&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;use_tls&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;application_port&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#3677a9&#34;&gt;3000&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;app_env&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;development&lt;span style=&#34;color:#666&#34;&gt;
@@ -1765,22 +1768,20 @@ If you manage some apps in AWS with Ansible, then using Parameter Store or Secre
 &lt;p&gt;SSM Parameter Store gives you more flexibility and security by centralized storage and management of parameters and secrets, so let&amp;rsquo;s use it with Ansible:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;# content of dev.vars.yaml to be included in your play or role&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;use_tls&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{lookup(&amp;#39;aws_ssm&amp;#39;, &amp;#39;/dev/webserver/use_tls&amp;#39;)}}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;application_port&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{lookup(&amp;#39;aws_ssm&amp;#39;, &amp;#39;/dev/webserver/application_port&amp;#39;)}}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;app_env&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{lookup(&amp;#39;aws_ssm&amp;#39;, &amp;#39;/dev/webserver/app_env&amp;#39;)}}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;stripe_api_key&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{lookup(&amp;#39;aws_ssm&amp;#39;, &amp;#39;/dev/webserver/stripe_api_key&amp;#39;)}}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;use_tls&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{ lookup(&amp;#39;amazon.aws.aws_ssm&amp;#39;, &amp;#39;/dev/webserver/use_tls&amp;#39;, bypath=true) }}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;application_port&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{ lookup(&amp;#39;amazon.aws.aws_ssm&amp;#39;, &amp;#39;/dev/webserver/application_port&amp;#39;, bypath=true) }}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;app_env&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{ lookup(&amp;#39;amazon.aws.aws_ssm&amp;#39;, &amp;#39;/dev/webserver/app_env&amp;#39;, bypath=true) }}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;stripe_api_key&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{ lookup(&amp;#39;amazon.aws.aws_ssm&amp;#39;, &amp;#39;/dev/webserver/stripe_api_key&amp;#39;, bypath=true) }}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The syntax is fairly simple:&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;aws_ssm&lt;/code&gt; argument – is the name of plugin.&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;/dev/webserver/use_tls&lt;/code&gt; argument – is the path to the key in Paramter Store.&lt;/p&gt;
-&lt;p&gt;Surely you can do the same for a group of servers with group variables, for example:&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;aws_ssm&lt;/code&gt; – is the name of the lookup plugin.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;/dev/webserver/use_tls&lt;/code&gt; – is the path to the key in the SSM Paramter Store.&lt;/p&gt;
 &lt;p&gt;You can use this anywhere you can use templating: in a play, in variables file, or a Jinja2 template.&lt;/p&gt;
 &lt;h2 id=&#34;variables-with-secret-manager&#34;&gt;Variables with Secret Manager&lt;/h2&gt;
-&lt;p&gt;Another cool lookup plugin is Secrets Manager. In a nutshell, it has the same kind of functionality but it uses JSON format by feault.&lt;/p&gt;
+&lt;p&gt;Another lookup plugin is Secrets Manager. Secrets Manager stores sensitive information in JSON format, supports rotation, encryption and other cool stuff.&lt;/p&gt;
 &lt;p&gt;Here is a quick example of its functionality in a Playbook:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#447fcf;text-decoration:underline&#34;&gt;---&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Extract something secrets from Secret Manager&lt;span style=&#34;color:#666&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Extract something secrets from Secret Manager&lt;span style=&#34;color:#666&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;debug&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;msg&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{ lookup(&amp;#39;aws_secret&amp;#39;, &amp;#39;dev/some-secrets&amp;#39;)}}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;msg&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;{{ lookup(&amp;#39;amazon.aws.aws_secret&amp;#39;, &amp;#39;DatabaseConnectionSettings&amp;#39;)}}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The above task will generate the following output&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;TASK [Extract something secrets from Secret Manager] ****************************************************
 ok: [some_server] =&amp;gt; {
@@ -1788,15 +1789,17 @@ ok: [some_server] =&amp;gt; {
         &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;dbname&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;database&amp;#34;&lt;/span&gt;,
         &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;engine&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;mysql&amp;#34;&lt;/span&gt;,
         &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;host&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;,
-        &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;password&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;password&amp;#34;&lt;/span&gt;,
+        &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;password&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;p@&lt;/span&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;$$&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;w0rd&amp;#34;&lt;/span&gt;,
         &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;port&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;3306&amp;#34;&lt;/span&gt;,
         &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;username&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;db_user&amp;#34;&lt;/span&gt;
     }
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This is nice if you want to insert a JSON as is, but you will need additional parsing in case you want to get only some of JSON elements.&lt;/p&gt;
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;If you’re using Ansible in CI/CD, then having it on an EC2 Instance with the IAM role will make you avoid keeping any secrets on that instance at all.&lt;br&gt;
-The IAM role must allow at least the read access to SSM Parameter Store (&#43; KMS read access to be able to decrypt the keys) or the read access to Secrets Manager.&lt;/p&gt;
+&lt;h2 id=&#34;benefits-from-using-lookup-plugins&#34;&gt;Benefits from using lookup plugins&lt;/h2&gt;
+&lt;p&gt;The biggest win here is the security — no sensitive information in the source code.&lt;/p&gt;
+&lt;p&gt;Another benefit is the convenience of data management: instead using built-in local vault, you can manage the secrets in centralized way.&lt;/p&gt;
+&lt;p&gt;One of the common use cases for this kind of setup is CI/CD pipelines that generally run in stateless environments.&lt;/p&gt;
+&lt;p&gt;When using lookup plugins for Secrets Manager and Parameter Store, mind the access permissions. The assumed IAM role must allow at least the read access to SSM Parameter Store (&#43; KMS read access to be able to decrypt the keys) or the read access to Secrets Manager.&lt;/p&gt;
 &lt;p&gt;You can find documentation for described plugins here &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup/aws_ssm.html&#34;&gt;aws_ssm&lt;/a&gt; and here &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup/aws_secret.html&#34;&gt;aws_secret&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;More about lookup plugins: &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup.html&#34;&gt;https://docs.ansible.com/ansible/latest/plugins/lookup.html&lt;/a&gt;&lt;/p&gt;</content>
     </entry>
