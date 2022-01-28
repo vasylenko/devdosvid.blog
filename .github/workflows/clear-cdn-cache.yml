@@ -3,7 +3,7 @@ on:
   push:
   workflow_dispatch:
 env:
-  GHPAGES_BRANCH:
+  GHPAGES_BRANCH: gh-pages-hugo
 jobs:
   clear-cache:
     if: github.ref_name == ${{ GHPAGES_BRANCH }}
