@@ -1,12 +1,11 @@
 name: Clear CDN Cache
 on:
   push:
+    branches:
+      - ${{ secrets.GHPAGES_BRANCH }}
   workflow_dispatch:
-env:
-  GHPAGES_BRANCH: gh-pages-hugo
 jobs:
   clear-cache:
-    if: github.ref_name == 'gh-pages-hugo'
     runs-on: ubuntu-latest
     steps:
       - name: Clear CDN Cache
