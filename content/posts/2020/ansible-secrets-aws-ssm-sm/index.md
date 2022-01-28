@@ -1,5 +1,6 @@
 ---
 date: "2020-08-06T00:00:00Z"
+title: Manage Ansible playbook secrets with AWS services
 description: A quick guide to secure secrets management with Ansible in AWS
 images: ["2020-08-06-ansible-secrets-aws-ssm-sm.png"]
 cover:
@@ -7,18 +8,26 @@ cover:
 description: A better way to store sensitive information for Ansible on EC2 or other services
 tags: ["ansible", "aws", "devops", "security", "ssm"]
 categories: [Amazon Web Services, Ansible]
-title: Manage Ansible playbook secrets with AWS services
-url: /2020/08/06/ansible-secrets-aws-ssm-sm.html
+alias: /2020/08/06/ansible-secrets-aws-ssm-sm.html
 ---
 Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks. 
+
 If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.
+
+Described plugins are the part of `amazon.aws` collection in [Ansible Galaxy.](https://galaxy.ansible.com/amazon/aws)
+
+Run the following command to install this collection:
+
+```shell
+ansible-galaxy collection install amazon.aws
+```
 
 ## Variables with SSM Parameter Store
 
 Let's say you have some variables defined in 'defaults/main.yaml' file of your role or maybe in group_vars.yaml file.
 ```yaml
----
 # content of dev.vars.yaml to be included in your play or role
+
 use_tls: true
 application_port: 3000
 app_env: development
@@ -32,32 +41,29 @@ SSM Parameter Store gives you more flexibility and security by centralized stora
 ```yaml
 # content of dev.vars.yaml to be included in your play or role
 
-use_tls: "{{lookup('aws_ssm', '/dev/webserver/use_tls')}}"
-application_port: "{{lookup('aws_ssm', '/dev/webserver/application_port')}}"
-app_env: "{{lookup('aws_ssm', '/dev/webserver/app_env')}}"
-stripe_api_key: "{{lookup('aws_ssm', '/dev/webserver/stripe_api_key')}}"
+use_tls: "{{ lookup('amazon.aws.aws_ssm', '/dev/webserver/use_tls', bypath=true) }}"
+application_port: "{{ lookup('amazon.aws.aws_ssm', '/dev/webserver/application_port', bypath=true) }}"
+app_env: "{{ lookup('amazon.aws.aws_ssm', '/dev/webserver/app_env', bypath=true) }}"
+stripe_api_key: "{{ lookup('amazon.aws.aws_ssm', '/dev/webserver/stripe_api_key', bypath=true) }}"
 ```
 The syntax is fairly simple:
 
-The `aws_ssm` argument – is the name of plugin.
+The `aws_ssm` – is the name of the lookup plugin.
 
-The `/dev/webserver/use_tls` argument – is the path to the key in Paramter Store.
-
-Surely you can do the same for a group of servers with group variables, for example:
+The `/dev/webserver/use_tls` – is the path to the key in the SSM Paramter Store.
 
 You can use this anywhere you can use templating: in a play, in variables file, or a Jinja2 template. 
 
 ## Variables with Secret Manager
 
-Another cool lookup plugin is Secrets Manager. In a nutshell, it has the same kind of functionality but it uses JSON format by feault.
+Another lookup plugin is Secrets Manager. Secrets Manager stores sensitive information in JSON format, supports rotation, encryption and other cool stuff. 
 
 Here is a quick example of its functionality in a Playbook:
 
 ```yaml
----
 - name: Extract something secrets from Secret Manager
   debug:
-    msg: "{{ lookup('aws_secret', 'dev/some-secrets')}}"
+    msg: "{{ lookup('amazon.aws.aws_secret', 'DatabaseConnectionSettings')}}"
 ```
 The above task will generate the following output
 ```shell
@@ -67,7 +73,7 @@ ok: [some_server] => {
         "dbname": "database",
         "engine": "mysql",
         "host": "127.0.0.1",
-        "password": "password",
+        "password": "p@$$w0rd",
         "port": "3306",
         "username": "db_user"
     }
@@ -75,10 +81,14 @@ ok: [some_server] => {
 ```
 This is nice if you want to insert a JSON as is, but you will need additional parsing in case you want to get only some of JSON elements.
 
-## Conclusion
+## Benefits from using lookup plugins
+The biggest win here is the security — no sensitive information in the source code.
 
-If you’re using Ansible in CI/CD, then having it on an EC2 Instance with the IAM role will make you avoid keeping any secrets on that instance at all.\
-The IAM role must allow at least the read access to SSM Parameter Store (+ KMS read access to be able to decrypt the keys) or the read access to Secrets Manager. 
+Another benefit is the convenience of data management: instead using built-in local vault, you can manage the secrets in centralized way. 
+
+One of the common use cases for this kind of setup is CI/CD pipelines that generally run in stateless environments.
+
+When using lookup plugins for Secrets Manager and Parameter Store, mind the access permissions. The assumed IAM role must allow at least the read access to SSM Parameter Store (+ KMS read access to be able to decrypt the keys) or the read access to Secrets Manager. 
 
 You can find documentation for described plugins here [aws_ssm](https://docs.ansible.com/ansible/latest/plugins/lookup/aws_ssm.html) and here [aws_secret](https://docs.ansible.com/ansible/latest/plugins/lookup/aws_secret.html).
 
