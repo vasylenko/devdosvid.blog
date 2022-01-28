@@ -2,7 +2,7 @@ name: Clear CDN Cache
 on:
   push:
     branches:
-      - ${{ secrets.GHPAGES_BRANCH }}
+      - 'gh-pages-hugo'
   workflow_dispatch:
 jobs:
   clear-cache:
