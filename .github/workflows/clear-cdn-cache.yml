@@ -6,7 +6,7 @@ env:
   GHPAGES_BRANCH: gh-pages-hugo
 jobs:
   clear-cache:
-    if: github.ref_name == ${{ env.GHPAGES_BRANCH }}
+    if: github.ref_name == ${GHPAGES_BRANCH}
     needs: build
     runs-on: ubuntu-latest
     steps:
