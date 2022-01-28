@@ -7,7 +7,6 @@ env:
 jobs:
   clear-cache:
     if: github.ref_name == 'gh-pages-hugo'
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Clear CDN Cache
