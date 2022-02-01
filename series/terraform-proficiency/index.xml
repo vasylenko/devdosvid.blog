@@ -3,7 +3,7 @@
     <title>Serhii Vasylenko — Technical Blog</title>
     <id>https://serhii.vasylenko.info/</id>
     <link href="https://serhii.vasylenko.info/series/terraform-proficiency/"/>
-    <updated>2022-02-01T00:03:17Z</updated>
+    <updated>2022-02-01T00:07:57Z</updated>
     <author>
         <name>Serhii Vasylenko — Technical Blog</name>
         <uri>https://serhii.vasylenko.info/</uri>
@@ -11,6 +11,90 @@
     <generator>Hugo gohugo.io</generator>
     <logo>https://serhii.vasylenko.info/assets/img/website-logo.png</logo>
     <link rel="alternate" type="text/html" href="https://serhii.vasylenko.info/series/terraform-proficiency/" hreflang="en-us"/>
+    <entry>
+        <title>Monterey Shortcuts for Easy and Fast Image Processing</title>
+        <link href="https://serhii.vasylenko.info/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/" hreflang="en" rel="alternate"/>
+        <published>2022-01-31T21:46:04Z</published>
+        <updated>2022-01-31T21:46:04Z</updated>
+        <id>https://serhii.vasylenko.info/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/</id>
+        <author>
+            <name>Serhii Vasylenko</name>
+        </author>
+        <logo>https://serhii.vasylenko.info/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/cover-image.png</logo>
+        <content type="html">&lt;p&gt;Here I want to share two Apple Shortcuts that I created for myself and use to process images for this blog:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#optimization&#34;&gt;Image Optimization&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;and&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#resize&#34;&gt;Image Resize&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;About a year ago, I posted &lt;a href=&#34;https://serhii.vasylenko.info/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/&#34; title=&#34;Using TinyPNG Image Compression From MacOS Finder Contextual Menu&#34;&gt;the blog about the Automator quick action&lt;/a&gt; to optimize PNG and JPEG images with TinyPNG service and save the processed images next to the original ones.&lt;/p&gt;
+&lt;p&gt;While that Automator-based solution still works, macOS Monterey now supports Shortcuts — a new automating tool that seems to substitute the old fellow Automator.&lt;/p&gt;
+&lt;p&gt;So I decided to create a couple of automation with Shortcuts: one for image optimization (reduce file size but not the size in pixels), and one for image scaling (change its size in pixels).&lt;/p&gt;
+&lt;p&gt;I have used them for several months to prepare images for this blog, and I really like how they work!&lt;/p&gt;
+&lt;h2 id=&#34;optimization&#34;&gt;Image Optimization with Monterey Shortcuts&lt;/h2&gt;
+&lt;p&gt;This Shortcut replicates the functionality of the Automator quick action and also uses TinyPNG service as a back-end. There are tons of other similar services, but I like TinyPNG for its simplicity: it just does one thing, and it does it well.&lt;/p&gt;
+&lt;p&gt;So first, you need to get yourself an &lt;a href=&#34;https://tinypng.com/developers&#34; title=&#34;TinyPNG Developers API&#34;&gt;API key&lt;/a&gt; for TinyPNG.&lt;/p&gt;
+&lt;p&gt;The simplest way to reuse my Shortcut is to import it from iCloud using the following URL:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.icloud.com/shortcuts/44624525a4c84f60be486144ca59cac2&#34; title=&#34;Click here to import the Image Optimization Shortcut&#34;&gt;➡️ &lt;strong&gt;Click here to import the Image Optimization Shortcut&lt;/strong&gt; ⬅️&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The import will work only when the link is opened in &lt;strong&gt;Safari&lt;/strong&gt;.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;shortcut-import-optimized.png&#34;
+         alt=&#34;Shortcut Import Dialog&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Shortcut Import Dialog&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;To make the Shortcut work from the context menu of the Finder, set the options on the Details panel of the Shortcut setting as displayed on the screenshot:&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;shortcut-settings-optimized.png&#34;
+         alt=&#34;Shortcut Settings&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Shortcut Settings&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Here is what this Image Optimization Shortcut does:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;The Shortcut receives image files. Then, for every image file received, the Shotcut does the following:&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Gets the file&amp;rsquo;s name and parent directory&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Sends the original file to TinyPNG&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Process the response with URL to download the optimized image&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Downloads the optimized image using the URL from the response and saves it into the source directory by appending the original file name with the &lt;code&gt;-optimized&lt;/code&gt; suffix.&lt;br&gt;
+For example: &lt;code&gt;image.png&lt;/code&gt; → &lt;code&gt;image-optimized.png&lt;/code&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;And here is how this Shortcuts looks if you want to create it from scratch:&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;image-optimization-shortcut-optimized.png&#34;
+         alt=&#34;Image Optimization Shortcut&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Image Optimization Shortcut&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;&lt;em&gt;Unfortunately, this Shortcut won&amp;rsquo;t work on iOS or watchOS because they do not support the &amp;ldquo;File Storage&amp;rdquo; actions used in the Shortcut.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;🌟 &lt;strong&gt;Demo&lt;/strong&gt; 🌟
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;shortcut-demo.gif&#34;
+         alt=&#34;Shortcut Demo&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Shortcut Demo&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;resize&#34;&gt;Image Resize with Monterey Shortcuts&lt;/h2&gt;
+&lt;p&gt;Another Shortcut I actively use is the image resizer. Most of the images on my blog are 1600px width fitted into an 800px frame to look sharp on the high-res displays (e.g., Retina).&lt;/p&gt;
+&lt;p&gt;And when I have many images in my folder, I want to make them all be 1600px width at once or don&amp;rsquo;t change their own size if they were created smaller intentionally (no upscale, in other words).&lt;/p&gt;
+&lt;p&gt;Here is the link to Shortcut import (again, the import will work only when the link is opened in &lt;strong&gt;Safari&lt;/strong&gt;):&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.icloud.com/shortcuts/0af8005cc9ac4207a380be445601d541&#34; title=&#34;Click here to import the Image Resize Shortcut&#34;&gt;➡️ &lt;strong&gt;Click here to import the Image Resize Shortcut&lt;/strong&gt; ⬅️&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Here is how the Image Resize Shortcut looks if you want to create it from scratch:&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;image-resize-shortcut-optimized.png&#34;
+         alt=&#34;Image Resizing Shortcut&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Image Resizing Shortcut&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;fun-with-shortcuts&#34;&gt;Fun with Shortcuts&lt;/h2&gt;
+&lt;p&gt;I love the way Apple works on routine automation. This Shortcuts app, ported from iOS, brings a lot of cool and fun possibilities to Mac.&lt;/p&gt;
+&lt;p&gt;Do you use Shortcuts? What is your favorite? I would love to know!&lt;/p&gt;</content>
+    </entry>
     <entry>
         <title>Some Techniques to Enhance Your Terraform Proficiency</title>
         <link href="https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/" hreflang="en" rel="alternate"/>
@@ -2006,42 +2090,5 @@ ok: [some_server] =&amp;gt; {
 &lt;li&gt;you can pass artifacts between jobs inside a workflow with ease - Github provides simple actions for this, so you don&amp;rsquo;t need to dance around temporary directories or files;&lt;/li&gt;
 &lt;li&gt;and much more&lt;/li&gt;
 &lt;/ul&gt;</content>
-    </entry>
-    <entry>
-        <title>AWS SAA exam results</title>
-        <link href="https://serhii.vasylenko.info/2020/03/15/aws-solutions-architect-associate-exam-tips.html" hreflang="en" rel="alternate"/>
-        <published>2020-03-15T20:16:20Z</published>
-        <updated>2020-03-15T20:16:20Z</updated>
-        <id>https://serhii.vasylenko.info/2020/03/15/aws-solutions-architect-associate-exam-tips.html</id>
-        <author>
-            <name>Serhii Vasylenko</name>
-        </author>
-        <logo>https://serhii.vasylenko.info/2020/03/15/aws-solutions-architect-associate-exam-tips.html2020-03-15-aws-solutions-architect-associate-exam-tips_AWS-Certified_Solutions-Architect_Associate.png</logo>
-        <content type="html">&lt;h3 id=&#34;926-out-of-1000&#34;&gt;926 out of 1000&lt;/h3&gt;
-&lt;p&gt;Last week I&amp;rsquo;ve successfully passed AWS SAA exam with 926 points from 1000 possible. I can&amp;rsquo;t help saying this and showing off my &lt;a href=&#34;https://www.youracclaim.com/badges/7c6c7a70-63f5-4854-97ab-e5c1ad251231&#34;&gt;verification page&lt;/a&gt;{:target=&amp;quot;_blank&amp;quot;}, just because I am very happy so please excuse me my bragging.&lt;/p&gt;
-&lt;h3 id=&#34;what-helped-me&#34;&gt;What helped me&lt;/h3&gt;
-&lt;p&gt;But I would like to share some advices and tips with anyone who reads this and wants to pass the exam. I mean, I could just twit about it if that was only about saying &amp;ldquo;hey look at me!&amp;rdquo;, right?&lt;/p&gt;
-&lt;p&gt;It took me a month of intensive studying and here is what helped me:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Video course&lt;/strong&gt; at CloudGuru - &lt;a href=&#34;https://acloud.guru/learn/aws-certified-solutions-architect-associate&#34;&gt;AWS Certified Solutions Architect Associate&lt;/a&gt;{:target=&amp;quot;_blank&amp;quot;}.&lt;/p&gt;
-&lt;p&gt;Price: $50 for a monthly subscription.&lt;/p&gt;
-&lt;p&gt;Tips: They have a 7 days free trial, which is actually quite enough to view the whole course. But I strongly recommend purchasing a full month, because it is better to view the lectures gradually during couple of weeks for better learning. Plus they have a nice exam simulator where you can practice several times.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Practice Tests&lt;/strong&gt; set at Udemy - &lt;a href=&#34;https://www.udemy.com/course/aws-certified-solutions-architect-associate-amazon-practice-exams-saa-c02/&#34;&gt;AWS Certified Solutions Architect Associate Practice Exams&lt;/a&gt;{:target=&amp;quot;_blank&amp;quot;}.&lt;/p&gt;
-&lt;p&gt;Price: $40 or only $12 if you&amp;rsquo;re lucky to get it during a sale. But they make sales quite often and they frequently provide  discuounts for new students. I purchaced it for $12.&lt;/p&gt;
-&lt;p&gt;Tips: practice tests are very useful, do not skip buying them. You will find your weak spots and also learn a lot by passing these tests. This particular set has a quite good explanations for each question.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Exam Guide&lt;/strong&gt; at O&amp;rsquo;relly Media &lt;a href=&#34;https://learning.oreilly.com/library/view/aws-certified-solutions/9781260108262/&#34;&gt;AWS Certified Solutions Architect Associate All-in-One Exam Guide&lt;/a&gt;{:target=&amp;quot;_blank&amp;quot;}.&lt;/p&gt;
-&lt;p&gt;Price: this one can be easily read during 10 days free trial period :wink:&lt;/p&gt;
-&lt;p&gt;Tips: The new exam version is released on 23rd of March, so it is better to find a new updated version of exam guide. And I suggest reading the guide after the video course or vise versa, but do not mix them.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Making notes&lt;/strong&gt;. Seriously, note taking helps you memorize better. Do not skip it, and note your video courses as well as exam guide. Later, you will find your notes very helpful before the exam day - they will fresh up your memory.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Thank you for reading down to this point. I hope my advices were helpful and you will pass the exam!&lt;/p&gt;</content>
     </entry>
 </feed>
