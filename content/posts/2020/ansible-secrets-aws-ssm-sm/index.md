@@ -8,7 +8,7 @@ cover:
 description: A better way to store sensitive information for Ansible on EC2 or other services
 tags: ["ansible", "aws", "devops", "security", "ssm"]
 categories: [Amazon Web Services, Ansible]
-alias: /2020/08/06/ansible-secrets-aws-ssm-sm.html
+aliases: ["/2020/08/06/ansible-secrets-aws-ssm-sm.html"]
 ---
 Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks. 
 
