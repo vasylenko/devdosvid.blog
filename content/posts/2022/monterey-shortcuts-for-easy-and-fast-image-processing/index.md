@@ -6,7 +6,6 @@ cover:
     image: cover-image.png
     relative: true
 tags: [monterey, shortcuts, image processing, automation]
-draft: true
 ---
 Here I want to share two Apple Shortcuts that I created for myself and use to process images for this blog:
 
