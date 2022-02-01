@@ -8,7 +8,7 @@ cover:
   image: cover-image.png
 tags: ["macos", "fun"]
 categories: [DIY]
-alias: /2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html
+aliases: ["/2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html"]
 ---
 I just wanted to compress one image, but went to far...
 
