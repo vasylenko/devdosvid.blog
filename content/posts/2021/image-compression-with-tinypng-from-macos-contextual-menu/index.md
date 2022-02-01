@@ -8,7 +8,7 @@ cover:
   image: cover-image.png
 tags: ["macos", "fun"]
 categories: [DIY]
-url: /2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html
+alias: /2021/02/14/image-compression-with-tinypng-from-macos-contextual-menu.html
 ---
 I just wanted to compress one image, but went to far...
 
@@ -54,7 +54,7 @@ Click the **Option** button at the bottom of the Action window and **Uncheck** `
 
 Put the following script into the **Run Shell Script** window, replacing the *YOUR_API_KEY_HERE* string with your API key obtained from TinyPNG.
 
-{% gist 13cb423aa83265e79ac5ad900195603f %}
+{{< gist vasylenko 13cb423aa83265e79ac5ad900195603f >}}
 
 ## Utilities used in the script — explained
 
