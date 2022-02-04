@@ -21,7 +21,7 @@ After a moment, the new optimized versions of images will appear near to origina
 
 If you selected a folder along with the files, the script would process all `png` and `jpeg` files in it.
 
-![](context_menu_full_compressed.gif)
+{{< animation src="context_menu_full_compressed.webm" >}}
 
 # Prerequisites
 You need to register at TinyPNG and get your API key here — [Developer API](https://tinypng.com/developers).

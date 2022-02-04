@@ -56,7 +56,7 @@ And here is how this Shortcuts looks if you want to create it from scratch:
 _Unfortunately, this Shortcut won't work on iOS or watchOS because they do not support the "File Storage" actions used in the Shortcut._
 
 🌟 **Demo** 🌟
-{{< figure src="shortcut-demo.gif" caption="Shortcut Demo" >}}
+{{< animation src="shortcut-demo.webm" >}}
 
 ## Image Resize with Monterey Shortcuts {#resize}
 Another Shortcut I actively use is the image resizer. Most of the images on my blog are 1600px width fitted into an 800px frame to look sharp on the high-res displays (e.g., Retina).

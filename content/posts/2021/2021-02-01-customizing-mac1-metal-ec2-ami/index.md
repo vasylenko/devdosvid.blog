@@ -83,7 +83,7 @@ The following tasks will help you to automate the basics.
 Shell rulez, yes.
 
 # Building the AMI
-![](ami-build.gif)
+{{< animation src="ami-build.webm" >}}
 
 [Packer by HashiCorp](https://www.packer.io/docs/builders/amazon/ebs), of course.
 

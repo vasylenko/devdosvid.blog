@@ -1,0 +1,7 @@
+<video class="animation" autoplay loop muted playsinline>
+    <source src="{{ .Get "src" }}" type="video/webm">
+</video>
+
+<!--
+ffmpeg -i source-file.gif -c vp9 -filter:v scale=800:-1 -b:v 0 -crf 41 dest-file.webm
+-->
