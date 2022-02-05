@@ -30,7 +30,7 @@ So first, you need to get yourself an [API key](https://tinypng.com/developers "
 
 The simplest way to reuse my Shortcut is to import it from iCloud using the following URL:
 
-[➡️ **Click here to import the Image Optimization Shortcut** ⬅️](https://www.icloud.com/shortcuts/44624525a4c84f60be486144ca59cac2 "Click here to import the Image Optimization Shortcut") 
+[➡️ **Click here to import the Image Optimization Shortcut** ⬅️](https://www.icloud.com/shortcuts/0a44de1596c745eaaad8181e61289248 "Click here to import the Image Optimization Shortcut") 
 
 The import will work only when the link is opened in **Safari**.
 
@@ -46,17 +46,16 @@ Here is what this Image Optimization Shortcut does:
 >  - _Gets the file's name and parent directory_
 >  - _Sends the original file to TinyPNG_
 >  - _Process the response with URL to download the optimized image_
->  - _Downloads the optimized image using the URL from the response and saves it into the source directory by appending the original file name with the `-optimized` suffix.\
-     For example: `image.png` → `image-optimized.png`_
+>  - _Downloads the optimized image using the URL from the response and replaces the original image with the optimized_
 
 And here is how this Shortcuts looks if you want to create it from scratch:
 
-{{< figure src="image-optimization-shortcut-optimized.png" caption="Image Optimization Shortcut" >}}
+{{< figure src="image-optimization-shortcut.png" caption="Image Optimization Shortcut" >}}
 
 _Unfortunately, this Shortcut won't work on iOS or watchOS because they do not support the "File Storage" actions used in the Shortcut._
 
 🌟 **Demo** 🌟
-{{< animation src="shortcut-demo.webm" >}}
+{{< figure src="shortcut-demo.gif" caption="Shortcut Demo" >}}
 
 ## Image Resize with Monterey Shortcuts {#resize}
 Another Shortcut I actively use is the image resizer. Most of the images on my blog are 1600px width fitted into an 800px frame to look sharp on the high-res displays (e.g., Retina).
