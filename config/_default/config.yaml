@@ -25,15 +25,19 @@ menu:
         - identifier: about
           name: "About me"
           url: /about/
-          weight: 22
+          weight: 21
+        - identifier: archive
+          name: "All posts"
+          url: /archive
+          weight: 20
         - identifier: category
-          name: "RSS Feed 📰"
+          name: "RSS Feed"
           url: /index.xml
           weight: 1
         - identifier: cv
           name: "My CV"
           url: /cv/
-          weight: 33
+          weight: 30
 
 ### DECORATIONS
 markup:
