@@ -3,7 +3,7 @@
     <title>Serhii Vasylenko — Technical Blog</title>
     <id>https://serhii.vasylenko.info/</id>
     <link href="https://serhii.vasylenko.info/series/mac1.metal-at-aws/"/>
-    <updated>2022-02-05T10:24:14Z</updated>
+    <updated>2022-02-05T18:59:45Z</updated>
     <author>
         <name>Serhii Vasylenko — Technical Blog</name>
         <uri>https://serhii.vasylenko.info/</uri>
@@ -33,7 +33,7 @@
 &lt;p&gt;This Shortcut replicates the functionality of the Automator quick action and also uses TinyPNG service as a back-end. There are tons of other similar services, but I like TinyPNG for its simplicity: it just does one thing, and it does it well.&lt;/p&gt;
 &lt;p&gt;So first, you need to get yourself an &lt;a href=&#34;https://tinypng.com/developers&#34; title=&#34;TinyPNG Developers API&#34;&gt;API key&lt;/a&gt; for TinyPNG.&lt;/p&gt;
 &lt;p&gt;The simplest way to reuse my Shortcut is to import it from iCloud using the following URL:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.icloud.com/shortcuts/44624525a4c84f60be486144ca59cac2&#34; title=&#34;Click here to import the Image Optimization Shortcut&#34;&gt;➡️ &lt;strong&gt;Click here to import the Image Optimization Shortcut&lt;/strong&gt; ⬅️&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.icloud.com/shortcuts/0a44de1596c745eaaad8181e61289248&#34; title=&#34;Click here to import the Image Optimization Shortcut&#34;&gt;➡️ &lt;strong&gt;Click here to import the Image Optimization Shortcut&lt;/strong&gt; ⬅️&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The import will work only when the link is opened in &lt;strong&gt;Safari&lt;/strong&gt;.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;shortcut-import-optimized.png&#34;
@@ -57,13 +57,12 @@
 &lt;li&gt;&lt;em&gt;Gets the file&amp;rsquo;s name and parent directory&lt;/em&gt;&lt;/li&gt;
 &lt;li&gt;&lt;em&gt;Sends the original file to TinyPNG&lt;/em&gt;&lt;/li&gt;
 &lt;li&gt;&lt;em&gt;Process the response with URL to download the optimized image&lt;/em&gt;&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;Downloads the optimized image using the URL from the response and saves it into the source directory by appending the original file name with the &lt;code&gt;-optimized&lt;/code&gt; suffix.&lt;br&gt;
-For example: &lt;code&gt;image.png&lt;/code&gt; → &lt;code&gt;image-optimized.png&lt;/code&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Downloads the optimized image using the URL from the response and replaces the original image with the optimized&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;And here is how this Shortcuts looks if you want to create it from scratch:&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;image-optimization-shortcut-optimized.png&#34;
+    &lt;img loading=&#34;lazy&#34; src=&#34;image-optimization-shortcut.png&#34;
          alt=&#34;Image Optimization Shortcut&#34;/&gt; &lt;figcaption&gt;
             &lt;p&gt;Image Optimization Shortcut&lt;/p&gt;
         &lt;/figcaption&gt;
@@ -71,10 +70,12 @@ For example: &lt;code&gt;image.png&lt;/code&gt; → &lt;code&gt;image-optimized.
 
 &lt;p&gt;&lt;em&gt;Unfortunately, this Shortcut won&amp;rsquo;t work on iOS or watchOS because they do not support the &amp;ldquo;File Storage&amp;rdquo; actions used in the Shortcut.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;🌟 &lt;strong&gt;Demo&lt;/strong&gt; 🌟
-&lt;video class=&#34;animation&#34; autoplay loop muted playsinline&gt;
-    &lt;source src=&#34;shortcut-demo.webm&#34; type=&#34;video/webm&#34;&gt;
-&lt;/video&gt;
-
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;shortcut-demo.gif&#34;
+         alt=&#34;Shortcut Demo&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Shortcut Demo&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
 &lt;/p&gt;
 &lt;h2 id=&#34;resize&#34;&gt;Image Resize with Monterey Shortcuts&lt;/h2&gt;
 &lt;p&gt;Another Shortcut I actively use is the image resizer. Most of the images on my blog are 1600px width fitted into an 800px frame to look sharp on the high-res displays (e.g., Retina).&lt;/p&gt;
