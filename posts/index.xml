@@ -3,7 +3,7 @@
     <title>Serhii Vasylenko — Technical Blog</title>
     <id>https://serhii.vasylenko.info/</id>
     <link href="https://serhii.vasylenko.info/posts/"/>
-    <updated>2022-02-01T23:23:37Z</updated>
+    <updated>2022-02-05T10:12:57Z</updated>
     <author>
         <name>Serhii Vasylenko — Technical Blog</name>
         <uri>https://serhii.vasylenko.info/</uri>
@@ -71,12 +71,10 @@ For example: &lt;code&gt;image.png&lt;/code&gt; → &lt;code&gt;image-optimized.
 
 &lt;p&gt;&lt;em&gt;Unfortunately, this Shortcut won&amp;rsquo;t work on iOS or watchOS because they do not support the &amp;ldquo;File Storage&amp;rdquo; actions used in the Shortcut.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;🌟 &lt;strong&gt;Demo&lt;/strong&gt; 🌟
-&lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;shortcut-demo.gif&#34;
-         alt=&#34;Shortcut Demo&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Shortcut Demo&lt;/p&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
+&lt;video class=&#34;animation&#34; autoplay loop muted playsinline&gt;
+    &lt;source src=&#34;shortcut-demo.webm&#34; type=&#34;video/webm&#34;&gt;
+&lt;/video&gt;
+
 &lt;/p&gt;
 &lt;h2 id=&#34;resize&#34;&gt;Image Resize with Monterey Shortcuts&lt;/h2&gt;
 &lt;p&gt;Another Shortcut I actively use is the image resizer. Most of the images on my blog are 1600px width fitted into an 800px frame to look sharp on the high-res displays (e.g., Retina).&lt;/p&gt;
@@ -1108,8 +1106,11 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw==
 &lt;p&gt;You select needed files or folders, then right-click on them, click on the Services menu item and choose TinyPNG.&lt;/p&gt;
 &lt;p&gt;After a moment, the new optimized versions of images will appear near to original files.&lt;/p&gt;
 &lt;p&gt;If you selected a folder along with the files, the script would process all &lt;code&gt;png&lt;/code&gt; and &lt;code&gt;jpeg&lt;/code&gt; files in it.&lt;/p&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;context_menu_full_compressed.gif&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
+&lt;video class=&#34;animation&#34; autoplay loop muted playsinline&gt;
+    &lt;source src=&#34;context_menu_full_compressed.webm&#34; type=&#34;video/webm&#34;&gt;
+&lt;/video&gt;
+
+
 &lt;h1 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h1&gt;
 &lt;p&gt;You need to register at TinyPNG and get your API key here — &lt;a href=&#34;https://tinypng.com/developers&#34;&gt;Developer API&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;They sometimes block some countries (for example, Ukraine) from registration; in that case, try to use a web-proxy or VPN.&lt;/p&gt;
@@ -1206,8 +1207,11 @@ x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw==
 &lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;chdir&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/&lt;span style=&#34;color:#666&#34;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Shell rulez, yes.&lt;/p&gt;
 &lt;h1 id=&#34;building-the-ami&#34;&gt;Building the AMI&lt;/h1&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;ami-build.gif&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
+&lt;video class=&#34;animation&#34; autoplay loop muted playsinline&gt;
+    &lt;source src=&#34;ami-build.webm&#34; type=&#34;video/webm&#34;&gt;
+&lt;/video&gt;
+
+
 &lt;p&gt;&lt;a href=&#34;https://www.packer.io/docs/builders/amazon/ebs&#34;&gt;Packer by HashiCorp&lt;/a&gt;, of course.&lt;/p&gt;
 &lt;p&gt;I would love to compare Packer with EC2 Image Builder, but it &lt;a href=&#34;https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html#image-builder-os&#34;&gt;does not support macOS&lt;/a&gt; yet (as of Feb&#39;21).&lt;/p&gt;
 &lt;p&gt;Packer configuration is straightforward, so I want to highlight only the things specific to the &amp;ldquo;mac1.metal&amp;rdquo; use case.&lt;/p&gt;
