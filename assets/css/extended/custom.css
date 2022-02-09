@@ -165,7 +165,6 @@
 .post-series ul {
     padding-left: 1em;
     list-style: none;
-    list-style-type: none;
 }
 
 .post-series a {
@@ -175,6 +174,8 @@
 .license {
     font-size: 0.8em;
     text-align: center;
+    font-style: italic;
+    color: var(--secondary);
 }
 .license a {
     text-decoration: underline;
@@ -183,3 +184,32 @@
 .animation {
     width: 100%;
 }
+
+.buy-me-a-coffee {
+    width: 70%;
+    padding: 5px 0 5px 0;
+    alignment: center;
+    text-align: center;
+    line-height: 2em;
+    margin: 10px auto 30px auto;
+    border-radius: var(--radius);
+    border: var(--border);
+    background-color: #439E8B;
+
+
+}
+
+.buy-me-a-coffee a{
+    display: block;
+    height: 100%;
+    color: white;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+span.emoji {
+    font-size: 24px;
+    vertical-align: middle;
+    line-height: 2;
+}
+
