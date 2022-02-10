@@ -186,30 +186,28 @@
 }
 
 .buy-me-a-coffee {
-    width: 70%;
-    padding: 5px 0 5px 0;
+    max-width: 50%;
     alignment: center;
     text-align: center;
-    line-height: 2em;
     margin: 10px auto 30px auto;
     border-radius: var(--radius);
     border: var(--border);
-    background-color: #439E8B;
+    background-color: #48bf53;
 
 
 }
 
 .buy-me-a-coffee a{
+    margin: 1em;
     display: block;
     height: 100%;
     color: white;
     font-weight: bold;
     vertical-align: middle;
+    line-height: 2em;
 }
 
 span.emoji {
     font-size: 24px;
     vertical-align: middle;
-    line-height: 2;
 }
-
