@@ -37,8 +37,8 @@
   <footer class="post-footer">
     {{- if (and .Site.Params.WriteMeOnTwitter (ne .Params.WriteMeOnTwitter false)) }}
     {{- partial "write_me_on_twitter.html" . -}}
-    {{- partial "buy-me-a-coffee.html" . -}}
     {{- end }}
+    {{- partial "buy-me-a-coffee.html" . -}}
     {{- partial "post-series.html" . -}}
     {{- if (and .Site.Params.SubscribeEngagement (ne .Params.DisableSubscribeEngagement false)) }}
     {{- partial "subscribe_engagement.html" . -}}

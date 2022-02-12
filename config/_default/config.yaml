@@ -67,7 +67,7 @@ rssLimit: 20
 params:
     SubscribeEngagement: false
     ShowLicense: true
-    WriteMeOnTwitter: true
+    WriteMeOnTwitter: false
     title: Serhii Vasylenko — Technical Blog
     description: "Developer Experience Engineer at Grammarly and AWS Community Builder. The blog is about AWS, Terraform, and different DevOps stuff."
     keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education, DeveloperExperience]
