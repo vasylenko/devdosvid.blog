@@ -68,6 +68,7 @@ params:
     SubscribeEngagement: false
     ShowLicense: true
     WriteMeOnTwitter: false
+    ByMeACoffee: true
     title: Serhii Vasylenko — Technical Blog
     description: "Developer Experience Engineer at Grammarly and AWS Community Builder. The blog is about AWS, Terraform, and different DevOps stuff."
     keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education, DeveloperExperience]
@@ -105,10 +106,10 @@ params:
 
     label:
         text: "Home"
-        icon: "/apple-touch-icon.png"
+#        icon: "/apple-touch-icon.png"
 
     homeInfoParams:
-        Title: "Welcome to my technical blog!"
+        Title: "Welcome to my technical blog! 👋"
         Content: "Here I write about my DevOps experience, technologies, some work as a Developer Experience engineer at Grammarly. And some other stuff too. I sincerely hope you’ll enjoy reading me!"
 
 #     socialIcons:
