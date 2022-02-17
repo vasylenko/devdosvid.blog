@@ -119,6 +119,11 @@
 
 .first-entry.home-info {
     margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.first-entry {
+    min-height: 160px;
 }
 
 .terms-tags li {
