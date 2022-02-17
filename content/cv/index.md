@@ -24,7 +24,7 @@ Developer Experience engineer, DevOps enthusiast. In 2020 I switched from team m
 Certified: AWS Solutions Architect Associate, Terraform Associate.
 
 From Nov'20
-:   **Developer Experience Engineer at [Grammarly](https://grammarly.com)**
+:   **Developer Experience Engineer at [Grammarly](https://grammarly.com) (full-time)**
 
     Making day-to-day work of developers more productive and agile by:
     - Providing automation and tooling for routine SDLC procedures
@@ -32,13 +32,13 @@ From Nov'20
     - Standardizing commonly used infrastructure components
 
 
-From July'20
+Jul'20 — Sep'21
 :   **DevOps Coach at [Hillel IT School](https://ithillel.ua/) (part-time)**
 
     Teaching DevOps and doing workshops about AWS and Terraform.
 
 Mar'17 – Jun'20
-:   **DevOps Teamlead at [ITCraft](https://itechcraft.com/blog/clients-amazon-aws-hosting/)**
+:   **DevOps Teamlead at [ITCraft](https://itechcraft.com/blog/clients-amazon-aws-hosting/) (full-time)**
 
     My biggest project — my team. A skilled and highly motivated team of engineers that sincerely cares about its work outcomes.
 
@@ -59,7 +59,7 @@ Mar'17 – Jun'20
 
 
 Nov'14 – Sep'16
-:   **Chief Technologist at [YourServerAdmin](https://yourserveradmin.com/)**
+:   **Chief Technologist at [YourServerAdmin](https://yourserveradmin.com/) (full-time)**
 
     I was responsible for the technical side of processes inside the department and researching the new technologies we could implement for our clients.
 
@@ -76,7 +76,7 @@ Nov'14 – Sep'16
     - Fostered the change of team mindset to Agile thinking.
 
 Jun'11 – Nov'14
-:   **System Administrator / Support Engineer at [YourServerAdmin](https://yourserveradmin.com/)**
+:   **System Administrator / Support Engineer at [YourServerAdmin](https://yourserveradmin.com/) (full-time)**
 
     Started my career in IT: grew up from a Level-1 tech support engineer (communication with customers and initial problem analysis) to Level-3 System Administrator responsible for complex technical tasks and daily shift management.
 
