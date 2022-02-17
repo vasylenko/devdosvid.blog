@@ -54,7 +54,7 @@ Give the new SSM Document a name, e.g., `macos-arbitrary-ansible-playbook`, and 
 
 Here is the complete source code of the Document with adjusted Ansible path:
 
-{{< collapse summary="Click to expand the code block" >}}
+{{< snippet >}}
 ```json
 {
   "schemaVersion": "2.0",
@@ -144,7 +144,7 @@ Here is the complete source code of the Document with adjusted Ansible path:
   ]
 }
 ```
-{{< /collapse >}}
+{{< /snippet >}}
 
 
 ## Applying Ansible playbook to the fleet of mac1.metal

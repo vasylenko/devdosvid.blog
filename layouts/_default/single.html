@@ -38,7 +38,9 @@
     {{- if (and .Site.Params.WriteMeOnTwitter (ne .Params.WriteMeOnTwitter false)) }}
     {{- partial "write_me_on_twitter.html" . -}}
     {{- end }}
+    {{- if (and .Site.Params.ByMeACoffee (ne .Params.ByMeACoffee false)) }}
     {{- partial "buy-me-a-coffee.html" . -}}
+    {{- end }}
     {{- partial "post-series.html" . -}}
     {{- if (and .Site.Params.SubscribeEngagement (ne .Params.DisableSubscribeEngagement false)) }}
     {{- partial "subscribe_engagement.html" . -}}

@@ -123,7 +123,6 @@ resource "aws_cloudformation_stack" "this" {
 {{< /snippet >}}
 
 And the next code snippet explains the CloudFromation template (which is the `resource-group-cf-stack-template.json` file in the code snippet above)
-
 {{< snippet >}}
 ```json
 {

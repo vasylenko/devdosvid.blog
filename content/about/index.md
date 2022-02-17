@@ -13,6 +13,7 @@ kind: page
 SubscribeEngagement: false
 WriteMeOnTwitter: false
 ShowLicense: false
+ByMeACoffee: false
 ---
 
 ![](./hoodie-optimized.png#center)
