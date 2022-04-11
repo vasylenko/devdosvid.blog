@@ -123,7 +123,7 @@
 }
 
 .first-entry {
-    min-height: 160px;
+    min-height: 100px;
 }
 
 .terms-tags li {
@@ -215,4 +215,8 @@
 span.emoji {
     font-size: 24px;
     vertical-align: middle;
+}
+
+.main {
+    padding-top: 0;
 }

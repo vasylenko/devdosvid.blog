@@ -82,11 +82,9 @@ Jun'11 – Nov'14
 
 Skills
 ----------------------------------
-Leader
-:   Team motivation, mentorship, cultivation of soft/hard skills of team members.
-
-Team
-:   Fostering team values and working principles and developing the new ones together with the team.\
+Team Leader
+:   Team motivation, mentorship, cultivation of soft/hard skills of team members.\
+Fostering team values and working principles and developing the new ones together with the team.\
 Hiring new team members and forming the required team skillset.
 
 PM
@@ -94,7 +92,7 @@ PM
 Resources and capacity management.
 
 Clouds
-:   Amazon Web Services. Design and fine-tuning of resilient and HA infrastructures; costs optimization and security hardening. 4 years of hands-on experience.
+:   Amazon Web Services. Design and fine-tuning of resilient and HA infrastructures; costs optimization and security hardening.
 
 Techs
 :   Jenkins, GitlabCI, Github Actions, Bitrise, CircleCI.\
@@ -109,7 +107,7 @@ Travel
 :   I like to explore new cities and countries, and I like trekking. I've been to the Annapurna base camp, and now I want to visit Everest's base camp.
 
 Blogging
-:   I love to write tutorials and articles about the technologies I use and learn.
+:   I love to write tutorials and articles about the technologies I use and learn. AWS Community Builder and HashiCorp Ambassador.
 
 Science
 :   Fond of History, Astronomy, and Physics. I wish to see the Betelgeuse supernova explosion someday, even though the expected explosion date is somewhere between today and 100k years. 

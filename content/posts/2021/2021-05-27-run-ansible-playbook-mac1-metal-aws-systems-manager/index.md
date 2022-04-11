@@ -2,7 +2,7 @@
 date: "2021-05-27T00:00:00Z"
 description: A small adjustment for big capabilities
 cover:
-  image: cover_image.png
+  image: cover-image.png
   relative: true
 subtitle: Centralized software customization on the group of EC2 Mac instances
 tags: [aws, ansible]
