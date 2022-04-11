@@ -55,7 +55,6 @@ The following tasks will help you to automate the basics.
 ```
 
 ## Example of software installation with Brew
-{% raw %}
 ```yaml
 - name: Install common build software
   community.general.homebrew:
@@ -66,7 +65,6 @@ The following tasks will help you to automate the basics.
     - swiftformat
     - wget
 ```
-{% endraw %}
 
 ## ScreenSharing (remote desktop) configuration example
 ```yaml

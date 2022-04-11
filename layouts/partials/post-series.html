@@ -1,9 +1,9 @@
 {{ if .Params.series }}
 {{ $series_name := index .Params.series 0 }}
 <div class="post-series">
-    <p>This post is a part of the <b>"{{ $series_name }}"</b> series.<br/>Other posts in this series:</p>
+    <p>This post is a part of the <b>"{{ $series_name }}"</b> series:</p>
     {{ $series_name := $series_name | urlize }}
-    {{ $series := index .Site.Taxonomies.series $series_name }}
+    {{ $series := index site.Taxonomies.series $series_name }}
     <ul> 
         {{$pagetitle := .Title }}
         {{ range $series.Pages }}   
