@@ -3,7 +3,7 @@ date: "2021-05-21T00:00:00Z"
 description: Modifying response headers to enforce the security of the web application
 images: ["cover_image.png"]
 cover:
-    image: "cover_image.png"
+    image: "cover-image.png"
 tags: ["aws", "cloudfront", "security"]
 categories: [Amazon Web Services]
 title: Configure HTTP Security headers with CloudFront Functions
