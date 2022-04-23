@@ -3,7 +3,7 @@
     <title>Serhii Vasylenko — Technical Blog</title>
     <id>https://serhii.vasylenko.info/</id>
     <link href="https://serhii.vasylenko.info/"/>
-    <updated>2022-04-13T19:58:08Z</updated>
+    <updated>2022-04-23T12:40:10Z</updated>
     <author>
         <name>Serhii Vasylenko — Technical Blog</name>
         <uri>https://serhii.vasylenko.info/</uri>
@@ -571,6 +571,9 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 &lt;p&gt;And I like this small but so helpful update of EC2 service very much: with mac1.metal instances, seamless integration of Apple-oriented CI/CD with other AWS infrastructure could finally happen.&lt;/p&gt;
 &lt;p&gt;While management of a single mac1.metal node (or a tiny number of ones) is not a big deal (especially when &lt;a href=&#34;https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html&#34;&gt;Dedicated Host support&lt;/a&gt; was added to Terraform provider), governing the fleet of instances is still complicated. Or it has been complicated until recent days.&lt;/p&gt;
 &lt;h2 id=&#34;official--unofficial-auto-scaling-for-macos&#34;&gt;Official / Unofficial Auto Scaling for macOS&lt;/h2&gt;
+&lt;div class=&#34;updatenotice&#34;&gt;
+    The blog was written and published before AWS has officially &lt;a href=&#34;https://aws.amazon.com/blogs/compute/implementing-autoscaling-for-ec2-mac-instances/&#34;&gt;announced&lt;/a&gt; that configuration approach.
+&lt;/div&gt;
 &lt;p&gt;With a growing number of instances, the following challenges arise:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Scale mac1.metal instances horizontally&lt;/li&gt;
