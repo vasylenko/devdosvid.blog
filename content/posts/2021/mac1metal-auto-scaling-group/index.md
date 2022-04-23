@@ -1,7 +1,7 @@
 ---
 title: "Auto Scaling Group for your macOS EC2 Instances fleet"
 date: 2021-10-24T02:00:31+03:00
-description:
+description: Scale your mac1.metal instances with Licence Manager and ASG services
 cover:
     image: cover-image.png
     relative: true
@@ -18,6 +18,11 @@ And I like this small but so helpful update of EC2 service very much: with mac1.
 While management of a single mac1.metal node (or a tiny number of ones) is not a big deal (especially when [Dedicated Host support](https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html) was added to Terraform provider), governing the fleet of instances is still complicated. Or it has been complicated until recent days.
 
 ## Official / Unofficial Auto Scaling for macOS
+
+{{< updatenotice >}}
+The blog was written and published before AWS has officially [announced](https://aws.amazon.com/blogs/compute/implementing-autoscaling-for-ec2-mac-instances/) that configuration approach.
+{{< /updatenotice >}}
+
 With a growing number of instances, the following challenges arise:
 - Scale mac1.metal instances horizontally
 - Automatically allocate and release Dedicated Hosts needed for instances
