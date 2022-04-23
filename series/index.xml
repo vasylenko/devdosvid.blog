@@ -3,7 +3,7 @@
     <title>Serhii Vasylenko — Technical Blog</title>
     <id>https://serhii.vasylenko.info/</id>
     <link href="https://serhii.vasylenko.info/series/"/>
-    <updated>2022-04-23T12:40:10Z</updated>
+    <updated>2022-04-23T19:14:39Z</updated>
     <author>
         <name>Serhii Vasylenko — Technical Blog</name>
         <uri>https://serhii.vasylenko.info/</uri>
@@ -634,15 +634,16 @@ However, Auto Scaling Group will maintain the desired number of instances if one
 &lt;p&gt;Mac instances are available in us-east-1 and &lt;a href=&#34;https://aws.amazon.com/about-aws/whats-new/2021/10/amazon-ec2-mac-instances-additional-regions/&#34;&gt;7 more regions&lt;/a&gt;, but not every Availability Zone in the region supports it. So you must figure out which AZ supports the needed instance type.&lt;/p&gt;
 &lt;p&gt;There is no documentation for that, but there is an AWS CLI command that can answer this question: &lt;a href=&#34;https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/describe-instance-type-offerings.html&#34;&gt;describe-instance-type-offerings — AWS CLI 2.3.0 Command Reference&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Here is an example for the us-east-1 region:
-&lt;details &gt;
-&lt;summary markdown=&#34;span&#34; style=&#34;font-size: 0.8em; font-weight: bold&#34;&gt;➡️ Click here to see the code snippet ⬅️&lt;/summary&gt;
+&lt;div class=&#34;code-snippet&#34;&gt;
+&lt;details&gt;
+&lt;summary markdown=&#34;span&#34;&gt;Click here to see the code snippet&lt;/summary&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; aws ec2 describe-instance-type-offerings --location-type availability-zone-id --filters &lt;span style=&#34;color:#40ffff&#34;&gt;Name&lt;/span&gt;=instance-type,Values=mac1.metal --region us-east-1 --output text
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;INSTANCETYPEOFFERINGS	mac1.metal	use1-az6	availability-zone-id
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;INSTANCETYPEOFFERINGS	mac1.metal	use1-az4	availability-zone-id
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/details&gt;
-&lt;/p&gt;
+&lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;Keep that nuance in mind when selecting a subnet for the mac1.metal instances.&lt;/p&gt;
 &lt;p&gt;When you know the AZ, specify the respective Subnet in the Auto Scaling Group settings, and you&amp;rsquo;re ready to go!&lt;/p&gt;
 &lt;h2 id=&#34;bring-infrastructure-as-code-here&#34;&gt;Bring Infrastructure as Code here&lt;/h2&gt;
@@ -656,8 +657,9 @@ However, Auto Scaling Group will maintain the desired number of instances if one
 &lt;/ul&gt;
 &lt;p&gt;The Host resource group is not yet supported by the provider, unfortunately. However, we can use CloudFormation in Terraform to overcome that: describe the Host resource group as &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack&#34;&gt;aws_cloudformation_stack&lt;/a&gt; Terraform resource using CloudFormation template from a file.&lt;/p&gt;
 &lt;p&gt;Here is how it looks like:
-&lt;details &gt;
-&lt;summary markdown=&#34;span&#34; style=&#34;font-size: 0.8em; font-weight: bold&#34;&gt;➡️ Click here to see the code snippet ⬅️&lt;/summary&gt;
+&lt;div class=&#34;code-snippet&#34;&gt;
+&lt;details&gt;
+&lt;summary markdown=&#34;span&#34;&gt;Click here to see the code snippet&lt;/summary&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;aws_licensemanager_license_configuration&amp;#34; &amp;#34;this&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  name                     = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;local&lt;/span&gt;.&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;full_name&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  license_counting_type    = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;Socket&amp;#34;&lt;/span&gt;
@@ -673,10 +675,11 @@ However, Auto Scaling Group will maintain the desired number of instances if one
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/details&gt;
-&lt;/p&gt;
+&lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;And the next code snippet explains the CloudFromation template (which is the &lt;code&gt;resource-group-cf-stack-template.json&lt;/code&gt; file in the code snippet above)
-&lt;details &gt;
-&lt;summary markdown=&#34;span&#34; style=&#34;font-size: 0.8em; font-weight: bold&#34;&gt;➡️ Click here to see the code snippet ⬅️&lt;/summary&gt;
+&lt;div class=&#34;code-snippet&#34;&gt;
+&lt;details&gt;
+&lt;summary markdown=&#34;span&#34;&gt;Click here to see the code snippet&lt;/summary&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;Parameters&amp;#34;&lt;/span&gt; : {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;GroupName&amp;#34;&lt;/span&gt; : {
@@ -737,7 +740,7 @@ However, Auto Scaling Group will maintain the desired number of instances if one
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/details&gt;
-&lt;/p&gt;
+&lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;aws_cloudformation_stack&lt;/code&gt; resource will export the &lt;code&gt;DedicatedHostGroup&lt;/code&gt; attribute (see the code of CloudFromation template), which you will use later in the Launch Template resource.&lt;/p&gt;
 &lt;h3 id=&#34;pro-tips&#34;&gt;Pro tips&lt;/h3&gt;
 &lt;p&gt;If you manage an AWS Organization, I have good news: Host groups and Licenses are supported by &lt;a href=&#34;https://docs.aws.amazon.com/ram/latest/userguide/shareable.html&#34;&gt;Resource Access Manager&lt;/a&gt; service. Hence, you can host all mac instances in one account and share them with other accounts — it might be helpful for costs allocation, for example. Also, check out &lt;a href=&#34;https://serhii.vasylenko.info/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/&#34;&gt;my blog about AWS RAM&lt;/a&gt; if you are very new to this service.&lt;/p&gt;
@@ -860,8 +863,9 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
 &lt;/p&gt;
 &lt;p&gt;Give the new SSM Document a name, e.g., &lt;code&gt;macos-arbitrary-ansible-playbook&lt;/code&gt;, and change the &lt;code&gt;ansible&lt;/code&gt; callouts (at the end of the code) with the full path to the ansible symlink made by Homebrew which is &lt;code&gt;/usr/local/bin/ansible&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Here is the complete source code of the Document with adjusted Ansible path:&lt;/p&gt;
-&lt;details &gt;
-&lt;summary markdown=&#34;span&#34; style=&#34;font-size: 0.8em; font-weight: bold&#34;&gt;➡️ Click here to see the code snippet ⬅️&lt;/summary&gt;
+&lt;div class=&#34;code-snippet&#34;&gt;
+&lt;details&gt;
+&lt;summary markdown=&#34;span&#34;&gt;Click here to see the code snippet&lt;/summary&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;schemaVersion&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;2.0&amp;#34;&lt;/span&gt;,
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;description&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;Use this document to run arbitrary Ansible playbooks on macOS EC2 instances. Specify either YAML text or URL. If you specify both, the URL parameter will be used. Use the extravar parameter to send runtime variables to the Ansible execution. Use the check parameter to perform a dry run of the Ansible execution. The output of the dry run shows the changes that will be made when the playbook is executed.&amp;#34;&lt;/span&gt;,
@@ -951,7 +955,7 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/details&gt;
-
+&lt;/div&gt;
 &lt;h2 id=&#34;applying-ansible-playbook-to-the-fleet-of-mac1metal&#34;&gt;Applying Ansible playbook to the fleet of mac1.metal&lt;/h2&gt;
 &lt;p&gt;Let’s give our new SSM Document a try! (I suppose you have at least one mac1 instance running, right?)&lt;/p&gt;
 &lt;p&gt;In AWS SSM, go to the Run Command feature, then click on the Run Command button.&lt;/p&gt;
