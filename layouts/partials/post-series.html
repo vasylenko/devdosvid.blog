@@ -1,7 +1,7 @@
 {{ if .Params.series }}
 {{ $series_name := index .Params.series 0 }}
 <div class="post-series">
-    <p>This post is a part of the <b>"{{ $series_name }}"</b> series:</p>
+    <p>Check out other posts of the <b>"{{ $series_name }}"</b> series:</p>
     {{ $series_name := $series_name | urlize }}
     {{ $series := index site.Taxonomies.series $series_name }}
     <ul> 

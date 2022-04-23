@@ -1,4 +1,6 @@
-<details {{ if (eq (.Get "openByDefault") true) }} open=true {{ end }}>
-<summary markdown="span" style="font-size: 0.8em; font-weight: bold">➡️ Click here to see the code snippet ⬅️</summary>
+<div class="code-snippet">
+<details>
+<summary markdown="span">Click here to see the code snippet</summary>
 {{ .Inner | markdownify }}
 </details>
+</div>
