@@ -105,7 +105,7 @@ Having these two resources together allows us to think of it as a stand-alone un
 
 Please note: we specified an instance argument inside the `aws_eip` resource to reference another resource details (the ID of an instance). It is possible because of the way how Terraform treats dependencies. For example, when it detects the dependency (or you define it explicitly), Terraform creates the leading resource first. Only after the resource is created and available Terraform will create the dependent one.
 
-The modules is a kind of standalone topic in Terraform. There is [a separate article in my blog](https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html) that explains what modules are and how do they work.
+The modules is a kind of standalone topic in Terraform. There is [a separate article in my blog](/2020/09/09/terraform-modules-explained.html) that explains what modules are and how do they work.
 
 ### Variables
 **Input variables** work as parameters for the modules so module code could be reusable. Let’s look at the previous example: it has some hardcoded values — instance image ID and instance type. Here is how you can make it more abstract and reusable:

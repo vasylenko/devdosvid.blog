@@ -90,7 +90,7 @@ I would love to compare Packer with EC2 Image Builder, but it [does not support 
 Packer configuration is straightforward, so I want to highlight only the things specific to the "mac1.metal" use case.
 
 ## Timeouts
-As I mentioned in the [previous article](https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html), the creation and deletion time of the "mac1.metal" Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.
+As I mentioned in the [previous article](/2021/01/19/mac1-metal-EC2-Instance-user-experience.html), the creation and deletion time of the "mac1.metal" Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.
 
 Example:
 ```json

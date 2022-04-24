@@ -4,3 +4,11 @@ buildExpired: true
 params:
     heapanalyticsid: 2138518663
     ByMeACoffee: false
+minify:
+    disableCSS: false
+    disableHTML: false
+    disableJS: false
+    disableJSON: false
+    disableSVG: false
+    disableXML: false
+    minifyOutput: false
