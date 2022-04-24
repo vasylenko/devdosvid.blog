@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
-    <title>Serhii Vasylenko — Technical Blog</title>
+    <title>devDosvid — technical blog about DX, DevOps and Cloud Engineering</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/"/>
-    <updated>2022-04-24T21:25:39Z</updated>
+    <updated>2022-04-24T22:38:21Z</updated>
     <author>
-        <name>Serhii Vasylenko — Technical Blog</name>
+        <name>devDosvid — technical blog about DX, DevOps and Cloud Engineering</name>
         <uri>https://devdosvid.blog/</uri>
     </author>
     <generator>Hugo gohugo.io</generator>
