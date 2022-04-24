@@ -1,5 +1,10 @@
 #!/bin/zsh
 git submodule update --init --recursive
 git submodule update --remote --merge
-bindip=$(ipconfig getifaddr en0)
-hugo server --baseURL http://${bindip} --buildDrafts --buildFuture --environment development --gc --noHTTPCache --bind ${bindip} --quiet
+if [[ $1 == "localhost" ]]
+then
+    bindip=localhost
+else
+    bindip=$(ipconfig getifaddr en0)
+fi
+hugo server  --bind ${bindip} --baseURL http://${bindip} --buildDrafts --buildFuture --environment development --gc --noHTTPCache --quiet

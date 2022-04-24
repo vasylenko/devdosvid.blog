@@ -113,6 +113,10 @@
     margin-bottom: 5px;
 }
 
+.post-content p {
+    line-height: 1.75em;
+}
+
 :root {
     --main-width: 800px;
 }
@@ -157,13 +161,17 @@
 }
 
 .post-series {
-    border-top:1px solid black;
     padding-top: 1em;
-    /* font-family: 'Roboto Mono'; */
-    /* font-size: 14px; */
-    font-style: italic;
     position: relative;
     margin-bottom: 2em;
+    padding: 0.1em 0.1em 0.1em 1.5em;
+    border-left-width: 0.3em;
+    border-left-style: solid;
+    border-radius: var(--radius);
+    position: relative;
+    border-left-color: #48bf53;
+    /* background-color: rgba(49, 171, 255, 0.1); */
+    font-style: italic;
 
 }
 
@@ -219,4 +227,10 @@ span.emoji {
 
 .main {
     padding-top: 0;
+}
+
+.code-snippet summary {
+    cursor: pointer;
+    /* font-size: 0.8em; */
+    font-weight: bold
 }
