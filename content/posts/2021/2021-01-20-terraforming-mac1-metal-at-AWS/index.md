@@ -57,7 +57,8 @@ data "aws_ami" "mac1metal" {
 ```
 
 Simple as that, yes. Now, you can integrate it into your CI system and have the Mac instance with the underlying host in a bundle.
+{{<attention>}}
+Pro tip: you can leverage the `aws_ec2_instance_type_offerings` [Data Source](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings) and use its output with `aws_subnet` source to avoid availability zone hardcoding.
+{{</attention>}}
 
-💡 Pro tip: you can leverage the `aws_ec2_instance_type_offerings` [Data Source](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings) and use its output with `aws_subnet` source to avoid availability zone hardcoding.
-
-To make the code more uniform and reusable, you can wrap it into a [Terraform module](https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html) that accepts specific parameters (such as `instance_type` or `availability_zone`) as input variables.
+To make the code more uniform and reusable, you can wrap it into a [Terraform module](/2020/09/09/terraform-modules-explained.html) that accepts specific parameters (such as `instance_type` or `availability_zone`) as input variables.

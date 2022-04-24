@@ -11,7 +11,7 @@ showtoc: false
 ---
 In November 2021, AWS announced Response Headers Policies — native support of response headers in CloudFront. You can read the full announcement here: [Amazon CloudFront introduces Response Headers Policies](https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-response-headers-policies/)
 
-I said "native" because previously you could set response headers either using [CloudFront Functions](https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html) or [Lambda@Edge](https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/).
+I said "native" because previously you could set response headers either using [CloudFront Functions](/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html) or [Lambda@Edge](https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/).
 
 And one of the common use cases for that was to set security headers. Now you don't need to add intermediate requests processing to modify the headers: CloudFront does that for you **with no additional fee**.
 

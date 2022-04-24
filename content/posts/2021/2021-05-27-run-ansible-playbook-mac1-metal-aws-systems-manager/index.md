@@ -16,7 +16,7 @@ In days of containers and serverless applications, Ansible looks not such a tren
 
 But still, there are cases when it helps, and there are cases when it combines very well with brand new product offerings, such as EC2 Mac instances.
 
-The [more I use mac1.metal](https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html) in AWS, the more I see that Ansible becomes a bedrock of software customization in my case.
+The [more I use mac1.metal](/2021/02/01/customizing-mac1-metal-ec2-ami.html) in AWS, the more I see that Ansible becomes a bedrock of software customization in my case.
 
 And when you have a large instances fleet, the AWS Systems Manager becomes your best friend (the sooner you get along together, the better).
 

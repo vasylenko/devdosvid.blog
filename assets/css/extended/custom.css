@@ -1,34 +1,30 @@
+:root {
+    --color-blue: #0E1C36;
+    --color-orange: #FF9F1C;
+    --color-green: #77A02C;
+    --main-width: 800px;
+}
+
+
 .list {
     background: var(--theme);
 }
 
-.post-content .highlight:not(table) {
-    margin-bottom: 2em;
-}
 
 .entry-content p{
     font-size: 16px;
 }
 
-.substack-subscribe {
-    box-sizing: border-box;
-    background-color: #3C8700;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    border-radius: 8px;
-    padding: 1em 0 1em 0;
-    text-align: center;
-}
 
 .attention {
-    padding: 0.1em 0.1em 0.1em 1.5em;
+    padding: 0.5em 0.5em 0.5em 1.5em;
     margin-bottom: 1em;
-    border-left-width: 0.3em;
+    border-left-width: 0.5em;
     border-left-style: solid;
+    border-right-width: 0.5em;
+    border-right-style: solid;
+    border-color: var(--color-orange);
     border-radius: var(--radius);
-    position: relative;
-    border-left-color: #31abff;
-    background-color: rgba(49, 171, 255, 0.1);
     font-style: italic;
 }
 
@@ -37,12 +33,6 @@
     font-style: italic;
 }
 
-.attention:before {
-    content: "\1F4AC";
-    position: absolute;
-    margin-left: -1.25em;
-    font-style: normal;
-}
 
 .updatenotice {
     border-radius: var(--radius);
@@ -50,33 +40,17 @@
     margin-bottom: 1em;
     border-left-width: 0.5em;
     border-left-style: solid;
-    position: relative;
-    border-left-color: #3C8700;
-    background-color: rgba(60,135,0,0.075);
+    border-right-width: 0.5em;
+    border-right-style: solid;
+    border-color: var(--color-green);
 }
-
-.substack-widget {
-    border-style: none;
-    height: 8em;
-    padding: 0;
-    margin-bottom: 0;
-    width: 100%;
-    border-radius: var(--radius);
-    display: inline-block;
-}
-
-.substack-widget-preface {
-    padding-top: 1em;
-    border-top: var(--border);
-    border-style: solid;
-    border-right: none;
-    border-bottom: none;
-    border-left: none;
-}
-
-.substack-widget-preface a {
+.updatenotice a {
+    /*color: white;*/
     font-weight: bold;
-    text-decoration: underline;
+    color: var(--color-green);
+}
+.updatenotice p {
+    margin-bottom: 0;
 }
 
 .write_me_on_twitter {
@@ -89,13 +63,8 @@
     /*color: darkgreen;*/
 }
 
-.updatenotice a {
-    /*color: white;*/
-    font-weight: bold;
-    color: darkgreen;
-}
-.updatenotice p {
-    margin-bottom: 0;
+.post-content .highlight:not(table) {
+    margin-bottom: 2em;
 }
 
 .post-content figure img {
@@ -118,7 +87,7 @@
 }
 
 :root {
-    --main-width: 800px;
+    
 }
 
 .first-entry.home-info {
@@ -134,43 +103,11 @@
     display: inline;
 }
 
-
-@media print {
-    body {
-        font-family: Verdana, Helvetica, sans-serif;
-        max-width: 850px;
-        font-size: 14px;
-    }
-    h1,h2,h3,h4,h4+ul,dd,dt{
-        page-break-after: avoid;
-    }
-    dd, ul, li {
-        page-break-inside: avoid;
-    }
-
-    h6, .header, .footer, .post-footer, .breadcrumbs, .post-meta, .toc, .top-link {
-        display: none !important;
-    }
-    a {
-        font-weight: bold;
-        text-decoration: none;
-        color: black;
-        pointer-events: none;
-        cursor: default;
-    }
-}
-
 .post-series {
     padding-top: 1em;
     position: relative;
     margin-bottom: 2em;
     padding: 0.1em 0.1em 0.1em 1.5em;
-    border-left-width: 0.3em;
-    border-left-style: solid;
-    border-radius: var(--radius);
-    position: relative;
-    border-left-color: #48bf53;
-    /* background-color: rgba(49, 171, 255, 0.1); */
     font-style: italic;
 
 }
@@ -233,4 +170,30 @@ span.emoji {
     cursor: pointer;
     /* font-size: 0.8em; */
     font-weight: bold
+}
+
+
+@media print {
+    body {
+        font-family: Verdana, Helvetica, sans-serif;
+        max-width: 850px;
+        font-size: 14px;
+    }
+    h1,h2,h3,h4,h4+ul,dd,dt{
+        page-break-after: avoid;
+    }
+    dd, ul, li {
+        page-break-inside: avoid;
+    }
+
+    h6, .header, .footer, .post-footer, .breadcrumbs, .post-meta, .toc, .top-link {
+        display: none !important;
+    }
+    a {
+        font-weight: bold;
+        text-decoration: none;
+        color: black;
+        pointer-events: none;
+        cursor: default;
+    }
 }

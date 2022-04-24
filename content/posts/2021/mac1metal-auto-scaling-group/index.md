@@ -11,11 +11,11 @@ aliases: ["/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances"]
 series: ["mac1.metal at AWS"]
 ---
 
-It’s been almost a year since I started using macOS EC2 instances on AWS: there were [ups and downs in service offerings](https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html) and a lot of discoveries with [macOS AMI build](https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html) automation.
+It’s been almost a year since I started using macOS EC2 instances on AWS: there were [ups and downs in service offerings](/2021/01/19/mac1-metal-EC2-Instance-user-experience.html) and a lot of discoveries with [macOS AMI build](/2021/02/01/customizing-mac1-metal-ec2-ami.html) automation.
 
 And I like this small but so helpful update of EC2 service very much: with mac1.metal instances, seamless integration of Apple-oriented CI/CD with other AWS infrastructure could finally happen.
 
-While management of a single mac1.metal node (or a tiny number of ones) is not a big deal (especially when [Dedicated Host support](https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html) was added to Terraform provider), governing the fleet of instances is still complicated. Or it has been complicated until recent days.
+While management of a single mac1.metal node (or a tiny number of ones) is not a big deal (especially when [Dedicated Host support](/2021/01/20/terraforming-mac1-metal-at-AWS.html) was added to Terraform provider), governing the fleet of instances is still complicated. Or it has been complicated until recent days.
 
 ## Official / Unofficial Auto Scaling for macOS
 
@@ -194,7 +194,7 @@ And the next code snippet explains the CloudFromation template (which is the `re
 The `aws_cloudformation_stack` resource will export the `DedicatedHostGroup` attribute (see the code of CloudFromation template), which you will use later in the Launch Template resource. 
 
 ### Pro tips
-If you manage an AWS Organization, I have good news: Host groups and Licenses are supported by [Resource Access Manager](https://docs.aws.amazon.com/ram/latest/userguide/shareable.html) service. Hence, you can host all mac instances in one account and share them with other accounts — it might be helpful for costs allocation, for example. Also, check out [my blog about AWS RAM](https://serhii.vasylenko.info/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/) if you are very new to this service.
+If you manage an AWS Organization, I have good news: Host groups and Licenses are supported by [Resource Access Manager](https://docs.aws.amazon.com/ram/latest/userguide/shareable.html) service. Hence, you can host all mac instances in one account and share them with other accounts — it might be helpful for costs allocation, for example. Also, check out [my blog about AWS RAM](/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/) if you are very new to this service.
 
 To solve the “which AZ supports mac metal” puzzle, you can leverage the [aws_ec2_instance_type_offerings](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings) and [aws_subnet_ids](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet_ids) data sources.
 

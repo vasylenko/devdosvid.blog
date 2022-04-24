@@ -15,7 +15,7 @@ In November 2021, AWS has added this functionality as a native CloudFront featur
 
 I suggest switching to the native implementation. I have described how to configure Security Response Headers for CloudFront in the following article:
 
-[Apply Cloudfront Security Headers With Terraform](https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/)
+[Apply Cloudfront Security Headers With Terraform](/2021/11/05/apply-cloudfront-security-headers-with-terraform/)
 {{< /updatenotice >}}
 
 A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.
