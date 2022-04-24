@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
     <title>Serhii Vasylenko — Technical Blog</title>
-    <id>https://serhii.vasylenko.info/</id>
-    <link href="https://serhii.vasylenko.info/series/"/>
-    <updated>2022-04-23T19:14:39Z</updated>
+    <id>https://devdosvid.blog/</id>
+    <link href="https://devdosvid.blog/series/"/>
+    <updated>2022-04-24T21:25:39Z</updated>
     <author>
         <name>Serhii Vasylenko — Technical Blog</name>
-        <uri>https://serhii.vasylenko.info/</uri>
+        <uri>https://devdosvid.blog/</uri>
     </author>
     <generator>Hugo gohugo.io</generator>
-    <logo>https://serhii.vasylenko.info/assets/img/website-logo.png</logo>
-    <link rel="alternate" type="text/html" href="https://serhii.vasylenko.info/series/" hreflang="en-us"/>
+    <logo>https://devdosvid.blog/assets/img/website-logo.png</logo>
+    <link rel="alternate" type="text/html" href="https://devdosvid.blog/series/" hreflang="en-us"/>
     <entry>
         <title>Monterey Shortcuts for Easy and Fast Image Processing</title>
-        <link href="https://serhii.vasylenko.info/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/" hreflang="en" rel="alternate"/>
         <published>2022-01-31T21:46:04Z</published>
         <updated>2022-01-31T21:46:04Z</updated>
-        <id>https://serhii.vasylenko.info/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/</id>
+        <id>https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/cover-image.png</logo>
+        <logo>https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/cover-image.png</logo>
         <content type="html">&lt;p&gt;Here I want to share two Apple Shortcuts that I created for myself and use to process images for this blog:&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;#optimization&#34;&gt;Image Optimization&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;and&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;#resize&#34;&gt;Image Resize&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;About a year ago, I posted &lt;a href=&#34;https://serhii.vasylenko.info/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/&#34; title=&#34;Using TinyPNG Image Compression From MacOS Finder Contextual Menu&#34;&gt;the blog about the Automator quick action&lt;/a&gt; to optimize PNG and JPEG images with TinyPNG service and save the processed images next to the original ones.&lt;/p&gt;
+&lt;p&gt;About a year ago, I posted &lt;a href=&#34;https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/&#34; title=&#34;Using TinyPNG Image Compression From MacOS Finder Contextual Menu&#34;&gt;the blog about the Automator quick action&lt;/a&gt; to optimize PNG and JPEG images with TinyPNG service and save the processed images next to the original ones.&lt;/p&gt;
 &lt;p&gt;While that Automator-based solution still works, macOS Monterey now supports Shortcuts — a new automating tool that seems to substitute the old fellow Automator.&lt;/p&gt;
 &lt;p&gt;So I decided to create a couple of automation with Shortcuts: one for image optimization (reduce file size but not the size in pixels), and one for image scaling (change its size in pixels).&lt;/p&gt;
 &lt;p&gt;I have used them for several months to prepare images for this blog, and I really like how they work!&lt;/p&gt;
@@ -96,14 +96,14 @@
     </entry>
     <entry>
         <title>Some Techniques to Enhance Your Terraform Proficiency</title>
-        <link href="https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/" hreflang="en" rel="alternate"/>
         <published>2022-01-15T23:59:51Z</published>
         <updated>2022-01-15T23:59:51Z</updated>
-        <id>https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</id>
+        <id>https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/cover-image.png</logo>
+        <logo>https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/cover-image.png</logo>
         <content type="html">&lt;p&gt;Terraform built-in functionality is very feature-rich: functions, expressions,  and meta-arguments provide many ways to shape the code and fit it to a particular use case. I want to share a few valuable practices to boost your Terraform expertise in this blog.&lt;/p&gt;
 &lt;div class=&#34;attention&#34;&gt;
     Some code examples in this article will work with Terraform version 0.15 and onwards. But if you&amp;rsquo;re still using 0.14 or lower, here&amp;rsquo;s another motivation for you to upgrade.
@@ -310,14 +310,14 @@ bash /opt/system-init/register-monitoring.sh
     </entry>
     <entry>
         <title>Guide to Using Terraform in CI/CD</title>
-        <link href="https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/" hreflang="en" rel="alternate"/>
         <published>2021-11-24T20:20:45Z</published>
         <updated>2021-11-24T20:20:45Z</updated>
-        <id>https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/</id>
+        <id>https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2021/11/24/guide-to-using-terraform-in-ci/cd/cover-image.png</logo>
+        <logo>https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/cover-image.png</logo>
         <content type="html">&lt;p&gt;Terraform by itself automates a lot of things: it creates, changes, and versions your cloud resources. Although many teams run Terraform locally (sometimes with wrapper scripts), running Terraform in CI/CD can boost the organization&amp;rsquo;s performance and ensure consistent deployments.&lt;/p&gt;
 &lt;p&gt;In this article, I would like to review different approaches to integrating Terraform into generic deployment pipelines.&lt;/p&gt;
 &lt;h1 id=&#34;where-to-store-the-terraform-code&#34;&gt;Where to store the Terraform code&lt;/h1&gt;
@@ -465,16 +465,16 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
     </entry>
     <entry>
         <title>Apply Cloudfront Security Headers With Terraform</title>
-        <link href="https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2021/11/05/apply-cloudfront-security-headers-with-terraform/" hreflang="en" rel="alternate"/>
         <published>2021-11-05T12:20:58Z</published>
         <updated>2021-11-05T12:20:58Z</updated>
-        <id>https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/</id>
+        <id>https://devdosvid.blog/2021/11/05/apply-cloudfront-security-headers-with-terraform/</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/cover-image.png</logo>
+        <logo>https://devdosvid.blog/2021/11/05/apply-cloudfront-security-headers-with-terraform/cover-image.png</logo>
         <content type="html">&lt;p&gt;In November 2021, AWS announced Response Headers Policies — native support of response headers in CloudFront. You can read the full announcement here: &lt;a href=&#34;https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-response-headers-policies/&#34;&gt;Amazon CloudFront introduces Response Headers Policies&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;I said &amp;ldquo;native&amp;rdquo; because previously you could set response headers either using &lt;a href=&#34;https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html&#34;&gt;CloudFront Functions&lt;/a&gt; or &lt;a href=&#34;https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/&#34;&gt;Lambda@Edge&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I said &amp;ldquo;native&amp;rdquo; because previously you could set response headers either using &lt;a href=&#34;https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html&#34;&gt;CloudFront Functions&lt;/a&gt; or &lt;a href=&#34;https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/&#34;&gt;Lambda@Edge&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;And one of the common use cases for that was to set security headers. Now you don&amp;rsquo;t need to add intermediate requests processing to modify the headers: CloudFront does that for you &lt;strong&gt;with no additional fee&lt;/strong&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;manage-security-headers-as-code&#34;&gt;Manage Security Headers as Code&lt;/h2&gt;
 &lt;p&gt;Starting from the &lt;a href=&#34;https://github.com/hashicorp/terraform-provider-aws/blob/main/CHANGELOG.md#3640-november-04-2021&#34;&gt;3.64.0&lt;/a&gt; version of Terraform AWS provider, you can create the security headers policies and apply them for your distribution.&lt;/p&gt;
@@ -558,17 +558,17 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
     </entry>
     <entry>
         <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
-        <link href="https://serhii.vasylenko.info/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/" hreflang="en" rel="alternate"/>
         <published>2021-10-23T23:00:31Z</published>
         <updated>2021-10-23T23:00:31Z</updated>
-        <id>https://serhii.vasylenko.info/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/</id>
+        <id>https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/cover-image.png</logo>
-        <content type="html">&lt;p&gt;It’s been almost a year since I started using macOS EC2 instances on AWS: there were &lt;a href=&#34;https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html&#34;&gt;ups and downs in service offerings&lt;/a&gt; and a lot of discoveries with &lt;a href=&#34;https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html&#34;&gt;macOS AMI build&lt;/a&gt; automation.&lt;/p&gt;
+        <logo>https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/cover-image.png</logo>
+        <content type="html">&lt;p&gt;It’s been almost a year since I started using macOS EC2 instances on AWS: there were &lt;a href=&#34;https://devdosvid.blog/2021/01/19/mac1-metal-EC2-Instance-user-experience.html&#34;&gt;ups and downs in service offerings&lt;/a&gt; and a lot of discoveries with &lt;a href=&#34;https://devdosvid.blog/2021/02/01/customizing-mac1-metal-ec2-ami.html&#34;&gt;macOS AMI build&lt;/a&gt; automation.&lt;/p&gt;
 &lt;p&gt;And I like this small but so helpful update of EC2 service very much: with mac1.metal instances, seamless integration of Apple-oriented CI/CD with other AWS infrastructure could finally happen.&lt;/p&gt;
-&lt;p&gt;While management of a single mac1.metal node (or a tiny number of ones) is not a big deal (especially when &lt;a href=&#34;https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html&#34;&gt;Dedicated Host support&lt;/a&gt; was added to Terraform provider), governing the fleet of instances is still complicated. Or it has been complicated until recent days.&lt;/p&gt;
+&lt;p&gt;While management of a single mac1.metal node (or a tiny number of ones) is not a big deal (especially when &lt;a href=&#34;https://devdosvid.blog/2021/01/20/terraforming-mac1-metal-at-AWS.html&#34;&gt;Dedicated Host support&lt;/a&gt; was added to Terraform provider), governing the fleet of instances is still complicated. Or it has been complicated until recent days.&lt;/p&gt;
 &lt;h2 id=&#34;official--unofficial-auto-scaling-for-macos&#34;&gt;Official / Unofficial Auto Scaling for macOS&lt;/h2&gt;
 &lt;div class=&#34;updatenotice&#34;&gt;
     The blog was written and published before AWS has officially &lt;a href=&#34;https://aws.amazon.com/blogs/compute/implementing-autoscaling-for-ec2-mac-instances/&#34;&gt;announced&lt;/a&gt; that configuration approach.
@@ -743,7 +743,7 @@ However, Auto Scaling Group will maintain the desired number of instances if one
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;aws_cloudformation_stack&lt;/code&gt; resource will export the &lt;code&gt;DedicatedHostGroup&lt;/code&gt; attribute (see the code of CloudFromation template), which you will use later in the Launch Template resource.&lt;/p&gt;
 &lt;h3 id=&#34;pro-tips&#34;&gt;Pro tips&lt;/h3&gt;
-&lt;p&gt;If you manage an AWS Organization, I have good news: Host groups and Licenses are supported by &lt;a href=&#34;https://docs.aws.amazon.com/ram/latest/userguide/shareable.html&#34;&gt;Resource Access Manager&lt;/a&gt; service. Hence, you can host all mac instances in one account and share them with other accounts — it might be helpful for costs allocation, for example. Also, check out &lt;a href=&#34;https://serhii.vasylenko.info/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/&#34;&gt;my blog about AWS RAM&lt;/a&gt; if you are very new to this service.&lt;/p&gt;
+&lt;p&gt;If you manage an AWS Organization, I have good news: Host groups and Licenses are supported by &lt;a href=&#34;https://docs.aws.amazon.com/ram/latest/userguide/shareable.html&#34;&gt;Resource Access Manager&lt;/a&gt; service. Hence, you can host all mac instances in one account and share them with other accounts — it might be helpful for costs allocation, for example. Also, check out &lt;a href=&#34;https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/&#34;&gt;my blog about AWS RAM&lt;/a&gt; if you are very new to this service.&lt;/p&gt;
 &lt;p&gt;To solve the “which AZ supports mac metal” puzzle, you can leverage the &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings&#34;&gt;aws_ec2_instance_type_offerings&lt;/a&gt; and &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet_ids&#34;&gt;aws_subnet_ids&lt;/a&gt; data sources.&lt;/p&gt;
 &lt;h2 id=&#34;costs-considerations&#34;&gt;Costs considerations&lt;/h2&gt;
 &lt;p&gt;License Manager is a &lt;a href=&#34;https://aws.amazon.com/license-manager/pricing/&#34;&gt;free of charge service&lt;/a&gt;, as well as &lt;a href=&#34;https://aws.amazon.com/autoscaling/pricing/&#34;&gt;Auto Scaling&lt;/a&gt;, and &lt;a href=&#34;https://aws.amazon.com/about-aws/whats-new/2017/11/introducing-launch-templates-for-amazon-ec2-instances/&#34;&gt;Launch Template&lt;/a&gt;.&lt;/p&gt;
@@ -757,14 +757,14 @@ However, Auto Scaling Group will maintain the desired number of instances if one
     </entry>
     <entry>
         <title>AWS Resource Access Manager — Multi Account Resource Governance</title>
-        <link href="https://serhii.vasylenko.info/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/" hreflang="en" rel="alternate"/>
         <published>2021-09-24T21:54:23Z</published>
         <updated>2021-09-24T21:54:23Z</updated>
-        <id>https://serhii.vasylenko.info/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</id>
+        <id>https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/cover-image.png</logo>
+        <logo>https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/cover-image.png</logo>
         <content type="html">&lt;p&gt;With a multi-account approach of building the infrastructure, there is always a challenge of provision and governance of the resources to subordinate accounts within the Organization. Provision resources, keep them up to date, and decommission them properly — that&amp;rsquo;s only a part of them.&lt;/p&gt;
 &lt;p&gt;AWS has numerous solutions that help make this process reliable and secure, and the Resource Access Manager (RAM) is one of them.
 In a nutshell, the RAM service allows you to share the AWS resources you create in one AWS account with other AWS accounts. They can be your organizations&amp;rsquo; accounts, organizational units (OU), or even third-party accounts.&lt;/p&gt;
@@ -834,17 +834,17 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
     </entry>
     <entry>
         <title>Run Ansible playbook on mac1.metal instances fleet with AWS Systems Manager</title>
-        <link href="https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-on-mac1.metal-instances-fleet-with-aws-systems-manager/" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac1.metal-instances-fleet-with-aws-systems-manager/" hreflang="en" rel="alternate"/>
         <published>2021-05-27T00:00:00Z</published>
         <updated>2021-05-27T00:00:00Z</updated>
-        <id>https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-on-mac1.metal-instances-fleet-with-aws-systems-manager/</id>
+        <id>https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac1.metal-instances-fleet-with-aws-systems-manager/</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2021/05/27/run-ansible-playbook-on-mac1.metal-instances-fleet-with-aws-systems-manager/cover-image.png</logo>
+        <logo>https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac1.metal-instances-fleet-with-aws-systems-manager/cover-image.png</logo>
         <content type="html">&lt;p&gt;In days of containers and serverless applications, Ansible looks not such a trendy thing.&lt;/p&gt;
 &lt;p&gt;But still, there are cases when it helps, and there are cases when it combines very well with brand new product offerings, such as EC2 Mac instances.&lt;/p&gt;
-&lt;p&gt;The &lt;a href=&#34;https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html&#34;&gt;more I use mac1.metal&lt;/a&gt; in AWS, the more I see that Ansible becomes a bedrock of software customization in my case.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&#34;https://devdosvid.blog/2021/02/01/customizing-mac1-metal-ec2-ami.html&#34;&gt;more I use mac1.metal&lt;/a&gt; in AWS, the more I see that Ansible becomes a bedrock of software customization in my case.&lt;/p&gt;
 &lt;p&gt;And when you have a large instances fleet, the AWS Systems Manager becomes your best friend (the sooner you get along together, the better).&lt;/p&gt;
 &lt;p&gt;So is it possible to use Ansible playbooks for mac1.metal on a big scale, with the help of AWS Systems Manager?&lt;/p&gt;
 &lt;h2 id=&#34;not-available-out-of-the-box&#34;&gt;(Not) Available out of the box&lt;/h2&gt;
@@ -966,18 +966,18 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
     </entry>
     <entry>
         <title>Configure HTTP Security headers with CloudFront Functions</title>
-        <link href="https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions/" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/" hreflang="en" rel="alternate"/>
         <published>2021-05-21T00:00:00Z</published>
         <updated>2021-05-21T00:00:00Z</updated>
-        <id>https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions/</id>
+        <id>https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2021/05/21/configure-http-security-headers-with-cloudfront-functions/cover-image.png</logo>
+        <logo>https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/cover-image.png</logo>
         <content type="html">&lt;div class=&#34;updatenotice&#34;&gt;
     &lt;p&gt;In November 2021, AWS has added this functionality as a native CloudFront feature.&lt;/p&gt;
 &lt;p&gt;I suggest switching to the native implementation. I have described how to configure Security Response Headers for CloudFront in the following article:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://serhii.vasylenko.info/2021/11/05/apply-cloudfront-security-headers-with-terraform/&#34;&gt;Apply Cloudfront Security Headers With Terraform&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://devdosvid.blog/2021/11/05/apply-cloudfront-security-headers-with-terraform/&#34;&gt;Apply Cloudfront Security Headers With Terraform&lt;/a&gt;&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;p&gt;A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.&lt;/p&gt;
@@ -1097,14 +1097,14 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
     </entry>
     <entry>
         <title>Using TinyPNG Image Compression From MacOS Finder Contextual Menu</title>
-        <link href="https://serhii.vasylenko.info/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/" hreflang="en" rel="alternate"/>
         <published>2021-02-14T00:00:00Z</published>
         <updated>2021-02-14T00:00:00Z</updated>
-        <id>https://serhii.vasylenko.info/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/</id>
+        <id>https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/cover-image.png</logo>
+        <logo>https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/cover-image.png</logo>
         <content type="html">&lt;p&gt;I just wanted to compress one image, but went to far&amp;hellip;&lt;/p&gt;
 &lt;p&gt;or &amp;ldquo;How to add TinyPNG image compression to your macOS Finder contextual menu.&amp;rdquo;&lt;/p&gt;
 &lt;h1 id=&#34;what-is-it-and-how-it-works&#34;&gt;What is it and how it works&lt;/h1&gt;
@@ -1150,14 +1150,14 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
     </entry>
     <entry>
         <title>Customizing mac1.metal EC2 AMI — new guts, more glory</title>
-        <link href="https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2021/02/01/customizing-mac1-metal-ec2-ami.html" hreflang="en" rel="alternate"/>
         <published>2021-02-01T00:00:00Z</published>
         <updated>2021-02-01T00:00:00Z</updated>
-        <id>https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html</id>
+        <id>https://devdosvid.blog/2021/02/01/customizing-mac1-metal-ec2-ami.html</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2021/02/01/customizing-mac1-metal-ec2-ami.html2021-02-01-customizing-mac1-metal-ec2-ami.png</logo>
+        <logo>https://devdosvid.blog/2021/02/01/customizing-mac1-metal-ec2-ami.html2021-02-01-customizing-mac1-metal-ec2-ami.png</logo>
         <content type="html">&lt;p&gt;I guess macOS was designed for a user, not for the ops or engineers, so this is why its customization and usage for CI/CD are not trivial (compared to something Linux-based). A smart guess, huh?&lt;/p&gt;
 &lt;h1 id=&#34;configuration-management&#34;&gt;Configuration Management&lt;/h1&gt;
 &lt;p&gt;Native Apple&amp;rsquo;s Mobile device management (a.k.a MDM) and Jamf is probably the most potent combination for macOS configuration. But as much as it&amp;rsquo;s mighty, it is a cumbersome combination, and Jamf is not free.&lt;/p&gt;
@@ -1219,7 +1219,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
 &lt;p&gt;I would love to compare Packer with EC2 Image Builder, but it &lt;a href=&#34;https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html#image-builder-os&#34;&gt;does not support macOS&lt;/a&gt; yet (as of Feb&#39;21).&lt;/p&gt;
 &lt;p&gt;Packer configuration is straightforward, so I want to highlight only the things specific to the &amp;ldquo;mac1.metal&amp;rdquo; use case.&lt;/p&gt;
 &lt;h2 id=&#34;timeouts&#34;&gt;Timeouts&lt;/h2&gt;
-&lt;p&gt;As I mentioned in the &lt;a href=&#34;https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html&#34;&gt;previous article&lt;/a&gt;, the creation and deletion time of the &amp;ldquo;mac1.metal&amp;rdquo; Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.&lt;/p&gt;
+&lt;p&gt;As I mentioned in the &lt;a href=&#34;https://devdosvid.blog/2021/01/19/mac1-metal-EC2-Instance-user-experience.html&#34;&gt;previous article&lt;/a&gt;, the creation and deletion time of the &amp;ldquo;mac1.metal&amp;rdquo; Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.&lt;/p&gt;
 &lt;p&gt;Example:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;aws_polling&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;:&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;&amp;#34;delay_seconds&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#3677a9&#34;&gt;30&lt;/span&gt;,
@@ -1294,14 +1294,14 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
     </entry>
     <entry>
         <title>Terraforming mac1.metal at AWS</title>
-        <link href="https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2021/01/20/terraforming-mac1-metal-at-AWS.html" hreflang="en" rel="alternate"/>
         <published>2021-01-20T00:00:00Z</published>
         <updated>2021-01-20T00:00:00Z</updated>
-        <id>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html</id>
+        <id>https://devdosvid.blog/2021/01/20/terraforming-mac1-metal-at-AWS.html</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html2021-01-20-terraforming-mac1-metal-at-AWS.jpg</logo>
+        <logo>https://devdosvid.blog/2021/01/20/terraforming-mac1-metal-at-AWS.html2021-01-20-terraforming-mac1-metal-at-AWS.jpg</logo>
         <content type="html">&lt;div class=&#34;updatenotice&#34;&gt;
     Updated on the 23rd of October, 2021: Terraform AWS provider now &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_host&#34;&gt;supports&lt;/a&gt; Dedicated Hosts natively
 &lt;/div&gt;
@@ -1337,20 +1337,22 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    values = [&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;amzn-ec2-macos-11*&amp;#34;&lt;/span&gt;]&lt;span style=&#34;color:#999;font-style:italic&#34;&gt; # get latest BigSur AMI
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;&lt;/span&gt;  }
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Simple as that, yes. Now, you can integrate it into your CI system and have the Mac instance with the underlying host in a bundle.&lt;/p&gt;
-&lt;p&gt;💡 Pro tip: you can leverage the &lt;code&gt;aws_ec2_instance_type_offerings&lt;/code&gt; &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings&#34;&gt;Data Source&lt;/a&gt; and use its output with &lt;code&gt;aws_subnet&lt;/code&gt; source to avoid availability zone hardcoding.&lt;/p&gt;
-&lt;p&gt;To make the code more uniform and reusable, you can wrap it into a &lt;a href=&#34;https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html&#34;&gt;Terraform module&lt;/a&gt; that accepts specific parameters (such as &lt;code&gt;instance_type&lt;/code&gt; or &lt;code&gt;availability_zone&lt;/code&gt;) as input variables.&lt;/p&gt;</content>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Simple as that, yes. Now, you can integrate it into your CI system and have the Mac instance with the underlying host in a bundle.
+&lt;div class=&#34;attention&#34;&gt;
+    Pro tip: you can leverage the &lt;code&gt;aws_ec2_instance_type_offerings&lt;/code&gt; &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings&#34;&gt;Data Source&lt;/a&gt; and use its output with &lt;code&gt;aws_subnet&lt;/code&gt; source to avoid availability zone hardcoding.
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;To make the code more uniform and reusable, you can wrap it into a &lt;a href=&#34;https://devdosvid.blog/2020/09/09/terraform-modules-explained.html&#34;&gt;Terraform module&lt;/a&gt; that accepts specific parameters (such as &lt;code&gt;instance_type&lt;/code&gt; or &lt;code&gt;availability_zone&lt;/code&gt;) as input variables.&lt;/p&gt;</content>
     </entry>
     <entry>
         <title>mac1.metal EC2 Instance — user experience</title>
-        <link href="https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2021/01/19/mac1-metal-EC2-Instance-user-experience.html" hreflang="en" rel="alternate"/>
         <published>2021-01-19T00:00:00Z</published>
         <updated>2021-01-19T00:00:00Z</updated>
-        <id>https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html</id>
+        <id>https://devdosvid.blog/2021/01/19/mac1-metal-EC2-Instance-user-experience.html</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2021/01/19/mac1-metal-EC2-Instance-user-experience.html2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg</logo>
+        <logo>https://devdosvid.blog/2021/01/19/mac1-metal-EC2-Instance-user-experience.html2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg</logo>
         <content type="html">&lt;h2 id=&#34;amazon-ec2-mac-instances&#34;&gt;Amazon EC2 Mac Instances&lt;/h2&gt;
 &lt;p&gt;Something cool and powerful with inevitable trade-offs. As everything in this world.&lt;/p&gt;
 &lt;p&gt;AWS announced EC2 macOS-based instances on the 30th of November 2020, and after more than a month of tests, I would like to share some findings and impressions about it.&lt;/p&gt;
@@ -1441,14 +1443,14 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
     </entry>
     <entry>
         <title>AWS CloudShell</title>
-        <link href="https://serhii.vasylenko.info/2020/12/16/aws-cloudshell.html" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2020/12/16/aws-cloudshell.html" hreflang="en" rel="alternate"/>
         <published>2020-12-16T00:00:00Z</published>
         <updated>2020-12-16T00:00:00Z</updated>
-        <id>https://serhii.vasylenko.info/2020/12/16/aws-cloudshell.html</id>
+        <id>https://devdosvid.blog/2020/12/16/aws-cloudshell.html</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2020/12/16/aws-cloudshell.html2020-12-16-aws-cloudshell.png</logo>
+        <logo>https://devdosvid.blog/2020/12/16/aws-cloudshell.html2020-12-16-aws-cloudshell.png</logo>
         <content type="html">&lt;p&gt;A simple but cool announcement from AWS — &lt;a href=&#34;https://aws.amazon.com/cloudshell/&#34;&gt;AWS CloudShell&lt;/a&gt;.
 A tool for ad-hoc AWS management via CLI directly in your browser.&lt;/p&gt;
 &lt;p&gt;I like when AWS releases something simple to understand and yet powerful.&lt;br&gt;
@@ -1468,14 +1470,14 @@ So it is not another &lt;a href=&#34;https://aws.amazon.com/devops-guru/&#34;&gt
     </entry>
     <entry>
         <title>Terraform Workflow — Working Individually and in a Team</title>
-        <link href="https://serhii.vasylenko.info/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html" hreflang="en" rel="alternate"/>
         <published>2020-09-16T00:00:00Z</published>
         <updated>2020-09-16T00:00:00Z</updated>
-        <id>https://serhii.vasylenko.info/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html</id>
+        <id>https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2020/09/16/terraform-workflow-working-individually-and-in-a-team.htmltf-workflows.jpeg</logo>
+        <logo>https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team.htmltf-workflows.jpeg</logo>
         <content type="html">&lt;p&gt;The work with Terraform code may become tangled sometimes. Here are some guides on how to streamline it and make it transparent for you and your team.&lt;/p&gt;
 &lt;p&gt;It is extremely helpful in a team, and can benefit you even if you work individually. A good workflow enables you to streamline a process, organize it, and make it less error-prone.&lt;/p&gt;
 &lt;p&gt;This article summaries several approaches when working with Terraform, both individually and in a team. I tried to gather the most common ones, but you might also want to develop your own.&lt;/p&gt;
@@ -1590,14 +1592,14 @@ So it is not another &lt;a href=&#34;https://aws.amazon.com/devops-guru/&#34;&gt
     </entry>
     <entry>
         <title>Terraform Certification Tips</title>
-        <link href="https://serhii.vasylenko.info/2020/09/15/terraform-certification-tips.html" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2020/09/15/terraform-certification-tips.html" hreflang="en" rel="alternate"/>
         <published>2020-09-15T00:00:00Z</published>
         <updated>2020-09-15T00:00:00Z</updated>
-        <id>https://serhii.vasylenko.info/2020/09/15/terraform-certification-tips.html</id>
+        <id>https://devdosvid.blog/2020/09/15/terraform-certification-tips.html</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2020/09/15/terraform-certification-tips.htmlterraform-associate.png</logo>
+        <logo>https://devdosvid.blog/2020/09/15/terraform-certification-tips.htmlterraform-associate.png</logo>
         <content type="html">&lt;p&gt;I successfully passed the &amp;ldquo;HashiCorp Certified — Terraform Associate&amp;rdquo; exam last Friday and decided to share some advice for exam preparation.&lt;/p&gt;
 &lt;h2 id=&#34;make-yourself-a-plan&#34;&gt;Make yourself a plan&lt;/h2&gt;
 &lt;p&gt;Make a list of things you are going to go through: links to the study materials, practice tasks, some labs, some articles on relative blogs (Medium, Dev.to, etc.).
@@ -1644,14 +1646,14 @@ For example, you can make a plan from the resources I outlined below in this art
     </entry>
     <entry>
         <title>What are Terraform Modules and how do they work?</title>
-        <link href="https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2020/09/09/terraform-modules-explained.html" hreflang="en" rel="alternate"/>
         <published>2020-09-09T00:00:00Z</published>
         <updated>2020-09-09T00:00:00Z</updated>
-        <id>https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html</id>
+        <id>https://devdosvid.blog/2020/09/09/terraform-modules-explained.html</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.htmlterraform-modules.jpeg</logo>
+        <logo>https://devdosvid.blog/2020/09/09/terraform-modules-explained.htmlterraform-modules.jpeg</logo>
         <content type="html">&lt;p&gt;Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds of lines of configuration code.&lt;/p&gt;
 &lt;p&gt;I assume you already know some basics about Terraform or even tried to use it in some way before reading the article.&lt;/p&gt;
 &lt;p&gt;Please note: I do not use real code examples with some specific provider like AWS or Google intentionally, just for the sake of simplicity.&lt;/p&gt;
@@ -1769,14 +1771,14 @@ module &amp;#34;network&amp;#34; {
     </entry>
     <entry>
         <title>Terraform CLI shortcuts</title>
-        <link href="https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts.html" hreflang="en" rel="alternate"/>
         <published>2020-08-25T00:00:00Z</published>
         <updated>2020-08-25T00:00:00Z</updated>
-        <id>https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html</id>
+        <id>https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts.html</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2020/08/25/terraform-cli-shortcuts.html2020-08-25-terraform-cli-shortcuts.jpg</logo>
+        <logo>https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts.html2020-08-25-terraform-cli-shortcuts.jpg</logo>
         <content type="html">&lt;p&gt;Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
 Requirements &amp;mdash; bash-compatible interpreter, because aliases and functions described below will work with bash, zsh and ohmyzsh.&lt;/p&gt;
 &lt;p&gt;In order to use any of described aliases of functions, you need to place it in your &lt;code&gt;~/.bashrc&lt;/code&gt; or &lt;code&gt;~/.zshrc&lt;/code&gt; file (or any other configuration file you have for your shell).&lt;/p&gt;
@@ -1835,14 +1837,14 @@ module_alb/alb.tf
     </entry>
     <entry>
         <title>Manage Ansible playbook secrets with AWS services</title>
-        <link href="https://serhii.vasylenko.info/2020/08/06/manage-ansible-playbook-secrets-with-aws-services/" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2020/08/06/manage-ansible-playbook-secrets-with-aws-services/" hreflang="en" rel="alternate"/>
         <published>2020-08-06T00:00:00Z</published>
         <updated>2020-08-06T00:00:00Z</updated>
-        <id>https://serhii.vasylenko.info/2020/08/06/manage-ansible-playbook-secrets-with-aws-services/</id>
+        <id>https://devdosvid.blog/2020/08/06/manage-ansible-playbook-secrets-with-aws-services/</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2020/08/06/manage-ansible-playbook-secrets-with-aws-services/2020-08-06-ansible-secrets-aws-ssm-sm.png</logo>
+        <logo>https://devdosvid.blog/2020/08/06/manage-ansible-playbook-secrets-with-aws-services/2020-08-06-ansible-secrets-aws-ssm-sm.png</logo>
         <content type="html">&lt;p&gt;Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks.&lt;/p&gt;
 &lt;p&gt;If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.&lt;/p&gt;
 &lt;p&gt;Described plugins are the part of &lt;code&gt;amazon.aws&lt;/code&gt; collection in &lt;a href=&#34;https://galaxy.ansible.com/amazon/aws&#34;&gt;Ansible Galaxy.&lt;/a&gt;&lt;/p&gt;
@@ -1897,14 +1899,14 @@ module_alb/alb.tf
     </entry>
     <entry>
         <title>Terraform explained in English</title>
-        <link href="https://serhii.vasylenko.info/2020/05/02/Terraform-explained-for-managers.html" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2020/05/02/Terraform-explained-for-managers.html" hreflang="en" rel="alternate"/>
         <published>2020-05-02T00:00:00Z</published>
         <updated>2020-05-02T00:00:00Z</updated>
-        <id>https://serhii.vasylenko.info/2020/05/02/Terraform-explained-for-managers.html</id>
+        <id>https://devdosvid.blog/2020/05/02/Terraform-explained-for-managers.html</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2020/05/02/Terraform-explained-for-managers.htmlcover-image.png</logo>
+        <logo>https://devdosvid.blog/2020/05/02/Terraform-explained-for-managers.htmlcover-image.png</logo>
         <content type="html">&lt;p&gt;You might have heard about Terraform before, but if you have never tried it, this blog can help you to get the main point.&lt;/p&gt;
 &lt;h2 id=&#34;a-few-words-about-infrastructure-as-code&#34;&gt;A few words about “Infrastructure as Code&amp;quot;&lt;/h2&gt;
 &lt;p&gt;First of all, Terraform is the way to manage the infrastructure in the form of code. The same way developers write the code to create applications, Terraform code can create the resources in virtual data centers (i.e., clouds).&lt;/p&gt;
@@ -1973,7 +1975,7 @@ module_alb/alb.tf
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Having these two resources together allows us to think of it as a stand-alone unit you can reuse later, for example, in our development, staging, and production environments. And not by copying and pasting it, but via reference to the module defined only once.&lt;/p&gt;
 &lt;p&gt;Please note: we specified an instance argument inside the &lt;code&gt;aws_eip&lt;/code&gt; resource to reference another resource details (the ID of an instance). It is possible because of the way how Terraform treats dependencies. For example, when it detects the dependency (or you define it explicitly), Terraform creates the leading resource first. Only after the resource is created and available Terraform will create the dependent one.&lt;/p&gt;
-&lt;p&gt;The modules is a kind of standalone topic in Terraform. There is &lt;a href=&#34;https://serhii.vasylenko.info/2020/09/09/terraform-modules-explained.html&#34;&gt;a separate article in my blog&lt;/a&gt; that explains what modules are and how do they work.&lt;/p&gt;
+&lt;p&gt;The modules is a kind of standalone topic in Terraform. There is &lt;a href=&#34;https://devdosvid.blog/2020/09/09/terraform-modules-explained.html&#34;&gt;a separate article in my blog&lt;/a&gt; that explains what modules are and how do they work.&lt;/p&gt;
 &lt;h3 id=&#34;variables&#34;&gt;Variables&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Input variables&lt;/strong&gt; work as parameters for the modules so module code could be reusable. Let’s look at the previous example: it has some hardcoded values — instance image ID and instance type. Here is how you can make it more abstract and reusable:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;variable&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;image_id&amp;#34;&lt;/span&gt; {
@@ -2016,14 +2018,14 @@ module_alb/alb.tf
     </entry>
     <entry>
         <title>Github Actions - First impression</title>
-        <link href="https://serhii.vasylenko.info/2020/03/18/github-actions-first-impression.html" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2020/03/18/github-actions-first-impression.html" hreflang="en" rel="alternate"/>
         <published>2020-03-18T00:30:20Z</published>
         <updated>2020-03-18T00:30:20Z</updated>
-        <id>https://serhii.vasylenko.info/2020/03/18/github-actions-first-impression.html</id>
+        <id>https://devdosvid.blog/2020/03/18/github-actions-first-impression.html</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://serhii.vasylenko.info/2020/03/18/github-actions-first-impression.htmlcover.png</logo>
+        <logo>https://devdosvid.blog/2020/03/18/github-actions-first-impression.htmlcover.png</logo>
         <content type="html">&lt;p&gt;Although Github Actions service is generally available since November 13, 2020, and there are about 243,000,000 results for &amp;ldquo;github actions&amp;rdquo; in Google search already, I have just reached it&amp;hellip;&lt;/p&gt;
 &lt;p&gt;It&amp;rsquo;s half past midnight, it took me about 35 commits to make my first github automation work, but it finally works and this blog post was built and published automatically!&lt;/p&gt;
 &lt;h3 id=&#34;actions-everywhere&#34;&gt;Actions everywhere&lt;/h3&gt;
