@@ -2,7 +2,7 @@
 languageCode: en-us
 author:
     name: Serhii Vasylenko
-    email: email-from-blog@vasylenko.info
+    email: contact@devdosvid.blog
     
 theme: "PaperMod"
 paginate: 5
@@ -14,7 +14,7 @@ minify:
 
 ### SEO
 enableRobotsTXT: true
-title: Serhii Vasylenko — Technical Blog
+title: devDosvid — technical blog about DX, DevOps and Cloud Engineering
 
 ### NAVIGATION
 permalinks:
@@ -69,9 +69,9 @@ params:
     ShowLicense: true
     WriteMeOnTwitter: false
     ByMeACoffee: true
-    title: Serhii Vasylenko — Technical Blog
-    description: "Developer Experience Engineer at Grammarly and AWS Community Builder. The blog is about AWS, Terraform, and different DevOps stuff."
-    keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education, DeveloperExperience]
+    title: devDosvid — technical blog about DX, DevOps and Cloud Engineering
+    description: "Here I write about my DevOps practice, technologies (mainly AWS and Terraform), and some work as a Developer Experience Engineer at Grammarly."
+    keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education, Developer Experience, Infrastructure, Explanations]
     author: Serhii Vasylenko
     images: ["/assets/img/website-logo.png"]
     DateFormat: "January 2, 2006"
@@ -110,8 +110,8 @@ params:
 #        icon: "/apple-touch-icon.png"
 
     homeInfoParams:
-        Title: "Welcome to my technical blog! 👋"
-        Content: "Here I write about my DevOps experience, technologies, some work as a Developer Experience engineer at Grammarly. And some other stuff too. I sincerely hope you’ll enjoy reading me!"
+        Title: "devDosvid — my technical blog"
+        Content: "Dosvid (Досвід — in Ukrainian) means Experience. And because I’d like to share some, I decided to name my blog that way. Here I write about my DevOps practice, technologies (mainly AWS and Terraform), and some work as a Developer Experience Engineer at Grammarly."
 
 #     socialIcons:
 #         - name: twitter
@@ -132,7 +132,7 @@ params:
         responsiveImages: true
 
     editPost:
-        URL: "mailto:email-from-blog@vasylenko.info"
+        URL: "mailto:contact@devdosvid.blog"
         Text: "📩 Suggest Changes"
         appendFilePath: false
 
