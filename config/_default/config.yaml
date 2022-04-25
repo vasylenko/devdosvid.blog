@@ -111,8 +111,10 @@ params:
 
     homeInfoParams:
         Title: "devDosvid — my technical blog"
-        Content: "This blog shares my experience (in Ukrainian: досвід — dosvid [dɔsʋid]) and findings related to AWS, Terraform, and all-around-devops practices. Thank you for reading it! 💙💛"
-
+        Content: "This blog shares my experience and findings related to technologies I use in my day-to-day work, and all-around-devops practices.
+        Thank you for reading me! 💙💛
+        \n> Topics that I write about most often here (but not limited to): AWS services how-to's and guides and Terraform code practices. 
+        "
 #     socialIcons:
 #         - name: twitter
 #           url: "https://twitter.com/vasylenko"

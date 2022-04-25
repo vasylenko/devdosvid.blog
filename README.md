@@ -1,5 +1,3 @@
-[![Website](https://github.com/vasylenko/serhii.vasylenko.info/actions/workflows/website.yaml/badge.svg?branch=main)](https://github.com/vasylenko/serhii.vasylenko.info/actions/workflows/website.yaml)
-
 ## Personal blog powered by Hugo
 
 💰 **Zero-cost** (but it still takes your time, though) hosting and CI/CD with GitHub and free CloudFlare CDN for the fast content delivery and better compression.
@@ -21,10 +19,3 @@
     example of `updatenotice`: https://serhii.vasylenko.info/2021/01/20/terraforming-mac1-metal-at-AWS.html
 
 - [snippet](./layouts/shortcodes/snippet.html) — collapsible block of text (aka spoiler), useful for code snippets
-
-
-## Performance Reports
-### Lighthouse
-[![](./lighthouse.png)](https://lighthouse-dot-webdotdevsite.appspot.com//lh/html?url=https%3A%2F%2Fserhii.vasylenko.info%2F)
-### GTmetrix 
-[![](./gtmetrix.png)](https://gtmetrix.com/reports/serhii.vasylenko.info/l0fh6SNO/)
