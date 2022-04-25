@@ -19,11 +19,9 @@ jobs:
 
       - name: Prepare Hugo
         run: |
-          wget "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz"
+          wget -q "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz"
           tar -xf hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz
 
-#      - name: Build blog
-#        run: docker run --rm -v "$(pwd)":/src klakegg/hugo:ci hugo --environment production --gc --minify --debug
       - name: Build blog
         run: ./hugo --environment production --gc --minify --debug
       
@@ -39,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the branch for website hosting
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: '${{ env.GHPAGES_BRANCH }}'
 
