@@ -15,6 +15,9 @@ minify:
 ### SEO
 enableRobotsTXT: true
 title: devDosvid — technical blog about cloud engineering
+enableGitInfo: true # automatically update the <lastmod> fields in sitemap
+sitemap:
+  changefreq: monthly # ask crawlers to visit my blog on monthly basis by default
 
 ### NAVIGATION
 permalinks:

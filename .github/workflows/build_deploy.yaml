@@ -4,8 +4,10 @@ on:
   workflow_dispatch:
 env:
   GHPAGES_BRANCH: gh-pages-hugo
+  BLOG_URL: devdosvid.blog
 jobs:
   build:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,7 +26,7 @@ jobs:
 
   deploy:
     if: github.ref == 'refs/heads/main'
-    needs: build
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the branch for website hosting
@@ -50,11 +52,28 @@ jobs:
             git config user.email "${GITHUB_ACTOR}@bots.github.com"
             git add -A
             git commit -a -m "Website deploy — ${GITHUB_RUN_NUMBER}"
-            git remote set-url origin "https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git"
+            git remote set-url origin "https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/devdosvid.blog.git"
             git push --force origin ${{ env.GHPAGES_BRANCH }}
-
-            curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLAREZONEID }}/purge_cache" \
-                            -H "Authorization: Bearer ${{ secrets.CLOUDFLAREPURGETOKEN }}" \
-                            -H "Content-Type: application/json" \
-                            --data '{"purge_everything":true}'             
+           
           fi
+
+  purge-cache:
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send API request to CloudFlare
+        run: |
+          set -ex
+          curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLAREZONEID }}/purge_cache" \
+                          -H "Authorization: Bearer ${{ secrets.CLOUDFLAREPURGETOKEN }}" \
+                          -H "Content-Type: application/json" \
+                          --data '{"purge_everything":true}' | jq '.success' 
+
+  seo:
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Google about the new sitemap # https://developers.google.com/search/docs/advanced/sitemaps/build-sitemap#addsitemap
+        run: |
+          set -ex
+          curl -s "https://www.google.com/ping?sitemap=https://${env.BLOG_URL}/sitemap.xml" | grep Received
