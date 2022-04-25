@@ -3,7 +3,7 @@
     <title>devDosvid — technical blog about cloud engineering</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/posts/"/>
-    <updated>2022-04-25T22:42:04Z</updated>
+    <updated>2022-04-25T23:14:13Z</updated>
     <author>
         <name>devDosvid — technical blog about cloud engineering</name>
         <uri>https://devdosvid.blog/</uri>
@@ -15,7 +15,7 @@
         <title>Monterey Shortcuts for Easy and Fast Image Processing</title>
         <link href="https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/" hreflang="en" rel="alternate"/>
         <published>2022-01-31T21:46:04Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -98,7 +98,7 @@
         <title>Some Techniques to Enhance Your Terraform Proficiency</title>
         <link href="https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/" hreflang="en" rel="alternate"/>
         <published>2022-01-15T23:59:51Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -312,7 +312,7 @@ bash /opt/system-init/register-monitoring.sh
         <title>Guide to Using Terraform in CI/CD</title>
         <link href="https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/" hreflang="en" rel="alternate"/>
         <published>2021-11-24T20:20:45Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -467,7 +467,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         <title>Apply Cloudfront Security Headers With Terraform</title>
         <link href="https://devdosvid.blog/2021/11/05/apply-cloudfront-security-headers-with-terraform/" hreflang="en" rel="alternate"/>
         <published>2021-11-05T12:20:58Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2021/11/05/apply-cloudfront-security-headers-with-terraform/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -560,7 +560,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
         <link href="https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/" hreflang="en" rel="alternate"/>
         <published>2021-10-23T23:00:31Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -759,7 +759,7 @@ However, Auto Scaling Group will maintain the desired number of instances if one
         <title>AWS Resource Access Manager — Multi Account Resource Governance</title>
         <link href="https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/" hreflang="en" rel="alternate"/>
         <published>2021-09-24T21:54:23Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -836,7 +836,7 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
         <title>Run Ansible playbook on mac1.metal instances fleet with AWS Systems Manager</title>
         <link href="https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac1.metal-instances-fleet-with-aws-systems-manager/" hreflang="en" rel="alternate"/>
         <published>2021-05-27T00:00:00Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac1.metal-instances-fleet-with-aws-systems-manager/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -968,7 +968,7 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
         <title>Configure HTTP Security headers with CloudFront Functions</title>
         <link href="https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/" hreflang="en" rel="alternate"/>
         <published>2021-05-21T00:00:00Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1099,7 +1099,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         <title>Using TinyPNG Image Compression From MacOS Finder Contextual Menu</title>
         <link href="https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/" hreflang="en" rel="alternate"/>
         <published>2021-02-14T00:00:00Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1152,7 +1152,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         <title>Customizing mac1.metal EC2 AMI — new guts, more glory</title>
         <link href="https://devdosvid.blog/2021/02/01/customizing-mac1-metal-ec2-ami.html" hreflang="en" rel="alternate"/>
         <published>2021-02-01T00:00:00Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2021/02/01/customizing-mac1-metal-ec2-ami.html</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1296,7 +1296,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         <title>Terraforming mac1.metal at AWS</title>
         <link href="https://devdosvid.blog/2021/01/20/terraforming-mac1-metal-at-AWS.html" hreflang="en" rel="alternate"/>
         <published>2021-01-20T00:00:00Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2021/01/20/terraforming-mac1-metal-at-AWS.html</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1347,7 +1347,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         <title>mac1.metal EC2 Instance — user experience</title>
         <link href="https://devdosvid.blog/2021/01/19/mac1-metal-EC2-Instance-user-experience.html" hreflang="en" rel="alternate"/>
         <published>2021-01-19T00:00:00Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2021/01/19/mac1-metal-EC2-Instance-user-experience.html</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1445,7 +1445,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         <title>AWS CloudShell</title>
         <link href="https://devdosvid.blog/2020/12/16/aws-cloudshell.html" hreflang="en" rel="alternate"/>
         <published>2020-12-16T00:00:00Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2020/12/16/aws-cloudshell.html</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1472,7 +1472,7 @@ So it is not another &lt;a href=&#34;https://aws.amazon.com/devops-guru/&#34;&gt
         <title>Terraform Workflow — Working Individually and in a Team</title>
         <link href="https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html" hreflang="en" rel="alternate"/>
         <published>2020-09-16T00:00:00Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1594,7 +1594,7 @@ So it is not another &lt;a href=&#34;https://aws.amazon.com/devops-guru/&#34;&gt
         <title>Terraform Certification Tips</title>
         <link href="https://devdosvid.blog/2020/09/15/terraform-certification-tips.html" hreflang="en" rel="alternate"/>
         <published>2020-09-15T00:00:00Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2020/09/15/terraform-certification-tips.html</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1648,7 +1648,7 @@ For example, you can make a plan from the resources I outlined below in this art
         <title>What are Terraform Modules and how do they work?</title>
         <link href="https://devdosvid.blog/2020/09/09/terraform-modules-explained.html" hreflang="en" rel="alternate"/>
         <published>2020-09-09T00:00:00Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2020/09/09/terraform-modules-explained.html</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1773,7 +1773,7 @@ module &amp;#34;network&amp;#34; {
         <title>Terraform CLI shortcuts</title>
         <link href="https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts.html" hreflang="en" rel="alternate"/>
         <published>2020-08-25T00:00:00Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts.html</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1839,7 +1839,7 @@ module_alb/alb.tf
         <title>Manage Ansible playbook secrets with AWS services</title>
         <link href="https://devdosvid.blog/2020/08/06/manage-ansible-playbook-secrets-with-aws-services/" hreflang="en" rel="alternate"/>
         <published>2020-08-06T00:00:00Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2020/08/06/manage-ansible-playbook-secrets-with-aws-services/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1901,7 +1901,7 @@ module_alb/alb.tf
         <title>Terraform explained in English</title>
         <link href="https://devdosvid.blog/2020/05/02/Terraform-explained-for-managers.html" hreflang="en" rel="alternate"/>
         <published>2020-05-02T00:00:00Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2020/05/02/Terraform-explained-for-managers.html</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2020,7 +2020,7 @@ module_alb/alb.tf
         <title>Github Actions - First impression</title>
         <link href="https://devdosvid.blog/2020/03/18/github-actions-first-impression.html" hreflang="en" rel="alternate"/>
         <published>2020-03-18T00:30:20Z</published>
-        <updated>2022-04-25T22:41:40Z</updated>
+        <updated>2022-04-25T23:02:31Z</updated>
         <id>https://devdosvid.blog/2020/03/18/github-actions-first-impression.html</id>
         <author>
             <name>Serhii Vasylenko</name>
