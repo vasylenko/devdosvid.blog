@@ -2,24 +2,33 @@ name: Build and Deploy Blog
 on:
   push:
   workflow_dispatch:
+
 env:
   GHPAGES_BRANCH: gh-pages-hugo
   BLOG_URL: devdosvid.blog
+  HUGO_VERSION: 0.97.3
+
 jobs:
   build:
-    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           submodules: true
 
+      - name: Prepare Hugo
+        run: |
+          wget "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz"
+          tar -xf hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz
+
+#      - name: Build blog
+#        run: docker run --rm -v "$(pwd)":/src klakegg/hugo:ci hugo --environment production --gc --minify --debug
       - name: Build blog
-        run: docker run --rm -v "$(pwd)":/src klakegg/hugo:ci hugo --environment production --gc --minify --debug
+        run: ./hugo --environment production --gc --minify --debug
       
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with: 
           name: publishdir
           path: publishdir
@@ -76,4 +85,4 @@ jobs:
       - name: Ping Google about the new sitemap # https://developers.google.com/search/docs/advanced/sitemaps/build-sitemap#addsitemap
         run: |
           set -ex
-          curl -s "https://www.google.com/ping?sitemap=https://${env.BLOG_URL}/sitemap.xml" | grep Received
+          curl -s "https://www.google.com/ping?sitemap=https://${{ env.BLOG_URL }}/sitemap.xml" | grep Received
