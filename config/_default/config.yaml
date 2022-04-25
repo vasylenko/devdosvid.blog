@@ -14,7 +14,7 @@ minify:
 
 ### SEO
 enableRobotsTXT: true
-title: devDosvid — technical blog about DX, DevOps and Cloud Engineering
+title: devDosvid — technical blog about cloud engineering
 
 ### NAVIGATION
 permalinks:
@@ -69,8 +69,8 @@ params:
     ShowLicense: true
     WriteMeOnTwitter: false
     ByMeACoffee: true
-    title: devDosvid — technical blog about DX, DevOps and Cloud Engineering
-    description: "Here I write about my DevOps practice, technologies (mainly AWS and Terraform), and some work as a Developer Experience Engineer at Grammarly."
+    title: devDosvid — technical blog about cloud engineering
+    description: "This blog shares my experience and findings related to AWS, Terraform, and all-around-devops practices."
     keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education, Developer Experience, Infrastructure, Explanations]
     author: Serhii Vasylenko
     images: ["/assets/img/website-logo.png"]
@@ -111,7 +111,7 @@ params:
 
     homeInfoParams:
         Title: "devDosvid — my technical blog"
-        Content: "Dosvid (Досвід — in Ukrainian) means Experience. And because I’d like to share some, I decided to name my blog that way. Here I write about my DevOps practice, technologies (mainly AWS and Terraform), and some work as a Developer Experience Engineer at Grammarly."
+        Content: "This blog shares my experience (in Ukrainian: досвід — dosvid [dɔsʋid]) and findings related to AWS, Terraform, and all-around-devops practices. Thank you for reading it! 💙💛"
 
 #     socialIcons:
 #         - name: twitter
