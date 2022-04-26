@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://devdosvid.blog/</loc>
-    <lastmod>2022-04-25T00:25:12+03:00</lastmod>
+    <lastmod>2022-04-26T02:33:15+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/</loc>
@@ -11,11 +11,11 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/posts/</loc>
-    <lastmod>2022-04-25T00:25:12+03:00</lastmod>
+    <lastmod>2022-04-26T02:33:15+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/</loc>
-    <lastmod>2022-04-25T00:25:12+03:00</lastmod>
+    <lastmod>2022-04-26T02:33:15+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</loc>
@@ -23,7 +23,7 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/terraform-proficiency/</loc>
-    <lastmod>2022-01-20T16:19:51+02:00</lastmod>
+    <lastmod>2022-04-26T02:33:15+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/</loc>
@@ -39,7 +39,7 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/mac1.metal-at-aws/</loc>
-    <lastmod>2022-04-25T00:25:12+03:00</lastmod>
+    <lastmod>2022-04-26T02:33:15+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</loc>
@@ -59,7 +59,7 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/02/01/customizing-mac1-metal-ec2-ami.html</loc>
-    <lastmod>2022-04-25T00:25:12+03:00</lastmod>
+    <lastmod>2022-04-26T02:33:15+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/01/20/terraforming-mac1-metal-at-AWS.html</loc>
@@ -86,8 +86,8 @@
     <lastmod>2022-01-20T15:48:22+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
-    <loc>https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts.html</loc>
-    <lastmod>2022-01-20T16:19:51+02:00</lastmod>
+    <loc>https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts/</loc>
+    <lastmod>2022-04-26T02:33:15+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/08/06/manage-ansible-playbook-secrets-with-aws-services/</loc>

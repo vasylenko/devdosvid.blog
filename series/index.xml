@@ -3,7 +3,7 @@
     <title>devDosvid — technical blog about cloud engineering</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/series/"/>
-    <updated>2022-04-25T23:40:52Z</updated>
+    <updated>2022-04-26T00:33:44Z</updated>
     <author>
         <name>devDosvid — technical blog about cloud engineering</name>
         <uri>https://devdosvid.blog/</uri>
@@ -1152,7 +1152,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         <title>Customizing mac1.metal EC2 AMI — new guts, more glory</title>
         <link href="https://devdosvid.blog/2021/02/01/customizing-mac1-metal-ec2-ami.html" hreflang="en" rel="alternate"/>
         <published>2021-02-01T00:00:00Z</published>
-        <updated>2022-04-24T21:25:12Z</updated>
+        <updated>2022-04-26T00:33:15Z</updated>
         <id>https://devdosvid.blog/2021/02/01/customizing-mac1-metal-ec2-ami.html</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1771,14 +1771,14 @@ module &amp;#34;network&amp;#34; {
     </entry>
     <entry>
         <title>Terraform CLI shortcuts</title>
-        <link href="https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts.html" hreflang="en" rel="alternate"/>
+        <link href="https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts/" hreflang="en" rel="alternate"/>
         <published>2020-08-25T00:00:00Z</published>
-        <updated>2022-01-20T14:19:51Z</updated>
-        <id>https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts.html</id>
+        <updated>2022-04-26T00:33:15Z</updated>
+        <id>https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts/</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
-        <logo>https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts.html2020-08-25-terraform-cli-shortcuts.jpg</logo>
+        <logo>https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts/2020-08-25-terraform-cli-shortcuts.jpg</logo>
         <content type="html">&lt;p&gt;Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
 Requirements &amp;mdash; bash-compatible interpreter, because aliases and functions described below will work with bash, zsh and ohmyzsh.&lt;/p&gt;
 &lt;p&gt;In order to use any of described aliases of functions, you need to place it in your &lt;code&gt;~/.bashrc&lt;/code&gt; or &lt;code&gt;~/.zshrc&lt;/code&gt; file (or any other configuration file you have for your shell).&lt;/p&gt;
