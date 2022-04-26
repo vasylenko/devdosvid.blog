@@ -7,7 +7,7 @@ cover:
 tags: ["terraform", "cli", "automation"]
 categories: [Terraform]
 title: Terraform CLI shortcuts
-url: /2020/08/25/terraform-cli-shortcuts.html
+aliases: ["/2020/08/25/terraform-cli-shortcuts.html"]
 series: ["Terraform Proficiency"]
 ---
 Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.

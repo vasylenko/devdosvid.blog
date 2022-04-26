@@ -1,7 +1,6 @@
 ---
 date: "2021-02-01T00:00:00Z"
 description: How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer
-images: ["2021-02-01-customizing-mac1-metal-ec2-ami.png"]
 cover:
   image: "2021-02-01-customizing-mac1-metal-ec2-ami.png"
 tags: ["aws", "ansible", "packer", "macos", "ec2"]
