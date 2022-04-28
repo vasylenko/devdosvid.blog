@@ -45,6 +45,9 @@
     {{- if (and .Site.Params.SubscribeEngagement (ne .Params.DisableSubscribeEngagement false)) }}
     {{- partial "subscribe_engagement.html" . -}}
     {{- end }}
+    {{- if (and .Site.Params.MailchimpForm (ne .Params.MailchimpForm false)) }}
+    {{- partial "mailchimpform.html" . -}}
+    {{- end }}
     {{- if (and .Site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
     {{- partial "share_icons.html" . -}}
     {{- end }}
