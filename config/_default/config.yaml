@@ -14,7 +14,7 @@ minify:
 
 ### SEO
 enableRobotsTXT: true
-title: devDosvid — technical blog about cloud engineering
+title: devDosvid — technical blog about my cloud engineering experience
 enableGitInfo: true # automatically update the <lastmod> fields in sitemap
 sitemap:
   changefreq: monthly # ask crawlers to visit my blog on monthly basis by default
@@ -68,15 +68,17 @@ rssLimit: 20
 
 ### THEME SETTINGS
 params:
+    opengraphimage: "/assets/img/websitelogo.jpg"
+    twitterimage: "/assets/img/websitelogo.jpg"
     SubscribeEngagement: false
     ShowLicense: true
     WriteMeOnTwitter: false
     ByMeACoffee: true
-    title: devDosvid — technical blog about cloud engineering
+    title: devDosvid — technical blog about my cloud engineering experience
     description: "This blog shares my experience and findings related to AWS, Terraform, and all-around-devops practices."
     keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education, Developer Experience, Infrastructure, Explanations]
     author: Serhii Vasylenko
-    images: ["/assets/img/website-logo.png"]
+    images: ["/assets/img/websitelogo.jpg"]
     DateFormat: "January 2, 2006"
     defaultTheme: auto # dark, light
     disableThemeToggle: false
@@ -109,27 +111,13 @@ params:
         safari_pinned_tab: "/safari-pinned-tab.svg"
 
     label:
-        text: "Home"
+        text: "🏠 Home"
 #        icon: "/apple-touch-icon.png"
 
     homeInfoParams:
         Title: "devDosvid — my technical blog"
         Content: "This blog shares my experience and findings related to technologies I use in my day-to-day work, and all-around-devops practices.
-        Thank you for reading me! 💙💛
-        \n> Topics that I write about most often here (but not limited to): AWS services how-to's and guides and Terraform code practices. 
-        "
-#     socialIcons:
-#         - name: twitter
-#           url: "https://twitter.com/vasylenko"
-#         - name: dev
-#           url: "https://dev.to/svasylenko"
-#         - name: linkedin
-#           url: "https://www.linkedin.com/in/svasylenko/"
-#         - name: github
-#           url: "https://github.com/vasylenko"
-#         - name: "facebook"
-#           url: "https://www.facebook.com/vasylenkos"
-
+        Thank you for reading me! 💙💛"
     cover:
         hidden: false # hide everywhere but not in structured data
         hiddenInList: false # hide on list pages and home
@@ -140,14 +128,3 @@ params:
         URL: "mailto:contact@devdosvid.blog"
         Text: "📩 Suggest Changes"
         appendFilePath: false
-
-    # for search
-    # https://fusejs.io/api/options.html
-#     fuseOpts:
-#         isCaseSensitive: false
-#         shouldSort: true
-#         location: 0
-#         distance: 1000
-#         threshold: 0.4
-#         minMatchCharLength: 0
-#         keys: ["title", "permalink", "summary", "content"]
