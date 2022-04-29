@@ -4,6 +4,7 @@ buildExpired: true
 params:
     heapanalyticsid: 2138518663
     ByMeACoffee: false
+    MailchimpForm: true
 minify:
     disableCSS: false
     disableHTML: false
