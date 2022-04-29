@@ -78,7 +78,7 @@ params:
     description: "This blog shares my experience and findings related to AWS, Terraform, and all-around-devops practices."
     keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education, Developer Experience, Infrastructure, Explanations]
     author: Serhii Vasylenko
-    images: ["/assets/img/website-logo.png"]
+    images: ["/assets/img/websitelogo.jpg"]
     DateFormat: "January 2, 2006"
     defaultTheme: auto # dark, light
     disableThemeToggle: false
