@@ -1,16 +1,24 @@
 #mc_embed_signup {
-    background:#fff;
+    /*border-top-width: 1px;*/
+    /*border-top-style: solid;*/
+    /*border-bottom-style: solid;*/
+    /*border-bottom-width: 1px;*/
+    /*background:#fff;*/
     clear:left;
     /*font:14px Helvetica,Arial,sans-serif;*/
 }
 
-#mc_embed_signup_scroll h2{
+#mc_embed_signup .button {
+    background-color: var(--color-green) !important;
+}
+
+#mc_embed_signup_scroll h3,h4{
     color: var(--color-green);
 }
 
-/*.brandingLogo {*/
-/*    visibility: hidden;*/
-/*}*/
+#mc_embed_signup_scroll h4 {
+    margin-bottom: 5px;
+}
 
 /* MailChimp Form Embed Code - Classic - 12/17/2015 v10.7 */
 #mc_embed_signup form {display:block; position:relative; text-align:left; padding:10px 0 10px 3%}
