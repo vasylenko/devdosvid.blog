@@ -1,11 +1,5 @@
 #mc_embed_signup {
-    /*border-top-width: 1px;*/
-    /*border-top-style: solid;*/
-    /*border-bottom-style: solid;*/
-    /*border-bottom-width: 1px;*/
-    /*background:#fff;*/
     clear:left;
-    /*font:14px Helvetica,Arial,sans-serif;*/
 }
 
 #mc_embed_signup .button {
@@ -48,9 +42,6 @@
 @media screen and (max-width:400px) {#mc_embed_signup .foot {display:grid; grid-template-columns: 1fr; width:100%; align-items: center;}}
 
 @media screen and (max-width:400px) {#mc_embed_signup .referralBadge {width:50%;}}
-
-/*#mc_embed_signup .brandingLogo {justify-self:right;}*/
-/*@media screen and (max-width:400px) {#mc_embed_signup .brandingLogo {justify-self:left;}}*/
 
 #mc_embed_signup .mc-field-group.input-group ul {margin:0; padding:5px 0; list-style:none;}
 #mc_embed_signup .mc-field-group.input-group ul li {display:block; padding:3px 0; margin:0;}
