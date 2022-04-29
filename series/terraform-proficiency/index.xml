@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
-    <title>devDosvid — technical blog about cloud engineering</title>
+    <title>devDosvid — technical blog about my cloud engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/series/terraform-proficiency/"/>
-    <updated>2022-04-29T13:20:27Z</updated>
+    <updated>2022-04-29T19:24:12Z</updated>
     <author>
-        <name>devDosvid — technical blog about cloud engineering</name>
+        <name>devDosvid — technical blog about my cloud engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
     </author>
     <generator>Hugo gohugo.io</generator>
-    <logo>https://devdosvid.blog/assets/img/website-logo.png</logo>
+    <logo>https://devdosvid.blog/assets/img/websitelogo.jpg</logo>
     <link rel="alternate" type="text/html" href="https://devdosvid.blog/series/terraform-proficiency/" hreflang="en-us"/>
     <entry>
         <title>Monterey Shortcuts for Easy and Fast Image Processing</title>
