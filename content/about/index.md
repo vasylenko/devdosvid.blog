@@ -14,6 +14,7 @@ SubscribeEngagement: false
 WriteMeOnTwitter: false
 ShowLicense: false
 ByMeACoffee: false
+MailchimpForm: false
 ---
 
 ![](./hoodie-optimized.png#center)
