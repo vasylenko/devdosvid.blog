@@ -68,11 +68,13 @@ rssLimit: 20
 
 ### THEME SETTINGS
 params:
+    opengraphimage: "/assets/img/websitelogo.jpg"
+    twitterimage: "/assets/img/websitelogo.jpg"
     SubscribeEngagement: false
     ShowLicense: true
     WriteMeOnTwitter: false
     ByMeACoffee: true
-    title: devDosvid — technical blog about cloud engineering
+    title: devDosvid — technical blog about my cloud engineering experience
     description: "This blog shares my experience and findings related to AWS, Terraform, and all-around-devops practices."
     keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education, Developer Experience, Infrastructure, Explanations]
     author: Serhii Vasylenko

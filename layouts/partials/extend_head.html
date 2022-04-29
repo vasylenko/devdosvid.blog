@@ -2,3 +2,17 @@
     window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=document.createElement("script");r.type="text/javascript",r.async=!0,r.src="https://cdn.heapanalytics.com/js/heap-"+e+".js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(r,a);for(var n=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","resetIdentity","removeEventProperty","setEventProperties","track","unsetEventProperty"],o=0;o<p.length;o++)heap[p[o]]=n(p[o])};
     heap.load("{{ .Site.Params.heapanalyticsid }}");
 </script>
+{{- if .IsHome }}
+<meta property="og:title" content="{{ .Title }}" />
+<meta property="og:description" content="{{ site.Params.description }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:image" content="{{ site.Params.opengraphimage | absURL }}" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="{{ site.Params.opengraphimage | absURL }}" />
+<meta name="twitter:title" content="{{ .Title }}"/>
+<meta name="twitter:description" content="{{ site.Params.description }}"/>
+<meta name="twitter:creator" content="@vasylenko"/>
+<meta name="twitter:site" content="@vasylenko"/>
+{{- end -}}
