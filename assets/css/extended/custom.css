@@ -104,10 +104,8 @@
 }
 
 .post-series {
-    padding-top: 1em;
     position: relative;
-    margin-bottom: 2em;
-    padding: 0.1em 0.1em 0.1em 1.5em;
+    margin: 1em 0 1em 0;
     font-style: italic;
 
 }
@@ -129,6 +127,8 @@
 }
 .license a {
     text-decoration: underline;
+    margin: 1em 0 1em 0;
+
 }
 
 .animation {
