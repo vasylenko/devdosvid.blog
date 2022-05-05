@@ -1,21 +1,23 @@
 ---
-title: "Resources Lifecycle and Refactoring Capabilities of Terraform 1.1 and 1.2"
+title: "New Lifecycle Options and Refactoring Capabilities in Terraform 1.1 and 1.2"
+slug: new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2
 date: 2022-05-04T22:27:47+02:00
 description: New features that expand resources management options 
 cover:
     image: cover-image.png
     relative: true
-tags: []
-categories: []
-draft: true
+tags: [terraform,refactoring,experience]
+categories: [Terraform]
+series: ["Terraform Proficiency"]
+showtoc: true
 ---
 
 In this blog, I would like to tell you about new cool features that Terraform 1.1 and 1.2 bring. It feels like Terraform has doubled its speed of delivering the new features after they released the 1.0. 🤩
 
 It's been only a few months since Terraform 1.1 was released with the `moved` block that empowers the code refactoring.
 
-Now Terraform 1.2 is almost [ready](*https://github.com/hashicorp/terraform/releases/tag/v1.2.0-rc1*) (I am writing this blog in early May 2022) to bring three efficient controls to the resource lifecycle.\
-There are three new expressions: `precondition`, `postcondition`, and `replace_triggered_by`.
+Now Terraform 1.2 is almost [ready](*https://github.com/hashicorp/terraform/releases/tag/v1.2.0-rc1*) (as I am writing this blog in early May 2022) to bring three new efficient controls to the resource lifecycle.\
+These are three new expressions: `precondition`, `postcondition`, and `replace_triggered_by`.
 
 ## Terraform Code Refactoring With the Moved Block
 Starting from the 1.1 version, Terraform users can use the `moved` block to describe the changes in resource or module addresses (or resources inside a module) in the form of code. \
@@ -35,7 +37,8 @@ In a module, I have a bucket policy that has a generic, meaningless name. It is 
 
 It's pretty OK to name a resource like that if you have only a single instance of that kind in your code.
 
-Later, when I need to add another policy to the module, I don't want to name it "that". Instead, I want my policies to have meaningful names now. For example, I could rename the old policy with the `terraform state mv` command, but other users of my module would not know about that.
+Later, when I need to add another policy to the module, I don't want to name it "that". Instead, I want my policies to have meaningful names now.\
+For example, I could rename the old policy with the `terraform state mv` command, but other users of my module would not know about that.
 
 That is where the `moved` block turns out to be helpful: I can document the name change, and later, everyone else who uses my module will get the same renaming. 
 
@@ -93,7 +96,14 @@ The _condition_ here — is some data or information about a resource you need t
 Here are a few examples of such conditions:
 - Validate some attributes of the Data Source that you cannot check using filters or other available arguments;
 - Confirm the Resource argument that can compound several variables (e.g., list);
-- Verify module output before passing it to other dependent modules
+
+{{<attention>}}
+**Precondition** works as an expectation or a guess about some external (but within a module) value that a resource depends on.
+
+**Postcondition** works as the assurance that a resource fulfills a specific condition so other resources may rely on that. If postcondition fails for a resource, this prevents changes to all other resources that depend on it.
+{{</attention>}}
+
+Let's review this new feature with an example of `postcondition` usage.
 
 Consider the following case: our module receives AMI ID as the input variable, and that AMI should be used in the Launch Template then; we also have the requirement for the EC2 instance created from that Launch Template — its root EBS size must be equal or bigger than 600 GB.
 
@@ -101,13 +111,50 @@ We cannot validate the EBS size using the variable that accepts the AMI ID. But 
 
 {{< figure src="figure-8.png" caption="Data Source Postcondition" >}}
 
-If a module user specifies the AMI with an EBS size lesser than 600 GB, Terraform will fail to create the Launch Template because it depends on the Data Source that did not pass the postcondition check.
+The `condition` argument within the block accepts any of Terraform's built-in functions or language operators.
+
+The special `self` object is available only for the `postcondition` block because it assumes that validation can be performed after the object is created and its attributes are known.
+
+Later, if a module user specifies the AMI with an EBS size lesser than 600 GB, Terraform will fail to create the Launch Template because it depends on the Data Source that did not pass the postcondition check.
 
 {{< figure src="figure-9.png" caption="Resource postcondition error" >}}
 
+Terraform tries to evaluate the condition expressions as soonest: sometimes Terraform can check the value during the planning phase, but sometimes that can be done only after the resource is created if the value is unknown.
 
+### Validating module output with precondition
 
-**Precondition** is evaluated before Terraform creates a resource, data source, or module.
+The `precondition` block is also available for the module outputs.
 
-**Postcondition**, Terraform tries to evaluate the expression as soonest: sometimes Terraform can check the value during the planning phase, but sometimes that can be done only after the resource is created.
+Just like the variable validation block assures that module input meets certain expectations, the `precondition` is intended to ensure that a module produces the valid output.
 
+Here is an example: a module that creates an ACM certificate must prevent the usage of a specific domain name in the certificate's Common Name or its SANs.
+
+{{< figure src="figure-10.png" caption="Module output precondition" >}}
+
+In this case, instead of validating several input variables, we can write the validation only once for the output.
+
+### Trigger resource replacement with replace_triggered_by
+
+Sometimes it's needed to specify the dependency in the way that recreates a resource when another resource or its attribute changes.
+
+This is useful when two (or more) resources do not have any explicit dependency.
+
+Consider the following case: you have two EC2 instances, A and B, and need to recreate the B instance if the private IP of instance A is changed.
+
+{{< figure src="figure-11.png" caption="replace_triggered_by example" >}}
+
+This is extremely useful when you're dealing with logical abstractions over the set of resources. 
+
+{{<attention>}}
+Replacement is triggered when:
+- any of the resources referenced in `replace_triggered_by` are updated
+- any value is set to the resource attribute that is referenced in `replace_triggered_by`
+{{</attention>}}
+
+## Getting started with Terraform 1.1 and 1.2
+
+If you're still using older Terraform versions, these new features might be a good motivation for you to upgrade!
+
+Before upgrading, be sure to read the upgrade notes for the specific version at the [releases page](https://github.com/hashicorp/terraform/releases).
+
+Also, an excellent tool can help with fast switching between different Terraform versions while you're experimenting — [tfswitch](https://tfswitch.warrensbox.com/). 
