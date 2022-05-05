@@ -3,7 +3,7 @@
     <title>devDosvid — technical blog about my cloud engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/series/mac1.metal-at-aws/"/>
-    <updated>2022-04-29T20:15:04Z</updated>
+    <updated>2022-05-05T02:20:32Z</updated>
     <author>
         <name>devDosvid — technical blog about my cloud engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
@@ -11,6 +11,181 @@
     <generator>Hugo gohugo.io</generator>
     <logo>https://devdosvid.blog/assets/img/websitelogo.jpg</logo>
     <link rel="alternate" type="text/html" href="https://devdosvid.blog/series/mac1.metal-at-aws/" hreflang="en-us"/>
+    <entry>
+        <title>New Lifecycle Options and Refactoring Capabilities in Terraform 1.1 and 1.2</title>
+        <link href="https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/" hreflang="en" rel="alternate"/>
+        <published>2022-05-04T20:27:47Z</published>
+        <updated>2022-05-05T02:20:14Z</updated>
+        <id>https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/</id>
+        <author>
+            <name>Serhii Vasylenko</name>
+        </author>
+        <logo>https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/cover-image.png</logo>
+        <content type="html">&lt;p&gt;In this blog, I would like to tell you about new cool features that Terraform 1.1 and 1.2 bring. It feels like Terraform has doubled its speed of delivering the new features after they released the 1.0. 🤩&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s been only a few months since Terraform 1.1 was released with the &lt;code&gt;moved&lt;/code&gt; block that empowers the code refactoring.&lt;/p&gt;
+&lt;p&gt;Now Terraform 1.2 is almost &lt;a href=&#34;*https://github.com/hashicorp/terraform/releases/tag/v1.2.0-rc1*&#34;&gt;ready&lt;/a&gt; (as I am writing this blog in early May 2022) to bring three new efficient controls to the resource lifecycle.&lt;br&gt;
+These are three new expressions: &lt;code&gt;precondition&lt;/code&gt;, &lt;code&gt;postcondition&lt;/code&gt;, and &lt;code&gt;replace_triggered_by&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;terraform-code-refactoring-with-the-moved-block&#34;&gt;Terraform Code Refactoring With the Moved Block&lt;/h2&gt;
+&lt;p&gt;Starting from the 1.1 version, Terraform users can use the &lt;code&gt;moved&lt;/code&gt; block to describe the changes in resource or module addresses (or resources inside a module) in the form of code. &lt;br&gt;
+Once that is described, Terraform performs the movement of the resource within the state during the first apply.&lt;/p&gt;
+&lt;p&gt;In other words, what this feature gives you, is the ability to document your &lt;code&gt;terraform state mv&lt;/code&gt; actions, so you and other project or module users don&amp;rsquo;t need to perform them manually.&lt;/p&gt;
+&lt;p&gt;As your code evolves, a resource or module can have several &lt;code&gt;moved&lt;/code&gt; blocks associated with it, and Terraform will thoroughly reproduce the whole history of its movement within a state (i.e., renaming).&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s review some examples that illustrate how it works.&lt;/p&gt;
+&lt;h3 id=&#34;moving-a-resource&#34;&gt;Moving a resource&lt;/h3&gt;
+&lt;p&gt;In a module, I have a bucket policy that has a generic, meaningless name. It is used in a module that creates a CloudFront distribution with an S3 bucket.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;figure-1.png&#34;
+         alt=&#34;An example resource&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;An example resource&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;It&amp;rsquo;s pretty OK to name a resource like that if you have only a single instance of that kind in your code.&lt;/p&gt;
+&lt;p&gt;Later, when I need to add another policy to the module, I don&amp;rsquo;t want to name it &amp;ldquo;that&amp;rdquo;. Instead, I want my policies to have meaningful names now.&lt;br&gt;
+For example, I could rename the old policy with the &lt;code&gt;terraform state mv&lt;/code&gt; command, but other users of my module would not know about that.&lt;/p&gt;
+&lt;p&gt;That is where the &lt;code&gt;moved&lt;/code&gt; block turns out to be helpful: I can document the name change, and later, everyone else who uses my module will get the same renaming.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;figure-2.png&#34;
+         alt=&#34;Resource address update with the Moved block&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Resource address update with the Moved block&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Terraform follows the instructions inside the &lt;code&gt;module&lt;/code&gt; block to plan and apply changes. Although the resource address update is not counted as a change in the Plan output, Terraform will perform that update during apply.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;figure-3.png&#34;
+         alt=&#34;Terraform plan output&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Terraform plan output&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;moving-a-module&#34;&gt;Moving a module&lt;/h3&gt;
+&lt;p&gt;The same approach can be applied to a module.&lt;/p&gt;
+&lt;p&gt;Here, I use two modules to create static hosting for a website with a custom TLS certificate.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;figure-4.png&#34;
+         alt=&#34;Two modules with generic names&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Two modules with generic names&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Again, if I need to add another couple of the CDN&#43;Certificate modules, I would like to have meaningful names in my code so clearly distinguish one from another.&lt;/p&gt;
+&lt;p&gt;Therefore, I would add two &lt;code&gt;moved&lt;/code&gt; blocks — one per module call.&lt;/p&gt;
+&lt;p&gt;And by the way, since I renamed the module (from &lt;code&gt;cert&lt;/code&gt; to &lt;code&gt;example_com_cert&lt;/code&gt;), I need to update all references to that module&amp;rsquo;s outputs in the code too.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;figure-5.png&#34;
+         alt=&#34;Two modules renamed&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Two modules renamed&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;However, there is one nuance: when you rename a module and declare that in the &lt;code&gt;moved&lt;/code&gt; block, you need to run the &lt;code&gt;terraform init&lt;/code&gt; before applying the change because Terraform must initialize the module with the new name first.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;figure-6.png&#34;
+         alt=&#34;Terraform error: module not installed&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Terraform error: module not installed&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;There are some more advanced actions you can make with the &lt;code&gt;moved&lt;/code&gt; block:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Implement count and for_each meta-arguments to resources and modules&lt;/li&gt;
+&lt;li&gt;Break one module into multiple
+Check the following detailed guide from HashiCorp that explains how to do that — &lt;a href=&#34;https://www.terraform.io/language/modules/develop/refactoring&#34;&gt;Refactoring&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Introducing the &lt;code&gt;moved&lt;/code&gt; blocks into your codebase defacto starts the refactoring process for your module users. But the finale of that refactoring happens when you ultimately remove these blocks.&lt;/p&gt;
+&lt;p&gt;Therefore, here is some advice on how to manage that:&lt;/p&gt;
+&lt;div class=&#34;attention&#34;&gt;
+    &lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Keep the &lt;code&gt;moved&lt;/code&gt; blocks in your code for long. For example, when removing a &lt;code&gt;moved&lt;/code&gt; block from the code, Terraform does not treat the new object name as a renaming anymore. Instead, Terraform will plan to delete the resource or module with the old name instead of renaming it.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Keep the complete chains of object renaming (sequence of moves). The whole history of object movement ensures that users with different module versions will get a consistent and predictable behavior of the refactoring.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+&lt;h2 id=&#34;lifecycle-expressions-precondition-postcondition-and-replace_triggered_by&#34;&gt;Lifecycle expressions: precondition, postcondition, and replace_triggered_by&lt;/h2&gt;
+&lt;p&gt;Terraform 1.2 fundamentally improves the &lt;code&gt;lifecycle&lt;/code&gt; meta-argument by adding three new configuration options with rich capabilities.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;figure-7.png&#34;
+         alt=&#34;New configuration options for the lifecycle meta-argument&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;New configuration options for the lifecycle meta-argument&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;precondition-and-postcondition&#34;&gt;Precondition and Postcondition&lt;/h3&gt;
+&lt;p&gt;When you need to make sure that specific condition is met before or after you create a resource, you can use &lt;code&gt;postcondition&lt;/code&gt; and &lt;code&gt;precondition&lt;/code&gt; blocks.&lt;/p&gt;
+&lt;p&gt;The &lt;em&gt;condition&lt;/em&gt; here — is some data or information about a resource you need to confirm to apply the code.&lt;/p&gt;
+&lt;p&gt;Here are a few examples of such conditions:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Validate some attributes of the Data Source that you cannot check using filters or other available arguments;&lt;/li&gt;
+&lt;li&gt;Confirm the Resource argument that can compound several variables (e.g., list);&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;attention&#34;&gt;
+    &lt;p&gt;&lt;strong&gt;Precondition&lt;/strong&gt; works as an expectation or a guess about some external (but within a module) value that a resource depends on.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Postcondition&lt;/strong&gt; works as the assurance that a resource fulfills a specific condition so other resources may rely on that. If postcondition fails for a resource, this prevents changes to all other resources that depend on it.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;p&gt;Let&amp;rsquo;s review this new feature with an example of &lt;code&gt;postcondition&lt;/code&gt; usage.&lt;/p&gt;
+&lt;p&gt;Consider the following case: our module receives AMI ID as the input variable, and that AMI should be used in the Launch Template then; we also have the requirement for the EC2 instance created from that Launch Template — its root EBS size must be equal or bigger than 600 GB.&lt;/p&gt;
+&lt;p&gt;We cannot validate the EBS size using the variable that accepts the AMI ID. But we can write a &lt;strong&gt;postcondition&lt;/strong&gt; for the Data Source that gets the information about the AMI and reference that Data Source in the Launch Template resource afterward.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;figure-8.png&#34;
+         alt=&#34;Data Source Postcondition&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Data Source Postcondition&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The &lt;code&gt;condition&lt;/code&gt; argument within the block accepts any of Terraform&amp;rsquo;s built-in functions or language operators.&lt;/p&gt;
+&lt;p&gt;The special &lt;code&gt;self&lt;/code&gt; object is available only for the &lt;code&gt;postcondition&lt;/code&gt; block because it assumes that validation can be performed after the object is created and its attributes are known.&lt;/p&gt;
+&lt;p&gt;Later, if a module user specifies the AMI with an EBS size lesser than 600 GB, Terraform will fail to create the Launch Template because it depends on the Data Source that did not pass the postcondition check.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;figure-9.png&#34;
+         alt=&#34;Resource postcondition error&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Resource postcondition error&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Terraform tries to evaluate the condition expressions as soonest: sometimes Terraform can check the value during the planning phase, but sometimes that can be done only after the resource is created if the value is unknown.&lt;/p&gt;
+&lt;h3 id=&#34;validating-module-output-with-precondition&#34;&gt;Validating module output with precondition&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;precondition&lt;/code&gt; block is also available for the module outputs.&lt;/p&gt;
+&lt;p&gt;Just like the variable validation block assures that module input meets certain expectations, the &lt;code&gt;precondition&lt;/code&gt; is intended to ensure that a module produces the valid output.&lt;/p&gt;
+&lt;p&gt;Here is an example: a module that creates an ACM certificate must prevent the usage of a specific domain name in the certificate&amp;rsquo;s Common Name or its SANs.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;figure-10.png&#34;
+         alt=&#34;Module output precondition&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Module output precondition&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;In this case, instead of validating several input variables, we can write the validation only once for the output.&lt;/p&gt;
+&lt;h3 id=&#34;trigger-resource-replacement-with-replace_triggered_by&#34;&gt;Trigger resource replacement with replace_triggered_by&lt;/h3&gt;
+&lt;p&gt;Sometimes it&amp;rsquo;s needed to specify the dependency in the way that recreates a resource when another resource or its attribute changes.&lt;/p&gt;
+&lt;p&gt;This is useful when two (or more) resources do not have any explicit dependency.&lt;/p&gt;
+&lt;p&gt;Consider the following case: you have two EC2 instances, A and B, and need to recreate the B instance if the private IP of instance A is changed.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;figure-11.png&#34;
+         alt=&#34;replace_triggered_by example&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;replace_triggered_by example&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;This is extremely useful when you&amp;rsquo;re dealing with logical abstractions over the set of resources.&lt;/p&gt;
+&lt;div class=&#34;attention&#34;&gt;
+    &lt;p&gt;Replacement is triggered when:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;any of the resources referenced in &lt;code&gt;replace_triggered_by&lt;/code&gt; are updated&lt;/li&gt;
+&lt;li&gt;any value is set to the resource attribute that is referenced in &lt;code&gt;replace_triggered_by&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+&lt;h2 id=&#34;getting-started-with-terraform-11-and-12&#34;&gt;Getting started with Terraform 1.1 and 1.2&lt;/h2&gt;
+&lt;p&gt;If you&amp;rsquo;re still using older Terraform versions, these new features might be a good motivation for you to upgrade!&lt;/p&gt;
+&lt;p&gt;Before upgrading, be sure to read the upgrade notes for the specific version at the &lt;a href=&#34;https://github.com/hashicorp/terraform/releases&#34;&gt;releases page&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Also, an excellent tool can help with fast switching between different Terraform versions while you&amp;rsquo;re experimenting — &lt;a href=&#34;https://tfswitch.warrensbox.com/&#34;&gt;tfswitch&lt;/a&gt;.&lt;/p&gt;</content>
+    </entry>
     <entry>
         <title>Monterey Shortcuts for Easy and Fast Image Processing</title>
         <link href="https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/" hreflang="en" rel="alternate"/>
@@ -2015,89 +2190,5 @@ module_alb/alb.tf
 &lt;p&gt;Another thing worth your attention is &lt;a href=&#34;https://blog.gruntwork.io/a-comprehensive-guide-to-terraform-b3d32832baca&#34;&gt;A Comprehensive Guide to Terraform&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Once you finish this guide, I suggest jumping into the more real-world things and describing the infrastructure of the most common project you work with.&lt;/p&gt;
 &lt;p&gt;Your hands-on experience is the best way to learn Terraform!&lt;/p&gt;</content>
-    </entry>
-    <entry>
-        <title>Github Actions - First impression</title>
-        <link href="https://devdosvid.blog/2020/03/18/github-actions-first-impression.html" hreflang="en" rel="alternate"/>
-        <published>2020-03-18T00:30:20Z</published>
-        <updated>2022-01-20T13:48:22Z</updated>
-        <id>https://devdosvid.blog/2020/03/18/github-actions-first-impression.html</id>
-        <author>
-            <name>Serhii Vasylenko</name>
-        </author>
-        <logo>https://devdosvid.blog/2020/03/18/github-actions-first-impression.htmlcover.png</logo>
-        <content type="html">&lt;p&gt;Although Github Actions service is generally available since November 13, 2020, and there are about 243,000,000 results for &amp;ldquo;github actions&amp;rdquo; in Google search already, I have just reached it&amp;hellip;&lt;/p&gt;
-&lt;p&gt;It&amp;rsquo;s half past midnight, it took me about 35 commits to make my first github automation work, but it finally works and this blog post was built and published automatically!&lt;/p&gt;
-&lt;h3 id=&#34;actions-everywhere&#34;&gt;Actions everywhere&lt;/h3&gt;
-&lt;p&gt;One of the most (or maybe the most one) powerful things in Actions is &amp;hellip; Actions! Github made a simple but genius thing: they turned well-known snippets (we do with pipelines) into the marketplace of well-made (sometimes not) simple and complex applications you can use in your automation workflow. &lt;a href=&#34;https://github.com/marketplace?type=actions&#34;&gt;https://github.com/marketplace?type=actions&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;So now you can either re-invent your wheel or re-use someone else&amp;rsquo;s code to make the needed automation.&lt;/p&gt;
-&lt;p&gt;I decided to automate publications to this blog via Actions in order to have some practice.&lt;/p&gt;
-&lt;p&gt;There are two workflows: one for the blog (website), and one for the CV (cv).&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/actions/checkout&#34;&gt;actions/checkout@v2&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/actions/upload-artifact&#34;&gt;actions/upload-artifact@v2&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/actions/download-artifact&#34;&gt;actions/download-artifact@v2&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;In both workflows, the build job is performed within a container, which is different per workflow: Ruby for the blog and Pandoc for CV.&lt;/p&gt;
-&lt;p&gt;Here is how the build job looks like for the blog:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;jobs&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;build&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;runs-on&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;ubuntu-latest&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;container&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;      &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;image&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;ruby:2.6.4&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;      &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;options&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;        &lt;/span&gt;--workdir /src &lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;steps&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;      &lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Checkout&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;uses&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;actions/checkout@v2 &lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;      &lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Build blog&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;run&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;|&lt;span style=&#34;color:#ed9d13&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;          bundle install
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;          bundle exec jekyll build --verbose --destination _site&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;          
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;      &lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Upload artifacts&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;uses&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;actions/upload-artifact@v2&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;with&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;          &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;_site&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;          &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;path&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;_site&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;As you can see, I run the steps within the Ruby container. This simplifies things related to file permissions and directory mounting because checkout is made inside the container.&lt;/p&gt;
-&lt;p&gt;The deploy step is performed via shell run command for now, for better clearness (can be replaced to third-party action or custom-made one): it makes a commit to gh-pages branch which is configured for Github Pages.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;deploy&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;if&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;github.ref == &amp;#39;refs/heads/master&amp;#39;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;needs&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;build&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;runs-on&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;ubuntu-latest&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;steps&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;      &lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Checkout gh-pages branch&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;uses&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;actions/checkout@v2&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;with&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;          &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;ref&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;gh-pages&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;      &lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Get the build artifact&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;uses&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;actions/download-artifact@v2&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;with&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;          &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;_site&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;          &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;path&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;./&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;      &lt;/span&gt;- &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;Deploy (push) to gh-pages&lt;span style=&#34;color:#666&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#666&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;run&lt;/span&gt;:&lt;span style=&#34;color:#666&#34;&gt; &lt;/span&gt;|&lt;span style=&#34;color:#ed9d13&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;          git config user.name &amp;#34;$GITHUB_ACTOR&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;          git config user.email &amp;#34;${GITHUB_ACTOR}@bots.github.com&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;          git add -A 
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;          git commit -a -m &amp;#34;Updated Website&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;          git remote set-url origin &amp;#34;https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;          git push --force-with-lease origin gh-pages&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;          
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;2020-03-18-github-actions-first-impression_github-actions-events.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
-&lt;h3 id=&#34;old-good-things-made-better&#34;&gt;Old good things made better&lt;/h3&gt;
-&lt;p&gt;A lot of common things have been introduced to GitHubActions with some sweet additions:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;you can also specify different environments for your jobs in the same workflow;&lt;/li&gt;
-&lt;li&gt;you can use environment variables with a different visibility scope: either workflow, or job, or step;&lt;/li&gt;
-&lt;li&gt;you can use cache for dependencies and reuse it between workflow runs while keeping workflow directory clean;&lt;/li&gt;
-&lt;li&gt;you can trigger a workflow by repo events and have a quite complex conditional logic or filters (if needed), external webhooks and by a schedule;&lt;/li&gt;
-&lt;li&gt;you can pass artifacts between jobs inside a workflow with ease - Github provides simple actions for this, so you don&amp;rsquo;t need to dance around temporary directories or files;&lt;/li&gt;
-&lt;li&gt;and much more&lt;/li&gt;
-&lt;/ul&gt;</content>
     </entry>
 </feed>

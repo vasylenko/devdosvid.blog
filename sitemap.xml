@@ -3,27 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://devdosvid.blog/</loc>
-    <lastmod>2022-04-26T02:33:15+02:00</lastmod>
+    <lastmod>2022-05-05T05:20:14+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/</loc>
+    <lastmod>2022-05-05T05:20:14+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://devdosvid.blog/posts/</loc>
+    <lastmod>2022-05-05T05:20:14+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://devdosvid.blog/series/</loc>
+    <lastmod>2022-05-05T05:20:14+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://devdosvid.blog/series/terraform-proficiency/</loc>
+    <lastmod>2022-05-05T05:20:14+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/</loc>
     <lastmod>2022-02-05T20:59:13+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
-    <loc>https://devdosvid.blog/posts/</loc>
-    <lastmod>2022-04-26T02:33:15+02:00</lastmod>
-    <changefreq>monthly</changefreq>
-  </url><url>
-    <loc>https://devdosvid.blog/series/</loc>
-    <lastmod>2022-04-26T02:33:15+02:00</lastmod>
-    <changefreq>monthly</changefreq>
-  </url><url>
     <loc>https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</loc>
     <lastmod>2022-01-20T16:19:51+02:00</lastmod>
-    <changefreq>monthly</changefreq>
-  </url><url>
-    <loc>https://devdosvid.blog/series/terraform-proficiency/</loc>
-    <lastmod>2022-04-26T02:33:15+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/</loc>
