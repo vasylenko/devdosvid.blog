@@ -1,5 +1,5 @@
 ---
-title: "Lifecycle and Refactoring Capabilities of Terraform 1.1 and 1.2"
+title: "Resources Lifecycle and Refactoring Capabilities of Terraform 1.1 and 1.2"
 date: 2022-05-04T22:27:47+02:00
 description: New features that expand resources management options 
 cover:
@@ -80,3 +80,34 @@ Therefore, here is some advice on how to manage that:
 {{</attention>}}
 
 ## Lifecycle expressions: precondition, postcondition, and replace_triggered_by
+
+Terraform 1.2 fundamentally improves the `lifecycle` meta-argument by adding three new configuration options with rich capabilities.
+
+{{< figure src="figure-7.png" caption="New configuration options for the lifecycle meta-argument" >}}
+
+### Precondition and Postcondition 
+When you need to make sure that specific condition is met before or after you create a resource, you can use `postcondition` and `precondition` blocks.
+
+The _condition_ here — is some data or information about a resource you need to confirm to apply the code.
+
+Here are a few examples of such conditions:
+- Validate some attributes of the Data Source that you cannot check using filters or other available arguments;
+- Confirm the Resource argument that can compound several variables (e.g., list);
+- Verify module output before passing it to other dependent modules
+
+Consider the following case: our module receives AMI ID as the input variable, and that AMI should be used in the Launch Template then; we also have the requirement for the EC2 instance created from that Launch Template — its root EBS size must be equal or bigger than 600 GB.
+
+We cannot validate the EBS size using the variable that accepts the AMI ID. But we can write a **postcondition** for the Data Source that gets the information about the AMI and reference that Data Source in the Launch Template resource afterward.
+
+{{< figure src="figure-8.png" caption="Data Source Postcondition" >}}
+
+If a module user specifies the AMI with an EBS size lesser than 600 GB, Terraform will fail to create the Launch Template because it depends on the Data Source that did not pass the postcondition check.
+
+{{< figure src="figure-9.png" caption="Resource postcondition error" >}}
+
+
+
+**Precondition** is evaluated before Terraform creates a resource, data source, or module.
+
+**Postcondition**, Terraform tries to evaluate the expression as soonest: sometimes Terraform can check the value during the planning phase, but sometimes that can be done only after the resource is created.
+
