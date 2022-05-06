@@ -3,7 +3,7 @@
     <title>devDosvid â€” technical blog about my cloud engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/posts/"/>
-    <updated>2022-05-05T13:27:41Z</updated>
+    <updated>2022-05-06T14:36:07Z</updated>
     <author>
         <name>devDosvid â€” technical blog about my cloud engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
@@ -15,7 +15,7 @@
         <title>New Lifecycle Options and Refactoring Capabilities in Terraform 1.1 and 1.2</title>
         <link href="https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/" hreflang="en" rel="alternate"/>
         <published>2022-05-04T20:27:47Z</published>
-        <updated>2022-05-05T02:20:14Z</updated>
+        <updated>2022-05-06T14:35:20Z</updated>
         <id>https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -31,7 +31,7 @@ Once that is described, Terraform performs the movement of the resource within t
 &lt;p&gt;In other words, what this feature gives you, is the ability to document your &lt;code&gt;terraform state mv&lt;/code&gt; actions, so you and other project or module users don&amp;rsquo;t need to perform them manually.&lt;/p&gt;
 &lt;p&gt;As your code evolves, a resource or module can have several &lt;code&gt;moved&lt;/code&gt; blocks associated with it, and Terraform will thoroughly reproduce the whole history of its movement within a state (i.e., renaming).&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s review some examples that illustrate how it works.&lt;/p&gt;
-&lt;h3 id=&#34;moving-a-resource&#34;&gt;Moving a resource&lt;/h3&gt;
+&lt;h3 id=&#34;move-or-rename-a-resource&#34;&gt;Move or rename a resource&lt;/h3&gt;
 &lt;p&gt;In a module, I have a bucket policy that has a generic, meaningless name. It is used in a module that creates a CloudFront distribution with an S3 bucket.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;figure-1.png&#34;
@@ -43,7 +43,10 @@ Once that is described, Terraform performs the movement of the resource within t
 &lt;p&gt;It&amp;rsquo;s pretty OK to name a resource like that if you have only a single instance of that kind in your code.&lt;/p&gt;
 &lt;p&gt;Later, when I need to add another policy to the module, I don&amp;rsquo;t want to name it &amp;ldquo;that&amp;rdquo;. Instead, I want my policies to have meaningful names now.&lt;br&gt;
 For example, I could rename the old policy with the &lt;code&gt;terraform state mv&lt;/code&gt; command, but other users of my module would not know about that.&lt;/p&gt;
-&lt;p&gt;That is where the &lt;code&gt;moved&lt;/code&gt; block turns out to be helpful: I can document the name change, and later, everyone else who uses my module will get the same renaming.&lt;/p&gt;
+&lt;p&gt;That is where the &lt;code&gt;moved&lt;/code&gt; block turns out to be helpful!&lt;/p&gt;
+&lt;div class=&#34;attention&#34;&gt;
+    The &lt;code&gt;moved&lt;/code&gt; block allows you to document how you rename or move an object in Terraform so that other code users can have the same changes afterward.
+&lt;/div&gt;
 &lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;figure-2.png&#34;
          alt=&#34;Resource address update with the Moved block&#34;/&gt; &lt;figcaption&gt;
@@ -59,8 +62,8 @@ For example, I could rename the old policy with the &lt;code&gt;terraform state 
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;h3 id=&#34;moving-a-module&#34;&gt;Moving a module&lt;/h3&gt;
-&lt;p&gt;The same approach can be applied to a module.&lt;/p&gt;
+&lt;h3 id=&#34;move-or-rename-a-module&#34;&gt;Move or rename a module&lt;/h3&gt;
+&lt;p&gt;The same approach can be applied to a module â€” you can move or rename it as a code too.&lt;/p&gt;
 &lt;p&gt;Here, I use two modules to create static hosting for a website with a custom TLS certificate.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;figure-4.png&#34;
@@ -106,7 +109,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 &lt;/ul&gt;
 
 &lt;/div&gt;
-&lt;h2 id=&#34;lifecycle-expressions-precondition-postcondition-and-replace_triggered_by&#34;&gt;Lifecycle expressions: precondition, postcondition, and replace_triggered_by&lt;/h2&gt;
+&lt;h2 id=&#34;lifecycle-expressions-conditions-and-replacement-trigger&#34;&gt;Lifecycle expressions: conditions and replacement trigger&lt;/h2&gt;
 &lt;p&gt;Terraform 1.2 fundamentally improves the &lt;code&gt;lifecycle&lt;/code&gt; meta-argument by adding three new configuration options with rich capabilities.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;figure-7.png&#34;
@@ -149,7 +152,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 &lt;/figure&gt;
 
 &lt;p&gt;Terraform tries to evaluate the condition expressions as soonest: sometimes Terraform can check the value during the planning phase, but sometimes that can be done only after the resource is created if the value is unknown.&lt;/p&gt;
-&lt;h3 id=&#34;validating-module-output-with-precondition&#34;&gt;Validating module output with precondition&lt;/h3&gt;
+&lt;h3 id=&#34;validate-module-output-with-precondition&#34;&gt;Validate module output with precondition&lt;/h3&gt;
 &lt;p&gt;The &lt;code&gt;precondition&lt;/code&gt; block is also available for the module outputs.&lt;/p&gt;
 &lt;p&gt;Just like the variable validation block assures that module input meets certain expectations, the &lt;code&gt;precondition&lt;/code&gt; is intended to ensure that a module produces the valid output.&lt;/p&gt;
 &lt;p&gt;Here is an example: a module that creates an ACM certificate must prevent the usage of a specific domain name in the certificate&amp;rsquo;s Common Name or its SANs.&lt;/p&gt;
@@ -161,6 +164,9 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 &lt;/figure&gt;
 
 &lt;p&gt;In this case, instead of validating several input variables, we can write the validation only once for the output.&lt;/p&gt;
+&lt;div class=&#34;attention&#34;&gt;
+    Validation of the module output helps with standardization and control of the data passed between Terraform modules.
+&lt;/div&gt;
 &lt;h3 id=&#34;trigger-resource-replacement-with-replace_triggered_by&#34;&gt;Trigger resource replacement with replace_triggered_by&lt;/h3&gt;
 &lt;p&gt;Sometimes it&amp;rsquo;s needed to specify the dependency in the way that recreates a resource when another resource or its attribute changes.&lt;/p&gt;
 &lt;p&gt;This is useful when two (or more) resources do not have any explicit dependency.&lt;/p&gt;
@@ -174,7 +180,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 
 &lt;p&gt;This is extremely useful when you&amp;rsquo;re dealing with logical abstractions over the set of resources.&lt;/p&gt;
 &lt;div class=&#34;attention&#34;&gt;
-    &lt;p&gt;Replacement is triggered when:&lt;/p&gt;
+    &lt;p&gt;Resource replacement is triggered when:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;any of the resources referenced in &lt;code&gt;replace_triggered_by&lt;/code&gt; are updated&lt;/li&gt;
 &lt;li&gt;any value is set to the resource attribute that is referenced in &lt;code&gt;replace_triggered_by&lt;/code&gt;&lt;/li&gt;
