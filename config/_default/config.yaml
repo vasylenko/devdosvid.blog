@@ -14,7 +14,7 @@ minify:
 
 ### SEO
 enableRobotsTXT: true
-title: devDosvid — technical blog about my cloud engineering experience
+title: devDosvid — my engineering experience
 enableGitInfo: true # automatically update the <lastmod> fields in sitemap
 sitemap:
   changefreq: monthly # ask crawlers to visit my blog on monthly basis by default
@@ -74,7 +74,7 @@ params:
     ShowLicense: true
     WriteMeOnTwitter: false
     ByMeACoffee: true
-    title: devDosvid — technical blog about my cloud engineering experience
+    title: devDosvid — my engineering experience
     description: "This blog shares my experience and findings related to AWS, Terraform, and all-around-devops practices."
     keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education, Developer Experience, Infrastructure, Explanations]
     author: Serhii Vasylenko
