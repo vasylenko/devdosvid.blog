@@ -15,7 +15,7 @@ Terraform built-in functionality is very feature-rich: functions, expressions,  
 Some code examples in this article will work with Terraform version 0.15 and onwards. But if you're still using 0.14 or lower, here's another motivation for you to upgrade.
 {{</attention>}}
 
-## Conditional resources creation
+## Conditional resource creation or how to implement the if-else statement in Terraform
 {{< figure src="condiitonal-resource-creation.png" >}}
 Let's start from the most popular one (although, still may be new for somebody): whether to create a resource depending on some fact, e.g., the value of a variable. Terraform meta-argument `count` helps to describe that kind of logic.
 
@@ -127,7 +127,7 @@ resource "aws_cloudfront_distribution" "cdn" {
 
 The `custom_error_response` variable is `null` by default, but it has the `object` type, and users can assign the variable with the required nested specifications if needed. And when they do it, Terraform will add the `custom_error_response` block to the resource configuration. Otherwise, it will be omitted entirely.
 
-## Convert types with ease
+## Convert types in Terraform with ease
 {{< figure src="types-converstion.png" >}}
 Ok, let's move to the less conditional things now 😅
 
@@ -227,7 +227,7 @@ locals {
 			...
 ```
 
-## Templatize stuff
+## Create custom file templates in Terraform
 {{< figure src="templatize-stuff.png" >}}
 The last case in this blog but not the least by its efficacy — render source file content as a template in Terraform.
 
