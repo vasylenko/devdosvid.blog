@@ -29,7 +29,7 @@ As your code evolves, a resource or module can have several `moved` blocks assoc
 
 Let's review some examples that illustrate how it works.
 
-### Moving a resource
+### Move or rename a resource
 
 In a module, I have a bucket policy that has a generic, meaningless name. It is used in a module that creates a CloudFront distribution with an S3 bucket.
 
@@ -40,7 +40,11 @@ It's pretty OK to name a resource like that if you have only a single instance o
 Later, when I need to add another policy to the module, I don't want to name it "that". Instead, I want my policies to have meaningful names now.\
 For example, I could rename the old policy with the `terraform state mv` command, but other users of my module would not know about that.
 
-That is where the `moved` block turns out to be helpful: I can document the name change, and later, everyone else who uses my module will get the same renaming. 
+That is where the `moved` block turns out to be helpful!
+
+{{<attention>}}
+The `moved` block allows you to document how you rename or move an object in Terraform so that other code users can have the same changes afterward.
+{{</attention>}}
 
 {{< figure src="figure-2.png" caption="Resource address update with the Moved block" >}}
 
@@ -48,8 +52,9 @@ Terraform follows the instructions inside the `module` block to plan and apply c
 
 {{< figure src="figure-3.png" caption="Terraform plan output" >}}
 
-### Moving a module
-The same approach can be applied to a module.
+### Move or rename a module
+
+The same approach can be applied to a module — you can move or rename it as a code too.
 
 Here, I use two modules to create static hosting for a website with a custom TLS certificate.
 
@@ -82,7 +87,7 @@ Therefore, here is some advice on how to manage that:
 - Keep the complete chains of object renaming (sequence of moves). The whole history of object movement ensures that users with different module versions will get a consistent and predictable behavior of the refactoring.
 {{</attention>}}
 
-## Lifecycle expressions: precondition, postcondition, and replace_triggered_by
+## Lifecycle expressions: conditions and replacement trigger
 
 Terraform 1.2 fundamentally improves the `lifecycle` meta-argument by adding three new configuration options with rich capabilities.
 
@@ -121,7 +126,7 @@ Later, if a module user specifies the AMI with an EBS size lesser than 600 GB, T
 
 Terraform tries to evaluate the condition expressions as soonest: sometimes Terraform can check the value during the planning phase, but sometimes that can be done only after the resource is created if the value is unknown.
 
-### Validating module output with precondition
+### Validate module output with precondition
 
 The `precondition` block is also available for the module outputs.
 
@@ -132,6 +137,10 @@ Here is an example: a module that creates an ACM certificate must prevent the us
 {{< figure src="figure-10.png" caption="Module output precondition" >}}
 
 In this case, instead of validating several input variables, we can write the validation only once for the output.
+
+{{<attention>}}
+Validation of the module output helps with standardization and control of the data passed between Terraform modules.
+{{</attention>}}
 
 ### Trigger resource replacement with replace_triggered_by
 
@@ -146,7 +155,7 @@ Consider the following case: you have two EC2 instances, A and B, and need to re
 This is extremely useful when you're dealing with logical abstractions over the set of resources. 
 
 {{<attention>}}
-Replacement is triggered when:
+Resource replacement is triggered when:
 - any of the resources referenced in `replace_triggered_by` are updated
 - any value is set to the resource attribute that is referenced in `replace_triggered_by`
 {{</attention>}}
