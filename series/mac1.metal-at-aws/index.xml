@@ -3,7 +3,7 @@
     <title>devDosvid â€” technical blog about my cloud engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/series/mac1.metal-at-aws/"/>
-    <updated>2022-05-06T14:36:07Z</updated>
+    <updated>2022-05-06T14:45:42Z</updated>
     <author>
         <name>devDosvid â€” technical blog about my cloud engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
@@ -279,7 +279,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
         <title>Some Techniques to Enhance Your Terraform Proficiency</title>
         <link href="https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/" hreflang="en" rel="alternate"/>
         <published>2022-01-15T23:59:51Z</published>
-        <updated>2022-01-20T14:19:51Z</updated>
+        <updated>2022-05-06T14:45:11Z</updated>
         <id>https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -289,7 +289,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 &lt;div class=&#34;attention&#34;&gt;
     Some code examples in this article will work with Terraform version 0.15 and onwards. But if you&amp;rsquo;re still using 0.14 or lower, here&amp;rsquo;s another motivation for you to upgrade.
 &lt;/div&gt;
-&lt;h2 id=&#34;conditional-resources-creation&#34;&gt;Conditional resources creation&lt;/h2&gt;
+&lt;h2 id=&#34;conditional-resource-creation-or-how-to-implement-the-if-else-statement-in-terraform&#34;&gt;Conditional resource creation or how to implement the if-else statement in Terraform&lt;/h2&gt;
 &lt;p&gt;&lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;condiitonal-resource-creation.png&#34;/&gt; 
 &lt;/figure&gt;
@@ -370,7 +370,7 @@ First, let&amp;rsquo;s review the conditional argument value setting with the &l
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ...
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;custom_error_response&lt;/code&gt; variable is &lt;code&gt;null&lt;/code&gt; by default, but it has the &lt;code&gt;object&lt;/code&gt; type, and users can assign the variable with the required nested specifications if needed. And when they do it, Terraform will add the &lt;code&gt;custom_error_response&lt;/code&gt; block to the resource configuration. Otherwise, it will be omitted entirely.&lt;/p&gt;
-&lt;h2 id=&#34;convert-types-with-ease&#34;&gt;Convert types with ease&lt;/h2&gt;
+&lt;h2 id=&#34;convert-types-in-terraform-with-ease&#34;&gt;Convert types in Terraform with ease&lt;/h2&gt;
 &lt;p&gt;&lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;types-converstion.png&#34;/&gt; 
 &lt;/figure&gt;
@@ -448,7 +448,7 @@ Sometimes you need to supply JSON or YAML files to the services you manage with 
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                },
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;			...
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;			...
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;templatize-stuff&#34;&gt;Templatize stuff&lt;/h2&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;create-custom-file-templates-in-terraform&#34;&gt;Create custom file templates in Terraform&lt;/h2&gt;
 &lt;p&gt;&lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;templatize-stuff.png&#34;/&gt; 
 &lt;/figure&gt;
