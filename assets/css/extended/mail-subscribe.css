@@ -1,0 +1,15 @@
+#sp-form-211745.sp-form.sp-form-regular.sp-form-embed {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;;
+}
+
+.sp-form-outer {
+    margin: 1em 0 1em 0;
+}
+
+.sp-field.sp-button-container button {
+    background-color: var(--color-green);
+}
+
