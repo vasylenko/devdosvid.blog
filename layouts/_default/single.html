@@ -59,7 +59,7 @@
       {{- partial "license.html" . -}}
     {{- end }}
     {{- if (and .Site.Params.MailchimpForm (ne .Params.MailchimpForm false)) }}
-    {{- partial "mailchimpform.html" . -}}
+    {{- partial "mail-subscribe.html" . -}}
     {{- end }}
     {{- if (.Param "ShowPostNavLinks") }}
       {{- partial "post_nav_links.html" . }}
