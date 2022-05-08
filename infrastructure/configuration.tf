@@ -1,9 +1,15 @@
 terraform {
+  cloud {
+    organization = "vasylenko"
+    workspaces {
+      name = "devdosvid"
+    }
+  }
   required_version = "~> 1.1.9"
   required_providers {
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "~> 3.13"
+      version = "~> 3.14"
     }
   }
 }
