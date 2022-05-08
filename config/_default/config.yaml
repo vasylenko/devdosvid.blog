@@ -70,7 +70,6 @@ rssLimit: 20
 params:
     opengraphimage: "/assets/img/websitelogo.jpg"
     twitterimage: "/assets/img/websitelogo.jpg"
-    SubscribeEngagement: false
     ShowLicense: true
     WriteMeOnTwitter: false
     ByMeACoffee: true

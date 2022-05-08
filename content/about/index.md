@@ -10,11 +10,10 @@ cover.hidden: true
 ShowBreadCrumbs: false
 title: About me — Serhii Vasylenko
 kind: page
-SubscribeEngagement: false
 WriteMeOnTwitter: false
 ShowLicense: false
 ByMeACoffee: false
-MailchimpForm: false
+EmailSubscribeForm: false
 ---
 
 ![](./hoodie-optimized.png#center)
