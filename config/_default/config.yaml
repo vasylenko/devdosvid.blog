@@ -79,7 +79,7 @@ params:
     author: Serhii Vasylenko
     images: ["/assets/img/websitelogo.jpg"]
     DateFormat: "January 2, 2006"
-    defaultTheme: auto # dark, light
+    defaultTheme: light # dark, light
     disableThemeToggle: false
     ShowFullTextinRSS: true
     ShowReadingTime: true
