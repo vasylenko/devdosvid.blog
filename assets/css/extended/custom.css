@@ -1,15 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 :root {
     --color-blue: #0E1C36;
     --color-orange: #FF9F1C;
     --color-green: #77A02C;
+    --color-fafafa: #fafafa;
     --main-width: 800px;
 }
 
-
-.list {
-    background: var(--theme);
+body {
 }
 
+.main {
+    padding-top: 0;
+}
+
+.list {
+    background: var(--color-fafafa);
+}
 
 .entry-content p{
     font-size: 16px;
@@ -106,8 +113,6 @@
 .post-series {
     position: relative;
     margin: 1em 0 1em 0;
-    font-style: italic;
-
 }
 
 .post-series ul {
@@ -162,9 +167,7 @@ span.emoji {
     vertical-align: middle;
 }
 
-.main {
-    padding-top: 0;
-}
+
 
 .code-snippet summary {
     cursor: pointer;
@@ -172,6 +175,9 @@ span.emoji {
     font-weight: bold
 }
 
+footer.post-footer {
+    margin-top: 1em;
+}
 
 @media print {
     body {

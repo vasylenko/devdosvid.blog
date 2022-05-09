@@ -8,9 +8,9 @@
         {{$pagetitle := .Title }}
         {{ range $series.Pages }}   
             {{ if eq $pagetitle .Title }}
-                <li style="opacity: 0.75;">{{.Date.Format "Jan 02, 2006"}} — {{.Title}}</li>
+                <li style="opacity: 0.75;">{{.Title}}</li>
             {{ else }}
-                <li>{{.Date.Format "Jan 02, 2006"}} — <a href="{{.Permalink}}?utm_blogseries={{ $series_name | urlize }}">{{.Title}}</a></li>
+                <li><a href="{{.Permalink}}?utm_blogseries={{ $series_name | urlize }}">{{.Title}}</a></li>
             {{ end }}
         {{ end }}
     </ul>
