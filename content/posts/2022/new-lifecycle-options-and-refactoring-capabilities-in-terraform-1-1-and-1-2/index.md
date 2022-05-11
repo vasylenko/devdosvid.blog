@@ -33,7 +33,7 @@ Let's review some examples that illustrate how it works.
 
 In a module, I have a bucket policy that has a generic, meaningless name. It is used in a module that creates a CloudFront distribution with an S3 bucket.
 
-{{< figure src="figure-1.png" caption="An example resource" >}}
+{{< figure src="figure-1.png" caption="An example resource" width="800" height="150">}}
 
 It's pretty OK to name a resource like that if you have only a single instance of that kind in your code.
 
@@ -46,11 +46,11 @@ That is where the `moved` block turns out to be helpful!
 The `moved` block allows you to document how you rename or move an object in Terraform so that other code users can have the same changes afterward.
 {{</attention>}}
 
-{{< figure src="figure-2.png" caption="Resource address update with the Moved block" >}}
+{{< figure src="figure-2.png" caption="Resource address update with the Moved block" width="800" height="270">}}
 
 Terraform follows the instructions inside the `module` block to plan and apply changes. Although the resource address update is not counted as a change in the Plan output, Terraform will perform that update during apply.
 
-{{< figure src="figure-3.png" caption="Terraform plan output" >}}
+{{< figure src="figure-3.png" caption="Terraform plan output" width="800" height="318" >}}
 
 ### Move or rename a module
 
@@ -58,7 +58,7 @@ The same approach can be applied to a module — you can move or rename it as a 
 
 Here, I use two modules to create static hosting for a website with a custom TLS certificate.
 
-{{< figure src="figure-4.png" caption="Two modules with generic names" >}}
+{{< figure src="figure-4.png" caption="Two modules with generic names" width="800" height="437">}}
 
 Again, if I need to add another couple of the CDN+Certificate modules, I would like to have meaningful names in my code so clearly distinguish one from another.
 
@@ -66,11 +66,11 @@ Therefore, I would add two `moved` blocks — one per module call.
 
 And by the way, since I renamed the module (from `cert` to `example_com_cert`), I need to update all references to that module's outputs in the code too.
 
-{{< figure src="figure-5.png" caption="Two modules renamed" >}}
+{{< figure src="figure-5.png" caption="Two modules renamed" width="800" height="629">}}
 
 However, there is one nuance: when you rename a module and declare that in the `moved` block, you need to run the `terraform init` before applying the change because Terraform must initialize the module with the new name first.
 
-{{< figure src="figure-6.png" caption="Terraform error: module not installed" >}}
+{{< figure src="figure-6.png" caption="Terraform error: module not installed" width="800" height="246" >}}
 
 There are some more advanced actions you can make with the `moved` block:
 - Implement count and for_each meta-arguments to resources and modules
@@ -91,7 +91,7 @@ Therefore, here is some advice on how to manage that:
 
 Terraform 1.2 fundamentally improves the `lifecycle` meta-argument by adding three new configuration options with rich capabilities.
 
-{{< figure src="figure-7.png" caption="New configuration options for the lifecycle meta-argument" >}}
+{{< figure src="figure-7.png" caption="New configuration options for the lifecycle meta-argument" width="800" height="365">}}
 
 ### Precondition and Postcondition 
 When you need to make sure that specific condition is met before or after you create a resource, you can use `postcondition` and `precondition` blocks.
@@ -114,7 +114,7 @@ Consider the following case: our module receives AMI ID as the input variable, a
 
 We cannot validate the EBS size using the variable that accepts the AMI ID. But we can write a **postcondition** for the Data Source that gets the information about the AMI and reference that Data Source in the Launch Template resource afterward.
 
-{{< figure src="figure-8.png" caption="Data Source Postcondition" >}}
+{{< figure src="figure-8.png" caption="Data Source Postcondition" width="800" height="446" >}}
 
 The `condition` argument within the block accepts any of Terraform's built-in functions or language operators.
 
@@ -122,7 +122,7 @@ The special `self` object is available only for the `postcondition` block becaus
 
 Later, if a module user specifies the AMI with an EBS size lesser than 600 GB, Terraform will fail to create the Launch Template because it depends on the Data Source that did not pass the postcondition check.
 
-{{< figure src="figure-9.png" caption="Resource postcondition error" >}}
+{{< figure src="figure-9.png" caption="Resource postcondition error" width="800" height="240" >}}
 
 Terraform tries to evaluate the condition expressions as soonest: sometimes Terraform can check the value during the planning phase, but sometimes that can be done only after the resource is created if the value is unknown.
 
@@ -134,7 +134,7 @@ Just like the variable validation block assures that module input meets certain 
 
 Here is an example: a module that creates an ACM certificate must prevent the usage of a specific domain name in the certificate's Common Name or its SANs.
 
-{{< figure src="figure-10.png" caption="Module output precondition" >}}
+{{< figure src="figure-10.png" caption="Module output precondition" width="800" height="342">}}
 
 In this case, instead of validating several input variables, we can write the validation only once for the output.
 
@@ -150,7 +150,7 @@ This is useful when two (or more) resources do not have any explicit dependency.
 
 Consider the following case: you have two EC2 instances, A and B, and need to recreate the B instance if the private IP of instance A is changed.
 
-{{< figure src="figure-11.png" caption="replace_triggered_by example" >}}
+{{< figure src="figure-11.png" caption="replace_triggered_by example" width="800" height="342">}}
 
 This is extremely useful when you're dealing with logical abstractions over the set of resources. 
 
