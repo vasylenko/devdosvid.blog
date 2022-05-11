@@ -6,6 +6,7 @@ author:
     
 theme: "PaperMod"
 paginate: 5
+
 ### BUILD
 publishDir: publishdir
 minify:
@@ -70,6 +71,8 @@ rssLimit: 20
 params:
     opengraphimage: "/assets/img/websitelogo.jpg"
     twitterimage: "/assets/img/websitelogo.jpg"
+    twittersite: "@vasylenko"
+    twittercreator: "@vasylenko"
     ShowLicense: true
     WriteMeOnTwitter: false
     ByMeACoffee: true

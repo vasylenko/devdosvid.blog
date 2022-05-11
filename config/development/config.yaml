@@ -2,6 +2,7 @@ buildDrafts: true
 buildFuture: true
 buildExpired: true
 params:
+    env: development
     heapanalyticsid: 2138518663
     ByMeACoffee: false
     EmailSubscribeForm: true
