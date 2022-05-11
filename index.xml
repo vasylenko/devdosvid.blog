@@ -3,7 +3,7 @@
     <title>devDosvid â€” my engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/"/>
-    <updated>2022-05-11T14:36:18Z</updated>
+    <updated>2022-05-11T22:33:43Z</updated>
     <author>
         <name>devDosvid â€” my engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
@@ -16,7 +16,7 @@
         <title>New Lifecycle Options and Refactoring Capabilities in Terraform 1.1 and 1.2</title>
         <link href="https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/" hreflang="en" rel="alternate"/>
         <published>2022-05-04T20:27:47Z</published>
-        <updated>2022-05-06T14:35:20Z</updated>
+        <updated>2022-05-11T22:33:17Z</updated>
         <id>https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -36,7 +36,7 @@ Once that is described, Terraform performs the movement of the resource within t
 &lt;p&gt;In a module, I have a bucket policy that has a generic, meaningless name. It is used in a module that creates a CloudFront distribution with an S3 bucket.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;figure-1.png&#34;
-         alt=&#34;An example resource&#34;/&gt; &lt;figcaption&gt;
+         alt=&#34;An example resource&#34; width=&#34;800&#34; height=&#34;150&#34;/&gt; &lt;figcaption&gt;
             &lt;p&gt;An example resource&lt;/p&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -50,7 +50,7 @@ For example, I could rename the old policy with the &lt;code&gt;terraform state 
 &lt;/div&gt;
 &lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;figure-2.png&#34;
-         alt=&#34;Resource address update with the Moved block&#34;/&gt; &lt;figcaption&gt;
+         alt=&#34;Resource address update with the Moved block&#34; width=&#34;800&#34; height=&#34;270&#34;/&gt; &lt;figcaption&gt;
             &lt;p&gt;Resource address update with the Moved block&lt;/p&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -58,7 +58,7 @@ For example, I could rename the old policy with the &lt;code&gt;terraform state 
 &lt;p&gt;Terraform follows the instructions inside the &lt;code&gt;module&lt;/code&gt; block to plan and apply changes. Although the resource address update is not counted as a change in the Plan output, Terraform will perform that update during apply.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;figure-3.png&#34;
-         alt=&#34;Terraform plan output&#34;/&gt; &lt;figcaption&gt;
+         alt=&#34;Terraform plan output&#34; width=&#34;800&#34; height=&#34;318&#34;/&gt; &lt;figcaption&gt;
             &lt;p&gt;Terraform plan output&lt;/p&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -68,7 +68,7 @@ For example, I could rename the old policy with the &lt;code&gt;terraform state 
 &lt;p&gt;Here, I use two modules to create static hosting for a website with a custom TLS certificate.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;figure-4.png&#34;
-         alt=&#34;Two modules with generic names&#34;/&gt; &lt;figcaption&gt;
+         alt=&#34;Two modules with generic names&#34; width=&#34;800&#34; height=&#34;437&#34;/&gt; &lt;figcaption&gt;
             &lt;p&gt;Two modules with generic names&lt;/p&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -78,7 +78,7 @@ For example, I could rename the old policy with the &lt;code&gt;terraform state 
 &lt;p&gt;And by the way, since I renamed the module (from &lt;code&gt;cert&lt;/code&gt; to &lt;code&gt;example_com_cert&lt;/code&gt;), I need to update all references to that module&amp;rsquo;s outputs in the code too.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;figure-5.png&#34;
-         alt=&#34;Two modules renamed&#34;/&gt; &lt;figcaption&gt;
+         alt=&#34;Two modules renamed&#34; width=&#34;800&#34; height=&#34;629&#34;/&gt; &lt;figcaption&gt;
             &lt;p&gt;Two modules renamed&lt;/p&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -86,7 +86,7 @@ For example, I could rename the old policy with the &lt;code&gt;terraform state 
 &lt;p&gt;However, there is one nuance: when you rename a module and declare that in the &lt;code&gt;moved&lt;/code&gt; block, you need to run the &lt;code&gt;terraform init&lt;/code&gt; before applying the change because Terraform must initialize the module with the new name first.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;figure-6.png&#34;
-         alt=&#34;Terraform error: module not installed&#34;/&gt; &lt;figcaption&gt;
+         alt=&#34;Terraform error: module not installed&#34; width=&#34;800&#34; height=&#34;246&#34;/&gt; &lt;figcaption&gt;
             &lt;p&gt;Terraform error: module not installed&lt;/p&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -114,7 +114,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 &lt;p&gt;Terraform 1.2 fundamentally improves the &lt;code&gt;lifecycle&lt;/code&gt; meta-argument by adding three new configuration options with rich capabilities.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;figure-7.png&#34;
-         alt=&#34;New configuration options for the lifecycle meta-argument&#34;/&gt; &lt;figcaption&gt;
+         alt=&#34;New configuration options for the lifecycle meta-argument&#34; width=&#34;800&#34; height=&#34;365&#34;/&gt; &lt;figcaption&gt;
             &lt;p&gt;New configuration options for the lifecycle meta-argument&lt;/p&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -137,7 +137,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 &lt;p&gt;We cannot validate the EBS size using the variable that accepts the AMI ID. But we can write a &lt;strong&gt;postcondition&lt;/strong&gt; for the Data Source that gets the information about the AMI and reference that Data Source in the Launch Template resource afterward.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;figure-8.png&#34;
-         alt=&#34;Data Source Postcondition&#34;/&gt; &lt;figcaption&gt;
+         alt=&#34;Data Source Postcondition&#34; width=&#34;800&#34; height=&#34;446&#34;/&gt; &lt;figcaption&gt;
             &lt;p&gt;Data Source Postcondition&lt;/p&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -147,7 +147,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 &lt;p&gt;Later, if a module user specifies the AMI with an EBS size lesser than 600 GB, Terraform will fail to create the Launch Template because it depends on the Data Source that did not pass the postcondition check.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;figure-9.png&#34;
-         alt=&#34;Resource postcondition error&#34;/&gt; &lt;figcaption&gt;
+         alt=&#34;Resource postcondition error&#34; width=&#34;800&#34; height=&#34;240&#34;/&gt; &lt;figcaption&gt;
             &lt;p&gt;Resource postcondition error&lt;/p&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -159,7 +159,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 &lt;p&gt;Here is an example: a module that creates an ACM certificate must prevent the usage of a specific domain name in the certificate&amp;rsquo;s Common Name or its SANs.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;figure-10.png&#34;
-         alt=&#34;Module output precondition&#34;/&gt; &lt;figcaption&gt;
+         alt=&#34;Module output precondition&#34; width=&#34;800&#34; height=&#34;342&#34;/&gt; &lt;figcaption&gt;
             &lt;p&gt;Module output precondition&lt;/p&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -174,7 +174,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 &lt;p&gt;Consider the following case: you have two EC2 instances, A and B, and need to recreate the B instance if the private IP of instance A is changed.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img loading=&#34;lazy&#34; src=&#34;figure-11.png&#34;
-         alt=&#34;replace_triggered_by example&#34;/&gt; &lt;figcaption&gt;
+         alt=&#34;replace_triggered_by example&#34; width=&#34;800&#34; height=&#34;342&#34;/&gt; &lt;figcaption&gt;
             &lt;p&gt;replace_triggered_by example&lt;/p&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
