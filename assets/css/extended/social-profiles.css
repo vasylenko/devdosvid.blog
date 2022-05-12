@@ -1,0 +1,18 @@
+.social-profiles ul {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+}
+
+.social-profiles li {
+    margin: 0 10px 0 10px ;
+    padding: 0;
+    flex-grow: 1;
+}
+
+.social-profiles img {
+    object-fit: cover;
+    vertical-align: bottom;
+}

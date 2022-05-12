@@ -31,14 +31,10 @@ Technical blogging is my hobby, also like to watch, read about and learn astrono
 
 Oh, by the way, the blog name — "**devDosvid**" — is made of word "dosvid" (pronounce as [dɔsʋid]) which means "experience" in Ukrainian. Kinda nerdy way to name it, huh? 😄
 
-If you would like to contact me, feel free to mail me at contact@devdosvid.blog.\
+If you would like to contact me, feel free to mail me at [contact@devdosvid.blog](mailto:contact@devdosvid.blog).\
 Or you can find and contact me here and there:
-- [Twitter](https://twitter.com/vasylenko)
-- [LinkedIn](https://www.linkedin.com/in/svasylenko/)
-- [Facebook](https://www.facebook.com/vasylenkos) 
-- [Dev](https://dev.to/svasylenko)
-- [Github](https://github.com/vasylenko)
 
+{{<social-profiles>}}
 
 ### Some other things I do
 
