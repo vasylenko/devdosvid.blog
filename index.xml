@@ -3,7 +3,7 @@
     <title>devDosvid — my engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/"/>
-    <updated>2022-05-12T00:23:46Z</updated>
+    <updated>2022-05-12T19:59:26Z</updated>
     <author>
         <name>devDosvid — my engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
@@ -35,10 +35,14 @@ Once that is described, Terraform performs the movement of the resource within t
 &lt;h3 id=&#34;move-or-rename-a-resource&#34;&gt;Move or rename a resource&lt;/h3&gt;
 &lt;p&gt;In a module, I have a bucket policy that has a generic, meaningless name. It is used in a module that creates a CloudFront distribution with an S3 bucket.&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;figure-1.png&#34;
-         alt=&#34;An example resource&#34; width=&#34;800&#34; height=&#34;150&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;An example resource&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;figure-1.png&#34;
+    alt=&#34;An example resource&#34;width=&#34;800&#34;
+height=&#34;150&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;An example resource&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;It&amp;rsquo;s pretty OK to name a resource like that if you have only a single instance of that kind in your code.&lt;/p&gt;
@@ -49,46 +53,66 @@ For example, I could rename the old policy with the &lt;code&gt;terraform state 
     The &lt;code&gt;moved&lt;/code&gt; block allows you to document how you rename or move an object in Terraform so that other code users can have the same changes afterward.
 &lt;/div&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;figure-2.png&#34;
-         alt=&#34;Resource address update with the Moved block&#34; width=&#34;800&#34; height=&#34;270&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Resource address update with the Moved block&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;figure-2.png&#34;
+    alt=&#34;Resource address update with the Moved block&#34;width=&#34;800&#34;
+height=&#34;270&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Resource address update with the Moved block&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;Terraform follows the instructions inside the &lt;code&gt;module&lt;/code&gt; block to plan and apply changes. Although the resource address update is not counted as a change in the Plan output, Terraform will perform that update during apply.&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;figure-3.png&#34;
-         alt=&#34;Terraform plan output&#34; width=&#34;800&#34; height=&#34;318&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Terraform plan output&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;figure-3.png&#34;
+    alt=&#34;Terraform plan output&#34;width=&#34;800&#34;
+height=&#34;318&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Terraform plan output&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;h3 id=&#34;move-or-rename-a-module&#34;&gt;Move or rename a module&lt;/h3&gt;
 &lt;p&gt;The same approach can be applied to a module — you can move or rename it as a code too.&lt;/p&gt;
 &lt;p&gt;Here, I use two modules to create static hosting for a website with a custom TLS certificate.&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;figure-4.png&#34;
-         alt=&#34;Two modules with generic names&#34; width=&#34;800&#34; height=&#34;437&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Two modules with generic names&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;figure-4.png&#34;
+    alt=&#34;Two modules with generic names&#34;width=&#34;800&#34;
+height=&#34;437&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Two modules with generic names&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;Again, if I need to add another couple of the CDN&#43;Certificate modules, I would like to have meaningful names in my code so clearly distinguish one from another.&lt;/p&gt;
 &lt;p&gt;Therefore, I would add two &lt;code&gt;moved&lt;/code&gt; blocks — one per module call.&lt;/p&gt;
 &lt;p&gt;And by the way, since I renamed the module (from &lt;code&gt;cert&lt;/code&gt; to &lt;code&gt;example_com_cert&lt;/code&gt;), I need to update all references to that module&amp;rsquo;s outputs in the code too.&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;figure-5.png&#34;
-         alt=&#34;Two modules renamed&#34; width=&#34;800&#34; height=&#34;629&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Two modules renamed&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;figure-5.png&#34;
+    alt=&#34;Two modules renamed&#34;width=&#34;800&#34;
+height=&#34;629&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Two modules renamed&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;However, there is one nuance: when you rename a module and declare that in the &lt;code&gt;moved&lt;/code&gt; block, you need to run the &lt;code&gt;terraform init&lt;/code&gt; before applying the change because Terraform must initialize the module with the new name first.&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;figure-6.png&#34;
-         alt=&#34;Terraform error: module not installed&#34; width=&#34;800&#34; height=&#34;246&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Terraform error: module not installed&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;figure-6.png&#34;
+    alt=&#34;Terraform error: module not installed&#34;width=&#34;800&#34;
+height=&#34;246&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Terraform error: module not installed&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;There are some more advanced actions you can make with the &lt;code&gt;moved&lt;/code&gt; block:&lt;/p&gt;
@@ -113,10 +137,14 @@ Check the following detailed guide from HashiCorp that explains how to do that �
 &lt;h2 id=&#34;lifecycle-expressions-conditions-and-replacement-trigger&#34;&gt;Lifecycle expressions: conditions and replacement trigger&lt;/h2&gt;
 &lt;p&gt;Terraform 1.2 fundamentally improves the &lt;code&gt;lifecycle&lt;/code&gt; meta-argument by adding three new configuration options with rich capabilities.&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;figure-7.png&#34;
-         alt=&#34;New configuration options for the lifecycle meta-argument&#34; width=&#34;800&#34; height=&#34;365&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;New configuration options for the lifecycle meta-argument&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;figure-7.png&#34;
+    alt=&#34;New configuration options for the lifecycle meta-argument&#34;width=&#34;800&#34;
+height=&#34;365&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;New configuration options for the lifecycle meta-argument&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;h3 id=&#34;precondition-and-postcondition&#34;&gt;Precondition and Postcondition&lt;/h3&gt;
@@ -136,20 +164,28 @@ Check the following detailed guide from HashiCorp that explains how to do that �
 &lt;p&gt;Consider the following case: our module receives AMI ID as the input variable, and that AMI should be used in the Launch Template then; we also have the requirement for the EC2 instance created from that Launch Template — its root EBS size must be equal or bigger than 600 GB.&lt;/p&gt;
 &lt;p&gt;We cannot validate the EBS size using the variable that accepts the AMI ID. But we can write a &lt;strong&gt;postcondition&lt;/strong&gt; for the Data Source that gets the information about the AMI and reference that Data Source in the Launch Template resource afterward.&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;figure-8.png&#34;
-         alt=&#34;Data Source Postcondition&#34; width=&#34;800&#34; height=&#34;446&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Data Source Postcondition&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;figure-8.png&#34;
+    alt=&#34;Data Source Postcondition&#34;width=&#34;800&#34;
+height=&#34;446&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Data Source Postcondition&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;The &lt;code&gt;condition&lt;/code&gt; argument within the block accepts any of Terraform&amp;rsquo;s built-in functions or language operators.&lt;/p&gt;
 &lt;p&gt;The special &lt;code&gt;self&lt;/code&gt; object is available only for the &lt;code&gt;postcondition&lt;/code&gt; block because it assumes that validation can be performed after the object is created and its attributes are known.&lt;/p&gt;
 &lt;p&gt;Later, if a module user specifies the AMI with an EBS size lesser than 600 GB, Terraform will fail to create the Launch Template because it depends on the Data Source that did not pass the postcondition check.&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;figure-9.png&#34;
-         alt=&#34;Resource postcondition error&#34; width=&#34;800&#34; height=&#34;240&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Resource postcondition error&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;figure-9.png&#34;
+    alt=&#34;Resource postcondition error&#34;width=&#34;800&#34;
+height=&#34;240&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Resource postcondition error&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;Terraform tries to evaluate the condition expressions as soonest: sometimes Terraform can check the value during the planning phase, but sometimes that can be done only after the resource is created if the value is unknown.&lt;/p&gt;
@@ -158,10 +194,14 @@ Check the following detailed guide from HashiCorp that explains how to do that �
 &lt;p&gt;Just like the variable validation block assures that module input meets certain expectations, the &lt;code&gt;precondition&lt;/code&gt; is intended to ensure that a module produces the valid output.&lt;/p&gt;
 &lt;p&gt;Here is an example: a module that creates an ACM certificate must prevent the usage of a specific domain name in the certificate&amp;rsquo;s Common Name or its SANs.&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;figure-10.png&#34;
-         alt=&#34;Module output precondition&#34; width=&#34;800&#34; height=&#34;342&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Module output precondition&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;figure-10.png&#34;
+    alt=&#34;Module output precondition&#34;width=&#34;800&#34;
+height=&#34;342&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Module output precondition&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;In this case, instead of validating several input variables, we can write the validation only once for the output.&lt;/p&gt;
@@ -173,10 +213,14 @@ Check the following detailed guide from HashiCorp that explains how to do that �
 &lt;p&gt;This is useful when two (or more) resources do not have any explicit dependency.&lt;/p&gt;
 &lt;p&gt;Consider the following case: you have two EC2 instances, A and B, and need to recreate the B instance if the private IP of instance A is changed.&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;figure-11.png&#34;
-         alt=&#34;replace_triggered_by example&#34; width=&#34;800&#34; height=&#34;342&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;replace_triggered_by example&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;figure-11.png&#34;
+    alt=&#34;replace_triggered_by example&#34;width=&#34;800&#34;
+height=&#34;342&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;replace_triggered_by example&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;This is extremely useful when you&amp;rsquo;re dealing with logical abstractions over the set of resources.&lt;/p&gt;
@@ -218,18 +262,26 @@ Check the following detailed guide from HashiCorp that explains how to do that �
 &lt;p&gt;&lt;a href=&#34;https://www.icloud.com/shortcuts/0a44de1596c745eaaad8181e61289248&#34; title=&#34;Click here to import the Image Optimization Shortcut&#34;&gt;➡️ &lt;strong&gt;Click here to import the Image Optimization Shortcut&lt;/strong&gt; ⬅️&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The import will work only when the link is opened in &lt;strong&gt;Safari&lt;/strong&gt;.&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;shortcut-import-optimized.png&#34;
-         alt=&#34;Shortcut Import Dialog&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Shortcut Import Dialog&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;shortcut-import-optimized.png&#34;
+    alt=&#34;Shortcut Import Dialog&#34;width=&#34;800&#34;
+height=&#34;595&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Shortcut Import Dialog&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;To make the Shortcut work from the context menu of the Finder, set the options on the Details panel of the Shortcut setting as displayed on the screenshot:&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;shortcut-settings-optimized.png&#34;
-         alt=&#34;Shortcut Settings&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Shortcut Settings&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;shortcut-settings-optimized.png&#34;
+    alt=&#34;Shortcut Settings&#34;width=&#34;800&#34;
+height=&#34;666&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Shortcut Settings&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;Here is what this Image Optimization Shortcut does:&lt;/p&gt;
@@ -244,19 +296,27 @@ Check the following detailed guide from HashiCorp that explains how to do that �
 &lt;/blockquote&gt;
 &lt;p&gt;And here is how this Shortcuts looks if you want to create it from scratch:&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;image-optimization-shortcut.png&#34;
-         alt=&#34;Image Optimization Shortcut&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Image Optimization Shortcut&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;image-optimization-shortcut.png&#34;
+    alt=&#34;Image Optimization Shortcut&#34;width=&#34;644&#34;
+height=&#34;1573&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Image Optimization Shortcut&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;&lt;em&gt;Unfortunately, this Shortcut won&amp;rsquo;t work on iOS or watchOS because they do not support the &amp;ldquo;File Storage&amp;rdquo; actions used in the Shortcut.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;🌟 &lt;strong&gt;Demo&lt;/strong&gt; 🌟
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;shortcut-demo.gif&#34;
-         alt=&#34;Shortcut Demo&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Shortcut Demo&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;shortcut-demo.gif&#34;
+    alt=&#34;Shortcut Demo&#34;width=&#34;800&#34;
+height=&#34;620&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Shortcut Demo&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;/p&gt;
 &lt;h2 id=&#34;resize&#34;&gt;Image Resize with Monterey Shortcuts&lt;/h2&gt;
@@ -266,10 +326,14 @@ Check the following detailed guide from HashiCorp that explains how to do that �
 &lt;p&gt;&lt;a href=&#34;https://www.icloud.com/shortcuts/0af8005cc9ac4207a380be445601d541&#34; title=&#34;Click here to import the Image Resize Shortcut&#34;&gt;➡️ &lt;strong&gt;Click here to import the Image Resize Shortcut&lt;/strong&gt; ⬅️&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Here is how the Image Resize Shortcut looks if you want to create it from scratch:&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;image-resize-shortcut-optimized.png&#34;
-         alt=&#34;Image Resizing Shortcut&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Image Resizing Shortcut&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;image-resize-shortcut-optimized.png&#34;
+    alt=&#34;Image Resizing Shortcut&#34;width=&#34;643&#34;
+height=&#34;946&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Image Resizing Shortcut&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;h2 id=&#34;fun-with-shortcuts&#34;&gt;Fun with Shortcuts&lt;/h2&gt;
@@ -292,7 +356,11 @@ Check the following detailed guide from HashiCorp that explains how to do that �
 &lt;/div&gt;
 &lt;h2 id=&#34;conditional-resource-creation-or-how-to-implement-the-if-else-statement-in-terraform&#34;&gt;Conditional resource creation or how to implement the if-else statement in Terraform&lt;/h2&gt;
 &lt;p&gt;&lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;condiitonal-resource-creation.png&#34;/&gt; 
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;condiitonal-resource-creation.png&#34;width=&#34;800&#34;
+height=&#34;400&#34;
+/&gt; 
 &lt;/figure&gt;
 
 Let&amp;rsquo;s start from the most popular one (although, still may be new for somebody): whether to create a resource depending on some fact, e.g., the value of a variable. Terraform meta-argument &lt;code&gt;count&lt;/code&gt; helps to describe that kind of logic.&lt;/p&gt;
@@ -343,7 +411,11 @@ For example, here is how I would reference a resource created in the module with
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;bucket_name&lt;/span&gt; = &lt;span style=&#34;color:#24909d&#34;&gt;module&lt;/span&gt;.bucket[&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;photos&amp;#34;&lt;/span&gt;].name
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;conditional-resource-arguments-attributes-setting&#34;&gt;Conditional resource arguments (attributes) setting&lt;/h2&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;conditional-resource-argument.png&#34;/&gt; 
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;conditional-resource-argument.png&#34;width=&#34;800&#34;
+height=&#34;400&#34;
+/&gt; 
 &lt;/figure&gt;
 
 &lt;p&gt;Now let&amp;rsquo;s go deeper and see how resource arguments can be conditionally set (or not).
@@ -373,7 +445,11 @@ First, let&amp;rsquo;s review the conditional argument value setting with the &l
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;custom_error_response&lt;/code&gt; variable is &lt;code&gt;null&lt;/code&gt; by default, but it has the &lt;code&gt;object&lt;/code&gt; type, and users can assign the variable with the required nested specifications if needed. And when they do it, Terraform will add the &lt;code&gt;custom_error_response&lt;/code&gt; block to the resource configuration. Otherwise, it will be omitted entirely.&lt;/p&gt;
 &lt;h2 id=&#34;convert-types-in-terraform-with-ease&#34;&gt;Convert types in Terraform with ease&lt;/h2&gt;
 &lt;p&gt;&lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;types-converstion.png&#34;/&gt; 
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;types-converstion.png&#34;width=&#34;800&#34;
+height=&#34;400&#34;
+/&gt; 
 &lt;/figure&gt;
 
 Ok, let&amp;rsquo;s move to the less conditional things now 😅&lt;/p&gt;
@@ -404,7 +480,11 @@ Ok, let&amp;rsquo;s move to the less conditional things now 😅&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;write-yaml-or-json-as-terraform-code-hcl&#34;&gt;Write YAML or JSON as Terraform code (HCL)&lt;/h2&gt;
 &lt;p&gt;&lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;write-yaml-json-as-terraform-code.png&#34;/&gt; 
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;write-yaml-json-as-terraform-code.png&#34;width=&#34;800&#34;
+height=&#34;400&#34;
+/&gt; 
 &lt;/figure&gt;
 
 Sometimes you need to supply JSON or YAML files to the services you manage with Terraform. For example, if you want to create something with CloudFormation using Terraform (and I am not kidding). Sometimes the AWS Terraform provider does not support the needed resource, and you want to maintain the whole infrastructure code using only one tool.&lt;/p&gt;
@@ -451,7 +531,11 @@ Sometimes you need to supply JSON or YAML files to the services you manage with 
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;			...
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;create-custom-file-templates-in-terraform&#34;&gt;Create custom file templates in Terraform&lt;/h2&gt;
 &lt;p&gt;&lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;templatize-stuff.png&#34;/&gt; 
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;templatize-stuff.png&#34;width=&#34;800&#34;
+height=&#34;400&#34;
+/&gt; 
 &lt;/figure&gt;
 
 The last case in this blog but not the least by its efficacy — render source file content as a template in Terraform.&lt;/p&gt;
@@ -723,10 +807,14 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;security-scan-results&#34;&gt;Security Scan Results&lt;/h3&gt;
 &lt;p&gt;Here is what Mozilla Observatory reports about my test CF distribution where I enabled the policy described above:&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;observatory-results.png&#34;
-         alt=&#34;Scan summary for CloudFront distribution with security headers policy&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Scan summary for CloudFront distribution with security headers policy&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;observatory-results.png&#34;
+    alt=&#34;Scan summary for CloudFront distribution with security headers policy&#34;width=&#34;568&#34;
+height=&#34;642&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Scan summary for CloudFront distribution with security headers policy&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;So with just minimum effort, you can greatly boost your web application security posture.&lt;/p&gt;
@@ -768,10 +856,14 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 &lt;p&gt;So how does all that work?&lt;/p&gt;
 &lt;p&gt;Let’s review the diagram that illustrates the interconnection between involved services:&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;general-scheme_compressed.png&#34;
-         alt=&#34;Services logical interconnection&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Services logical interconnection&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;general-scheme_compressed.png&#34;
+    alt=&#34;Services logical interconnection&#34;width=&#34;400&#34;
+height=&#34;319&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Services logical interconnection&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;With the help of Licence Manager service and Launch Templates, you can set up EC2 Auto Scaling Group for mac1.metal and leave the automated instance provisioning to the service.&lt;/p&gt;
@@ -780,10 +872,14 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 &lt;p&gt;Go to AWS License Manager -&amp;gt; Customer managed licenses -&amp;gt; Create customer-managed license.&lt;/p&gt;
 &lt;p&gt;Specify &lt;strong&gt;Sockets&lt;/strong&gt; as the Licence type. You may skip setting the Number of Sockets. However, the actual limit of mac1.metal instances per account is regulated by Service Quota. The default number of mac instances allowed per account is 3. Therefore, consider &lt;a href=&#34;https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html&#34;&gt;increasing&lt;/a&gt; this to a more significant number.&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;license-configuration_compressed.png&#34;
-         alt=&#34;Licence configuration values&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Licence configuration values&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;license-configuration_compressed.png&#34;
+    alt=&#34;Licence configuration values&#34;width=&#34;400&#34;
+height=&#34;403&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Licence configuration values&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;h3 id=&#34;host-resource-group&#34;&gt;Host resource group&lt;/h3&gt;
@@ -792,10 +888,14 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 However, Auto Scaling Group will maintain the desired number of instances if one fails the health check (which assumes the case of host failure as well).&lt;/p&gt;
 &lt;p&gt;Also, I recommend specifying “mac1” as an allowed Instance family for the sake of transparent resource management: only this instance type is permitted to allocate hosts in the group.&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;host-resource-group_compressed.png&#34;
-         alt=&#34;Host resource group configuration values&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Host resource group configuration values&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;host-resource-group_compressed.png&#34;
+    alt=&#34;Host resource group configuration values&#34;width=&#34;400&#34;
+height=&#34;451&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Host resource group configuration values&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;Optionally, you may specify the license association here (the Host group will pick any compatible license) or select the license you created on step one.&lt;/p&gt;
@@ -804,10 +904,14 @@ However, Auto Scaling Group will maintain the desired number of instances if one
 &lt;p&gt;I will skip the description of all Launch Template parameters (but here is a nice &lt;a href=&#34;https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html&#34;&gt;tutorial&lt;/a&gt;), if you don’t mind, and keep focus only on the items relevant to the current case.&lt;/p&gt;
 &lt;p&gt;Specify mac1.metal as the Instance type. Later, in Advanced details: find the &lt;strong&gt;Tenancy&lt;/strong&gt; parameter and set it to “Dedicated host”; for &lt;strong&gt;Target host by&lt;/strong&gt; select “Host resource group”, and once selected the new parameter &lt;strong&gt;Tenancy host resource group&lt;/strong&gt; will appear where you should choose your host group; select your license in &lt;strong&gt;License configurations&lt;/strong&gt; parameter.&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;launch-template_compressed.png&#34;
-         alt=&#34;Launch Template configuration values&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Launch Template configuration values&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;launch-template_compressed.png&#34;
+    alt=&#34;Launch Template configuration values&#34;width=&#34;400&#34;
+height=&#34;370&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Launch Template configuration values&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;h3 id=&#34;auto-scaling-group&#34;&gt;Auto Scaling Group&lt;/h3&gt;
@@ -2106,10 +2210,14 @@ module_alb/alb.tf
 &lt;h2 id=&#34;how-does-it-work&#34;&gt;How does it work?&lt;/h2&gt;
 &lt;p&gt;Terraform works with the source code of configuration and interprets the code into real objects inside on-premise or cloud platforms.&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;how-it-works-optimized.png&#34;
-         alt=&#34;How Terraform works&#34; width=&#34;800&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;How Terraform works in a nutshell&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;how-it-works-optimized.png&#34;
+    alt=&#34;How Terraform works&#34;width=&#34;800&#34;
+height=&#34;400&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;How Terraform works in a nutshell&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;Terraform supports many platforms: cloud providers such as AWS, Azure, GCP, DigitalOcean, and other platforms such as OVH, 1&amp;amp;1, Hetzner, etc. It also supports infrastructure software such as Docker, Kubernetes, Chef, and even databases and monitoring software. That is why Terraform is so popular — it is an actual Swiss knife in the operations world.&lt;/p&gt;
@@ -2140,10 +2248,14 @@ module_alb/alb.tf
 &lt;p&gt;The &lt;code&gt;ami&lt;/code&gt;, &lt;code&gt;instance_type&lt;/code&gt;, and &lt;code&gt;private_ip&lt;/code&gt; are the arguments with values that define the actual state of the resource. However, there are many value types, depending on the particular argument and particular resource type, so I will not focus on them here.&lt;/p&gt;
 &lt;h3 id=&#34;modules&#34;&gt;Modules&lt;/h3&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;module-example.png&#34;
-         alt=&#34;Terraform module&#34; width=&#34;800&#34;/&gt; &lt;figcaption&gt;
-            &lt;p&gt;Terraform module&lt;/p&gt;
-        &lt;/figcaption&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;module-example.png&#34;
+    alt=&#34;Terraform module&#34;width=&#34;800&#34;
+height=&#34;400&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Terraform module&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;&lt;strong&gt;Modules&lt;/strong&gt; is the kind of logical containers or groups for resources you define and use together. The purpose of modules is the grouping of resources and the possibility of reusing the same code with different variables.&lt;/p&gt;
@@ -2188,7 +2300,11 @@ module_alb/alb.tf
 &lt;p&gt;The functions in Terraform are built-in jobs you can call to transform and combine values. For example, the &lt;code&gt;tolist()&lt;/code&gt; function converts its argument to a list value.&lt;/p&gt;
 &lt;h2 id=&#34;and-this-is-it&#34;&gt;And this is it?&lt;/h2&gt;
 &lt;figure&gt;
-    &lt;img loading=&#34;lazy&#34; src=&#34;done%20or.png&#34;/&gt; 
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;done%20or.png&#34;width=&#34;640&#34;
+height=&#34;360&#34;
+/&gt; 
 &lt;/figure&gt;
 
 &lt;p&gt;Yes, in short words — this is what Terraform is. Not rocket science if it&amp;rsquo;s about to manage a small infrastructure, but it gets more complicated with bigger infrastructure. Like any other engineering tool, though.&lt;/p&gt;
