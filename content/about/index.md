@@ -16,8 +16,6 @@ ByMeACoffee: false
 EmailSubscribeForm: false
 ---
 
-![](./hoodie-optimized.png#center)
-
 So you opened this page to read more about me? Thanks! I am delighted! 🤩
 
 My name is Serhii and I am from Ukraine 🇺🇦. 

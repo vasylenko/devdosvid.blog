@@ -1,4 +1,4 @@
-.social-profiles ul {
+.profiles ul {
     padding: 0;
     margin: 0;
     display: flex;
@@ -6,13 +6,20 @@
     list-style-type: none;
 }
 
-.social-profiles li {
+.profiles li {
     margin: 0 10px 0 10px ;
     padding: 0;
-    flex-grow: 1;
+    /*flex-grow: 1;*/
 }
 
-.social-profiles img {
+.profiles img {
     object-fit: cover;
     vertical-align: bottom;
+    margin: 0 auto 0 auto;
+}
+
+.profiles figure img{
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
