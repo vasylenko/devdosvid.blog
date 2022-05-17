@@ -6,7 +6,7 @@ on:
 env:
   GHPAGES_BRANCH: gh-pages-hugo
   BLOG_URL: devdosvid.blog
-  HUGO_VERSION: 0.97.3
+  HUGO_VERSION: 0.99.0
 
 jobs:
   build:
