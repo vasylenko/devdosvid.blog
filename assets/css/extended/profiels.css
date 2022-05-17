@@ -9,16 +9,16 @@
 .profiles li {
     margin: 0 10px 0 10px ;
     padding: 0;
-    /*flex-grow: 1;*/
 }
 
-.profiles img {
-    object-fit: cover;
-    vertical-align: bottom;
-    margin: 0 auto 0 auto;
+.profiles figure {
+    width: 80px;
 }
 
 .profiles figure img{
+    object-fit: cover;
+    margin: 0 auto 0 auto;
+    width: 60px;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none;
