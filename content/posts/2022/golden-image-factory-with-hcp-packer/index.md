@@ -74,7 +74,11 @@ The Builds inside Iteration are represented by the number of sources specified i
 ## Packer Template Configuration for HCP
 Let's now review a code example to understand how all this combines.
 
-Here is a definition of the `build`  block from the Packer template I used for this blog. Look at the `hcp_packer_registry` block here — it defines the Bucket where Packer will store image information and custom labels for the Bucket and the image.
+Here is a `build` block from Packer template file.
+
+{{< figure src="packer-template-example.png" caption="HCP Packer registry usage in a Packer template" width="800">}}
+
+Look at the `hcp_packer_registry` block: it defines the Bucket where Packer will store image information and custom labels for the Bucket and the image.
 
 The `bucket_name` defines my Image Bucket: Packer will either use the existing Bucket with that name or create a new one if it does not exist.
 
@@ -84,7 +88,6 @@ The `build_labels` map defines custom labels for the Builds within the Iteration
 
 And because I define two `sources` here, my Iteration will have two Builds inside it.
 
-{{< figure src="packer-template-example.png" caption="HCP Packer registry usage in a Packer template" width="800">}}
 
 ## Using Channels
 Although all Iterations have unique identifiers, giving a familiar name to some of them would be more convenient.
@@ -93,7 +96,7 @@ Although all Iterations have unique identifiers, giving a familiar name to some 
 - in other Packer templates, if you want to use your custom image as the base for other images
 - in Terraform code (we will review this further) to reference the image by the channel name, avoiding the hard code of the image ID.
 
-You can create a channel through the web interface or API. And I hope HashiCorp will add HCP Packer resources to the HCP Terraform provider in the future so channel creation can be described as code.
+Channels are created through the web interface or using the API. And I hope HashiCorp will add HCP Packer resources to the HCP Terraform provider in the future so channel creation can be described as code.
 
 {{< figure src="hcp-packer-image-channel.png" caption="HCP Packer Image Channel" width="800">}}
 
@@ -156,7 +159,6 @@ Then the `hcp_packer_image` gets the cloud image ID (AWS AMI ID in my example) f
 
 The configuration of the `hcp` provider in this example is empty on purpose: this provider supports `HCP_CLIENT_ID` and `HCP_CLIENT_SECRET` env variables to use their values for the [authentication](https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/guides/auth) and avoid hard coding. Alternatively, you can use the `client_id` and `client_secret` options to configure the provider.
 
-
 Also, you can revoke an Iteration on purpose, preventing particular images from being used. For example, your SecOps team can revoke it due to some new CVE announced.
 
 When Iteration is revoked, its cloud_image_id returns the `error_revoked`  value instead of the actual image ID.
@@ -170,7 +172,7 @@ Or you can also validate this using recently announced [post- and preconditions]
 ## Image Factory
 When dealing with multiple golden images or with various cloud providers, the [HCP Packer](https://cloud.hashicorp.com/products/packer) can be a good fit for your image pipeline.
 
-Acting as a registry, it allows the creation of an end-to-end workflow for golden image usage: create, validate, use and decommission the images in a centralized way.
+As a registry, it enables the end-to-end workflow for golden image usage: create, validate, use and decommission the images in a centralized way.
 
 And no more hard coded IDs, manual variable settings, or other duck tape and glue in your Terraform.
 
