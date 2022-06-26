@@ -84,15 +84,12 @@ body {
     max-width: 100%;
     height: auto;
     width: auto;
+    margin: auto auto 5px auto;
 }
 
 .post-content figure > figcaption {
     text-align: center;
     margin-top: 0;
-}
-
-.post-content figure > img {
-    margin-bottom: 5px;
 }
 
 .post-content p {
