@@ -3,23 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://devdosvid.blog/</loc>
-    <lastmod>2022-05-12T00:33:17+02:00</lastmod>
+    <lastmod>2022-06-27T02:04:19+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/</loc>
+    <lastmod>2022-06-27T02:04:19+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://devdosvid.blog/posts/</loc>
+    <lastmod>2022-06-27T02:04:19+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/</loc>
     <lastmod>2022-05-12T00:33:17+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
-    <loc>https://devdosvid.blog/posts/</loc>
-    <lastmod>2022-05-12T00:33:17+02:00</lastmod>
-    <changefreq>monthly</changefreq>
-  </url><url>
     <loc>https://devdosvid.blog/series/</loc>
-    <lastmod>2022-05-12T00:33:17+02:00</lastmod>
+    <lastmod>2022-06-27T02:04:19+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/terraform-proficiency/</loc>
-    <lastmod>2022-05-12T00:33:17+02:00</lastmod>
+    <lastmod>2022-06-27T02:04:19+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/</loc>
@@ -31,7 +35,7 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/</loc>
-    <lastmod>2022-01-20T16:19:51+02:00</lastmod>
+    <lastmod>2022-06-27T02:04:19+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/11/05/apply-cloudfront-security-headers-with-terraform/</loc>
@@ -87,7 +91,7 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/09/09/terraform-modules-explained.html</loc>
-    <lastmod>2022-01-20T15:48:22+02:00</lastmod>
+    <lastmod>2022-06-27T02:04:19+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts/</loc>

@@ -3,7 +3,7 @@
     <title>devDosvid — my engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/series/terraform-proficiency/"/>
-    <updated>2022-05-18T10:02:02Z</updated>
+    <updated>2022-06-26T23:04:41Z</updated>
     <author>
         <name>devDosvid — my engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
@@ -11,6 +11,228 @@
     <generator>Hugo gohugo.io</generator>
     <logo>https://devdosvid.blog/assets/img/websitelogo.jpg</logo>
     <link rel="alternate" type="text/html" href="https://devdosvid.blog/series/terraform-proficiency/" hreflang="en-us"/>
+    <entry>
+        <title>Golden Image Pipelines With HCP Packer</title>
+        <link href="https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/" hreflang="en" rel="alternate"/>
+        <published>2022-06-26T13:13:12Z</published>
+        <updated>2022-06-26T23:04:19Z</updated>
+        <id>https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/</id>
+        <author>
+            <name>Serhii Vasylenko</name>
+        </author>
+        <logo>https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/cover-image.png</logo>
+        <content type="html">&lt;p&gt;Many of us know and use Packer to build golden images for cloud providers. But did you know that Packer is not just a CLI tool?&lt;/p&gt;
+&lt;p&gt;There is an HCP (&lt;em&gt;stands for &lt;strong&gt;H&lt;/strong&gt;ashiCorp &lt;strong&gt;C&lt;/strong&gt;loud &lt;strong&gt;P&lt;/strong&gt;latform&lt;/em&gt;) Packer that acts as the image registry that stores the image metadata, allows you to organize images in distribution channels, and perform other management actions.&lt;/p&gt;
+&lt;p&gt;In this blog, I would like to showcase some features of the HCP Packer and explain how you can use it to set up an image factory for the organization (or for your own fun 🙃) to maintain the Golden Images.&lt;/p&gt;
+&lt;p&gt;I will be using AWS AMI as the OS image appliance for examples in this blog, but Packer supports many other formats and clouds through its &lt;a href=&#34;https://www.packer.io/plugins&#34;&gt;plugins&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;hcp-packer-registry&#34;&gt;HCP Packer Registry&lt;/h2&gt;
+&lt;p&gt;HCP Packer is the image metadata registry that stores the information (not an image file) about OS images you create using the Packer CLI tool.&lt;/p&gt;
+&lt;p&gt;It solves the challenge of the Golden Image pipeline maintenance by acting as a hub that organizes and streamlines the processes of OS image creation, usage, and continuity.&lt;/p&gt;
+&lt;figure&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;hcp-packer-how-it-works.png&#34;
+    alt=&#34;OS Image lifecycle with HCP Packer&#34;width=&#34;800&#34;
+height=&#34;200&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;OS Image lifecycle with HCP Packer&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;HCP Packer introduces several new concepts that compose the registry: Image Buckets, Iterations, and Channels. Further in this blog, I will explain them, but let&amp;rsquo;s start with security first.&lt;/p&gt;
+&lt;h2 id=&#34;security-first--creating-service-principals&#34;&gt;Security First — Creating Service Principals&lt;/h2&gt;
+&lt;p&gt;Before launching the builds, you need to create a Service Principal to allow your local Packer CLI to communicate with the HCP.&lt;/p&gt;
+&lt;p&gt;I recommend creating at least two principals: the one with the &amp;ldquo;contributor&amp;rdquo; role — used by Packer CLI to store the image metadata in HCP; and another one with the &amp;ldquo;viewer&amp;rdquo; role — used by Terraform (as it requires only read-level access for Packer HCP).&lt;/p&gt;
+&lt;figure&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;hcp-packer-service-principals.png&#34;
+    alt=&#34;Service Principals for HCP&#34;width=&#34;800&#34;
+height=&#34;325&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Service Principals for HCP&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Once you have created a principal, you can generate a key for authentication. The key consists of an ID and a secret.&lt;/p&gt;
+&lt;div class=&#34;attention&#34;&gt;
+    &lt;p&gt;Both the Packer CLI and the Packer Terraform provider support environment variables for the principal client ID and client secret for authentication:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;HCP_CLIENT_ID&lt;/code&gt; and &lt;code&gt;HCP_CLIENT_SECRET&lt;/code&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;h2 id=&#34;image-buckets-to-store-image-metadata&#34;&gt;Image Buckets to Store Image Metadata&lt;/h2&gt;
+&lt;p&gt;The central entity in HCP Packer is the Image Buckets.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Image Bucket&lt;/strong&gt; is a repository where the metadata from a Packer template is stored once image(s) creation is completed.&lt;/p&gt;
+&lt;p&gt;Image Bucket can contain a single image or several images if you define several sources for the &lt;code&gt;build&lt;/code&gt; block in the Packet template.&lt;/p&gt;
+&lt;p&gt;For example, a bucket can span several custom AMIs based on Ubuntu AMI provided by Amazon and built and distributed within several regions.&lt;/p&gt;
+&lt;p&gt;You cannot create buckets manually from the web interface (at least as of June 2022), but I will show you how they are defined as code inside a Packer template file just a bit later.&lt;/p&gt;
+&lt;figure&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;image-buckets.png&#34;
+    alt=&#34;HCP Packer Image Buckets&#34;width=&#34;800&#34;
+height=&#34;381&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;HCP Packer Image Buckets&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;iterations-of-image-creation&#34;&gt;Iterations of Image Creation&lt;/h2&gt;
+&lt;p&gt;Every execution of the  &lt;code&gt;build&lt;/code&gt; action made by Packer CLI (if used in conjunction with HCP) is recorded specially and called &lt;strong&gt;Iteration&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Each Iteration has a unique fingerprint — an SHA value of the head reference in the Git repository that contains your Packer template.&lt;/p&gt;
+&lt;div class=&#34;attention&#34;&gt;
+    Tip: you can override that with the &lt;code&gt;HCP_PACKER_BUILD_FINGERPRINT&lt;/code&gt; env variable if you want to set the Iteration ID manually.
+&lt;/div&gt;
+&lt;figure&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;packer-iterations.png&#34;
+    alt=&#34;HCP Packer Iterations&#34;width=&#34;800&#34;
+height=&#34;381&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;HCP Packer Iterations&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Every Iteration consists of at least one Build — another special record that contains image metadata produced by Packer CLI.&lt;/p&gt;
+&lt;p&gt;The Builds inside Iteration are represented by the number of sources specified in your Packer template&amp;rsquo;s &lt;code&gt;build&lt;/code&gt;  section.&lt;/p&gt;
+&lt;figure&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;packer-iteration-builds.png&#34;
+    alt=&#34;HCP Packer Iteration Builds&#34;width=&#34;800&#34;
+height=&#34;785&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;HCP Packer Iteration Builds&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;packer-template-configuration-for-hcp&#34;&gt;Packer Template Configuration for HCP&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s now review a code example to understand how all this combines.&lt;/p&gt;
+&lt;p&gt;Here is a &lt;code&gt;build&lt;/code&gt; block from Packer template file.&lt;/p&gt;
+&lt;figure&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;packer-template-example.png&#34;
+    alt=&#34;HCP Packer registry usage in a Packer template&#34;width=&#34;800&#34;
+height=&#34;533&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;HCP Packer registry usage in a Packer template&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Look at the &lt;code&gt;hcp_packer_registry&lt;/code&gt; block: it defines the Bucket where Packer will store image information and custom labels for the Bucket and the image.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;bucket_name&lt;/code&gt; defines my Image Bucket: Packer will either use the existing Bucket with that name or create a new one if it does not exist.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;bucket_labels&lt;/code&gt; map defines custom labels you specify for an Image Bucket. In my example, I set the Bucket owner and the OS name.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;build_labels&lt;/code&gt; map defines custom labels for the Builds within the Iteration inside a bucket.&lt;/p&gt;
+&lt;p&gt;And because I define two &lt;code&gt;sources&lt;/code&gt; here, my Iteration will have two Builds inside it.&lt;/p&gt;
+&lt;h2 id=&#34;using-channels&#34;&gt;Using Channels&lt;/h2&gt;
+&lt;p&gt;Although all Iterations have unique identifiers, giving a familiar name to some of them would be more convenient.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Channel&lt;/strong&gt; is a way to assign a specific Iteration to a friendly name that you can use later:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;in other Packer templates, if you want to use your custom image as the base for other images&lt;/li&gt;
+&lt;li&gt;in Terraform code (we will review this further) to reference the image by the channel name, avoiding the hard code of the image ID.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Channels are created through the web interface or using the API. And I hope HashiCorp will add HCP Packer resources to the HCP Terraform provider in the future so channel creation can be described as code.&lt;/p&gt;
+&lt;figure&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;hcp-packer-image-channel.png&#34;
+    alt=&#34;HCP Packer Image Channel&#34;width=&#34;800&#34;
+height=&#34;462&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;HCP Packer Image Channel&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;You can manually promote an Iteration to a channel with a web interface.&lt;/p&gt;
+&lt;p&gt;But before promoting an Iteration to a channel, you might want to perform the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;test and validate the newly created image before its promotion to a channel: create a temporary virtual machine using Terraform and ensure it successfully boots from the image.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;assess that VM with some vulnerability scanning service. For example, if you&amp;rsquo;re an AWS customer, then &lt;a href=&#34;https://docs.aws.amazon.com/inspector/latest/user/what-is-inspector.html&#34;&gt;Amazon Inspector&lt;/a&gt; might work for you in such a case.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Once an image from the Iteration is validated and passed the security assessment, it&amp;rsquo;s safe to promote that Iteration to a channel.&lt;/p&gt;
+&lt;p&gt;HCP Packer provides a rich &lt;a href=&#34;https://cloud.hashicorp.com/api-docs/packer&#34;&gt;API&lt;/a&gt; that you can leverage to automate that process.&lt;/p&gt;
+&lt;p&gt;When a &lt;code&gt;packer build&lt;/code&gt; successfully finishes its execution, it returns the Iteration ID (ULID) that you can use later for an API call with a request to promote the new Iteration to a channel.&lt;/p&gt;
+&lt;figure&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;packer-build-output.png&#34;
+    alt=&#34;Packer build output with Iteration ULID&#34;width=&#34;800&#34;
+height=&#34;198&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Packer build output with Iteration ULID&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The &amp;ldquo;Update Channel&amp;rdquo; PATCH API method is needed to assign the Iteration to a channel.&lt;/p&gt;
+&lt;p&gt;First, you need to obtain the access token as described in &lt;a href=&#34;https://support.hashicorp.com/hc/en-us/articles/6676505991699-HCP-API-Authentication-with-Curl&#34;&gt;this guide&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Then, the following cURL request can be used to update the channel with a new Iteration ULID (please expand the code snippet below):&lt;/p&gt;
+&lt;div class=&#34;code-snippet&#34;&gt;
+&lt;details&gt;
+&lt;summary markdown=&#34;span&#34;&gt;Click here to see the code snippet&lt;/summary&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;HCP_ACCESS_TOKEN&lt;/span&gt;=&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;your token here&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;HCP_ORG_ID&lt;/span&gt;=&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;your org id here&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;HCP_PROJECT_ID&lt;/span&gt;=&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;your project id here&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;HCP_BUCKET_NAME&lt;/span&gt;=&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;amazon-linux2&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;HCP_CHANNEL_NAME&lt;/span&gt;=&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;stable&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;HCP_BASE_URL&lt;/span&gt;=&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;https://api.cloud.hashicorp.com/packer/2021-04-30&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -X PATCH &lt;span style=&#34;color:#ed9d13&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&lt;/span&gt;--header &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;Authorization: Bearer &lt;/span&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;$HCP_ACCESS_TOKEN&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&lt;/span&gt;--data &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;{
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;incremental_version&amp;#34;:&amp;#34;3&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;iteration_id&amp;#34;:&amp;#34;01H8V7WBDWRBCMZDZ2HG3MKSDL&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;}&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;HCP_BASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;/organizations/&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;HCP_ORG_ID&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;/projects/&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;HCP_PROJECT_ID&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;/images/&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;HCP_BUCKET_NAME&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;/channels/&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;HCP_CHANNEL_NAME&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/details&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;using-hcp-packer-with-terraform&#34;&gt;Using HCP Packer with Terraform&lt;/h2&gt;
+&lt;p&gt;Having a streamlined golden image creation process is good. Still, it would be even better to have an easy way to always use the latest validated image without hardcoding or some other duck taping.&lt;/p&gt;
+&lt;p&gt;With the help of the &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/hcp&#34;&gt;HCP Terraform provider&lt;/a&gt;, you can reference the image channel in your Terraform code and have a completed end-to-end workflow.&lt;/p&gt;
+&lt;p&gt;Here is an example of the Terraform configuration that uses the HCP Packer registry as the source of AMI ID for an AWS instance:&lt;/p&gt;
+&lt;figure&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;terraform-hcp-packer.png&#34;
+    alt=&#34;Using HCP Packer registry with Terraform&#34;width=&#34;800&#34;
+height=&#34;510&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Using HCP Packer registry with Terraform&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Two data sources do all the magic here.&lt;/p&gt;
+&lt;p&gt;The  &lt;code&gt;hcp_packer_iteration&lt;/code&gt;  data source gets the most recent Iteration assigned to the specified Channel (i.e., latest). We need that because the Iteration (not the Channel) holds the image information.&lt;/p&gt;
+&lt;p&gt;Then the &lt;code&gt;hcp_packer_image&lt;/code&gt; gets the cloud image ID (AWS AMI ID in my example) from that Iteration so you can use it later in your code.&lt;/p&gt;
+&lt;p&gt;The configuration of the &lt;code&gt;hcp&lt;/code&gt; provider in this example is empty on purpose: this provider supports &lt;code&gt;HCP_CLIENT_ID&lt;/code&gt; and &lt;code&gt;HCP_CLIENT_SECRET&lt;/code&gt; env variables to use their values for the &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/guides/auth&#34;&gt;authentication&lt;/a&gt; and avoid hard coding. Alternatively, you can use the &lt;code&gt;client_id&lt;/code&gt; and &lt;code&gt;client_secret&lt;/code&gt; options to configure the provider.&lt;/p&gt;
+&lt;p&gt;Also, you can revoke an Iteration on purpose, preventing particular images from being used. For example, your SecOps team can revoke it due to some new CVE announced.&lt;/p&gt;
+&lt;p&gt;When Iteration is revoked, its cloud_image_id returns the &lt;code&gt;error_revoked&lt;/code&gt;  value instead of the actual image ID.&lt;/p&gt;
+&lt;p&gt;You can add a bit of conditional logic to the Terraform code to catch that case and act accordingly. For example:&lt;/p&gt;
+&lt;figure&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;logic-for-revoked-iteration.png&#34;
+    alt=&#34;Work with revoked HCP Packer image in Terraform&#34;width=&#34;800&#34;
+height=&#34;222&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Work with revoked HCP Packer image in Terraform&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Or you can also validate this using recently announced &lt;a href=&#34;https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/#precondition-and-postcondition&#34;&gt;post- and preconditions&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;image-factory&#34;&gt;Image Factory&lt;/h2&gt;
+&lt;p&gt;When dealing with multiple golden images or with various cloud providers, the &lt;a href=&#34;https://cloud.hashicorp.com/products/packer&#34;&gt;HCP Packer&lt;/a&gt; can be a good fit for your image pipeline.&lt;/p&gt;
+&lt;p&gt;As a registry, it enables the end-to-end workflow for golden image usage: create, validate, use and decommission the images in a centralized way.&lt;/p&gt;
+&lt;p&gt;And no more hard coded IDs, manual variable settings, or other duck tape and glue in your Terraform.&lt;/p&gt;
+&lt;p&gt;If you want to learn more about HCP Packer and have some practice, I suggest starting from the &lt;a href=&#34;https://learn.hashicorp.com/collections/packer/hcp&#34;&gt;tutorial at HashiCorp Learn portal&lt;/a&gt;.&lt;/p&gt;</content>
+    </entry>
     <entry>
         <title>New Lifecycle Options and Refactoring Capabilities in Terraform 1.1 and 1.2</title>
         <link href="https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/" hreflang="en" rel="alternate"/>
@@ -577,7 +799,7 @@ bash /opt/system-init/register-monitoring.sh
         <title>Guide to Using Terraform in CI/CD</title>
         <link href="https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/" hreflang="en" rel="alternate"/>
         <published>2021-11-24T20:20:45Z</published>
-        <updated>2022-01-20T14:19:51Z</updated>
+        <updated>2022-06-26T23:04:19Z</updated>
         <id>https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1933,7 +2155,7 @@ For example, you can make a plan from the resources I outlined below in this art
         <title>What are Terraform Modules and how do they work?</title>
         <link href="https://devdosvid.blog/2020/09/09/terraform-modules-explained.html" hreflang="en" rel="alternate"/>
         <published>2020-09-09T00:00:00Z</published>
-        <updated>2022-01-20T13:48:22Z</updated>
+        <updated>2022-06-26T23:04:19Z</updated>
         <id>https://devdosvid.blog/2020/09/09/terraform-modules-explained.html</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1954,20 +2176,29 @@ For example, you can make a plan from the resources I outlined below in this art
 – a static public IP mapped to the server&amp;rsquo;s virtual network interface
 – a set of firewall rules to be attached to the server
 – something else&amp;hellip; (i.e. another block device, additional network interface, etc)&lt;/p&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;1.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
+&lt;figure&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;1.png&#34;
+    alt=&#34;Terraform module example&#34;width=&#34;212&#34;
+height=&#34;126&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Terraform module example&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
 &lt;p&gt;Now let&amp;rsquo;s assume that you need to create this server with a set of resources many times. This is where modules are really helpful – you don&amp;rsquo;t want to repeat the same configuration code over and over again, do you?&lt;/p&gt;
 &lt;p&gt;Here is an example that illustrates how our &amp;ldquo;server&amp;rdquo; module might be called.
 &amp;ldquo;To call a module&amp;rdquo; means to use it in the configuration file.&lt;/p&gt;
 &lt;p&gt;Here we create 5 instances of the &amp;ldquo;server&amp;rdquo; using single set of configurations (in the module):&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;module &amp;#34;server&amp;#34; {
-    
-    count         = 5
-    
-    source        = &amp;#34;./module_server&amp;#34;
-    some_variable = some_value
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;modules-organisation-child-and-root&#34;&gt;Modules organisation: child and root&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;server&amp;#34;&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;count&lt;/span&gt;         = &lt;span style=&#34;color:#3677a9&#34;&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;source&lt;/span&gt;        = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;./module_server&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;some_variable&lt;/span&gt; = some_value
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;modules-organisation-child-and-root&#34;&gt;Modules organisation: child and root&lt;/h3&gt;
 &lt;p&gt;Of course, you would probably want to create more than one module. Here are some common examples:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;for a network (i.e. VPC)&lt;/li&gt;
@@ -1977,18 +2208,27 @@ For example, you can make a plan from the resources I outlined below in this art
 &lt;li&gt;and whatever else you consider a distinct logical component of the infrastructure&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Let&amp;rsquo;s say we have two different modules: a &amp;ldquo;server&amp;rdquo; module and a &amp;ldquo;network&amp;rdquo; module. The module called &amp;ldquo;network&amp;rdquo; is where we define and configure our virtual network and place servers in it:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;module &amp;#34;server&amp;#34; {
-    source        = &amp;#34;./module_server&amp;#34;
-    some_variable = some_value
-}
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;server&amp;#34;&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;source&lt;/span&gt;        = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;./module_server&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;some_variable&lt;/span&gt; = some_value
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;network&amp;#34;&lt;/span&gt; {  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;source&lt;/span&gt;              = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;./module_network&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;some_other_variable&lt;/span&gt; = some_other_value
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Once we have some custom modules, we can refer to them as &amp;ldquo;child&amp;rdquo; modules. And the configuration file where we call child modules relates to the root module.&lt;/p&gt;
+&lt;figure&gt;
 
-module &amp;#34;network&amp;#34; {  
-    source              = &amp;#34;./module_network&amp;#34;
-    some_other_variable = some_other_value
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Once we have some custom modules, we can refer to them as &amp;ldquo;child&amp;rdquo; modules. And the configuration file where we call child modules relates to the root module.&lt;/p&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;2.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;2.png&#34;
+    alt=&#34;Terraform modules relations&#34;width=&#34;403&#34;
+height=&#34;151&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Terraform modules relations&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
 &lt;p&gt;A child module can be sourced from a number of places:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;local paths&lt;/li&gt;
@@ -2004,55 +2244,71 @@ module &amp;#34;network&amp;#34; {
 &lt;h3 id=&#34;module-scope&#34;&gt;Module Scope&lt;/h3&gt;
 &lt;p&gt;All resource instances, names, and therefore, resource visibility, are isolated in a module&amp;rsquo;s scope. For example, module &amp;ldquo;A&amp;rdquo; can&amp;rsquo;t see and does not know about resources in module &amp;ldquo;B&amp;rdquo; by default.&lt;/p&gt;
 &lt;p&gt;Resource visibility, sometimes called resource isolation, ensures that resources will have unique names within a module&amp;rsquo;s namespace. For example, with our 5 instances of the &amp;ldquo;server&amp;rdquo; module:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;module.server[0].resource_type.resource_name
-module.server[1].resource_type.resource_name
-module.server[2].resource_type.resource_name
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;On the other hand, we could create two instances of the same module with different names:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;module &amp;#34;server-alpha&amp;#34; {    
-    source        = &amp;#34;./module_server&amp;#34;
-    some_variable = some_value
-}
-module &amp;#34;server-beta&amp;#34; {
-    source        = &amp;#34;./module_server&amp;#34;
-    some_variable = some_value
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In this case, the naming or address of resources would be as follows:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;module.server-alpha.resource_type.resource_name
-
-module.server-beta.resource_type.resource_name
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;explicit-resources-exposure&#34;&gt;Explicit resources exposure&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;module.server[0].resource_type.resource_name
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;module.server[1].resource_type.resource_name
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;module.server[2].resource_type.resource_name
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;On the other hand, we could create two instances of the same module with different names:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;server-alpha&amp;#34;&lt;/span&gt; {    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;source&lt;/span&gt;        = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;./module_server&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;some_variable&lt;/span&gt; = some_value
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;server-beta&amp;#34;&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;source&lt;/span&gt;        = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;./module_server&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;some_variable&lt;/span&gt; = some_value
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this case, the naming or address of resources would be as follows:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;module.server-alpha.resource_type.resource_name
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;module.server-beta.resource_type.resource_name
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;explicit-resources-exposure&#34;&gt;Explicit resources exposure&lt;/h3&gt;
 &lt;p&gt;If you want to access some details for the resources in another module, you&amp;rsquo;ll need to explicitly configure that.&lt;/p&gt;
 &lt;p&gt;By default, our module &amp;ldquo;server&amp;rdquo; doesn&amp;rsquo;t know about the network that was created in the &amp;ldquo;network&amp;rdquo; module.&lt;/p&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;3.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
+&lt;figure&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;3.png&#34;
+    alt=&#34;Resource incapsulation in Terraform modules&#34;width=&#34;985&#34;
+height=&#34;314&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Resource incapsulation in Terraform modules&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
 &lt;p&gt;So we must declare an &lt;code&gt;output&lt;/code&gt; value in the &amp;ldquo;network&amp;rdquo; module to export its resource, or an attribute of a resource, to other modules.&lt;/p&gt;
 &lt;p&gt;The module &amp;ldquo;server&amp;rdquo; must declare a &lt;code&gt;variable&lt;/code&gt; to be used later as the input.&lt;/p&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;4.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
+&lt;figure&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;4.png&#34;
+    alt=&#34;Module outputs and input variables&#34;width=&#34;1198&#34;
+height=&#34;859&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Module outputs and input variables&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
 &lt;p&gt;This explicit declaration of the output is the way to expose some resource (or information about it) outside — to the scope of the &amp;lsquo;root&amp;rsquo; module, hence to make it available for other modules.&lt;/p&gt;
 &lt;p&gt;Next, when we call the child module &amp;ldquo;server&amp;rdquo;  in the root module, we should assign the output from the &amp;ldquo;network&amp;rdquo; module to the variable of the &amp;ldquo;server&amp;rdquo; module:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;network_id = module.network.network_id
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Here is how the final code for calling our child modules will look like in result:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;module &amp;#34;server&amp;#34; {
-    count         = 5
-    source        = &amp;#34;./module_server&amp;#34;
-    some_variable = some_value
-    network_id    = module.network.network_id
-}
-
-module &amp;#34;network&amp;#34; {  
-    source              = &amp;#34;./module_network&amp;#34;
-    some_other_variable = some_other_value
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This example configuration would create 5 instances of the same server, with all the necessary resources, in the network we created with as a separate module.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;network_id&lt;/span&gt; = module.network.network_id
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here is how the final code for calling our child modules will look like in result:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;server&amp;#34;&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;count&lt;/span&gt;         = &lt;span style=&#34;color:#3677a9&#34;&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;source&lt;/span&gt;        = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;./module_server&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;some_variable&lt;/span&gt; = some_value
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;network_id&lt;/span&gt;    = &lt;span style=&#34;color:#24909d&#34;&gt;module&lt;/span&gt;.network.network_id
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;network&amp;#34;&lt;/span&gt; {  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;source&lt;/span&gt;              = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;./module_network&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#bbb&#34;&gt;some_other_variable&lt;/span&gt; = some_other_value
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This example configuration would create 5 instances of the same server, with all the necessary resources, in the network we created with as a separate module.&lt;/p&gt;
 &lt;h3 id=&#34;wrap-up&#34;&gt;Wrap up&lt;/h3&gt;
 &lt;p&gt;Now you should understand what modules are and what do they do.&lt;/p&gt;
 &lt;p&gt;If you&amp;rsquo;re at the beginning of your Terraform journey, here are some suggestions for the next steps.&lt;/p&gt;
 &lt;p&gt;I encourage you to take this short tutorial from HashiCorp, the creators of Terraform, about modules:  &lt;a href=&#34;https://learn.hashicorp.com/collections/terraform/modules&#34;&gt;&amp;ldquo;Organize Configuration&amp;rdquo;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Also, there is a great comprehensive study guide which covers everything from beginner to advanced concepts about Terraform: &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/associate-study?in=terraform/certification&#34;&gt;&amp;ldquo;Study Guide - Terraform Associate Certification&amp;rdquo;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;The modular code structure makes your configuration more flexible and yet easy to be understood by others. The latter is especially useful in teamwork.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h6 id=&#34;this-article-was-originaly-published-on-freecodecamp-paltform-by-me-but-i-still-want-to-keep-it-here-for-the-record-canonical-link-to-original-publication-was-properly-set-in-the-page-headers&#34;&gt;This article was originaly published on FreeCodeCamp paltform by me, but I still want to keep it here for the record. Canonical link to original publication was properly set in the page headers.&lt;/h6&gt;</content>
+&lt;p&gt;The modular code structure makes your configuration more flexible and yet easy to be understood by others. The latter is especially useful in teamwork.&lt;/p&gt;</content>
     </entry>
     <entry>
         <title>Terraform CLI shortcuts</title>
@@ -2181,136 +2437,5 @@ module_alb/alb.tf
 &lt;p&gt;When using lookup plugins for Secrets Manager and Parameter Store, mind the access permissions. The assumed IAM role must allow at least the read access to SSM Parameter Store (&#43; KMS read access to be able to decrypt the keys) or the read access to Secrets Manager.&lt;/p&gt;
 &lt;p&gt;You can find documentation for described plugins here &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup/aws_ssm.html&#34;&gt;aws_ssm&lt;/a&gt; and here &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup/aws_secret.html&#34;&gt;aws_secret&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;More about lookup plugins: &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup.html&#34;&gt;https://docs.ansible.com/ansible/latest/plugins/lookup.html&lt;/a&gt;&lt;/p&gt;</content>
-    </entry>
-    <entry>
-        <title>Terraform explained in English</title>
-        <link href="https://devdosvid.blog/2020/05/02/Terraform-explained-for-managers.html" hreflang="en" rel="alternate"/>
-        <published>2020-05-02T00:00:00Z</published>
-        <updated>2022-04-24T21:25:12Z</updated>
-        <id>https://devdosvid.blog/2020/05/02/Terraform-explained-for-managers.html</id>
-        <author>
-            <name>Serhii Vasylenko</name>
-        </author>
-        <logo>https://devdosvid.blog/2020/05/02/Terraform-explained-for-managers.htmlcover-image.png</logo>
-        <content type="html">&lt;p&gt;You might have heard about Terraform before, but if you have never tried it, this blog can help you to get the main point.&lt;/p&gt;
-&lt;h2 id=&#34;a-few-words-about-infrastructure-as-code&#34;&gt;A few words about “Infrastructure as Code&amp;quot;&lt;/h2&gt;
-&lt;p&gt;First of all, Terraform is the way to manage the infrastructure in the form of code. The same way developers write the code to create applications, Terraform code can create the resources in virtual data centers (i.e., clouds).&lt;/p&gt;
-&lt;p&gt;Infrastructure as Code, or IaC, is when you describe and manage your infrastructure as… (guess what?) …code, literally.&lt;/p&gt;
-&lt;p&gt;In a nutshell, that means you can define all the elements (servers, networks, storage, etc.) and resources (memory, CPU, etc.) of your infrastructure in configuration files, and manage it in a way similar to how you handle the source code of the applications: branches, releases, and all that stuff.&lt;/p&gt;
-&lt;p&gt;And the main idea behind the IaC approach is that it manages the state of things and must remain the single source of truth (configuration truth) for your infrastructure.&lt;/p&gt;
-&lt;p&gt;First, you define the state via the code. Then IaC tool (Terraform, for example) applies this state to the infrastructure: all that is missing according to the code will be created, all that differs from the code will be changed, and all that exists in the infrastructure but is not described via code — will be destroyed.&lt;/p&gt;
-&lt;h2 id=&#34;why-and-when-do-you-need-the-terraform-for-a-project&#34;&gt;Why and when do you need the Terraform for a project?&lt;/h2&gt;
-&lt;p&gt;Terraform is a specific tool, hence like any other tool, it has its particular application area. There is no strict definition of project kind that needs Terraform (surprise!), but in general, you need to consider using Terraform if you answer ‘yes’ to one of the following questions:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Do you have multiple logical elements of the same kind (in plural) in your infrastructure, i.e., several web servers, several application servers, several database servers?&lt;/li&gt;
-&lt;li&gt;Do you have numerous environments (or workspaces) where you run your applications, i.e., development, staging, QA, production?&lt;/li&gt;
-&lt;li&gt;Do you spend a significant amount of time managing the changes in the environment(s) where you run your applications?&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;how-does-it-work&#34;&gt;How does it work?&lt;/h2&gt;
-&lt;p&gt;Terraform works with the source code of configuration and interprets the code into real objects inside on-premise or cloud platforms.&lt;/p&gt;
-&lt;figure&gt;
-
-&lt;img loading=&#34;lazy&#34;
-     src=&#34;how-it-works-optimized.png&#34;
-    alt=&#34;How Terraform works&#34;width=&#34;800&#34;
-height=&#34;400&#34;
-/&gt; &lt;figcaption&gt;
-    &lt;p&gt;How Terraform works in a nutshell&lt;/p&gt;
-&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Terraform supports many platforms: cloud providers such as AWS, Azure, GCP, DigitalOcean, and other platforms such as OVH, 1&amp;amp;1, Hetzner, etc. It also supports infrastructure software such as Docker, Kubernetes, Chef, and even databases and monitoring software. That is why Terraform is so popular — it is an actual Swiss knife in the operations world.&lt;/p&gt;
-&lt;p&gt;So to create, change, or destroy the infrastructure, Terraform needs the source code.&lt;/p&gt;
-&lt;p&gt;The &lt;strong&gt;source code&lt;/strong&gt; is a set of configuration files that defines your infrastructure state. The code uses its syntax, but it looks very user-friendly. Here is an example: the following configuration block describes the virtual server (EC2 instance) in AWS.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;aws_instance&amp;#34; &amp;#34;web_server&amp;#34;&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ami           = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;ami-a1b2c3d4&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  instance_type = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;t3.micro&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Terraform can automatically detect the dependencies between resources described in the code and also allows you to add custom dependencies when needed.&lt;/p&gt;
-&lt;p&gt;When you apply the code the first time, Terraform creates a so-called “&lt;strong&gt;state file&lt;/strong&gt;,&amp;quot; which Terraform uses to map your code to resources created in the hosting platform. Terraform will use each subsequent “apply&amp;quot; action to compare the code changes with the sate file to decide what should be done (and in what order) against real infrastructure.&lt;/p&gt;
-&lt;p&gt;One of the essential functions of the state file is the management of dependencies between the resources. For example (some technical nuances are omitted for simplicity): if you have a server created inside some network and you are going to change the network configuration in Terraform code, Terraform will know it should change that server configuration, or the server should be re-created inside the updated network.&lt;/p&gt;
-&lt;h2 id=&#34;what-does-terraform-consist-of&#34;&gt;What does Terraform consist of:&lt;/h2&gt;
-&lt;p&gt;Terraform configuration code consists of several elements: providers, resources, modules, input variables, output values, local values, expressions, functions.&lt;/p&gt;
-&lt;h3 id=&#34;provider&#34;&gt;Provider&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Provider&lt;/strong&gt; is an entity that defines what exactly is possible to do with the cloud or on-premises infrastructure platform you manage via Terraform.&lt;/p&gt;
-&lt;p&gt;It translates your code into proper API calls to the hosting provider, transforming your configuration into real object: servers, networks, databases, and so on.&lt;/p&gt;
-&lt;h3 id=&#34;resource&#34;&gt;Resource&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Resource&lt;/strong&gt; is the essential part of the configuration code. That is where the definition of infrastructure objects happens.&lt;/p&gt;
-&lt;p&gt;Resources are the main building blocks of the whole code. A resource can represent some object in the hosting provider (example: server) or the part of a compound object (example: attachable storage for a server)&lt;/p&gt;
-&lt;p&gt;Every resource has a type and local name. For example, here is how EC2 instance configuration may look like:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;aws_instance&amp;#34; &amp;#34;web_server&amp;#34;&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ami           = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;ami-a1b2c3d4&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  instance_type = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;t3.micro&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;aws_instance&lt;/code&gt; is a resource type, and &lt;code&gt;web_server&lt;/code&gt; is the local resource name. Later, when Terraform applies this code, it will create an EC2 instance with some particular ID in AWS.&lt;/p&gt;
-&lt;p&gt;Once created, Terraform will store the ID in the state file with mapping information that logically connects it with &lt;code&gt;web_server&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;ami&lt;/code&gt;, &lt;code&gt;instance_type&lt;/code&gt;, and &lt;code&gt;private_ip&lt;/code&gt; are the arguments with values that define the actual state of the resource. However, there are many value types, depending on the particular argument and particular resource type, so I will not focus on them here.&lt;/p&gt;
-&lt;h3 id=&#34;modules&#34;&gt;Modules&lt;/h3&gt;
-&lt;figure&gt;
-
-&lt;img loading=&#34;lazy&#34;
-     src=&#34;module-example.png&#34;
-    alt=&#34;Terraform module&#34;width=&#34;800&#34;
-height=&#34;400&#34;
-/&gt; &lt;figcaption&gt;
-    &lt;p&gt;Terraform module&lt;/p&gt;
-&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;&lt;strong&gt;Modules&lt;/strong&gt; is the kind of logical containers or groups for resources you define and use together. The purpose of modules is the grouping of resources and the possibility of reusing the same code with different variables.&lt;/p&gt;
-&lt;p&gt;Let’s get back to the example with the EC2 instance and say you need to have a static public IP address with it. In such a case, here is how the module for web server may look like:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;aws_instance&amp;#34; &amp;#34;web_server&amp;#34;&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ami           = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;ami-a1b2c3d4&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  instance_type = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;t3.micro&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;aws_eip&amp;#34; &amp;#34;web_server_public_ip&amp;#34;&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  instance      = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;${aws_instance.web_server.id}&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Having these two resources together allows us to think of it as a stand-alone unit you can reuse later, for example, in our development, staging, and production environments. And not by copying and pasting it, but via reference to the module defined only once.&lt;/p&gt;
-&lt;p&gt;Please note: we specified an instance argument inside the &lt;code&gt;aws_eip&lt;/code&gt; resource to reference another resource details (the ID of an instance). It is possible because of the way how Terraform treats dependencies. For example, when it detects the dependency (or you define it explicitly), Terraform creates the leading resource first. Only after the resource is created and available Terraform will create the dependent one.&lt;/p&gt;
-&lt;p&gt;The modules is a kind of standalone topic in Terraform. There is &lt;a href=&#34;https://devdosvid.blog/2020/09/09/terraform-modules-explained.html&#34;&gt;a separate article in my blog&lt;/a&gt; that explains what modules are and how do they work.&lt;/p&gt;
-&lt;h3 id=&#34;variables&#34;&gt;Variables&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Input variables&lt;/strong&gt; work as parameters for the modules so module code could be reusable. Let’s look at the previous example: it has some hardcoded values — instance image ID and instance type. Here is how you can make it more abstract and reusable:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;variable&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;image_id&amp;#34;&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  type          = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;string&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;variable&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;instance_type&amp;#34;&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  type          = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;string&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;aws_instance&amp;#34; &amp;#34;web_server&amp;#34;&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ami           = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;var&lt;/span&gt;.&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;image_id&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  instance_type = &lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;var&lt;/span&gt;.&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;instance_type&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Values for the variables then can be passed either via CLI and environment variables (if you have only the one, so-called root module) or via explicit values in the block where you call a module, for example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;web_server_production&amp;#34;&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  source        = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;./modules/web_server&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  image_id      = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;ami-a1b2c3d4&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  instance_type = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;m5.large&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;web_server_development&amp;#34;&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  source        = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;./modules/web_server&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  image_id      = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;ami-a2b3c4d5&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  instance_type = &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#34;t3.micro&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; }
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Output values&lt;/strong&gt; are similar to the &amp;ldquo;return&amp;rdquo; of a function in development language. You can use them for dependencies management (for example, when a module requires something from another module) and print specific values at the end of Terraform work (for example, to be used for notification in the CI/CD process).&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Local values&lt;/strong&gt;, &lt;strong&gt;expressions&lt;/strong&gt;, &lt;strong&gt;functions&lt;/strong&gt; — three more things that augment the capabilities of Terraform and make it more similar to a programming language (which is excellent, by the way).&lt;/p&gt;
-&lt;p&gt;The local values are used inside modules for extended data manipulations.&lt;/p&gt;
-&lt;p&gt;The expressions are used to set the values (for many things), such as the value of some argument in resource configuration. For example, they used either to refer something (just as we referenced instance ID &lt;code&gt;&amp;quot;${aws_instance.web_server.id}&amp;quot;&lt;/code&gt; in the example above) or to compute the value within your configuration.&lt;/p&gt;
-&lt;p&gt;The functions in Terraform are built-in jobs you can call to transform and combine values. For example, the &lt;code&gt;tolist()&lt;/code&gt; function converts its argument to a list value.&lt;/p&gt;
-&lt;h2 id=&#34;and-this-is-it&#34;&gt;And this is it?&lt;/h2&gt;
-&lt;figure&gt;
-
-&lt;img loading=&#34;lazy&#34;
-     src=&#34;done%20or.png&#34;width=&#34;640&#34;
-height=&#34;360&#34;
-/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;Yes, in short words — this is what Terraform is. Not rocket science if it&amp;rsquo;s about to manage a small infrastructure, but it gets more complicated with bigger infrastructure. Like any other engineering tool, though.&lt;/p&gt;
-&lt;h2 id=&#34;okay-what-next&#34;&gt;Okay, what next?&lt;/h2&gt;
-&lt;p&gt;If you read down to this point, then it means it is worth &amp;ldquo;get your hands dirty&amp;rdquo; and to try building your Infrastructure with Terraform. There are plenty of courses and books (and the &amp;ldquo;Terraform up and running&amp;rdquo; is one of the most popular). Still, my learning path started from the following: &lt;a href=&#34;https://learn.hashicorp.com/terraform&#34;&gt;Official guide from Hashicorp&lt;/a&gt; — comprehensive and free guide from Terraform developers. Just pick your favorite cloud (AWS, Azure, GCP) and go through the topics.&lt;/p&gt;
-&lt;p&gt;Another thing worth your attention is &lt;a href=&#34;https://blog.gruntwork.io/a-comprehensive-guide-to-terraform-b3d32832baca&#34;&gt;A Comprehensive Guide to Terraform&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Once you finish this guide, I suggest jumping into the more real-world things and describing the infrastructure of the most common project you work with.&lt;/p&gt;
-&lt;p&gt;Your hands-on experience is the best way to learn Terraform!&lt;/p&gt;</content>
     </entry>
 </feed>
