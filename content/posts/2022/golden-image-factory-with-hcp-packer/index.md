@@ -87,7 +87,7 @@ And because I define two `sources` here, my Iteration will have two Builds insid
 {{< figure src="packer-template-example.png" caption="HCP Packer registry usage in a Packer template" width="800">}}
 
 ## Using Channels
-Although Iterations have unique identifiers, giving some good ones a name would be more convenient.
+Although all Iterations have unique identifiers, giving a familiar name to some of them would be more convenient.
 
 **Channel** is a way to assign a specific Iteration to a friendly name that you can use later:
 - in other Packer templates, if you want to use your custom image as the base for other images
@@ -97,15 +97,17 @@ You can create a channel through the web interface or API. And I hope HashiCorp 
 
 {{< figure src="hcp-packer-image-channel.png" caption="HCP Packer Image Channel" width="800">}}
 
-With a web interface, you can manually promote an Iteration to a channel.
+You can manually promote an Iteration to a channel with a web interface.
 
-But HCP Packer provides a rich [API](https://cloud.hashicorp.com/api-docs/packer) that you can leverage to add custom actions to the image creation process.
+But before promoting an Iteration to a channel, you might want to perform the following:
 
-For example, you might want to test and validate the newly created image before its promotion to a channel: create a temporary virtual machine using Terraform and ensure it successfully boots from the image.
+- test and validate the newly created image before its promotion to a channel: create a temporary virtual machine using Terraform and ensure it successfully boots from the image.
 
-Also, you can boost the security posture by assessing that VM with some vulnerability scanning service. For example, if you're an AWS customer, then [Amazon Inspector](https://docs.aws.amazon.com/inspector/latest/user/what-is-inspector.html) might work for you in such a case.
+- assess that VM with some vulnerability scanning service. For example, if you're an AWS customer, then [Amazon Inspector](https://docs.aws.amazon.com/inspector/latest/user/what-is-inspector.html) might work for you in such a case.
 
-Finally, once an image from the Iteration is validated and passed the security assessment, it's safe to promote that Iteration to a channel.
+Once an image from the Iteration is validated and passed the security assessment, it's safe to promote that Iteration to a channel.
+
+HCP Packer provides a rich [API](https://cloud.hashicorp.com/api-docs/packer) that you can leverage to automate that process.
 
 When a `packer build` successfully finishes its execution, it returns the Iteration ID (ULID) that you can use later for an API call with a request to promote the new Iteration to a channel.
 
@@ -118,7 +120,7 @@ First, you need to obtain the access token as described in [this guide](https://
 Then, the following cURL request can be used to update the channel with a new Iteration ULID (please expand the code snippet below):
 
 {{<snippet>}}
-```bash
+```shell
 HCP_ACCESS_TOKEN="your token here"
 
 HCP_ORG_ID="your org id here"
