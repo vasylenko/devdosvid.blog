@@ -1,5 +1,6 @@
 ---
 canonicalURL: https://www.freecodecamp.org/news/terraform-modules-explained/
+ShowCanonicalLink: true
 date: "2020-09-09T00:00:00Z"
 images: ["terraform-modules.jpeg"]
 cover:
@@ -33,7 +34,7 @@ Let's assume we have a virtual server with some features hosted in the cloud. Wh
 – a set of firewall rules to be attached to the server
 – something else... (i.e. another block device, additional network interface, etc)
 
-![](1.png)
+{{<figure src="1.png" caption="Terraform module example" >}}
 
 Now let's assume that you need to create this server with a set of resources many times. This is where modules are really helpful – you don't want to repeat the same configuration code over and over again, do you?
 
@@ -42,7 +43,7 @@ Here is an example that illustrates how our "server" module might be called.
 
 Here we create 5 instances of the "server" using single set of configurations (in the module):
 
-```
+```terraform
 module "server" {
     
     count         = 5
@@ -62,7 +63,7 @@ Of course, you would probably want to create more than one module. Here are some
 
 Let's say we have two different modules: a "server" module and a "network" module. The module called "network" is where we define and configure our virtual network and place servers in it:
 
-```
+```terraform
 module "server" {
     source        = "./module_server"
     some_variable = some_value
@@ -76,7 +77,7 @@ module "network" {
 
 Once we have some custom modules, we can refer to them as "child" modules. And the configuration file where we call child modules relates to the root module.
 
-![](2.png)
+{{<figure src="2.png" caption="Terraform modules relations" >}}
 
 A child module can be sourced from a number of places:
 
@@ -98,14 +99,15 @@ Encapsulation in Terraform consists of two basic concepts: module scope and expl
 All resource instances, names, and therefore, resource visibility, are isolated in a module's scope. For example, module "A" can't see and does not know about resources in module "B" by default.
 
 Resource visibility, sometimes called resource isolation, ensures that resources will have unique names within a module's namespace. For example, with our 5 instances of the "server" module:
-```
+```shell
 module.server[0].resource_type.resource_name
 module.server[1].resource_type.resource_name
 module.server[2].resource_type.resource_name
 ```
 
 On the other hand, we could create two instances of the same module with different names:
-```
+
+```terraform
 module "server-alpha" {    
     source        = "./module_server"
     some_variable = some_value
@@ -118,7 +120,7 @@ module "server-beta" {
 
 In this case, the naming or address of resources would be as follows:
 
-```
+```shell
 module.server-alpha.resource_type.resource_name
 
 module.server-beta.resource_type.resource_name
@@ -130,25 +132,25 @@ If you want to access some details for the resources in another module, you'll n
 
 By default, our module "server" doesn't know about the network that was created in the "network" module.
 
-![](3.png)
+{{<figure src="3.png" caption="Resource incapsulation in Terraform modules" >}}
 
 So we must declare an `output` value in the "network" module to export its resource, or an attribute of a resource, to other modules.
 
 The module "server" must declare a `variable` to be used later as the input.
 
-![](4.png)
+{{<figure src="4.png" caption="Module outputs and input variables" >}}
 
 This explicit declaration of the output is the way to expose some resource (or information about it) outside — to the scope of the 'root' module, hence to make it available for other modules.
 
 Next, when we call the child module "server"  in the root module, we should assign the output from the "network" module to the variable of the "server" module:
 
-```
+```shell
 network_id = module.network.network_id
 ```
 
 Here is how the final code for calling our child modules will look like in result:
 
-```
+```terraform
 module "server" {
     count         = 5
     source        = "./module_server"
@@ -174,6 +176,3 @@ I encourage you to take this short tutorial from HashiCorp, the creators of Terr
 Also, there is a great comprehensive study guide which covers everything from beginner to advanced concepts about Terraform: ["Study Guide - Terraform Associate Certification"](https://learn.hashicorp.com/tutorials/terraform/associate-study?in=terraform/certification)
 
 The modular code structure makes your configuration more flexible and yet easy to be understood by others. The latter is especially useful in teamwork.
-
-----------------------------
-###### This article was originaly published on FreeCodeCamp paltform by me, but I still want to keep it here for the record. Canonical link to original publication was properly set in the page headers. 
