@@ -3,7 +3,7 @@
     <title>devDosvid — my engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/"/>
-    <updated>2022-06-26T23:04:41Z</updated>
+    <updated>2022-06-27T17:43:37Z</updated>
     <author>
         <name>devDosvid — my engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
@@ -16,7 +16,7 @@
         <title>Golden Image Pipelines With HCP Packer</title>
         <link href="https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/" hreflang="en" rel="alternate"/>
         <published>2022-06-26T13:13:12Z</published>
-        <updated>2022-06-26T23:04:19Z</updated>
+        <updated>2022-06-27T17:43:05Z</updated>
         <id>https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -228,10 +228,15 @@ height=&#34;222&#34;
 &lt;/figure&gt;
 
 &lt;p&gt;Or you can also validate this using recently announced &lt;a href=&#34;https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/#precondition-and-postcondition&#34;&gt;post- and preconditions&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;image-factory&#34;&gt;Image Factory&lt;/h2&gt;
+&lt;h2 id=&#34;why-hcp-packer&#34;&gt;Why HCP Packer?&lt;/h2&gt;
+&lt;p&gt;So what makes the HCP Packer a good fit and worth a try?&lt;/p&gt;
+&lt;p&gt;1️⃣ A centralized place to view and manage the OS images throughout an organization. And as for me, it is good to have a neat web panel to look at things.&lt;/p&gt;
+&lt;p&gt;2️⃣ Image Channels that help with logical organization and control.&lt;/p&gt;
+&lt;p&gt;3️⃣ Ability to revoke an image to prevent its usage.&lt;/p&gt;
+&lt;p&gt;4️⃣ API and Terraform provider as additional tools that enrich the user experience.&lt;/p&gt;
 &lt;p&gt;When dealing with multiple golden images or with various cloud providers, the &lt;a href=&#34;https://cloud.hashicorp.com/products/packer&#34;&gt;HCP Packer&lt;/a&gt; can be a good fit for your image pipeline.&lt;/p&gt;
 &lt;p&gt;As a registry, it enables the end-to-end workflow for golden image usage: create, validate, use and decommission the images in a centralized way.&lt;/p&gt;
-&lt;p&gt;And no more hard coded IDs, manual variable settings, or other duck tape and glue in your Terraform.&lt;/p&gt;
+&lt;p&gt;And no more hard-coded IDs, manual variable settings, or other duck tape and glue in your Terraform.&lt;/p&gt;
 &lt;p&gt;If you want to learn more about HCP Packer and have some practice, I suggest starting from the &lt;a href=&#34;https://learn.hashicorp.com/collections/packer/hcp&#34;&gt;tutorial at HashiCorp Learn portal&lt;/a&gt;.&lt;/p&gt;</content>
     </entry>
     <entry>
