@@ -169,11 +169,22 @@ You can add a bit of conditional logic to the Terraform code to catch that case 
 
 Or you can also validate this using recently announced [post- and preconditions](https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/#precondition-and-postcondition).
 
-## Image Factory
+## Why HCP Packer?
+
+So what makes the HCP Packer a good fit and worth a try?
+
+1️⃣ A centralized place to view and manage the OS images throughout an organization. And as for me, it is good to have a neat web panel to look at things.
+
+2️⃣ Image Channels that help with logical organization and control.
+
+3️⃣ Ability to revoke an image to prevent its usage.
+
+4️⃣ API and Terraform provider as additional tools that enrich the user experience.
+
 When dealing with multiple golden images or with various cloud providers, the [HCP Packer](https://cloud.hashicorp.com/products/packer) can be a good fit for your image pipeline.
 
 As a registry, it enables the end-to-end workflow for golden image usage: create, validate, use and decommission the images in a centralized way.
 
-And no more hard coded IDs, manual variable settings, or other duck tape and glue in your Terraform.
+And no more hard-coded IDs, manual variable settings, or other duck tape and glue in your Terraform.
 
 If you want to learn more about HCP Packer and have some practice, I suggest starting from the [tutorial at HashiCorp Learn portal](https://learn.hashicorp.com/collections/packer/hcp). 
