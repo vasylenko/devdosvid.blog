@@ -16,7 +16,7 @@ Some code examples in this article will work with Terraform version 0.15 and onw
 {{</attention>}}
 
 ## Conditional resource creation or how to implement the if-else statement in Terraform
-{{< figure src="condiitonal-resource-creation.png" >}}
+{{<figure src="condiitonal-resource-creation.png" width="400">}}
 Let's start from the most popular one (although, still may be new for somebody): whether to create a resource depending on some fact, e.g., the value of a variable. Terraform meta-argument `count` helps to describe that kind of logic.
 
 Here is how it may look like:
@@ -93,7 +93,7 @@ bucket_name = module.bucket["photos"].name
 ```
 
 ## Conditional resource arguments (attributes) setting
-{{< figure src="conditional-resource-argument.png" >}}
+{{<figure src="conditional-resource-argument.png" width="400">}}
 
 Now let's go deeper and see how resource arguments can be conditionally set (or not).
 First, let's review the conditional argument value setting with the `null` data type:
@@ -128,7 +128,7 @@ resource "aws_cloudfront_distribution" "cdn" {
 The `custom_error_response` variable is `null` by default, but it has the `object` type, and users can assign the variable with the required nested specifications if needed. And when they do it, Terraform will add the `custom_error_response` block to the resource configuration. Otherwise, it will be omitted entirely.
 
 ## Convert types in Terraform with ease
-{{< figure src="types-converstion.png" >}}
+{{<figure src="types-converstion.png" width="400">}}
 Ok, let's move to the less conditional things now 😅
 
 Terraform has several type conversion functions: `tobool()`, `tolist()`,`tomap()`, `tonumber()`, `toset()`, and `tostring()`. Their purpose is to convert the input values to the compatible types.
@@ -172,7 +172,7 @@ resource "aws_kms_alias" "main" {
 ```
 
 ## Write YAML or JSON as Terraform code (HCL)
-{{< figure src="write-yaml-json-as-terraform-code.png" >}}
+{{<figure src="write-yaml-json-as-terraform-code.png" width="400">}}
 Sometimes you need to supply JSON or YAML files to the services you manage with Terraform. For example, if you want to create something with CloudFormation using Terraform (and I am not kidding). Sometimes the AWS Terraform provider does not support the needed resource, and you want to maintain the whole infrastructure code using only one tool.
 
 Instead of maintaining another file in JSON or YAML format, you can embed JSON or YAML code management into HCL by taking benefit of the  `jsonencode()` or `yamlencode()`  functions.
@@ -228,7 +228,7 @@ locals {
 ```
 
 ## Create custom file templates in Terraform
-{{< figure src="templatize-stuff.png" >}}
+{{<figure src="templatize-stuff.png" width="400">}}
 The last case in this blog but not the least by its efficacy — render source file content as a template in Terraform.
 
 Let's review the following scenario: you launch an EC2 instance and want to supply it with a bash script (via the user-data parameter) for some additional configuration at launch.
