@@ -3,7 +3,7 @@
     <title>devDosvid — my engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/posts/"/>
-    <updated>2022-06-27T17:43:37Z</updated>
+    <updated>2022-06-28T12:50:32Z</updated>
     <author>
         <name>devDosvid — my engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
@@ -1056,19 +1056,16 @@ height=&#34;642&#34;
         <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
         <link href="https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/" hreflang="en" rel="alternate"/>
         <published>2021-10-23T23:00:31Z</published>
-        <updated>2022-04-24T21:25:12Z</updated>
+        <updated>2022-06-28T12:50:02Z</updated>
         <id>https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
         <logo>https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/cover-image.png</logo>
         <content type="html">&lt;p&gt;It’s been almost a year since I started using macOS EC2 instances on AWS: there were &lt;a href=&#34;https://devdosvid.blog/2021/01/19/mac1-metal-EC2-Instance-user-experience.html&#34;&gt;ups and downs in service offerings&lt;/a&gt; and a lot of discoveries with &lt;a href=&#34;https://devdosvid.blog/2021/02/01/customizing-mac1-metal-ec2-ami.html&#34;&gt;macOS AMI build&lt;/a&gt; automation.&lt;/p&gt;
-&lt;p&gt;And I like this small but so helpful update of EC2 service very much: with mac1.metal instances, seamless integration of Apple-oriented CI/CD with other AWS infrastructure could finally happen.&lt;/p&gt;
-&lt;p&gt;While management of a single mac1.metal node (or a tiny number of ones) is not a big deal (especially when &lt;a href=&#34;https://devdosvid.blog/2021/01/20/terraforming-mac1-metal-at-AWS.html&#34;&gt;Dedicated Host support&lt;/a&gt; was added to Terraform provider), governing the fleet of instances is still complicated. Or it has been complicated until recent days.&lt;/p&gt;
-&lt;h2 id=&#34;official--unofficial-auto-scaling-for-macos&#34;&gt;Official / Unofficial Auto Scaling for macOS&lt;/h2&gt;
-&lt;div class=&#34;updatenotice&#34;&gt;
-    The blog was written and published before AWS has officially &lt;a href=&#34;https://aws.amazon.com/blogs/compute/implementing-autoscaling-for-ec2-mac-instances/&#34;&gt;announced&lt;/a&gt; that configuration approach.
-&lt;/div&gt;
+&lt;p&gt;And I like this small but so helpful update to the offerings list of the EC2 service: with mac1.metal instances, seamless integration of Apple-oriented CI/CD with other AWS infrastructure could finally happen.&lt;/p&gt;
+&lt;p&gt;But while management of a single mac1.metal node (or a tiny number of ones) is not a big deal (especially when &lt;a href=&#34;https://devdosvid.blog/2021/01/20/terraforming-mac1-metal-at-AWS.html&#34;&gt;Dedicated Host support&lt;/a&gt; was added to Terraform provider), governing the fleet of instances is still complicated.&lt;/p&gt;
+&lt;p&gt;Or it has been complicated until recent days.&lt;/p&gt;
 &lt;p&gt;With a growing number of instances, the following challenges arise:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Scale mac1.metal instances horizontally&lt;/li&gt;
@@ -1076,9 +1073,7 @@ height=&#34;642&#34;
 &lt;li&gt;Automatically replace unhealthy instances&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;If you have worked with AWS before, you know that Auto Scaling Group service can solve such things.&lt;/p&gt;
-&lt;p&gt;However, official documentation (as of October 2021) &lt;a href=&#34;https://github.com/awsdocs/amazon-ec2-user-guide/blob/269ac7494dd3aef62ae5d45e8b11f7ea5cadd2bf/doc_source/ec2-mac-instances.md&#34;&gt;states&lt;/a&gt;: “You cannot use Mac instances with Amazon EC2 Auto Scaling”.&lt;/p&gt;
-&lt;p&gt;But in fact, you can.&lt;/p&gt;
-&lt;h2 id=&#34;combining-services-to-get-real-power&#34;&gt;Combining services to get real power&lt;/h2&gt;
+&lt;h2 id=&#34;auto-scaling-for-macos-ec2-instances&#34;&gt;Auto Scaling for macOS EC2 Instances&lt;/h2&gt;
 &lt;p&gt;So how does all that work?&lt;/p&gt;
 &lt;p&gt;Let’s review the diagram that illustrates the interconnection between involved services:&lt;/p&gt;
 &lt;figure&gt;
@@ -1254,18 +1249,21 @@ height=&#34;370&#34;
 &lt;/details&gt;
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;aws_cloudformation_stack&lt;/code&gt; resource will export the &lt;code&gt;DedicatedHostGroup&lt;/code&gt; attribute (see the code of CloudFromation template), which you will use later in the Launch Template resource.&lt;/p&gt;
-&lt;h3 id=&#34;pro-tips&#34;&gt;Pro tips&lt;/h3&gt;
-&lt;p&gt;If you manage an AWS Organization, I have good news: Host groups and Licenses are supported by &lt;a href=&#34;https://docs.aws.amazon.com/ram/latest/userguide/shareable.html&#34;&gt;Resource Access Manager&lt;/a&gt; service. Hence, you can host all mac instances in one account and share them with other accounts — it might be helpful for costs allocation, for example. Also, check out &lt;a href=&#34;https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/&#34;&gt;my blog about AWS RAM&lt;/a&gt; if you are very new to this service.&lt;/p&gt;
-&lt;p&gt;To solve the “which AZ supports mac metal” puzzle, you can leverage the &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings&#34;&gt;aws_ec2_instance_type_offerings&lt;/a&gt; and &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet_ids&#34;&gt;aws_subnet_ids&lt;/a&gt; data sources.&lt;/p&gt;
+&lt;div class=&#34;attention&#34;&gt;
+    &lt;p&gt;If you manage an AWS Organization, I have good news: Host groups and Licenses are supported by &lt;a href=&#34;https://docs.aws.amazon.com/ram/latest/userguide/shareable.html&#34;&gt;Resource Access Manager&lt;/a&gt; service.&lt;/p&gt;
+&lt;p&gt;Hence, you can host all mac instances in one account and share them with other accounts — it might be helpful for costs allocation, for example. Also, check out &lt;a href=&#34;https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/&#34;&gt;my blog about AWS RAM&lt;/a&gt; if you are very new to this service.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+And you can leverage the &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings&#34;&gt;aws_ec2_instance_type_offerings&lt;/a&gt; and &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet_ids&#34;&gt;aws_subnet_ids&lt;/a&gt; data sources to solve the “which AZ supports mac metal” puzzle.&lt;/p&gt;
+
+&lt;/div&gt;
 &lt;h2 id=&#34;costs-considerations&#34;&gt;Costs considerations&lt;/h2&gt;
 &lt;p&gt;License Manager is a &lt;a href=&#34;https://aws.amazon.com/license-manager/pricing/&#34;&gt;free of charge service&lt;/a&gt;, as well as &lt;a href=&#34;https://aws.amazon.com/autoscaling/pricing/&#34;&gt;Auto Scaling&lt;/a&gt;, and &lt;a href=&#34;https://aws.amazon.com/about-aws/whats-new/2017/11/introducing-launch-templates-for-amazon-ec2-instances/&#34;&gt;Launch Template&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;So it’s all about the price for mac1.metal Dedicated Host which is &lt;a href=&#34;https://aws.amazon.com/ec2/dedicated-hosts/pricing/&#34;&gt;$1.083 per hour&lt;/a&gt; as of October 2021. However, &lt;a href=&#34;https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html&#34;&gt;Saving Plans&lt;/a&gt; can be applied.&lt;/p&gt;
 &lt;p&gt;Please note that the minimum allocation time for that type of host is 24 hours. Maybe someday AWS will change that to 1-hour minimum someday (fingers crossed).&lt;/p&gt;
 &lt;h2 id=&#34;oh-so-asg&#34;&gt;Oh. So. ASG.&lt;/h2&gt;
-&lt;p&gt;The Auto Scaling for mac1.metal opens new possibilities for CI/CD: you can integrate that to your favorite tool (GitLab, Jenkins, whatsoever) using AWS Lambda and provision new instances when your development/testing environments need that. Or you can use other cool ASG stuff, such as Lifecycle hooks, to create even more custom scenarios.&lt;/p&gt;
-&lt;p&gt;Considering the “hidden” (undocumented) nature of the described setup, I suggest treating it as rather testing than production-ready for now. However, my tests show that everything works pretty well: hosts are allocated, instances are spawned, and the monthly bill grows.&lt;/p&gt;
-&lt;p&gt;I suppose AWS will officially announce all this in the nearest future. Along with that, I am looking forward to the announcement of Monterey-based AMIs and maybe even M1 chip-based instances (will it be mac2.metal?).&lt;/p&gt;
-&lt;p&gt;And I want to say thanks (thanks, pal!) to &lt;a href=&#34;https://github.com/hashicorp/terraform/issues/28531&#34;&gt;OliverKoo&lt;/a&gt;, who started digging into that back in April&#39;21.&lt;/p&gt;</content>
+&lt;p&gt;The Auto Scaling for mac1.metal opens new possibilities for CI/CD: you can integrate that to your favorite tool (GitLab, Jenkins, whatsoever) using AWS Lambda and provision new instances when your development/testing environments need that.&lt;/p&gt;
+&lt;p&gt;Or you can use other cool ASG stuff, such as Lifecycle hooks, to create even more custom scenarios.&lt;/p&gt;
+&lt;p&gt;Also, I want to say thanks (thanks, pal!) to &lt;a href=&#34;https://github.com/hashicorp/terraform/issues/28531&#34;&gt;OliverKoo&lt;/a&gt;, who started digging into that back in April&#39;21.&lt;/p&gt;</content>
     </entry>
     <entry>
         <title>AWS Resource Access Manager — Multi Account Resource Governance</title>
@@ -1859,56 +1857,129 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         <title>mac1.metal EC2 Instance — user experience</title>
         <link href="https://devdosvid.blog/2021/01/19/mac1-metal-EC2-Instance-user-experience.html" hreflang="en" rel="alternate"/>
         <published>2021-01-19T00:00:00Z</published>
-        <updated>2022-01-20T14:19:51Z</updated>
+        <updated>2022-06-28T12:50:02Z</updated>
         <id>https://devdosvid.blog/2021/01/19/mac1-metal-EC2-Instance-user-experience.html</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
         <logo>https://devdosvid.blog/2021/01/19/mac1-metal-EC2-Instance-user-experience.html2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg</logo>
-        <content type="html">&lt;h2 id=&#34;amazon-ec2-mac-instances&#34;&gt;Amazon EC2 Mac Instances&lt;/h2&gt;
-&lt;p&gt;Something cool and powerful with inevitable trade-offs. As everything in this world.&lt;/p&gt;
+        <content type="html">&lt;p&gt;This is the review of mac1.metal EC2 instances — a new EC2 instance type that enables macOS workloads on AWS.&lt;/p&gt;
+&lt;div class=&#34;updatenotice&#34;&gt;
+    &lt;strong&gt;Updated in June 2022&lt;/strong&gt;: new information added about the offering — more cool stuff 🤩
+&lt;/div&gt;
 &lt;p&gt;AWS announced EC2 macOS-based instances on the 30th of November 2020, and after more than a month of tests, I would like to share some findings and impressions about it.&lt;/p&gt;
-&lt;p&gt;First of all, the things you can easily find, but it&amp;rsquo;s still worth to say:&lt;/p&gt;
+&lt;p&gt;First of all, the things you can easily find, but it&amp;rsquo;s still worth saying:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;The new instance family is called &lt;code&gt;mac1.metal&lt;/code&gt;. Guess we should expect mac2 or mac3; otherwise, why did they put a number in the name?&lt;/li&gt;
-&lt;li&gt;They added &lt;a href=&#34;https://aws.amazon.com/ec2/nitro/&#34;&gt;AWS Nitro System&lt;/a&gt; to integrate them with many AWS services.&lt;/li&gt;
-&lt;li&gt;The Instance must be placed onto a &lt;a href=&#34;https://aws.amazon.com/ec2/dedicated-hosts/&#34;&gt;Dedicated Host&lt;/a&gt;. Only one Instance per Host is allowed because the Host is an actual Mac Mini in that case.&lt;/li&gt;
-&lt;li&gt;You don&amp;rsquo;t pay anything for the Instance itself, but you pay for the Dedicated Host leasing — $1.083, and the minimum lease time is 24 hours. So the launch of the &amp;ldquo;mac1.metal&amp;rdquo; Instance costs $26 at minimum. Prices provided for the cheapest region — North Virginia.&lt;/li&gt;
-&lt;li&gt;You can apply &lt;a href=&#34;https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html&#34;&gt;Saving Plans&lt;/a&gt; to save some money.&lt;/li&gt;
-&lt;li&gt;Mojave (10.14) and Catalina (10.15) are supported at the moment, with &lt;a href=&#34;https://aws.amazon.com/ec2/instance-types/mac/&#34;&gt;&amp;ldquo;support for macOS Big Sur (11.0) coming soon&amp;rdquo;&lt;/a&gt;. I expect it to be in 2021, though.&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The new instance family is called &lt;code&gt;mac1.metal&lt;/code&gt;. The &lt;code&gt;mac2.metal&lt;/code&gt; powered by M1 Apple Silicon processors should arrive in late 2022.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;They added &lt;a href=&#34;https://aws.amazon.com/ec2/nitro/&#34;&gt;AWS Nitro System&lt;/a&gt; to integrate the instances with many AWS services.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The Instance must be placed onto a &lt;a href=&#34;https://aws.amazon.com/ec2/dedicated-hosts/&#34;&gt;Dedicated Host&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Only one Instance per Host is allowed because the Host is an actual Mac Mini in that case.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You don&amp;rsquo;t pay anything for the Instance itself, but you pay for the Dedicated Host leasing — $1.083, and the minimum lease time is 24 hours.&lt;/p&gt;
+&lt;p&gt;So even the launch of the &amp;ldquo;mac1.metal&amp;rdquo; Instance for &amp;ldquo;just one second&amp;rdquo; costs $26 at a minimum — mind that. Prices are provided for the cheapest region — North Virginia.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You can apply &lt;a href=&#34;https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html&#34;&gt;Saving Plans&lt;/a&gt; to save some money.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;supported-operating-systems-june-2022&#34;&gt;Supported Operating Systems (June 2022)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;macOS Catalina (version 10.15)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;macOS Mojave (version 10.14)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;macOS Big Sur (version 11)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;macOS Monterey (version 12)&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;what-can-it-do&#34;&gt;What can it do&lt;/h2&gt;
 &lt;p&gt;Here is a list of some features that the &amp;ldquo;mac1.metal&amp;rdquo; instance has:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;It lives in your VPC because it is an EC2 Instance so that you can access many other services.&lt;/li&gt;
+&lt;li&gt;It lives in your VPC because it is an EC2 Instance, so you can access many other services.&lt;/li&gt;
 &lt;li&gt;It supports the new gp3 EBS type (and other types as well).&lt;/li&gt;
 &lt;li&gt;It supports SSM Agent and Session Manager.&lt;/li&gt;
-&lt;li&gt;It has several AWS tools pre-installed.&lt;/li&gt;
+&lt;li&gt;It has several AWS tools pre-installed: AWS CLI, SSM Agent, EFS Utils, and more.&lt;/li&gt;
 &lt;li&gt;It has pre-installed Enhanced Network Interface drivers. My test upload/download to S3 was about 300GB/s.&lt;/li&gt;
-&lt;li&gt;It can report CPU metrics to CloudWatch (if you ever need it, though).&lt;/li&gt;
+&lt;li&gt;It can report CPU metrics to CloudWatch.&lt;/li&gt;
+&lt;li&gt;It supports &lt;a href=&#34;https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/&#34;&gt;AutoScaling&lt;/a&gt; 🚀&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;what-cant-it-do&#34;&gt;What can&amp;rsquo;t it do&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;It can&amp;rsquo;t be used in Auto Scaling because of a Dedicated Host.&lt;/li&gt;
-&lt;li&gt;It can&amp;rsquo;t recognize the attached EBS if you connected it while the Instance was running — you must reboot the Instance to make it visible.&lt;/li&gt;
+&lt;li&gt;It can&amp;rsquo;t recognize the attached EBS if you connected it while the instance was running — you must reboot the instance to make it visible.&lt;/li&gt;
+&lt;li&gt;It does not recognize the live resize of EBS either — you must reboot the instance so resize change can take effect.&lt;/li&gt;
+&lt;li&gt;And the same relates to the Elastic Network Interfaces — attach and reboot the instance to apply it.&lt;/li&gt;
 &lt;li&gt;It does not support several services that rely on additional custom software, such as &amp;ldquo;EC2 Instance Connect&amp;rdquo; and &amp;ldquo;AWS Inspect.&amp;rdquo; But I think that AWS will add macOS distros for those soon.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;launching-the-instance&#34;&gt;Launching the Instance&lt;/h2&gt;
+&lt;figure&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;launch.png&#34;width=&#34;800&#34;
+height=&#34;400&#34;
+/&gt; 
+&lt;/figure&gt;
+
 &lt;p&gt;Jeff Bar &lt;a href=&#34;https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/&#34;&gt;published&lt;/a&gt; an excellent how-to about kickstart of the &amp;ldquo;mac1.metal&amp;rdquo;, so I will focus on things he did not mention.&lt;/p&gt;
 &lt;p&gt;Once you allocated the Dedicated Host and launched an Instance on it, the underlying system connects the EBS with a root file system to the Mac Mini.&lt;/p&gt;
 &lt;p&gt;It is an AMI with 32G EBS (as per Jan&#39;21) with macOS pre-installed.&lt;/p&gt;
 &lt;p&gt;That means two things:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;The built-it physical SSD is still there and still yours to use; however, AWS does not manage or support the Apple hardware&amp;rsquo;s internal SSD.&lt;/li&gt;
-&lt;li&gt;You must resize the disk manually (if you specified the EBS size to be more than 32G)[1].&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The built-it physical SSD is still there and still yours to use; however, AWS does not manage or support the Apple hardware&amp;rsquo;s internal SSD. So you may treat it as the Instance Store but with less guarantee of data safety.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You must resize the disk manually (if you specified the EBS size to be more than 32G) &lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The time from the Instance launch till you&amp;rsquo;re able to SSH into it varies between 15 and 20 minutes.&lt;/p&gt;
-&lt;p&gt;You have the option to access it over SSH with your private key. If you need to set up Screen Sharing, you have to allow it through the &amp;ldquo;kickstart&amp;rdquo; command-line utility and setting the user password [2].&lt;/p&gt;
+&lt;p&gt;The time from the Instance launch until you can SSH into it varies between 5 and 20 minutes.&lt;/p&gt;
+&lt;p&gt;You have the option to access it over SSH with your private key. For example, if you need to set up Screen Sharing, you must allow it through the &amp;ldquo;kickstart&amp;rdquo; command-line utility and set the user password &lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;customizing-the-instance&#34;&gt;Customizing the Instance&lt;/h2&gt;
+&lt;p&gt;&lt;figure&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;customize.png&#34;width=&#34;800&#34;
+height=&#34;400&#34;
+/&gt; 
+&lt;/figure&gt;
+
+I wrote a separate post about mac1.metal AMI customization and creation, so check it out!&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://devdosvid.blog/2021/02/01/customizing-mac1-metal-ec2-ami.html&#34;&gt;&lt;strong&gt;Customizing mac1.metal EC2 AMI — new guts, more glory&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Though, I would like to mention two things here:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;System updates are disabled by default in the macOS AMIs provided by AWS.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;But you can use them with no issues. For example:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo softwareupdate --install --all
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;It is possible to set a custom screen resolution when connected to the instance using native ScreenSharing or any other VNC-compatible software.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;There are many tools, but AWS suggests the &lt;a href=&#34;https://github.com/jakehilborn/displayplacer&#34;&gt;displayplacer&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;destroying-the-instance&#34;&gt;Destroying the Instance&lt;/h2&gt;
-&lt;p&gt;What an easy thing to do, right? Well, it depends.&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;cleanup.png&#34;width=&#34;800&#34;
+height=&#34;400&#34;
+/&gt; 
+&lt;/figure&gt;
+
+Such an easy thing to do, right? Well, it depends.&lt;/p&gt;
 &lt;p&gt;When you click on the &amp;ldquo;Terminate&amp;rdquo; item in the Instance actions menu, the complex Instance scrubbing process begins.&lt;/p&gt;
-&lt;p&gt;AWS wants to make sure that anyone who uses the Host (Mac mini) after you will get your data stored neither on disks (including physical SSD mentioned earlier), nor inside memory or NVRAM, nor anywhere else. They do not share the info about this scrubbing process&amp;rsquo;s details, but it takes more than an hour to complete.&lt;/p&gt;
-&lt;p&gt;When scrubbing is started, the Dedicated Host transitions to the Pending state. Dedicated Host transitions to Available state once scrubbing is finished. But you must wait for another 10-15 minutes to be able to release it finally.&lt;/p&gt;
+&lt;p&gt;AWS wants to ensure that anyone who uses the Host (Mac mini) after you will get your data stored neither on disks (including the physical SSD mentioned earlier) nor inside memory or NVRAM, nor anywhere else.&lt;/p&gt;
+&lt;p&gt;They do not share the details of this scrubbing process, but it takes more than an hour to complete.&lt;/p&gt;
+&lt;p&gt;When scrubbing is started, the Dedicated Host transitions to the Pending state.&lt;/p&gt;
+&lt;p&gt;Dedicated Host transitions to Available state once scrubbing is finished. But you must wait for another 10-15 minutes to be able to release it finally.&lt;/p&gt;
 &lt;p&gt;I don&amp;rsquo;t know why they set the Available state value earlier than the Host is available for operations, but this is how it works now (Jan&#39;21).&lt;/p&gt;
 &lt;p&gt;Therefore, you can launch the next Instance on the same Host not earlier than ~1,5 hours after you terminated the previous. That doesn&amp;rsquo;t seem very pleasant in the first couple of weeks, but you will get used to it. 😄&lt;/p&gt;
 &lt;p&gt;And again: you can release the &amp;ldquo;mac1.metal&amp;rdquo; Dedicated Host not earlier than 24 hours after it was allocated. So plan your tests wisely.&lt;/p&gt;
@@ -1918,13 +1989,15 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
 &lt;h2 id=&#34;some-more-cool-stuff-to-check&#34;&gt;Some more cool stuff to check:&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/aws/ec2-macos-init&#34;&gt;EC2 macOS Init&lt;/a&gt; launch daemon, which is used to initialize Mac instances.
 &lt;a href=&#34;https://github.com/aws/homebrew-aws&#34;&gt;EC2 macOS Homebrew Tap&lt;/a&gt; (Third-Party Repository) with several management tools which come pre-installed into macOS AMI from AWS.&lt;/p&gt;
-&lt;hr&gt;
 &lt;p&gt;Indeed it is powerful, and it has its trade-offs, such as price and some technical constraints. But it is a real MacOS device natively integrated into the AWS environment. So I guess it worth to be tried!&lt;/p&gt;
 &lt;p&gt;Thanks for reading this! Stay tuned for more user experience feedback about baking custom AMI&amp;rsquo;s, automated software provisioning with Ansible, and other adventures with mac1.metal!&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;[1] How to resize the EBS at mac1.metal in Terminal&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Get the identifier of EBS (look for the first one with GUID_partition_scheme):&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;diskutil list physical external&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;&lt;strong&gt;How to resize the EBS at mac1.metal in Terminal&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Get the identifier of EBS (look for the first one with GUID_partition_scheme):
+&lt;code&gt;diskutil list physical external&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Or here is a more advanced version to be used in a script:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#40ffff&#34;&gt;DISK_ID&lt;/span&gt;=&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;$(&lt;/span&gt;diskutil list physical external | grep &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39;GUID_partition_scheme&amp;#39;&lt;/span&gt;| tr -s &lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; | cut -d&lt;span style=&#34;color:#ed9d13&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; -f6&lt;span style=&#34;color:#6ab825;font-weight:bold&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It would probably be &lt;code&gt;disk0&lt;/code&gt; if you did not attach additional EBS.&lt;/p&gt;
@@ -1941,17 +2014,21 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
 &lt;code&gt;diskutil apfs resizeContainer disk0s2&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Advanced version&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;diskutil apfs resizeContainer &lt;span style=&#34;color:#40ffff&#34;&gt;$APFS_ID&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;[2]How to setup Screen Sharing at mac1.metal in Terminal&lt;/strong&gt;&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;&lt;strong&gt;How to setup Screen Sharing at mac1.metal in Terminal&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;kickstart&lt;/code&gt; command-line tool resides in &lt;code&gt;/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/&lt;/code&gt; so you&amp;rsquo;ll better to cd into that directory for convenience:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;# Turn On Remote Management for a user to be specified later&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ./kickstart -activate -configure -allowAccessFor -specifiedUsers
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;# Enable Remote Management for ec2-user user&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ./kickstart -configure -users ec2-user -access -on -privs -all
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#999;font-style:italic&#34;&gt;# Set the user password &lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo passwd ec2-user
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</content>
     </entry>
     <entry>
         <title>AWS CloudShell</title>
