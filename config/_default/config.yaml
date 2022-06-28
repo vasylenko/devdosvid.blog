@@ -46,12 +46,19 @@ menu:
 ### DECORATIONS
 markup:
     highlight:
-        # anchorLineNos: true
-        codeFences: true
-        guessSyntax: false
-        lineNos: false
-        noClasses: true
-        style: native
+      anchorLineNos: false
+      codeFences: true
+      guessSyntax: false
+      hl_Lines: ""
+      hl_inline: false
+      lineAnchors: ""
+      lineNoStart: 1
+      lineNos: false
+      lineNumbersInTable: true
+      noClasses: true
+      noHl: false
+      style: monokai
+      tabWidth: 4
 
 # TAXONOMY
 taxonomies:
@@ -104,7 +111,7 @@ params:
         publisherType: "Person"
 
     assets:
-        # disableHLJS: true # to disable highlight.js
+        disableHLJS: true # to disable highlight.js
         # disableFingerprinting: true
         favicon: "/favicon.ico"
         favicon16x16: "/favicon-16x16.png"
