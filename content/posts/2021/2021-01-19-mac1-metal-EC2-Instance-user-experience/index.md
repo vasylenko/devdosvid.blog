@@ -62,7 +62,7 @@ Here is a list of some features that the "mac1.metal" instance has:
 
 ## Launching the Instance
 
-{{<figure src="launch.png" width="800" height="400">}}
+{{<figure src="launch.png" width="400" height="200">}}
 
 Jeff Bar [published](https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/) an excellent how-to about kickstart of the "mac1.metal", so I will focus on things he did not mention.
 
@@ -81,7 +81,7 @@ The time from the Instance launch until you can SSH into it varies between 5 and
 You have the option to access it over SSH with your private key. For example, if you need to set up Screen Sharing, you must allow it through the "kickstart" command-line utility and set the user password [^2].
 
 ## Customizing the Instance
-{{<figure src="customize.png" width="800" height="400">}}
+{{<figure src="customize.png" width="400" height="200">}}
 I wrote a separate post about mac1.metal AMI customization and creation, so check it out!
 
 [**Customizing mac1.metal EC2 AMI — new guts, more glory**]({{< ref "/posts/2021/2021-02-01-customizing-mac1-metal-ec2-ami/index.md" >}})
@@ -100,7 +100,7 @@ But you can use them with no issues. For example:
 There are many tools, but AWS suggests the [displayplacer](https://github.com/jakehilborn/displayplacer).
 
 ## Destroying the Instance
-{{<figure src="cleanup.png" width="800" height="400">}}
+{{<figure src="cleanup.png" width="400" height="200">}}
 Such an easy thing to do, right? Well, it depends.
 
 When you click on the "Terminate" item in the Instance actions menu, the complex Instance scrubbing process begins.
