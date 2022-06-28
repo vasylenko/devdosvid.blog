@@ -44,6 +44,13 @@ body {
     margin: 0;
 }
 
+.footnote-ref {
+    font-weight: bold;
+    background-color: var(--color-orange);
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 .updatenotice {
     border-radius: var(--radius);
     padding: 0.5em 0.5em 0.5em 1.5em;
