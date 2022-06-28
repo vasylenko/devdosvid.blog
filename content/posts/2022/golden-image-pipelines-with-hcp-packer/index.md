@@ -1,6 +1,7 @@
 ---
 title: "Golden Image Pipelines With HCP Packer"
 date: 2022-06-26T15:13:12+02:00
+summary: How to create an end-to-end golden image workflow with the HCP Packer image registry 
 description: How to create an end-to-end golden image workflow with the HCP Packer image registry
 cover:
     image: cover-image.png

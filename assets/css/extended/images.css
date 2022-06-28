@@ -1,0 +1,29 @@
+.animation {
+    width: 100%;
+}
+span.emoji {
+    font-size: 24px;
+    vertical-align: middle;
+}
+
+.post-content figure {
+    margin: 2em auto 2em auto;
+}
+
+.post-content figure figcaption {
+
+}
+
+.post-content figure img {
+    /*-moz-box-shadow: 0 0 10px #999;*/
+    /*-webkit-box-shadow: 0 0 4px #999;*/
+    /*box-shadow: 2px 2px 10px #999;*/
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+.post-content figure > figcaption {
+    text-align: center;
+    margin-top: 0;
+}

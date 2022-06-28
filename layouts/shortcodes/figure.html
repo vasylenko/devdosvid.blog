@@ -11,8 +11,8 @@
 {{- if or (.Get "alt") (.Get "caption") }}
     alt="{{ with .Get "alt" }}{{ . }}{{ else }}{{ .Get "caption" | markdownify| plainify }}{{ end }}"
 {{- end -}}
-{{ if (.Get "width") }}width="{{ .Get "width" }}"{{ else }}width="{{ div $image.Width 2 }}"{{ end }}
-{{ if (.Get "height") }}height="{{ .Get "height" }}"{{ else }}height="{{ div $image.Height 2 }}"{{ end }}
+{{ if (.Get "width") }}width="{{ .Get "width" }}"{{ else }}width="{{ $image.Width }}"{{ end }}
+{{ if (.Get "height") }}height="{{ .Get "height" }}"{{ else }}height="{{ $image.Height }}"{{ end }}
 /> <!-- Closing img tag -->
 {{- if .Get "link" }}</a>{{ end -}}
 {{- if or (or (.Get "title") (.Get "caption")) (.Get "attr") -}}

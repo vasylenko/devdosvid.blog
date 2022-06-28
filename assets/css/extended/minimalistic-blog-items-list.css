@@ -1,18 +1,18 @@
 @media(min-width:800px) {
     .post-entry figure.entry-cover {
         float: left;
-        margin: 0 5px 10px 0;
+        margin: auto 5px auto 0;
     }
     .post-entry figure.entry-cover img {
-        max-width: 300px;
-        max-height: 120px;
-    }
+        width: 300px;
+        max-height: 150px;
+=    }
 
     header.post-entry.entry-header h2 {
 
     }
     .post-entry div.entry-content {
-
+        margin: 2em 0 2em 0;
     }
     .post-entry footer.entry-footer {
         float: right;

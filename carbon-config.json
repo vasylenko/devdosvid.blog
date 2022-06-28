@@ -1,1 +1,30 @@
-{"paddingVertical":"5px","paddingHorizontal":"5px","backgroundImage":null,"backgroundImageSelection":null,"backgroundMode":"color","backgroundColor":"rgba(255,255,255,0)","dropShadow":false,"dropShadowOffsetY":"3px","dropShadowBlurRadius":"5px","theme":"oceanic-next","windowTheme":"none","language":"text/x-go","fontFamily":"Source Code Pro","fontSize":"18px","lineHeight":"133%","windowControls":false,"widthAdjustment":false,"lineNumbers":false,"firstLineNumber":1,"exportSize":"2x","watermark":false,"squaredImage":false,"hiddenCharacters":false,"name":"figure","width":"800","highlights":{"background":"rgba(34,41,48,1)"}}
+{
+  "paddingVertical": "0px",
+  "paddingHorizontal": "0px",
+  "backgroundImage": null,
+  "backgroundImageSelection": null,
+  "backgroundMode": "color",
+  "backgroundColor": "rgba(255,255,255,0)",
+  "dropShadow": false,
+  "dropShadowOffsetY": "3px",
+  "dropShadowBlurRadius": "5px",
+  "theme": "oceanic-next",
+  "windowTheme": "none",
+  "language": "text/x-go",
+  "fontFamily": "Source Code Pro",
+  "fontSize": "18px",
+  "lineHeight": "133%",
+  "windowControls": true,
+  "widthAdjustment": false,
+  "lineNumbers": false,
+  "firstLineNumber": 1,
+  "exportSize": "2x",
+  "watermark": false,
+  "squaredImage": false,
+  "hiddenCharacters": false,
+  "name": "code-snippet",
+  "width": "800",
+  "highlights": {
+    "background": "rgba(27,30,32,100)"
+  }
+}
