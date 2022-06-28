@@ -22,7 +22,6 @@ body {
     font-size: 16px;
 }
 
-
 .attention {
     padding: 0.5em 0.5em 0.5em 1.5em;
     margin: 1em 0 1em 0;
@@ -84,20 +83,6 @@ body {
     margin-bottom: 2em;
 }
 
-.post-content figure img {
-    -moz-box-shadow: 0 0 10px #999;
-    -webkit-box-shadow: 0 0 10px #999;
-    box-shadow: 0 0 10px #999;
-    max-width: 100%;
-    height: auto;
-    width: auto;
-    margin: auto auto 5px auto;
-}
-
-.post-content figure > figcaption {
-    text-align: center;
-    margin-top: 0;
-}
 
 .post-content p {
     line-height: 1.75em;
@@ -143,10 +128,6 @@ body {
 
 }
 
-.animation {
-    width: 100%;
-}
-
 .buy-me-a-coffee {
     max-width: 50%;
     alignment: center;
@@ -168,13 +149,6 @@ body {
     vertical-align: middle;
     line-height: 2em;
 }
-
-span.emoji {
-    font-size: 24px;
-    vertical-align: middle;
-}
-
-
 
 .code-snippet summary {
     cursor: pointer;
