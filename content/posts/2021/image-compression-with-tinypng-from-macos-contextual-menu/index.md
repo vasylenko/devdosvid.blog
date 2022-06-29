@@ -33,7 +33,7 @@ Open Automator application. If you never used this app before, please read about
 
 On the New Action screen, chose **Quick Action**
 
-![](quick_action_compressed.png)
+{{<figure src="quick_action_compressed.png">}}
 
 After you click the "Choose" button, you'll see the workflow configuration window.
 
@@ -50,7 +50,7 @@ Set the following workflow configuration options as described below:
 
 Click the **Option** button at the bottom of the Action window and **Uncheck** `Show this action when the workflow runs.`
 
-![](run_shell_script_compressed.png)
+{{<figure src="run_shell_script_compressed.png">}}
 
 Put the following script into the **Run Shell Script** window, replacing the *YOUR_API_KEY_HERE* string with your API key obtained from TinyPNG.
 
