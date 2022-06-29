@@ -11,26 +11,34 @@ url: /2021/01/19/mac1-metal-EC2-Instance-user-experience.html
 series: ["mac1.metal at AWS"]
 ---
 
-This is the review of mac1.metal EC2 instances — a new EC2 instance type that enables macOS workloads on AWS.   
+This is the review of Mac Metal EC2 instances — a new EC2 instance type that enables macOS workloads on AWS.   
 
 {{<updatenotice>}}
 **Updated in June 2022**: new information added about the offering — more cool stuff 🤩
 {{</updatenotice>}}
 
-AWS announced EC2 macOS-based instances on the 30th of November 2020, and after more than a month of tests, I would like to share some findings and impressions about it.
+AWS announced EC2 macOS-based instances on November 30th, 2020, and after more than a month of tests, I would like to share some findings and impressions about it.
 
 First of all, the things you can easily find, but it's still worth saying:
-- The new instance family is called `mac1.metal`. The `mac2.metal` powered by M1 Apple Silicon processors should arrive in late 2022.
-- They added [AWS Nitro System](https://aws.amazon.com/ec2/nitro/) to integrate the instances with many AWS services.
-- The Instance must be placed onto a [Dedicated Host](https://aws.amazon.com/ec2/dedicated-hosts/).
+- The new instance family types are **mac1.metal** and **mac2.metal**.
 
-  Only one Instance per Host is allowed because the Host is an actual Mac Mini in that case.
+  The `mac1.metal` instances on Intel-based CPUs have been available since 30 November 2020
 
-- You don't pay anything for the Instance itself, but you pay for the Dedicated Host leasing — $1.083, and the minimum lease time is 24 hours.
+  The `mac2.metal` powered by M1 Apple Silicon processors are in [preview (accessible by request)](https://pages.awscloud.com/M1MacPreview.html) and should become generally available in late 2022.
+
+- The Instance must be placed onto a [Dedicated Host](https://aws.amazon.com/ec2/dedicated-hosts/) because these are physical Apple Mac minis in fact.
+- AWS has integrated the [Nitro System](https://aws.amazon.com/ec2/nitro/) to make Macs work as EC2 instances and connect them many other services.
+
+- You don't pay anything for the Instance itself, but you pay for the Dedicated Host leasing, and the minimum lease time is 24 hours.
 
   So even the launch of the "mac1.metal" Instance for "just one second" costs $26 at a minimum — mind that. Prices are provided for the cheapest region — North Virginia.
 
-- You can apply [Saving Plans](https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html) to save some money.
+## EC2 Mac Instance Prices (June 2022)
+On-demand pricing:
+- mac1.metal costs $1.083 per hour or about $780 per month
+- mac2.metal costs $0.65 per hour or about $470 per month
+
+You can use [Savings Plans](https://aws.amazon.com/savingsplans/compute-pricing/) to save up to 44% off On Demand pricing.
 
 ## Supported Operating Systems (June 2022)
 
