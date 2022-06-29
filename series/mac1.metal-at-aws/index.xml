@@ -3,7 +3,7 @@
     <title>devDosvid — my engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/series/mac1.metal-at-aws/"/>
-    <updated>2022-06-28T17:39:15Z</updated>
+    <updated>2022-06-29T14:05:16Z</updated>
     <author>
         <name>devDosvid — my engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
@@ -1857,37 +1857,42 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         <title>mac1.metal EC2 Instance — user experience</title>
         <link href="https://devdosvid.blog/2021/01/19/mac1-metal-EC2-Instance-user-experience.html" hreflang="en" rel="alternate"/>
         <published>2021-01-19T00:00:00Z</published>
-        <updated>2022-06-28T17:38:50Z</updated>
+        <updated>2022-06-29T14:04:30Z</updated>
         <id>https://devdosvid.blog/2021/01/19/mac1-metal-EC2-Instance-user-experience.html</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
         <logo>https://devdosvid.blog/2021/01/19/mac1-metal-EC2-Instance-user-experience.html2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg</logo>
-        <content type="html">&lt;p&gt;This is the review of mac1.metal EC2 instances — a new EC2 instance type that enables macOS workloads on AWS.&lt;/p&gt;
+        <content type="html">&lt;p&gt;This is the review of Mac Metal EC2 instances — a new EC2 instance type that enables macOS workloads on AWS.&lt;/p&gt;
 &lt;div class=&#34;updatenotice&#34;&gt;
     &lt;strong&gt;Updated in June 2022&lt;/strong&gt;: new information added about the offering — more cool stuff 🤩
 &lt;/div&gt;
-&lt;p&gt;AWS announced EC2 macOS-based instances on the 30th of November 2020, and after more than a month of tests, I would like to share some findings and impressions about it.&lt;/p&gt;
+&lt;p&gt;AWS announced EC2 macOS-based instances on November 30th, 2020, and after more than a month of tests, I would like to share some findings and impressions about it.&lt;/p&gt;
 &lt;p&gt;First of all, the things you can easily find, but it&amp;rsquo;s still worth saying:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;The new instance family is called &lt;code&gt;mac1.metal&lt;/code&gt;. The &lt;code&gt;mac2.metal&lt;/code&gt; powered by M1 Apple Silicon processors should arrive in late 2022.&lt;/p&gt;
+&lt;p&gt;The new instance family types are &lt;strong&gt;mac1.metal&lt;/strong&gt; and &lt;strong&gt;mac2.metal&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;mac1.metal&lt;/code&gt; instances on Intel-based CPUs have been available since 30 November 2020&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;mac2.metal&lt;/code&gt; powered by M1 Apple Silicon processors are in &lt;a href=&#34;https://pages.awscloud.com/M1MacPreview.html&#34;&gt;preview (accessible by request)&lt;/a&gt; and should become generally available in late 2022.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;They added &lt;a href=&#34;https://aws.amazon.com/ec2/nitro/&#34;&gt;AWS Nitro System&lt;/a&gt; to integrate the instances with many AWS services.&lt;/p&gt;
+&lt;p&gt;The Instance must be placed onto a &lt;a href=&#34;https://aws.amazon.com/ec2/dedicated-hosts/&#34;&gt;Dedicated Host&lt;/a&gt; because these are physical Apple Mac minis in fact.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;The Instance must be placed onto a &lt;a href=&#34;https://aws.amazon.com/ec2/dedicated-hosts/&#34;&gt;Dedicated Host&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Only one Instance per Host is allowed because the Host is an actual Mac Mini in that case.&lt;/p&gt;
+&lt;p&gt;AWS has integrated the &lt;a href=&#34;https://aws.amazon.com/ec2/nitro/&#34;&gt;Nitro System&lt;/a&gt; to make Macs work as EC2 instances and connect them many other services.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;You don&amp;rsquo;t pay anything for the Instance itself, but you pay for the Dedicated Host leasing — $1.083, and the minimum lease time is 24 hours.&lt;/p&gt;
+&lt;p&gt;You don&amp;rsquo;t pay anything for the Instance itself, but you pay for the Dedicated Host leasing, and the minimum lease time is 24 hours.&lt;/p&gt;
 &lt;p&gt;So even the launch of the &amp;ldquo;mac1.metal&amp;rdquo; Instance for &amp;ldquo;just one second&amp;rdquo; costs $26 at a minimum — mind that. Prices are provided for the cheapest region — North Virginia.&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;You can apply &lt;a href=&#34;https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html&#34;&gt;Saving Plans&lt;/a&gt; to save some money.&lt;/p&gt;
-&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&#34;ec2-mac-instance-prices-june-2022&#34;&gt;EC2 Mac Instance Prices (June 2022)&lt;/h2&gt;
+&lt;p&gt;On-demand pricing:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;mac1.metal costs $1.083 per hour or about $780 per month&lt;/li&gt;
+&lt;li&gt;mac2.metal costs $0.65 per hour or about $470 per month&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can use &lt;a href=&#34;https://aws.amazon.com/savingsplans/compute-pricing/&#34;&gt;Savings Plans&lt;/a&gt; to save up to 44% off On Demand pricing.&lt;/p&gt;
 &lt;h2 id=&#34;supported-operating-systems-june-2022&#34;&gt;Supported Operating Systems (June 2022)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;

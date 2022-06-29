@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://devdosvid.blog/</loc>
-    <lastmod>2022-06-28T20:38:50+03:00</lastmod>
+    <lastmod>2022-06-29T17:04:30+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/</loc>
@@ -11,7 +11,7 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/posts/</loc>
-    <lastmod>2022-06-28T20:38:50+03:00</lastmod>
+    <lastmod>2022-06-29T17:04:30+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/</loc>
@@ -19,7 +19,7 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/</loc>
-    <lastmod>2022-06-28T20:38:50+03:00</lastmod>
+    <lastmod>2022-06-29T17:04:30+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/terraform-proficiency/</loc>
@@ -47,7 +47,7 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/mac1.metal-at-aws/</loc>
-    <lastmod>2022-06-28T20:38:50+03:00</lastmod>
+    <lastmod>2022-06-29T17:04:30+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</loc>
@@ -75,7 +75,7 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/01/19/mac1-metal-EC2-Instance-user-experience.html</loc>
-    <lastmod>2022-06-28T20:38:50+03:00</lastmod>
+    <lastmod>2022-06-29T17:04:30+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/12/16/aws-cloudshell.html</loc>
