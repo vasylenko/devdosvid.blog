@@ -46,7 +46,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: publishdir
-          path: ./
+          path: ./publishdir
       - name: Publish
         uses: cloudflare/pages-action@1
         with:
