@@ -34,6 +34,27 @@ jobs:
           name: publishdir
           path: publishdir
 
+  preview:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    name: Deploy to Cloudflare Pages
+    steps:
+      - name: Get the new website content
+        uses: actions/download-artifact@v2
+        with:
+          name: publishdir
+          path: ./
+      - name: Publish
+        uses: cloudflare/pages-action@1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_GH_PAGES_ACTION_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: poc-pages-actions
+          directory: publishdir
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
   deploy:
     if: github.ref == 'refs/heads/main'
     needs: [build]
