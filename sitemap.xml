@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://devdosvid.blog/</loc>
-    <lastmod>2022-06-29T17:04:30+03:00</lastmod>
+    <lastmod>2022-06-29T23:47:18+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/</loc>
@@ -11,7 +11,7 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/posts/</loc>
-    <lastmod>2022-06-29T17:04:30+03:00</lastmod>
+    <lastmod>2022-06-29T23:47:18+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/</loc>
@@ -19,7 +19,7 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/</loc>
-    <lastmod>2022-06-29T17:04:30+03:00</lastmod>
+    <lastmod>2022-06-29T23:47:18+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/terraform-proficiency/</loc>
@@ -47,23 +47,23 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/mac1.metal-at-aws/</loc>
-    <lastmod>2022-06-29T17:04:30+03:00</lastmod>
+    <lastmod>2022-06-29T23:47:18+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</loc>
-    <lastmod>2022-01-20T15:48:22+02:00</lastmod>
+    <lastmod>2022-06-29T23:47:18+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac1.metal-instances-fleet-with-aws-systems-manager/</loc>
-    <lastmod>2022-04-25T00:25:12+03:00</lastmod>
+    <lastmod>2022-06-29T23:47:18+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/</loc>
-    <lastmod>2022-04-25T00:25:12+03:00</lastmod>
+    <lastmod>2022-06-29T23:47:18+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/</loc>
-    <lastmod>2022-02-05T01:56:57+02:00</lastmod>
+    <lastmod>2022-06-29T23:47:18+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/02/01/customizing-mac1-metal-ec2-ami.html</loc>
@@ -83,11 +83,11 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html</loc>
-    <lastmod>2022-01-20T15:48:22+02:00</lastmod>
+    <lastmod>2022-06-29T23:47:18+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/09/15/terraform-certification-tips.html</loc>
-    <lastmod>2022-01-20T15:48:22+02:00</lastmod>
+    <lastmod>2022-06-29T23:47:18+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/09/09/terraform-modules-explained.html</loc>
@@ -107,7 +107,7 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/03/18/github-actions-first-impression.html</loc>
-    <lastmod>2022-01-20T15:48:22+02:00</lastmod>
+    <lastmod>2022-06-29T23:47:18+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/03/15/aws-solutions-architect-associate-exam-tips.html</loc>
