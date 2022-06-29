@@ -6,13 +6,16 @@
 <a href="{{ .Get "link" }}"{{ with .Get "target" }} target="{{ . }}"{{ end }}{{ with .Get "rel" }} rel="{{ . }}"{{ end }}>
 {{- end }}
 {{ $image := .Page.Resources.GetMatch (.Get "src") }}
+{{ $postWidth := 800 }}
+{{ $defaultWidth := cond (gt $image.Width $postWidth) $postWidth $image.Width }}
+{{ $defaultHeight := cond (gt $image.Width $postWidth) (printf "%.2f" (div $postWidth (div (float $image.Width) $image.Height))) $image.Height }}
 <img loading="lazy"
      src="{{ .Get "src" }}{{- if eq (.Get "align") "center" }}#center{{- end }}"
 {{- if or (.Get "alt") (.Get "caption") }}
     alt="{{ with .Get "alt" }}{{ . }}{{ else }}{{ .Get "caption" | markdownify| plainify }}{{ end }}"
 {{- end -}}
-{{ if (.Get "width") }}width="{{ .Get "width" }}"{{ else }}width="{{ $image.Width }}"{{ end }}
-{{ if (.Get "height") }}height="{{ .Get "height" }}"{{ else }}height="{{ $image.Height }}"{{ end }}
+{{ if (.Get "width") }}width="{{ .Get "width" }}"{{ else }}width="{{ $defaultWidth }}"{{ end }}
+{{ if (.Get "height") }}height="{{ .Get "height" }}"{{ else }}height="{{ $defaultHeight }}"{{ end }}
 /> <!-- Closing img tag -->
 {{- if .Get "link" }}</a>{{ end -}}
 {{- if or (or (.Get "title") (.Get "caption")) (.Get "attr") -}}
