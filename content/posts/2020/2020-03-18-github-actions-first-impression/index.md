@@ -83,7 +83,7 @@ deploy:
           git remote set-url origin "https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/vasylenko/serhii.vasylenko.info.git"
           git push --force-with-lease origin gh-pages
 ```
-![](2020-03-18-github-actions-first-impression_github-actions-events.png)
+{{<figure src="2020-03-18-github-actions-first-impression_github-actions-events.png">}}
 
 ### Old good things made better
 A lot of common things have been introduced to GitHubActions with some sweet additions:

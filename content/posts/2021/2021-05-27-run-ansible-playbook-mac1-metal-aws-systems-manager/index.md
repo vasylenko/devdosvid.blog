@@ -48,7 +48,7 @@ Navigate to AWS SSM → Documents → Owned by Amazon and type `AWS-RunAnsiblePl
 
 Select the Document by pressing the circle on its top-right corner and then click Actions → Clone document.
 
-![](aws_ssm_document_clone.png)
+{{<figure src="aws_ssm_document_clone.png">}}
 
 Give the new SSM Document a name, e.g., `macos-arbitrary-ansible-playbook`, and change the `ansible` callouts (at the end of the code) with the full path to the ansible symlink made by Homebrew which is `/usr/local/bin/ansible`
 

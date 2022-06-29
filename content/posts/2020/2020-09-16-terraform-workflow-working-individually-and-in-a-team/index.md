@@ -31,7 +31,7 @@ Let’s define the basic actions first.
 
 All described workflows are built on top of three key steps: Write, Plan, and Apply. Nevertheless, their details and actions vary between workflows.
 
-![](tf-workflow.png)
+{{<figure src="tf-workflow.png">}}
 _It's a piece of cake, isn't it? 😆_
 
 **Write** – this is where you make changes to the code.
@@ -45,7 +45,7 @@ It's a simple idea with a variety of possible implementations.
 # Core individual workflow
 This is the most simple workflow if you work alone on a relatively small TF project. This workflow suits both local and remote backends well.
 
-![](tf-workflow-individual.png)
+{{<figure src="tf-workflow-individual.png">}}
 _Let's add a bit of Git_
 
 ### Write
@@ -60,7 +60,7 @@ This is when you run `terraform apply` and introduce the changes to real infrast
 # Core team workflow
 This workflow is good for when you work with configuration code in a team and want to use feature branches to manage the changes accurately.
 
-![](tf-core-workflow-team.png)
+{{<figure src="tf-core-workflow-team.png">}}
 _Don't get scared, it is still simple, just follow the lines_
 
 ### Write
@@ -81,7 +81,7 @@ In a nutshell, this workflow allows you to introduce a kind of smoke test for yo
 
 The automated part of this workflow consists of a speculative plan on commit and/or Pull Request (PR ), along with adding the output of `plan` to the comment of the PR. A speculative plan mean just to show the changes, and not apply them afterward.
 
-![](tf-workflow-team-automation-1.png)
+{{<figure src="tf-workflow-team-automation-1.png">}}
 _I like when TF plan output is included to PR, but nobody likes to read others TF plans for some reason..._
 
 ### Write
@@ -117,7 +117,7 @@ This workflow refers to a situation when you have some objects already created (
 
 Suppose we already have an S3 bucket in AWS called "someassetsbucket" and we want to include it into our configuration code.‌‌
 
-![](tf-workflow-import.png)
+{{<figure src="tf-workflow-import.png">}}
 
 ### Prepare
 You should create a resource block to be used later for the real object you’re going to import.
@@ -125,7 +125,7 @@ You should create a resource block to be used later for the real object you’re
 You don’t need to fill the arguments in it at the start, so it may be just a blank resource block, for example:
 ```
 resource "aws_s3_bucket" "someassetsbucket" {
-‌‌
+
 }
 ```
 ### Import
@@ -137,7 +137,7 @@ This can be done with the `terraform import` command, for example:
 terraform import aws_s3_bucket.assets "someassetsbucket"
 ```
 
-‌Be sure to also check the list of possible options import accepts with `terraform import -h`
+Be sure to also check the list of possible options import accepts with `terraform import -h`
 
 ### Write
 Now you need to write the corresponding Terraform code for this bucket.
@@ -176,7 +176,7 @@ And here is a nice tutorial to start with: [Get Started - Terraform Cloud](https
 
 Also, here is an overview of workflows at scale from the HashiCorp CTO which might be useful for more experienced Terraform users: [Terraform Workflow Best Practices at Scale](https://www.hashicorp.com/resources/terraform-workflow-best-practices-at-scale)
 
-Thank you for reading. I hope you will try one of these workflows, or develop your own!‌‌
+Thank you for reading. I hope you will try one of these workflows, or develop your own!
 
 ----------------------------
 ###### This article was originaly published on FreeCodeCamp paltform by me, but I still want to keep it here for the record. Canonical link to original publication was properly set in the page headers. 

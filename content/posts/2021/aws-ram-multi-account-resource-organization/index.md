@@ -36,7 +36,7 @@ Sharing of the resource doesn't change any permissions or quotas that apply to t
 Availability of the shared resources scopes to the Region: the users of your shared resources can access these resources only in the same Region where resources belong.
 
 Creation of resource share consists of three steps:
-![](ram-diagram-800.png)
+{{<figure src="ram-diagram-800.png">}}
 1. Specify the share name and the resource(s) you want to share. It can be either one resource type or several. You can also skip the resources selection and do that later. 
    
     It's possible to modify the resource share later (e.g., you want to add some resources to the share).

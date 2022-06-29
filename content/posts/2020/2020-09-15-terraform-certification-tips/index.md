@@ -20,7 +20,7 @@ For example, you can make a plan from the resources I outlined below in this art
 I encourage you to explore the Internet for something by yourself as well. Who knows, perhaps you will find some learning course that fits you better. And that is great! However, when you find it, take extra 5-10 minutes to go through its curriculum and create a list with lessons. 
 
 It feels so nice to cross out items off the todo list, believe me 😄
-![](todo-list.jpg)
+{{<figure src="todo-list.jpg">}}
 
 ## Go through the official Study Guide
 Despite your findings on the Internet, I strongly suggest going through the official study guide
@@ -54,13 +54,13 @@ If you already work in some company you can set up the project you're working wi
 
 It is a collection of different codebases for front-end and back-end used to build the same project. Just find the combination that suits your experience better and try to build the infrastructure for it using Terraform.
 
-![](real-world-demo.jpg)
+{{<figure src="real-world-demo.jpg">}}
 
 #### Answer forum topics
 Last but not least advice — try to answer some questions on the official [Terraform forum](https://discuss.hashicorp.com/c/terraform-core/).
 
 This is a nice way to test your knowledge, help others, and develop the community around Terraform. Just register there, look for the latest topics, and have fun!
 
-![](tf-forum.jpg)
+{{<figure src="tf-forum.jpg">}}
 
-#### 🍀 I sincerely wish you exciting preparation and a successful exam! 🍀
+🍀 I sincerely wish you exciting preparation and a successful exam! 🍀
