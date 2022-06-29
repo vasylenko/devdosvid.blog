@@ -1,12 +1,15 @@
-name: Build and Deploy Blog
+name: Deploy Production
 on:
   push:
+    branches:
+      - main
   workflow_dispatch:
 
 env:
   GHPAGES_BRANCH: gh-pages-hugo
-  BLOG_URL: devdosvid.blog
-  HUGO_VERSION: 0.99.0
+  SITEMAP_URL: https://devdosvid.blog/sitemap.xml
+  HUGO_VERSION: 0.101.0
+  CONTENT_DIR: publishdir
 
 jobs:
   build:
@@ -31,11 +34,10 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with: 
-          name: publishdir
-          path: publishdir
+          name: ${{ env.CONTENT_DIR }}
+          path: ${{ env.CONTENT_DIR }}
 
   deploy:
-    if: github.ref == 'refs/heads/main'
     needs: [build]
     runs-on: ubuntu-latest
     steps:
@@ -47,7 +49,7 @@ jobs:
       - name: Get the new website content
         uses: actions/download-artifact@v2
         with:
-          name: publishdir
+          name: ${{ env.CONTENT_DIR }}
           path: ./
 
       - name: Deploy website
@@ -86,4 +88,4 @@ jobs:
       - name: Ping Google about the new sitemap # https://developers.google.com/search/docs/advanced/sitemaps/build-sitemap#addsitemap
         run: |
           set -ex
-          curl -s "https://www.google.com/ping?sitemap=https://${{ env.BLOG_URL }}/sitemap.xml" | grep Received
+          curl -s "https://www.google.com/ping?sitemap=${{ env.SITEMAP_URL }}" | grep Received
