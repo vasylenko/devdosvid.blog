@@ -46,6 +46,7 @@ jobs:
     permissions:
       contents: read
       deployments: write
+      pull-requests: write
     name: Deploy to Cloudflare Pages
     steps:
       - name: Get the new website content
