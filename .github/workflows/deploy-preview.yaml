@@ -60,7 +60,7 @@ jobs:
         id: create_deployment
         with:
           route: POST /repos/:repository/deployments
-          required_contexts: ""
+          required_contexts: "[]"
 #          owner: ${{ github.repository_owner }}
 #          repo: ${{ github.repository }}
 #          ref: ${{ github.ref }}
