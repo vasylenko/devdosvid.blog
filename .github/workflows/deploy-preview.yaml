@@ -61,7 +61,7 @@ jobs:
           route: POST /repos/{repo}/deployments
           owner: ${{ github.repository_owner }}
           repo: ${{ github.repository }}
-          ref: ${{ github.ref }}
+          ref: preview-workflow
           auto_merge: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
