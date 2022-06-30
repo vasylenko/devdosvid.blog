@@ -66,6 +66,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - uses: octokit/request-action@v2.x
+        id: set_deployment_status
+        with:
+          route: POST /repos/{repo}/deployments/{deployment_id}/statuses
+          deployment_id: ${{ fromJson(steps.create_deployment.outputs.data).id }}
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.repository }}
+          state: success
+          target_url: "example.com/target_url"
+          environment: "preview"
+          environment_url: "example.com/environment_url"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 #      - name: Publish
 #        uses: cloudflare/pages-action@1
 #        with:
