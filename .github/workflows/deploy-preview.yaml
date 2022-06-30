@@ -30,14 +30,14 @@ jobs:
           wget -q "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz"
           tar -xf hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz
 
-      - name: Build blog
-        run: ./hugo --environment development --baseURL="" --debug --templateMetrics --templateMetricsHints
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.CONTENT_DIR }}
-          path: ${{ env.CONTENT_DIR }}
+#      - name: Build blog
+#        run: ./hugo --environment development --baseURL="" --debug --templateMetrics --templateMetricsHints
+#
+#      - name: Upload artifacts
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: ${{ env.CONTENT_DIR }}
+#          path: ${{ env.CONTENT_DIR }}
 
   deploy:
     if: github.ref != 'refs/heads/main'
@@ -49,22 +49,23 @@ jobs:
       pull-requests: write
     name: Deploy to Cloudflare Pages
     steps:
-      - name: Get the new website content
-        uses: actions/download-artifact@v2
-        with:
-          name: ${{ env.CONTENT_DIR }}
-          path: ./${{ env.CONTENT_DIR }}
+#      - name: Get the new website content
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: ${{ env.CONTENT_DIR }}
+#          path: ./${{ env.CONTENT_DIR }}
 
       - name: Create Deployment
         uses: octokit/request-action@v2.x
-        id: deployment
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: create_deployment
         with:
           route: POST /repos/:repository/deployments
-          owner: github.repository_owner
-          repo: github.repository
-          ref: github.ref
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.repository }}
+          ref: ${{ github.ref }}
+          auto_merge: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 #      - name: Publish
 #        uses: cloudflare/pages-action@1
