@@ -69,9 +69,9 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            github.rest.pulls.createReview({
-              pull_number: context.payload.pull_request.number,
+            github.rest.pulls.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
               body: '🚀 **${{ steps.deploy.outputs.url }}**'
             })
