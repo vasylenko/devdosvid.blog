@@ -88,4 +88,4 @@ jobs:
               payload: '{"URL":"${{ steps.deploy.outputs.url }}"}'
             })
       - name: Show outputs
-        run: ${{ steps.create_deployment.result }}
+        run: echo "${{ steps.create_deployment.result }}"
