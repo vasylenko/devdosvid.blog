@@ -1,4 +1,4 @@
-name: Build and Deploy Blog
+name: Deploy Production
 on:
   push:
   workflow_dispatch:
@@ -6,7 +6,8 @@ on:
 env:
   GHPAGES_BRANCH: gh-pages-hugo
   BLOG_URL: devdosvid.blog
-  HUGO_VERSION: 0.99.0
+  HUGO_VERSION: 0.101.0
+  CONTENT_DIR: publishdir
 
 jobs:
   build:
@@ -31,30 +32,8 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with: 
-          name: publishdir
-          path: publishdir
-
-  preview:
-    needs: [build]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      deployments: write
-    name: Deploy to Cloudflare Pages
-    steps:
-      - name: Get the new website content
-        uses: actions/download-artifact@v2
-        with:
-          name: publishdir
-          path: ./publishdir
-      - name: Publish
-        uses: cloudflare/pages-action@1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_GH_PAGES_ACTION_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: poc-pages-actions
-          directory: publishdir
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          name: ${{ env.CONTENT_DIR }}
+          path: ${{ env.CONTENT_DIR }}
 
   deploy:
     if: github.ref == 'refs/heads/main'
@@ -69,7 +48,7 @@ jobs:
       - name: Get the new website content
         uses: actions/download-artifact@v2
         with:
-          name: publishdir
+          name: ${{ env.CONTENT_DIR }}
           path: ./
 
       - name: Deploy website
