@@ -61,8 +61,10 @@ jobs:
           route: POST /repos/{repo}/deployments
           owner: ${{ github.repository_owner }}
           repo: ${{ github.repository }}
-          ref: preview-workflow
+#          ref: ${{ github.ref }}
+          ref: ${{ github.head_ref }}
           auto_merge: false
+          environment: preview
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -74,9 +76,10 @@ jobs:
           owner: ${{ github.repository_owner }}
           repo: ${{ github.repository }}
           state: success
-          target_url: "https://example.com/target_url"
-          environment: "preview"
-          environment_url: "https://example.com/environment_url"
+          target_url: https://example.com/target_url
+          environment: preview
+          environment_url: https://example.com/environment_url
+          log_url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
