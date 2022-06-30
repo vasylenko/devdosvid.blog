@@ -59,14 +59,20 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: create_deployment
         with:
-          route: POST /repos/{repo}/deployments
-          owner: ${{ github.repository_owner }}
-          repo: ${{ github.repository }}
-          ref: ${{ github.ref }}
-          auto_merge: false
-          environment: ${{ env.DEPLOY_ENV_NAME }}
+          route: POST /repos/:repository/deployments
+          required_contexts: []
+#          owner: ${{ github.repository_owner }}
+#          repo: ${{ github.repository }}
+#          ref: ${{ github.ref }}
+#          auto_merge: false
+#          environment: ${{ env.DEPLOY_ENV_NAME }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_OWNER: ${{ github.repository_owner }}
+          INPUT_REPOSITORY: ${{ github.repository }}
+          INPUT_REF: ${{ github.github.head_ref }}
+          INPUT_AUTO_MERGE: false
+          INPUT_ENVIRONMENT: ${{ env.DEPLOY_ENV_NAME }}
 
       - uses: octokit/request-action@v2.x
         id: set_deployment_status
