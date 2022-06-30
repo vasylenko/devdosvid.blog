@@ -1,6 +1,9 @@
 name: Deploy Preview
 on:
+  pull_request:
   push:
+    tags:
+      - preview
   workflow_dispatch:
 
 env:
@@ -58,4 +61,4 @@ jobs:
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
         id: deploy
       - name: Show preview URL
-        run: echo '** ${{ steps.deploy.outputs.url }} **' >> $GITHUB_STEP_SUMMARY
+        run: echo '**${{ steps.deploy.outputs.url }}**' >> $GITHUB_STEP_SUMMARY

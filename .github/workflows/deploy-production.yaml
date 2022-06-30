@@ -1,11 +1,13 @@
 name: Deploy Production
 on:
   push:
+    branches:
+      - main
   workflow_dispatch:
 
 env:
   GHPAGES_BRANCH: gh-pages-hugo
-  BLOG_URL: devdosvid.blog
+  SITEMAP_URL: https://devdosvid.blog/sitemap.xml
   HUGO_VERSION: 0.101.0
   CONTENT_DIR: publishdir
 
@@ -36,7 +38,6 @@ jobs:
           path: ${{ env.CONTENT_DIR }}
 
   deploy:
-    if: github.ref == 'refs/heads/main'
     needs: [build]
     runs-on: ubuntu-latest
     steps:
@@ -87,4 +88,4 @@ jobs:
       - name: Ping Google about the new sitemap # https://developers.google.com/search/docs/advanced/sitemaps/build-sitemap#addsitemap
         run: |
           set -ex
-          curl -s "https://www.google.com/ping?sitemap=https://${{ env.BLOG_URL }}/sitemap.xml" | grep Received
+          curl -s "https://www.google.com/ping?sitemap=${{ env.SITEMAP_URL }}" | grep Received
