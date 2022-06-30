@@ -64,16 +64,12 @@ jobs:
         id: deploy
       - name: Show preview URL
         run: echo '**${{ steps.deploy.outputs.url }}**' >> $GITHUB_STEP_SUMMARY
-      - name: View pull_request context attributes
-        uses: actions/github-script@v6
-        with:
-          script: console.log(context.pull_request)
       - name: Add Preview URL to the PR
         uses: actions/github-script@v6
         with:
           script: |
             github.rest.pulls.createReviewComment({
-              pull_number: context.pull_request.number,
+              pull_number: context.payload.pull_request.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: '🚀 **${{ steps.deploy.outputs.url }}**'
