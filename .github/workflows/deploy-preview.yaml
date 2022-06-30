@@ -54,17 +54,29 @@ jobs:
         with:
           name: ${{ env.CONTENT_DIR }}
           path: ./${{ env.CONTENT_DIR }}
-      - name: Publish
-        uses: cloudflare/pages-action@1
+
+      - name: Create Deployment
+        uses: octokit/request-action@v2.x
+        id: deployment
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_GH_PAGES_ACTION_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ${{ env.CF_PREVIEW_PROJECT_NAME }}
-          directory: ${{ env.CONTENT_DIR }}
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-        id: deploy
-      - name: Show preview URL
-        run: echo '**${{ steps.deploy.outputs.url }}**' >> $GITHUB_STEP_SUMMARY
+          route: POST /repos/:repository/deployments
+          owner: github.repository_owner
+          repo: github.repository
+          ref: github.ref
+
+#      - name: Publish
+#        uses: cloudflare/pages-action@1
+#        with:
+#          apiToken: ${{ secrets.CLOUDFLARE_GH_PAGES_ACTION_API_TOKEN }}
+#          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+#          projectName: ${{ env.CF_PREVIEW_PROJECT_NAME }}
+#          directory: ${{ env.CONTENT_DIR }}
+#          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+#        id: deploy
+#      - name: Show preview URL
+#        run: echo '**${{ steps.deploy.outputs.url }}**' >> $GITHUB_STEP_SUMMARY
 #      - name: Add Preview URL to the PR
 #        uses: actions/github-script@v6
 #        with:
@@ -75,17 +87,3 @@ jobs:
 #              pull_number: context.payload.pull_request.number,
 #              body: '🚀 **${{ steps.deploy.outputs.url }}**'
 #            })
-      - name: Create deployment
-        id: create_deployment
-        uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.repos.createDeployment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: context.ref,
-              environment: "preview",
-              payload: '{"URL":"${{ steps.deploy.outputs.url }}"}'
-            })
-      - name: Show outputs
-        run: echo "${{ fromJson(steps.create_deployment.outputs) }}"
