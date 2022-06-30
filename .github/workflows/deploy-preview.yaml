@@ -74,9 +74,9 @@ jobs:
           owner: ${{ github.repository_owner }}
           repo: ${{ github.repository }}
           state: success
-          target_url: "example.com/target_url"
+          target_url: "https://example.com/target_url"
           environment: "preview"
-          environment_url: "example.com/environment_url"
+          environment_url: "https://example.com/environment_url"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
