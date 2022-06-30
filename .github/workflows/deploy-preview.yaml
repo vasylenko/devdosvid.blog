@@ -10,6 +10,7 @@ env:
   HUGO_VERSION: 0.101.0
   CONTENT_DIR: publishdir
   CF_PREVIEW_PROJECT_NAME: devdosvid-preview
+  DEPLOY_ENV_NAME: Preview
 
 
 
@@ -64,7 +65,7 @@ jobs:
 #          ref: ${{ github.ref }}
           ref: ${{ github.head_ref }}
           auto_merge: false
-          environment: preview
+          environment: ${{ env.DEPLOY_ENV_NAME }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -77,7 +78,7 @@ jobs:
           repo: ${{ github.repository }}
           state: success
           target_url: https://example.com/target_url
-          environment: preview
+          environment: ${{ env.DEPLOY_ENV_NAME }}
           environment_url: https://example.com/environment_url
           log_url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
         env:
@@ -91,6 +92,7 @@ jobs:
 #          projectName: ${{ env.CF_PREVIEW_PROJECT_NAME }}
 #          directory: ${{ env.CONTENT_DIR }}
 #          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+#          environmentName: ${{ env.DEPLOY_ENV_NAME }}
 #        id: deploy
 #      - name: Show preview URL
 #        run: echo '**${{ steps.deploy.outputs.url }}**' >> $GITHUB_STEP_SUMMARY
