@@ -62,8 +62,7 @@ jobs:
           route: POST /repos/{repo}/deployments
           owner: ${{ github.repository_owner }}
           repo: ${{ github.repository }}
-#          ref: ${{ github.ref }}
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.ref }}
           auto_merge: false
           environment: ${{ env.DEPLOY_ENV_NAME }}
         env:
