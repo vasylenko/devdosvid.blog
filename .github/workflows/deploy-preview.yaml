@@ -11,7 +11,16 @@ env:
   CONTENT_DIR: publishdir
   CF_PREVIEW_PROJECT_NAME: devdosvid-preview
 
+
+
 jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: View context attributes
+        uses: actions/github-script@v6
+        with:
+          script: console.log(context)
   build:
     runs-on: ubuntu-latest
     steps:
