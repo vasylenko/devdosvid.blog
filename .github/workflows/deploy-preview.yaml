@@ -55,11 +55,10 @@ jobs:
 #          name: ${{ env.CONTENT_DIR }}
 #          path: ./${{ env.CONTENT_DIR }}
 
-      - name: Create Deployment
-        uses: octokit/request-action@v2.x
+      - uses: octokit/request-action@v2.x
         id: create_deployment
         with:
-          route: POST /repos/:repository/deployments
+          route: POST /repos/{repo}/deployments
           owner: ${{ github.repository_owner }}
           repo: ${{ github.repository }}
           ref: ${{ github.ref }}
