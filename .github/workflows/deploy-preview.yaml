@@ -65,13 +65,24 @@ jobs:
         id: deploy
       - name: Show preview URL
         run: echo '**${{ steps.deploy.outputs.url }}**' >> $GITHUB_STEP_SUMMARY
-      - name: Add Preview URL to the PR
+#      - name: Add Preview URL to the PR
+#        uses: actions/github-script@v6
+#        with:
+#          script: |
+#            github.rest.pulls.update({
+#              owner: context.repo.owner,
+#              repo: context.repo.repo,
+#              pull_number: context.payload.pull_request.number,
+#              body: '🚀 **${{ steps.deploy.outputs.url }}**'
+#            })
+      - name: Add Deployment info
         uses: actions/github-script@v6
         with:
           script: |
-            github.rest.pulls.update({
+            github.rest.repos.createDeployment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number,
-              body: '🚀 **${{ steps.deploy.outputs.url }}**'
+              ref: context.ref,
+              environment: "preview",
+              payload: '{"URL":"${{ steps.deploy.outputs.url }}"}'
             })
