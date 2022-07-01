@@ -21,7 +21,6 @@ jobs:
       - name: Prepare Hugo
         run: |
           set -ex
-          
           wget -q "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz"
           tar -xf hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz
 
@@ -61,8 +60,6 @@ jobs:
           ref: ${{ github.head_ref }}
           auto_merge: false
           environment: ${{ env.DEPLOY_ENV_NAME }}
-          payload: '{"foo":"bar"}'
-          description: "description"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
