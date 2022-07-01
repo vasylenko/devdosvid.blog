@@ -1,6 +1,6 @@
 locals {
   domain_name    = "devdosvid.blog"
-  staging_domain = "devdosvid-blog.pages.dev"
+  preview_domain = "devdosvid-preview.pages.dev"
 }
 
 data "cloudflare_zone" "this" {
@@ -8,10 +8,10 @@ data "cloudflare_zone" "this" {
 }
 
 resource "cloudflare_record" "cf_pages_alias" {
-  name    = "staging"
+  name    = "preview"
   type    = "CNAME"
   zone_id = data.cloudflare_zone.this.id
-  value   = local.staging_domain
+  value   = local.preview_domain
   proxied = true
 }
 

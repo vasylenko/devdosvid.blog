@@ -1,3 +1,4 @@
+[![Deploy Production](https://github.com/vasylenko/devdosvid.blog/actions/workflows/deploy-production.yaml/badge.svg)](https://github.com/vasylenko/devdosvid.blog/actions/workflows/deploy-production.yaml)
 ## Personal blog powered by Hugo
 
 💰 **Zero-cost** (but it still takes your time, though) hosting and CI/CD with GitHub and free CloudFlare CDN for the fast content delivery and better compression.

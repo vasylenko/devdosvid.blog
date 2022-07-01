@@ -1,0 +1,89 @@
+name: Deploy to Preview
+on:
+  pull_request:
+
+env:
+  HUGO_VERSION: 0.101.0
+  CONTENT_DIR: publishdir
+  CF_PREVIEW_PROJECT_NAME: devdosvid-preview
+  DEPLOY_ENV_NAME: Preview
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Prepare Hugo
+        run: |
+          set -ex
+          wget -q "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz"
+          tar -xf hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz
+
+      - name: Build blog
+        run: ./hugo --environment development --baseURL="" --debug --templateMetrics --templateMetricsHints
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.CONTENT_DIR }}
+          path: ${{ env.CONTENT_DIR }}
+
+  deploy:
+    name: Deploy to Cloudflare Pages
+    if: github.ref != 'refs/heads/main'
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+      pull-requests: write
+    steps:
+      - name: Get the new website content
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ env.CONTENT_DIR }}
+          path: ./${{ env.CONTENT_DIR }}
+
+      - name: Create GH Deployment object
+        uses: octokit/request-action@v2.x
+        id: create_deployment
+        with:
+          route: POST /repos/{repo}/deployments
+          required_contexts: "[]"
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.repository }}
+          ref: ${{ github.head_ref }}
+          auto_merge: false
+          environment: ${{ env.DEPLOY_ENV_NAME }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to CloudFlare
+        uses: cloudflare/pages-action@1
+        id: deploy_to_cloudflare
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_GH_PAGES_ACTION_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ env.CF_PREVIEW_PROJECT_NAME }}
+          directory: ${{ env.CONTENT_DIR }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set Deployment Status
+        uses: octokit/request-action@v2.x
+        id: set_deployment_status
+        with:
+          route: POST /repos/{repo}/deployments/{deployment_id}/statuses
+          deployment_id: ${{ fromJson(steps.create_deployment.outputs.data).id }}
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.repository }}
+          state: success
+          environment: ${{ env.DEPLOY_ENV_NAME }}
+          environment_url: ${{ steps.deploy_to_cloudflare.outputs.url }}
+          log_url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
