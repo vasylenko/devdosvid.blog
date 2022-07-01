@@ -1,10 +1,7 @@
-name: Deploy Preview
+name: Deploy to Preview
 on:
   pull_request:
-  workflow_dispatch:
   push:
-    tags:
-      - preview
 
 env:
   HUGO_VERSION: 0.101.0
