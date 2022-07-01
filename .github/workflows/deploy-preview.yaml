@@ -1,7 +1,6 @@
 name: Deploy to Preview
 on:
   pull_request:
-  push:
 
 env:
   HUGO_VERSION: 0.101.0
@@ -74,7 +73,6 @@ jobs:
           projectName: ${{ env.CF_PREVIEW_PROJECT_NAME }}
           directory: ${{ env.CONTENT_DIR }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          environmentName: ${{ env.DEPLOY_ENV_NAME }}
 
       - name: Set Deployment Status
         uses: octokit/request-action@v2.x
