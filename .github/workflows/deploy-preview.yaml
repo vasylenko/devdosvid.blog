@@ -61,6 +61,8 @@ jobs:
           ref: ${{ github.head_ref }}
           auto_merge: false
           environment: ${{ env.DEPLOY_ENV_NAME }}
+          payload: '{"foo":"bar"}'
+          description: "description"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
