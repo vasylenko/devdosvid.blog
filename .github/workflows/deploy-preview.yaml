@@ -12,8 +12,6 @@ env:
   CF_PREVIEW_PROJECT_NAME: devdosvid-preview
   DEPLOY_ENV_NAME: Preview
 
-
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,16 +29,17 @@ jobs:
           wget -q "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz"
           tar -xf hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz
 
-#      - name: Build blog
-#        run: ./hugo --environment development --baseURL="" --debug --templateMetrics --templateMetricsHints
-#
-#      - name: Upload artifacts
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: ${{ env.CONTENT_DIR }}
-#          path: ${{ env.CONTENT_DIR }}
+      - name: Build blog
+        run: ./hugo --environment development --baseURL="" --debug --templateMetrics --templateMetricsHints
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.CONTENT_DIR }}
+          path: ${{ env.CONTENT_DIR }}
 
   deploy:
+    name: Deploy to Cloudflare Pages
     if: github.ref != 'refs/heads/main'
     needs: [build]
     runs-on: ubuntu-latest
@@ -48,15 +47,15 @@ jobs:
       contents: read
       deployments: write
       pull-requests: write
-    name: Deploy to Cloudflare Pages
     steps:
-#      - name: Get the new website content
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: ${{ env.CONTENT_DIR }}
-#          path: ./${{ env.CONTENT_DIR }}
+      - name: Get the new website content
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ env.CONTENT_DIR }}
+          path: ./${{ env.CONTENT_DIR }}
 
-      - uses: octokit/request-action@v2.x
+      - name: Create GH Deployment object
+        uses: octokit/request-action@v2.x
         id: create_deployment
         with:
           route: POST /repos/{repo}/deployments
@@ -69,7 +68,21 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: octokit/request-action@v2.x
+      - name: Deploy to CloudFlare
+        uses: cloudflare/pages-action@1
+        id: deploy_to_cloudflare
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_GH_PAGES_ACTION_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ env.CF_PREVIEW_PROJECT_NAME }}
+          directory: ${{ env.CONTENT_DIR }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          environmentName: ${{ env.DEPLOY_ENV_NAME }}
+        run: echo '**${{ steps.deploy_to_cloudflare.outputs.url }}**' >> $GITHUB_STEP_SUMMARY
+
+
+      - name: Set Deployment Status
+        uses: octokit/request-action@v2.x
         id: set_deployment_status
         with:
           route: POST /repos/{repo}/deployments/{deployment_id}/statuses
@@ -77,32 +90,8 @@ jobs:
           owner: ${{ github.repository_owner }}
           repo: ${{ github.repository }}
           state: success
-          target_url: https://example.com/target_url
           environment: ${{ env.DEPLOY_ENV_NAME }}
-          environment_url: https://example.com/environment_url
+          environment_url: ${{ steps.deploy_to_cloudflare.outputs.url }}
           log_url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-#      - name: Publish
-#        uses: cloudflare/pages-action@1
-#        with:
-#          apiToken: ${{ secrets.CLOUDFLARE_GH_PAGES_ACTION_API_TOKEN }}
-#          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-#          projectName: ${{ env.CF_PREVIEW_PROJECT_NAME }}
-#          directory: ${{ env.CONTENT_DIR }}
-#          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-#          environmentName: ${{ env.DEPLOY_ENV_NAME }}
-#        id: deploy
-#      - name: Show preview URL
-#        run: echo '**${{ steps.deploy.outputs.url }}**' >> $GITHUB_STEP_SUMMARY
-#      - name: Add Preview URL to the PR
-#        uses: actions/github-script@v6
-#        with:
-#          script: |
-#            github.rest.pulls.update({
-#              owner: context.repo.owner,
-#              repo: context.repo.repo,
-#              pull_number: context.payload.pull_request.number,
-#              body: '🚀 **${{ steps.deploy.outputs.url }}**'
-#            })
