@@ -78,8 +78,6 @@ jobs:
           directory: ${{ env.CONTENT_DIR }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           environmentName: ${{ env.DEPLOY_ENV_NAME }}
-        run: echo '**${{ steps.deploy_to_cloudflare.outputs.url }}**' >> $GITHUB_STEP_SUMMARY
-
 
       - name: Set Deployment Status
         uses: octokit/request-action@v2.x
