@@ -92,7 +92,7 @@ jobs:
       - name: PageSpeedInsights
         run: |
           sudo apt update && sudo apt install -y libxml-xpath-perl jq
-          npm install psi
+          sudo npm install --location=global psi
           
           POST_BODY=PR_DESCRIPTION_TEST_RESULTS.md
           
