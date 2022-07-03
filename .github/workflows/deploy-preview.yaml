@@ -36,9 +36,9 @@ jobs:
 
   deploy:
     name: Deploy to Cloudflare Pages
+    runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/main'
     needs: [build]
-    runs-on: ubuntu-latest
     permissions:
       contents: read
       deployments: write
@@ -117,7 +117,13 @@ jobs:
           echo "::set-output name=pr_descr_body::$(cat $POST_BODY | sed 's/$/\\n/' | tr -d '\n')"
           
           
-
+ update_pr:
+   runs-on: ubuntu-latest
+   needs: [ deploy ]
+   permissions:
+     contents: read
+     pull-requests: write
+   steps:
       - name: Update PR With PSI Results
         uses: octokit/request-action@v2.x
         with:
@@ -125,6 +131,6 @@ jobs:
           owner: ${{ github.repository_owner }}
           repo: ${{ github.repository }}
           pull_number: ${{ github.event.number }}
-          body: ${{ env.POST_BODY }}
+          body: ${{ needs.deploy.output.pr_descr_body }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
