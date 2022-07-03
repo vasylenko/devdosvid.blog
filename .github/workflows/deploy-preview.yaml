@@ -96,8 +96,8 @@ jobs:
           
           POST_BODY=PR_DESCRIPTION_TEST_RESULTS.md
           
-          NEW_POST_URL="${{ env.BLOG_URL }}$(curl -s https://${{ steps.deploy_to_cloudflare.outputs.url }}/index.xml | xpath -q -e '(feed/entry/id/text())[1]')"
-          echo $NEW_POST_PATH
+          NEW_POST_URL="${{ env.BLOG_URL }}$(curl -s ${{ steps.deploy_to_cloudflare.outputs.url }}/index.xml | xpath -q -e '(feed/entry/id/text())[1]')"
+          echo $NEW_POST_URL
           
           echo "**$NEW_POST_URL**" >> $POST_BODY
           
@@ -110,6 +110,8 @@ jobs:
           echo "Metric | Value" >> $POST_BODY
           echo "------ | -----" >> $POST_BODY
           psi $NEW_POST_URL --strategy mobile --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
+          
+          cat $POST_BODY
           
           echo "POST_BODY=$(cat $POST_BODY)" >> $GITHUB_ENV
 
