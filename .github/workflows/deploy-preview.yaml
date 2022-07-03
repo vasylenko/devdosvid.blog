@@ -109,7 +109,7 @@ jobs:
           
           POST_BODY=PR_DESCRIPTION_TEST_RESULTS.md
           
-          NEW_POST_URL="${{ steps.deploy_to_cloudflare.outputs.url }}$(curl -s ${{ needs.deploy.outputs.cf_preview_url }}/index.xml | xpath -q -e '(feed/entry/id/text())[1]')"
+          NEW_POST_URL="${{ needs.deploy.outputs.cf_preview_url }}$(curl -s ${{ needs.deploy.outputs.cf_preview_url }}/index.xml | xpath -q -e '(feed/entry/id/text())[1]')"
           
           echo -e '\"${NEW_POST_URL}\"\n' >> $POST_BODY
           
