@@ -97,23 +97,24 @@ jobs:
           POST_BODY=PR_DESCRIPTION_TEST_RESULTS.md
           
           NEW_POST_URL="${{ env.BLOG_URL }}$(curl -s ${{ steps.deploy_to_cloudflare.outputs.url }}/index.xml | xpath -q -e '(feed/entry/id/text())[1]')"
-          echo $NEW_POST_URL
           
-          echo "$NEW_POST_URL" >> $POST_BODY
+          echo -e "$NEW_POST_URL\n" >> $POST_BODY
           
-          echo "Desktop tests" >> $POST_BODY
+          echo -e "Desktop tests\n" >> $POST_BODY
           echo "Metric | Value" >> $POST_BODY
           echo "------ | -----" >> $POST_BODY
           psi $NEW_POST_URL --strategy desktop --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
-          echo "" >> $POST_BODY
-          echo "Mobile tests" >> $POST_BODY
+          echo -e "\n\n" >> $POST_BODY
+          echo -e "Mobile tests\n" >> $POST_BODY
           echo "Metric | Value" >> $POST_BODY
           echo "------ | -----" >> $POST_BODY
           psi $NEW_POST_URL --strategy mobile --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
           
           cat $POST_BODY  
-           
+          
+          echo 'POST_BODY<<EOF' >> $GITHUB_ENV 
           cat $POST_BODY | sed 's/$/\\n/' | tr -d '\n' >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
           
 
       - name: Update PR With PSI Results
