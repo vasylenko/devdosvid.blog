@@ -113,7 +113,9 @@ jobs:
           
           cat $POST_BODY
           
-          echo "POST_BODY=$(cat $POST_BODY)" >> $GITHUB_ENV
+          echo "POST_BODY<<EOF" >> $GITHUB_ENV          
+          cat $POST_BODY >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Update PR With PSI Results
         uses: octokit/request-action@v2.x
