@@ -110,7 +110,7 @@ jobs:
           
           NEW_POST_URL="${{ needs.deploy.outputs.cf_preview_url }}$(curl -s ${{ needs.deploy.outputs.cf_preview_url }}/index.xml | xpath -q -e '(feed/entry/id/text())[1]')"
           
-          echo -e '\"${NEW_POST_URL}\"\n' >> $POST_BODY
+          #echo -e '\"${NEW_POST_URL}\"\n' >> $POST_BODY
           
           echo -e "Desktop tests\n" >> $POST_BODY
           echo "Metric | Value" >> $POST_BODY
@@ -124,7 +124,8 @@ jobs:
           
           R_POST_BODY=$(cat $POST_BODY)
           
-          echo "::set-output name=pr_descr_body::$R_POST_BODY"
+          #echo "::set-output name=pr_descr_body::$R_POST_BODY"
+          echo "::set-output name=pr_descr_body::$(cat $POST_BODY | sed 's/$/\\n/' | tr -d '\n')"
 
       - name: Update PR With PSI Results
         uses: octokit/request-action@v2.x
