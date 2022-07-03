@@ -99,7 +99,7 @@ jobs:
           NEW_POST_URL="${{ env.BLOG_URL }}$(curl -s ${{ steps.deploy_to_cloudflare.outputs.url }}/index.xml | xpath -q -e '(feed/entry/id/text())[1]')"
           echo $NEW_POST_URL
           
-          echo "**$NEW_POST_URL**" >> $POST_BODY
+          echo "$NEW_POST_URL" >> $POST_BODY
           
           echo "Desktop tests" >> $POST_BODY
           echo "Metric | Value" >> $POST_BODY
@@ -113,8 +113,10 @@ jobs:
           
           cat $POST_BODY
           
+          sed -i 's/$/\\n/' $POST_BODY
+          
           echo "POST_BODY<<EOF" >> $GITHUB_ENV          
-          cat $POST_BODY >> $GITHUB_ENV
+          cat $POST_BODY | sed 's/$/\\n/' | tr -d '\n' >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Update PR With PSI Results
