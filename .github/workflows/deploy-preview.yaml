@@ -132,7 +132,7 @@ jobs:
           curl \
           -X PATCH \
           -H "Accept: application/vnd.github+json" \
-          -H 'Content-Type: text/x-markdown'
+          -H 'Content-Type: text/x-markdown' \
           -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           https://api.github.com/repos/${{ github.repository_owner }}/${{ github.repository }}/pulls/${{ github.event.number }} \
           -d '{"body":"${{ steps.psi_test.outputs.pr_descr_body }}"}'
