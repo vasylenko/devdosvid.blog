@@ -6,6 +6,7 @@ env:
   HUGO_VERSION: 0.101.0
   CONTENT_DIR: publishdir
   CF_PREVIEW_PROJECT_NAME: devdosvid-preview
+  BLOG_URL: https://devdosvid.blog
   DEPLOY_ENV_NAME: Preview
 
 jobs:
@@ -85,5 +86,40 @@ jobs:
           environment: ${{ env.DEPLOY_ENV_NAME }}
           environment_url: ${{ steps.deploy_to_cloudflare.outputs.url }}
           log_url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: PageSpeedInsights
+        run: |
+          apt update && apt install -y libxml-xpath-perl jq
+          npm install --global psi
+          
+          POST_BODY=PR_DESCRIPTION_TEST_RESULTS.md
+          
+          NEW_POST_URL="${{ env.BLOG_URL }}$(curl -s https://${{ steps.deploy_to_cloudflare.outputs.url }}/index.xml | xpath -q -e '(feed/entry/id/text())[1]')"
+          echo $NEW_POST_PATH
+          
+          echo "**$NEW_POST_URL**" >> $POST_BODY
+          
+          echo "Desktop tests" >> $POST_BODY
+          echo "Metric | Value" >> $POST_BODY
+          echo "------ | -----" >> $POST_BODY
+          psi $NEW_POST_URL --strategy desktop --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
+          echo "" >> $POST_BODY
+          echo "Mobile tests" >> $POST_BODY
+          echo "Metric | Value" >> $POST_BODY
+          echo "------ | -----" >> $POST_BODY
+          psi $NEW_POST_URL --strategy mobile --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
+          
+          echo "POST_BODY=$(cat $POST_BODY)" >> $GITHUB_ENV
+
+      - name: Update PR With PSI Results
+        uses: octokit/request-action@v2.x
+        with:
+          route: PATCH /repos/{repo}/pulls/{pull_number}
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.repository }}
+          pull_number: ${{ github.event.number }}
+          body: ${{ env.POST_BODY }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
