@@ -115,12 +115,12 @@ jobs:
           echo -e "Desktop tests\n" >> $POST_BODY
           echo "Metric | Value" >> $POST_BODY
           echo "------ | -----" >> $POST_BODY
-          psi $NEW_POST_URL --key ${{ secret.GOOGLE_PSI }} --strategy desktop --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
+          psi $NEW_POST_URL --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy desktop --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
           echo -e "\n\n" >> $POST_BODY
           echo -e "Mobile tests\n" >> $POST_BODY
           echo "Metric | Value" >> $POST_BODY
           echo "------ | -----" >> $POST_BODY
-          psi $NEW_POST_URL --key ${{ secret.GOOGLE_PSI }} --strategy mobile --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
+          psi $NEW_POST_URL --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy mobile --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
           
           echo "::set-output name=pr_descr_body::$(cat $POST_BODY)"
           # echo "::set-output name=pr_descr_body::$(cat $POST_BODY | sed 's/$/\\n/' | tr -d '\n')"
