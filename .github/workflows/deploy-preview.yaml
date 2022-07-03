@@ -111,13 +111,10 @@ jobs:
           echo "------ | -----" >> $POST_BODY
           psi $NEW_POST_URL --strategy mobile --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
           
-          cat $POST_BODY
-          
-          sed -i 's/$/\\n/' $POST_BODY
-          
-          echo "POST_BODY<<EOF" >> $GITHUB_ENV          
+          cat $POST_BODY  
+           
           cat $POST_BODY | sed 's/$/\\n/' | tr -d '\n' >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          
 
       - name: Update PR With PSI Results
         uses: octokit/request-action@v2.x
