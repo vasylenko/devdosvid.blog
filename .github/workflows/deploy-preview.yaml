@@ -43,6 +43,8 @@ jobs:
       contents: read
       deployments: write
       pull-requests: write
+    outputs:
+      pr_descr_body: ${{ steps.pagespeedinsights.outputs.pr_descr_body }}
     steps:
       - name: Get the new website content
         uses: actions/download-artifact@v2
@@ -90,6 +92,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: PageSpeedInsights
+        id: pagespeedinsights
         run: |
           sudo apt update && sudo apt install -y libxml-xpath-perl jq
           sudo npm install --location=global psi
@@ -109,12 +112,10 @@ jobs:
           echo "Metric | Value" >> $POST_BODY
           echo "------ | -----" >> $POST_BODY
           psi $NEW_POST_URL --strategy mobile --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
+            
           
-          cat $POST_BODY  
+          echo "::set-output name=pr_descr_body::$(cat $POST_BODY | sed 's/$/\\n/' | tr -d '\n')"
           
-          echo 'POST_BODY<<EOF' >> $GITHUB_ENV 
-          cat $POST_BODY | sed 's/$/\\n/' | tr -d '\n' >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
           
 
       - name: Update PR With PSI Results
