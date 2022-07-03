@@ -11,6 +11,7 @@ env:
 
 jobs:
   build:
+    name: Build the blog
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -92,8 +93,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
-  update_pr:
-    name: Update PR with PSI results
+  psi_tests:
+    name: Run PSI tests
     runs-on: ubuntu-latest
     needs: [ deploy ]
     permissions:
@@ -110,7 +111,7 @@ jobs:
           
           NEW_POST_URL="${{ env.BLOG_URL }}$(curl -s ${{ needs.deploy.outputs.cf_preview_url }}/index.xml | xpath -q -e '(feed/entry/id/text())[1]')"
           
-          echo -e "$NEW_POST_URL\n" >> $POST_BODY
+          echo -e '\"$NEW_POST_URL\"\n' >> $POST_BODY
           
           echo -e "Desktop tests\n" >> $POST_BODY
           echo "Metric | Value" >> $POST_BODY
