@@ -111,12 +111,12 @@ jobs:
           
           echo -e "🚀 **${NEW_POST_URL}**\n" >> $POST_BODY
           
-          echo -e "Desktop tests\n" >> $POST_BODY
+          echo -e "### Desktop tests\n" >> $POST_BODY
           echo "Metric | Value" >> $POST_BODY
           echo "------ | -----" >> $POST_BODY
           psi $NEW_POST_URL --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy desktop --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
           echo -e "\n" >> $POST_BODY
-          echo -e "Mobile tests\n" >> $POST_BODY
+          echo -e "### Mobile tests\n" >> $POST_BODY
           echo "Metric | Value" >> $POST_BODY
           echo "------ | -----" >> $POST_BODY
           psi $NEW_POST_URL --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy mobile --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
