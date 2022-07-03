@@ -109,7 +109,7 @@ jobs:
           
           NEW_POST_URL="${{ needs.deploy.outputs.cf_preview_url }}$(curl -s ${{ needs.deploy.outputs.cf_preview_url }}/latest-post)"
           
-          echo -e "\"🚀 ${NEW_POST_URL}\"\n" >> $POST_BODY
+          echo -e "🚀 ** ${NEW_POST_URL} **\n" >> $POST_BODY
           
           echo -e "Desktop tests\n" >> $POST_BODY
           echo "Metric | Value" >> $POST_BODY
