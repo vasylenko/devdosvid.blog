@@ -44,7 +44,7 @@ jobs:
       deployments: write
       pull-requests: write
     outputs:
-      pr_descr_body: ${{ steps.pagespeedinsights.outputs.pr_descr_body }}
+      cf_preview_url: ${{ steps.deploy_to_cloudflare.outputs.url }}
     steps:
       - name: Get the new website content
         uses: actions/download-artifact@v2
@@ -91,15 +91,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+
+  update_pr:
+    name: Update PR with PSI results
+    runs-on: ubuntu-latest
+    needs: [ deploy ]
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
       - name: PageSpeedInsights
-        id: pagespeedinsights
+        id: psi_test
         run: |
           sudo apt update && sudo apt install -y libxml-xpath-perl jq
           sudo npm install --location=global psi
           
           POST_BODY=PR_DESCRIPTION_TEST_RESULTS.md
           
-          NEW_POST_URL="${{ env.BLOG_URL }}$(curl -s ${{ steps.deploy_to_cloudflare.outputs.url }}/index.xml | xpath -q -e '(feed/entry/id/text())[1]')"
+          NEW_POST_URL="${{ env.BLOG_URL }}$(curl -s ${{ needs.deploy.outputs.cf_preview_url }}/index.xml | xpath -q -e '(feed/entry/id/text())[1]')"
           
           echo -e "$NEW_POST_URL\n" >> $POST_BODY
           
@@ -112,18 +121,10 @@ jobs:
           echo "Metric | Value" >> $POST_BODY
           echo "------ | -----" >> $POST_BODY
           psi $NEW_POST_URL --strategy mobile --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
-            
+          
           
           echo "::set-output name=pr_descr_body::$(cat $POST_BODY | sed 's/$/\\n/' | tr -d '\n')"
-          
-          
- update_pr:
-   runs-on: ubuntu-latest
-   needs: [ deploy ]
-   permissions:
-     contents: read
-     pull-requests: write
-   steps:
+
       - name: Update PR With PSI Results
         uses: octokit/request-action@v2.x
         with:
@@ -131,6 +132,6 @@ jobs:
           owner: ${{ github.repository_owner }}
           repo: ${{ github.repository }}
           pull_number: ${{ github.event.number }}
-          body: ${{ needs.deploy.output.pr_descr_body }}
+          body: ${{ steps.psi_test.outputs.pr_descr_body }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
