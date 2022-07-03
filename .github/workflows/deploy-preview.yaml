@@ -116,14 +116,15 @@ jobs:
           echo "Metric | Value" >> $POST_BODY
           echo "------ | -----" >> $POST_BODY
           psi $NEW_POST_URL --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy desktop --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
-          echo -e "\n\n" >> $POST_BODY
+          echo -e "\n" >> $POST_BODY
           echo -e "Mobile tests\n" >> $POST_BODY
           echo "Metric | Value" >> $POST_BODY
           echo "------ | -----" >> $POST_BODY
           psi $NEW_POST_URL --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy mobile --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
           
-          echo "::set-output name=pr_descr_body::$(cat $POST_BODY)"
-          # echo "::set-output name=pr_descr_body::$(cat $POST_BODY | sed 's/$/\\n/' | tr -d '\n')"
+          R_POST_BODY=$(cat $POST_BODY)
+          
+          echo "::set-output name=pr_descr_body::$R_POST_BODY"
 
       - name: Update PR With PSI Results
         uses: octokit/request-action@v2.x
@@ -135,3 +136,6 @@ jobs:
           body: ${{ steps.psi_test.outputs.pr_descr_body }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+#           # echo "::set-output name=pr_descr_body::$(cat $POST_BODY | sed 's/$/\\n/' | tr -d '\n')"
