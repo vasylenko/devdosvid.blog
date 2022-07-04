@@ -10,6 +10,7 @@ env:
 
 jobs:
   build:
+    name: Build the blog
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,13 +36,15 @@ jobs:
 
   deploy:
     name: Deploy to Cloudflare Pages
+    runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/main'
     needs: [build]
-    runs-on: ubuntu-latest
     permissions:
       contents: read
       deployments: write
       pull-requests: write
+    outputs:
+      cf_preview_url: ${{ steps.deploy_to_cloudflare.outputs.url }}
     steps:
       - name: Get the new website content
         uses: actions/download-artifact@v2
@@ -87,3 +90,45 @@ jobs:
           log_url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+  psi_tests:
+    name: PSI tests
+    runs-on: ubuntu-latest
+    needs: [ deploy ]
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Run PSI tests
+        id: psi_test
+        run: |
+          sudo npm install --quiet --location=global psi
+          
+          POST_BODY=PR_DESCRIPTION_TEST_RESULTS.md
+          
+          NEW_POST_URL="${{ needs.deploy.outputs.cf_preview_url }}$(curl -s ${{ needs.deploy.outputs.cf_preview_url }}/latest-post/)"
+          
+          echo -e "🚀 **${NEW_POST_URL}**\n" >> $POST_BODY
+          
+          echo -e "### Desktop tests\n" >> $POST_BODY
+          echo "Metric | Value" >> $POST_BODY
+          echo "------ | -----" >> $POST_BODY
+          psi $NEW_POST_URL --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy desktop --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
+          echo -e "\n" >> $POST_BODY
+          echo -e "### Mobile tests\n" >> $POST_BODY
+          echo "Metric | Value" >> $POST_BODY
+          echo "------ | -----" >> $POST_BODY
+          psi $NEW_POST_URL --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy mobile --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $POST_BODY
+                    
+          echo "::set-output name=pr_descr_body::$(cat $POST_BODY | sed 's/$/\\n/' | tr -d '\n')"
+
+      - name: Update PR with PSI test results
+        run: |
+          curl \
+          -X PATCH \
+          -H "Accept: application/vnd.github+json" \
+          -H 'Content-Type: text/x-markdown' \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }} \
+          -d '{"body":"${{ steps.psi_test.outputs.pr_descr_body }}"}'

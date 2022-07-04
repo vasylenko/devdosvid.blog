@@ -1,0 +1,4 @@
+{{ $mysection := site.RegularPages }}
+{{ range first 1 $mysection }}
+{{ .RelPermalink }}
+{{ end }}
