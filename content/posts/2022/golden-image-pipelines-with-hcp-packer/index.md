@@ -160,15 +160,29 @@ Then the `hcp_packer_image` gets the cloud image ID (AWS AMI ID in my example) f
 
 The configuration of the `hcp` provider in this example is empty on purpose: this provider supports `HCP_CLIENT_ID` and `HCP_CLIENT_SECRET` env variables to use their values for the [authentication](https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/guides/auth) and avoid hard coding. Alternatively, you can use the `client_id` and `client_secret` options to configure the provider.
 
-Also, you can revoke an Iteration on purpose, preventing particular images from being used. For example, your SecOps team can revoke it due to some new CVE announced.
+## Image revocation
 
-When Iteration is revoked, its cloud_image_id returns the `error_revoked`  value instead of the actual image ID.
+It is possible to revoke a specific Iteration, and therefore all Images in it, to alert the users about the Image decommission. For example, your SecOps team can revoke it due to the new CVE announced.
 
-You can add a bit of conditional logic to the Terraform code to catch that case and act accordingly. For example:
+Revoked Images are treated differently by Packer CLI and Terraform CLI.
+
+### Packer CLI and Revoked Image
+
+When you reference the Image in a Packer template to use it as a source for another image, its revocation makes further Packer builds to fail.
+
+In other words, Packer won't let you build a new Image on top of the revoked Image.
+
+### Terraform CLI and Revoked Image
+
+On the contrary, Terraform CLI does not prevent the usage of the revoked Image by default, although its Cloud version does it if used with the "Run tasks" feature.
+
+Although you can get the Image ID, when the Iteration is revoked, the `hcp_packer_image` data source returns a non-empty `revoke_at` attribute with the value set to the revocation timestamp.
+
+Therefore, you can use the `precondition` (available in [Terraform CLI v1.2.0](https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/#precondition-and-postcondition) and higher) to validate the Image with Terraform CLI and make sure it was not revoked
+
+Here is the code example that illustrates that:
 
 {{< figure src="logic-for-revoked-iteration.png" caption="Work with revoked HCP Packer image in Terraform" width="800">}}
-
-Or you can also validate this using recently announced [post- and preconditions](https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/#precondition-and-postcondition).
 
 ## Why HCP Packer?
 
