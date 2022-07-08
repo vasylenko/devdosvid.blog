@@ -109,7 +109,7 @@ jobs:
           
           NEW_POST_URL="${{ needs.deploy.outputs.cf_preview_url }}$(curl -s ${{ needs.deploy.outputs.cf_preview_url }}/latest-post/)"
           
-          echo -e "🚀 **${NEW_POST_URL}**\n" >> $POST_BODY
+          echo -e "💻 **${NEW_POST_URL}**\n" >> $POST_BODY
           
           echo -e "### Desktop tests\n" >> $POST_BODY
           echo "Metric | Value" >> $POST_BODY
@@ -123,12 +123,14 @@ jobs:
                     
           echo "::set-output name=pr_descr_body::$(cat $POST_BODY | sed 's/$/\\n/' | tr -d '\n')"
 
-      - name: Update PR with PSI test results
+      - name: Add deployment link and test URL to the PR comment
         run: |
-          curl \
-          -X PATCH \
+          curl -s -i -o /dev/null -w "%{http_code}" \
+          -X POST \
           -H "Accept: application/vnd.github+json" \
           -H 'Content-Type: text/x-markdown' \
           -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }} \
-          -d '{"body":"${{ steps.psi_test.outputs.pr_descr_body }}"}'
+          https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.number }}/comments \
+          -d '{"body":"${{ steps.psi_test.outputs.pr_descr_body }}"}' \
+          > response_code.txt
+          grep -q 201 response_code.txt || exit 1
