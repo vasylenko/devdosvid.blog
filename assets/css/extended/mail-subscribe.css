@@ -15,5 +15,6 @@
 #sp-92706abe-5113-4db0-b255-c64ad75a46f7.sp-button {
     background-color: var(--color-orange);
     color: var(--content);
+    font-weight: inherit;
 }
 
