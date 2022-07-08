@@ -106,7 +106,7 @@ jobs:
           sudo npm install --quiet --location=global psi
           API_POST_BODY=PR_DESCRIPTION_TEST_RESULTS.md
           LATEST_BLOG_POST_URL="${{ needs.deploy.outputs.cf_preview_url }}$(curl -s ${{ needs.deploy.outputs.cf_preview_url }}/latest-post/)"
-          echo -e "##Latest blog post\n💻 **${LATEST_BLOG_POST_URL}**" >> $API_POST_BODY
+          echo -e "### Latest blog post\n💻 **${LATEST_BLOG_POST_URL}**" >> $API_POST_BODY
           for strategy in mobile desktop
           do
             echo -e "\n" >> $API_POST_BODY
