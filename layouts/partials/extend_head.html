@@ -1,9 +1,19 @@
-<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-<meta name="twitter:creator" content="{{ site.Params.twittercreator }}"/>
-<meta name="twitter:site" content="{{ site.Params.twittersite }}"/>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Albert+Sans&display=swap" />
+
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Albert+Sans&display=swap"
+      media="print" onload="this.media='all'" />
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Albert+Sans&display=swap" />
+</noscript>
+
+<meta name="twitter:creator" content="{{ site.Params.twittercreator }}"/>
+<meta name="twitter:site" content="{{ site.Params.twittersite }}"/>
 <script type="text/javascript">
     window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=document.createElement("script");r.type="text/javascript",r.async=!0,r.src="https://cdn.heapanalytics.com/js/heap-"+e+".js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(r,a);for(var n=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","resetIdentity","removeEventProperty","setEventProperties","track","unsetEventProperty"],o=0;o<p.length;o++)heap[p[o]]=n(p[o])};
     heap.load("{{ site.Params.heapanalyticsid }}");
