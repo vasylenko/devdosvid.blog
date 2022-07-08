@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 :root {
     --color-blue: #0E1C36;
     --color-orange: #FF9F1C;
@@ -8,6 +7,11 @@
 }
 
 body {
+    font-family: 'Albert Sans', 'Segoe UI', -apple-system, sans-serif, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue';
+}
+
+h1 {
+    font-weight: 600;
 }
 
 .main {
