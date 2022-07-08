@@ -3,7 +3,7 @@
     <title>devDosvid — my engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/series/"/>
-    <updated>2022-07-04T21:17:20Z</updated>
+    <updated>2022-07-08T01:15:38Z</updated>
     <author>
         <name>devDosvid — my engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
@@ -15,7 +15,7 @@
         <title>Golden Image Pipelines With HCP Packer</title>
         <link href="https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/" hreflang="en" rel="alternate"/>
         <published>2022-06-26T13:13:12Z</published>
-        <updated>2022-06-28T17:38:50Z</updated>
+        <updated>2022-07-08T01:15:12Z</updated>
         <id>https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -239,9 +239,17 @@ height=&#34;529.00&#34;
 &lt;p&gt;The  &lt;code&gt;hcp_packer_iteration&lt;/code&gt;  data source gets the most recent Iteration assigned to the specified Channel (i.e., latest). We need that because the Iteration (not the Channel) holds the image information.&lt;/p&gt;
 &lt;p&gt;Then the &lt;code&gt;hcp_packer_image&lt;/code&gt; gets the cloud image ID (AWS AMI ID in my example) from that Iteration so you can use it later in your code.&lt;/p&gt;
 &lt;p&gt;The configuration of the &lt;code&gt;hcp&lt;/code&gt; provider in this example is empty on purpose: this provider supports &lt;code&gt;HCP_CLIENT_ID&lt;/code&gt; and &lt;code&gt;HCP_CLIENT_SECRET&lt;/code&gt; env variables to use their values for the &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/guides/auth&#34;&gt;authentication&lt;/a&gt; and avoid hard coding. Alternatively, you can use the &lt;code&gt;client_id&lt;/code&gt; and &lt;code&gt;client_secret&lt;/code&gt; options to configure the provider.&lt;/p&gt;
-&lt;p&gt;Also, you can revoke an Iteration on purpose, preventing particular images from being used. For example, your SecOps team can revoke it due to some new CVE announced.&lt;/p&gt;
-&lt;p&gt;When Iteration is revoked, its cloud_image_id returns the &lt;code&gt;error_revoked&lt;/code&gt;  value instead of the actual image ID.&lt;/p&gt;
-&lt;p&gt;You can add a bit of conditional logic to the Terraform code to catch that case and act accordingly. For example:&lt;/p&gt;
+&lt;h2 id=&#34;image-revocation&#34;&gt;Image revocation&lt;/h2&gt;
+&lt;p&gt;It is possible to revoke a specific Iteration, and therefore all Images in it, to alert the users about the Image decommission. For example, your SecOps team can revoke it due to the new CVE announced.&lt;/p&gt;
+&lt;p&gt;Revoked Images are treated differently by Packer CLI and Terraform CLI.&lt;/p&gt;
+&lt;h3 id=&#34;packer-cli-and-revoked-image&#34;&gt;Packer CLI and Revoked Image&lt;/h3&gt;
+&lt;p&gt;When you reference the Image in a Packer template to use it as a source for another image, its revocation makes further Packer builds to fail.&lt;/p&gt;
+&lt;p&gt;In other words, Packer won&amp;rsquo;t let you build a new Image on top of the revoked Image.&lt;/p&gt;
+&lt;h3 id=&#34;terraform-cli-and-revoked-image&#34;&gt;Terraform CLI and Revoked Image&lt;/h3&gt;
+&lt;p&gt;On the contrary, Terraform CLI does not prevent the usage of the revoked Image by default, although its Cloud version does it if used with the &amp;ldquo;Run tasks&amp;rdquo; feature.&lt;/p&gt;
+&lt;p&gt;Although you can get the Image ID, when the Iteration is revoked, the &lt;code&gt;hcp_packer_image&lt;/code&gt; data source returns a non-empty &lt;code&gt;revoke_at&lt;/code&gt; attribute with the value set to the revocation timestamp.&lt;/p&gt;
+&lt;p&gt;Therefore, you can use the &lt;code&gt;precondition&lt;/code&gt; (available in &lt;a href=&#34;https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/#precondition-and-postcondition&#34;&gt;Terraform CLI v1.2.0&lt;/a&gt; and higher) to validate the Image with Terraform CLI and make sure it was not revoked&lt;/p&gt;
+&lt;p&gt;Here is the code example that illustrates that:&lt;/p&gt;
 &lt;figure&gt;
 
 
@@ -250,13 +258,12 @@ height=&#34;529.00&#34;
 &lt;img loading=&#34;lazy&#34;
      src=&#34;logic-for-revoked-iteration.png&#34;
     alt=&#34;Work with revoked HCP Packer image in Terraform&#34;width=&#34;800&#34;
-height=&#34;242.00&#34;
+height=&#34;501.24&#34;
 /&gt; &lt;figcaption&gt;
     &lt;p&gt;Work with revoked HCP Packer image in Terraform&lt;/p&gt;
 &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;p&gt;Or you can also validate this using recently announced &lt;a href=&#34;https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/#precondition-and-postcondition&#34;&gt;post- and preconditions&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;why-hcp-packer&#34;&gt;Why HCP Packer?&lt;/h2&gt;
 &lt;p&gt;So what makes the HCP Packer a good fit and worth a try?&lt;/p&gt;
 &lt;p&gt;1️⃣ A centralized place to view and manage the OS images throughout an organization. And as for me, it is good to have a neat web panel to look at things.&lt;/p&gt;
