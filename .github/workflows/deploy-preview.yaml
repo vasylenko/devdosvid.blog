@@ -115,17 +115,6 @@ jobs:
             echo "------ | -----" >> $API_POST_BODY
             psi $LATEST_BLOG_POST_URL --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy $strategy --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $API_POST_BODY            
           done
-
-#          echo -e "### Desktop tests\n" >> $API_POST_BODY
-#          echo "Metric | Value" >> $API_POST_BODY
-#          echo "------ | -----" >> $API_POST_BODY
-#          psi $LATEST_BLOG_POST_URL --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy desktop --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $API_POST_BODY
-#          echo -e "\n" >> $API_POST_BODY
-#          echo -e "### Mobile tests\n" >> $API_POST_BODY
-#          echo "Metric | Value" >> $API_POST_BODY
-#          echo "------ | -----" >> $API_POST_BODY
-#          psi $LATEST_BLOG_POST_URL --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy mobile --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $API_POST_BODY
-#
           echo "::set-output name=api_post_body::$(cat $API_POST_BODY | sed 's/$/\\n/' | tr -d '\n')"
 
       - name: Add deployment link and test URL to the PR comment
