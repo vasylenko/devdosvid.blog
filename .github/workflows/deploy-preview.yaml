@@ -130,7 +130,7 @@ jobs:
           for BLOG_POST in ${{ needs.build.outputs.updates_list }}
           do
              echo "BLOG_POST — $BLOG_POST"
-             BLOG_POST_URL=$(hugo list all | grep "$(echo $BLOG_POST|cut -d '/' -f1-4)" | awk -F ',' '{print $(NF)}'| sed "s,https://devdosvid.blog,${{ needs.deploy.outputs.cf_preview_url }},g" )
+             BLOG_POST_URL=$(./hugo list all | grep "$(echo $BLOG_POST|cut -d '/' -f1-4)" | awk -F ',' '{print $(NF)}'| sed "s,https://devdosvid.blog,${{ needs.deploy.outputs.cf_preview_url }},g" )
              echo "BLOG_POST_URL: $BLOG_POST_URL"
              echo "$BLOG_POST_URL" >> $API_POST_BODY
              for strategy in mobile desktop
