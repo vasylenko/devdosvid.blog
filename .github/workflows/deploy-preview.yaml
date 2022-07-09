@@ -110,7 +110,7 @@ jobs:
       pull-requests: write
     if: contains(needs.build.has_updates, 'true')
     steps:
-#      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
       - name: Run PSI tests
         id: psi_test
         run: |
@@ -130,7 +130,6 @@ jobs:
                  psi $BLOG_POST_URL --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy $strategy --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $API_POST_BODY
                done
           done
-          
           echo "::set-output name=api_post_body::$(cat $API_POST_BODY | sed 's/$/\\n/' | tr -d '\n')"
 
       - name: Add deployment link and test URL to the PR comment
