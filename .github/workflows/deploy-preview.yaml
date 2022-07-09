@@ -13,8 +13,8 @@ jobs:
     name: Build the blog
     runs-on: ubuntu-latest
     outputs:
-      has_updates: ${{steps.check_updated_posts.has_updates}}
-      updates_list: ${{steps.check_updated_posts.updates_list}}
+      has_updates: ${{steps.check_updated_posts.outputs.has_updates}}
+      updates_list: ${{steps.check_updated_posts.outputs.updates_list}}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
