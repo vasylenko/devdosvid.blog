@@ -110,6 +110,12 @@ jobs:
       contents: read
       pull-requests: write
     steps:
+      - uses: actions/checkout@v3
+      - name: Prepare Hugo
+        run: |
+          set -ex
+          wget -q "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz"
+          tar -xf hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz
       - name: Run PSI tests
         id: psi_test
         run: |
