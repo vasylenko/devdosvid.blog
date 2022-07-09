@@ -110,7 +110,7 @@ jobs:
       pull-requests: write
     if: contains(needs.build.has_updates, 'true')
     steps:
-      - uses: actions/checkout@v3
+#      - uses: actions/checkout@v3
       - name: Run PSI tests
         id: psi_test
         run: |
