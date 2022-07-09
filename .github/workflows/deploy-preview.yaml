@@ -25,7 +25,8 @@ jobs:
         run: |
           set -e
           git diff-tree --no-commit-id --name-only -r ${{ github.event.before }}..${{ github.event.after }}
-          updates_list=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.before }}..${{ github.event.after }} | grep 'content/posts/')
+          echo $?|grep test
+#          updates_list=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.before }}..${{ github.event.after }} | grep 'content/posts/')
 #          echo $updates_list
 #          if [[ -n $updates_list ]]
 #          then
