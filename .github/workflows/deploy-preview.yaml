@@ -113,10 +113,10 @@ jobs:
       - name: Run PSI tests
         id: psi_test
         run: |
-          echo "needs.build.has_updates"
-          echo ${{needs.build.has_updates}}
-          echo "needs.build.updates_list"
-          echo ${{needs.build.updates_list}}
+          echo "needs.build.outputs.has_updates"
+          echo ${{needs.build.outputs.has_updates}}
+          echo "needs.build.outputs.updates_list"
+          echo ${{needs.build.outputs.updates_list}}
           
           sudo npm install --quiet --location=global psi
           API_POST_BODY=PR_DESCRIPTION_TEST_RESULTS.md
