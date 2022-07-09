@@ -37,7 +37,6 @@ jobs:
   deploy:
     name: Deploy to Cloudflare Pages
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
     needs: [build]
     permissions:
       contents: read
@@ -94,6 +93,9 @@ jobs:
       - name: Check for blog post updates
         id: check_blogpost_updates
         run: |
+          pwd
+          ls -la
+          ls -la ../
           updates_list=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.before }}..${{ github.event.after }} | grep 'content/posts/')
           [[ -n $updates_list ]] && echo "::set-output name=has_updates::true" && echo "::set-output name=updates_list::$(echo $updates_list)"
           
