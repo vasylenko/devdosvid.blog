@@ -110,37 +110,36 @@ jobs:
       pull-requests: write
     if: contains(needs.build.has_updates, 'true')
     steps:
-    - uses: actions/checkout@v3
-    - name: Run PSI tests
-      id: psi_test
-      run: |
-        sudo npm install --quiet --location=global psi
-        API_POST_BODY=PR_DESCRIPTION_TEST_RESULTS.md
+      - name: Run PSI tests
+        id: psi_test
+        run: |
+          sudo npm install --quiet --location=global psi
+          API_POST_BODY=PR_DESCRIPTION_TEST_RESULTS.md
 #          LATEST_BLOG_POST_URL="${{ needs.deploy.outputs.cf_preview_url }}$(curl -s ${{ needs.deploy.outputs.cf_preview_url }}/latest-post/)"
 #          echo -e "### Latest blog post\n💻 **${LATEST_BLOG_POST_URL}**" >> $API_POST_BODY
-        for BLOG_POST in ${{ needs.build.updates_list }}
-        do
-             BLOG_POST_URL=$(hugo list all | grep "$(echo $BLOG_POST|cut -d '/' -f1-4)" | awk -F ',' '{print $(NF)}'| sed "s,https://devdosvid.blog,${{ needs.deploy.outputs.cf_preview_url }},g" )
-             for strategy in mobile desktop
-             do
-               echo -e "\n" >> $API_POST_BODY
-               echo -e "### ${strategy^} tests\n" >> $API_POST_BODY
-               echo "Metric | Value" >> $API_POST_BODY
-               echo "------ | -----" >> $API_POST_BODY
-               psi $BLOG_POST_URL --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy $strategy --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $API_POST_BODY
-             done
-        done
-        echo "::set-output name=api_post_body::$(cat $API_POST_BODY | sed 's/$/\\n/' | tr -d '\n')"
+          for BLOG_POST in ${{ needs.build.updates_list }}
+          do
+               BLOG_POST_URL=$(hugo list all | grep "$(echo $BLOG_POST|cut -d '/' -f1-4)" | awk -F ',' '{print $(NF)}'| sed "s,https://devdosvid.blog,${{ needs.deploy.outputs.cf_preview_url }},g" )
+               for strategy in mobile desktop
+               do
+                 echo -e "\n" >> $API_POST_BODY
+                 echo -e "### ${strategy^} tests\n" >> $API_POST_BODY
+                 echo "Metric | Value" >> $API_POST_BODY
+                 echo "------ | -----" >> $API_POST_BODY
+                 psi $BLOG_POST_URL --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy $strategy --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $API_POST_BODY
+               done
+          done
+          echo "::set-output name=api_post_body::$(cat $API_POST_BODY | sed 's/$/\\n/' | tr -d '\n')"
 
-    - name: Add deployment link and test URL to the PR comment
-      run: |
-        curl -s -i -o /dev/null -w "%{http_code}" \
-        -X POST \
-        -H "Accept: application/vnd.github+json" \
-        -H 'Content-Type: text/x-markdown' \
-        -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-        https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.number }}/comments \
-        -d '{"body":"${{ steps.psi_test.outputs.api_post_body }}"}' \
-        > response_code.txt
-        grep -q 201 response_code.txt || exit 1
+      - name: Add deployment link and test URL to the PR comment
+        run: |
+          curl -s -i -o /dev/null -w "%{http_code}" \
+          -X POST \
+          -H "Accept: application/vnd.github+json" \
+          -H 'Content-Type: text/x-markdown' \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.number }}/comments \
+          -d '{"body":"${{ steps.psi_test.outputs.api_post_body }}"}' \
+          > response_code.txt
+          grep -q 201 response_code.txt || exit 1
     # https://docs.github.com/en/rest/issues/comments#create-an-issue-comment--status-codes
