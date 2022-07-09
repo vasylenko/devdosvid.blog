@@ -13,19 +13,19 @@ jobs:
     name: Build the blog
     runs-on: ubuntu-latest
     outputs:
-      has_updates: ${{steps.checkout.has_updates}}
-      updates_list: ${{steps.checkout.updates_list}}
+      has_updates: ${{steps.check_updated_posts.has_updates}}
+      updates_list: ${{steps.check_updated_posts.updates_list}}
     steps:
       - name: Checkout
-        id: checkout
         uses: actions/checkout@v3
         with:
           submodules: recursive
           fetch-depth: 0
+      - id: check_updated_posts
         run: |
           updates_list=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.before }}..${{ github.event.after }} | grep 'content/posts/')
           [[ -n $updates_list ]] && echo "::set-output name=has_updates::true" && echo "::set-output name=updates_list::$(echo $updates_list)"
-      
+
 
       - name: Prepare Hugo
         run: |
