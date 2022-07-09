@@ -93,4 +93,3 @@ When using lookup plugins for Secrets Manager and Parameter Store, mind the acce
 You can find documentation for described plugins here [aws_ssm](https://docs.ansible.com/ansible/latest/plugins/lookup/aws_ssm.html) and here [aws_secret](https://docs.ansible.com/ansible/latest/plugins/lookup/aws_secret.html).
 
 More about lookup plugins: https://docs.ansible.com/ansible/latest/plugins/lookup.html
- 
