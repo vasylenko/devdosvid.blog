@@ -2,6 +2,7 @@
 date: "2021-01-19T00:00:00Z"
 title: mac1.metal and mac2.metal EC2 Instances — user experience
 description: Apple macOS development ecosystem with the power of AWS Cloud
+summary: Apple macOS development ecosystem with the power of AWS Cloud
 images: ["2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg"]
 cover:
   image: 2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg
@@ -11,7 +12,7 @@ url: /2021/01/19/mac1-metal-EC2-Instance-user-experience.html
 series: ["mac1.metal at AWS"]
 ---
 
-This is the review of Mac Metal EC2 instances — a new EC2 instance type that enables macOS workloads on AWS.   
+This is the review of EC2 Mac instances, **mac1.metal** and **mac2.metal** — the new EC2 instance types that enables macOS workloads on AWS.   
 
 {{<updatenotice>}}
 **Updated in June 2022**: new information added about the offering — more cool stuff 🤩
@@ -22,8 +23,6 @@ AWS announced EC2 macOS instances based on the Intel CPU on 30 November 2020.
 After a year and a half, the M1 Mac Instances arrived (7 July 2022).
 
 Some basic information about the Mac EC2 first:
-
-- MacOS-based Instance family types are **mac1.metal** and **mac2.metal**.
 
 - The **mac1.metal** instances are Intel-based
 
@@ -58,10 +57,10 @@ One day of mac2.metal usage costs 15.6 USD
 
 To save yourself some money, you can use [Savings Plans](https://aws.amazon.com/savingsplans/compute-pricing/), both Instance and Compute, and save up to 44% off On-Demand pricing.
 
-For example, with the one-year commitment, partial 50% upfront payment, and the Instance Savings pricing model, you can get the following price per hour:
+For example, with the one-year commitment, partial 50% upfront payment, and the Instance Savings pricing model, you can get the 20% lower price per hour:
 
-- mac1.metal — 0.867 USD
-- mac2.metal — 0.52 USD
+- mac1.metal — 0.867 USD 
+- mac2.metal — 0.52 USD 
 
 Feel free to play with the numbers in the [Dedicated Host Pricing Calculator](https://calculator.aws/#/createCalculator/EC2DedicatedHosts)
 
@@ -153,7 +152,7 @@ I don't know why they set the Available state value earlier than the Host is ava
 
 Therefore, you can launch the next Instance on the same Host no earlier than ~1,5 hours after you terminated the previous one. That doesn't seem very pleasant in the first couple of weeks, but you will get used to it. 😄
 
-And again: you can release the "mac1.metal" Dedicated Host not earlier than 24 hours after it was allocated. So plan your tests wisely.
+And again: you can release the "mac1.metal" Dedicated Host no earlier than 24 hours after it was allocated. So plan your tests wisely.
 
 {{<attention>}}
 If the lease time of a host is more than 24 hours, you don’t need to wait for the scrubbing process to finish to release that host.
