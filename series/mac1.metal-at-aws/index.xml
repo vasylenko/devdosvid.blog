@@ -3,7 +3,7 @@
     <title>devDosvid — my engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/series/mac1.metal-at-aws/"/>
-    <updated>2022-07-09T00:34:23Z</updated>
+    <updated>2022-07-10T10:45:08Z</updated>
     <author>
         <name>devDosvid — my engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
@@ -2331,7 +2331,7 @@ So it is not another &lt;a href=&#34;https://aws.amazon.com/devops-guru/&#34;&gt
         <title>Terraform Workflow — Working Individually and in a Team</title>
         <link href="https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html" hreflang="en" rel="alternate"/>
         <published>2020-09-16T00:00:00Z</published>
-        <updated>2022-06-29T20:47:18Z</updated>
+        <updated>2022-07-10T10:44:46Z</updated>
         <id>https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2341,67 +2341,65 @@ So it is not another &lt;a href=&#34;https://aws.amazon.com/devops-guru/&#34;&gt
 &lt;p&gt;It is extremely helpful in a team, and can benefit you even if you work individually. A good workflow enables you to streamline a process, organize it, and make it less error-prone.&lt;/p&gt;
 &lt;p&gt;This article summaries several approaches when working with Terraform, both individually and in a team. I tried to gather the most common ones, but you might also want to develop your own.&lt;/p&gt;
 &lt;p&gt;The common requirement for all of them is a version control system (such as Git). This is how you ensure nothing is lost and all your code changes are properly versioned tracked.&lt;/p&gt;
-&lt;p&gt;Table of contents:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;#basic-concepts&#34;&gt;Basic Concepts&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#core-individual-workflow&#34;&gt;Core individual workflow&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#core-team-workflow&#34;&gt;Core team workflow&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#team-workflow-with-automation&#34;&gt;Team workflow with automation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#import-workflow&#34;&gt;Import workflow&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1 id=&#34;basic-concepts&#34;&gt;Basic Concepts&lt;/h1&gt;
+&lt;h2 id=&#34;basic-concepts&#34;&gt;Basic Concepts&lt;/h2&gt;
 &lt;p&gt;Let’s define the basic actions first.&lt;/p&gt;
 &lt;p&gt;All described workflows are built on top of three key steps: Write, Plan, and Apply. Nevertheless, their details and actions vary between workflows.&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
+&lt;figure&gt;
 
 
 
 
 &lt;img loading=&#34;lazy&#34;
-     src=&#34;tf-workflow.png&#34;width=&#34;800&#34;
+     src=&#34;tf-workflow.png&#34;
+    alt=&#34;Basic 3-steps Terraform workflow&#34;width=&#34;800&#34;
 height=&#34;89.88&#34;
-/&gt; 
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Basic 3-steps Terraform workflow&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;em&gt;It&amp;rsquo;s a piece of cake, isn&amp;rsquo;t it? 😆&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Write&lt;/strong&gt; – this is where you make changes to the code.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Plan&lt;/strong&gt; – this is where you review changes and decide whether to accept them.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Apply&lt;/strong&gt; – this is where you accept changes and apply them against real infrastructure.&lt;/p&gt;
 &lt;p&gt;It&amp;rsquo;s a simple idea with a variety of possible implementations.&lt;/p&gt;
-&lt;h1 id=&#34;core-individual-workflow&#34;&gt;Core individual workflow&lt;/h1&gt;
+&lt;h2 id=&#34;core-individual-workflow&#34;&gt;Core individual workflow&lt;/h2&gt;
 &lt;p&gt;This is the most simple workflow if you work alone on a relatively small TF project. This workflow suits both local and remote backends well.&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
+&lt;figure&gt;
 
 
 
 
 &lt;img loading=&#34;lazy&#34;
-     src=&#34;tf-workflow-individual.png&#34;width=&#34;800&#34;
+     src=&#34;tf-workflow-individual.png&#34;
+    alt=&#34;Git-based Terraform workflow&#34;width=&#34;800&#34;
 height=&#34;267.41&#34;
-/&gt; 
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Git-based Terraform workflow&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;em&gt;Let&amp;rsquo;s add a bit of Git&lt;/em&gt;&lt;/p&gt;
 &lt;h3 id=&#34;write&#34;&gt;Write&lt;/h3&gt;
 &lt;p&gt;You clone the remote code repo or pull the latest changes, edit the configuration code, then run the &lt;code&gt;terraform validate&lt;/code&gt; and &lt;code&gt;terraform fmt&lt;/code&gt; commands to make sure your code works well.&lt;/p&gt;
 &lt;h3 id=&#34;plan&#34;&gt;Plan&lt;/h3&gt;
 &lt;p&gt;This is where you run the &lt;code&gt;terraform plan&lt;/code&gt; command to make sure that your changes do what you need. This is a good time to commit your code changes changes (or you can do it in the next step).&lt;/p&gt;
 &lt;h3 id=&#34;apply&#34;&gt;Apply&lt;/h3&gt;
 &lt;p&gt;This is when you run &lt;code&gt;terraform apply&lt;/code&gt; and introduce the changes to real infrastructure objects. Also, this is when you push committed changes to the remote repository.&lt;/p&gt;
-&lt;h1 id=&#34;core-team-workflow&#34;&gt;Core team workflow&lt;/h1&gt;
+&lt;h2 id=&#34;core-team-workflow&#34;&gt;Core team workflow&lt;/h2&gt;
 &lt;p&gt;This workflow is good for when you work with configuration code in a team and want to use feature branches to manage the changes accurately.&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
+&lt;figure&gt;
 
 
 
 
 &lt;img loading=&#34;lazy&#34;
-     src=&#34;tf-core-workflow-team.png&#34;width=&#34;800&#34;
+     src=&#34;tf-core-workflow-team.png&#34;
+    alt=&#34;Git-based Terraform workflow in a team&#34;width=&#34;800&#34;
 height=&#34;298.41&#34;
-/&gt; 
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Git-based Terraform workflow in a team&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;em&gt;Don&amp;rsquo;t get scared, it is still simple, just follow the lines&lt;/em&gt;&lt;/p&gt;
 &lt;h3 id=&#34;write-1&#34;&gt;Write&lt;/h3&gt;
 &lt;p&gt;Start by checking out a new branch, make your changes, and run the &lt;code&gt;terraform validate&lt;/code&gt; and &lt;code&gt;terraform fmt&lt;/code&gt; commands to make sure your code works well.&lt;/p&gt;
 &lt;p&gt;Running &lt;code&gt;terraform plan&lt;/code&gt; at this step will help ensure that you&amp;rsquo;ll get what you expect.&lt;/p&gt;
@@ -2410,32 +2408,32 @@ height=&#34;298.41&#34;
 &lt;p&gt;Add the output of the &lt;code&gt;terraform plan&lt;/code&gt; command to the Pull Request with your changes. It would be a good idea to add only the changed parts of the common output, which is the part that starts with &amp;ldquo;Terraform will perform the following actions&amp;rdquo; string.&lt;/p&gt;
 &lt;h3 id=&#34;apply-1&#34;&gt;Apply&lt;/h3&gt;
 &lt;p&gt;Once the PR is reviewed and merged to the upstream branch, it is safe to finally pull the upstream branch locally and apply the configuration with &lt;code&gt;terraform apply&lt;/code&gt;.&lt;/p&gt;
-&lt;h1 id=&#34;team-workflow-with-automation&#34;&gt;Team workflow with automation&lt;/h1&gt;
+&lt;h2 id=&#34;team-workflow-with-automation&#34;&gt;Team workflow with automation&lt;/h2&gt;
 &lt;p&gt;In a nutshell, this workflow allows you to introduce a kind of smoke test for your infrastructure code (using &lt;code&gt;plan&lt;/code&gt;) and also to automate the feedback in the CI process.&lt;/p&gt;
 &lt;p&gt;The automated part of this workflow consists of a speculative plan on commit and/or Pull Request (PR ), along with adding the output of &lt;code&gt;plan&lt;/code&gt; to the comment of the PR. A speculative plan mean just to show the changes, and not apply them afterward.&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
+&lt;figure&gt;
 
 
 
 
 &lt;img loading=&#34;lazy&#34;
-     src=&#34;tf-workflow-team-automation-1.png&#34;width=&#34;800&#34;
+     src=&#34;tf-workflow-team-automation-1.png&#34;
+    alt=&#34;Git-based Terraform workflow with automation&#34;width=&#34;800&#34;
 height=&#34;272.90&#34;
-/&gt; 
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Git-based Terraform workflow with automation&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;em&gt;I like when TF plan output is included to PR, but nobody likes to read others TF plans for some reason&amp;hellip;&lt;/em&gt;&lt;/p&gt;
 &lt;h3 id=&#34;write-2&#34;&gt;Write&lt;/h3&gt;
 &lt;p&gt;This step is the same as in the previous workflow.&lt;/p&gt;
 &lt;h3 id=&#34;plan-2&#34;&gt;Plan&lt;/h3&gt;
 &lt;p&gt;This is where your CI tool does its job.&lt;/p&gt;
 &lt;p&gt;Let’s review this step by step:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;You create a PR with the code changes you wish to implement.&lt;/li&gt;
-&lt;li&gt;The CI pipeline is triggered by an event from your code repository (such as webhook push) and it runs a speculative plan against your code.&lt;/li&gt;
-&lt;li&gt;The list of changes (a so-called &amp;ldquo;plan diff&amp;rdquo;) is added to PR for review by the CI.&lt;/li&gt;
-&lt;li&gt;Once merged, the CI pipeline runs again and you get the final plan that&amp;rsquo;s ready to be applied to the infrastructure.&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;1️⃣ You create a PR with the code changes you wish to implement.&lt;/p&gt;
+&lt;p&gt;2️⃣ The CI pipeline is triggered by an event from your code repository (such as webhook push) and it runs a speculative plan against your code.&lt;/p&gt;
+&lt;p&gt;3️⃣ The list of changes (a so-called &amp;ldquo;plan diff&amp;rdquo;) is added to PR for review by the CI.&lt;/p&gt;
+&lt;p&gt;4️⃣ Once merged, the CI pipeline runs again and you get the final plan that&amp;rsquo;s ready to be applied to the infrastructure.&lt;/p&gt;
 &lt;h3 id=&#34;apply-2&#34;&gt;Apply&lt;/h3&gt;
 &lt;p&gt;Now that you have a branch (i.e. main) with the fresh code to apply, you need to pull it locally and run &lt;code&gt;terraform apply&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;You can also add the automated apply here – step 5 in the picture below. This may be very useful for disposable environments such as testing, staging, development, and so on.&lt;/p&gt;
@@ -2443,7 +2441,7 @@ height=&#34;272.90&#34;
 &lt;p&gt;An important thing to note is that the CI pipeline must be configured in a bi-directional way with your repository to get the code from it and report back with comments to PR.&lt;/p&gt;
 &lt;p&gt;As an option, you may consider using Terraform Cloud which has a lot of functionality, including the above mentioned repo integration, even with the free subscription.&lt;/p&gt;
 &lt;p&gt;If you have never worked with Terraform Cloud before and want to advice to get started, I&amp;rsquo;ll provide the links at the end of this article.&lt;/p&gt;
-&lt;h1 id=&#34;import-workflow&#34;&gt;Import workflow&lt;/h1&gt;
+&lt;h2 id=&#34;import-workflow&#34;&gt;Import workflow&lt;/h2&gt;
 &lt;p&gt;This workflow refers to a situation when you have some objects already created (i.e., up and running), and you need to manage them with Terraform.&lt;/p&gt;
 &lt;p&gt;Suppose we already have an S3 bucket in AWS called &amp;ldquo;someassetsbucket&amp;rdquo; and we want to include it into our configuration code.‌‌&lt;/p&gt;
 &lt;figure&gt;
@@ -2452,9 +2450,12 @@ height=&#34;272.90&#34;
 
 
 &lt;img loading=&#34;lazy&#34;
-     src=&#34;tf-workflow-import.png&#34;width=&#34;800&#34;
+     src=&#34;tf-workflow-import.png&#34;
+    alt=&#34;Terraform resource import workflow&#34;width=&#34;800&#34;
 height=&#34;238.20&#34;
-/&gt; 
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Terraform resource import workflow&lt;/p&gt;
+&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;h3 id=&#34;prepare&#34;&gt;Prepare&lt;/h3&gt;
@@ -2486,13 +2487,11 @@ height=&#34;238.20&#34;
 &lt;h3 id=&#34;apply-3&#34;&gt;Apply&lt;/h3&gt;
 &lt;p&gt;This is usual the &lt;code&gt;terraform apply&lt;/code&gt; action.&lt;/p&gt;
 &lt;p&gt;Once applied, your configuration and state file will correspond to the real object configuration.&lt;/p&gt;
-&lt;h1 id=&#34;wrapping-up&#34;&gt;Wrapping up&lt;/h1&gt;
+&lt;h2 id=&#34;wrapping-up&#34;&gt;Wrapping up&lt;/h2&gt;
 &lt;p&gt;Here is an overview of Terraform Cloud for those who never worked with it before: &lt;a href=&#34;https://www.terraform.io/docs/cloud/overview.html&#34;&gt;‌‌Overview of Terraform Cloud Features&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;And here is a nice tutorial to start with: &lt;a href=&#34;https://learn.hashicorp.com/collections/terraform/cloud-get-started&#34;&gt;Get Started - Terraform Cloud&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Also, here is an overview of workflows at scale from the HashiCorp CTO which might be useful for more experienced Terraform users: &lt;a href=&#34;https://www.hashicorp.com/resources/terraform-workflow-best-practices-at-scale&#34;&gt;Terraform Workflow Best Practices at Scale&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Thank you for reading. I hope you will try one of these workflows, or develop your own!&lt;/p&gt;
-&lt;hr&gt;
-&lt;h6 id=&#34;this-article-was-originaly-published-on-freecodecamp-paltform-by-me-but-i-still-want-to-keep-it-here-for-the-record-canonical-link-to-original-publication-was-properly-set-in-the-page-headers&#34;&gt;This article was originaly published on FreeCodeCamp paltform by me, but I still want to keep it here for the record. Canonical link to original publication was properly set in the page headers.&lt;/h6&gt;</content>
+&lt;p&gt;Thank you for reading. I hope you will try one of these workflows, or develop your own!&lt;/p&gt;</content>
     </entry>
     <entry>
         <title>Terraform Certification Tips</title>
