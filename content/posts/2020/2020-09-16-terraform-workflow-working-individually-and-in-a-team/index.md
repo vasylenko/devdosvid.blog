@@ -169,4 +169,3 @@ And here is a nice tutorial to start with: [Get Started - Terraform Cloud](https
 Also, here is an overview of workflows at scale from the HashiCorp CTO which might be useful for more experienced Terraform users: [Terraform Workflow Best Practices at Scale](https://www.hashicorp.com/resources/terraform-workflow-best-practices-at-scale)
 
 Thank you for reading. I hope you will try one of these workflows, or develop your own!
- 
