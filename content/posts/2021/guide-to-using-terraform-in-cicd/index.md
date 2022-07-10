@@ -3,7 +3,8 @@ canonicalURL: https://spacelift.io/blog/terraform-in-ci-cd
 ShowCanonicalLink: true
 title: "Guide to Using Terraform in CI/CD"
 date: 2021-11-24T22:20:45+02:00
-description: "How to configure, how to run, and what to mind for when using Terraform in CI/CD"
+description: How to configure, how to run, and what to mind for when using Terraform in CI/CD
+summary: How to configure, how to run, and what to mind for when using Terraform in CI/CD
 cover:
     image: cover-image.png
     relative: true

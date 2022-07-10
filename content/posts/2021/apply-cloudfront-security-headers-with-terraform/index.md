@@ -1,7 +1,8 @@
 ---
 title: "Apply Cloudfront Security Headers With Terraform"
 date: 2021-11-05T14:20:58+02:00
-description: "This blog explains how to use Response Headers Policy and Terraform to configure security headers for CloudFront Distribution"
+description: How to use Response Headers Policy and Terraform to configure security headers for CloudFront Distribution
+summary: How to use Response Headers Policy and Terraform to configure security headers for CloudFront Distribution
 cover:
     image: cover-image.png
     relative: true

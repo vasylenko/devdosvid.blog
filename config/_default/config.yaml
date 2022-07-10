@@ -92,8 +92,8 @@ params:
     defaultTheme: light # dark, light
     disableThemeToggle: false
     ShowFullTextinRSS: true
-    ShowReadingTime: true
-    ShowWordCount: true
+    ShowReadingTime: false
+    ShowWordCount: false
     ShowShareButtons: false
     ShareButtons: ["twitter", "linkedin", "facebook", "reddit"]
     ShowPostNavLinks: true

@@ -1,7 +1,8 @@
 ---
 title: "Monterey Shortcuts for Easy and Fast Image Processing"
 date: 2022-01-31T23:46:04+02:00
-description: Some handy automation for image processing with Apple Shortcuts on your Mac 
+description: Some handy automation for image processing with Apple Shortcuts on your Mac
+summary: Some handy automation for image processing with Apple Shortcuts on your Mac
 cover:
     image: cover-image.png
     relative: true
