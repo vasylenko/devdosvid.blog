@@ -25,7 +25,7 @@ jobs:
       - name: Check if we have new or updated blog posts
         id: check_updated_posts
         run: |
-          blog_post_updates=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.pull_request.base.sha }}..${{ github.event.push.after }} | { grep 'content/posts/' || test $? = 1; } | cut -d '/' -f1-4 | uniq )
+          blog_post_updates=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.pull_request.base.sha }}..${{ github.event.after }} | { grep 'content/posts/' || test $? = 1; } | cut -d '/' -f1-4 | uniq )
           if [[ -n $blog_post_updates ]]
           then
             echo "::set-output name=has_updates::true"
