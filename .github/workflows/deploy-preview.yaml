@@ -7,6 +7,7 @@ env:
   CONTENT_DIR: publishdir
   CF_PREVIEW_PROJECT_NAME: devdosvid-preview
   DEPLOY_ENV_NAME: Preview
+  BASE_BLOG_ADDRESS: "https://devdosvid.blog"
 
 jobs:
   build:
@@ -14,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       has_updates: ${{steps.check_updated_posts.outputs.has_updates}}
-      updates_list: ${{steps.check_updated_posts.outputs.updates_list}}
+      blog_post_updates: ${{steps.check_updated_posts.outputs.blog_post_updates}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -24,15 +25,15 @@ jobs:
       - name: Check if we have new or updated blog posts
         id: check_updated_posts
         run: |
-          updates_list=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.before }}..${{ github.event.after }} | { grep 'content/posts/' || test $? = 1; } | cut -d '/' -f1-4 | uniq )
-          if [[ -n $updates_list ]]
+          blog_post_updates=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.before }}..${{ github.event.after }} | { grep 'content/posts/' || test $? = 1; } | cut -d '/' -f1-4 | uniq )
+          if [[ -n $blog_post_updates ]]
           then
             echo "::set-output name=has_updates::true"
-            echo "::set-output name=updates_list::$(echo $updates_list)"            
+            echo "::set-output name=blog_post_updates::$(echo $blog_post_updates)"            
           fi
 
       - name: Install Hugo
-        run: wget -q -c "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz" -O - | tar -xf
+        run: wget -q -c "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz" -O - | tar -xz
 
       - name: Build blog
         run: ./hugo --environment development --baseURL="" --debug --templateMetrics --templateMetricsHints
@@ -103,34 +104,36 @@ jobs:
     name: PSI tests
     runs-on: ubuntu-latest
     needs: [build,deploy]
-    if: ${{ needs.build.has_updates == true }}
+    if: ${{ needs.build.outputs.has_updates == true }}
     permissions:
       contents: read
       pull-requests: write
     steps:
       - uses: actions/checkout@v3
-      - name: Install Hugo
-        run: wget -q -c "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz" -O - | tar -xf
+
+      - name: Install Dependencies
+        run: | 
+          wget -q -c "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz" -O - | tar -xz
+          sudo npm install --silent --location=global psi
+
       - name: Run PSI tests
         id: psi_test
         run: |
-          sudo npm install --silent --location=global psi
-          gh_api_post_body=gh_api_post_body.md
-          ./hugo list all > all_blog_posts.txt
-          for blog_post in ${{ needs.build.outputs.updates_list }}
+          ./hugo list all > all_blog_posts
+          for blog_post in ${{ needs.build.outputs.blog_post_updates }}
           do
-             blog_post_url=$(grep $blog_post all_blog_posts.txt | awk -F ',' '{print $(NF)}'| sed "s,https://devdosvid.blog,${{ needs.deploy.outputs.cf_preview_url }},g" )
-             echo "### $blog_post_url" >> $gh_api_post_body
+             blog_post_url=$(grep $blog_post all_blog_posts | awk -F ',' '{print $(NF)}'| sed "s,${{ env.BASE_BLOG_ADDRESS }},${{ needs.deploy.outputs.cf_preview_url }},g" )
+             echo "### $blog_post_url" >> gh_api_post_body
              for strategy in mobile desktop
              do
-               echo -e "\n" >> $gh_api_post_body
-               echo -e "### ${strategy^} tests\n" >> $gh_api_post_body
-               echo "Metric | Value" >> $gh_api_post_body
-               echo "------ | -----" >> $gh_api_post_body
-               psi $blog_post_url --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy $strategy --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> $gh_api_post_body
+               echo -e "\n" >> gh_api_post_body
+               echo -e "### ${strategy^} tests\n" >> gh_api_post_body
+               echo "Metric | Value" >> gh_api_post_body
+               echo "------ | -----" >> gh_api_post_body
+               psi $blog_post_url --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy $strategy --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> gh_api_post_body
              done
           done
-          echo "::set-output name=api_post_body::$(cat $gh_api_post_body | sed 's/$/\\n/' | tr -d '\n')"
+          echo "::set-output name=api_post_body::$(cat gh_api_post_body | sed 's/$/\\n/' | tr -d '\n')"
 
       - name: Add deployment link and test URL to the PR comment
         run: |
