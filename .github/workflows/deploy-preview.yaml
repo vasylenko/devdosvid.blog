@@ -157,7 +157,5 @@ jobs:
           -H 'Content-Type: text/x-markdown' \
           -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.number }}/comments \
-          -d '{"body":"${{ steps.psi_test.outputs.api_post_body }}"}' \
-          > response.txt
-          grep -q "HTTP/2 201" response.txt || cat response.txt && exit 1
+          -d '{"body":"${{ steps.psi_test.outputs.api_post_body }}"}'
     # https://docs.github.com/en/rest/issues/comments#create-an-issue-comment--status-codes
