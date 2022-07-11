@@ -117,11 +117,12 @@ jobs:
           sudo npm install --silent --location=global psi
 
       - name: Prepare PSI test links for the PR comment
+        id: psi_test
         run: |
           ./hugo list all > all_blog_posts
           echo -e "### PSI tests for updated blog posts:\n" >> gh_api_post_body
-          echo -e "**${psi_base_url}${{env.BASE_BLOG_ADDRESS}}**" >> gh_api_post_body
           psi_base_url="https://pagespeed.web.dev/report?url="
+          echo -e "** ${psi_base_url}${{env.BASE_BLOG_ADDRESS}} **" >> gh_api_post_body
           for blog_post in ${{ needs.build.outputs.blog_post_updates }}
           do
             blog_post_url=$(grep $blog_post all_blog_posts | awk -F ',' '{print $(NF)}'| sed "s,${{ env.BASE_BLOG_ADDRESS }},${{ needs.deploy.outputs.cf_preview_url }},g" )
