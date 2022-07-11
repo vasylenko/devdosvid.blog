@@ -2,7 +2,8 @@
 title: "New Lifecycle Options and Refactoring Capabilities in Terraform 1.1 and 1.2"
 slug: new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2
 date: 2022-05-04T22:27:47+02:00
-description: New features that expand resources management options 
+description: Terraform code refactoring and resource lifecycle conditions, and triggers — now natively available  
+summary: Terraform code refactoring and resource lifecycle conditions, and triggers — now natively available
 cover:
     image: cover-image.png
     relative: true

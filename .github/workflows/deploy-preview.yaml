@@ -25,7 +25,7 @@ jobs:
       - name: Check if we have new or updated blog posts
         id: check_updated_posts
         run: |
-          blog_post_updates=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.before }}..${{ github.event.after }} | { grep 'content/posts/' || test $? = 1; } | cut -d '/' -f1-4 | uniq )
+          blog_post_updates=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.pull_request.base.sha }}..${{ github.event.after }} | { grep 'content/posts/' || test $? = 1; } | cut -d '/' -f1-4 | uniq )
           if [[ -n $blog_post_updates ]]
           then
             echo "::set-output name=has_updates::true"
@@ -116,34 +116,46 @@ jobs:
           wget -q -c "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz" -O - | tar -xz
           sudo npm install --silent --location=global psi
 
-      - name: Run PSI tests
+      - name: Prepare PSI test links for the PR comment
         id: psi_test
         run: |
           ./hugo list all > all_blog_posts
+          echo -e "### PSI tests for updated blog posts:\n" >> gh_api_post_body
+          psi_base_url="https://pagespeed.web.dev/report?url="
+          echo -e "[**${{ needs.deploy.outputs.cf_preview_url }}**](${psi_base_url}${{ needs.deploy.outputs.cf_preview_url }})" >> gh_api_post_body
           for blog_post in ${{ needs.build.outputs.blog_post_updates }}
           do
-             blog_post_url=$(grep $blog_post all_blog_posts | awk -F ',' '{print $(NF)}'| sed "s,${{ env.BASE_BLOG_ADDRESS }},${{ needs.deploy.outputs.cf_preview_url }},g" )
-             echo "### $blog_post_url" >> gh_api_post_body
-             for strategy in mobile desktop
-             do
-               echo -e "\n" >> gh_api_post_body
-               echo -e "### ${strategy^} tests\n" >> gh_api_post_body
-               echo "Metric | Value" >> gh_api_post_body
-               echo "------ | -----" >> gh_api_post_body
-               psi $blog_post_url --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy $strategy --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> gh_api_post_body
-             done
+            blog_post_url=$(grep $blog_post all_blog_posts | awk -F ',' '{print $(NF)}'| sed "s,${{ env.BASE_BLOG_ADDRESS }},${{ needs.deploy.outputs.cf_preview_url }},g" )
+            echo -e "\n[**${blog_post}**](${psi_base_url}${blog_post_url})" >> gh_api_post_body
           done
           echo "::set-output name=api_post_body::$(cat gh_api_post_body | sed 's/$/\\n/' | tr -d '\n')"
+          cat gh_api_post_body
+#      - name: Run PSI tests
+#        id: psi_test
+#        run: |
+#          ./hugo list all > all_blog_posts
+#          for blog_post in ${{ needs.build.outputs.blog_post_updates }}
+#          do
+#             blog_post_url=$(grep $blog_post all_blog_posts | awk -F ',' '{print $(NF)}'| sed "s,${{ env.BASE_BLOG_ADDRESS }},${{ needs.deploy.outputs.cf_preview_url }},g" )
+#             echo "### $blog_post_url" >> gh_api_post_body
+#             for strategy in mobile desktop
+#             do
+#               echo -e "\n" >> gh_api_post_body
+#               echo -e "### ${strategy^} tests\n" >> gh_api_post_body
+#               echo "Metric | Value" >> gh_api_post_body
+#               echo "------ | -----" >> gh_api_post_body
+#               psi $blog_post_url --key ${{ secrets.GOOGLE_PSI_API_KEY }} --strategy $strategy --format json|jq -r '.ruleResults|to_entries[]|[.key,.value]|@csv' |tr -d '"'|tr ',' '|' >> gh_api_post_body
+#             done
+#          done
+#          echo "::set-output name=api_post_body::$(cat gh_api_post_body | sed 's/$/\\n/' | tr -d '\n')"
 
-      - name: Add deployment link and test URL to the PR comment
+      - name: Post PSI tests info to the PR comment
         run: |
-          curl -s -i -o /dev/null -w "%{http_code}" \
+          curl -s -i -w "%{http_code}" \
           -X POST \
           -H "Accept: application/vnd.github+json" \
           -H 'Content-Type: text/x-markdown' \
           -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.number }}/comments \
-          -d '{"body":"${{ steps.psi_test.outputs.api_post_body }}"}' \
-          > response_code.txt
-          grep -q 201 response_code.txt || exit 1
+          -d '{"body":"${{ steps.psi_test.outputs.api_post_body }}"}'
     # https://docs.github.com/en/rest/issues/comments#create-an-issue-comment--status-codes

@@ -1,22 +1,32 @@
 @media(min-width:800px) {
+    article.post-entry {
+        display: grid;
+        grid-template-areas: "fig head"
+                             "fig content"
+                             "fig footer";
+    }
+
+    header.post-entry.entry-header h2 {
+        grid-area: head;
+        align-self: start;
+    }
     .post-entry figure.entry-cover {
-        float: left;
-        margin: auto 5px auto 0;
+        grid-area: fig;
+        align-self: stretch;
+        margin: auto 10px auto 0;
     }
     .post-entry figure.entry-cover img {
         width: 300px;
-        max-height: 150px;
 =    }
 
-    header.post-entry.entry-header h2 {
-
-    }
     .post-entry div.entry-content {
-        margin: 2em 0 2em 0;
+        grid-area: content;
+        margin: auto 0 auto 0;
     }
     .post-entry footer.entry-footer {
-        float: right;
+        grid-area: footer;
+        text-align: right;
+        align-self: end;
     }
-
 }
 
