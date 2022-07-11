@@ -116,10 +116,11 @@ jobs:
           wget -q -c "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz" -O - | tar -xz
           sudo npm install --silent --location=global psi
 
-      - name: Post PSI test links to the PR comment
+      - name: Prepare PSI test links for the PR comment
         run: |
           ./hugo list all > all_blog_posts
           echo -e "### PSI tests for updated blog posts:\n" >> gh_api_post_body
+          echo -e "**${psi_base_url}${{env.BASE_BLOG_ADDRESS}}**" >> gh_api_post_body
           psi_base_url="https://pagespeed.web.dev/report?url="
           for blog_post in ${{ needs.build.outputs.blog_post_updates }}
           do
@@ -146,7 +147,7 @@ jobs:
 #          done
 #          echo "::set-output name=api_post_body::$(cat gh_api_post_body | sed 's/$/\\n/' | tr -d '\n')"
 
-      - name: Add deployment link and test URL to the PR comment
+      - name: Post PSI tests info to the PR comment
         run: |
           curl -s -i -o /dev/null -w "%{http_code}" \
           -X POST \
@@ -155,6 +156,6 @@ jobs:
           -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.number }}/comments \
           -d '{"body":"${{ steps.psi_test.outputs.api_post_body }}"}' \
-          > response_code.txt
-          grep -q 201 response_code.txt || exit 1
+          > response.txt
+          grep -q "HTTP/2 201" response.txt || cat response.txt && exit 1
     # https://docs.github.com/en/rest/issues/comments#create-an-issue-comment--status-codes
