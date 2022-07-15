@@ -99,6 +99,8 @@ However, AWS does not manage or support the Apple hardware's internal SSD. So th
 - And the same relates to the Elastic Network Interfaces — attach and reboot the instance to apply it.
 - It does not support several services that rely on additional custom software, such as "EC2 Instance Connect" and "AWS Inspect." But I think that AWS will add macOS distros for those soon.
 
+As of July 2022, mac2.metal is not supported by Host Resource Groups. Therefore you cannot use mac2.metal Instances in Auto Scaling Groups. But AWS support says they are working on that, so fingers crossed!
+
 ## Launching the Instance
 
 {{<figure src="launch.png" width="400" height="200">}}

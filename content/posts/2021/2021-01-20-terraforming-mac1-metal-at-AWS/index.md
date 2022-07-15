@@ -2,6 +2,7 @@
 date: "2021-01-20T00:00:00Z"
 showtoc: false
 description: How to manage mac1.metal EC2 instances with Terraform
+summary: How to manage mac1.metal EC2 instances with Terraform
 images: ["2021-01-20-terraforming-mac1-metal-at-AWS.jpg"]
 cover:
     image: "2021-01-20-terraforming-mac1-metal-at-AWS.jpg"
@@ -9,7 +10,7 @@ subtitle: Infrastructure as Code for macOS instances
 tags: ["aws", "terraform", "automation", "ec2"]
 categories: [Amazon Web Services, Terraform]
 title: Terraforming mac1.metal at AWS
-url: /2021/01/20/terraforming-mac1-metal-at-AWS.html
+aliases: ["/2021/01/20/terraforming-mac1-metal-at-AWS.html"]
 series: ["mac1.metal at AWS"]
 ---
 

@@ -2,6 +2,7 @@
 date: "2020-08-06T00:00:00Z"
 title: Manage Ansible playbook secrets with AWS services
 description: A quick guide to secure secrets management with Ansible in AWS
+summary: A quick guide to secure secrets management with Ansible in AWS
 images: ["2020-08-06-ansible-secrets-aws-ssm-sm.png"]
 cover:
     image: "2020-08-06-ansible-secrets-aws-ssm-sm.png"

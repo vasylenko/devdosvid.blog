@@ -1,10 +1,11 @@
 ---
 date: "2020-05-02T00:00:00Z"
-description: For those who want to understand the engineering team better and speak with it in the same language — terraform explained.
+description: What is Terraform, how does it work, why and when do you need it
+summary: What is Terraform, how does it work, why and when do you need it
 tags: ["terraform", "tutorials"]
 categories: [Terraform]
 title: Terraform explained in English
-url: /2020/05/02/Terraform-explained-for-managers.html
+aliases: ["/2020/05/02/Terraform-explained-for-managers.html"]
 cover:
     image: cover-image.png
 images: ["2020-05-02-terraform-explained-for-managers.png"]

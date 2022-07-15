@@ -1,6 +1,7 @@
 ---
 date: "2020-09-15T00:00:00Z"
 description: Summary of a learning path to HashiCorp Certified — Terraform Associate
+summary: Summary of a learning path to HashiCorp Certified — Terraform Associate
 images: ["terraform-associate.png"]
 cover:
     image: terraform-associate.png
@@ -8,7 +9,7 @@ description: Summary of a learning path to HashiCorp Certified — Terraform Ass
 tags: ["terraform"]
 categories: [Terraform]
 title: Terraform Certification Tips
-url: /2020/09/15/terraform-certification-tips.html
+aliases: ["/2020/09/15/terraform-certification-tips.html"]
 ---
 I successfully passed the "HashiCorp Certified — Terraform Associate" exam last Friday and decided to share some advice for exam preparation.
 

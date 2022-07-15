@@ -1,7 +1,8 @@
 ---
 date: "2020-03-15T20:16:20Z"
 description: Sharing my AWS SAA exam results
-url: /2020/03/15/aws-solutions-architect-associate-exam-tips.html
+summary: Sharing my AWS SAA exam results
+aliases: ["/2020/03/15/aws-solutions-architect-associate-exam-tips.html"]
 cover:
    image: 2020-03-15-aws-solutions-architect-associate-exam-tips_AWS-Certified_Solutions-Architect_Associate.png
 images: ["2020-03-15-aws-solutions-architect-associate-exam-tips_AWS-Certified_Solutions-Architect_Associate.png"]
