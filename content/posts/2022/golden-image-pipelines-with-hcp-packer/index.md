@@ -6,7 +6,7 @@ description: How to create an end-to-end golden image workflow with the HCP Pack
 cover:
     image: cover-image.png
     relative: true
-tags: ["packer","terraform","cloud","ami","pipeline","infrastructure as code"]
+tags: ["packer","terraform","cloud","ami","pipeline","infrastructure as code", "ec2 ami", "hcp cloud"]
 categories: ["terraform","infrastructure"]
 ---
 

@@ -6,8 +6,8 @@ tags: ["devops"]
 categories: [Workplace Experience]
 url: /2020/03/20/devops-team-in-outsource-a-team.html
 cover:
-    image: 2020-03-20-devops-team-in-outsource-a-team_heading-image.png
-images: ["2020-03-20-devops-team-in-outsource-a-team_heading-image.png"]
+    image: cover-image.png
+    relative: true
 draft: true
 ---
 

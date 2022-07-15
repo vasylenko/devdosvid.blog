@@ -1,10 +1,11 @@
 ---
 date: "2021-02-01T00:00:00Z"
-description: How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer
-summary: How to build mac1.metal Instance AMI for CI/CD using Ansible and Packer"
+description: How to build macOS EC2 Instance AMI for CI/CD using Ansible and Packer
+summary: How to build macOS EC2 Instance AMI for CI/CD using Ansible and Packer
 cover:
-  image: "2021-02-01-customizing-mac1-metal-ec2-ami.png"
-tags: ["aws", "ansible", "packer", "macos", "ec2"]
+  image: "cover-image.png"
+  relative: true
+tags: ["aws", "ansible", "packer", "macos", "ec2", "customize mac metal", "mac1.metal", "mac2.metal"]
 categories: [Amazon Web Services, Ansible]
 title: Customizing mac1.metal EC2 AMI — new guts, more glory
 aliases: ["/2021/02/01/customizing-mac1-metal-ec2-ami.html"]

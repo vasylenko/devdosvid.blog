@@ -2,13 +2,13 @@
 date: "2020-05-02T00:00:00Z"
 description: What is Terraform, how does it work, why and when do you need it
 summary: What is Terraform, how does it work, why and when do you need it
-tags: ["terraform", "tutorials"]
+tags: ["terraform", "tutorials", "explained", "infrastructure as code"]
 categories: [Terraform]
 title: Terraform explained in English
 aliases: ["/2020/05/02/Terraform-explained-for-managers.html"]
 cover:
     image: cover-image.png
-images: ["2020-05-02-terraform-explained-for-managers.png"]
+    relative: true
 ---
 
 You might have heard about Terraform before, but if you have never tried it, this blog can help you to get the main point.
@@ -149,8 +149,6 @@ The expressions are used to set the values (for many things), such as the value 
 The functions in Terraform are built-in jobs you can call to transform and combine values. For example, the `tolist()` function converts its argument to a list value.
 
 ## And this is it?
-
-{{< figure src="done or.png" >}}
 
 Yes, in short words — this is what Terraform is. Not rocket science if it's about to manage a small infrastructure, but it gets more complicated with bigger infrastructure. Like any other engineering tool, though.
 

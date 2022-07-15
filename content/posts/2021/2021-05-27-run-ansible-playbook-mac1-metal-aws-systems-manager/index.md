@@ -1,7 +1,7 @@
 ---
 date: "2021-05-27T00:00:00Z"
-description: A small adjustment for big capabilities
-summary: A small adjustment for big capabilities
+description: Configuration management for mac1.metal and mac2.metal AWS Instances 
+summary: Configuration management for mac1.metal and mac2.metal AWS Instances
 cover:
   image: cover-image.png
   relative: true

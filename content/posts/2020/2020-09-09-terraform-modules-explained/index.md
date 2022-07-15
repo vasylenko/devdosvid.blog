@@ -2,9 +2,9 @@
 canonicalURL: https://www.freecodecamp.org/news/terraform-modules-explained/
 ShowCanonicalLink: true
 date: "2020-09-09T00:00:00Z"
-images: ["terraform-modules.jpeg"]
 cover:
-    image: terraform-modules.jpeg
+    image: cover-image.jpeg
+    relative: true
 description: Explanation of Terraform modules and their main concepts in English.
 summary: Explanation of Terraform modules and their main concepts in English.
 tags: ["terraform","tutorials"]

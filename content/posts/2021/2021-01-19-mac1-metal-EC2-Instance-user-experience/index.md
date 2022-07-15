@@ -3,12 +3,12 @@ date: "2021-01-19T00:00:00Z"
 title: mac1.metal and mac2.metal EC2 Instances — user experience
 description: Apple macOS development ecosystem with the power of AWS Cloud
 summary: Apple macOS development ecosystem with the power of AWS Cloud
-images: ["2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg"]
 cover:
-  image: 2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg
-tags: ["aws", "macos", "ec2"]
+  image: cover-image.jpg
+  relative: true
+tags: ["aws", "macos", "ec2", "mac1.metal", "mac2.metal", "macos ci/cd"]
 categories: [Amazon Web Services]
-url: /2021/01/19/mac1-metal-EC2-Instance-user-experience.html
+aliases: ["/2021/01/19/mac1-metal-EC2-Instance-user-experience.html"]
 series: ["mac1.metal at AWS"]
 ---
 

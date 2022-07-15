@@ -5,7 +5,8 @@ description: A quick guide to secure secrets management with Ansible in AWS
 summary: A quick guide to secure secrets management with Ansible in AWS
 images: ["2020-08-06-ansible-secrets-aws-ssm-sm.png"]
 cover:
-    image: "2020-08-06-ansible-secrets-aws-ssm-sm.png"
+    image: cover-image.png
+    relative: true
 description: A better way to store sensitive information for Ansible on EC2 or other services
 tags: ["ansible", "aws", "devops", "security", "ssm"]
 categories: [Amazon Web Services, Ansible]
