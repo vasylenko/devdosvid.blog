@@ -8,7 +8,7 @@ summary: How to configure, how to run, and what to mind for when using Terraform
 cover:
     image: cover-image.png
     relative: true
-tags: ["terraform", "cli", "automation"]
+tags: ["terraform", "cli", "automation", "CI/CD", "terraform productivity", "devops", "terraform in CI"]
 categories: [Terraform]
 showtoc: false
 series: ["Terraform Proficiency"]

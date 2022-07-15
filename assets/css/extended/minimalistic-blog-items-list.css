@@ -1,6 +1,8 @@
 @media(min-width:800px) {
     article.post-entry {
         display: grid;
+        grid-template-columns: minmax(min-content,300px);
+        grid-template-rows: auto auto 1fr;
         grid-template-areas: "fig head"
                              "fig content"
                              "fig footer";
@@ -13,7 +15,9 @@
     .post-entry figure.entry-cover {
         grid-area: fig;
         align-self: stretch;
-        margin: auto 10px auto 0;
+        margin-bottom: 0;
+        margin-right: 10px;
+        width: 300px;
     }
     .post-entry figure.entry-cover img {
         width: 300px;
@@ -21,6 +25,7 @@
 
     .post-entry div.entry-content {
         grid-area: content;
+        alignment: top;
         margin: auto 0 auto 0;
     }
     .post-entry footer.entry-footer {

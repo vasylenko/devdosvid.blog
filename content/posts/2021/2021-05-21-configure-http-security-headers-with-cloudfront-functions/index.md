@@ -5,7 +5,8 @@ summary: Modifying response headers to enforce the security of the web applicati
 images: ["cover_image.png"]
 cover:
     image: "cover-image.png"
-tags: ["aws", "cloudfront", "security"]
+    relative: true
+tags: ["aws", "cloudfront", "security", "cloudfront headers", "cdn"]
 categories: [Amazon Web Services]
 title: Configure HTTP Security headers with CloudFront Functions
 aliases: ["/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html"]

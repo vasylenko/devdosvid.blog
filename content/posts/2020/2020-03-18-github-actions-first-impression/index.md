@@ -1,12 +1,13 @@
 ---
 date: "2020-03-18T00:30:20Z"
 description: My first meet with github actions... in action.
+summary: My first meet with github actions... in action.
 tags: ["github","automation"]
 title: Github Actions - First impression
-url: /2020/03/18/github-actions-first-impression.html
-images: ["cover.png"]
+aliases: ["/2020/03/18/github-actions-first-impression.html"]
 cover:
-    image: cover.png
+    image: cover-image.png
+    relative: true
 ---
 Although Github Actions service is generally available since November 13, 2020, and there are about 243,000,000 results for "github actions" in Google search already, I have just reached it...
 

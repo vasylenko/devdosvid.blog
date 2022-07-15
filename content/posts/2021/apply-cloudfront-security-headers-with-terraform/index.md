@@ -6,7 +6,7 @@ summary: How to use Response Headers Policy and Terraform to configure security 
 cover:
     image: cover-image.png
     relative: true
-tags: ["aws", "cloudfront", "security", "terraform"]
+tags: ["aws", "cloudfront", "security", "terraform", "cdn", "http headers"]
 categories: [Amazon Web Services, Terraform]
 showtoc: false
 ---

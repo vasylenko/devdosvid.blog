@@ -6,7 +6,7 @@ summary: Learn what cool things Terraform can do with its built-in functionality
 cover:
     image: cover-image.png
     relative: true
-tags: [terraform, experience, guide]
+tags: [terraform, experience, guide,productivity, "code quality", "terraform code"]
 categories: [Terraform]
 series: ["Terraform Proficiency"]
 ---

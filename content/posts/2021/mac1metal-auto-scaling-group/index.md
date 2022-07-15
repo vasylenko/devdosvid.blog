@@ -1,12 +1,12 @@
 ---
 title: "Auto Scaling Group for your macOS EC2 Instances fleet"
 date: 2021-10-24T02:00:31+03:00
-description: Scale EC2 Mac Instances fleet with the Licence Manager and ASG services
-summary: Scale EC2 Mac Instances fleet with the Licence Manager and ASG services
+description: Scale macOS EC2 Instances fleet with the Licence Manager and ASG services
+summary: Scale macOS EC2 Instances fleet with the Licence Manager and ASG services
 cover:
     image: cover-image.png
     relative: true
-tags: [aws, architecture]
+tags: [aws, architecture, macos, autoscaling, mac1.metal, mac2.metal]
 categories: [Amazon Web Services]
 aliases: ["/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances"]
 series: ["mac1.metal at AWS"]

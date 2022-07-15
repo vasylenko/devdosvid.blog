@@ -3,12 +3,12 @@ date: "2021-01-19T00:00:00Z"
 title: mac1.metal and mac2.metal EC2 Instances — user experience
 description: Apple macOS development ecosystem with the power of AWS Cloud
 summary: Apple macOS development ecosystem with the power of AWS Cloud
-images: ["2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg"]
 cover:
-  image: 2021-01-19-mac1-metal-EC2-Instance-user-experience.jpg
-tags: ["aws", "macos", "ec2"]
+  image: cover-image.jpg
+  relative: true
+tags: ["aws", "macos", "ec2", "mac1.metal", "mac2.metal", "macos ci/cd"]
 categories: [Amazon Web Services]
-url: /2021/01/19/mac1-metal-EC2-Instance-user-experience.html
+aliases: ["/2021/01/19/mac1-metal-EC2-Instance-user-experience.html"]
 series: ["mac1.metal at AWS"]
 ---
 
@@ -98,6 +98,8 @@ However, AWS does not manage or support the Apple hardware's internal SSD. So th
 - It does not recognize the live resize of EBS either — you must reboot the instance so resize change can take effect.
 - And the same relates to the Elastic Network Interfaces — attach and reboot the instance to apply it.
 - It does not support several services that rely on additional custom software, such as "EC2 Instance Connect" and "AWS Inspect." But I think that AWS will add macOS distros for those soon.
+
+As of July 2022, mac2.metal is not supported by Host Resource Groups. Therefore you cannot use mac2.metal Instances in Auto Scaling Groups. But AWS support says they are working on that, so fingers crossed!
 
 ## Launching the Instance
 

@@ -6,7 +6,7 @@ summary: Provision and manage resources within the AWS Organization with ease
 cover:
     image: cover-image.png
     relative: true
-tags: [aws, architecture, governance]
+tags: [aws, architecture, governance, organization, "resource management"]
 categories: [Amazon Web Services]
 ---
 

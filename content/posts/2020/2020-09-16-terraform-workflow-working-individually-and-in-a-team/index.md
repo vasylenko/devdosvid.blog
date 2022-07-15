@@ -3,13 +3,14 @@ canonicalURL: https://www.freecodecamp.org/news/terraform-workflow-working-indiv
 ShowCanonicalLink: true
 date: "2020-09-16T00:00:00Z"
 description: An overview of best practices for working with Terraform individually or in a team
-images: ["tf-workflows.jpeg"]
+summary: An overview of best practices for working with Terraform individually or in a team
 cover:
-  image: tf-workflows.jpeg
-tags: ["Terraform", "Tutorials"]
+  image: cover-image.jpeg
+  relative: true
+tags: ["Terraform", "Tutorials", "terraform workflow", "terraform productivity"]
 categories: [Terraform]
 title: Terraform Workflow — Working Individually and in a Team
-url: /2020/09/16/terraform-workflow-working-individually-and-in-a-team.html
+aliases: ["/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html"]
 ---
 The work with Terraform code may become tangled sometimes. Here are some guides on how to streamline it and make it transparent for you and your team.
 
