@@ -23,65 +23,87 @@ Developer Experience engineer, DevOps enthusiast. In 2020 I switched from team m
 
 Certified: AWS Solutions Architect Associate, Terraform Associate.
 
-From Nov'20
-:   **Developer Experience Engineer at [Grammarly](https://grammarly.com) (full-time)**
+## Professional Experience
+{{< cv-job-title 
+logo="assets/grammarly.png" 
+header="Developer Experience Engineer" 
+link="https://grammarly.com/"
+company="Grammarly" 
+dates="Since Nov 2020" >}}
 
-    Making day-to-day work of developers more productive and agile by:
-    - Providing automation and tooling for routine SDLC procedures
-    - Enriching experience in Infrastructure, Automation, Observability areas
-    - Standardizing commonly used infrastructure components
+Making day-to-day work of developers more productive and agile by:
+- Providing automation and tooling for routine SDLC procedures
+- Enriching experience in Infrastructure, Automation, Observability areas
+- Standardizing commonly used infrastructure components
 
+Projects: [macOS-based CI/CD](/series/mac1.metal-at-aws/), Platform University, GitLab CI Infrastructure on K8s
 
-Jul'20 — Sep'21
-:   **DevOps Coach at [Hillel IT School](https://ithillel.ua/) (part-time)**
+{{< cv-job-title
+logo="assets/hillel.png"
+header="DevOps Coach"
+link="https://kharkiv.ithillel.ua/coaches/sergey-vasilenko"
+company="Hillel IT School"
+dates="Jul'20 - Sep'21" >}}
 
-    Teaching DevOps and doing workshops about AWS and Terraform.
+Gave DevOps classes to diverse people with different backgrounds and skillsets: sysadmins and developers from IT, students from the university, and sales managers from retail. There was one thing in common: they all wanted to know what DevOps is and how it works.
 
-Mar'17 – Jun'20
-:   **DevOps Teamlead at [ITCraft](https://itechcraft.com/blog/clients-amazon-aws-hosting/) (full-time)**
+Taught them how to work inside and with the development teams and use tools such as Terraform, Ansible, Jenkins, and Docker, and how to think DevOps.
 
-    My biggest project — my team. A skilled and highly motivated team of engineers that sincerely cares about its work outcomes.
+I believe it was a win-win for myself and my students: I could get a unique tutoring experience and fulfill my long-cherished dream of being a teacher, and my students could gain new jobs or promotions.
 
-    #### Key accomplishments:
+{{< cv-job-title 
+logo="assets/itcraft.png" 
+header="DevOps Teamlead" 
+company="ITCraft" 
+link="https://itechcraft.com/"
+dates="Mar'17 - Jun'20" >}}
 
-    - Created a team of engineers that completed more than 40 successful projects of different sizes;
-    - Team size growth: from 1 to 8;
-    - Tripled the number of shared projects with other departments by boosting department reputation and team visibility within the company;
-    - Introduced DevOps as a Service business model in the department;
-    - Mentored senior and middle engineers from junior newcomers;
-    - Fostered the culture of ownership.
+My biggest project — my team. A skilled and highly motivated team of engineers that sincerely cares about its work outcomes.
 
-    #### Challenges:
+#### Key accomplishments
 
-    - Transform team members' mindset toward ownership culture;
-    - Keep the team motivated despite workload level: during peaks and drawdowns;
-    - Justification of the advantages of my team to the clients on the pre-sales stage.
+- Created a team of engineers that completed more than 40 successful projects of different sizes;
+- Team size growth: from 1 to 8;
+- Tripled the number of shared projects with other departments by boosting department reputation and team visibility within the company;
+- Introduced DevOps as a Service business model in the department;
+- Mentored senior and middle engineers from junior newcomers;
+- Fostered the culture of ownership.
 
+#### Challenges
 
-Nov'14 – Sep'16
-:   **Chief Technologist at [YourServerAdmin](https://yourserveradmin.com/) (full-time)**
+- Transform team members' mindset toward ownership culture;
+- Keep the team motivated throughout ups and downs;
+- Justification of the advantages of my team to the clients on the pre-sales stage.
 
-    I was responsible for the technical side of processes inside the department and researching the new technologies we could implement for our clients.
+{{< cv-job-title
+logo="assets/ysa.png"
+header="Chief Technologist"
+company="YourServerAdmin"
+link="https://yourserveradmin.com/"
+dates="Nov'14 – Sep'16" >}}
 
-    Introduced ITIL practices together with our COO and, what I like the most, could change how our sysadmin's department worked with the development department. The work became more coordinated and more integrated.
+I was responsible for the technical side of processes inside the department and researching the new technologies we could implement for our clients.
 
+Introduced ITIL practices together with our COO and, what I like the most, could change how our sysadmin's department worked with the development department. The work became more coordinated and more integrated.
 
-    Also, I managed the projects using practices from PRINCE2 methodology and the Theory of Constraints.
-    
-    #### Key accomplishments:
-    
-    - Improved technical expertise of a support team;
-    - Improved task management;
-    - Increased team size;
-    - Fostered the change of team mindset to Agile thinking.
+#### Key accomplishments
 
-Jun'11 – Nov'14
-:   **System Administrator / Support Engineer at [YourServerAdmin](https://yourserveradmin.com/) (full-time)**
+- Improved technical expertise of a support team;
+- Improved task management;
+- Increased team size;
+- Fostered the change of team mindset to Agile thinking.
 
-    Started my career in IT: grew up from a Level-1 tech support engineer (communication with customers and initial problem analysis) to Level-3 System Administrator responsible for complex technical tasks and daily shift management.
+{{< cv-job-title
+logo="assets/ysa.png"
+header="System Administrator, Support Engineer"
+company="YourServerAdmin"
+link="https://yourserveradmin.com/"
+dates="Jun'11 – Nov'14" >}}
 
-Skills
-----------------------------------
+Started my career in IT: grew up from a Level-1 tech support engineer (communication with customers and initial problem analysis) to Level-3 System Administrator responsible for complex technical tasks and daily shift management.
+
+## Skills
+
 Team Leader
 :   Team motivation, mentorship, cultivation of soft/hard skills of team members.\
 Fostering team values and working principles and developing the new ones together with the team.\
@@ -101,8 +123,7 @@ Terraform, Docker, Ansible, Nginx, Apache, Databases.
 English
 :   C1 (CEFR) / Advanced.
 
-Activities and interests
-------------------------
+## Activities and interests
 Travel
 :   I like to explore new cities and countries, and I like trekking. I've been to the Annapurna base camp, and now I want to visit Everest's base camp.
 
