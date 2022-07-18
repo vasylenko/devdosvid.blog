@@ -2,15 +2,15 @@ div.cv-job-title {
     margin-top: 2em;
     margin-bottom: 1em;
     display: grid;
-    grid-template-columns: 60px max-content;
+    grid-template-columns: 60px auto;
     grid-template-rows:  max-content max-content;
     grid-template-areas: "img head"
                          "img details";
 }
 img.cv-job-title {
     grid-area: img;
-    margin: 0 auto auto 0;
-    max-width: 60px;
+    margin: 0 auto;
+    max-height: 50px;
 
 }
 h3.cv-job-title {
