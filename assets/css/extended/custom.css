@@ -167,27 +167,3 @@ footer.post-footer {
     margin-top: 1em;
 }
 
-@media print {
-    body {
-        font-family: Verdana, Helvetica, sans-serif;
-        max-width: 850px;
-        font-size: 14px;
-    }
-    h1,h2,h3,h4,h4+ul,dd,dt{
-        page-break-after: avoid;
-    }
-    dd, ul, li {
-        page-break-inside: avoid;
-    }
-
-    h6, .header, .footer, .post-footer, .breadcrumbs, .post-meta, .toc, .top-link {
-        display: none !important;
-    }
-    a {
-        font-weight: bold;
-        text-decoration: none;
-        color: black;
-        pointer-events: none;
-        cursor: default;
-    }
-}

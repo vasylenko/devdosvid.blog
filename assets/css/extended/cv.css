@@ -1,0 +1,55 @@
+div.cv-job-title {
+    margin-top: 2em;
+    margin-bottom: 1em;
+    display: grid;
+    grid-template-columns: 60px auto;
+    grid-template-rows:  max-content max-content;
+    grid-template-areas: "img head"
+                         "img details";
+}
+img.cv-job-title {
+    grid-area: img;
+    margin: 0 auto;
+    max-height: 50px;
+
+}
+h3.cv-job-title {
+    line-height: 1em;
+    grid-area: head;
+    margin: 0 auto 0 10px;
+
+}
+p.cv-job-title {
+    grid-area: details;
+    margin: 0 auto 0 10px;
+    align-self: end;
+}
+
+@media print {
+    body {
+        font-family: Verdana, Helvetica, sans-serif;
+        max-width: 850px;
+        font-size: 14px;
+    }
+    h1,h2,h3,h4,h4+ul,dd,dt{
+        break-after: avoid;
+        color: black;
+    }
+    dd, ul, li {
+        break-inside: avoid;
+    }
+
+    h6, .header, .footer, .post-footer, .breadcrumbs, .post-meta, .toc, .top-link {
+        display: none !important;
+    }
+    a {
+        font-weight: bold;
+        text-decoration: none;
+        color: black;
+        pointer-events: none;
+        cursor: default;
+    }
+    .post-content {
+        color: black;
+    }
+}
