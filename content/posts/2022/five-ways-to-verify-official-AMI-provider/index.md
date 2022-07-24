@@ -1,5 +1,5 @@
 ---
-title: "Five Ways to get the verified official AMI"
+title: "Five ways to get the verified official EC2 AMI"
 date: 2022-07-24T15:21:05+02:00
 summary: ~112 or ~22 words
 description: How to find the verified official AMI of the needed OS among thousands available in AWS ~112 or ~22 words
@@ -53,10 +53,13 @@ For example, here is how you can find the same Amazon Linux 2 AMI by specifying 
 
 {{<figure src="verified-official-amazon-linux-2-ami-terraform-datasource.png" caption="Finding the official Amazon Linux 2 AMI with Terraform">}}
 
-
 ## AWS CLI
 
+{{<figure src="verified-official-amazon-linux-2-ami-in-aws-cli.png" caption="Find the verified AMI with AWS CLI">}}
+
 ## AWS Systems Manager Parameter Store
+
+{{<figure src="verified-official-amazon-eks-optimized-ami-aws-cli.png" caption="Get the latest EKS optimized AMI from SSM">}}
 
 https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-finding-public-parameters.html
 
