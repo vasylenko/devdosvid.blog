@@ -1,5 +1,5 @@
 ---
-title: "Ways to get the verified EC2 AMI"
+title: "Five Practical Ways To Get The Verified EC2 AMI"
 date: 2022-07-24T15:21:05+02:00
 summary: How to find the AMI you cat trust among thousands available in AWS
 description: How to find the AMI you cat trust among thousands available in AWS
