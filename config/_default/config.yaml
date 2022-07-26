@@ -72,7 +72,10 @@ outputs:
 
 rssLimit: 20
 
-# disqusShortname:
+imaging:
+  hint: drawing
+  quality: 70
+  resampleFilter: Box
 
 ### THEME SETTINGS
 params:
@@ -100,12 +103,14 @@ params:
     ShowBreadCrumbs: true
     ShowCodeCopyButtons: true
     disableSpecial1stPost: false
-    disableScrollToTop: false
+    disableScrollToTop: true
     comments: false
     hidemeta: false
     hideSummary: false
     showtoc: false
     tocopen: false
+    hideFooter: true
+
 
     schema:
         publisherType: "Person"
@@ -126,7 +131,7 @@ params:
     homeInfoParams:
         Title: "devDosvid — my technical blog"
         Content: "This blog shares my experience and findings related to technologies I use in my day-to-day work, and all-around-devops practices.
-        Thank you for reading me! 💙💛"
+        Thank you for reading me!"
     cover:
         hidden: false # hide everywhere but not in structured data
         hiddenInList: false # hide on list pages and home
