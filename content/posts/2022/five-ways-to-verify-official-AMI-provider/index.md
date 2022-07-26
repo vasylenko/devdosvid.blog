@@ -6,6 +6,7 @@ description: How to find the AMI you cat trust among thousands available in AWS
 cover:
     image: cover-image.png
     relative: true
+    alt: How to find the AMI you cat trust among thousands available in AWS
 tags: [ami, ec2 ami, official ami, verified ami, aws ssm, aws cli, terraform, ami catalog]
 categories: []
 ---
