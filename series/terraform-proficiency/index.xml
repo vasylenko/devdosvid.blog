@@ -3,7 +3,7 @@
     <title>devDosvid — my engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/series/terraform-proficiency/"/>
-    <updated>2022-07-24T13:16:33Z</updated>
+    <updated>2022-07-26T00:23:32Z</updated>
     <author>
         <name>devDosvid — my engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
@@ -11,6 +11,136 @@
     <generator>Hugo gohugo.io</generator>
     <logo>https://devdosvid.blog/assets/img/websitelogo.jpg</logo>
     <link rel="alternate" type="text/html" href="https://devdosvid.blog/series/terraform-proficiency/" hreflang="en-us"/>
+    <entry>
+        <title>Five Practical Ways To Get The Verified EC2 AMI</title>
+        <link href="https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/" hreflang="en" rel="alternate"/>
+        <published>2022-07-24T13:21:05Z</published>
+        <updated>2022-07-26T00:23:09Z</updated>
+        <id>https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/</id>
+        <author>
+            <name>Serhii Vasylenko</name>
+        </author>
+        <logo>https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/cover-image.png</logo>
+        <content type="html">&lt;p&gt;EC2 AMI catalog consists of more than 160k public AMIs — a mix of Images created by users, published by vendors, and provided by AWS.&lt;/p&gt;
+&lt;p&gt;So how to ensure that an AMI comes from the verified vendor or that is an official AMI published by AWS?&lt;/p&gt;
+&lt;p&gt;How to find the trusted AMI among them all when you&amp;rsquo;re about to launch an EC2 Instance?&lt;/p&gt;
+&lt;figure&gt;
+
+
+
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;who-is-ami-owner.png&#34;
+    alt=&#34;Find the Waldo verified AMI owner&#34;width=&#34;800&#34;
+height=&#34;400.00&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Find the &lt;del&gt;Waldo&lt;/del&gt; verified AMI owner&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;On AWS, it&amp;rsquo;s typical that something can be made or done in several ways — that&amp;rsquo;s awesome. Some of them work better than others, some methods are official, and some you can use just for fun (&lt;a href=&#34;https://www.lastweekinaws.com/blog/the-17-ways-to-run-containers-on-aws/&#34;&gt;check&lt;/a&gt; &lt;a href=&#34;https://www.lastweekinaws.com/blog/17-more-ways-to-run-containers-on-aws/&#34;&gt;that&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;In this article, I will describe five ways of getting the official and verified AMI for your next EC2 Instance launch.&lt;/p&gt;
+&lt;h2 id=&#34;use-ec2-launch-wizard-and-ami-catalog-to-get-the-official-ami&#34;&gt;Use EC2 Launch Wizard and AMI Catalog to get the official AMI&lt;/h2&gt;
+&lt;p&gt;When launching an EC2 Instance from a Management Console, you can apply the &amp;ldquo;Verified Provider&amp;rdquo; filter for the Community AMIs tab to ensure you get an AMI from a verified provider. The &amp;ldquo;Verified provider&amp;rdquo; label means an AMI is owned by an Amazon verified account.&lt;/p&gt;
+&lt;p&gt;In the following example, I want to make sure that the Ubuntu 20.04 AMI comes from the verified source:&lt;/p&gt;
+&lt;figure&gt;
+
+
+
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;verified-ami-in-ami-catalog.png&#34;
+    alt=&#34;Verified AMI in the AMI Catalog&#34;width=&#34;800&#34;
+height=&#34;413.65&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Verified AMI in the AMI Catalog&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;In the past, you had to compare the AMI Owner ID with the publicly shared list of verified Owner IDs for every region. Not rocket science, but it takes time. So now it&amp;rsquo;s much more straightforward, thanks to the &amp;ldquo;Verified Provider&amp;rdquo; label.&lt;/p&gt;
+&lt;p&gt;This feature also works great when you are creating a Launch Template. The Launch Template creation wizard seamlessly guides you from itself to the AMI Catalog (where you can search and pick the AMI) and back again.&lt;/p&gt;
+&lt;h2 id=&#34;look-for-verified-amis-on-the-ami-page&#34;&gt;Look for verified AMIs on the AMI page&lt;/h2&gt;
+&lt;p&gt;Another interface in the Management Console acts as the AMI browser. It does not have any fancy name except for the &amp;ldquo;AMIs page&amp;rdquo;, but you probably already know about it: it looks like a list of AMIs, and you can see it when you click on the &amp;ldquo;AMIs&amp;rdquo; menu item on the left side of the EC2 page menu.&lt;/p&gt;
+&lt;p&gt;The AMI page allows you to leverage the API filters to narrow down the search, and the &amp;ldquo;Owner alias&amp;rdquo; filter is the one you need to ensure that an AMI comes from a trusted owner.&lt;/p&gt;
+&lt;p&gt;Here is how it looks for my search of the official Amazon Linux 2 AMI:&lt;/p&gt;
+&lt;figure&gt;
+
+
+
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;verified-amazon-linux-2-ami-in-ami-browser-ec2-console.png&#34;
+    alt=&#34;Official Amazon Linux 2 AMI&#34;width=&#34;800&#34;
+height=&#34;400.00&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Official Amazon Linux 2 AMI&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;AMIs shared by verified sources have &lt;code&gt;amazon&lt;/code&gt; (for AWS) or &lt;code&gt;aws-marketplace&lt;/code&gt; (for AWS partners) as the value for the Owner alias filter.&lt;/p&gt;
+&lt;h2 id=&#34;find-the-ec2-ami-with-terraform&#34;&gt;Find the EC2 AMI with Terraform&lt;/h2&gt;
+&lt;p&gt;Finding the official AMI with Terraform is also simple — the &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami&#34;&gt;aws_ami data source&lt;/a&gt; does the job.&lt;/p&gt;
+&lt;p&gt;For example, here is how you can find the same Amazon Linux 2 AMI by specifying the &lt;code&gt;amazon&lt;/code&gt; as the value for the &lt;code&gt;owner&lt;/code&gt; argument of the data source:&lt;/p&gt;
+&lt;figure&gt;
+
+
+
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;verified-official-amazon-linux-2-ami-terraform-datasource.png&#34;
+    alt=&#34;Finding the official Amazon Linux 2 AMI with Terraform&#34;width=&#34;800&#34;
+height=&#34;580.24&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Finding the official Amazon Linux 2 AMI with Terraform&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Compare that with the filters on the AMI page — it looks similar, right? This is because of how Terraform works: it translates your code into API calls and sends them to AWS API endpoints.&lt;/p&gt;
+&lt;p&gt;If you&amp;rsquo;re very new to Terraform, I suggest reading this article to understand the basic concepts: &lt;a href=&#34;https://devdosvid.blog/2020/05/02/terraform-explained-in-english/&#34;&gt;Terraform explained in English&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;find-the-official-aws-ami-using-describe-images-cli&#34;&gt;Find the official AWS AMI using Describe Images CLI&lt;/h2&gt;
+&lt;p&gt;Sometimes you might need to get the AMI from CLI to pass it along as an argument downstream of the pipeline.&lt;/p&gt;
+&lt;p&gt;This can be done with the &lt;strong&gt;ec2 describe-images&lt;/strong&gt; command of the AWS CLI
+&lt;figure&gt;
+
+
+
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;verified-official-amazon-linux-2-ami-in-aws-cli.png&#34;
+    alt=&#34;Find the verified AMI with AWS CLI&#34;width=&#34;800&#34;
+height=&#34;486.75&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Find the verified AMI with AWS CLI&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;The API filters I mentioned before also work here — use them to narrow your search.&lt;/p&gt;
+&lt;h2 id=&#34;find-the-trusted-aws-ami-with-ssm&#34;&gt;Find the trusted AWS AMI with SSM&lt;/h2&gt;
+&lt;p&gt;Another way that involves AWS CLI is the &lt;strong&gt;ssm get-parameter&lt;/strong&gt; command:
+&lt;figure&gt;
+
+
+
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;verified-official-amazon-eks-optimized-ami-aws-cli.png&#34;
+    alt=&#34;Get the latest EKS optimized AMI from SSM&#34;width=&#34;800&#34;
+height=&#34;213.69&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;Get the latest EKS optimized AMI from SSM&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;It reveals one helpful feature of the Systems Manager — the Public parameters.&lt;/p&gt;
+&lt;p&gt;Systems Manager Public parameters are how AWS distributes some widely used artifacts related to their services.&lt;/p&gt;
+&lt;p&gt;For example, you can find official AMIs for many distributives there: Amazon Linux, Windows, macOS, Bottlerocket, Ubuntu, Debian, and FreeBSD.&lt;/p&gt;
+&lt;p&gt;Read more at the &lt;a href=&#34;https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-finding-public-parameters.html&#34;&gt;Finding public parameters&lt;/a&gt; documentation page if you want to know more.&lt;/p&gt;
+&lt;h2 id=&#34;are-all-verified-amis-good&#34;&gt;Are all verified AMIs good?&lt;/h2&gt;
+&lt;p&gt;The &amp;ldquo;Verified provider&amp;rdquo; badge can be earned by a third party only when an AMI developer is registered as a Seller on the AWS Marketplace.&lt;/p&gt;
+&lt;p&gt;Becoming a Seller there is not trivial and requires some &lt;a href=&#34;https://docs.aws.amazon.com/marketplace/latest/userguide/user-guide-for-sellers.html#seller-requirements-for-publishing-free-products&#34;&gt;conditions&lt;/a&gt; to be met, and the &lt;a href=&#34;https://docs.aws.amazon.com/marketplace/latest/userguide/seller-registration-process.html&#34;&gt;registration process&lt;/a&gt; itself also implies submitting the tax and banking information.&lt;/p&gt;
+&lt;p&gt;Additionally, there are &lt;a href=&#34;https://docs.aws.amazon.com/marketplace/latest/userguide/product-and-ami-policies.html&#34;&gt;specific policies and review processes&lt;/a&gt; apply to all AMIs submitted to the Marketplace.&lt;/p&gt;
+&lt;p&gt;So it is okay to trust the third-party vendors with the &amp;ldquo;Verified&amp;rdquo; badge on a certain level. However, it is also always good to have additional scans and validation of the software you use. 🪲 😉&lt;/p&gt;</content>
+    </entry>
     <entry>
         <title>Golden Image Pipelines With HCP Packer</title>
         <link href="https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/" hreflang="en" rel="alternate"/>
@@ -2811,67 +2941,5 @@ main.tf      outputs.tf   variables.tf versions.tf
 module_ecs_cluster/ecs.tf
 module_alb/alb.tf
 &lt;/code&gt;&lt;/pre&gt;</content>
-    </entry>
-    <entry>
-        <title>Manage Ansible playbook secrets with AWS services</title>
-        <link href="https://devdosvid.blog/2020/08/06/manage-ansible-playbook-secrets-with-aws-services/" hreflang="en" rel="alternate"/>
-        <published>2020-08-06T00:00:00Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
-        <id>https://devdosvid.blog/2020/08/06/manage-ansible-playbook-secrets-with-aws-services/</id>
-        <author>
-            <name>Serhii Vasylenko</name>
-        </author>
-        <logo>https://devdosvid.blog/2020/08/06/manage-ansible-playbook-secrets-with-aws-services/cover-image.png</logo>
-        <content type="html">&lt;p&gt;Lookup plugins for Ansible allow you to do a lot of cool things. One of them is to securely pass sensitive information to your playbooks.&lt;/p&gt;
-&lt;p&gt;If you manage some apps in AWS with Ansible, then using Parameter Store or Secrets Manager along with it might greatly improve your security.&lt;/p&gt;
-&lt;p&gt;Described plugins are the part of &lt;code&gt;amazon.aws&lt;/code&gt; collection in &lt;a href=&#34;https://galaxy.ansible.com/amazon/aws&#34;&gt;Ansible Galaxy.&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Run the following command to install this collection:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ansible-galaxy collection install amazon.aws
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;variables-with-ssm-parameter-store&#34;&gt;Variables with SSM Parameter Store&lt;/h2&gt;
-&lt;p&gt;Let&amp;rsquo;s say you have some variables defined in &amp;lsquo;defaults/main.yaml&amp;rsquo; file of your role or maybe in group_vars.yaml file.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# content of dev.vars.yaml to be included in your play or role&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;use_tls&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;application_port&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;3000&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;app_env&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;development&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;stripe_api_key&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1HGASU2eZvKYlo2CT5MEcnC39HqLyjWD&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you store such things locally on Ansible control node, you probably encrypt it with &lt;a href=&#34;https://docs.ansible.com/ansible/latest/user_guide/vault.html&#34;&gt;ansible-vault&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;SSM Parameter Store gives you more flexibility and security by centralized storage and management of parameters and secrets, so let&amp;rsquo;s use it with Ansible:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# content of dev.vars.yaml to be included in your play or role&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;use_tls&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ lookup(&amp;#39;amazon.aws.aws_ssm&amp;#39;, &amp;#39;/dev/webserver/use_tls&amp;#39;, bypath=true) }}&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;application_port&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ lookup(&amp;#39;amazon.aws.aws_ssm&amp;#39;, &amp;#39;/dev/webserver/application_port&amp;#39;, bypath=true) }}&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;app_env&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ lookup(&amp;#39;amazon.aws.aws_ssm&amp;#39;, &amp;#39;/dev/webserver/app_env&amp;#39;, bypath=true) }}&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;stripe_api_key&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ lookup(&amp;#39;amazon.aws.aws_ssm&amp;#39;, &amp;#39;/dev/webserver/stripe_api_key&amp;#39;, bypath=true) }}&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The syntax is fairly simple:&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;aws_ssm&lt;/code&gt; – is the name of the lookup plugin.&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;/dev/webserver/use_tls&lt;/code&gt; – is the path to the key in the SSM Paramter Store.&lt;/p&gt;
-&lt;p&gt;You can use this anywhere you can use templating: in a play, in variables file, or a Jinja2 template.&lt;/p&gt;
-&lt;h2 id=&#34;variables-with-secret-manager&#34;&gt;Variables with Secret Manager&lt;/h2&gt;
-&lt;p&gt;Another lookup plugin is Secrets Manager. Secrets Manager stores sensitive information in JSON format, supports rotation, encryption and other cool stuff.&lt;/p&gt;
-&lt;p&gt;Here is a quick example of its functionality in a Playbook:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Extract something secrets from Secret Manager&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;debug&lt;/span&gt;:
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;msg&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ lookup(&amp;#39;amazon.aws.aws_secret&amp;#39;, &amp;#39;DatabaseConnectionSettings&amp;#39;)}}&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The above task will generate the following output&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;TASK &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Extract something secrets from Secret Manager&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; ****************************************************
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ok: &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;some_server&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;msg&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dbname&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;database&amp;#34;&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;engine&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;mysql&amp;#34;&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;host&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;password&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;p@&lt;/span&gt;$$&lt;span style=&#34;color:#e6db74&#34;&gt;w0rd&amp;#34;&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;port&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;3306&amp;#34;&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;username&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;db_user&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This is nice if you want to insert a JSON as is, but you will need additional parsing in case you want to get only some of JSON elements.&lt;/p&gt;
-&lt;h2 id=&#34;benefits-from-using-lookup-plugins&#34;&gt;Benefits from using lookup plugins&lt;/h2&gt;
-&lt;p&gt;The biggest win here is the security — no sensitive information in the source code.&lt;/p&gt;
-&lt;p&gt;Another benefit is the convenience of data management: instead using built-in local vault, you can manage the secrets in centralized way.&lt;/p&gt;
-&lt;p&gt;One of the common use cases for this kind of setup is CI/CD pipelines that generally run in stateless environments.&lt;/p&gt;
-&lt;p&gt;When using lookup plugins for Secrets Manager and Parameter Store, mind the access permissions. The assumed IAM role must allow at least the read access to SSM Parameter Store (&#43; KMS read access to be able to decrypt the keys) or the read access to Secrets Manager.&lt;/p&gt;
-&lt;p&gt;You can find documentation for described plugins here &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup/aws_ssm.html&#34;&gt;aws_ssm&lt;/a&gt; and here &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup/aws_secret.html&#34;&gt;aws_secret&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;More about lookup plugins: &lt;a href=&#34;https://docs.ansible.com/ansible/latest/plugins/lookup.html&#34;&gt;https://docs.ansible.com/ansible/latest/plugins/lookup.html&lt;/a&gt;&lt;/p&gt;</content>
     </entry>
 </feed>
