@@ -8,7 +8,6 @@ cover:
     relative: true
 tags: [ami, ec2 ami, official ami, verified ami, aws ssm, aws cli, terraform, ami catalog]
 categories: []
-draft: true
 ---
 
 EC2 AMI catalog consists of more than 160k public AMIs — a mix of Images created by users, published by vendors, and provided by AWS.
