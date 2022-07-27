@@ -3,7 +3,7 @@
     <title>devDosvid — my engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/posts/"/>
-    <updated>2022-07-27T08:32:03Z</updated>
+    <updated>2022-07-27T14:00:08Z</updated>
     <author>
         <name>devDosvid — my engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
@@ -409,7 +409,7 @@ height=&#34;501.24&#34;
         <title>New Lifecycle Options and Refactoring Capabilities in Terraform 1.1 and 1.2</title>
         <link href="https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/" hreflang="en" rel="alternate"/>
         <published>2022-05-04T20:27:47Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
+        <updated>2022-07-27T13:59:35Z</updated>
         <id>https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -785,7 +785,7 @@ height=&#34;1176.98&#34;
         <title>Some Techniques to Enhance Your Terraform Proficiency</title>
         <link href="https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/" hreflang="en" rel="alternate"/>
         <published>2022-01-15T23:59:51Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
+        <updated>2022-07-27T13:59:35Z</updated>
         <id>https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -795,8 +795,8 @@ height=&#34;1176.98&#34;
 &lt;div class=&#34;attention&#34;&gt;
     Some code examples in this article will work with Terraform version 0.15 and onwards. But if you&amp;rsquo;re still using 0.14 or lower, here&amp;rsquo;s another motivation for you to upgrade.
 &lt;/div&gt;
-&lt;h2 id=&#34;conditional-resource-creation-or-how-to-implement-the-if-else-statement-in-terraform&#34;&gt;Conditional resource creation or how to implement the if-else statement in Terraform&lt;/h2&gt;
-&lt;p&gt;&lt;figure&gt;
+&lt;h2 id=&#34;conditional-resource-creation-or-how-to-implement-the-if-else-statement-in-terraform&#34;&gt;Conditional resource creation or how to implement the &amp;ldquo;if else&amp;rdquo; statement in Terraform&lt;/h2&gt;
+&lt;figure&gt;
 
 
 
@@ -807,7 +807,9 @@ height=&#34;400.00&#34;
 /&gt; 
 &lt;/figure&gt;
 
-Let&amp;rsquo;s start from the most popular one (although, still may be new for somebody): whether to create a resource depending on some fact, e.g., the value of a variable. Terraform meta-argument &lt;code&gt;count&lt;/code&gt; helps to describe that kind of logic.&lt;/p&gt;
+&lt;p&gt;With Terraform, you can have a conditional module or a resource creation by implementing the ternary operator — so-called Conditional Expressions.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s start from the most popular one: whether to create a resource depending on some fact, e.g., the value of a variable.&lt;/p&gt;
+&lt;p&gt;Terraform meta-argument &lt;code&gt;count&lt;/code&gt; helps to describe that kind of resource creation logic.&lt;/p&gt;
 &lt;p&gt;Here is how it may look like:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;data&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;aws_ssm_parameter&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ami_id&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;    = var.&lt;span style=&#34;color:#a6e22e&#34;&gt;ami_channel&lt;/span&gt; =&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
@@ -830,7 +832,7 @@ Let&amp;rsquo;s start from the most popular one (although, still may be new for 
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;var.create_bucket == true ? 1 : 0&lt;/code&gt;  expression can be written even shorter: &lt;code&gt;var.create_bucket ? 1 : 0&lt;/code&gt;  because the &lt;code&gt;create_bucket&lt;/code&gt; variable has boolean type, apparently.&lt;/p&gt;
 &lt;p&gt;But what if you need to produce more than one instance of a resource or module? And still be able to avoid their creation.&lt;/p&gt;
 &lt;p&gt;Another meta-argument — &lt;code&gt;for_each&lt;/code&gt; — will do the trick.&lt;/p&gt;
-&lt;p&gt;For example, this is how it looks for a module:&lt;/p&gt;
+&lt;p&gt;For example, this is how the &lt;code&gt;for_each&lt;/code&gt; argument works for the conditional module creation:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bucket&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;for_each&lt;/span&gt;          = var.&lt;span style=&#34;color:#a6e22e&#34;&gt;bucket_names&lt;/span&gt; =&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [] &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; [] &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; var.&lt;span style=&#34;color:#a6e22e&#34;&gt;bucket_names&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;            = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./modules/s3_bucket&amp;#34;&lt;/span&gt;
@@ -850,8 +852,8 @@ Let&amp;rsquo;s start from the most popular one (although, still may be new for 
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;cidr_blocks&lt;/span&gt;        = [each.&lt;span style=&#34;color:#a6e22e&#34;&gt;value&lt;/span&gt;]
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;security_group_id&lt;/span&gt;  = &lt;span style=&#34;color:#a6e22e&#34;&gt;aws_security_group&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;bastion&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;id&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And just like with the &lt;code&gt;count&lt;/code&gt; meta-argument, with the  &lt;code&gt;for_each&lt;/code&gt;, resource addresses will have the identifier named by the values provided to &lt;code&gt;for_each&lt;/code&gt;.
-For example, here is how I would reference a resource created in the module with &lt;code&gt;for_each&lt;/code&gt; described earlier:&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And just like with the &lt;code&gt;count&lt;/code&gt; meta-argument, with the &lt;code&gt;for_each&lt;/code&gt;, resource addresses will have the identifier named by the values provided to &lt;code&gt;for_each&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;For example, here is how I would reference a resource created in the module with &lt;code&gt;for_each&lt;/code&gt; described earlier:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;bucket_name&lt;/span&gt; = module.&lt;span style=&#34;color:#a6e22e&#34;&gt;bucket&lt;/span&gt;[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;photos&amp;#34;&lt;/span&gt;].&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;conditional-resource-arguments-attributes-setting&#34;&gt;Conditional resource arguments (attributes) setting&lt;/h2&gt;
 &lt;figure&gt;
@@ -865,8 +867,8 @@ height=&#34;400.00&#34;
 /&gt; 
 &lt;/figure&gt;
 
-&lt;p&gt;Now let&amp;rsquo;s go deeper and see how resource arguments can be conditionally set (or not).
-First, let&amp;rsquo;s review the conditional argument value setting with the &lt;code&gt;null&lt;/code&gt; data type:&lt;/p&gt;
+&lt;p&gt;Now let&amp;rsquo;s go deeper and see how resource arguments can be conditionally set (or not).&lt;/p&gt;
+&lt;p&gt;First, let&amp;rsquo;s review the conditional argument value setting with the &lt;code&gt;null&lt;/code&gt; data type:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;aws_launch_template&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;this&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;     = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;my-launch-template&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ...
@@ -2210,7 +2212,7 @@ height=&#34;702.36&#34;
         <title>mac1.metal and mac2.metal EC2 Instances — user experience</title>
         <link href="https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/" hreflang="en" rel="alternate"/>
         <published>2021-01-19T00:00:00Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
+        <updated>2022-07-27T13:59:35Z</updated>
         <id>https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/</id>
         <author>
             <name>Serhii Vasylenko</name>
