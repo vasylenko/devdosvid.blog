@@ -7,7 +7,7 @@ summary: Terraform code refactoring and resource lifecycle conditions, and trigg
 cover:
     image: cover-image.png
     relative: true
-tags: [terraform,refactoring,experience,"terraform productivity","code quality","conditional resources"]
+tags: ["terraform refactoring","terraform productivity","terraform code quality","terraform conditional resources","terraform moved block","terraform 1.1","terraform 1.2"]
 categories: [Terraform]
 series: ["Terraform Proficiency"]
 showtoc: true

@@ -6,7 +6,7 @@ summary: Learn what cool things Terraform can do with its built-in functionality
 cover:
     image: cover-image.png
     relative: true
-tags: [terraform, experience, guide,productivity, "code quality", "terraform code"]
+tags: ["terraform if statement", "terraform if else", "terraform conditional resource","terraform conditional module", "terraform code quality", "terraform if variable exists"]
 categories: [Terraform]
 series: ["Terraform Proficiency"]
 ---
@@ -16,9 +16,14 @@ Terraform built-in functionality is very feature-rich: functions, expressions,  
 Some code examples in this article will work with Terraform version 0.15 and onwards. But if you're still using 0.14 or lower, here's another motivation for you to upgrade.
 {{</attention>}}
 
-## Conditional resource creation or how to implement the if-else statement in Terraform
+## Conditional resource creation or how to implement the "if else" statement in Terraform
 {{<figure src="condiitonal-resource-creation.png" width="400">}}
-Let's start from the most popular one (although, still may be new for somebody): whether to create a resource depending on some fact, e.g., the value of a variable. Terraform meta-argument `count` helps to describe that kind of logic.
+
+With Terraform, you can have a conditional module or a resource creation by implementing the ternary operator — so-called Conditional Expressions.
+
+Let's start from the most popular one: whether to create a resource depending on some fact, e.g., the value of a variable.
+
+Terraform meta-argument `count` helps to describe that kind of resource creation logic.
 
 Here is how it may look like:
 ```terraform
@@ -59,7 +64,7 @@ But what if you need to produce more than one instance of a resource or module? 
 
 Another meta-argument — `for_each` — will do the trick.
 
-For example, this is how it looks for a module:
+For example, this is how the `for_each` argument works for the conditional module creation:
 ```terraform
 module "bucket" {
   for_each          = var.bucket_names == [] ? [] : var.bucket_names
@@ -87,7 +92,8 @@ resource "aws_security_group_rule" "allowlist" {
 }
 ```
 
-And just like with the `count` meta-argument, with the  `for_each`, resource addresses will have the identifier named by the values provided to `for_each`.
+And just like with the `count` meta-argument, with the `for_each`, resource addresses will have the identifier named by the values provided to `for_each`.
+
 For example, here is how I would reference a resource created in the module with `for_each` described earlier:
 ```terraform
 bucket_name = module.bucket["photos"].name
@@ -97,6 +103,7 @@ bucket_name = module.bucket["photos"].name
 {{<figure src="conditional-resource-argument.png" width="400">}}
 
 Now let's go deeper and see how resource arguments can be conditionally set (or not).
+
 First, let's review the conditional argument value setting with the `null` data type:
 ```terraform
 resource "aws_launch_template" "this" {

@@ -6,7 +6,7 @@ summary: Apple macOS development ecosystem with the power of AWS Cloud
 cover:
   image: cover-image.jpg
   relative: true
-tags: ["aws", "macos", "ec2", "mac1.metal", "mac2.metal", "macos ci/cd"]
+tags: ["mac1 metal", "macos aws", "mac1 metal pricing", "mac2 metal pricing", "mac1.metal", "mac2.metal", "aws mac ec2 pricing"]
 categories: [Amazon Web Services]
 aliases: ["/2021/01/19/mac1-metal-EC2-Instance-user-experience.html"]
 series: ["mac1.metal at AWS"]
