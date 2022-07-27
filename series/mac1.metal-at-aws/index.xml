@@ -3,7 +3,7 @@
     <title>devDosvid — my engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/series/mac1.metal-at-aws/"/>
-    <updated>2022-07-26T13:58:06Z</updated>
+    <updated>2022-07-27T08:32:03Z</updated>
     <author>
         <name>devDosvid — my engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
@@ -15,13 +15,13 @@
         <title>Five Practical Ways To Get The Verified EC2 AMI</title>
         <link href="https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/" hreflang="en" rel="alternate"/>
         <published>2022-07-24T13:21:05Z</published>
-        <updated>2022-07-26T00:23:09Z</updated>
+        <updated>2022-07-27T08:31:21Z</updated>
         <id>https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/</id>
         <author>
             <name>Serhii Vasylenko</name>
         </author>
         <logo>https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/cover-image.png</logo>
-        <content type="html">&lt;p&gt;EC2 AMI catalog consists of more than 160k public AMIs — a mix of Images created by users, published by vendors, and provided by AWS.&lt;/p&gt;
+        <content type="html">&lt;p&gt;EC2 AMI catalog consists of more than 160k public AMIs — a mix of shared AMIs created by users, published by vendors, and provided by AWS.&lt;/p&gt;
 &lt;p&gt;So how to ensure that an AMI comes from the verified vendor or that is an official AMI published by AWS?&lt;/p&gt;
 &lt;p&gt;How to find the trusted AMI among them all when you&amp;rsquo;re about to launch an EC2 Instance?&lt;/p&gt;
 &lt;figure&gt;
@@ -96,7 +96,7 @@ height=&#34;580.24&#34;
 &lt;/figure&gt;
 
 &lt;p&gt;Compare that with the filters on the AMI page — it looks similar, right? This is because of how Terraform works: it translates your code into API calls and sends them to AWS API endpoints.&lt;/p&gt;
-&lt;p&gt;If you&amp;rsquo;re very new to Terraform, I suggest reading this article to understand the basic concepts: &lt;a href=&#34;https://devdosvid.blog/2020/05/02/terraform-explained-in-english/&#34;&gt;Terraform explained in English&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;If you&amp;rsquo;re very new to Terraform, I suggest reading this article to understand the basic concepts of Terraform and Infrastructure as Code: &lt;a href=&#34;https://devdosvid.blog/2020/05/02/terraform-explained-in-english/&#34;&gt;Terraform explained in English&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;find-the-official-aws-ami-using-describe-images-cli&#34;&gt;Find the official AWS AMI using Describe Images CLI&lt;/h2&gt;
 &lt;p&gt;Sometimes you might need to get the AMI from CLI to pass it along as an argument downstream of the pipeline.&lt;/p&gt;
 &lt;p&gt;This can be done with the &lt;strong&gt;ec2 describe-images&lt;/strong&gt; command of the AWS CLI
