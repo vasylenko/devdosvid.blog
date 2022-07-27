@@ -7,11 +7,11 @@ cover:
     image: cover-image.png
     relative: true
     alt: How to find the AMI you cat trust among thousands available in AWS
-tags: [ami, ec2 ami, official ami, verified ami, aws ssm, aws cli, terraform, ami catalog]
+tags: [ami, ec2 ami, official ami, verified ami, aws ssm, aws cli, terraform, ami catalog, shared amis]
 categories: []
 ---
 
-EC2 AMI catalog consists of more than 160k public AMIs — a mix of Images created by users, published by vendors, and provided by AWS.
+EC2 AMI catalog consists of more than 160k public AMIs — a mix of shared AMIs created by users, published by vendors, and provided by AWS.
 
 So how to ensure that an AMI comes from the verified vendor or that is an official AMI published by AWS?
 
@@ -57,7 +57,7 @@ For example, here is how you can find the same Amazon Linux 2 AMI by specifying 
 
 Compare that with the filters on the AMI page — it looks similar, right? This is because of how Terraform works: it translates your code into API calls and sends them to AWS API endpoints.
 
-If you're very new to Terraform, I suggest reading this article to understand the basic concepts: [Terraform explained in English]({{< ref "/posts/2020/2020-05-02-terraform-explained-for-managers/index.md">}})
+If you're very new to Terraform, I suggest reading this article to understand the basic concepts of Terraform and Infrastructure as Code: [Terraform explained in English]({{< ref "/posts/2020/2020-05-02-terraform-explained-for-managers/index.md">}})
 
 ## Find the official AWS AMI using Describe Images CLI
 
