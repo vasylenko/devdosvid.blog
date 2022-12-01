@@ -3,7 +3,7 @@ on:
   pull_request:
 
 env:
-  HUGO_VERSION: 0.101.0
+  HUGO_VERSION: 0.107.0
   CONTENT_DIR: publishdir
   CF_PREVIEW_PROJECT_NAME: devdosvid-preview
   DEPLOY_ENV_NAME: Preview

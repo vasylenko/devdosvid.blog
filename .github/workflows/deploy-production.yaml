@@ -8,7 +8,7 @@ on:
 env:
   GHPAGES_BRANCH: gh-pages-hugo
   SITEMAP_URL: https://devdosvid.blog/sitemap.xml
-  HUGO_VERSION: 0.101.0
+  HUGO_VERSION: 0.107.0
   CONTENT_DIR: publishdir
 
 jobs:
