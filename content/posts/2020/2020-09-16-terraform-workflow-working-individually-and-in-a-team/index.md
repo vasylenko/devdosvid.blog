@@ -11,6 +11,7 @@ tags: ["Terraform", "Tutorials", "terraform workflow", "terraform productivity"]
 categories: [Terraform]
 title: Terraform Workflow — Working Individually and in a Team
 aliases: ["/2020/09/16/terraform-workflow-working-individually-and-in-a-team.html"]
+series: ["Terraform Proficiency"]
 ---
 The work with Terraform code may become tangled sometimes. Here are some guides on how to streamline it and make it transparent for you and your team.
 

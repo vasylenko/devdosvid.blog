@@ -11,6 +11,7 @@ tags: ["terraform","tutorials"]
 categories: [Terraform]
 title: What are Terraform Modules and how do they work?
 aliases: ["/2020/09/09/terraform-modules-explained.html"]
+series: ["Terraform Proficiency"]
 ---
 Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds of lines of configuration code.
 

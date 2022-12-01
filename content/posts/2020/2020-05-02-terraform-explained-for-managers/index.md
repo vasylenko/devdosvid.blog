@@ -6,6 +6,7 @@ tags: ["terraform", "tutorials", "explained", "infrastructure as code"]
 categories: [Terraform]
 title: Terraform explained in English
 aliases: ["/2020/05/02/Terraform-explained-for-managers.html"]
+series: ["Terraform Proficiency"]
 cover:
     image: cover-image.png
     relative: true

@@ -10,6 +10,7 @@ tags: ["terraform", "certification", "terraform associate exam", "hashicorp cert
 categories: [Terraform]
 title: Terraform Certification Tips
 aliases: ["/2020/09/15/terraform-certification-tips.html"]
+series: ["Terraform Proficiency"]
 ---
 I successfully passed the "HashiCorp Certified — Terraform Associate" exam last Friday and decided to share some advice for exam preparation.
 
