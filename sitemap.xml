@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://devdosvid.blog/</loc>
-    <lastmod>2022-07-27T15:59:35+02:00</lastmod>
+    <lastmod>2022-12-01T01:29:15+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/</loc>
@@ -11,7 +11,7 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/posts/</loc>
-    <lastmod>2022-07-27T15:59:35+02:00</lastmod>
+    <lastmod>2022-12-01T01:29:15+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/</loc>
@@ -23,11 +23,11 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/</loc>
-    <lastmod>2022-07-27T15:59:35+02:00</lastmod>
+    <lastmod>2022-12-01T01:29:15+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/terraform-proficiency/</loc>
-    <lastmod>2022-07-27T15:59:35+02:00</lastmod>
+    <lastmod>2022-12-01T01:29:15+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/</loc>
@@ -87,15 +87,15 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team/</loc>
-    <lastmod>2022-07-15T22:47:01+02:00</lastmod>
+    <lastmod>2022-12-01T01:29:15+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/09/15/terraform-certification-tips/</loc>
-    <lastmod>2022-07-15T22:47:01+02:00</lastmod>
+    <lastmod>2022-12-01T01:29:15+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/09/09/what-are-terraform-modules-and-how-do-they-work/</loc>
-    <lastmod>2022-07-15T22:47:01+02:00</lastmod>
+    <lastmod>2022-12-01T01:29:15+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts/</loc>
@@ -107,7 +107,7 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/05/02/terraform-explained-in-english/</loc>
-    <lastmod>2022-07-15T22:47:01+02:00</lastmod>
+    <lastmod>2022-12-01T01:29:15+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/03/18/github-actions-first-impression/</loc>

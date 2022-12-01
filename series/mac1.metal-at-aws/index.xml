@@ -3,7 +3,7 @@
     <title>devDosvid — my engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/series/mac1.metal-at-aws/"/>
-    <updated>2022-07-30T08:55:59Z</updated>
+    <updated>2022-12-01T00:29:51Z</updated>
     <author>
         <name>devDosvid — my engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
@@ -2464,7 +2464,7 @@ So it is not another &lt;a href=&#34;https://aws.amazon.com/devops-guru/&#34;&gt
         <title>Terraform Workflow — Working Individually and in a Team</title>
         <link href="https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team/" hreflang="en" rel="alternate"/>
         <published>2020-09-16T00:00:00Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
+        <updated>2022-12-01T00:29:15Z</updated>
         <id>https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2630,7 +2630,7 @@ height=&#34;238.20&#34;
         <title>Terraform Certification Tips</title>
         <link href="https://devdosvid.blog/2020/09/15/terraform-certification-tips/" hreflang="en" rel="alternate"/>
         <published>2020-09-15T00:00:00Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
+        <updated>2022-12-01T00:29:15Z</updated>
         <id>https://devdosvid.blog/2020/09/15/terraform-certification-tips/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2711,7 +2711,7 @@ height=&#34;650&#34;
         <title>What are Terraform Modules and how do they work?</title>
         <link href="https://devdosvid.blog/2020/09/09/what-are-terraform-modules-and-how-do-they-work/" hreflang="en" rel="alternate"/>
         <published>2020-09-09T00:00:00Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
+        <updated>2022-12-01T00:29:15Z</updated>
         <id>https://devdosvid.blog/2020/09/09/what-are-terraform-modules-and-how-do-they-work/</id>
         <author>
             <name>Serhii Vasylenko</name>
