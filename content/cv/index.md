@@ -36,7 +36,7 @@ Making day-to-day work of developers more productive and agile by:
 - Enriching experience in Infrastructure, Automation, and Observability areas
 - Standardizing commonly used infrastructure components
 
-Notable Projects: [macOS-based CI/CD](/series/mac1.metal-at-aws/), [Platform University](https://www.grammarly.com/blog/engineering/empowering-engineers-build-faster/), [GitLab CI Infrastructure on K8s](https://community.cncf.io/events/details/cncf-kcd-ukraine-presents-kcd-ukraine-2023-fundraiser/), Code Quality (to be updated)
+Notable Projects: [macOS-based CI/CD](/series/mac1.metal-at-aws/), [Platform University](https://www.grammarly.com/blog/engineering/empowering-engineers-build-faster/), GitLab CI Infrastructure on K8s (link to be updated)
 
 {{< cv-job-title
 logo="assets/hillel.png"
