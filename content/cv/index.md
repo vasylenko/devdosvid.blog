@@ -36,14 +36,14 @@ Making day-to-day work of developers more productive and agile by:
 - Enriching experience in Infrastructure, Automation, and Observability areas
 - Standardizing commonly used infrastructure components
 
-Projects: [macOS-based CI/CD](/series/mac1.metal-at-aws/), Platform University, GitLab CI Infrastructure on K8s
+Notable Projects: [macOS-based CI/CD](/series/mac1.metal-at-aws/), [Platform University](https://www.grammarly.com/blog/engineering/empowering-engineers-build-faster/), [GitLab CI Infrastructure on K8s](https://community.cncf.io/events/details/cncf-kcd-ukraine-presents-kcd-ukraine-2023-fundraiser/), Code Quality (to be updated)
 
 {{< cv-job-title
 logo="assets/hillel.png"
 header="DevOps Coach"
 link="https://kharkiv.ithillel.ua/coaches/sergey-vasilenko"
 company="Hillel IT School"
-dates="Jul'20 - Sep'21" >}}
+dates="Jul'20 - Mar'23" >}}
 
 Gave DevOps classes to diverse people with different backgrounds and skillsets: sysadmins and developers from IT, students from the university, and sales managers from retail. There was one thing in common: they all wanted to know what DevOps is and how it works.
 

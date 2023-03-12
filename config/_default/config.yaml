@@ -3,7 +3,7 @@ languageCode: en-us
 author:
     name: Serhii Vasylenko
     email: contact@devdosvid.blog
-    
+
 theme: "PaperMod"
 paginate: 5
 
@@ -38,10 +38,10 @@ menu:
           name: "RSS Feed"
           url: /index.xml
           weight: 1
-        - identifier: cv
-          name: "My CV"
-          url: /cv/
-          weight: 30
+#        - identifier: cv
+#          name: "My CV"
+#          url: /cv/
+#          weight: 30
 
 ### DECORATIONS
 markup:
