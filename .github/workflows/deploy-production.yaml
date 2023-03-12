@@ -6,10 +6,10 @@ on:
   workflow_dispatch:
 
 env:
+  HUGO_VERSION: 0.111.3
+  CONTENT_DIR: publishdir
   GHPAGES_BRANCH: gh-pages-hugo
   SITEMAP_URL: https://devdosvid.blog/sitemap.xml
-  HUGO_VERSION: 0.107.0
-  CONTENT_DIR: publishdir
 
 jobs:
   build:
@@ -29,12 +29,13 @@ jobs:
 
       - name: Build blog
         run: ./hugo --environment production --gc --minify --debug
-      
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
-        with: 
+        with:
           name: ${{ env.CONTENT_DIR }}
           path: ${{ env.CONTENT_DIR }}
+          retention-days: 1
 
   deploy:
     needs: [build]
@@ -46,10 +47,11 @@ jobs:
           ref: '${{ env.GHPAGES_BRANCH }}'
 
       - name: Get the new website content
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: ${{ env.CONTENT_DIR }}
           path: ./
+          retention-days: 1
 
       - name: Deploy website
         run: |
