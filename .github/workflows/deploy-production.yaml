@@ -35,6 +35,7 @@ jobs:
         with:
           name: ${{ env.CONTENT_DIR }}
           path: ${{ env.CONTENT_DIR }}
+          retention-days: 1
 
   deploy:
     needs: [build]
@@ -46,10 +47,11 @@ jobs:
           ref: '${{ env.GHPAGES_BRANCH }}'
 
       - name: Get the new website content
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: ${{ env.CONTENT_DIR }}
           path: ./
+          retention-days: 1
 
       - name: Deploy website
         run: |

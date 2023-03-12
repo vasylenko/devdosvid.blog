@@ -43,6 +43,7 @@ jobs:
         with:
           name: ${{ env.CONTENT_DIR }}
           path: ${{ env.CONTENT_DIR }}
+          retention-days: 1
 
   deploy:
     name: Deploy to Cloudflare Pages
@@ -56,10 +57,11 @@ jobs:
       cf_preview_url: ${{ steps.deploy_to_cloudflare.outputs.url }}
     steps:
       - name: Get the new website content
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: ${{ env.CONTENT_DIR }}
           path: ./${{ env.CONTENT_DIR }}
+          retention-days: 1
 
       - name: Create GH Deployment object
         uses: octokit/request-action@v2.x
