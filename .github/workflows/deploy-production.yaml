@@ -6,10 +6,10 @@ on:
   workflow_dispatch:
 
 env:
+  HUGO_VERSION: 0.111.3
+  CONTENT_DIR: publishdir
   GHPAGES_BRANCH: gh-pages-hugo
   SITEMAP_URL: https://devdosvid.blog/sitemap.xml
-  HUGO_VERSION: 0.107.0
-  CONTENT_DIR: publishdir
 
 jobs:
   build:
@@ -29,10 +29,10 @@ jobs:
 
       - name: Build blog
         run: ./hugo --environment production --gc --minify --debug
-      
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
-        with: 
+        with:
           name: ${{ env.CONTENT_DIR }}
           path: ${{ env.CONTENT_DIR }}
 
