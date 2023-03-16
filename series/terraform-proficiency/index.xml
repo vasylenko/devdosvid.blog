@@ -3,7 +3,7 @@
     <title>devDosvid — my engineering experience</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/series/terraform-proficiency/"/>
-    <updated>2023-03-12T19:25:14Z</updated>
+    <updated>2023-03-16T20:29:56Z</updated>
     <author>
         <name>devDosvid — my engineering experience</name>
         <uri>https://devdosvid.blog/</uri>
@@ -409,7 +409,7 @@ height=&#34;501.24&#34;
         <title>New Lifecycle Options and Refactoring Capabilities in Terraform 1.1 and 1.2</title>
         <link href="https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/" hreflang="en" rel="alternate"/>
         <published>2022-05-04T20:27:47Z</published>
-        <updated>2022-07-27T13:59:35Z</updated>
+        <updated>2023-03-16T20:29:19Z</updated>
         <id>https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/</id>
         <author>
             <name>Serhii Vasylenko</name>
