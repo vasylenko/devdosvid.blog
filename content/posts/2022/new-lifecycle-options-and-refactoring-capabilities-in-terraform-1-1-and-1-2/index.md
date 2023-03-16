@@ -7,7 +7,7 @@ summary: Terraform code refactoring and resource lifecycle conditions, and trigg
 cover:
     image: cover-image.png
     relative: true
-tags: ["terraform refactoring","terraform productivity","terraform code quality","terraform lifecycle","terraform precondition","terraform postcondition","terraform moved block","terraform 1.1","terraform 1.2"]
+tags: ["Terraform, Infrastructure as code, DevOps, Refactoring, Cloud infrastructure"]
 categories: [Terraform]
 series: ["Terraform Proficiency"]
 showtoc: true
