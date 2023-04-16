@@ -5,7 +5,7 @@ author:
     email: contact@devdosvid.blog
 
 theme: "PaperMod"
-paginate: 5
+paginate: 7
 
 ### BUILD
 publishDir: publishdir
