@@ -5,7 +5,7 @@ author:
     email: contact@devdosvid.blog
 
 theme: "PaperMod"
-paginate: 5
+paginate: 7
 
 ### BUILD
 publishDir: publishdir
@@ -15,7 +15,7 @@ minify:
 
 ### SEO
 enableRobotsTXT: true
-title: devDosvid — my engineering experience
+title: devDosvid blog
 enableGitInfo: true # automatically update the <lastmod> fields in sitemap
 sitemap:
   changefreq: monthly # ask crawlers to visit my blog on monthly basis by default
@@ -38,6 +38,10 @@ menu:
           name: "RSS Feed"
           url: /index.xml
           weight: 1
+        - identifier: series
+          name: "Post Series"
+          url: /series
+          weight: 30
 #        - identifier: cv
 #          name: "My CV"
 #          url: /cv/
@@ -86,7 +90,7 @@ params:
     ShowLicense: true
     WriteMeOnTwitter: false
     ByMeACoffee: true
-    title: devDosvid — my engineering experience
+    title: devDosvid blog
     description: "This blog shares my experience and findings related to AWS, Terraform, and all-around-devops practices."
     keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education, Developer Experience, Infrastructure, Explanations]
     author: Serhii Vasylenko
@@ -129,7 +133,7 @@ params:
 #        icon: "/apple-touch-icon.png"
 
     homeInfoParams:
-        Title: "devDosvid — my technical blog"
+        Title: "devDosvid blog"
         Content: "This blog shares my experience and findings related to technologies I use in my day-to-day work, and all-around-devops practices.
         Thank you for reading me!"
     cover:
