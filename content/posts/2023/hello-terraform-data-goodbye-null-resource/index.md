@@ -8,6 +8,7 @@ cover:
     relative: true
 tags: [terraform, null_resource, terraform_data, terraform_1.4, new release, infrastructure as code]
 categories: [Terraform]
+series: ["Terraform Proficiency"]
 draft: true
 ---
 
@@ -17,7 +18,8 @@ In this blog post, I want to demonstrate and explain the **terraform_data** reso
 - firstly, it allows arbitrary values to be stored and used afterward to implement lifecycle triggers of other resources
 - secondly, it can be used to trigger provisioners when there isn't a more appropriate managed resource available.
 
-For those of you, who are familiar with the `null` provider, the `terraform_data` resource might look very similar. And you're right! Rather than being a separate provider, the terraform_data feature now offers the same capabilities as an integrated feature. Pretty cool, right? \
+For those of you, who are familiar with the `null` provider, the `terraform_data` resource might look very similar. And you're right!\
+Rather than being a separate provider, the terraform_data managed resource now offers the same capabilities as an integrated feature. Pretty cool! \
 While the null provider is still available and there are no statements about its deprecation thus far ([as of April 2023, v3.2.1](https://registry.terraform.io/providers/hashicorp/null/3.2.1/docs)), the  `terraform_data` is the native replacement of the `null_resource`, and the latter might soon become deprecated.
 
 The  `terraform_data` resource has two optional arguments, **input** and **triggers_replace**, and its configuration looks as follows:
@@ -34,7 +36,7 @@ There are two attributes, in addition to the arguments, which are stored in the 
 - The  `output` attribute is computed based on the value of the `input`
 - The `id` is just a unique value of the resource instance in the state (as for any other resource).
 
-## Use case for replace_triggered_by
+## Use case for terraform_data with replace_triggered_by
 
 Let's take a look at the first use case for the terraform_data resource. It is the ability to trigger resource replacement based on the value of the input argument.
 
@@ -56,15 +58,18 @@ By modifying the  `revision` variable, the next Terraform plan will suggest a re
     
 {{< figure src="code-snippet-4.png" caption="terraform_data with replace_triggered_by" width="800">}}
 
-## Use case for provisioner
-Before we start: HashiCorp suggests (and I also support that) avoiding provisioner usage at all unless you have no other options left. It is because of additional, implicit, and unobvious dependency that appears in the codebase — the binary, which is called inside the provisioned block. \
-But let's be real, the provisioner feature is still kicking, and there's always that one unique project that calls for it.
+## Use case for terraform_data with provisioner
+
+Before we start: HashiCorp suggests (and I also support that) avoiding provisioner usage unless you have no other options left. It is because of additional, implicit, and unobvious dependency that appears in the codebase — the binary, which is called inside the provisioner block, must be present on the machine. \
+But let's be real, the provisioner feature is still kicking, and there's always that one unique project that needs it.
 
 Here is the code snippet that demonstrates the usage of the provisioner within the terraform_data resource: 
     
 {{< figure src="code-snippet-5.png" caption="terraform_data with provisioner" width="800">}}
 
-In this example, when the private ip of an instance changes, the terraform_data resource will be recreated, its provisioner will be triggered again and will run the command. 
+In this example, the following happens:
+- When resources are created the first time, the provisioner inside `terraform_data` runs
+- Sequential plan/apply will trigger another execution of the provisioner only when the private IP of the instance changes because that will will trigger `terraform_data` recreation. At the same time, no changes to the internal IP mean no provisioner execution.
 
 ____
 
