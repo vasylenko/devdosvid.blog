@@ -6,6 +6,7 @@ description: Native built-in replacement for null_resource with Terraform 1.4
 cover:
     image: cover-image.png
     relative: true
+    alt: Native built-in replacement for null_resource with Terraform 1.4
 tags: [terraform, null_resource, terraform_data, terraform_1.4, new release, infrastructure as code]
 categories: [Terraform]
 series: ["Terraform Proficiency"]
