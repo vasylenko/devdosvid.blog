@@ -10,7 +10,6 @@ cover:
 tags: [terraform, null_resource, terraform_data, terraform_1.4, new release, infrastructure as code]
 categories: [Terraform]
 series: ["Terraform Proficiency"]
-draft: true
 ---
 
 Terraform version 1.4 was recently released and brought a range of new features, including improved run output in Terraform Cloud, the ability to use OPA policy results in the CLI, and a built-in alternative to the null resource — terraform_data.
