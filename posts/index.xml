@@ -3,7 +3,7 @@
     <title>devDosvid blog</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/posts/"/>
-    <updated>2023-04-16T01:24:39Z</updated>
+    <updated>2023-04-16T01:38:46Z</updated>
     <author>
         <name>devDosvid blog</name>
         <uri>https://devdosvid.blog/</uri>
@@ -11,6 +11,129 @@
     <generator>Hugo gohugo.io</generator>
     <logo>https://devdosvid.blog/assets/img/websitelogo.jpg</logo>
     <link rel="alternate" type="text/html" href="https://devdosvid.blog/posts/" hreflang="en-us"/>
+    <entry>
+        <title>Hello Terraform Data; Goodbye Null Resource</title>
+        <link href="https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/" hreflang="en" rel="alternate"/>
+        <published>2023-04-15T23:25:18Z</published>
+        <updated>2023-04-16T01:38:14Z</updated>
+        <id>https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/</id>
+        <author>
+            <name>Serhii Vasylenko</name>
+        </author>
+        <logo>https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/cover-image.png</logo>
+        <content type="html">&lt;p&gt;Terraform version 1.4 was recently released and brought a range of new features, including improved run output in Terraform Cloud, the ability to use OPA policy results in the CLI, and a built-in alternative to the null resource — terraform_data.&lt;/p&gt;
+&lt;p&gt;In this blog post, I want to demonstrate and explain the &lt;strong&gt;terraform_data&lt;/strong&gt; resource that serves two purposes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;firstly, it allows arbitrary values to be stored and used afterward to implement lifecycle triggers of other resources&lt;/li&gt;
+&lt;li&gt;secondly, it can be used to trigger provisioners when there isn&amp;rsquo;t a more appropriate managed resource available.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For those of you, who are familiar with the &lt;code&gt;null&lt;/code&gt; provider, the &lt;code&gt;terraform_data&lt;/code&gt; resource might look very similar. And you&amp;rsquo;re right!&lt;br&gt;
+Rather than being a separate provider, the terraform_data managed resource now offers the same capabilities as an integrated feature. Pretty cool! &lt;br&gt;
+While the null provider is still available and there are no statements about its deprecation thus far (&lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/null/3.2.1/docs&#34;&gt;as of April 2023, v3.2.1&lt;/a&gt;), the  &lt;code&gt;terraform_data&lt;/code&gt; is the native replacement of the &lt;code&gt;null_resource&lt;/code&gt;, and the latter might soon become deprecated.&lt;/p&gt;
+&lt;p&gt;The  &lt;code&gt;terraform_data&lt;/code&gt; resource has two optional arguments, &lt;strong&gt;input&lt;/strong&gt; and &lt;strong&gt;triggers_replace&lt;/strong&gt;, and its configuration looks as follows:&lt;/p&gt;
+&lt;figure&gt;
+
+
+
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;code-snippet-1.png&#34;
+    alt=&#34;terraform data resource arguments&#34;width=&#34;800&#34;
+height=&#34;182.16&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;terraform data resource arguments&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The input (optional) stores the value that is passed to the resource&lt;/li&gt;
+&lt;li&gt;The triggers_replace (optional) is a value that triggers resource replacement when changes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are two attributes, in addition to the arguments, which are stored in the state: &lt;strong&gt;id&lt;/strong&gt; and &lt;strong&gt;output&lt;/strong&gt; after the resource is created. Let&amp;rsquo;s take a look:&lt;/p&gt;
+&lt;figure&gt;
+
+
+
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;code-snippet-2.png&#34;
+    alt=&#34;terraform data resource attributes&#34;width=&#34;800&#34;
+height=&#34;271.36&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;terraform data resource attributes&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The  &lt;code&gt;output&lt;/code&gt; attribute is computed based on the value of the &lt;code&gt;input&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;id&lt;/code&gt; is just a unique value of the resource instance in the state (as for any other resource).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;use-case-for-terraform_data-with-replace_triggered_by&#34;&gt;Use case for terraform_data with replace_triggered_by&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s take a look at the first use case for the terraform_data resource. It is the ability to trigger resource replacement based on the value of the input argument.&lt;/p&gt;
+&lt;p&gt;A bit of context here: the &lt;strong&gt;replace_triggered_by&lt;/strong&gt; argument of the resource lifecycle meta-argument allows you to trigger resource replacement based on another referenced resource or its argument.&lt;/p&gt;
+&lt;div class=&#34;attention&#34;&gt;
+    If you are not yet familiar with the &lt;code&gt;replace_triggered_by&lt;/code&gt; meta-argument, you can check &lt;a href=&#34;https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/#trigger-resource-replacement-with-replace_triggered_by&#34;&gt;another blog post that explains it&lt;/a&gt;.
+&lt;/div&gt;
+&lt;p&gt;The replace_triggered_by is a powerful feature, but here is the thing about it: only a resource or its attribute must be specified, and &lt;strong&gt;you cannot use a variable or a local value for replace_triggered_by&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;But with terraform_data, you can indirectly initiate a resource replacement by modifying the input value — either a variable or an expression within a local value.&lt;/p&gt;
+&lt;p&gt;Let me give you an example here. Consider the following code:&lt;/p&gt;
+&lt;figure&gt;
+
+
+
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;code-snippet-3.png&#34;
+    alt=&#34;trigger replacement based on input variable&#34;width=&#34;800&#34;
+height=&#34;386.00&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;trigger replacement based on input variable&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;By modifying the  &lt;code&gt;revision&lt;/code&gt; variable, the next Terraform plan will suggest a replacement action against aws_instance.webserver:&lt;/p&gt;
+&lt;figure&gt;
+
+
+
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;code-snippet-4.png&#34;
+    alt=&#34;terraform_data with replace_triggered_by&#34;width=&#34;800&#34;
+height=&#34;341.59&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;terraform_data with replace_triggered_by&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;use-case-for-terraform_data-with-provisioner&#34;&gt;Use case for terraform_data with provisioner&lt;/h2&gt;
+&lt;p&gt;Before we start: HashiCorp suggests (and I also support that) avoiding provisioner usage unless you have no other options left. It is because of additional, implicit, and unobvious dependency that appears in the codebase — the binary, which is called inside the provisioner block, must be present on the machine. &lt;br&gt;
+But let&amp;rsquo;s be real, the provisioner feature is still kicking, and there&amp;rsquo;s always that one unique project that needs it.&lt;/p&gt;
+&lt;p&gt;Here is the code snippet that demonstrates the usage of the provisioner within the terraform_data resource:&lt;/p&gt;
+&lt;figure&gt;
+
+
+
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;code-snippet-5.png&#34;
+    alt=&#34;terraform_data with provisioner&#34;width=&#34;800&#34;
+height=&#34;409.00&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;terraform_data with provisioner&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;In this example, the following happens:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;When resources are created the first time, the provisioner inside &lt;code&gt;terraform_data&lt;/code&gt; runs&lt;/li&gt;
+&lt;li&gt;Sequential plan/apply will trigger another execution of the provisioner only when the private IP of the instance changes because that will will trigger &lt;code&gt;terraform_data&lt;/code&gt; recreation. At the same time, no changes to the internal IP mean no provisioner execution.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;With its ability to store and use values for lifecycle triggers and provisioners, &lt;strong&gt;terraform_data&lt;/strong&gt; is a powerful tool that can enhance your Terraform configuration.&lt;/p&gt;
+&lt;p&gt;Although the null provider still has its place in the Terraform ecosystem, terraform_data is its evolution, and its integration as a feature is certainly something to be excited about.&lt;/p&gt;
+&lt;p&gt;Why not give it a try in your next project and see how it can simplify your infrastructure as code workflows? Keep on coding! 🙌&lt;/p&gt;</content>
+    </entry>
     <entry>
         <title>Five Practical Ways To Get The Verified EC2 AMI</title>
         <link href="https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/" hreflang="en" rel="alternate"/>
@@ -2877,71 +3000,5 @@ height=&#34;573.38&#34;
 &lt;p&gt;I encourage you to take this short tutorial from HashiCorp, the creators of Terraform, about modules:  &lt;a href=&#34;https://learn.hashicorp.com/collections/terraform/modules&#34;&gt;&amp;ldquo;Organize Configuration&amp;rdquo;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Also, there is a great comprehensive study guide which covers everything from beginner to advanced concepts about Terraform: &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/associate-study?in=terraform/certification&#34;&gt;&amp;ldquo;Study Guide - Terraform Associate Certification&amp;rdquo;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The modular code structure makes your configuration more flexible and yet easy to be understood by others. The latter is especially useful in teamwork.&lt;/p&gt;</content>
-    </entry>
-    <entry>
-        <title>Terraform CLI shortcuts</title>
-        <link href="https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts/" hreflang="en" rel="alternate"/>
-        <published>2020-08-25T00:00:00Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
-        <id>https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts/</id>
-        <author>
-            <name>Serhii Vasylenko</name>
-        </author>
-        <logo>https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts/cover-image.jpg</logo>
-        <content type="html">&lt;p&gt;Here is some CLI shortcuts I use day-to-day to simplify and speed-up my Terraform workflow.
-Requirements &amp;mdash; bash-compatible interpreter, because aliases and functions described below will work with bash, zsh and ohmyzsh.&lt;/p&gt;
-&lt;p&gt;In order to use any of described aliases of functions, you need to place it in your &lt;code&gt;~/.bashrc&lt;/code&gt; or &lt;code&gt;~/.zshrc&lt;/code&gt; file (or any other configuration file you have for your shell).&lt;/p&gt;
-&lt;p&gt;Then just source this file, for example: &lt;code&gt;source ~/.zshrc&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;function-list-outputs-and-variables-of-given-module&#34;&gt;Function: list outputs and variables of given module&lt;/h2&gt;
-&lt;p&gt;You need to provide the path to module directory, and this function will list all declared variables and outputs module has. It comes very useful when you don&amp;rsquo;t remember them all and just need to take a quick look.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;## TerraForm MOdule Explained&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; tfmoe &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  echo -e &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\nOutputs:&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  grep -r &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;output \&amp;#34;.*\&amp;#34;&amp;#34;&lt;/span&gt; $1 |awk &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{print &amp;#34;\t&amp;#34;,$2}&amp;#39;&lt;/span&gt; |tr -d &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#34;&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  echo -e &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\nVariables:&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  grep -r &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;variable \&amp;#34;.*\&amp;#34;&amp;#34;&lt;/span&gt; $1 |awk &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{print &amp;#34;\t&amp;#34;,$2}&amp;#39;&lt;/span&gt; |tr -d &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#34;&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Example usage:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-terminal&#34; data-lang=&#34;terminal&#34;&gt;user@localhost $: tfmoe ./module_alb
-
-Outputs:
-	 alb_arn
-
-Variables:
-	 acm_certificate_arn
-	 lb_name
-	 alb_sg_list
-	 subnets_id_list
-	 tags
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;function-pre-fill-module-directory-with-configuration-files&#34;&gt;Function: pre-fill module directory with configuration files&lt;/h2&gt;
-&lt;p&gt;You need to provide a path to the module directory and this function will create a bunch of empty &amp;lsquo;default&amp;rsquo; .tf files in it.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#TerraForm MOdule Initialize&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; tfmoi &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  touch $1/variables.tf
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  touch $1/outputs.tf
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  touch $1/versions.tf
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  touch $1/main.tf
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Example usage:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-terminal&#34; data-lang=&#34;terminal&#34;&gt;user@localhost $: mkdir ./module_foo &amp;amp;&amp;amp; temoi $_
-
-user@localhost $: ls ./module_foo
-main.tf      outputs.tf   variables.tf versions.tf
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;aliases&#34;&gt;Aliases&lt;/h2&gt;
-&lt;p&gt;The purpose of these aliases is just to keep you from typing long commands when you want to do a simple action.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;alias tf&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;terraform&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;alias tfv&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;terraform validate&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;alias tfi&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;terraform init&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;alias tfp&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;terraform plan&amp;#39;&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This one is useful because it makes format tool to go in-depth (recursively) through directories.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;alias tfm&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;terraform fmt -recursive&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Example usage:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-terminal&#34; data-lang=&#34;terminal&#34;&gt;user@localhost $: tfm 
-module_ecs_cluster/ecs.tf
-module_alb/alb.tf
-&lt;/code&gt;&lt;/pre&gt;</content>
     </entry>
 </feed>
