@@ -3,7 +3,7 @@
     <title>devDosvid blog</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/series/"/>
-    <updated>2023-04-16T01:38:46Z</updated>
+    <updated>2023-04-17T21:07:58Z</updated>
     <author>
         <name>devDosvid blog</name>
         <uri>https://devdosvid.blog/</uri>
@@ -15,7 +15,7 @@
         <title>Hello Terraform Data; Goodbye Null Resource</title>
         <link href="https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/" hreflang="en" rel="alternate"/>
         <published>2023-04-15T23:25:18Z</published>
-        <updated>2023-04-16T01:38:14Z</updated>
+        <updated>2023-04-17T21:07:30Z</updated>
         <id>https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -27,7 +27,7 @@
 &lt;li&gt;firstly, it allows arbitrary values to be stored and used afterward to implement lifecycle triggers of other resources&lt;/li&gt;
 &lt;li&gt;secondly, it can be used to trigger provisioners when there isn&amp;rsquo;t a more appropriate managed resource available.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;For those of you, who are familiar with the &lt;code&gt;null&lt;/code&gt; provider, the &lt;code&gt;terraform_data&lt;/code&gt; resource might look very similar. And you&amp;rsquo;re right!&lt;br&gt;
+&lt;p&gt;For those of you, who are familiar with the null provider, the &lt;code&gt;terraform_data&lt;/code&gt; resource might look very similar. And you&amp;rsquo;re right!&lt;br&gt;
 Rather than being a separate provider, the terraform_data managed resource now offers the same capabilities as an integrated feature. Pretty cool! &lt;br&gt;
 While the null provider is still available and there are no statements about its deprecation thus far (&lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/null/3.2.1/docs&#34;&gt;as of April 2023, v3.2.1&lt;/a&gt;), the  &lt;code&gt;terraform_data&lt;/code&gt; is the native replacement of the &lt;code&gt;null_resource&lt;/code&gt;, and the latter might soon become deprecated.&lt;/p&gt;
 &lt;p&gt;The  &lt;code&gt;terraform_data&lt;/code&gt; resource has two optional arguments, &lt;strong&gt;input&lt;/strong&gt; and &lt;strong&gt;triggers_replace&lt;/strong&gt;, and its configuration looks as follows:&lt;/p&gt;
@@ -46,8 +46,8 @@ height=&#34;182.16&#34;
 &lt;/figure&gt;
 
 &lt;ul&gt;
-&lt;li&gt;The input (optional) stores the value that is passed to the resource&lt;/li&gt;
-&lt;li&gt;The triggers_replace (optional) is a value that triggers resource replacement when changes.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;input&lt;/code&gt; (optional) stores the value that is passed to the resource&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;triggers_replace&lt;/code&gt; (optional) is a value that triggers resource replacement when changes.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;There are two attributes, in addition to the arguments, which are stored in the state: &lt;strong&gt;id&lt;/strong&gt; and &lt;strong&gt;output&lt;/strong&gt; after the resource is created. Let&amp;rsquo;s take a look:&lt;/p&gt;
 &lt;figure&gt;
@@ -70,12 +70,12 @@ height=&#34;271.36&#34;
 &lt;/ul&gt;
 &lt;h2 id=&#34;use-case-for-terraform_data-with-replace_triggered_by&#34;&gt;Use case for terraform_data with replace_triggered_by&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s take a look at the first use case for the terraform_data resource. It is the ability to trigger resource replacement based on the value of the input argument.&lt;/p&gt;
-&lt;p&gt;A bit of context here: the &lt;strong&gt;replace_triggered_by&lt;/strong&gt; argument of the resource lifecycle meta-argument allows you to trigger resource replacement based on another referenced resource or its argument.&lt;/p&gt;
+&lt;p&gt;A bit of context here: the &lt;strong&gt;replace_triggered_by&lt;/strong&gt; argument of the resource lifecycle meta-argument allows you to trigger resource replacement based on another referenced resource or its attribute.&lt;/p&gt;
 &lt;div class=&#34;attention&#34;&gt;
-    If you are not yet familiar with the &lt;code&gt;replace_triggered_by&lt;/code&gt; meta-argument, you can check &lt;a href=&#34;https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/#trigger-resource-replacement-with-replace_triggered_by&#34;&gt;another blog post that explains it&lt;/a&gt;.
+    If you are not yet familiar with the &lt;code&gt;replace_triggered_by&lt;/code&gt;, you can check &lt;a href=&#34;https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/#trigger-resource-replacement-with-replace_triggered_by&#34;&gt;another blog post that explains it&lt;/a&gt;.
 &lt;/div&gt;
 &lt;p&gt;The replace_triggered_by is a powerful feature, but here is the thing about it: only a resource or its attribute must be specified, and &lt;strong&gt;you cannot use a variable or a local value for replace_triggered_by&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;But with terraform_data, you can indirectly initiate a resource replacement by modifying the input value — either a variable or an expression within a local value.&lt;/p&gt;
+&lt;p&gt;But with terraform_data, you can indirectly initiate another resource replacement by using either a variable or an expression within a local value for the &lt;code&gt;input&lt;/code&gt; argument.&lt;/p&gt;
 &lt;p&gt;Let me give you an example here. Consider the following code:&lt;/p&gt;
 &lt;figure&gt;
 
@@ -107,7 +107,7 @@ height=&#34;341.59&#34;
 &lt;/figure&gt;
 
 &lt;h2 id=&#34;use-case-for-terraform_data-with-provisioner&#34;&gt;Use case for terraform_data with provisioner&lt;/h2&gt;
-&lt;p&gt;Before we start: HashiCorp suggests (and I also support that) avoiding provisioner usage unless you have no other options left. It is because of additional, implicit, and unobvious dependency that appears in the codebase — the binary, which is called inside the provisioner block, must be present on the machine. &lt;br&gt;
+&lt;p&gt;Before we start: HashiCorp suggests (and I also support that) avoiding provisioner usage unless you have no other options left. One of the reasons — additional, implicit, and unobvious dependency that appears in the codebase — the binary, which is called inside the provisioner block, must be present on the machine. &lt;br&gt;
 But let&amp;rsquo;s be real, the provisioner feature is still kicking, and there&amp;rsquo;s always that one unique project that needs it.&lt;/p&gt;
 &lt;p&gt;Here is the code snippet that demonstrates the usage of the provisioner within the terraform_data resource:&lt;/p&gt;
 &lt;figure&gt;
@@ -127,7 +127,7 @@ height=&#34;409.00&#34;
 &lt;p&gt;In this example, the following happens:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;When resources are created the first time, the provisioner inside &lt;code&gt;terraform_data&lt;/code&gt; runs&lt;/li&gt;
-&lt;li&gt;Sequential plan/apply will trigger another execution of the provisioner only when the private IP of the instance changes because that will will trigger &lt;code&gt;terraform_data&lt;/code&gt; recreation. At the same time, no changes to the internal IP mean no provisioner execution.&lt;/li&gt;
+&lt;li&gt;Sequential plan/apply will trigger another execution of the provisioner only when the private IP of the instance (aws_instance.webserver.private_ip) changes because that will trigger &lt;code&gt;terraform_data&lt;/code&gt; recreation. At the same time, no changes to the internal IP mean no provisioner execution.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;p&gt;With its ability to store and use values for lifecycle triggers and provisioners, &lt;strong&gt;terraform_data&lt;/strong&gt; is a powerful tool that can enhance your Terraform configuration.&lt;/p&gt;
