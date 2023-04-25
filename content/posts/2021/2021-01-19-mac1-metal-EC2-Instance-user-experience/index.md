@@ -40,6 +40,8 @@ Some basic information about the Mac EC2 first:
 
 - You don't pay anything for the Instance itself, but you pay for the Dedicated Host leasing, and the minimum lease time is 24 hours.
 
+{{<email-subscription>}}
+
 ## EC2 Mac Instance Prices (June 2022)
 On-demand pricing (us-east-1, North Virginia:
 - mac1.metal costs 1.083 USD per hour or about 780 USD per month

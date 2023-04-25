@@ -1,0 +1,6 @@
+.substack-embedded {
+    border: 1px solid #EEE;
+    border-radius: var(--radius);
+    background: white;
+    width: 100%;
+}
