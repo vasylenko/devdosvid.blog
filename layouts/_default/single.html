@@ -36,12 +36,6 @@
   {{- end }}
 
   <footer class="post-footer">
-    {{- if (and .Site.Params.WriteMeOnTwitter (ne .Params.WriteMeOnTwitter false)) }}
-    {{- partial "write_me_on_twitter.html" . -}}
-    {{- end }}
-    {{- if (and .Site.Params.ByMeACoffee (ne .Params.ByMeACoffee false)) }}
-    {{- partial "buy-me-a-coffee.html" . -}}
-    {{- end }}
     {{- if (and .Site.Params.EmailSubscribeForm (ne .Params.EmailSubscribeForm false)) }}
     {{- partial "email-subscribe.html" . -}}
     {{- end }}

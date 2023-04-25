@@ -10,9 +10,7 @@ cover.hidden: true
 ShowBreadCrumbs: false
 title: About me — Serhii Vasylenko
 kind: page
-WriteMeOnTwitter: false
 ShowLicense: false
-ByMeACoffee: false
 EmailSubscribeForm: false
 ---
 

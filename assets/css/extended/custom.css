@@ -1,8 +1,12 @@
 :root {
-    --color-blue: #0E1C36;
+    --color-blue: #61b5f3;
     --color-orange: #FF9F1C;
     --color-green: #77A02C;
     --color-fafafa: #fafafa;
+    --color-purple: #7e46be;
+    --color-black: #2a2a2a;
+    --color-gray: #989493;
+    --color-light-gray: #fcfcfc;
     --main-width: 800px;
     --font-medium: 500;
     --font-bold: 600;
@@ -76,10 +80,6 @@ h1 {
     margin-bottom: 0;
 }
 
-.write_me_on_twitter {
-    margin-bottom: 1em;
-}
-
 .write_me_on_twitter a {
     box-shadow: 0 1px;
     cursor: pointer;
@@ -133,28 +133,6 @@ h1 {
     text-decoration: underline;
     margin: 1em 0 1em 0;
 
-}
-
-.buy-me-a-coffee {
-    max-width: 50%;
-    alignment: center;
-    text-align: center;
-    margin: 10px auto 30px auto;
-    border-radius: var(--radius);
-    border: var(--border);
-    background-color: #48bf53;
-
-
-}
-
-.buy-me-a-coffee a{
-    margin: 1em;
-    display: block;
-    height: 100%;
-    color: white;
-    font-weight: bold;
-    vertical-align: middle;
-    line-height: 2em;
 }
 
 .code-snippet summary {

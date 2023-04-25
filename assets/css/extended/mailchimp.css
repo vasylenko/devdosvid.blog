@@ -1,0 +1,23 @@
+#mc_embed_signup_scroll {
+    padding: 1em;
+    border-radius: var(--radius);
+    margin-bottom: 1em;
+}
+.mc-field-group {
+    /*background: var(--color-white);*/
+    border-radius: var(--radius);
+    width: 100%;
+}
+#mce-EMAIL {
+    border: 1px solid var(--color-black);
+    border-radius: var(--radius);
+    padding-left: 1em;
+    width: 100%;
+}
+#mc-embedded-subscribe {
+    border-radius: var(--radius);
+    margin: 1em 0 0 0;
+    font-weight: bold;
+    background: var(--color-purple);
+    color: white;
+}
