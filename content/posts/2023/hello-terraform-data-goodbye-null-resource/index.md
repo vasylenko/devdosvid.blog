@@ -18,6 +18,8 @@ In this blog post, I want to demonstrate and explain the **terraform_data** reso
 - firstly, it allows arbitrary values to be stored and used afterward to implement lifecycle triggers of other resources
 - secondly, it can be used to trigger provisioners when there isn't a more appropriate managed resource available.
 
+{{<email-subscription>}}
+
 For those of you, who are familiar with the null provider, the `terraform_data` resource might look very similar. And you're right!\
 Rather than being a separate provider, the terraform_data managed resource now offers the same capabilities as an integrated feature. Pretty cool! \
 While the null provider is still available and there are no statements about its deprecation thus far ([as of April 2023, v3.2.1](https://registry.terraform.io/providers/hashicorp/null/3.2.1/docs)), the  `terraform_data` is the native replacement of the `null_resource`, and the latter might soon become deprecated.

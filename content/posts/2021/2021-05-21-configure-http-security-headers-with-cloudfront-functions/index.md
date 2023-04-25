@@ -26,6 +26,8 @@ It is “true edge” because Functions work on 200+ edge locations ([link to do
 
 One of the use cases for Lambda@Edge was adding security HTTP headers (it’s even listed on the [product page](https://aws.amazon.com/lambda/edge/)), and now there is one more way to make it using CloudFront Functions. 
 
+{{<email-subscription>}}
+
 ## What are security headers, and why it matters
 Security Headers are one of the web security pillars.
 
