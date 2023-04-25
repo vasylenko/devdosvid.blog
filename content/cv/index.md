@@ -13,9 +13,7 @@ ShowBreadCrumbs: false
 keywords: [devops, resume, hiring, cv, aws, terraform, teamlead, senior engineer, developer experience]
 summary: "Serhii Vasylenko — professional experience"
 title: "Serhii Vasylenko"
-WriteMeOnTwitter: false
 ShowLicense: false
-ByMeACoffee: false
 EmailSubscribeForm: false
 ---
 

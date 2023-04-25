@@ -88,8 +88,6 @@ params:
     twittersite: "@vasylenko"
     twittercreator: "@vasylenko"
     ShowLicense: true
-    WriteMeOnTwitter: false
-    ByMeACoffee: true
     title: devDosvid blog
     description: "This blog shares my experience and findings related to AWS, Terraform, and all-around-devops practices."
     keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education, Developer Experience, Infrastructure, Explanations]
