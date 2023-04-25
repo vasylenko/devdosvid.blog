@@ -1,8 +1,12 @@
 :root {
-    --color-blue: #0E1C36;
+    --color-blue: #61b5f3;
     --color-orange: #FF9F1C;
     --color-green: #77A02C;
     --color-fafafa: #fafafa;
+    --color-purple: #7e46be;
+    --color-black: #2a2a2a;
+    --color-gray: #989493;
+    --color-light-gray: #fcfcfc;
     --main-width: 800px;
     --font-medium: 500;
     --font-bold: 600;
