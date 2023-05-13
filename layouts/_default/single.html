@@ -1,5 +1,5 @@
 {{- define "main" }}
-{{- $fileUrlPath := path.Join .File.Path }}
+
 <article class="post-single">
   <header class="post-header">
     {{ partial "breadcrumbs.html" . }}
@@ -39,6 +39,9 @@
     {{- if (and .Site.Params.EmailSubscribeForm (ne .Params.EmailSubscribeForm false)) }}
     {{- partial "email-subscribe.html" . -}}
     {{- end }}
+    {{- if .Param "comments" }}
+    {{- partial "post-comments.html" . -}}
+    {{- end }}
     {{- partial "post-series.html" . -}}
     {{- if (and .Site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
     {{- partial "share_icons.html" . -}}
@@ -57,10 +60,6 @@
       {{- partial "post_nav_links.html" . }}
     {{- end }}
   </footer>
-
-  {{- if (.Param "comments") }}
-  {{- partial "comments.html" . }}
-  {{- end }}
 </article>
 
 {{- end }}{{/* end main */}}
