@@ -10,14 +10,17 @@ cover:
     hidden: true
     image: professional-experience.png
 ShowBreadCrumbs: false
-keywords: [devops, resume, hiring, cv, aws, terraform, teamlead, senior engineer, developer experience]
+keywords: [Developer Experience Engineer, DevOps Coach, Software Development Life Cycle (SDLC), AWS, Infrastructure 
+  Automation, Observability, Terraform, Ansible, GitLab, Docker]
 summary: "Serhii Vasylenko — professional experience"
 title: "Serhii Vasylenko"
 ShowLicense: false
 EmailSubscribeForm: false
 ---
 
-Developer Experience engineer, DevOps enthusiast. In 2020 I switched from team management to an individual contributor role to feel the engineering world on the tip of my fingers again.
+I am a Developer Experience Engineer and DevOps Coach passionate about making software development easier. I specialize in DevOps practices, infrastructure, automation, and observability.
+
+My expertise includes team building, tech transformation, and promoting a culture of innovation and ownership. I am dedicated to improving efficiency and enhancing team performance.
 
 **Community development**: AWS Community Builder, HashiCorp Ambassador 
 
