@@ -21,18 +21,32 @@
 
 body {
     font-family: 'Albert Sans', 'Arial', -apple-system, sans-serif, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue';
+    background-color: var(--color-background);
 }
 
 h1 {
     font-weight: 600;
 }
 
+#menu > li > a, #top > header > nav > div > a{
+    color: var(--color-content-background);
+}
+
 .main {
     padding-top: 0;
+    border-radius: var(--radius);
+}
+
+body.list#top main.main {
+    background-color: var(--color-content-background);
+}
+
+body#top main.main {
+    background-color: var(--color-content-background);
 }
 
 .list {
-    background: var(--color-fafafa);
+    background: var(--color-background);
 }
 
 .entry-content p{
@@ -42,11 +56,15 @@ h1 {
 .attention {
     padding: 0.5em 0.5em 0.5em 1.5em;
     margin: 1em 0 1em 0;
-    border-left-width: 0.5em;
+    border-left-width: 1em;
     border-left-style: solid;
-    border-right-width: 0.5em;
+    border-right-width: 1em;
     border-right-style: solid;
-    border-color: var(--color-orange);
+    border-top-style: solid;
+    border-bottom-style: solid;
+    /*border-image: linear-gradient(to top, white, var(--color-action-elements)) 1;*/
+    /*border-image-slice: 1;*/
+    border-color: var(--color-accents);
     border-radius: var(--radius);
     font-style: italic;
 }
@@ -62,7 +80,7 @@ h1 {
 
 .footnote-ref {
     font-weight: bold;
-    background-color: var(--color-orange);
+    background-color: var(--color-accents);
     padding-left: 5px;
     padding-right: 5px;
 }
@@ -75,12 +93,12 @@ h1 {
     border-left-style: solid;
     border-right-width: 0.5em;
     border-right-style: solid;
-    border-color: var(--color-green);
+    border-color: var(--color-accents);
 }
 .updatenotice a {
     /*color: white;*/
     font-weight: bold;
-    color: var(--color-green);
+    color: var(--color-accents);
 }
 .updatenotice p {
     margin-bottom: 0;
