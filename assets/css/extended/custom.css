@@ -11,6 +11,12 @@
     --font-medium: 500;
     --font-bold: 600;
     --font-normal: 400;
+
+    --color-content-background: white;
+    --color-font: #1E1E1E;
+    --color-action-elements: #EE6352;
+    --color-background: #2D2D2F;
+    --color-accents: #04A777;
 }
 
 body {
