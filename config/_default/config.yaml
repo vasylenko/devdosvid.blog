@@ -95,7 +95,7 @@ params:
     images: ["/assets/img/websitelogo.jpg"]
     DateFormat: "January 2, 2006"
     defaultTheme: light # dark, light
-    disableThemeToggle: false
+    disableThemeToggle: true
     ShowFullTextinRSS: true
     ShowReadingTime: false
     ShowWordCount: false

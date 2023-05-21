@@ -1,52 +1,36 @@
-:root {
-    --color-blue: #61b5f3;
-    --color-orange: #FF9F1C;
-    --color-green: #77A02C;
-    --color-fafafa: #fafafa;
-    --color-purple: #7e46be;
-    --color-black: #2a2a2a;
-    --color-gray: #989493;
-    --color-light-gray: #fcfcfc;
-    --main-width: 800px;
-    --font-medium: 500;
-    --font-bold: 600;
-    --font-normal: 400;
-
-    --color-content-background: white;
-    --color-font: #1E1E1E;
-    --color-action-elements: #EE6352;
-    --color-background: #2D2D2F;
-    --color-accents: #04A777;
-}
-
 body {
     font-family: 'Albert Sans', 'Arial', -apple-system, sans-serif, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue';
-    background-color: var(--color-background);
+    background-color: var(--color-white-smoke);
+    color: var(--color-font);
 }
 
 h1 {
     font-weight: 600;
 }
 
-#menu > li > a, #top > header > nav > div > a{
-    color: var(--color-content-background);
+.main {
+    border-radius: var(--radius);
 }
 
-.main {
-    padding-top: 0;
+.archive-year {
+    background-color: var(--color-baby-powder);
+    padding: 0.5em 0.5em 0.5em 0.5em;
     border-radius: var(--radius);
 }
 
 body.list#top main.main {
-    background-color: var(--color-content-background);
+    background-color: var(--color-white-smoke);
 }
 
 body#top main.main {
-    background-color: var(--color-content-background);
+    background-color: var(--color-baby-powder);
 }
 
+#top > main {}
+
+
 .list {
-    background: var(--color-background);
+    background: var(--color-white-smoke);
 }
 
 .entry-content p{
@@ -54,17 +38,15 @@ body#top main.main {
 }
 
 .attention {
-    padding: 0.5em 0.5em 0.5em 1.5em;
+    padding: 0.5em 0.5em 0.5em 0.5em;
     margin: 1em 0 1em 0;
-    border-left-width: 1em;
+    border-left-width: 2em;
     border-left-style: solid;
-    border-right-width: 1em;
+    border-right-width: 2px;
     border-right-style: solid;
     border-top-style: solid;
     border-bottom-style: solid;
-    /*border-image: linear-gradient(to top, white, var(--color-action-elements)) 1;*/
-    /*border-image-slice: 1;*/
-    border-color: var(--color-accents);
+    border-color: var(--color-green);
     border-radius: var(--radius);
     font-style: italic;
 }
@@ -78,9 +60,15 @@ body#top main.main {
     margin: 0;
 }
 
+/*CSS block that add hover style for links*/
+a:hover {
+    color: var(--color-orange);
+    font-weight: var(--font-bold);
+}
+
 .footnote-ref {
     font-weight: bold;
-    background-color: var(--color-accents);
+    background-color: var(--color-green);
     padding-left: 5px;
     padding-right: 5px;
 }
@@ -93,12 +81,12 @@ body#top main.main {
     border-left-style: solid;
     border-right-width: 0.5em;
     border-right-style: solid;
-    border-color: var(--color-accents);
+    border-color: var(--color-green);
 }
 .updatenotice a {
     /*color: white;*/
     font-weight: bold;
-    color: var(--color-accents);
+    color: var(--color-green);
 }
 .updatenotice p {
     margin-bottom: 0;

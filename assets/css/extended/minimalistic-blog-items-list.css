@@ -6,6 +6,7 @@
         grid-template-areas: "fig head"
                              "fig content"
                              "fig footer";
+        background-color: var(--color-baby-powder);
     }
 
     header.post-entry.entry-header h2 {
@@ -25,13 +26,16 @@
 
     .post-entry div.entry-content {
         grid-area: content;
-        alignment: top;
         margin: auto 0 auto 0;
     }
     .post-entry footer.entry-footer {
         grid-area: footer;
         text-align: right;
         align-self: end;
+    }
+
+    .tag-entry .entry-cover {
+        display: inherit;
     }
 }
 
