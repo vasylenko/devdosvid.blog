@@ -1,20 +1,7 @@
-:root {
-    --color-blue: #61b5f3;
-    --color-orange: #FF9F1C;
-    --color-green: #77A02C;
-    --color-fafafa: #fafafa;
-    --color-purple: #7e46be;
-    --color-black: #2a2a2a;
-    --color-gray: #989493;
-    --color-light-gray: #fcfcfc;
-    --main-width: 800px;
-    --font-medium: 500;
-    --font-bold: 600;
-    --font-normal: 400;
-}
-
 body {
     font-family: 'Albert Sans', 'Arial', -apple-system, sans-serif, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue';
+    background-color: var(--color-white-smoke);
+    color: var(--color-font);
 }
 
 h1 {
@@ -22,11 +9,28 @@ h1 {
 }
 
 .main {
-    padding-top: 0;
+    border-radius: var(--radius);
 }
 
+.archive-year {
+    background-color: var(--color-baby-powder);
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    border-radius: var(--radius);
+}
+
+body.list#top main.main {
+    background-color: var(--color-white-smoke);
+}
+
+body#top main.main {
+    background-color: var(--color-baby-powder);
+}
+
+#top > main {}
+
+
 .list {
-    background: var(--color-fafafa);
+    background: var(--color-white-smoke);
 }
 
 .entry-content p{
@@ -34,13 +38,15 @@ h1 {
 }
 
 .attention {
-    padding: 0.5em 0.5em 0.5em 1.5em;
+    padding: 0.5em 0.5em 0.5em 0.5em;
     margin: 1em 0 1em 0;
-    border-left-width: 0.5em;
+    border-left-width: 2em;
     border-left-style: solid;
-    border-right-width: 0.5em;
+    border-right-width: 2px;
     border-right-style: solid;
-    border-color: var(--color-orange);
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-color: var(--color-green);
     border-radius: var(--radius);
     font-style: italic;
 }
@@ -54,9 +60,15 @@ h1 {
     margin: 0;
 }
 
+/*CSS block that add hover style for links*/
+a:hover {
+    /*color: var(--color-orange);*/
+    font-weight: var(--font-bold);
+}
+
 .footnote-ref {
     font-weight: bold;
-    background-color: var(--color-orange);
+    background-color: var(--color-green);
     padding-left: 5px;
     padding-right: 5px;
 }
@@ -143,5 +155,12 @@ h1 {
 
 footer.post-footer {
     margin-top: 1em;
+}
+
+nav.pagination > a.next, nav.pagination > a.prev {
+    background-color: var(--color-green);
+    padding-left: 2em;
+    padding-right: 2em;
+    font-size: 1em;
 }
 

@@ -13,7 +13,7 @@ ShowBreadCrumbs: false
 keywords: [Developer Experience Engineer, DevOps Coach, Software Development Life Cycle (SDLC), AWS, Infrastructure 
   Automation, Observability, Terraform, Ansible, GitLab, Docker]
 summary: "Serhii Vasylenko — professional experience"
-title: "Serhii Vasylenko"
+title: "Serhii Vasylenko, Berlin, Germany"
 ShowLicense: false
 EmailSubscribeForm: false
 ---
@@ -21,8 +21,6 @@ EmailSubscribeForm: false
 I am a Developer Experience Engineer and DevOps Coach passionate about making software development easier. I specialize in DevOps practices, infrastructure, automation, and observability.
 
 My expertise includes team building, tech transformation, and promoting a culture of innovation and ownership. I am dedicated to improving efficiency and enhancing team performance.
-
-**Community development**: AWS Community Builder, HashiCorp Ambassador 
 
 ## Professional Experience
 {{< cv-job-title 
@@ -37,7 +35,7 @@ Making day-to-day work of developers more productive and agile by:
 - Enriching experience in Infrastructure, Automation, and Observability areas
 - Standardizing commonly used infrastructure components
 
-Notable Projects: [macOS-based CI/CD](/series/mac1.metal-at-aws/), [Platform University](https://www.grammarly.com/blog/engineering/empowering-engineers-build-faster/), GitLab CI Infrastructure on K8s (link to be updated)
+Notable Projects: [macOS-based CI/CD](/series/mac1.metal-at-aws/), [Platform University](https://www.grammarly.com/blog/engineering/empowering-engineers-build-faster/), [GitLab CI Infrastructure on K8s](https://youtu.be/ZOYA1XNqFBI) 
 
 {{< cv-job-title
 logo="assets/hillel.png"
@@ -101,24 +99,26 @@ dates="Jun'11 – Nov'14" >}}
 Started my career in IT: grew up from a Level-1 tech support engineer (communication with customers and initial problem analysis) to Level-3 System Administrator responsible for complex technical tasks and daily shift management.
 
 ## Skills
-Team Leader
+🤝 Team Leader
 :   Team motivation, mentorship, cultivation of soft/hard skills of team members.\
 Fostering team values and working principles and developing the new ones together with the team.\
 Hiring new team members and forming the required team skillset.
 
-PM
+📈 PM
 :   Managing stand-alone DevOps projects and operations parts of big projects with dev teams.\
 Resources and capacity management.
 
-Clouds
+☁️ Clouds
 :   Amazon Web Services. Design and fine-tuning of resilient and HA infrastructures; costs optimization and security hardening.
 
-Techs
-:   Jenkins, GitlabCI, Github Actions, Bitrise, CircleCI.\
-Terraform, Docker, Ansible, Nginx, Apache, Databases.
+⚙️ Techs
+:   GitlabCI, Github Actions, Terraform, Docker, Ansible, GoLang, BASH, Mobile CI/CD.
 
-English
-:   C1 (CEFR) / Advanced.
+🇬🇧 English
+:   C2 (CEFR)
+
+🇩🇪 Deutsch
+:   A1 (CEFR)
 
 ## Activities and interests
 Travel
