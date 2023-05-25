@@ -62,7 +62,7 @@ body#top main.main {
 
 /*CSS block that add hover style for links*/
 a:hover {
-    color: var(--color-orange);
+    /*color: var(--color-orange);*/
     font-weight: var(--font-bold);
 }
 
@@ -155,5 +155,12 @@ a:hover {
 
 footer.post-footer {
     margin-top: 1em;
+}
+
+nav.pagination > a.next, nav.pagination > a.prev {
+    background-color: var(--color-green);
+    padding-left: 2em;
+    padding-right: 2em;
+    font-size: 1em;
 }
 
