@@ -4,7 +4,7 @@ on:
 
 env:
   HUGO_VERSION: 0.111.3
-  CONTENT_DIR: publishdir
+  ARTIFACT: deployment-artifact
   CF_PREVIEW_PROJECT_NAME: devdosvid-preview
 
 jobs:
@@ -21,13 +21,13 @@ jobs:
         run: wget -q -c "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz" -O - | tar -xz
 
       - name: Build blog
-        run: ./hugo --environment development --baseURL="" --debug --templateMetrics --templateMetricsHints
+        run: ./hugo --environment development --destination ${{ env.ARTIFACT }} --baseURL="" --templateMetrics --templateMetricsHints
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.CONTENT_DIR }}
-          path: ${{ env.CONTENT_DIR }}
+          name: ${{ env.ARTIFACT }}
+          path: ${{ env.ARTIFACT }}
           retention-days: 1
 
   deploy:
@@ -44,8 +44,8 @@ jobs:
       - name: Get the new website content
         uses: actions/download-artifact@v3
         with:
-          name: ${{ env.CONTENT_DIR }}
-          path: ./${{ env.CONTENT_DIR }}
+          name: ${{ env.ARTIFACT }}
+          path: ./${{ env.ARTIFACT }}
           retention-days: 1
 
       - name: Deploy to CloudFlare
@@ -55,6 +55,5 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_GH_PAGES_ACTION_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: ${{ env.CF_PREVIEW_PROJECT_NAME }}
-          directory: ${{ env.CONTENT_DIR }}
+          directory: ${{ env.ARTIFACT }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          wranglerVersion: '3'
