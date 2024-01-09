@@ -1,5 +1,5 @@
 .substack-embedded-iframe {
-    background: white;
+    background: var(--color-baby-powder);
     width: 100%;
     border: none;
 }
