@@ -11,25 +11,12 @@ jobs:
   build:
     name: Build the blog
     runs-on: ubuntu-latest
-    outputs:
-      has_updates: ${{steps.check_updated_posts.outputs.has_updates}}
-      blog_post_updates: ${{steps.check_updated_posts.outputs.blog_post_updates}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           submodules: recursive
           fetch-depth: 0
-      - name: Check if we have new or updated blog posts
-        id: check_updated_posts
-        run: |
-          blog_post_updates=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.pull_request.base.sha }}..${{ github.event.after }} | { grep 'content/posts/' || test $? = 1; } | cut -d '/' -f1-4 | uniq )
-          if [[ -n $blog_post_updates ]]
-          then
-            echo "::set-output name=has_updates::true"
-            echo "::set-output name=blog_post_updates::$(echo $blog_post_updates)"            
-          fi
-
       - name: Install Hugo
         run: wget -q -c "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz" -O - | tar -xz
 
@@ -70,3 +57,4 @@ jobs:
           projectName: ${{ env.CF_PREVIEW_PROJECT_NAME }}
           directory: ${{ env.CONTENT_DIR }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          wranglerVersion: '3'
