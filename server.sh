@@ -1,4 +1,5 @@
 #!/bin/zsh
+set -x
 git submodule update --init --recursive
 git submodule update --remote --merge
 
@@ -27,4 +28,4 @@ case $arg in
     ;;
 esac
 done
-hugo server  --bind ${bindip} --baseURL http://${bindip} --buildDrafts --buildFuture --environment $site_env --gc --noHTTPCache --quiet
+hugo server  --bind ${bindip} --baseURL http://${bindip} --buildDrafts --buildFuture --environment $site_env --gc --noHTTPCache
