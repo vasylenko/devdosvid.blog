@@ -40,7 +40,7 @@ body#top main.main {
 .attention {
     padding: 0.5em 0.5em 0.5em 0.5em;
     margin: 1em 0 1em 0;
-    border-left-width: 2em;
+    border-left-width: 0.5em;
     border-left-style: solid;
     border-right-width: 2px;
     border-right-style: solid;
