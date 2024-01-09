@@ -6,8 +6,6 @@ env:
   HUGO_VERSION: 0.111.3
   CONTENT_DIR: publishdir
   CF_PREVIEW_PROJECT_NAME: devdosvid-preview
-  DEPLOY_ENV_NAME: Preview
-  BASE_BLOG_ADDRESS: "https://devdosvid.blog"
 
 jobs:
   build:
