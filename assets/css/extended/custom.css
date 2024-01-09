@@ -1,6 +1,6 @@
 body {
     font-family: 'Albert Sans', 'Arial', -apple-system, sans-serif, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue';
-    background-color: var(--color-white-smoke);
+    background-color: var(--color-baby-powder);
     color: var(--color-font);
 }
 
@@ -19,7 +19,7 @@ h1 {
 }
 
 body.list#top main.main {
-    background-color: var(--color-white-smoke);
+    background-color: var(--color-baby-powder);
 }
 
 body#top main.main {
@@ -30,7 +30,7 @@ body#top main.main {
 
 
 .list {
-    background: var(--color-white-smoke);
+    background: var(--color-baby-powder);
 }
 
 .entry-content p{
