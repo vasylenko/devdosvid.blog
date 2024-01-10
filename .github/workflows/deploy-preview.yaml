@@ -35,4 +35,3 @@ jobs:
           projectName: ${{ env.CF_PREVIEW_PROJECT_NAME }}
           directory: ${{ env.ARTIFACT }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          branch: "main" # try to trick CF b/c I use it as preview
