@@ -21,7 +21,7 @@ jobs:
         run: wget -q -c "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz" -O - | tar -xz
 
       - name: Build blog
-        run: ./hugo --environment development --destination ${{ env.ARTIFACT }} --baseURL="" --templateMetrics --templateMetricsHints
+        run: ./hugo --environment development --destination ${{ env.ARTIFACT }} --baseURL="${{CF_PREVIEW_PROJECT_NAME}}.pages.dev" --templateMetrics --templateMetricsHints
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
