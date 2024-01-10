@@ -6,7 +6,7 @@
         grid-template-areas: "fig head"
                              "fig content"
                              "fig footer";
-        background-color: var(--color-baby-powder);
+        background-color: var(--color-background);
     }
 
     header.post-entry.entry-header h2 {

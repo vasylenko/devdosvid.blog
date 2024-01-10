@@ -7,9 +7,8 @@ on:
 
 env:
   HUGO_VERSION: 0.111.3
-  CONTENT_DIR: publishdir
+  ARTIFACT: deployment-artifact
   GHPAGES_BRANCH: gh-pages-hugo
-  SITEMAP_URL: https://devdosvid.blog/sitemap.xml
 
 jobs:
   build:
@@ -28,15 +27,19 @@ jobs:
           tar -xf hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz
 
       - name: Build blog
-        run: ./hugo --environment production --gc --minify --debug
+        run: ./hugo --environment production --destination ${{ env.ARTIFACT }} --gc --minify
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.CONTENT_DIR }}
-          path: ${{ env.CONTENT_DIR }}
+          name: ${{ env.ARTIFACT }}
+          path: ${{ env.ARTIFACT }}
           retention-days: 1
 
+  # I need to checkout the ${{env.GHPAGES_BRANCH}} branch with the built website content,
+  # and then download the artifact from the build job into it.
+  # This will ultimately change/add some files — things I need to commit and push back to the branch.
+  # And this is where passing the artifacts between jobs makes sense.
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
@@ -49,7 +52,7 @@ jobs:
       - name: Get the new website content
         uses: actions/download-artifact@v3
         with:
-          name: ${{ env.CONTENT_DIR }}
+          name: ${{ env.ARTIFACT }}
           path: ./
           retention-days: 1
 
@@ -81,12 +84,3 @@ jobs:
                           -H "Authorization: Bearer ${{ secrets.CLOUDFLAREPURGETOKEN }}" \
                           -H "Content-Type: application/json" \
                           --data '{"purge_everything":true}' | jq '.success' 
-
-  seo:
-    needs: [deploy]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Ping Google about the new sitemap # https://developers.google.com/search/docs/advanced/sitemaps/build-sitemap#addsitemap
-        run: |
-          set -ex
-          curl -s "https://www.google.com/ping?sitemap=${{ env.SITEMAP_URL }}" | grep Received
