@@ -14,7 +14,6 @@ jobs:
     permissions:
       contents: read
       deployments: write
-      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -25,7 +24,7 @@ jobs:
         run: wget -q -c "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz" -O - | tar -xz
 
       - name: Build blog
-        run: ./hugo --environment development --destination ${{ env.ARTIFACT }} --baseURL="${{env.CF_PREVIEW_PROJECT_NAME}}.pages.dev" --templateMetrics --templateMetricsHints
+        run: ./hugo --environment development --destination ${{ env.ARTIFACT }} --baseURL="" --templateMetrics --templateMetricsHints
 
       - name: Deploy to CloudFlare
         uses: cloudflare/pages-action@1
@@ -36,3 +35,4 @@ jobs:
           projectName: ${{ env.CF_PREVIEW_PROJECT_NAME }}
           directory: ${{ env.ARTIFACT }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          branch: "main" # try to trick CF b/c I use it as preview
