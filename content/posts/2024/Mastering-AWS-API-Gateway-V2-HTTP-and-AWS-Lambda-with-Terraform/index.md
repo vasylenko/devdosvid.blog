@@ -1,10 +1,10 @@
 ---
 title: "Mastering AWS API Gateway V2 HTTP and AWS Lambda With Terraform"
 date: 2024-01-09T03:33:10+01:00
-summary: The article provides insights into using AWS API Gateway V2 and Lambda with Terraform for efficient, cost-effective serverless solutions.
-description: The article provides insights into using AWS API Gateway V2 and Lambda with Terraform for efficient, cost-effective serverless solutions.
+summary: The article provides insights into using AWS API Gateway and AWS Lambda with Terraform for efficient, cost-effective serverless solutions.
+description: The article provides insights into using AWS API Gateway and AWS Lambda with Terraform for efficient, cost-effective serverless solutions.
 cover:
-    image: cover-image.png
+    image: cover-image.jpg
     relative: true
     alt: "Illustration of a cloud symbol containing icons of a gear, an API symbol, and geometric shapes, representing cloud computing and API management."
 tags: [
@@ -39,6 +39,8 @@ The HTTP API can have multiple routes (e.g., "/calendar," "/meters," and so on) 
 Upon receiving a request, the API service forwards a payload to the Authorizer containing metadata about the request, such as headers and query string components. The Authorizer processes this metadata (headers, in my case) to determine the request's legitimacy.
 
 The decision, Allow or Deny, is passed back to the API, and if allowed, the API service then forwards the original request to the back-end, which, in this case, is implemented by additional Lambda functions. Otherwise, the client gets a response with a 403 status code, and the original request is not passed to the back-end.
+
+{{<email-subscription>}}
 
 ## Behind The Decision: Why Such a Setup?
 Choosing the right architectural setup is critical in balancing simplicity, cost-efficiency, and security. In this section, we uncover why integrating AWS HTTP API Gateway with Lambda Authorizer is a compelling choice, offering a streamlined approach without compromising security.

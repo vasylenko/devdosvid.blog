@@ -8,5 +8,7 @@
     --color-font: #1E1E1E;
     --color-orange: #FF9F1C;
     --color-green: #2da44e;
-    --color-background: var(--color-baby-powder);
+    --color-white: #FFFFFF;
+
+    --color-background: rgb(var(--color-baby-powder));
 }
