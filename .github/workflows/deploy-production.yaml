@@ -28,7 +28,7 @@ jobs:
           tar -xf hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz
 
       - name: Build blog
-        run: ./hugo --environment production --gc --minify --debug
+        run: ./hugo --environment production --gc --minify
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
