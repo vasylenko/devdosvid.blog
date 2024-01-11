@@ -17,10 +17,13 @@ runs:
   using: "composite"
   steps:
     - name: Install Hugo
+      shell: bash
       run: wget -q -c "https://github.com/gohugoio/hugo/releases/download/v${{ inputs.hugo-version }}/hugo_${{ inputs.hugo-version }}_Linux-64bit.tar.gz" -O - | tar -xz
     - name: Build Preview
+      shell: bash
       if: ${{ inputs.env == 'preview' }}
       run: ./hugo --environment development --destination ${{ inputs.build-artifact }} --baseURL="" --templateMetrics --templateMetricsHints
     - name: Build Production
+      shell: bash
       if: ${{ inputs.env == 'production' }}
       run: ./hugo --environment production --destination ${{ inputs.build-artifact }} --gc --minify
