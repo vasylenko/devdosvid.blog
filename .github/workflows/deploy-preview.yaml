@@ -22,7 +22,7 @@ jobs:
           fetch-depth: 0
 
       - name: Build Hugo
-        uses: ./.github/actions/build-hugo
+        uses: ./.github/actions/build-hugo.yaml
         with:
           env: preview
           hugo-version: ${{ env.HUGO_VERSION }}
