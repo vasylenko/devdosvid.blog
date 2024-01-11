@@ -20,11 +20,13 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
-      - name: Install Hugo
-        run: wget -q -c "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz" -O - | tar -xz
 
-      - name: Build blog
-        run: ./hugo --environment development --destination ${{ env.ARTIFACT }} --baseURL="" --templateMetrics --templateMetricsHints
+      - name: Build Hugo
+        uses: ./.github/actions/build-hugo
+        with:
+          env: preview
+          hugo-version: ${{ env.HUGO_VERSION }}
+          build-artifact: ${{ env.ARTIFACT }}
 
       - name: Deploy to CloudFlare
         uses: cloudflare/pages-action@1
