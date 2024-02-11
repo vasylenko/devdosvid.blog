@@ -22,7 +22,7 @@ runs:
     - name: Build Preview
       shell: bash
       if: ${{ inputs.env == 'preview' }}
-      run: ./hugo --environment development --destination ${{ inputs.build-artifact }} --baseURL="" --templateMetrics --templateMetricsHints
+      run: ./hugo --environment preview --destination ${{ inputs.build-artifact }} --baseURL="" --templateMetrics --templateMetricsHints
     - name: Build Production
       shell: bash
       if: ${{ inputs.env == 'production' }}
