@@ -3,7 +3,7 @@ on:
   pull_request:
 
 env:
-  HUGO_VERSION: 0.121.1
+  HUGO_VERSION: 0.122.0
   ARTIFACT: deployment-artifact
   CF_PREVIEW_PROJECT_NAME: devdosvid-preview
 
