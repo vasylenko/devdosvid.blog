@@ -18,21 +18,29 @@ ShowLicense: false
 EmailSubscribeForm: false
 ---
 
-I am a Developer Experience Engineer and DevOps Coach passionate about making software development easier. I specialize in DevOps practices, infrastructure, automation, and observability.
+I am a Software Engineer and DevOps Coach, passionate about making software development efficient and secure. I specialize in DevOps practices and team leadership.
 
 My expertise includes team building, tech transformation, and promoting a culture of innovation and ownership. I am dedicated to improving efficiency and enhancing team performance.
 
 ## Professional Experience
+{{< cv-job-title
+logo="assets/grammarly.png"
+header="TechLead Manager (Platform)"
+link="https://grammarly.com/"
+company="Grammarly"
+dates="May'23 - ongoing" >}}
+As a Technical Lead Manager at Grammarly, I oversee the technical aspects within a CI/CD area and manage a small team of engineers focused on that. Balancing engineering and people management, I navigate through roadblocks, optimize task distribution, and foster constructive technical solutions. My role also involves setting and keeping standards, ensuring CI/CD area stability, mentoring team members, promoting their growth, and upholding Grammarly's values for a positive and productive team environment.
+
 {{< cv-job-title 
 logo="assets/grammarly.png" 
-header="Developer Experience Engineer" 
+header="DevEx Engineer (Platform)" 
 link="https://grammarly.com/"
 company="Grammarly" 
-dates="Since Nov 2020" >}}
+dates="Nov'20 - May'23" >}}
 
-Making day-to-day work of developers more productive and agile by:
+Making day-to-day work of software engineers more effective by:
 - Providing automation and tooling for routine SDLC procedures
-- Enriching experience in Infrastructure, Automation, and Observability areas
+- Enriching experience in Infrastructure, Automation, Observability areas
 - Standardizing commonly used infrastructure components
 
 Notable Projects: [macOS-based CI/CD](/series/mac1.metal-at-aws/), [Platform University](https://www.grammarly.com/blog/engineering/empowering-engineers-build-faster/), [GitLab CI Infrastructure on K8s](https://youtu.be/ZOYA1XNqFBI) 
@@ -100,13 +108,10 @@ Started my career in IT: grew up from a Level-1 tech support engineer (communica
 
 ## Skills
 🤝 Team Leader
-:   Team motivation, mentorship, cultivation of soft/hard skills of team members.\
-Fostering team values and working principles and developing the new ones together with the team.\
-Hiring new team members and forming the required team skillset.
+:   Achieve engineering-wide goals through extensive guidance, helping engineers achieve success via coaching, engaging talks, and advocating for rising the bar. My approach prioritizes impactful results, carefully balancing team priorities with a keen understanding of cost versus customer benefits.
 
 📈 PM
-:   Managing stand-alone DevOps projects and operations parts of big projects with dev teams.\
-Resources and capacity management.
+:   Proficient in autonomously managing and forecasting large-scale project tasks, with a track record of influencing engineering goals. Expert in designing new systems from scratch and providing pivotal design feedback to peers. Skilled in leading critical projects and systems.
 
 ☁️ Clouds
 :   Amazon Web Services. Design and fine-tuning of resilient and HA infrastructures; costs optimization and security hardening.
