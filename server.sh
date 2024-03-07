@@ -1,6 +1,6 @@
 #!/bin/zsh
-git submodule update --init --recursive
-git submodule update --remote --merge
+#git submodule update --init --recursive
+#git submodule update --remote --merge
 
 bindip=$(ipconfig getifaddr en0)
 site_env=development

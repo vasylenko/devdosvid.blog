@@ -3,7 +3,7 @@ on:
   pull_request:
 
 env:
-  HUGO_VERSION: 0.111.3
+  HUGO_VERSION: 0.123.8
   ARTIFACT: deployment-artifact
   CF_PREVIEW_PROJECT_NAME: devdosvid-preview
 
@@ -16,10 +16,7 @@ jobs:
       deployments: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          submodules: recursive
-          fetch-depth: 0
+        uses: actions/checkout@v4
 
       - name: Build Hugo
         uses: ./.github/actions/build-hugo

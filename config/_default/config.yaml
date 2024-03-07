@@ -4,6 +4,9 @@ author:
     name: Serhii Vasylenko
     email: contact@devdosvid.blog
 
+module:
+  imports:
+    - path: github.com/adityatelange/hugo-PaperMod
 theme: "PaperMod"
 paginate: 7
 
