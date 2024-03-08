@@ -3,7 +3,7 @@
     <title>devDosvid blog</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/series/"/>
-    <updated>2024-01-11T21:32:26Z</updated>
+    <updated>2024-03-08T00:19:28Z</updated>
     <author>
         <name>devDosvid blog</name>
         <uri>https://devdosvid.blog/</uri>
@@ -15,7 +15,7 @@
         <title>Mastering AWS API Gateway V2 HTTP and AWS Lambda With Terraform</title>
         <link href="https://devdosvid.blog/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/" hreflang="en" rel="alternate"/>
         <published>2024-01-09T02:33:10Z</published>
-        <updated>2024-01-10T23:29:08Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -86,10 +86,9 @@ height=&#34;440.50&#34;
 &lt;li&gt;Use function environment variables to connect the code with SSM Parameter Store parameters or Secrets Manager secrets to protect sensitive data like tokens or credentials;&lt;/li&gt;
 &lt;li&gt;Use &lt;code&gt;for_each&lt;/code&gt; meta-argument and &lt;code&gt;for&lt;/code&gt; expression to reduce the amount of code and automate the configuration for resources of the same type (e.g., &lt;code&gt;ssm_parameter&lt;/code&gt;) or code blocks within a resource.&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;/div&gt;
 &lt;p&gt;Below is a practical example illustrating these Terraform strategies in action:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;locals {  
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;locals {  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  full_function_name = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;${&lt;/span&gt;var.project_name&lt;span style=&#34;color:#a5d6ff&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;${&lt;/span&gt;var.function_name&lt;span style=&#34;color:#a5d6ff&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;&lt;/span&gt;  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_lambda_function&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;this&amp;#34;&lt;/span&gt; {  
@@ -133,7 +132,7 @@ height=&#34;440.50&#34;
 &lt;p&gt;By the way, I have another blog post that explains several techniques to enhance your Terraform proficiency — &lt;a href=&#34;https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency&#34;&gt;check it out&lt;/a&gt;!&lt;/p&gt;
 &lt;h3 id=&#34;invoking-lambda-permissions-and-resource-based-policies&#34;&gt;Invoking Lambda: Permissions and Resource-Based Policies&lt;/h3&gt;
 &lt;p&gt;Configured with just a few input variables, the Terraform module efficiently outputs the &lt;code&gt;aws_lambda_function&lt;/code&gt; resource. This streamlined output is then adeptly used to facilitate subsequent configurations within the HTTP API.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;lambda_api_gw_authorizer&amp;#34;&lt;/span&gt; {  
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;lambda_api_gw_authorizer&amp;#34;&lt;/span&gt; {  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  source          = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;./modules/lambda&amp;#34;&lt;/span&gt;  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  deployment_file = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;../backend/lambda-apigw-authorizer/deployment.zip&amp;#34;&lt;/span&gt;  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  function_name   = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;api-gateway-authorizer&amp;#34;&lt;/span&gt;  
@@ -154,7 +153,7 @@ height=&#34;440.50&#34;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ]  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;As an example of module output usage, here is the configuration of &lt;code&gt;aws_lambda_permissions&lt;/code&gt; resource that I use outside the AWS Lambda module to allow the HTTP API service to invoke the function used as Authorizer:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_lambda_permission&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;allow_api_gw_invoke_authorizer&amp;#34;&lt;/span&gt; {  
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_lambda_permission&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;allow_api_gw_invoke_authorizer&amp;#34;&lt;/span&gt; {  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  statement_id  = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;allowInvokeFromAPIGatewayAuthorizer&amp;#34;&lt;/span&gt;  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  action        = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;lambda:InvokeFunction&amp;#34;&lt;/span&gt;  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  function_name = module.lambda_api_gw_authorizer.lambda.function_name  
@@ -207,11 +206,11 @@ AWS HTTP API code logically represents the &amp;ldquo;global&amp;rdquo; (within 
 &lt;p&gt;The &lt;strong&gt;simple response&lt;/strong&gt; just returns a Boolean value to indicate whether the API should allow the request (True) or forbid it (False).&lt;/p&gt;
 &lt;p&gt;The IAM policy option is customizable and allows crafting custom policy statements that allow granular access to explicitly provided resources.&lt;/p&gt;
 &lt;p&gt;In this project, I follow the way of simplicity and use the &amp;ldquo;simple response&amp;rdquo;, so the response from Lambda Authorizer to HTTP API looks as follows:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#7ee787&#34;&gt;&amp;#34;isAuthorized&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#79c0ff&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#79c0ff&#34;&gt;false&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Let&amp;rsquo;s review the HTTP API resource along with the API Authorizer that I used for all routes:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_apigatewayv2_api&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;this&amp;#34;&lt;/span&gt; {  
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_apigatewayv2_api&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;this&amp;#34;&lt;/span&gt; {  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  name          = local.project_name  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  protocol_type = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;HTTP&amp;#34;&lt;/span&gt;  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
@@ -248,7 +247,7 @@ AWS HTTP API code logically represents the &amp;ldquo;global&amp;rdquo; (within 
 &lt;h3 id=&#34;applying-terraform-for-http-api-routes&#34;&gt;Applying Terraform for HTTP API Routes&lt;/h3&gt;
 &lt;p&gt;💡 Because an API typically has multiple routes, creating another Terraform module that implements the configurable HTTP API Gateway route is beneficial. Hence, the &lt;code&gt;aws_apigatewayv2_route&lt;/code&gt;, &lt;code&gt;aws_apigatewayv2_integration&lt;/code&gt;, and &lt;code&gt;aws_lambda_permission&lt;/code&gt; resources would constitute such a module.&lt;/p&gt;
 &lt;p&gt;This Terraform module implements a specific use case for HTTP API Gateway. However, if you&amp;rsquo;re seeking for a generic all-in-one module for API Gateway, I recommend checking out this one — &lt;a href=&#34;https://registry.terraform.io/modules/terraform-aws-modules/apigateway-v2/aws/latest&#34;&gt;Terraform AWS API Gateway Module&lt;/a&gt; by Anton Babenko.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_apigatewayv2_route&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;this&amp;#34;&lt;/span&gt; {  
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_apigatewayv2_route&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;this&amp;#34;&lt;/span&gt; {  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  api_id             = var.api_id  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  route_key          = var.route_key  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  authorization_type = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;CUSTOM&amp;#34;&lt;/span&gt;  
@@ -295,7 +294,6 @@ AWS HTTP API code logically represents the &amp;ldquo;global&amp;rdquo; (within 
 &lt;li&gt;A path variable in a route, e.g., &lt;code&gt;GET /calendars/{calendar-name}&lt;/code&gt;, would be available for the integrated AWS Lambda by its name inside the pathParameter JSON field, e.g.,  &lt;code&gt;pathParamters.calendar-name&lt;/code&gt;, of the event object sent by API to Lambda. In other words, you do not need to explicitly set the mapping between the path variable and its representation to the back-end.&lt;/li&gt;
 &lt;li&gt;A request query string is parsed into separate parameter-value pairs and available in the &lt;code&gt;queryStringParameters&lt;/code&gt; field of the event object sent by API to Lambda. Again, without the explicit mapping configuration.&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;/div&gt;
 &lt;p&gt;Here, you can read more about the Route specification of HTTP API and how to transform requests and responses from the API side if you need to adjust something:&lt;/p&gt;
 &lt;ul&gt;
@@ -303,7 +301,7 @@ AWS HTTP API code logically represents the &amp;ldquo;global&amp;rdquo; (within 
 &lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-parameter-mapping.html&#34;&gt;Transforming API requests and responses&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Now back to Terraform. Below is the code snippet that illustrates the call of the API Route Terraform module:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;route_calendars&amp;#34;&lt;/span&gt; {  
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;route_calendars&amp;#34;&lt;/span&gt; {  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  source                = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;./modules/api-gateway-route&amp;#34;&lt;/span&gt;  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  api_id                = aws_apigatewayv2_api.this.id  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  route_key             = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;GET /calendars/{calendar-name}&amp;#34;&lt;/span&gt;  
@@ -323,7 +321,7 @@ AWS HTTP API code logically represents the &amp;ldquo;global&amp;rdquo; (within 
 &lt;h3 id=&#34;configuring-monitoring-and-protection-for-http-api-with-terraform&#34;&gt;Configuring monitoring and protection for HTTP API with Terraform&lt;/h3&gt;
 &lt;p&gt;Now, let&amp;rsquo;s see how Terraform helps configure the protection and monitoring for HTTP API.&lt;/p&gt;
 &lt;p&gt;As mentioned earlier, API Gateway applies these configurations at the Stage level, which is why the aws_apigatewayv2_stage resource encapsulates them all.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_apigatewayv2_stage&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;default&amp;#34;&lt;/span&gt; {  
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_apigatewayv2_stage&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;default&amp;#34;&lt;/span&gt; {  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  api_id      = aws_apigatewayv2_api.this.id  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  name        = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;$default&amp;#34;&lt;/span&gt;  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  auto_deploy = &lt;span style=&#34;color:#79c0ff&#34;&gt;true&lt;/span&gt;  
@@ -352,7 +350,7 @@ AWS HTTP API code logically represents the &amp;ldquo;global&amp;rdquo; (within 
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here, I applied the default &lt;a href=&#34;https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-throttling.html&#34;&gt;throttling settings&lt;/a&gt;: for my project, 1 request per second was enough at that point.&lt;/p&gt;
 &lt;p&gt;🤔 There is a nuance, though, that makes Terraforming API Gateway a little inconvenient — the IAM role that allows API to write logs must be defined on a region level. Therefore, if you maintain several Terraform projects for the same AWS account, you might need to have the following configuration stand separately to avoid conflicts or misunderstandings:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_api_gateway_account&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;this&amp;#34;&lt;/span&gt; {  
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_api_gateway_account&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;this&amp;#34;&lt;/span&gt; {  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  cloudwatch_role_arn = aws_iam_role.api_gateway_cloudwatch_logs.arn  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
@@ -379,7 +377,7 @@ AWS HTTP API code logically represents the &amp;ldquo;global&amp;rdquo; (within 
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  retention_in_days = &lt;span style=&#34;color:#a5d6ff&#34;&gt;7&lt;/span&gt;  
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And one more thing about HTTP API deployments and stages. I use the special &lt;code&gt;$default&lt;/code&gt; keyword to have a single stage (hence, the default one), and I also used automatic deployments: with any change made to API configuration, AWS will automatically generate a new Deployment and bound it with the Stage. If you prefer controlling deployments manually, there is a special resource exists that implements this — &lt;code&gt;aws_apigatewayv2_deployment&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_apigatewayv2_deployment&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;example&amp;#34;&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_apigatewayv2_deployment&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;example&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  api_id      = aws_apigatewayv2_api.example.id
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  description = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;Example deployment&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
@@ -405,7 +403,7 @@ AWS HTTP API code logically represents the &amp;ldquo;global&amp;rdquo; (within 
         <title>Hello Terraform Data; Goodbye Null Resource</title>
         <link href="https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/" hreflang="en" rel="alternate"/>
         <published>2023-04-15T23:25:18Z</published>
-        <updated>2023-04-25T23:35:31Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -533,7 +531,7 @@ height=&#34;409.00&#34;
         <title>Five Practical Ways To Get The Verified EC2 AMI</title>
         <link href="https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/" hreflang="en" rel="alternate"/>
         <published>2022-07-24T13:21:05Z</published>
-        <updated>2022-07-27T08:31:21Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -663,7 +661,7 @@ height=&#34;213.69&#34;
         <title>Golden Image Pipelines With HCP Packer</title>
         <link href="https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/" hreflang="en" rel="alternate"/>
         <published>2022-06-26T13:13:12Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -847,7 +845,7 @@ height=&#34;218.00&#34;
 &lt;div class=&#34;code-snippet&#34;&gt;
 &lt;details&gt;
 &lt;summary markdown=&#34;span&#34;&gt;Click here to see the code snippet&lt;/summary&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#79c0ff&#34;&gt;HCP_ACCESS_TOKEN&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;your token here&amp;#34;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#79c0ff&#34;&gt;HCP_ACCESS_TOKEN&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;your token here&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#79c0ff&#34;&gt;HCP_ORG_ID&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;your org id here&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#79c0ff&#34;&gt;HCP_PROJECT_ID&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;your project id here&amp;#34;&lt;/span&gt;
@@ -927,7 +925,7 @@ height=&#34;501.24&#34;
         <title>New Lifecycle Options and Refactoring Capabilities in Terraform 1.1 and 1.2</title>
         <link href="https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/" hreflang="en" rel="alternate"/>
         <published>2022-05-04T20:27:47Z</published>
-        <updated>2023-04-25T23:35:31Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1179,7 +1177,6 @@ height=&#34;342&#34;
 &lt;li&gt;any of the resources referenced in &lt;code&gt;replace_triggered_by&lt;/code&gt; are updated&lt;/li&gt;
 &lt;li&gt;any value is set to the resource attribute that is referenced in &lt;code&gt;replace_triggered_by&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;/div&gt;
 &lt;h2 id=&#34;getting-started-with-terraform-11-and-12&#34;&gt;Getting started with Terraform 1.1 and 1.2&lt;/h2&gt;
 &lt;p&gt;If you&amp;rsquo;re still using older Terraform versions, these new features might be a good motivation for you to upgrade!&lt;/p&gt;
@@ -1190,7 +1187,7 @@ height=&#34;342&#34;
         <title>Monterey Shortcuts for Easy and Fast Image Processing</title>
         <link href="https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/" hreflang="en" rel="alternate"/>
         <published>2022-01-31T21:46:04Z</published>
-        <updated>2022-07-11T14:53:21Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1308,7 +1305,7 @@ height=&#34;1176.98&#34;
         <title>Some Techniques to Enhance Your Terraform Proficiency</title>
         <link href="https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/" hreflang="en" rel="alternate"/>
         <published>2022-01-15T23:59:51Z</published>
-        <updated>2023-04-25T23:35:31Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1334,18 +1331,18 @@ height=&#34;400.00&#34;
 &lt;p&gt;Let&amp;rsquo;s start from the most popular one: whether to create a resource depending on some fact, e.g., the value of a variable.&lt;/p&gt;
 &lt;p&gt;Terraform meta-argument &lt;code&gt;count&lt;/code&gt; helps to describe that kind of resource creation logic.&lt;/p&gt;
 &lt;p&gt;Here is how it may look like:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;data&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_ssm_parameter&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;ami_id&amp;#34;&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;data&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_ssm_parameter&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;ami_id&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  count    = var.ami_channel =&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;?&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;1&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  name     = local.ami_channels[var.ami_channel]
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The notation &lt;code&gt;var.ami_channel == &amp;quot;&amp;quot; ? 0 : 1&lt;/code&gt; is called &lt;em&gt;conditional expression&lt;/em&gt; and means the following: if my variable is empty (&lt;code&gt;var.ami_channel == &amp;quot;&amp;quot;&lt;/code&gt; — hence, true) then set the count to 0, otherwise set to 1.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;condition ? true_val : false_val
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;condition ? true_val : false_val
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this illustration, I want to get the AMI ID from the SSM Parameter only if the AMI channel (e.g., beta or alpha) is specified. Otherwise, providing that the &lt;code&gt;ami_channel&lt;/code&gt; variable is an empty string by default (&amp;quot;&amp;quot;), the data source should not be created.&lt;/p&gt;
 &lt;p&gt;When following this method, keep in mind that the resource address will contain the index identifier. So when I need to use the value of the SSM parameter from our example, I need to reference it the following way:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ami_id = data.aws_ssm_parameter.ami_id[&lt;span style=&#34;color:#a5d6ff&#34;&gt;0&lt;/span&gt;].value
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ami_id = data.aws_ssm_parameter.ami_id[&lt;span style=&#34;color:#a5d6ff&#34;&gt;0&lt;/span&gt;].value
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;count&lt;/code&gt; meta-argument can also be used when you need to conditionally create a Terraform module.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;bucket&amp;#34;&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;bucket&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  count             = var.create_bucket =&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#79c0ff&#34;&gt;true&lt;/span&gt; &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;?&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;0&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  source            = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;./modules/s3_bucket&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
@@ -1356,7 +1353,7 @@ height=&#34;400.00&#34;
 &lt;p&gt;But what if you need to produce more than one instance of a resource or module? And still be able to avoid their creation.&lt;/p&gt;
 &lt;p&gt;Another meta-argument — &lt;code&gt;for_each&lt;/code&gt; — will do the trick.&lt;/p&gt;
 &lt;p&gt;For example, this is how the &lt;code&gt;for_each&lt;/code&gt; argument works for the conditional module creation:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;bucket&amp;#34;&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;module&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;bucket&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  for_each          = var.bucket_names =&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt; [] &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;?&lt;/span&gt; [] &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;:&lt;/span&gt; var.bucket_names
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  source            = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;./modules/s3_bucket&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
@@ -1366,7 +1363,7 @@ height=&#34;400.00&#34;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this illustration, I also used a conditional expression that makes Terraform iterate through the set of values of &lt;code&gt;var.bucket_names&lt;/code&gt; if it&amp;rsquo;s not empty and create several modules. Otherwise, do not iterate at all and do not create anything.&lt;/p&gt;
 &lt;p&gt;The same can be done for the resources. For example, when you need to create an arbitrary number of security group rules, e.g., to allowlist some IPs for your bastion host:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_security_group_rule&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;allowlist&amp;#34;&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_security_group_rule&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;allowlist&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  for_each           = var.cidr_blocks =&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt; [] &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;?&lt;/span&gt; [] &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;:&lt;/span&gt; var.cidr_blocks
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  type               = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;ingress&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  from_port          = &lt;span style=&#34;color:#a5d6ff&#34;&gt;22&lt;/span&gt;
@@ -1377,7 +1374,7 @@ height=&#34;400.00&#34;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And just like with the &lt;code&gt;count&lt;/code&gt; meta-argument, with the &lt;code&gt;for_each&lt;/code&gt;, resource addresses will have the identifier named by the values provided to &lt;code&gt;for_each&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;For example, here is how I would reference a resource created in the module with &lt;code&gt;for_each&lt;/code&gt; described earlier:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;bucket_name = module.bucket[&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;photos&amp;#34;&lt;/span&gt;].name
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;bucket_name = module.bucket[&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;photos&amp;#34;&lt;/span&gt;].name
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;substack-embedded-container&#34;&gt;
     &lt;h3&gt;Subscribe to blog updates!&lt;/h3&gt;
     &lt;iframe title=&#34;Substack&#34; class=&#34;substack-embedded-iframe&#34; src=&#34;https://devdosvid.substack.com/embed&#34; height=&#34;250&#34;
@@ -1397,14 +1394,14 @@ height=&#34;400.00&#34;
 
 &lt;p&gt;Now let&amp;rsquo;s go deeper and see how resource arguments can be conditionally set (or not).&lt;/p&gt;
 &lt;p&gt;First, let&amp;rsquo;s review the conditional argument value setting with the &lt;code&gt;null&lt;/code&gt; data type:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_launch_template&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;this&amp;#34;&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_launch_template&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;this&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  name     = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;my-launch-template&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ...
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  key_name = var.use_default_keypair &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;?&lt;/span&gt; var.keypair_name &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;:&lt;/span&gt; null
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ...
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here I want to skip the usage of the EC2 Key Pair for the Launch Template in some instances and Terraform allows me to write the conditional expression that will set the &lt;code&gt;null&lt;/code&gt; value for the argument. It means the &lt;em&gt;absence&lt;/em&gt; or &lt;em&gt;omission&lt;/em&gt; and Terraform would behave the same as if you did not specify the argument at all.&lt;/p&gt;
 &lt;p&gt;Dynamic blocks are another case where conditional creation suits best. Take a look at the following piece of CloudFront resource code where I want to either describe the configuration for the custom error response or omit that completely:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_cloudfront_distribution&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;cdn&amp;#34;&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_cloudfront_distribution&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;cdn&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  enabled = &lt;span style=&#34;color:#79c0ff&#34;&gt;true&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ...
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  dynamic &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;custom_error_response&amp;#34;&lt;/span&gt; {
@@ -1435,9 +1432,9 @@ height=&#34;400.00&#34;
 Ok, let&amp;rsquo;s move to the less conditional things now 😅&lt;/p&gt;
 &lt;p&gt;Terraform has several type conversion functions: &lt;code&gt;tobool()&lt;/code&gt;, &lt;code&gt;tolist()&lt;/code&gt;,&lt;code&gt;tomap()&lt;/code&gt;, &lt;code&gt;tonumber()&lt;/code&gt;, &lt;code&gt;toset()&lt;/code&gt;, and &lt;code&gt;tostring()&lt;/code&gt;. Their purpose is to convert the input values to the compatible types.&lt;/p&gt;
 &lt;p&gt;For example, suppose I need to pass the set to the &lt;code&gt;for_each&lt;/code&gt; (it accepts only sets and maps types of value), but I got the list as an input; let&amp;rsquo;s say I got it as an output from another module. In such a case, I would do something like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;for_each = toset(var.remote_access_ports)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;for_each = toset(var.remote_access_ports)
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;However, I can make my code cleaner and avoid the explicit conversion — I just need to define the value type in the configuration block of the &lt;code&gt;my_list&lt;/code&gt; variable. Terraform will do the conversion automatically when the value is assigned.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;variable&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;remote_access_ports&amp;#34;&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;variable&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;remote_access_ports&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  description = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;Ports for remote access&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  type        = set(string)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
@@ -1445,7 +1442,7 @@ Ok, let&amp;rsquo;s move to the less conditional things now 😅&lt;/p&gt;
 &lt;p&gt;By the way, although there is a &lt;code&gt;tolist()&lt;/code&gt; function, there is no such thing as the &lt;code&gt;tostring()&lt;/code&gt; function. But what if you need to convert the list to string in Terraform?&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;one()&lt;/code&gt; function can help here: it takes a list, set, or tuple value with either zero or one element and returns either &lt;code&gt;null&lt;/code&gt; or that one element in the form of string.&lt;/p&gt;
 &lt;p&gt;It&amp;rsquo;s useful in cases when a resource created using conditional expression is represented as either a zero- or one-element list, and you need to get a single value which may be either &lt;code&gt;null&lt;/code&gt; or &lt;code&gt;string&lt;/code&gt;, for example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_kms_key&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;main&amp;#34;&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_kms_key&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;main&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  count               = var.ebs_encrypted &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;?&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;0&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  enable_key_rotation = &lt;span style=&#34;color:#79c0ff&#34;&gt;true&lt;/span&gt;
@@ -1474,7 +1471,7 @@ Sometimes you need to supply JSON or YAML files to the services you manage with 
 &lt;p&gt;Instead of maintaining another file in JSON or YAML format, you can embed JSON or YAML code management into HCL by taking benefit of the  &lt;code&gt;jsonencode()&lt;/code&gt; or &lt;code&gt;yamlencode()&lt;/code&gt;  functions.&lt;/p&gt;
 &lt;p&gt;The attractiveness of this approach is that you can reference other Terraform resources or their attributes right in the code of your object, and you have more freedom in terms of the code syntax and its formatting comparable to native JSON or YAML.&lt;/p&gt;
 &lt;p&gt;Here is how it looks like:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;locals {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;locals {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	some_string = &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;ult&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  myjson_object = jsonencode({
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;Hashicorp Products&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;:&lt;/span&gt; {
@@ -1486,7 +1483,7 @@ Sometimes you need to supply JSON or YAML files to the services you manage with 
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  })
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The value of the &lt;code&gt;myjson_object&lt;/code&gt; local variable would look like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#7ee787&#34;&gt;&amp;#34;Hashicorp Products&amp;#34;&lt;/span&gt;: {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#7ee787&#34;&gt;&amp;#34;Con&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;sul&amp;#34;&lt;/span&gt;,
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#7ee787&#34;&gt;&amp;#34;Terra&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;form&amp;#34;&lt;/span&gt;,
@@ -1495,7 +1492,7 @@ Sometimes you need to supply JSON or YAML files to the services you manage with 
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And here is a piece of real-world example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;locals {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;locals {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  cf_template_body = jsonencode({
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Resources &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;:&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      DedicatedHostGroup &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;:&lt;/span&gt; {
@@ -1527,7 +1524,7 @@ height=&#34;400.00&#34;
 The last case in this blog but not the least by its efficacy — render source file content as a template in Terraform.&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s review the following scenario: you launch an EC2 instance and want to supply it with a bash script (via the user-data parameter) for some additional configuration at launch.&lt;/p&gt;
 &lt;p&gt;Suppose we have the following bash script &lt;code&gt;instance-init.sh&lt;/code&gt; that sets the hostname and registers our instance in a monitoring system:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b949e;font-weight:bold;font-style:italic&#34;&gt;#!/bin/bash
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b949e;font-weight:bold;font-style:italic&#34;&gt;#!/bin/bash
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b949e;font-weight:bold;font-style:italic&#34;&gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hostname example.com
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;bash /opt/system-init/register-monitoring.sh
@@ -1540,7 +1537,7 @@ hostname ${system_hostname}
 bash /opt/system-init/register-monitoring.sh
 %{endif}
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And when you supply this file as an argument for the EC2 instance resource in Terraform, you will use the &lt;code&gt;templatefile()&lt;/code&gt; function to make the magic happen:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_instance&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;web&amp;#34;&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_instance&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;web&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ami           = var.my_ami_id
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  instance_type = var.instance_type
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ...
@@ -1564,7 +1561,7 @@ bash /opt/system-init/register-monitoring.sh
         <title>Guide to Using Terraform in CI/CD</title>
         <link href="https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/" hreflang="en" rel="alternate"/>
         <published>2021-11-24T20:20:45Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1589,7 +1586,7 @@ bash /opt/system-init/register-monitoring.sh
 &lt;p&gt;Docker image with a Terraform binary is one of the popular solutions that address this. Once created, you can execute Terraform within a container context with configuration files mounted as a Docker volume.&lt;/p&gt;
 &lt;p&gt;You can use the official &lt;a href=&#34;https://hub.docker.com/r/hashicorp/terraform/&#34;&gt;image from Hashicorp&lt;/a&gt;, but sometimes it makes sense to maintain your own Docker images with additional tools you may need. For instance, you can bake the &lt;code&gt;tfsec&lt;/code&gt; tool into the image to use it for security inspection and have it ready inside the Docker container without the need to install it every time.&lt;/p&gt;
 &lt;p&gt;Here is an example of a Dockerfile that builds an image with a custom Terraform version (you can override it as a build argument) and a &lt;code&gt;tfsec&lt;/code&gt; tool. This example also shows how to verify the installed Terraform binary to make sure it&amp;rsquo;s signed by HashiCorp before we run it.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-dockerfile&#34; data-lang=&#34;dockerfile&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;FROM&lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt; alpine:3.14&lt;/span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-dockerfile&#34; data-lang=&#34;dockerfile&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;FROM&lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt; alpine:3.14&lt;/span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;ARG&lt;/span&gt; &lt;span style=&#34;color:#79c0ff&#34;&gt;TERRAFORM_VERSION&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;1&lt;/span&gt;.0.11&lt;span style=&#34;color:#f85149&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;ARG&lt;/span&gt; &lt;span style=&#34;color:#79c0ff&#34;&gt;TFSEC_VERSION&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;0&lt;/span&gt;.59.0&lt;span style=&#34;color:#f85149&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;RUN&lt;/span&gt; apk add --no-cache --virtual .sig-check gnupg&lt;span style=&#34;color:#f85149&#34;&gt;
@@ -1625,12 +1622,12 @@ bash /opt/system-init/register-monitoring.sh
 &lt;h2 id=&#34;initialization&#34;&gt;Initialization&lt;/h2&gt;
 &lt;p&gt;CI/CD pipelines generally run in stateless environments. Thus, every subsequent run of Terraform looks like a fresh start, so the project needs to be initialized before other actions can be performed.&lt;/p&gt;
 &lt;p&gt;The usage of the &lt;code&gt;init&lt;/code&gt; command in CI/CD slightly differs from its common local usage:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; terraform init -input&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;false
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; terraform init -input&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;false
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;-input=false&lt;/code&gt; option prevents Terraform CLI from asking for user actions (it will throw an error if the input was required).&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Also, there is &lt;code&gt;-no-color&lt;/code&gt; option that prevents the usage of color codes in a shell, so the output will look much cleaner if your CI/CD logging system cannot render the terminal formatting.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Another option of the init command that is useful in CI — is the &lt;code&gt;-backend-config&lt;/code&gt;. That option allows you to override the backend configuration in your code or define it if you prefer to use partial configuration, thus creating more uniform pipelines.&lt;/p&gt;
 &lt;p&gt;For example, here is how you can use the same code with different roles in different environments on AWS:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; terraform init -input&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;false &lt;span style=&#34;color:#79c0ff&#34;&gt;\
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; terraform init -input&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;false &lt;span style=&#34;color:#79c0ff&#34;&gt;\
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#79c0ff&#34;&gt;&lt;/span&gt;-backend-config&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;role_arn=arn:aws:iam::012345678901:role/QADeploymentAutomation&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Terraform &lt;code&gt;init&lt;/code&gt; produces two artifacts:&lt;/p&gt;
 &lt;ul&gt;
@@ -1644,20 +1641,20 @@ bash /opt/system-init/register-monitoring.sh
 &lt;p&gt;By default, Terraform prints the plan output in a human-friendly format but also supports machine-readable JSON. With additional command-line options, you can extend your CI experience.&lt;/p&gt;
 &lt;p&gt;For example, you can use your validation conditions to decide whether to apply the changes automatically; or you can parse the plan details and integrate the summary into a Pull Request description. Let’s review a simple example that illustrates it.&lt;/p&gt;
 &lt;p&gt;First, you need to save the plan output to the file:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; terraform plan -input&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;false -compact-warnings -out&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;plan.file
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; terraform plan -input&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;false -compact-warnings -out&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;plan.file
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The main point here is the &lt;code&gt;-out&lt;/code&gt; option — it tells Terraform to save its output into a binary plan file, and we will talk about it in the next paragraph.&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;-compact-warnings&lt;/code&gt; option suppresses the warning-level messages produced by Terraform.&lt;/p&gt;
 &lt;p&gt;Also, the &lt;code&gt;plan&lt;/code&gt; command has the &lt;code&gt;-detailed-exitcode&lt;/code&gt; option that returns detailed exit codes when the command exits. For example, you can leverage this in a script that wraps Terraform and adds more conditional logic to its execution, because CIs will generally fail the pipeline on a command’s non-zero exit code. However, that may add complexity to the pipeline logic.&lt;/p&gt;
 &lt;p&gt;So if you need to get detailed info about the plan, I suggest parsing the plan output.&lt;/p&gt;
 &lt;p&gt;When you have a plan file, you can read it in JSON format and parse it. Here is a code snippet that illustrates that:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; terraform show -json plan.file| jq -r &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#39;([.resource_changes[]?.change.actions?]|flatten)|{&amp;#34;create&amp;#34;:(map(select(.==&amp;#34;create&amp;#34;))|length),&amp;#34;update&amp;#34;:(map(select(.==&amp;#34;update&amp;#34;))|length),&amp;#34;delete&amp;#34;:(map(select(.==&amp;#34;delete&amp;#34;))|length)}&amp;#39;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; terraform show -json plan.file| jq -r &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#39;([.resource_changes[]?.change.actions?]|flatten)|{&amp;#34;create&amp;#34;:(map(select(.==&amp;#34;create&amp;#34;))|length),&amp;#34;update&amp;#34;:(map(select(.==&amp;#34;update&amp;#34;))|length),&amp;#34;delete&amp;#34;:(map(select(.==&amp;#34;delete&amp;#34;))|length)}&amp;#39;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;create&amp;#34;&lt;/span&gt;: 1,
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;update&amp;#34;&lt;/span&gt;: 0,
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;delete&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#a5d6ff&#34;&gt;0&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Another way to see the information about changes, is to run the &lt;code&gt;plan&lt;/code&gt; command with &lt;code&gt;-json&lt;/code&gt; option and parse its output to stdout (available starting from Terraform 1.0.5):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; terraform plan -json|jq &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#39;select( .type == &amp;#34;change_summary&amp;#34;)|.&amp;#34;@message&amp;#34;&amp;#39;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; terraform plan -json|jq &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#39;select( .type == &amp;#34;change_summary&amp;#34;)|.&amp;#34;@message&amp;#34;&amp;#39;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;Plan: 1 to add, 0 to change, 0 to destroy.&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;div class=&#34;attention&#34;&gt;
     This technique can make your Pull Request messages more informative and improve your collaboration with teammates.
@@ -1667,10 +1664,10 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 &lt;h2 id=&#34;apply&#34;&gt;Apply&lt;/h2&gt;
 &lt;p&gt;When the plan file is ready, and the proposed changes are expected and approved, it&amp;rsquo;s time to &lt;code&gt;apply&lt;/code&gt; them.&lt;/p&gt;
 &lt;p&gt;Here is how the &lt;code&gt;apply&lt;/code&gt; command may look like in automation:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;terraform apply -input&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;false -compact-warnings plan.file
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;terraform apply -input&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;false -compact-warnings plan.file
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here, the &lt;code&gt;plan.file&lt;/code&gt; is the file we got from the previous plan step.&lt;/p&gt;
 &lt;p&gt;Alternatively, you might want to omit the planning phase at all. In that case, the following command will apply the configuration immediately, without the need for a plan:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;terraform apply -input&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;false -compact-warnings -auto-approve
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;terraform apply -input&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;false -compact-warnings -auto-approve
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here, the &lt;code&gt;-auto-approve&lt;/code&gt; option tells Terraform to create the plan implicitly and skip the interactive approval of that plan before applying.&lt;/p&gt;
 &lt;p&gt;Whichever way you choose, keep in mind the destructive nature of the apply command. Hence, the fully automated apply of configuration generally works well with environments that tolerate unexpected downtimes, such as development or testing. Whereas plan review is recommended for production-grade environments, and in that case, the &lt;code&gt;apply&lt;/code&gt; job is configured for a manual trigger.&lt;/p&gt;
 &lt;h1 id=&#34;dealing-with-stateless-environments&#34;&gt;Dealing with stateless environments&lt;/h1&gt;
@@ -1686,10 +1683,10 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 &lt;p&gt;There are two common ways how you can pass values for the variables used in the configuration:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Using a &lt;code&gt;-var-file&lt;/code&gt; option with the variable definitions file — a filename ending in &lt;code&gt;.tfvars&lt;/code&gt; or &lt;code&gt;.tfvars.json&lt;/code&gt;. For example:
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;terraform apply -var-file&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;development.tfvars -input&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;false -no-color -compact-warnings -auto-approve
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;terraform apply -var-file&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;development.tfvars -input&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;false -no-color -compact-warnings -auto-approve
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;Also, Terraform can automatically load the variables from files named exactly &lt;code&gt;terraform.tfvars&lt;/code&gt; or &lt;code&gt;terraform.tfvars.json&lt;/code&gt;: with that approach, you don’t need to specify the tfvar file as a command option explicitly.&lt;/li&gt;
 &lt;li&gt;Using environment variables with the prefix &lt;code&gt;TF_VAR_&lt;/code&gt;. Implicitly, Terraform always looks for the environment variables (within its process context) with that prefix, so the same &amp;ldquo;instance_type&amp;rdquo; variables from the example above can be passed as follows:
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;export &lt;span style=&#34;color:#79c0ff&#34;&gt;TF_VAR_instance_type&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;t3.nano
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;export &lt;span style=&#34;color:#79c0ff&#34;&gt;TF_VAR_instance_type&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;t3.nano
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;terraform -input&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;false -no-color -compact-warnings -auto-approve
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
@@ -1699,7 +1696,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;TF_INPUT&lt;/code&gt; — when set to &amp;ldquo;false&amp;rdquo; or &amp;ldquo;0&amp;rdquo;, this tells Terraform to behave the same way as with the &lt;code&gt;-input=false&lt;/code&gt; flag;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;TF_CLI_ARGS&lt;/code&gt; — can contain a set of command-line options that will be passed to one or another Terraform command. Therefore, the following notation can simplify the execution of &lt;code&gt;apply&lt;/code&gt; and &lt;code&gt;plan&lt;/code&gt; commands by unifying their options for CI:
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;export &lt;span style=&#34;color:#79c0ff&#34;&gt;TF_CLI_ARGS&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;-input=false -no-color -compact-warnings&amp;#34;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;export &lt;span style=&#34;color:#79c0ff&#34;&gt;TF_CLI_ARGS&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;-input=false -no-color -compact-warnings&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;terraform plan ...
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;terraform apply ...
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;You can advantage this even more when using this variable as the environment configuration of stages or jobs in a CI/CD tool.&lt;/li&gt;
@@ -1719,7 +1716,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         <title>Apply Cloudfront Security Headers With Terraform</title>
         <link href="https://devdosvid.blog/2021/11/05/apply-cloudfront-security-headers-with-terraform/" hreflang="en" rel="alternate"/>
         <published>2021-11-05T12:20:58Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2021/11/05/apply-cloudfront-security-headers-with-terraform/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1732,7 +1729,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 &lt;p&gt;Starting from the &lt;a href=&#34;https://github.com/hashicorp/terraform-provider-aws/blob/main/CHANGELOG.md#3640-november-04-2021&#34;&gt;3.64.0&lt;/a&gt; version of Terraform AWS provider, you can create the security headers policies and apply them for your distribution.&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s see how that looks!&lt;/p&gt;
 &lt;p&gt;First, you need to describe the &lt;code&gt;aws_cloudfront_response_headers_policy&lt;/code&gt; resource:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_cloudfront_response_headers_policy&amp;#34; &amp;#34;security_headers_policy&amp;#34;&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_cloudfront_response_headers_policy&amp;#34; &amp;#34;security_headers_policy&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  name &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;my-security-headers-policy&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#ff7b72&#34;&gt;security_headers_config&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff7b72&#34;&gt;content_type_options&lt;/span&gt; {
@@ -1775,7 +1772,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 &lt;p&gt;The values for the security headers can be different, of course. However, the provided ones cover the majority of cases. And you can always get the up to date info about these headers and possible values here: &lt;a href=&#34;https://infosec.mozilla.org/guidelines/web_security&#34;&gt;Mozilla web Security Guidelines&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Also, you could notice that provided example uses the &lt;code&gt;override&lt;/code&gt; argument a lot. The &lt;code&gt;override&lt;/code&gt; argument tells CloudFront to set these values for specified headers despite the values received from the origin. This way, you can enforce your security headers configuration.&lt;/p&gt;
 &lt;p&gt;Once you have the &lt;code&gt;aws_cloudfront_response_headers_policy&lt;/code&gt; resource, you can refer to it in the code of &lt;code&gt;aws_cloudfront_distribution&lt;/code&gt; resource inside cache behavior block (default or ordered). For example, in your &lt;code&gt;default_cache_behavior&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_cloudfront_distribution&amp;#34; &amp;#34;test&amp;#34;&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_cloudfront_distribution&amp;#34; &amp;#34;test&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#ff7b72&#34;&gt;default_cache_behavior&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    target_origin_id           &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ff7b72&#34;&gt;aws_s3_bucket&lt;/span&gt;.&lt;span style=&#34;color:#ff7b72&#34;&gt;my_origin&lt;/span&gt;.&lt;span style=&#34;color:#ff7b72&#34;&gt;id&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    allowed_methods            &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;GET&amp;#34;, &amp;#34;HEAD&amp;#34;, &amp;#34;OPTIONS&amp;#34;&lt;/span&gt;]
@@ -1819,7 +1816,7 @@ height=&#34;903.43&#34;
         <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
         <link href="https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/" hreflang="en" rel="alternate"/>
         <published>2021-10-23T23:00:31Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1919,7 +1916,7 @@ height=&#34;741&#34;
 &lt;div class=&#34;code-snippet&#34;&gt;
 &lt;details&gt;
 &lt;summary markdown=&#34;span&#34;&gt;Click here to see the code snippet&lt;/summary&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; aws ec2 describe-instance-type-offerings --location-type availability-zone-id --filters &lt;span style=&#34;color:#79c0ff&#34;&gt;Name&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;instance-type,Values&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;mac1.metal --region us-east-1 --output text
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; aws ec2 describe-instance-type-offerings --location-type availability-zone-id --filters &lt;span style=&#34;color:#79c0ff&#34;&gt;Name&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;instance-type,Values&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;mac1.metal --region us-east-1 --output text
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;INSTANCETYPEOFFERINGS	mac1.metal	use1-az6	availability-zone-id
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;INSTANCETYPEOFFERINGS	mac1.metal	use1-az4	availability-zone-id
@@ -1942,7 +1939,7 @@ height=&#34;741&#34;
 &lt;div class=&#34;code-snippet&#34;&gt;
 &lt;details&gt;
 &lt;summary markdown=&#34;span&#34;&gt;Click here to see the code snippet&lt;/summary&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_licensemanager_license_configuration&amp;#34; &amp;#34;this&amp;#34;&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_licensemanager_license_configuration&amp;#34; &amp;#34;this&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  name                     &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ff7b72&#34;&gt;local&lt;/span&gt;.&lt;span style=&#34;color:#ff7b72&#34;&gt;full_name&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  license_counting_type    &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;Socket&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
@@ -1962,7 +1959,7 @@ height=&#34;741&#34;
 &lt;div class=&#34;code-snippet&#34;&gt;
 &lt;details&gt;
 &lt;summary markdown=&#34;span&#34;&gt;Click here to see the code snippet&lt;/summary&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#7ee787&#34;&gt;&amp;#34;Parameters&amp;#34;&lt;/span&gt; : {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#7ee787&#34;&gt;&amp;#34;GroupName&amp;#34;&lt;/span&gt; : {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#7ee787&#34;&gt;&amp;#34;Type&amp;#34;&lt;/span&gt; : &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;String&amp;#34;&lt;/span&gt;,
@@ -2044,7 +2041,7 @@ And you can leverage the &lt;a href=&#34;https://registry.terraform.io/providers
         <title>AWS Resource Access Manager — Multi Account Resource Governance</title>
         <link href="https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/" hreflang="en" rel="alternate"/>
         <published>2021-09-24T21:54:23Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2104,7 +2101,7 @@ height=&#34;533&#34;
 &lt;p&gt;Finally, review the summary page of the resource share and create it.&lt;/p&gt;
 &lt;p&gt;Only specific actions are available to the users of shared resources. These actions mostly have the &amp;ldquo;read-only&amp;rdquo; nature and &lt;a href=&#34;https://docs.aws.amazon.com/ram/latest/userguide/shareable.html&#34;&gt;vary by resource type&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Also, the RAM service is &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ram_resource_share&#34;&gt;supported by Terraform&lt;/a&gt;, so the resource sharing configuration may look like that, for example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_ram_resource_share&amp;#34; &amp;#34;example&amp;#34;&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_ram_resource_share&amp;#34; &amp;#34;example&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  name                      &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;example&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  allow_external_principals &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ff7b72&#34;&gt;false&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
@@ -2130,7 +2127,7 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
         <title>Run Ansible playbook on Mac EC2 Instances fleet with AWS Systems Manager</title>
         <link href="https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/" hreflang="en" rel="alternate"/>
         <published>2021-05-27T00:00:00Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2146,7 +2143,7 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
 &lt;p&gt;It’s called “AWS-RunAnsiblePlaybook,” and you can find it in AWS SSM → Documents → Owned by Amazon.&lt;/p&gt;
 &lt;p&gt;However, this Document is not quite “friendly” to macOS. When the SSM agent calls Ansible on the Mac EC2 instance, it does not recognize the Ansible installed with Homebrew (de-facto most used macOS package manager).&lt;/p&gt;
 &lt;p&gt;So if you try to run a command on the mac1.metal instance using this Document, you will get the following error:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Ansible is not installed. Please install Ansible and rerun the command.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Ansible is not installed. Please install Ansible and rerun the command.
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The root cause is trivial: the path to Ansible binary is not present on the list of paths available to the SSM agent by default.&lt;/p&gt;
 &lt;p&gt;There are several ways to solve that, but I believe that the most convenient one would be to create your custom Document — a slightly adjusted version of the default one provided by AWS.&lt;/p&gt;
 &lt;h2 id=&#34;creating-own-ssm-document-for-ansible-installed-with-homebrew&#34;&gt;Creating own SSM Document for Ansible installed with Homebrew&lt;/h2&gt;
@@ -2169,7 +2166,7 @@ height=&#34;476.68&#34;
 &lt;div class=&#34;code-snippet&#34;&gt;
 &lt;details&gt;
 &lt;summary markdown=&#34;span&#34;&gt;Click here to see the code snippet&lt;/summary&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#7ee787&#34;&gt;&amp;#34;schemaVersion&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;2.0&amp;#34;&lt;/span&gt;,
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#7ee787&#34;&gt;&amp;#34;description&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;Use this document to run arbitrary Ansible playbooks on macOS EC2 instances. Specify either YAML text or URL. If you specify both, the URL parameter will be used. Use the extravar parameter to send runtime variables to the Ansible execution. Use the check parameter to perform a dry run of the Ansible execution. The output of the dry run shows the changes that will be made when the playbook is executed.&amp;#34;&lt;/span&gt;,
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#7ee787&#34;&gt;&amp;#34;parameters&amp;#34;&lt;/span&gt;: {
@@ -2271,7 +2268,7 @@ height=&#34;476.68&#34;
         <title>Configure HTTP Security headers with CloudFront Functions</title>
         <link href="https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/" hreflang="en" rel="alternate"/>
         <published>2021-05-21T00:00:00Z</published>
-        <updated>2023-04-25T23:35:31Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2354,7 +2351,7 @@ height=&#34;467.84&#34;
 &lt;/figure&gt;
 
 &lt;p&gt;Here is the source code of the function:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;function&lt;/span&gt; handler(event) {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;function&lt;/span&gt; handler(event) {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;var&lt;/span&gt; response &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt; event.response;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;var&lt;/span&gt; headers &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt; response.headers;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
@@ -2415,7 +2412,7 @@ height=&#34;366.08&#34;
 
 &lt;p&gt;Once you associate the function with the CloudFront distribution, you can test it in live mode.&lt;/p&gt;
 &lt;p&gt;I will use curl here to demonstrate it:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; curl -i https://d30i87a4ss9ifz.cloudfront.net
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; curl -i https://d30i87a4ss9ifz.cloudfront.net
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;HTTP/2 &lt;span style=&#34;color:#a5d6ff&#34;&gt;200&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;content-type: text/html
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;content-length: &lt;span style=&#34;color:#a5d6ff&#34;&gt;140&lt;/span&gt;
@@ -2479,7 +2476,7 @@ height=&#34;626.15&#34;
         <title>Using TinyPNG Image Compression From MacOS Finder Contextual Menu</title>
         <link href="https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/" hreflang="en" rel="alternate"/>
         <published>2021-02-14T00:00:00Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2533,7 +2530,7 @@ height=&#34;702.36&#34;
 &lt;/figure&gt;
 
 &lt;p&gt;Put the following script into the &lt;strong&gt;Run Shell Script&lt;/strong&gt; window, replacing the &lt;em&gt;YOUR_API_KEY_HERE&lt;/em&gt; string with your API key obtained from TinyPNG.&lt;/p&gt;
-&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/vasylenko/13cb423aa83265e79ac5ad900195603f.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://gist.github.com/vasylenko/13cb423aa83265e79ac5ad900195603f.js&#34;&gt;&lt;/script&gt;
 
 &lt;h2 id=&#34;utilities-used-in-the-script--explained&#34;&gt;Utilities used in the script — explained&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;curl&lt;/code&gt; — used to make web requests (like your browser does)&lt;/p&gt;
@@ -2550,7 +2547,7 @@ height=&#34;702.36&#34;
         <title>Customizing mac1.metal EC2 AMI — new guts, more glory</title>
         <link href="https://devdosvid.blog/2021/02/01/customizing-mac1.metal-ec2-ami-new-guts-more-glory/" hreflang="en" rel="alternate"/>
         <published>2021-02-01T00:00:00Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2021/02/01/customizing-mac1.metal-ec2-ami-new-guts-more-glory/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2574,7 +2571,7 @@ height=&#34;702.36&#34;
 &lt;p&gt;&lt;em&gt;Some values are hardcoded intentionally in the code examples for the sake of simplicity and easy reading. You would probably want to parametrize them.&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id=&#34;xcode-installation-example&#34;&gt;Xcode installation example&lt;/h2&gt;
 &lt;p&gt;The following tasks will help you to automate the basics.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#7ee787&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;Install Xcode&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#7ee787&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;Install Xcode&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;      &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;shell&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;xip --expand Xcode.xip&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;      &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;args&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;        &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;chdir&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;/Applications&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
@@ -2588,7 +2585,7 @@ height=&#34;702.36&#34;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#7ee787&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;Switch into newly installed Xcode context&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;shell&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;xcode-select --switch /Applications/Xcode.app/Contents/Developer&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;example-of-software-installation-with-brew&#34;&gt;Example of software installation with Brew&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#7ee787&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;Install common build software&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#7ee787&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;Install common build software&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;community.general.homebrew&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;{{ item }}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;state&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;latest&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
@@ -2597,7 +2594,7 @@ height=&#34;702.36&#34;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;    &lt;/span&gt;- &lt;span style=&#34;color:#a5d6ff&#34;&gt;swiftformat&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;    &lt;/span&gt;- &lt;span style=&#34;color:#a5d6ff&#34;&gt;wget&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;screensharing-remote-desktop-configuration-example&#34;&gt;ScreenSharing (remote desktop) configuration example&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#7ee787&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;Turn On Remote Management&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#7ee787&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;Turn On Remote Management&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;shell&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;./kickstart -activate -configure -allowAccessFor -specifiedUsers&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;args&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;chdir&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
@@ -2619,20 +2616,20 @@ height=&#34;702.36&#34;
 &lt;h2 id=&#34;timeouts&#34;&gt;Timeouts&lt;/h2&gt;
 &lt;p&gt;As I mentioned in the &lt;a href=&#34;https://devdosvid.blog/2021/01/19/mac1-metal-EC2-Instance-user-experience.html&#34;&gt;previous article&lt;/a&gt;, the creation and deletion time of the &amp;ldquo;mac1.metal&amp;rdquo; Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.&lt;/p&gt;
 &lt;p&gt;Example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_polling&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;:&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_polling&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;:&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#7ee787&#34;&gt;&amp;#34;delay_seconds&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#a5d6ff&#34;&gt;30&lt;/span&gt;,
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#7ee787&#34;&gt;&amp;#34;max_attempts&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#a5d6ff&#34;&gt;60&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And it would be best if you also increased the SSH timeout:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;ssh_timeout&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;1h&amp;#34;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;ssh_timeout&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;1h&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Fortunately, Packer&amp;rsquo;s AMI builder does not require an explicit declaration of the Dedicated Host ID. So you can just reference the same subnet where you allocated the Host, assuming you did it with the enabled &amp;ldquo;Auto placement&amp;rdquo; parameter during the host creation.&lt;/p&gt;
 &lt;p&gt;Example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;tenancy&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;host&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;,&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;tenancy&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;host&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;,&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;subnet_id&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;your-subnet-id&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;provisioning&#34;&gt;Provisioning&lt;/h2&gt;
 &lt;p&gt;Packer has &lt;a href=&#34;https://www.packer.io/docs/provisioners/ansible&#34;&gt;Ansible Provisioner&lt;/a&gt; that I used for the AMI. Its documentation is also very clean and straightforward.&lt;/p&gt;
 &lt;p&gt;But it is still worth mentioning that if you want to parametrize the Ansible playbook, then the following configuration example will be handy:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;extra_arguments&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;:&lt;/span&gt; [
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;extra_arguments&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f85149&#34;&gt;:&lt;/span&gt; [
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;--extra-vars&amp;#34;&lt;/span&gt;,
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;your-variable-foo=your-value-bar]&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ]&lt;span style=&#34;color:#f85149&#34;&gt;,&lt;/span&gt;
@@ -2672,10 +2669,10 @@ height=&#34;702.36&#34;
 &lt;p&gt;I suggest looking into the default &lt;a href=&#34;https://github.com/aws/ec2-macos-init/blob/master/configuration/init.toml&#34;&gt;init.toml&lt;/a&gt; configuration file to get yourself more familiar with the capabilities of the tool.&lt;/p&gt;
 &lt;p&gt;The init tool can also clear its history, which is useful for the new AMI creation.&lt;/p&gt;
 &lt;p&gt;Example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ec2-macos-init clean -all
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ec2-macos-init clean -all
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And you can run the init manually for debugging purposes.&lt;/p&gt;
 &lt;p&gt;Example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ec2-macos-init run
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ec2-macos-init run
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can also combine the EC2 macOS Init actions (made by modules) with your script in user data for more accurate nontrivial configurations.&lt;/p&gt;
 &lt;h1 id=&#34;wrapping-up&#34;&gt;Wrapping up&lt;/h1&gt;
 &lt;p&gt;As a whole, building and operating macOS-based AMI does not differ from AMI management for other platforms.&lt;/p&gt;
@@ -2694,7 +2691,7 @@ height=&#34;702.36&#34;
         <title>Terraforming mac1.metal at AWS</title>
         <link href="https://devdosvid.blog/2021/01/20/terraforming-mac1.metal-at-aws/" hreflang="en" rel="alternate"/>
         <published>2021-01-20T00:00:00Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2021/01/20/terraforming-mac1.metal-at-aws/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2707,7 +2704,7 @@ height=&#34;702.36&#34;
 &lt;p&gt;I believe this is huge, even despite the number of constraints this solution has. This offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.&lt;/p&gt;
 &lt;p&gt;So here is a quick-start example of creating the dedicated host and the instance altogether using Terraform.&lt;/p&gt;
 &lt;p&gt;I intentionally used some hardcoded values for the sake of simplicity in the example.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_ec2_host&amp;#34; &amp;#34;example_host&amp;#34;&lt;/span&gt; {
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;resource&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_ec2_host&amp;#34; &amp;#34;example_host&amp;#34;&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  instance_type     &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;mac1.metal&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  availability_zone &lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;us-east-1a&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
@@ -2745,7 +2742,7 @@ height=&#34;702.36&#34;
         <title>mac1.metal and mac2.metal EC2 Instances — user experience</title>
         <link href="https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/" hreflang="en" rel="alternate"/>
         <published>2021-01-19T00:00:00Z</published>
-        <updated>2023-04-25T23:35:31Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2891,7 +2888,7 @@ I wrote a separate post about mac1.metal AMI customization and creation, so chec
 &lt;li&gt;System updates are disabled by default in the macOS AMIs provided by AWS.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;But you can use them with no issues. For example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo softwareupdate --install --all
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo softwareupdate --install --all
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;It is possible to set a custom screen resolution when connected to the instance using native ScreenSharing or any other VNC-compatible software.&lt;/li&gt;
 &lt;/ol&gt;
@@ -2940,26 +2937,26 @@ Such an easy thing to do, right? Well, it depends.&lt;/p&gt;
 &lt;p&gt;Get the identifier of EBS (look for the first one with GUID_partition_scheme):
 &lt;code&gt;diskutil list physical external&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Or here is a more advanced version to be used in a script:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#79c0ff&#34;&gt;DISK_ID&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;$(&lt;/span&gt;diskutil list physical external | grep &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#39;GUID_partition_scheme&amp;#39;&lt;/span&gt;| tr -s &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; | cut -d&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; -f6&lt;span style=&#34;color:#ff7b72&#34;&gt;)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#79c0ff&#34;&gt;DISK_ID&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;$(&lt;/span&gt;diskutil list physical external | grep &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#39;GUID_partition_scheme&amp;#39;&lt;/span&gt;| tr -s &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; | cut -d&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; -f6&lt;span style=&#34;color:#ff7b72&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It would probably be &lt;code&gt;disk0&lt;/code&gt; if you did not attach additional EBS.&lt;/p&gt;
 &lt;p&gt;Then run the repair job for the disk, using its identifier:
 &lt;code&gt;diskutil repairDisk disk0&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Advanced version:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;yes | diskutil repairDisk &lt;span style=&#34;color:#79c0ff&#34;&gt;$DISK_ID&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;yes | diskutil repairDisk &lt;span style=&#34;color:#79c0ff&#34;&gt;$DISK_ID&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now get the APFS container identifier (look for Apple_APFS):
 &lt;code&gt;diskutil list physical external&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Advanced version:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#79c0ff&#34;&gt;APFS_ID&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;$(&lt;/span&gt;diskutil list physical external | grep &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#39;Apple_APFS&amp;#39;&lt;/span&gt; | tr -s &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; | cut -d&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; -f8&lt;span style=&#34;color:#ff7b72&#34;&gt;)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#79c0ff&#34;&gt;APFS_ID&lt;/span&gt;&lt;span style=&#34;color:#ff7b72;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;$(&lt;/span&gt;diskutil list physical external | grep &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#39;Apple_APFS&amp;#39;&lt;/span&gt; | tr -s &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; | cut -d&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; -f8&lt;span style=&#34;color:#ff7b72&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It would probably be &lt;code&gt;disk0s2&lt;/code&gt; if you did not attach additional EBS.&lt;/p&gt;
 &lt;p&gt;Finally, resize the APFS container:
 &lt;code&gt;diskutil apfs resizeContainer disk0s2&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Advanced version&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;diskutil apfs resizeContainer &lt;span style=&#34;color:#79c0ff&#34;&gt;$APFS_ID&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;diskutil apfs resizeContainer &lt;span style=&#34;color:#79c0ff&#34;&gt;$APFS_ID&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/li&gt;
 &lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;&lt;strong&gt;How to setup Screen Sharing at mac1.metal in Terminal&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;kickstart&lt;/code&gt; command-line tool resides in &lt;code&gt;/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/&lt;/code&gt; so you&amp;rsquo;ll better to cd into that directory for convenience:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b949e;font-style:italic&#34;&gt;# Turn On Remote Management for a user to be specified later&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b949e;font-style:italic&#34;&gt;# Turn On Remote Management for a user to be specified later&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ./kickstart -activate -configure -allowAccessFor -specifiedUsers
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8b949e;font-style:italic&#34;&gt;# Enable Remote Management for ec2-user user&lt;/span&gt;
@@ -2975,7 +2972,7 @@ Such an easy thing to do, right? Well, it depends.&lt;/p&gt;
         <title>AWS CloudShell</title>
         <link href="https://devdosvid.blog/2020/12/16/aws-cloudshell/" hreflang="en" rel="alternate"/>
         <published>2020-12-16T00:00:00Z</published>
-        <updated>2022-07-15T20:47:01Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2020/12/16/aws-cloudshell/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -3002,7 +2999,7 @@ So it is not another &lt;a href=&#34;https://aws.amazon.com/devops-guru/&#34;&gt
         <title>Terraform Workflow — Working Individually and in a Team</title>
         <link href="https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team/" hreflang="en" rel="alternate"/>
         <published>2020-09-16T00:00:00Z</published>
-        <updated>2022-12-01T00:29:15Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -3168,7 +3165,7 @@ height=&#34;238.20&#34;
         <title>Terraform Certification Tips</title>
         <link href="https://devdosvid.blog/2020/09/15/terraform-certification-tips/" hreflang="en" rel="alternate"/>
         <published>2020-09-15T00:00:00Z</published>
-        <updated>2022-12-01T00:29:15Z</updated>
+        <updated>2024-03-08T00:19:04Z</updated>
         <id>https://devdosvid.blog/2020/09/15/terraform-certification-tips/</id>
         <author>
             <name>Serhii Vasylenko</name>
