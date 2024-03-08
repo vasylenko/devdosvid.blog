@@ -145,5 +145,5 @@ params:
 
     editPost:
         URL: "mailto:contact@devdosvid.blog"
-        Text: "📩 Suggest Changes"
+        Text: "Contact me"
         appendFilePath: false
