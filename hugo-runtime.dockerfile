@@ -6,9 +6,7 @@ RUN wget -q -c \
     -O hugo.tag.gz
 RUN tar -xzf hugo.tag.gz
 
-FROM golang:1.22
+FROM golang:1.22-alpine
 COPY --from=builder /hugo/hugo /
 WORKDIR /site
 ENTRYPOINT ["/hugo"]
-
-# docker run -v "$(pwd)":/site --expose 8080 -p 8080:8080 my-hugo server --bind 0.0.0.0 -p 8080 --baseURL http://127.0.0.1 --buildDrafts --buildFuture --environment development --gc --noHTTPCache --disableFastRender
