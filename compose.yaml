@@ -1,6 +1,6 @@
 name: hugo-runtime
 services:
-  hugo:
+  hugo-runtime:
     build:
       dockerfile: hugo-runtime.dockerfile
       args:

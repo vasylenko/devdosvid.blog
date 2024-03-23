@@ -7,3 +7,4 @@ code-samples/
 .hugo_build.lock
 .vscode
 .terraform
+_vendor
