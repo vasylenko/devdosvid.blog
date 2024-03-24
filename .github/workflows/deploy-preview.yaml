@@ -3,7 +3,6 @@ on:
   pull_request:
 
 env:
-  HUGO_VERSION: 0.123.8
   ARTIFACT: deployment-artifact
   CF_PREVIEW_PROJECT_NAME: devdosvid-preview
 
@@ -18,11 +17,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build Hugo
+      - name: Build Website
         uses: ./.github/actions/build-hugo
         with:
           env: preview
-          hugo-version: ${{ env.HUGO_VERSION }}
           build-artifact: ${{ env.ARTIFACT }}
 
       - name: Deploy to CloudFlare
