@@ -15,7 +15,7 @@ runs:
     - name: Prepare Hugo Docker Image
       shell: bash
       run: |
-        echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+        echo "${{ github.token }}" | docker login ghcr.io -u $ --password-stdin
         if [[ docker manifest inspect $(docker compose config --images) ]]; then
           echo "✅ Docker image ghcr.io/vasylenko/hugo-runtime:${{ inputs.hugo-version }} already exists"
           echo "⏭️ Skipping to website build..."
