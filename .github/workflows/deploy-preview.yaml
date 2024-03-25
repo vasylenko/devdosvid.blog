@@ -2,6 +2,7 @@ name: Deploy to Preview
 run-name: ${{ github.workflow }} - ${{ github.event_name }}
 on:
   pull_request:
+  workflow_dispatch:
 
 env:
   ARTIFACT: deployment-artifact
@@ -11,10 +12,6 @@ jobs:
   build:
     name: Build and Deploy
     runs-on: ubuntu-latest
-#    permissions:
-#      contents: read
-#      deployments: write
-#      packages: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -34,3 +31,5 @@ jobs:
           projectName: ${{ env.CF_PREVIEW_PROJECT_NAME }}
           directory: ${{ env.ARTIFACT }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.head_ref }}
+          wranglerVersion: '3'
