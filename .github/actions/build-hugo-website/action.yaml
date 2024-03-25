@@ -15,9 +15,9 @@ runs:
     - name: Authenticate to GitHub Container Registry
       shell: bash
       run: echo "${{ github.token }}" | docker login ghcr.io -u $ --password-stdin
-    - name: Pull Hugo Image
-      shell: bash
-      run: docker compose pull
+#    - name: Pull Hugo Image
+#      shell: bash
+#      run: docker compose pull
     - name: Build Preview website
       shell: bash
       if: ${{ inputs.env == 'preview' }}
