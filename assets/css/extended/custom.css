@@ -140,7 +140,7 @@ body#top main.main {
     font-size: 0.8em;
     text-align: center;
     font-style: italic;
-    color: var(--secondary);
+    color: var(--color-gray);
 }
 .license a {
     text-decoration: underline;
@@ -166,5 +166,5 @@ nav.pagination > a.next, nav.pagination > a.prev {
 }
 
 article.post-entry {
-    border-color: var(--color-green);
+    border-color: var(--color-gray);
 }
