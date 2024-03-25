@@ -15,11 +15,14 @@ runs:
     - name: Authenticate to GitHub Container Registry
       shell: bash
       run: echo "${{ github.token }}" | docker login ghcr.io -u $ --password-stdin
+    - name: Pull Hugo Image
+      shell: bash
+      run: docker compose pull
     - name: Build Preview website
       shell: bash
       if: ${{ inputs.env == 'preview' }}
-      run: docker compose run hugo-runtime --environment development --destination ${{ inputs.build-artifact }} --baseURL="" --templateMetrics --templateMetricsHints
+      run: docker compose run --rm hugo-runtime --environment development --destination ${{ inputs.build-artifact }} --baseURL="" --templateMetrics --templateMetricsHints
     - name: Build Production website
       shell: bash
       if: ${{ inputs.env == 'production' }}
-      run: docker compose run hugo-runtime --environment production --destination ${{ inputs.build-artifact }} --gc --minify
+      run: docker compose run --rm hugo-runtime --environment production --destination ${{ inputs.build-artifact }} --gc --minify
