@@ -1,4 +1,5 @@
 name: Deploy to Production
+run-name: ${{ github.workflow }} - ${{ github.event_name }}
 on:
   push:
     branches:
@@ -6,7 +7,6 @@ on:
   workflow_dispatch:
 
 env:
-  HUGO_VERSION: 0.123.8
   ARTIFACT: deployment-artifact
   GHPAGES_BRANCH: gh-pages-hugo
 
@@ -17,14 +17,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare Hugo
-        run: |
-          set -ex
-          wget -q "https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz"
-          tar -xf hugo_${{ env.HUGO_VERSION }}_Linux-64bit.tar.gz
-
-      - name: Build blog
-        run: ./hugo --environment production --destination ${{ env.ARTIFACT }} --gc --minify
+      - name: Build Hugo Website
+        uses: ./.github/actions/build-hugo-website
+        with:
+          env: production
+          build-artifact: ${{ env.ARTIFACT }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3

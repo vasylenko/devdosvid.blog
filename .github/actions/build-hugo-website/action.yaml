@@ -1,4 +1,4 @@
-name: 'Build Hugo'
+name: 'Build Hugo Website'
 description: 'This action build my hugo blod for preview or production env'
 inputs:
   env:  # id of input

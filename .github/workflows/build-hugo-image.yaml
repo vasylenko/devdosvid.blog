@@ -1,4 +1,5 @@
 name: Build Hugo Docker Image
+run-name: ${{ github.workflow }} - ${{ github.event_name }}
 on:
   push:
     paths:
