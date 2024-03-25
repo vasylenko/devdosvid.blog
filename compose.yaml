@@ -1,0 +1,29 @@
+services:
+  hugo-runtime:
+    image: ghcr.io/vasylenko/hugo-runtime:${HUGO_VERSION}
+    build:
+      dockerfile: hugo-runtime.dockerfile
+      args:
+        HUGO_VERSION: ${HUGO_VERSION}
+      tags:
+        - "ghcr.io/vasylenko/hugo-runtime:${HUGO_VERSION}"
+      platforms:
+        - "linux/amd64"
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    command: [
+      "server",
+      "--bind", "0.0.0.0",
+      "--port", "8080",
+      "--baseURL", "http://127.0.0.1",
+      "--environment", "development",
+      "--buildDrafts",
+      "--buildFuture",
+      "--gc",
+      "--noHTTPCache",
+      "--disableFastRender"
+    ]
+    volumes:
+      - .:/site
