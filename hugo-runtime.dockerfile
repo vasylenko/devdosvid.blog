@@ -8,6 +8,7 @@ RUN tar -xzf hugo.tag.gz
 
 FROM golang:1.22
 ARG HUGO_VERSION
+USER 1000
 COPY --from=builder /hugo/hugo /
 WORKDIR /site
 ENTRYPOINT ["/hugo"]
