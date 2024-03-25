@@ -8,3 +8,4 @@ code-samples/
 .vscode
 .terraform
 _vendor
+deployment-artifact/**

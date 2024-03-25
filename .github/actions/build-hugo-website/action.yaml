@@ -23,3 +23,4 @@ runs:
       shell: bash
       if: ${{ inputs.env == 'production' }}
       run: docker compose run --user $UID --rm hugo-runtime --environment production --destination ${{ inputs.build-artifact }} --gc --minify
+      # '--user $UID' to make sure that the files are owned by the user who runs the action and avoid git permission issues
