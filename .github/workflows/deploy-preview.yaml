@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Website
-        uses: ./.github/actions/build-hugo
+        uses: ./.github/actions/build-hugo-website
         with:
           env: preview
           build-artifact: ${{ env.ARTIFACT }}

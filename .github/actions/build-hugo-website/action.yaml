@@ -12,16 +12,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Prepare Hugo Docker Image
-      shell: bash
-      run: |
-        echo "${{ github.token }}" | docker login ghcr.io -u $ --password-stdin
-        if [[ $(docker manifest inspect $(docker compose config --images)) ]]; then
-          echo "✅ Docker image ghcr.io/vasylenko/hugo-runtime:${{ inputs.hugo-version }} already exists"
-          echo "⏭️ Skipping to website build..."
-        else
-          docker compose build --push
-        fi
     - name: Build Preview website
       shell: bash
       if: ${{ inputs.env == 'preview' }}
