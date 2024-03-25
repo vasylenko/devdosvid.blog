@@ -140,7 +140,7 @@ body#top main.main {
     font-size: 0.8em;
     text-align: center;
     font-style: italic;
-    color: var(--secondary);
+    color: var(--color-gray);
 }
 .license a {
     text-decoration: underline;
