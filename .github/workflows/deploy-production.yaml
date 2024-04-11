@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the branch for website hosting
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: '${{ env.GHPAGES_BRANCH }}'
 
