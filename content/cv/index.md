@@ -18,18 +18,39 @@ ShowLicense: false
 EmailSubscribeForm: false
 ---
 
-I am a Software Engineer and DevOps Coach, passionate about making software development efficient and secure. I specialize in DevOps practices and team leadership.
+As a Security Automation Engineer at Grammarly, I specialize in developing and integrating security automation tools to enhance the security posture within the CI/CD stack, focusing on proactive threat detection and supply chain security. Previously, as a Technical Lead Manager, I led significant advancements in developer productivity, community engagement, and CI/CD enhancements.
 
-My expertise includes team building, tech transformation, and promoting a culture of innovation and ownership. I am dedicated to improving efficiency and enhancing team performance.
+My leadership in strategic projects and operational improvements has consistently strengthened infrastructure and team efficiency. My dual expertise in automation and leadership drives my commitment to robust, scalable security solutions and continuous professional development.
 
 ## Professional Experience
 {{< cv-job-title
 logo="assets/grammarly.png"
-header="TechLead Manager (Platform)"
+header="Security Automation Engineer"
 link="https://grammarly.com/"
 company="Grammarly"
-dates="May'23 - ongoing" >}}
-As a Technical Lead Manager at Grammarly, I oversee the technical aspects within a CI/CD area and manage a small team of engineers focused on that. Balancing engineering and people management, I navigate through roadblocks, optimize task distribution, and foster constructive technical solutions. My role also involves setting and keeping standards, ensuring CI/CD area stability, mentoring team members, promoting their growth, and upholding Grammarly's values for a positive and productive team environment.
+dates="Feb'24 - ongoing" >}}
+Automated Security Solutions: Develop and implement security automation tools and frameworks to streamline security operations. Shifting left the security on the supply chain.
+
+Continuous Integration and Deployment: Integrate security measures within the CI/CD stack to ensure the provable security of the supply chain.
+
+Threat Detection and Response: Automate the processes for detecting and responding to security threats.
+{{< cv-job-title
+logo="assets/grammarly.png"
+header="TechLead Manager (CI/CD, Platform)"
+link="https://grammarly.com/"
+company="Grammarly"
+dates="May'23 - Feb'24" >}}
+Key Accomplishments
+
+**Developer Productivity:** Led the integration and adoption of advanced coding tools, enhancing engineering org efficiency and knowledge sharing. Facilitated webinars to promote widespread tool usage.
+
+**Community Engagement:** Organized and managed engineering meetups, delivered presentations on infrastructure management, and led educational initiatives. I also actively participated in technical meetups on Kubernetes and Platform education, enriching the tech community dialogue and company branding.
+
+**CI/CD Enhancements:** Enhanced the desktop applications supply chain by implementing the HSM appliance. Implemented multi-architecture support for CI infrastructure, significantly optimizing build and deployment processes.
+
+**Strategic Projects:** Led regulatory compliance research to improve the security posture of the CI/CD stack. I also led infrastructure planning for a critical company-wide project, ensuring robust and scalable implementations.
+
+**Operational Improvements:** Launched a project to address team's technical debt, boosting its technical excellence. Modernized the on-call process for better efficiency and response times. Coordinated major on-site events to enhance team collaboration and alignment.
 
 {{< cv-job-title 
 logo="assets/grammarly.png" 
@@ -38,10 +59,19 @@ link="https://grammarly.com/"
 company="Grammarly" 
 dates="Nov'20 - May'23" >}}
 
-Making day-to-day work of software engineers more effective by:
-- Providing automation and tooling for routine SDLC procedures
-- Enriching experience in Infrastructure, Automation, Observability areas
-- Standardizing commonly used infrastructure components
+I focused on improving our CI/CD infrastructure and supporting the professional growth of our engineering teams.
+
+Key Achievements:
+
+**CI/CD Improvements**: I developed the new version of the macOS CI infrastructure, which included self-service horizontal scaling and multi-architecture support. This update reduced the iOS team's CI processing times by about 40% and similarly lowered costs. I also updated our Linux-based CI infrastructure to use Kubernetes, which cut infrastructure costs by four times, reduced maintenance needs, and improved scalability.
+
+**Educational Initiatives and Team Engagement**: I created 'Platform University,' a comprehensive learning program with tutorials and video lectures to enhance engineers' proficiency with our tools. Additionally, I led a HackWeek project that developed a quest game, improving the onboarding experience for new engineers and promoting a deeper understanding of our Engineering Platform.
+
+**Mentorship**: I provided guidance and support to team members transitioning to the Engineering Platform team, focusing on their professional development and successful integration into our processes.
+
+**Code Quality Initiatives**: I led the adoption of SonarQube to unify the developer experience around code style checks, test coverage, and bug detection.
+
+**Infrastructure and Accessibility Improvements**: I developed Terraform modules that streamlined infrastructure management for static websites and single-page applications. I also conducted research to identify and address pain points in engineers’ interactions with our platform, leading to targeted improvements that enhanced user experience and accessibility.
 
 Notable Projects: [macOS-based CI/CD](/series/mac1.metal-at-aws/), [Platform University](https://www.grammarly.com/blog/engineering/empowering-engineers-build-faster/), [GitLab CI Infrastructure on K8s](https://youtu.be/ZOYA1XNqFBI) 
 
@@ -52,11 +82,9 @@ link="https://kharkiv.ithillel.ua/coaches/sergey-vasilenko"
 company="Hillel IT School"
 dates="Jul'20 - Mar'23" >}}
 
-Gave DevOps classes to diverse people with different backgrounds and skillsets: sysadmins and developers from IT, students from the university, and sales managers from retail. There was one thing in common: they all wanted to know what DevOps is and how it works.
+As a DevOps Coach, I delivered comprehensive training to a diverse group of participants. My classes focused on demystifying the principles of DevOps and providing practical insights into its implementation across various industries. I instructed participants on effectively integrating and collaborating within development teams, utilizing key DevOps tools such as Terraform, Ansible, Jenkins, and Docker.
 
-Taught them how to work inside and with the development teams and use tools such as Terraform, Ansible, Jenkins, and Docker, and how to think DevOps.
-
-It was a win-win for myself and my students: I could get a unique tutoring experience and fulfill my long-cherished dream of being a teacher, and my students gained new jobs or promotions.
+My teaching emphasized the technical skills and the DevOps mindset, encouraging proactive problem-solving and continuous improvement practices. This role was mutually beneficial; it allowed me to realize my aspiration of teaching while providing valuable career advancement opportunities for my students, many of whom secured new employment or promotions as a result of the training. My experience as a DevOps Coach honed my instructional abilities and deepened my understanding of how DevOps principles can be adapted and applied in different organizational contexts.
 
 {{< cv-job-title 
 logo="assets/itcraft.png" 
