@@ -40,7 +40,9 @@ header="TechLead Manager (CI/CD, Platform)"
 link="https://grammarly.com/"
 company="Grammarly"
 dates="May'23 - Feb'24" >}}
-Key Accomplishments
+I led initiatives to enhance developer productivity, streamline CI/CD processes, and foster community engagement, while also driving strategic and operational improvements across the organization.
+
+Key Accomplishments:
 
 **Developer Productivity:** Led the integration and adoption of advanced coding tools, enhancing engineering org efficiency and knowledge sharing. Facilitated webinars to promote widespread tool usage.
 
@@ -58,10 +60,9 @@ header="DevEx Engineer (Platform)"
 link="https://grammarly.com/"
 company="Grammarly" 
 dates="Nov'20 - May'23" >}}
-
 I focused on improving our CI/CD infrastructure and supporting the professional growth of our engineering teams.
 
-Key Achievements:
+Key Accomplishments:
 
 **CI/CD Improvements**: I developed the new version of the macOS CI infrastructure, which included self-service horizontal scaling and multi-architecture support. This update reduced the iOS team's CI processing times by about 40% and similarly lowered costs. I also updated our Linux-based CI infrastructure to use Kubernetes, which cut infrastructure costs by four times, reduced maintenance needs, and improved scalability.
 
@@ -88,25 +89,21 @@ My teaching emphasized the technical skills and the DevOps mindset, encouraging 
 
 {{< cv-job-title 
 logo="assets/itcraft.png" 
-header="DevOps Teamlead" 
+header="Team Lead" 
 company="ITCraft" 
 link="https://itechcraft.com/"
 dates="Mar'17 - Jun'20" >}}
+I managed a dynamic and dedicated team of engineers. Our efforts were centered on delivering high-quality outcomes and enhancing the operational framework within which we worked.
 
-My biggest project — is my team. A skilled and highly motivated team of engineers sincerely cares about its work outcomes.
+Key Accomplishments:
 
-### Key accomplishments
-- Created a team of engineers that completed more than 40 successful projects of different sizes;
-- Team size growth: from 1 to 8;
-- Tripled the number of shared projects with other departments by boosting department reputation and team visibility within the company;
-- Introduced DevOps as a Service business model in the department;
-- Mentored senior and middle engineers from junior newcomers;
-- Fostered the culture of ownership.
+**Team Development**: I grew the team from 1 to 8 engineers, completing over 40 projects successfully. I addressed the challenge of fostering a culture of ownership, transforming team members' mindsets to enhance personal responsibility and accountability.
 
-### Challenges
-- Transform team members’ mindset toward ownership culture;
-- Keep the team motivated throughout ups and downs;
-- Justification of the advantages of my team to the clients in the pre-sales stage.
+**Interdepartmental Collaboration**: Boosted the department’s reputation and visibility, tripling the number of projects shared with other departments. Maintained high team motivation and engagement during peaks and drawdowns of workload, ensuring consistent performance and collaboration.
+
+**Innovative Business Modeling**: Introduced 'DevOps as a Service' within our department, revolutionizing our business approach and optimizing project delivery. This initiative also involved articulating and justifying the team’s advantages to potential clients during pre-sales, enhancing client understanding and satisfaction.
+
+**Mentorship and Leadership**: Mentored junior newcomers into capable senior and middle engineers, emphasizing continuous professional growth and development. This mentorship also played a key role in maintaining team motivation and cohesion through varying project demands and workloads.
 
 {{< cv-job-title
 logo="assets/ysa.png"
