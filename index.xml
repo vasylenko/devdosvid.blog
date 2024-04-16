@@ -3,7 +3,7 @@
     <title>devDosvid blog</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/"/>
-    <updated>2024-04-13T21:52:41Z</updated>
+    <updated>2024-04-16T21:48:16Z</updated>
     <author>
         <name>devDosvid blog</name>
         <uri>https://devdosvid.blog/</uri>
@@ -13,10 +13,455 @@
     <link rel="alternate" type="text/html" href="https://devdosvid.blog/" hreflang="en-us"/>
     <link rel="alternate" type="application/json" href="https://devdosvid.blog/index.json" hreflang="en-us"/>
     <entry>
+        <title>A Deep Dive Into Terraform Static Code Analysis Tools: Features and Comparisons</title>
+        <link href="https://devdosvid.blog/2024/04/16/a-deep-dive-into-terraform-static-code-analysis-tools-features-and-comparisons/" hreflang="en" rel="alternate"/>
+        <published>2024-04-16T19:14:15Z</published>
+        <updated>2024-04-16T21:47:40Z</updated>
+        <id>https://devdosvid.blog/2024/04/16/a-deep-dive-into-terraform-static-code-analysis-tools-features-and-comparisons/</id>
+        <author>
+            <name>Serhii Vasylenko</name>
+        </author>
+        <logo>https://devdosvid.blog/2024/04/16/a-deep-dive-into-terraform-static-code-analysis-tools-features-and-comparisons/cover-image.png</logo>
+        <content type="html">&lt;p&gt;Many teams employ Terraform by HashiCorp to efficiently manage their infrastructure, leveraging its ability to automate the lifecycle of complex environments. Yet, integrating security scanning into Terraform pipelines often remains overlooked, exposing these environments to potential security risks and compliance issues.&lt;/p&gt;
+&lt;p&gt;This article explores several prominent static code analyzers that support Terraform code and focus on its security scanning. This comparison will guide teams in choosing the right tool to enhance their security measures within Terraform workflows, ensuring safer and more compliant infrastructure management.&lt;/p&gt;
+&lt;p&gt;Here are the tools we&amp;rsquo;ll be reviewing: &lt;strong&gt;KICS&lt;/strong&gt;, &lt;strong&gt;tfsec&lt;/strong&gt;, &lt;strong&gt;Trivy&lt;/strong&gt;, &lt;strong&gt;Terrascan&lt;/strong&gt;, &lt;strong&gt;Checkov&lt;/strong&gt;, and &lt;strong&gt;Semgrep OSS&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;While many of these tools also support other platforms and technologies, &lt;strong&gt;this review will concentrate exclusively on their functionality with Terraform.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;why-use-static-code-analysis-for-terraform&#34;&gt;Why use Static Code Analysis for Terraform&lt;/h2&gt;
+&lt;p&gt;Static code analysis tools are necessary to enhance the security of Terraform-managed infrastructures. Unlike linters, these tools focus not on syntax errors or coding style but delve deeply into the code to identify security vulnerabilities and potential compliance issues without running the actual code. This proactive approach to security helps safeguard the infrastructure from potential threats before deployment.&lt;/p&gt;
+&lt;h3 id=&#34;key-benefits&#34;&gt;Key Benefits&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Early Detection: Identifies security vulnerabilities and misconfigurations early in development, preventing them from reaching production.&lt;/li&gt;
+&lt;li&gt;Compliance Assurance: Ensures Terraform code complies with industry standards and internal security policies.&lt;/li&gt;
+&lt;li&gt;Automated Security Integration: Seamlessly integrates with CI/CD pipelines, automating security checks to maintain a continuous focus on security.&lt;/li&gt;
+&lt;li&gt;Actionable Insights: Delivers detailed vulnerability reports, facilitating swift and effective resolution.&lt;/li&gt;
+&lt;li&gt;Scalability: Effectively handles increasing project complexity and size, maintaining rigorous security standards without additional manual effort.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;expected-features&#34;&gt;Expected Features&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Policy Coverage&lt;/strong&gt;: The tool should offer comprehensive scanning capabilities to detect security vulnerabilities specific to Infrastructure as Code.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Customizable Security Policies&lt;/strong&gt;: It must allow users to define and adjust security policies and severity levels to align with specific project needs or compliance requirements.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Seamless Integration&lt;/strong&gt;: The analyzer should integrate effortlessly with existing CI/CD tools and version control systems, facilitating a smooth workflow.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Detailed Reporting&lt;/strong&gt;: Clear and actionable reports are crucial. The tool should prioritize issues based on severity and provide practical steps for remediation.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Scanning Customization&lt;/strong&gt;: Users should be able to tailor the scanning process to focus on particular aspects of the codebase, enabling targeted and efficient security assessments.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With a clear understanding of the necessary features in a static code analyzer, which tools on the market best fulfill these criteria?&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s take a closer look at some leading options!&lt;/p&gt;
+&lt;h2 id=&#34;meet-the-static-code-analyzers-for-terraform&#34;&gt;Meet the Static Code Analyzers for Terraform&lt;/h2&gt;
+&lt;p&gt;Following on what makes a static code analyzer robust, let&amp;rsquo;s dive into some open-source tools that exemplify these essential features.&lt;/p&gt;
+&lt;p&gt;I picked six tools for my review. I know there are more on the market, but I focused on &lt;strong&gt;open-source, free-to-use&lt;/strong&gt; tools and those that provide at least &amp;gt;100 out-of-the-box scanning policies for Terraform.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;KICS&lt;/strong&gt; (stands for &amp;ldquo;Keeping Infrastructure as Code Secure&amp;rdquo;): &lt;br&gt;
+Owner/Maintainer: Checkmarx&lt;br&gt;
+Age: First released on GitHub on November 30th, 2020&lt;br&gt;
+License: &lt;a href=&#34;https://github.com/Checkmarx/kics/blob/master/LICENSE&#34;&gt;Apache License 2.0&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;tfsec&lt;/strong&gt;&lt;br&gt;
+Owner/Maintainer: Aqua Security (acquired in 2021)&lt;br&gt;
+Age: First released on GitHub on March 5th, 2019&lt;br&gt;
+License: &lt;a href=&#34;https://github.com/aquasecurity/tfsec/blob/master/LICENSE&#34;&gt;MIT License&lt;/a&gt;
+&lt;div class=&#34;attention&#34;&gt;
+    tfsec project is no longer actively maintained in favor of the Trivy tool. But because many people still use it and it&amp;rsquo;s quite famous, I added tfsec to this comparison.&lt;br&gt;
+However, I recommend against using it for new projects.
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Trivy&lt;/strong&gt;&lt;br&gt;
+Owner/Maintainer: Aqua Security&lt;br&gt;
+Age: First released on GitHub on May 7th, 2019&lt;br&gt;
+License: &lt;a href=&#34;https://github.com/aquasecurity/trivy/blob/main/LICENSE&#34;&gt;Apache License 2.0&lt;/a&gt;&lt;br&gt;
+&lt;em&gt;backward-compatible with tfsec&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Terrascan&lt;/strong&gt;&lt;br&gt;
+Owner/Maintainer: Tenable (acquired in 2022)&lt;br&gt;
+Age: First release on GitHub on November 28th, 2017&lt;br&gt;
+License: &lt;a href=&#34;https://github.com/tenable/terrascan/blob/master/LICENSE&#34;&gt;Apache License 2.0&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Checkov&lt;/strong&gt;&lt;br&gt;
+Owner/Maintainer: Prisma Cloud by Palo Alto Networks (acquired in 2021)&lt;br&gt;
+Age: First released on GitHub on March 31st, 2021&lt;br&gt;
+License: &lt;a href=&#34;https://github.com/bridgecrewio/checkov/blob/main/LICENSE&#34;&gt;Apache License 2.0&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Semgrep OSS&lt;/strong&gt;&lt;br&gt;
+Owner/Maintainer: Semgrep&lt;br&gt;
+Age: First release on GitHub on February 6th, 2020&lt;br&gt;
+License: &lt;a href=&#34;https://github.com/semgrep/semgrep/blob/develop/LICENSE&#34;&gt;GNU Lesser General Public License v2.1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;These tools are essential in enhancing Terraform&amp;rsquo;s security posture and reflect a strong collaboration between open-source communities and enterprise backing. This blend ensures that the tools are not only accessible but also robustly maintained and up-to-date.&lt;/p&gt;
+&lt;p&gt;Let’s explore how these tools stack up regarding features and usability.&lt;/p&gt;
+&lt;h2 id=&#34;comparing-out-of-the-box-policies-and-terraform-providers&#34;&gt;Comparing Out-of-the-Box Policies and Terraform Providers&lt;/h2&gt;
+&lt;p&gt;Understanding the number and variety of default policies each tool offers is crucial for those just beginning to explore security automation for Terraform.&lt;/p&gt;
+&lt;p&gt;The extent of out-of-the-box policies can significantly ease the integration process of static analysis by providing immediate and comprehensive insights into potential security and compliance issues. Similarly, the number of supported Terraform Providers also plays a critical role.&lt;/p&gt;
+&lt;p&gt;In this chapter, we delve into these foundational features across observed tools, helping you pinpoint which one could best satisfy your requirements for robust, ready-to-use security scanning.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Tool&lt;/th&gt;
+&lt;th&gt;Policies&lt;/th&gt;
+&lt;th&gt;Supported Terraform Providers&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;KICKS&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;663&lt;/td&gt;
+&lt;td&gt;aws, azure, gcp, kubernetes, alicloud, databricks, github, nifcloud&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;tfsec&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;154&lt;/td&gt;
+&lt;td&gt;aws, azure, gcp, digitalocean, kubernetes, cloudstack, github, openstack, oracle&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Trivy&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;322&lt;/td&gt;
+&lt;td&gt;aws, azure, gcp, digitalocean, cloudstack, github, oracle, openstack&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Terrascan&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;790&lt;/td&gt;
+&lt;td&gt;aws, azure, gcp, digitalocean, kubernetes, docker, github&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Checkov&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;2110&lt;/td&gt;
+&lt;td&gt;aws, azure, gcp, digitalocean, kubernetes, github, gitlab, ibm, linode, openstack, alicloud&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Semgrep OSS&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;362&lt;/td&gt;
+&lt;td&gt;aws, azure, gcp&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;As you can see, all tools support the &amp;ldquo;Big Three&amp;rdquo; cloud service Terraform providers—AWS, Azure, and GCP—for managing resources on these popular platforms.&lt;/p&gt;
+&lt;p&gt;With over 2000 out-of-the-box policies, Checkov significantly stands out from the competition. This tool also leads in the total number of supported Terraform providers.&lt;/p&gt;
+&lt;p&gt;While the default policies provide a strong foundation for security scanning, the ability to tailor these policies is just as crucial. Next, we&amp;rsquo;ll explore how each tool accommodates custom policy capabilities, allowing you to fine-tune the policies to fit your project&amp;rsquo;s specific requirements.&lt;/p&gt;
+&lt;h2 id=&#34;custom-policy-capabilities&#34;&gt;Custom Policy Capabilities&lt;/h2&gt;
+&lt;p&gt;Default policies serve as the foundation, but the nuances of each project demand the extension of this base.&lt;/p&gt;
+&lt;p&gt;Here, we delve into how each tool enables you to add custom policies, thus enhancing and refining the provided defaults.&lt;/p&gt;
+&lt;p&gt;While all six tools support adding custom policies to their default set, they differ in terminology: &amp;lsquo;policy&amp;rsquo; is the common term, whereas KICS refers to them as &amp;lsquo;queries,&amp;rsquo; and Semgrep calls them &amp;lsquo;rules.&amp;rsquo;&lt;/p&gt;
+&lt;p&gt;Regarding policy syntax:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;OPA Rego&lt;/strong&gt; syntax is used by &lt;a href=&#34;https://docs.kics.io/latest/creating-queries/&#34;&gt;KICS&lt;/a&gt;, &lt;a href=&#34;https://aquasecurity.github.io/trivy/v0.50/docs/scanner/misconfiguration/custom/&#34;&gt;Trivy&lt;/a&gt;, &lt;a href=&#34;https://aquasecurity.github.io/tfsec/latest/guides/rego/rego/&#34;&gt;tfsec&lt;/a&gt;, and &lt;a href=&#34;https://runterrascan.io/docs/policies/policies/&#34;&gt;Terrascan&lt;/a&gt;.  It&amp;rsquo;s a powerful language widely adopted in the industry, though there&amp;rsquo;s a learning curve that could pay dividends for future projects.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;YAML&lt;/strong&gt; syntax is used by &lt;a href=&#34;https://www.checkov.io/3.Custom%20Policies/Custom%20Policies%20Overview.html&#34;&gt;Checkov&lt;/a&gt; and &lt;a href=&#34;https://semgrep.dev/docs/writing-rules/rule-syntax/&#34;&gt;Semgrep&lt;/a&gt;. This offers a familiar and straightforward start, with Checkov also allowing policies to be written in Python, albeit with some constraints. With YAML, the ease of use is balanced against the limitations set by the tool&amp;rsquo;s capabilities.&lt;/p&gt;
+&lt;p&gt;Understanding these differences will guide you to a tool that matches your security requirements, your team&amp;rsquo;s expertise, and the scope of your infrastructure projects.&lt;/p&gt;
+&lt;p&gt;To illustrate, here is an example of a KICS Rego policy checking for default RDS instance ports:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;package Cx
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;import data.generic.common as common_lib
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;import data.generic.terraform as tf_lib
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;CxPolicy[result] {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	db := input.document[i].resource.aws_db_instance[name]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	enginePort := common_lib.engines[e]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	db.engine == e
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	db.port == enginePort
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	result := {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&amp;#34;documentId&amp;#34;: input.document[i].id,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&amp;#34;resourceType&amp;#34;: &amp;#34;aws_db_instance&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&amp;#34;resourceName&amp;#34;: tf_lib.get_resource_name(db, name),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&amp;#34;searchKey&amp;#34;: sprintf(&amp;#34;aws_db_instance[%s].port&amp;#34;, [name]),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&amp;#34;issueType&amp;#34;: &amp;#34;IncorrectValue&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&amp;#34;keyExpectedValue&amp;#34;: sprintf(&amp;#34;aws_db_instance[%s].port should not be set to %d&amp;#34;, [name, enginePort]),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&amp;#34;keyActualValue&amp;#34;: sprintf(&amp;#34;aws_db_instance[%s].port is set to %d&amp;#34;, [name, enginePort]),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&amp;#34;searchLine&amp;#34;: common_lib.build_search_line([&amp;#34;resource&amp;#34;, &amp;#34;aws_db_instance&amp;#34;, name, &amp;#34;port&amp;#34;], []),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And an example of a Checkov YAML policy forbidding specific EC2 instance types:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff7b72&#34;&gt;---&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;metadata&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;Org&amp;#39;s compute instances should not be p5.48xlarge or p4d.24xlarge&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;id&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;ACME_AWS_FORBIDDEN_EC2_TYPES&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;category&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;NETWORKING&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;definition&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;or&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;- &lt;span style=&#34;color:#7ee787&#34;&gt;cond_type&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;attribute&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;   &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;resource_types&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;    &lt;/span&gt;- &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_instance&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;   &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;attribute&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;instance_type&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;   &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;operator&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;not_equals&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;   &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;value&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;p5.48xlarge&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;- &lt;span style=&#34;color:#7ee787&#34;&gt;cond_type&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;attribute&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;   &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;resource_types&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;   &lt;/span&gt;- &lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;aws_instance&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;   &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;attribute&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;instance_type&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;   &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;operator&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;not_equals&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;   &lt;/span&gt;&lt;span style=&#34;color:#7ee787&#34;&gt;value&lt;/span&gt;:&lt;span style=&#34;color:#6e7681&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#a5d6ff&#34;&gt;&amp;#34;p4d.24xlarge&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#6e7681&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With the ability to tailor policies to our specific needs, we&amp;rsquo;ll next explore each tool&amp;rsquo;s capacity to integrate broadly, determining how well they play with the rest of our tech stack.&lt;/p&gt;
+&lt;h2 id=&#34;integration-capabilities&#34;&gt;Integration Capabilities&lt;/h2&gt;
+&lt;p&gt;Integration capabilities are the cornerstone of efficient DevOps practices.&lt;/p&gt;
+&lt;p&gt;This section will evaluate how each static code analyzer enhances your tech stack through seamless integration with other systems and technologies.&lt;/p&gt;
+&lt;p&gt;We will assess each tool against four key integration points that are vital for development workflows:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Docker Image&lt;/strong&gt;: Ensures easy deployment across any container-supported environment.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;IDE Plugins&lt;/strong&gt;: Facilitates real-time feedback and improves code quality directly within the developer&amp;rsquo;s workspace.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CI/CD Systems&lt;/strong&gt;: Supports direct integration through plugins or extensions, eliminating the need for manual downloads or CLI setups.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Pre-commit Hook&lt;/strong&gt;: Provides an early security checkpoint by scanning code before it is committed, catching errors at the initial stages.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Tool&lt;/th&gt;
+&lt;th&gt;Docker Image&lt;/th&gt;
+&lt;th&gt;IDE Plugins&lt;/th&gt;
+&lt;th&gt;CI/CD Systems&lt;/th&gt;
+&lt;th&gt;Hook&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;KICKS&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;VSCode&lt;/td&gt;
+&lt;td&gt;Github Actions, Terraform Cloud, Codefresh&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;tfsec&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;VSCode, JetBrains, Vim&lt;/td&gt;
+&lt;td&gt;Github Actions&lt;/td&gt;
+&lt;td&gt;❌&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Trivy&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;VSCode, JetBrains, Vim&lt;/td&gt;
+&lt;td&gt;Azure DevOps, GitHub Actions, Buildkite, Dagger, Semaphore, CircleCI, Concourse CI&lt;/td&gt;
+&lt;td&gt;❌&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Terrascan&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;VSCode&lt;/td&gt;
+&lt;td&gt;GitHub Actions, Atlantis&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Checkov&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;VSCode, JetBrains&lt;/td&gt;
+&lt;td&gt;GitHub Actions&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Semgrep OSS&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;VSCode, JetBrains, Emacs, Vim&lt;/td&gt;
+&lt;td&gt;GitLab&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;In addition to the table above, here are a few noteworthy features of some tools:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Checkov supports OpenAI integration to suggest remediations. But be careful because AI tends to hallucinate.&lt;/li&gt;
+&lt;li&gt;KICS supports applying auto-remediation for some of its out-of-the-box policies. This also applies to custom policies, where you can define remediations and apply them automatically.&lt;/li&gt;
+&lt;li&gt;Terrascan is the only one that provides the VSCode extension to create and test custom policies written in Rego.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Having covered the integration capabilities, let’s now focus on the output formats each tool provides.&lt;/p&gt;
+&lt;h2 id=&#34;output-formats-provided&#34;&gt;Output Formats Provided&lt;/h2&gt;
+&lt;p&gt;Output formats extend the utility of static code analysis, facilitating integration with the CI/CD feedback loop and enabling its use as an artifact in subsequent CI jobs.&lt;/p&gt;
+&lt;p&gt;This chapter examines the variety of formats each tool supports for this purpose.&lt;/p&gt;
+&lt;p&gt;Each tool offers a range of output formats tailored to different needs.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;For GitLab users&lt;/strong&gt;: For teams leveraging GitLab&amp;rsquo;s security scanning, KICS, Checkov, and Semgrep OSS are equipped with compatible output formats, facilitating smooth GitLab integration.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;For GitHub users&lt;/strong&gt;: SARIF&amp;rsquo;s adoption as an industry standard, particularly by GitHub for code scanning, makes it a must-have. All tools assessed offer SARIF support, ensuring interoperability and broad utility.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;JUnit Reports&lt;/strong&gt;: The availability of JUnit output is crucial for capturing test results in a format recognizable by various CI systems. Trivy, Terrascan, Checkov, and Semgrep OSS support this, enabling clear visualization of test outcomes and enhancing the feedback loop within CI pipelines.&lt;/p&gt;
+&lt;p&gt;Beyond these, each tool supports additional formats, enriching their application and versatility. Here&amp;rsquo;s the full breakdown of the output formats, complementing the standard CLI output:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Tool&lt;/th&gt;
+&lt;th&gt;Supported Output Formats&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;KICKS&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;ASFF, CSV, Code Climate, CycloneDX, GItLab SAST, HTML, JSON, JUnit, PDF, SARIF, SonarQube&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;tfsec&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Checkstyle, CSV, HTML, JSON, JUnit, Markdown, SARIF&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Trivy&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;ASFF, Cosign, CycloneDX, JSON, SARIF, SPDX&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Terrascan&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;JSON, JUnit, SARIF, XML, YAML&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Checkov&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;CSV, CycloneDX, GItLab SAST, JSON, JUnit, SARIF, SPDX&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Semgrep OSS&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Emacs, GitLab SAST, JSON, JUnit, SARIF, Vim&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Moving from output formats to operational adaptability, let&amp;rsquo;s investigate the customization options for scanner settings. This important feature allows each tool to align with varied project demands.&lt;/p&gt;
+&lt;h2 id=&#34;customizing-scanner-settings&#34;&gt;Customizing Scanner Settings&lt;/h2&gt;
+&lt;p&gt;This chapter moves beyond the default scanner settings and delves into scanner settings&amp;rsquo; customizability, ensuring that tools can be calibrated for any development environment or security requirement.&lt;/p&gt;
+&lt;p&gt;I will evaluate each tool against criteria that define a tool&amp;rsquo;s adaptability and user-friendliness:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Targeted Scans&lt;/strong&gt;: Select specific directories for scanning or exclusion to focus on pertinent areas and skip irrelevant ones.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;In-Code Ignore Policies&lt;/strong&gt;: Enable ignore directives within code to skip checks when exceptions apply selectively.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Severity Thresholds&lt;/strong&gt;: Set reporting to include only findings above a chosen severity level, concentrating on the most impactful issues.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Configuration File&lt;/strong&gt;: Employ configuration files for consistency and collaboration, enabling a &amp;lsquo;configuration as code&amp;rsquo; approach.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;TF Variables Interpolation&lt;/strong&gt;: Interpret and evaluate Terraform variables for an accurate security assessment of IaC.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Module Scanning&lt;/strong&gt;: For complete coverage, scans should include both local and remote (public/private) Terraform modules.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Based on these criteria, the following table offers a comparative view of how each tool performs, giving you a clear snapshot of their customization capabilities:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Tool&lt;/th&gt;
+&lt;th&gt;Targeted Scans&lt;/th&gt;
+&lt;th&gt;Ignore Policies&lt;/th&gt;
+&lt;th&gt;Min Severity&lt;/th&gt;
+&lt;th&gt;Config File&lt;/th&gt;
+&lt;th&gt;Variables Interpolation&lt;/th&gt;
+&lt;th&gt;Module Scanning&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;KICKS&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;⁉️️&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;tfsec&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Trivy&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Terrascan&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Checkov&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Semgrep OSS&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;❌&lt;/td&gt;
+&lt;td&gt;✅&lt;/td&gt;
+&lt;td&gt;❌&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Most reviewed tools meet nearly all the criteria set for scanner setting customization, demonstrating their flexibility and advanced capabilities. However, there are notable features worth considering:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;KICS: Provides limited module scanning capabilities, restricted to some public modules from the Terraform registry, and does not cover local or private custom modules.&lt;/li&gt;
+&lt;li&gt;Terrascan &amp;amp; Trivy: Both feature server modes that centralize vulnerability databases. This centralization facilitates a unified approach to applying policies and configurations, enhancing consistency and efficiency for teams and reducing the management overhead of diverse policies across multiple projects.&lt;/li&gt;
+&lt;li&gt;Semgrep: It doesn&amp;rsquo;t support scanner configuration files; instead, it uses the &amp;ldquo;config&amp;rdquo; word to call the rule sets and accepts such configs. Notably, it also does not support the scanning of Terraform modules at all.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;terraform-security-scanning-the-big-picture-and-top-pick&#34;&gt;Terraform Security Scanning: The Big Picture and Top Pick&lt;/h2&gt;
+&lt;p&gt;Here&amp;rsquo;s a comprehensive comparison summary to guide your selection of the most suitable Terraform static code analyzer:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Tool&lt;/th&gt;
+&lt;th&gt;Default Policies&lt;/th&gt;
+&lt;th&gt;Custom Policies&lt;/th&gt;
+&lt;th&gt;Integration&lt;/th&gt;
+&lt;th&gt;Output Formats&lt;/th&gt;
+&lt;th&gt;Customization&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;KICKS&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;663&lt;/td&gt;
+&lt;td&gt;OPA Rego&lt;/td&gt;
+&lt;td&gt;✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook&lt;/td&gt;
+&lt;td&gt;ASFF, CSV, Code Climate, CycloneDX, GItLab SAST, HTML, JSON, JUnit, PDF, SARIF, SonarQube&lt;/td&gt;
+&lt;td&gt;✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ❌Module Scanning&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;tfsec&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;154&lt;/td&gt;
+&lt;td&gt;OPA Rego&lt;/td&gt;
+&lt;td&gt;✅Docker, ✅IDE, ✅CI/CD, ❌Git Hook&lt;/td&gt;
+&lt;td&gt;Checkstyle, CSV, HTML, JSON, JUnit, Markdown, SARIF&lt;/td&gt;
+&lt;td&gt;✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Trivy&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;322&lt;/td&gt;
+&lt;td&gt;OPA Rego&lt;/td&gt;
+&lt;td&gt;✅Docker, ✅IDE, ✅CI/CD, ❌Git Hook&lt;/td&gt;
+&lt;td&gt;ASFF, Cosign, CycloneDX, JSON, SARIF, SPDX&lt;/td&gt;
+&lt;td&gt;✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Terrascan&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;790&lt;/td&gt;
+&lt;td&gt;OPA Rego&lt;/td&gt;
+&lt;td&gt;✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook&lt;/td&gt;
+&lt;td&gt;JSON, JUnit, SARIF, XML, YAML&lt;/td&gt;
+&lt;td&gt;✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Checkov&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;2110&lt;/td&gt;
+&lt;td&gt;YAML, Python&lt;/td&gt;
+&lt;td&gt;✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook&lt;/td&gt;
+&lt;td&gt;CSV, CycloneDX, GItLab SAST, JSON, JUnit, SARIF, SPDX&lt;/td&gt;
+&lt;td&gt;✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Semgrep OSS&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;362&lt;/td&gt;
+&lt;td&gt;YAML&lt;/td&gt;
+&lt;td&gt;✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook&lt;/td&gt;
+&lt;td&gt;Emacs, GitLab SAST, JSON, JUnit, SARIF, Vim&lt;/td&gt;
+&lt;td&gt;✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ❌Config File, ✅Variables Interpolation, ❌Module Scanning&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Integrating a Terraform security scanning into your development pipeline is a proven strategy to boost your security posture. These tools detect potential vulnerabilities early and enforce best practices and compliance standards, representing a proactive approach to infrastructure security.&lt;/p&gt;
+&lt;p&gt;For teams not yet utilizing these tools, &lt;strong&gt;Checkov&lt;/strong&gt; is my top recommendation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Biggest number of default policies and supported Terraform providers for a quick start.&lt;/li&gt;
+&lt;li&gt;Custom policy support in YAML and Python for flexible policy creation.&lt;/li&gt;
+&lt;li&gt;Wide integration options with Docker, IDEs, CI/CD systems, and Git Hooks for a smooth workflow.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Please share your favorite tool in the comments below! Also, let me know if I missed a cool product that should have been included in the review.&lt;/p&gt;</content>
+    </entry>
+    <entry>
         <title>Mastering AWS API Gateway V2 HTTP and AWS Lambda With Terraform</title>
         <link href="https://devdosvid.blog/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/" hreflang="en" rel="alternate"/>
         <published>2024-01-09T02:33:10Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -404,7 +849,7 @@ AWS HTTP API code logically represents the &amp;ldquo;global&amp;rdquo; (within 
         <title>Hello Terraform Data; Goodbye Null Resource</title>
         <link href="https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/" hreflang="en" rel="alternate"/>
         <published>2023-04-15T23:25:18Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -532,7 +977,7 @@ height=&#34;409.00&#34;
         <title>Five Practical Ways To Get The Verified EC2 AMI</title>
         <link href="https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/" hreflang="en" rel="alternate"/>
         <published>2022-07-24T13:21:05Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -662,7 +1107,7 @@ height=&#34;213.69&#34;
         <title>Golden Image Pipelines With HCP Packer</title>
         <link href="https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/" hreflang="en" rel="alternate"/>
         <published>2022-06-26T13:13:12Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -926,7 +1371,7 @@ height=&#34;501.24&#34;
         <title>New Lifecycle Options and Refactoring Capabilities in Terraform 1.1 and 1.2</title>
         <link href="https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/" hreflang="en" rel="alternate"/>
         <published>2022-05-04T20:27:47Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1188,7 +1633,7 @@ height=&#34;342&#34;
         <title>Monterey Shortcuts for Easy and Fast Image Processing</title>
         <link href="https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/" hreflang="en" rel="alternate"/>
         <published>2022-01-31T21:46:04Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1306,7 +1751,7 @@ height=&#34;1176.98&#34;
         <title>Some Techniques to Enhance Your Terraform Proficiency</title>
         <link href="https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/" hreflang="en" rel="alternate"/>
         <published>2022-01-15T23:59:51Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1562,7 +2007,7 @@ bash /opt/system-init/register-monitoring.sh
         <title>Guide to Using Terraform in CI/CD</title>
         <link href="https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/" hreflang="en" rel="alternate"/>
         <published>2021-11-24T20:20:45Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1717,7 +2162,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         <title>Apply Cloudfront Security Headers With Terraform</title>
         <link href="https://devdosvid.blog/2021/11/05/apply-cloudfront-security-headers-with-terraform/" hreflang="en" rel="alternate"/>
         <published>2021-11-05T12:20:58Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2021/11/05/apply-cloudfront-security-headers-with-terraform/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1817,7 +2262,7 @@ height=&#34;903.43&#34;
         <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
         <link href="https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/" hreflang="en" rel="alternate"/>
         <published>2021-10-23T23:00:31Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2042,7 +2487,7 @@ And you can leverage the &lt;a href=&#34;https://registry.terraform.io/providers
         <title>AWS Resource Access Manager — Multi Account Resource Governance</title>
         <link href="https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/" hreflang="en" rel="alternate"/>
         <published>2021-09-24T21:54:23Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2128,7 +2573,7 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
         <title>Run Ansible playbook on Mac EC2 Instances fleet with AWS Systems Manager</title>
         <link href="https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/" hreflang="en" rel="alternate"/>
         <published>2021-05-27T00:00:00Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2269,7 +2714,7 @@ height=&#34;476.68&#34;
         <title>Configure HTTP Security headers with CloudFront Functions</title>
         <link href="https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/" hreflang="en" rel="alternate"/>
         <published>2021-05-21T00:00:00Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2477,7 +2922,7 @@ height=&#34;626.15&#34;
         <title>Using TinyPNG Image Compression From MacOS Finder Contextual Menu</title>
         <link href="https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/" hreflang="en" rel="alternate"/>
         <published>2021-02-14T00:00:00Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2548,7 +2993,7 @@ height=&#34;702.36&#34;
         <title>Customizing mac1.metal EC2 AMI — new guts, more glory</title>
         <link href="https://devdosvid.blog/2021/02/01/customizing-mac1.metal-ec2-ami-new-guts-more-glory/" hreflang="en" rel="alternate"/>
         <published>2021-02-01T00:00:00Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2021/02/01/customizing-mac1.metal-ec2-ami-new-guts-more-glory/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2692,7 +3137,7 @@ height=&#34;702.36&#34;
         <title>Terraforming mac1.metal at AWS</title>
         <link href="https://devdosvid.blog/2021/01/20/terraforming-mac1.metal-at-aws/" hreflang="en" rel="alternate"/>
         <published>2021-01-20T00:00:00Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2021/01/20/terraforming-mac1.metal-at-aws/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2743,7 +3188,7 @@ height=&#34;702.36&#34;
         <title>mac1.metal and mac2.metal EC2 Instances — user experience</title>
         <link href="https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/" hreflang="en" rel="alternate"/>
         <published>2021-01-19T00:00:00Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2973,7 +3418,7 @@ Such an easy thing to do, right? Well, it depends.&lt;/p&gt;
         <title>AWS CloudShell</title>
         <link href="https://devdosvid.blog/2020/12/16/aws-cloudshell/" hreflang="en" rel="alternate"/>
         <published>2020-12-16T00:00:00Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2020/12/16/aws-cloudshell/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -3000,7 +3445,7 @@ So it is not another &lt;a href=&#34;https://aws.amazon.com/devops-guru/&#34;&gt
         <title>Terraform Workflow — Working Individually and in a Team</title>
         <link href="https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team/" hreflang="en" rel="alternate"/>
         <published>2020-09-16T00:00:00Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
+        <updated>2024-04-16T21:47:40Z</updated>
         <id>https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -3161,86 +3606,5 @@ height=&#34;238.20&#34;
 &lt;p&gt;And here is a nice tutorial to start with: &lt;a href=&#34;https://learn.hashicorp.com/collections/terraform/cloud-get-started&#34;&gt;Get Started - Terraform Cloud&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Also, here is an overview of workflows at scale from the HashiCorp CTO which might be useful for more experienced Terraform users: &lt;a href=&#34;https://www.hashicorp.com/resources/terraform-workflow-best-practices-at-scale&#34;&gt;Terraform Workflow Best Practices at Scale&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Thank you for reading. I hope you will try one of these workflows, or develop your own!&lt;/p&gt;</content>
-    </entry>
-    <entry>
-        <title>Terraform Certification Tips</title>
-        <link href="https://devdosvid.blog/2020/09/15/terraform-certification-tips/" hreflang="en" rel="alternate"/>
-        <published>2020-09-15T00:00:00Z</published>
-        <updated>2024-04-13T21:52:01Z</updated>
-        <id>https://devdosvid.blog/2020/09/15/terraform-certification-tips/</id>
-        <author>
-            <name>Serhii Vasylenko</name>
-        </author>
-        <logo>https://devdosvid.blog/2020/09/15/terraform-certification-tips/cover-image.png</logo>
-        <content type="html">&lt;p&gt;I successfully passed the &amp;ldquo;HashiCorp Certified — Terraform Associate&amp;rdquo; exam last Friday and decided to share some advice for exam preparation.&lt;/p&gt;
-&lt;h2 id=&#34;make-yourself-a-plan&#34;&gt;Make yourself a plan&lt;/h2&gt;
-&lt;p&gt;Make a list of things you are going to go through: links to the study materials, practice tasks, some labs, some articles on relative blogs (Medium, Dev.to, etc.).
-It should look at a &amp;ldquo;todo&amp;rdquo; or &amp;ldquo;check&amp;rdquo;-list. It may seem silly at first glance, but the list with checkboxes does its &amp;ldquo;cognitive magic&amp;rdquo;. When you go point by point, marking items as &amp;ldquo;done&amp;rdquo;, you feel the progress and this motivates you to keep going further.
-For example, you can make a plan from the resources I outlined below in this article.&lt;/p&gt;
-&lt;p&gt;I encourage you to explore the Internet for something by yourself as well. Who knows, perhaps you will find some learning course that fits you better. And that is great! However, when you find it, take extra 5-10 minutes to go through its curriculum and create a list with lessons.&lt;/p&gt;
-&lt;p&gt;It feels so nice to cross out items off the todo list, believe me 😄
-&lt;figure&gt;
-
-
-
-
-&lt;img loading=&#34;lazy&#34;
-     src=&#34;todo-list.jpg&#34;width=&#34;585&#34;
-height=&#34;540&#34;
-/&gt; 
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;h2 id=&#34;go-through-the-official-study-guide&#34;&gt;Go through the official Study Guide&lt;/h2&gt;
-&lt;p&gt;Despite your findings on the Internet, I strongly suggest going through the official study guide&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/associate-study&#34;&gt;Study Guide - Terraform Associate Certification&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;It took me about 20 hours to complete it (including practice tasks based on topics in the guide), and it was the core of my studying. I did not buy or search for some third-party course intentionally because I did have some Terraform experience before starting the preparation. But give the official guide a chance even if you found some course. It is well-made and matches real exam questions very precisely.&lt;/p&gt;
-&lt;p&gt;Also, there is an official &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/associate-review&#34;&gt;Exam Review&lt;/a&gt;. Someone might find this even better because it is a direct mapping of each exam objective to HashiCorp&amp;rsquo;s documentation and training.&lt;/p&gt;
-&lt;h2 id=&#34;take-additional-tutorials&#34;&gt;Take additional tutorials&lt;/h2&gt;
-&lt;p&gt;Here is a list of additional tutorials and materials I suggest adding into your learning program:&lt;/p&gt;
-&lt;h4 id=&#34;official-guides--documentation&#34;&gt;Official guides / documentation:&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://learn.hashicorp.com/collections/terraform/automation&#34;&gt;Automate Terraform&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://learn.hashicorp.com/collections/terraform/cloud&#34;&gt;Collaborate using Terraform Cloud&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://learn.hashicorp.com/collections/terraform/0-13&#34;&gt;Terraform tutorials&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://learn.hashicorp.com/collections/terraform/modules&#34;&gt;Reuse Configuration with Modules&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.hashicorp.com/resources/a-practitioner-s-guide-to-using-hashicorp-terraform-cloud-with-github&#34;&gt;A Practitioner’s Guide to Using HashiCorp Terraform Cloud with GitHub&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://learn.hashicorp.com/collections/terraform/policy&#34;&gt;Enforce Policy with Sentinel&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;third-party-articles-and-guides&#34;&gt;Third-party articles and guides:&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://prefetch.net/blog/2020/04/27/using-the-terraform-console-to-debug-interpolation-syntax/&#34;&gt;Using the terraform console to debug interpolation syntax&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL5VXZTK6spA2HF5Kf0rI9RDRHF9Hopffr&#34;&gt;YouTube playlist with exam-like questions review&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;find-yourself-some-practice&#34;&gt;Find yourself some practice&lt;/h2&gt;
-&lt;h4 id=&#34;mockup-a-project&#34;&gt;Mockup a project&lt;/h4&gt;
-&lt;p&gt;You can greatly improve your practice by mocking some real business cases.&lt;/p&gt;
-&lt;p&gt;If you already work in some company you can set up the project you&amp;rsquo;re working with using Terraform. If you don’t have a real project or afraid to accidentally violate NDA, try this open-source demo project: &lt;a href=&#34;https://github.com/gothinkster/realworld&#34;&gt;Real World Example Apps&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;It is a collection of different codebases for front-end and back-end used to build the same project. Just find the combination that suits your experience better and try to build the infrastructure for it using Terraform.&lt;/p&gt;
-&lt;figure&gt;
-
-
-
-
-&lt;img loading=&#34;lazy&#34;
-     src=&#34;real-world-demo.jpg&#34;width=&#34;585&#34;
-height=&#34;405&#34;
-/&gt; 
-&lt;/figure&gt;
-
-&lt;h4 id=&#34;answer-forum-topics&#34;&gt;Answer forum topics&lt;/h4&gt;
-&lt;p&gt;Last but not least advice — try to answer some questions on the official &lt;a href=&#34;https://discuss.hashicorp.com/c/terraform-core/&#34;&gt;Terraform forum&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;This is a nice way to test your knowledge, help others, and develop the community around Terraform. Just register there, look for the latest topics, and have fun!&lt;/p&gt;
-&lt;figure&gt;
-
-
-
-
-&lt;img loading=&#34;lazy&#34;
-     src=&#34;tf-forum.jpg&#34;width=&#34;585&#34;
-height=&#34;650&#34;
-/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;🍀 I sincerely wish you exciting preparation and a successful exam! 🍀&lt;/p&gt;</content>
     </entry>
 </feed>
