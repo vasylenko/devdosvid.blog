@@ -18,41 +18,41 @@ ShowLicense: false
 EmailSubscribeForm: false
 ---
 
-As a Security Automation Engineer at Grammarly, I specialize in developing and integrating security automation tools to enhance the security posture within the CI/CD stack, focusing on proactive threat detection and supply chain security. Previously, as a Technical Lead Manager, I led significant advancements in developer productivity, community engagement, and CI/CD enhancements.
+As a Security Automation Engineer at Grammarly, my expertise lies in creating and integrating security automation tools to boost the security posture throughout the CI/CD pipeline, ensuring proactive threat detection and rapid response. In my previous role as a Technical Lead Manager, I drove substantial improvements in developer productivity, community engagement, and CI/CD enhancements.
 
-My leadership in strategic projects and operational improvements has consistently strengthened infrastructure and team efficiency. My dual expertise in automation and leadership drives my commitment to robust, scalable security solutions and continuous professional development.
+My leadership in strategic projects and operational improvements has consistently strengthened the company's infrastructure and team efficiency. My expertise in automation and leadership drives my commitment to robust, scalable security solutions and continuous professional development.
 
 ## Professional Experience
 {{< cv-job-title
 logo="assets/grammarly.png"
-header="Security Automation Engineer"
+header="Senior Engineer, Security Automation"
 link="https://grammarly.com/"
 company="Grammarly"
 dates="Feb'24 - ongoing" >}}
-Automated Security Solutions: Develop and implement security automation tools and frameworks to streamline security operations. Shifting left the security on the supply chain.
 
-Continuous Integration and Deployment: Integrate security measures within the CI/CD stack to ensure the provable security of the supply chain.
+I develop and implement security automation tools and frameworks for reproducible security operations, automated reasoning, and remediation, such as:
+- Supply Chain Security: Integrate security measures within the CI/CD stack to ensure the delivery and deployment of trusted artifacts. Shifting left the security while maintaining a high level of developer productivity and experience.
+- Threat Detection and Response: Automate the processes for detecting and responding to security threats.
 
-Threat Detection and Response: Automate the processes for detecting and responding to security threats.
 {{< cv-job-title
 logo="assets/grammarly.png"
-header="TechLead Manager (CI/CD, Platform)"
+header="Technical Lead Manager (CI/CD, Platform)"
 link="https://grammarly.com/"
 company="Grammarly"
 dates="May'23 - Feb'24" >}}
-I led initiatives to enhance developer productivity, streamline CI/CD processes, and foster community engagement, while also driving strategic and operational improvements across the organization.
+I have led initiatives to enhance developer productivity, streamline CI/CD processes, and foster community engagement while driving strategic and operational improvements across the organization.
 
 Key Accomplishments:
 
-**Developer Productivity:** Led the integration and adoption of advanced coding tools, enhancing engineering org efficiency and knowledge sharing. Facilitated webinars to promote widespread tool usage.
+**Developer Productivity**: Led the integration and adoption of advanced coding tools, enhancing engineering org efficiency and knowledge sharing. Facilitated webinars to promote widespread tool usage.
 
-**Community Engagement:** Organized and managed engineering meetups, delivered presentations on infrastructure management, and led educational initiatives. I also actively participated in technical meetups on Kubernetes and Platform education, enriching the tech community dialogue and company branding.
+**Community Engagement**: Organized and managed engineering meetups, delivered presentations on infrastructure management, and led educational initiatives. I also actively participated in technical meetups on Kubernetes and Platform education, enriching the tech community dialogue and company branding.
 
-**CI/CD Enhancements:** Enhanced the desktop applications supply chain by implementing the HSM appliance. Implemented multi-architecture support for CI infrastructure, significantly optimizing build and deployment processes.
+**CI/CD Enhancements**: Enhanced the desktop applications supply chain by implementing the HSM appliance. Implemented multi-architecture support for CI infrastructure, significantly optimizing build and deployment processes.
 
-**Strategic Projects:** Led regulatory compliance research to improve the security posture of the CI/CD stack. I also led infrastructure planning for a critical company-wide project, ensuring robust and scalable implementations.
+**Strategic Projects**: Led regulatory compliance research to improve the security posture of the CI/CD stack. I also led infrastructure planning for a critical company-wide project, ensuring robust and scalable implementations.
 
-**Operational Improvements:** Launched a project to address team's technical debt, boosting its technical excellence. Modernized the on-call process for better efficiency and response times. Coordinated major on-site events to enhance team collaboration and alignment.
+**Operational Improvements**: Launched a project to address the team’s technical debt, boosting its technical excellence. Modernized the on-call process for better efficiency and response times. Coordinated major on-site events to enhance team collaboration and alignment.
 
 {{< cv-job-title 
 logo="assets/grammarly.png" 
@@ -60,13 +60,13 @@ header="DevEx Engineer (Platform)"
 link="https://grammarly.com/"
 company="Grammarly" 
 dates="Nov'20 - May'23" >}}
-I focused on improving our CI/CD infrastructure and supporting the professional growth of our engineering teams.
+I have improved our CI/CD infrastructure and supported the professional growth of our engineering teams.
 
 Key Accomplishments:
 
-**CI/CD Improvements**: I developed the new version of the macOS CI infrastructure, which included self-service horizontal scaling and multi-architecture support. This update reduced the iOS team's CI processing times by about 40% and similarly lowered costs. I also updated our Linux-based CI infrastructure to use Kubernetes, which cut infrastructure costs by four times, reduced maintenance needs, and improved scalability.
+**CI/CD Improvements**: I developed the new version of the macOS CI infrastructure, which included self-service horizontal scaling and multi-architecture support. This update reduced the iOS team’s CI processing times by about 40% and similarly lowered costs. I also updated our Linux-based CI infrastructure to use Kubernetes, which cut infrastructure costs by four times, reduced maintenance needs, and improved scalability.
 
-**Educational Initiatives and Team Engagement**: I created 'Platform University,' a comprehensive learning program with tutorials and video lectures to enhance engineers' proficiency with our tools. Additionally, I led a HackWeek project that developed a quest game, improving the onboarding experience for new engineers and promoting a deeper understanding of our Engineering Platform.
+**Educational Initiatives and Team Engagement**: I created ‘Platform University,’ a comprehensive learning program with tutorials and video lectures to enhance engineers’ proficiency with our tools. Additionally, I led a HackWeek project that developed a quest game, improving the onboarding experience for new engineers and promoting a deeper understanding of our Engineering Platform.
 
 **Mentorship**: I provided guidance and support to team members transitioning to the Engineering Platform team, focusing on their professional development and successful integration into our processes.
 
@@ -139,10 +139,10 @@ Started my career in IT: grew up from a Level-1 tech support engineer (communica
 :   Proficient in autonomously managing and forecasting large-scale project tasks, with a track record of influencing engineering goals. Expert in designing new systems from scratch and providing pivotal design feedback to peers. Skilled in leading critical projects and systems.
 
 ☁️ Clouds
-:   Amazon Web Services. Design and fine-tuning of resilient and HA infrastructures; costs optimization and security hardening.
+:   Amazon Web Services. Design and fine-tuning of resilient, cost-effective, and highly-available infrastructures.
 
 ⚙️ Techs
-:   GitlabCI, Github Actions, Terraform, Docker, Ansible, GoLang, BASH, Mobile CI/CD.
+:   GitlabCI, Github Actions, Terraform, Docker, Ansible, GoLang, Kubernetes.
 
 🇬🇧 English
 :   C2 (CEFR)
@@ -152,10 +152,10 @@ Started my career in IT: grew up from a Level-1 tech support engineer (communica
 
 ## Activities and interests
 Travel
-:   I like to explore new cities and countries, and I like trekking. I’ve been to the Annapurna base camp, and now I want to visit Everest’s base camp.
+:   I like to explore new cities and countries, and I like trekking and hiking. I’ve been to the Annapurna base camp, and now I want to visit Everest’s base camp.
 
 Blogging
-:   I love to write tutorials and articles about the technologies I use and learn. AWS Community Builder and HashiCorp Ambassador.
+:   I love to write tutorials and articles about the technologies I use and learn. I actively participate in technical communities as an AWS Community Builder and HashiCorp Ambassador.
 
 Science
 :   Fond of History, Astronomy, and Physics. I wish to see the Betelgeuse supernova explosion someday, even though the expected explosion date is somewhere between today and 100k years. 
