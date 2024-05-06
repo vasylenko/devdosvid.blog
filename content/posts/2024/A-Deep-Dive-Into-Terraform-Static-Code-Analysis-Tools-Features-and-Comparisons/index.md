@@ -187,7 +187,7 @@ We will assess each tool against four key integration points that are vital for 
 
 | Tool        | Docker Image | IDE Plugins                   | CI/CD Systems                                                                      | Hook |
 |-------------|--------------|-------------------------------|------------------------------------------------------------------------------------|------|
-| **KICKS**       | ✅           | VSCode                        | Github Actions, Terraform Cloud, Codefresh                                         | ✅    |
+| **KICKS**       | ✅           | VSCode                        | Github Actions, GitLab, Terraform Cloud, Codefresh                                 | ✅    |
 | **tfsec**       | ✅           | VSCode, JetBrains, Vim        | Github Actions                                                                     | ❌    |
 | **Trivy**       | ✅           | VSCode, JetBrains, Vim        | Azure DevOps, GitHub Actions, Buildkite, Dagger, Semaphore, CircleCI, Concourse CI | ❌    |
 | **Terrascan**   | ✅           | VSCode                        | GitHub Actions, Atlantis                                                           | ✅    |
@@ -198,6 +198,7 @@ In addition to the table above, here are a few noteworthy features of some tools
 - Checkov supports OpenAI integration to suggest remediations. But be careful because AI tends to hallucinate.
 - KICS supports applying auto-remediation for some of its out-of-the-box policies. This also applies to custom policies, where you can define remediations and apply them automatically.
 - Terrascan is the only one that provides the VSCode extension to create and test custom policies written in Rego.
+- GitLab uses KICS as its default built-in IaC scanner — available out of the box with "[Infrastructure as Code scanning](https://docs.gitlab.com/ee/user/application_security/iac_scanning/)".
 
 Having covered the integration capabilities, let’s now focus on the output formats each tool provides.
 
