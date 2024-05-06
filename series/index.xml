@@ -3,7 +3,7 @@
     <title>devDosvid blog</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/series/"/>
-    <updated>2024-05-03T22:47:21Z</updated>
+    <updated>2024-05-06T19:12:41Z</updated>
     <author>
         <name>devDosvid blog</name>
         <uri>https://devdosvid.blog/</uri>
@@ -15,7 +15,7 @@
         <title>A Deep Dive Into Terraform Static Code Analysis Tools: Features and Comparisons</title>
         <link href="https://devdosvid.blog/2024/04/16/a-deep-dive-into-terraform-static-code-analysis-tools-features-and-comparisons/" hreflang="en" rel="alternate"/>
         <published>2024-04-16T19:14:15Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2024/04/16/a-deep-dive-into-terraform-static-code-analysis-tools-features-and-comparisons/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -206,7 +206,7 @@ License: &lt;a href=&#34;https://github.com/semgrep/semgrep/blob/develop/LICENSE
 &lt;td&gt;&lt;strong&gt;KICKS&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;✅&lt;/td&gt;
 &lt;td&gt;VSCode&lt;/td&gt;
-&lt;td&gt;Github Actions, Terraform Cloud, Codefresh&lt;/td&gt;
+&lt;td&gt;Github Actions, GitLab, Terraform Cloud, Codefresh&lt;/td&gt;
 &lt;td&gt;✅&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -251,6 +251,7 @@ License: &lt;a href=&#34;https://github.com/semgrep/semgrep/blob/develop/LICENSE
 &lt;li&gt;Checkov supports OpenAI integration to suggest remediations. But be careful because AI tends to hallucinate.&lt;/li&gt;
 &lt;li&gt;KICS supports applying auto-remediation for some of its out-of-the-box policies. This also applies to custom policies, where you can define remediations and apply them automatically.&lt;/li&gt;
 &lt;li&gt;Terrascan is the only one that provides the VSCode extension to create and test custom policies written in Rego.&lt;/li&gt;
+&lt;li&gt;GitLab uses KICS as its default built-in IaC scanner — available out of the box with &amp;ldquo;&lt;a href=&#34;https://docs.gitlab.com/ee/user/application_security/iac_scanning/&#34;&gt;Infrastructure as Code scanning&lt;/a&gt;&amp;rdquo;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Having covered the integration capabilities, let’s now focus on the output formats each tool provides.&lt;/p&gt;
 &lt;h2 id=&#34;output-formats-provided&#34;&gt;Output Formats Provided&lt;/h2&gt;
@@ -460,7 +461,7 @@ License: &lt;a href=&#34;https://github.com/semgrep/semgrep/blob/develop/LICENSE
         <title>Mastering AWS API Gateway V2 HTTP and AWS Lambda With Terraform</title>
         <link href="https://devdosvid.blog/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/" hreflang="en" rel="alternate"/>
         <published>2024-01-09T02:33:10Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -848,7 +849,7 @@ AWS HTTP API code logically represents the &amp;ldquo;global&amp;rdquo; (within 
         <title>Hello Terraform Data; Goodbye Null Resource</title>
         <link href="https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/" hreflang="en" rel="alternate"/>
         <published>2023-04-15T23:25:18Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -976,7 +977,7 @@ height=&#34;409.00&#34;
         <title>Five Practical Ways To Get The Verified EC2 AMI</title>
         <link href="https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/" hreflang="en" rel="alternate"/>
         <published>2022-07-24T13:21:05Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1106,7 +1107,7 @@ height=&#34;213.69&#34;
         <title>Golden Image Pipelines With HCP Packer</title>
         <link href="https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/" hreflang="en" rel="alternate"/>
         <published>2022-06-26T13:13:12Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1370,7 +1371,7 @@ height=&#34;501.24&#34;
         <title>New Lifecycle Options and Refactoring Capabilities in Terraform 1.1 and 1.2</title>
         <link href="https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/" hreflang="en" rel="alternate"/>
         <published>2022-05-04T20:27:47Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1632,7 +1633,7 @@ height=&#34;342&#34;
         <title>Monterey Shortcuts for Easy and Fast Image Processing</title>
         <link href="https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/" hreflang="en" rel="alternate"/>
         <published>2022-01-31T21:46:04Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1750,7 +1751,7 @@ height=&#34;1176.98&#34;
         <title>Some Techniques to Enhance Your Terraform Proficiency</title>
         <link href="https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/" hreflang="en" rel="alternate"/>
         <published>2022-01-15T23:59:51Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2006,7 +2007,7 @@ bash /opt/system-init/register-monitoring.sh
         <title>Guide to Using Terraform in CI/CD</title>
         <link href="https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/" hreflang="en" rel="alternate"/>
         <published>2021-11-24T20:20:45Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2161,7 +2162,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         <title>Apply Cloudfront Security Headers With Terraform</title>
         <link href="https://devdosvid.blog/2021/11/05/apply-cloudfront-security-headers-with-terraform/" hreflang="en" rel="alternate"/>
         <published>2021-11-05T12:20:58Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2021/11/05/apply-cloudfront-security-headers-with-terraform/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2261,7 +2262,7 @@ height=&#34;903.43&#34;
         <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
         <link href="https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/" hreflang="en" rel="alternate"/>
         <published>2021-10-23T23:00:31Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2486,7 +2487,7 @@ And you can leverage the &lt;a href=&#34;https://registry.terraform.io/providers
         <title>AWS Resource Access Manager — Multi Account Resource Governance</title>
         <link href="https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/" hreflang="en" rel="alternate"/>
         <published>2021-09-24T21:54:23Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2572,7 +2573,7 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
         <title>Run Ansible playbook on Mac EC2 Instances fleet with AWS Systems Manager</title>
         <link href="https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/" hreflang="en" rel="alternate"/>
         <published>2021-05-27T00:00:00Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2713,7 +2714,7 @@ height=&#34;476.68&#34;
         <title>Configure HTTP Security headers with CloudFront Functions</title>
         <link href="https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/" hreflang="en" rel="alternate"/>
         <published>2021-05-21T00:00:00Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2921,7 +2922,7 @@ height=&#34;626.15&#34;
         <title>Using TinyPNG Image Compression From MacOS Finder Contextual Menu</title>
         <link href="https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/" hreflang="en" rel="alternate"/>
         <published>2021-02-14T00:00:00Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2992,7 +2993,7 @@ height=&#34;702.36&#34;
         <title>Customizing mac1.metal EC2 AMI — new guts, more glory</title>
         <link href="https://devdosvid.blog/2021/02/01/customizing-mac1.metal-ec2-ami-new-guts-more-glory/" hreflang="en" rel="alternate"/>
         <published>2021-02-01T00:00:00Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2021/02/01/customizing-mac1.metal-ec2-ami-new-guts-more-glory/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -3136,7 +3137,7 @@ height=&#34;702.36&#34;
         <title>Terraforming mac1.metal at AWS</title>
         <link href="https://devdosvid.blog/2021/01/20/terraforming-mac1.metal-at-aws/" hreflang="en" rel="alternate"/>
         <published>2021-01-20T00:00:00Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2021/01/20/terraforming-mac1.metal-at-aws/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -3187,7 +3188,7 @@ height=&#34;702.36&#34;
         <title>mac1.metal and mac2.metal EC2 Instances — user experience</title>
         <link href="https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/" hreflang="en" rel="alternate"/>
         <published>2021-01-19T00:00:00Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -3417,7 +3418,7 @@ Such an easy thing to do, right? Well, it depends.&lt;/p&gt;
         <title>AWS CloudShell</title>
         <link href="https://devdosvid.blog/2020/12/16/aws-cloudshell/" hreflang="en" rel="alternate"/>
         <published>2020-12-16T00:00:00Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2020/12/16/aws-cloudshell/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -3444,7 +3445,7 @@ So it is not another &lt;a href=&#34;https://aws.amazon.com/devops-guru/&#34;&gt
         <title>Terraform Workflow — Working Individually and in a Team</title>
         <link href="https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team/" hreflang="en" rel="alternate"/>
         <published>2020-09-16T00:00:00Z</published>
-        <updated>2024-05-03T22:46:44Z</updated>
+        <updated>2024-05-06T19:12:07Z</updated>
         <id>https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team/</id>
         <author>
             <name>Serhii Vasylenko</name>
