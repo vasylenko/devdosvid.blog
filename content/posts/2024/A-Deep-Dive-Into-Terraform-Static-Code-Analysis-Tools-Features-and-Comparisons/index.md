@@ -92,11 +92,11 @@ In this chapter, we delve into these foundational features across observed tools
 
 | Tool        | Policies | Supported Terraform Providers                                                               |
 |-------------|----------|---------------------------------------------------------------------------------------------|
-| **KICKS**       | 663      | aws, azure, gcp, kubernetes, alicloud, databricks, github, nifcloud                         |
-| **tfsec**       | 154      | aws, azure, gcp, digitalocean, kubernetes, cloudstack, github, openstack, oracle            |
-| **Trivy**       | 322      | aws, azure, gcp, digitalocean, cloudstack, github, oracle, openstack                        |
-| **Terrascan**   | 790      | aws, azure, gcp, digitalocean, kubernetes, docker, github                                   |
-| **Checkov**     | 2110     | aws, azure, gcp, digitalocean, kubernetes, github, gitlab, ibm, linode, openstack, alicloud |
+| **KICS**       | 663      | aws, azure, gcp, kubernetes, alicloud, databricks, github, nifcloud                         |
+| **tfsec**      | 154      | aws, azure, gcp, digitalocean, kubernetes, cloudstack, github, openstack, oracle            |
+| **Trivy**      | 322      | aws, azure, gcp, digitalocean, cloudstack, github, oracle, openstack                        |
+| **Terrascan**  | 790      | aws, azure, gcp, digitalocean, kubernetes, docker, github                                   |
+| **Checkov**    | 2110     | aws, azure, gcp, digitalocean, kubernetes, github, gitlab, ibm, linode, openstack, alicloud |
 | **Semgrep OSS** | 362      | aws, azure, gcp                                                                             |
 
 As you can see, all tools support the "Big Three" cloud service Terraform providers—AWS, Azure, and GCP—for managing resources on these popular platforms.
@@ -187,11 +187,11 @@ We will assess each tool against four key integration points that are vital for 
 
 | Tool        | Docker Image | IDE Plugins                   | CI/CD Systems                                                                      | Hook |
 |-------------|--------------|-------------------------------|------------------------------------------------------------------------------------|------|
-| **KICKS**       | ✅           | VSCode                        | Github Actions, GitLab, Terraform Cloud, Codefresh                                 | ✅    |
-| **tfsec**       | ✅           | VSCode, JetBrains, Vim        | Github Actions                                                                     | ❌    |
-| **Trivy**       | ✅           | VSCode, JetBrains, Vim        | Azure DevOps, GitHub Actions, Buildkite, Dagger, Semaphore, CircleCI, Concourse CI | ❌    |
-| **Terrascan**   | ✅           | VSCode                        | GitHub Actions, Atlantis                                                           | ✅    |
-| **Checkov**     | ✅           | VSCode, JetBrains             | GitHub Actions                                                                     | ✅    |
+| **KICS**       | ✅           | VSCode                        | Github Actions, GitLab, Terraform Cloud, Codefresh                                 | ✅    |
+| **tfsec**      | ✅           | VSCode, JetBrains, Vim        | Github Actions                                                                     | ❌    |
+| **Trivy**      | ✅           | VSCode, JetBrains, Vim        | Azure DevOps, GitHub Actions, Buildkite, Dagger, Semaphore, CircleCI, Concourse CI | ❌    |
+| **Terrascan**  | ✅           | VSCode                        | GitHub Actions, Atlantis                                                           | ✅    |
+| **Checkov**    | ✅           | VSCode, JetBrains             | GitHub Actions                                                                     | ✅    |
 | **Semgrep OSS** | ✅           | VSCode, JetBrains, Emacs, Vim | GitLab                                                                             | ✅    |
 
 In addition to the table above, here are a few noteworthy features of some tools:
@@ -219,11 +219,11 @@ Beyond these, each tool supports additional formats, enriching their application
 
 | Tool        | Supported Output Formats                                                                  |
 |-------------|-------------------------------------------------------------------------------------------|
-| **KICKS**       | ASFF, CSV, Code Climate, CycloneDX, GItLab SAST, HTML, JSON, JUnit, PDF, SARIF, SonarQube |
-| **tfsec**       | Checkstyle, CSV, HTML, JSON, JUnit, Markdown, SARIF                                       |
-| **Trivy**       | ASFF, Cosign, CycloneDX, JSON, SARIF, SPDX                                                |
-| **Terrascan**   | JSON, JUnit, SARIF, XML, YAML                                                             |
-| **Checkov**     | CSV, CycloneDX, GItLab SAST, JSON, JUnit, SARIF, SPDX                                     |
+| **KICS**       | ASFF, CSV, Code Climate, CycloneDX, GItLab SAST, HTML, JSON, JUnit, PDF, SARIF, SonarQube |
+| **tfsec**      | Checkstyle, CSV, HTML, JSON, JUnit, Markdown, SARIF                                       |
+| **Trivy**      | ASFF, Cosign, CycloneDX, JSON, SARIF, SPDX                                                |
+| **Terrascan**  | JSON, JUnit, SARIF, XML, YAML                                                             |
+| **Checkov**    | CSV, CycloneDX, GItLab SAST, JSON, JUnit, SARIF, SPDX                                     |
 | **Semgrep OSS** | Emacs, GitLab SAST, JSON, JUnit, SARIF, Vim                                               |
 
 Moving from output formats to operational adaptability, let's investigate the customization options for scanner settings. This important feature allows each tool to align with varied project demands.
@@ -244,11 +244,11 @@ Based on these criteria, the following table offers a comparative view of how ea
 
 | Tool        | Targeted Scans | Ignore Policies | Min Severity | Config File | Variables Interpolation | Module Scanning |
 |-------------|----------------|-----------------|--------------|-------------|-------------------------|-----------------|
-| **KICKS**       | ✅            | ✅               | ✅            | ✅           | ✅                       | ⁉️️             |
-| **tfsec**       | ✅            | ✅               | ✅            | ✅           | ✅                       | ✅               |
-| **Trivy**       | ✅            | ✅               | ✅            | ✅           | ✅                       | ✅               |
-| **Terrascan**   | ✅            | ✅               | ✅            | ✅           | ✅                       | ✅               |
-| **Checkov**     | ✅            | ✅               | ✅            | ✅           | ✅                       | ✅               |
+| **KICS**       | ✅            | ✅               | ✅            | ✅           | ✅                       | ⁉️️             |
+| **tfsec**      | ✅            | ✅               | ✅            | ✅           | ✅                       | ✅               |
+| **Trivy**      | ✅            | ✅               | ✅            | ✅           | ✅                       | ✅               |
+| **Terrascan**  | ✅            | ✅               | ✅            | ✅           | ✅                       | ✅               |
+| **Checkov**    | ✅            | ✅               | ✅            | ✅           | ✅                       | ✅               |
 | **Semgrep OSS** | ✅            | ✅               | ✅            | ❌           | ✅                       | ❌               |
 
 Most reviewed tools meet nearly all the criteria set for scanner setting customization, demonstrating their flexibility and advanced capabilities. However, there are notable features worth considering:
@@ -263,11 +263,11 @@ Here's a comprehensive comparison summary to guide your selection of the most su
 
 | Tool        | Default Policies | Custom Policies | Integration                           | Output Formats                                                    | Customization                                                                                                      |
 |-------------|------------------|-----------------|---------------------------------------|-------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| **KICKS**       | 663              | OPA Rego        | ✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook   | ASFF, CSV, Code Climate, CycloneDX, GItLab SAST, HTML, JSON, JUnit, PDF, SARIF, SonarQube | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ❌Module Scanning      |
-| **tfsec**       | 154              | OPA Rego        | ✅Docker, ✅IDE, ✅CI/CD, ❌Git Hook   | Checkstyle, CSV, HTML, JSON, JUnit, Markdown, SARIF               | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning      |
-| **Trivy**       | 322              | OPA Rego        | ✅Docker, ✅IDE, ✅CI/CD, ❌Git Hook   | ASFF, Cosign, CycloneDX, JSON, SARIF, SPDX                        | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning      |
-| **Terrascan**   | 790              | OPA Rego        | ✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook   | JSON, JUnit, SARIF, XML, YAML                                     | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning      |
-| **Checkov**     | 2110             | YAML, Python    | ✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook   | CSV, CycloneDX, GItLab SAST, JSON, JUnit, SARIF, SPDX             | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning      |
+| **KICS**       | 663              | OPA Rego        | ✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook   | ASFF, CSV, Code Climate, CycloneDX, GItLab SAST, HTML, JSON, JUnit, PDF, SARIF, SonarQube | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ❌Module Scanning      |
+| **tfsec**      | 154              | OPA Rego        | ✅Docker, ✅IDE, ✅CI/CD, ❌Git Hook   | Checkstyle, CSV, HTML, JSON, JUnit, Markdown, SARIF               | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning      |
+| **Trivy**      | 322              | OPA Rego        | ✅Docker, ✅IDE, ✅CI/CD, ❌Git Hook   | ASFF, Cosign, CycloneDX, JSON, SARIF, SPDX                        | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning      |
+| **Terrascan**  | 790              | OPA Rego        | ✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook   | JSON, JUnit, SARIF, XML, YAML                                     | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning      |
+| **Checkov**    | 2110             | YAML, Python    | ✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook   | CSV, CycloneDX, GItLab SAST, JSON, JUnit, SARIF, SPDX             | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning      |
 | **Semgrep OSS** | 362              | YAML            | ✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook   | Emacs, GitLab SAST, JSON, JUnit, SARIF, Vim                       | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ❌Config File, ✅Variables Interpolation, ❌Module Scanning      |
 
 Integrating a Terraform security scanning into your development pipeline is a proven strategy to boost your security posture. These tools detect potential vulnerabilities early and enforce best practices and compliance standards, representing a proactive approach to infrastructure security.
