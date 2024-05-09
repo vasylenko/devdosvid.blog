@@ -191,7 +191,7 @@ We will assess each tool against four key integration points that are vital for 
 | **tfsec**      | ✅           | VSCode, JetBrains, Vim        | Github Actions                                                                     | ❌    |
 | **Trivy**      | ✅           | VSCode, JetBrains, Vim        | Azure DevOps, GitHub Actions, Buildkite, Dagger, Semaphore, CircleCI, Concourse CI | ❌    |
 | **Terrascan**  | ✅           | VSCode                        | GitHub Actions, Atlantis                                                           | ✅    |
-| **Checkov**    | ✅           | VSCode, JetBrains             | GitHub Actions                                                                     | ✅    |
+| **Checkov**    | ✅           | VSCode, JetBrains             | GitHub Actions, GitLab                                                                   | ✅    |
 | **Semgrep OSS** | ✅           | VSCode, JetBrains, Emacs, Vim | GitLab                                                                             | ✅    |
 
 In addition to the table above, here are a few noteworthy features of some tools:
