@@ -198,7 +198,7 @@ In addition to the table above, here are a few noteworthy features of some tools
 - Checkov supports OpenAI integration to suggest remediations. But be careful because AI tends to hallucinate.
 - KICS supports applying auto-remediation for some of its out-of-the-box policies. This also applies to custom policies, where you can define remediations and apply them automatically.
 - Terrascan is the only one that provides the VSCode extension to create and test custom policies written in Rego.
-- GitLab uses KICS as its default built-in IaC scanner — available out of the box with "[Infrastructure as Code scanning](https://docs.gitlab.com/ee/user/application_security/iac_scanning/)".
+- GitLab uses KICS as its default built-in IaC scanner — available out of the box with "[Infrastructure as Code scanning](https://docs.gitlab.com/ee/user/application_security/iac_scanning/)". However, there's also [GitLab CI Component](https://gitlab.com/guided-explorations/ci-cd-plugin-extensions/checkov-iac-sast) available for Checkov.
 
 Having covered the integration capabilities, let’s now focus on the output formats each tool provides.
 
