@@ -3,7 +3,7 @@
     <title>devDosvid blog</title>
     <id>https://devdosvid.blog/</id>
     <link href="https://devdosvid.blog/series/"/>
-    <updated>2024-05-09T21:59:08Z</updated>
+    <updated>2024-06-04T09:43:54Z</updated>
     <author>
         <name>devDosvid blog</name>
         <uri>https://devdosvid.blog/</uri>
@@ -12,10 +12,112 @@
     <logo>https://devdosvid.blog/assets/img/websitelogo.jpg</logo>
     <link rel="alternate" type="text/html" href="https://devdosvid.blog/series/" hreflang="en-us"/>
     <entry>
+        <title>Unpacking AWS Outages: System Design Lessons from Post-Event Summaries</title>
+        <link href="https://devdosvid.blog/2024/06/03/unpacking-aws-outages-system-design-lessons-from-post-event-summaries/" hreflang="en" rel="alternate"/>
+        <published>2024-06-02T22:52:54Z</published>
+        <updated>2024-06-04T09:43:20Z</updated>
+        <id>https://devdosvid.blog/2024/06/03/unpacking-aws-outages-system-design-lessons-from-post-event-summaries/</id>
+        <author>
+            <name>Serhii Vasylenko</name>
+        </author>
+        <logo>https://devdosvid.blog/2024/06/03/unpacking-aws-outages-system-design-lessons-from-post-event-summaries/cover-image.png</logo>
+        <content type="html">&lt;p&gt;In this blog post, I’m excited to share some valuable system design insights drawn from AWS’s post-event summaries on major outages.&lt;/p&gt;
+&lt;p&gt;System design is a topic I’m especially passionate about—it’s even my favorite interview question at Grammarly, and I love to conduct those interviews. This fascination led me to thoroughly analyze AWS’s PES in search of the most interesting cases.&lt;/p&gt;
+&lt;p&gt;Learning from mistakes is essential. Yet it&amp;rsquo;s precious to learn from others&amp;rsquo; mistakes because they come for free (for you, but not for their owners). The AWS team is doing a great job sharing their Post-Event Summaries because they not only demonstrate the open engineering culture but also help others.&lt;/p&gt;
+&lt;p&gt;From the sixteen reports available at the time of writing, I’ve selected the four most captivating ones. Each presents unexpected challenges and turns of events, along with valuable outcomes we can learn from. Let&amp;rsquo;s explore these intriguing reports and uncover the key strategies for building more resilient systems.&lt;/p&gt;
+&lt;h2 id=&#34;remirroring-storm&#34;&gt;Remirroring Storm&lt;/h2&gt;
+&lt;p&gt;The April 21, 2011, Amazon EC2/EBS event&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; in the US East Region provides valuable insights into dependency management and the dangers of cascading failures.&lt;/p&gt;
+&lt;p&gt;A network configuration change, promoted as a part of normal scaling activity, set off a cascade of failures in the Amazon Elastic Block Store system. The intention was simple — to upgrade the capacity of the primary network. This operation involved a traffic shift between underlying networks, but it was executed incorrectly so that change caused many EBS nodes to disconnect from their replicas. When these nodes reconnected, they tried to replicate their data on other nodes, quickly overwhelming the EBS cluster’s capacity. This surge, or as AWS called it “remirroring storm,” left many EBS volumes “stuck,” unable to process read and write operations.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Blast Radius&lt;/strong&gt;: Initially, the issue affected only a single Availability Zone in the US East Region, and about 13% of the volumes were in this “stuck” state. However, the outage soon spread to the entire region. The EBS control plane, responsible for handling API requests, was dependent on the degraded EBS cluster. The increased traffic from the remirroring storm overwhelmed the control plane, making it intermittently unavailable and affecting users across the region.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Affected Services and Processes&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;EC2: Users faced difficulties launching new EBS-backed instances and managing existing ones.&lt;/li&gt;
+&lt;li&gt;EBS: Many volumes became “stuck,” rendering them inaccessible and impacting EC2 instances dependent on them.&lt;/li&gt;
+&lt;li&gt;RDS: As a service dependent on EBS, some RDS databases, particularly single-AZ deployments, became inaccessible due to the EBS volume issues.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This incident underscores the importance of building resilient systems. The EBS control plane’s dependence on a single Availability Zone and the absence of back-off mechanisms in the remirroring process were critical factors in the cascading failures.&lt;/p&gt;
+&lt;h2 id=&#34;electrical-storm&#34;&gt;Electrical Storm&lt;/h2&gt;
+&lt;p&gt;The June 29, 2012, AWS services event&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; in the US East Region exemplifies how a localized power outage can trigger a region-wide service disruption due to complex dependencies.&lt;/p&gt;
+&lt;p&gt;A severe electrical storm caused a power outage in a single data center, impacting a small portion of AWS resources in the US East Region — a single-digit percentage of the total resources in the region (as of the date of the incident).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Blast Radius&lt;/strong&gt;: The power outage was initially confined to the affected Availability Zone. However, it soon led to degrading service control planes that manage resources across the entire region. While these control planes aren&amp;rsquo;t required for ongoing resource usage, their degradation hindered users&amp;rsquo; ability to respond to the outage, such using the AWS console to try moving resources to other Availability Zones.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Affected Services and Processes&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;EC2 and EBS: Approximately 7% of EC2 instances and a similar proportion of EBS volumes in the region were offline until power was restored and systems restarted. The control planes for both services were significantly impacted, making it difficult for users to launch new instances, create EBS volumes, or attach volumes in any Availability Zone within the region.&lt;/li&gt;
+&lt;li&gt;ELB: Although the direct impact was limited to ELBs within the affected data center, the service&amp;rsquo;s inability to process new requests quickly hampered recovery for users trying to replace lost EC2 capacity in other Availability Zones.&lt;/li&gt;
+&lt;li&gt;RDS: Many Single-AZ databases in the affected zone became inaccessible due to their dependent EBS volumes being affected. A few Multi-AZ RDS instances, designed for redundancy, also failed to failover automatically due to a software bug triggered by the specific server shutdown sequences during the power outage.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Even though we host our applications in the cloud and power outages may not be a primary concern when starting new projects, this event underscores the critical importance of designing fault-tolerant systems. It also highlights the potential for cascading failures when a small percentage of infrastructure is impacted. Dependencies on control planes and the interconnected nature of services can significantly amplify the impact of localized outages.&lt;/p&gt;
+&lt;h2 id=&#34;simple-point-of-failure&#34;&gt;Simple Point of Failure&lt;/h2&gt;
+&lt;p&gt;Another excellent example of how small can quickly become big — is the Amazon SimpleDB service disruption on June 13, 2014, in the US East Region&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;. This incident demonstrates how a seemingly minor issue can escalate into a significant disruption due to dependencies on a centralized service.&lt;/p&gt;
+&lt;p&gt;A power outage in a single data center caused multiple storage nodes to become unavailable. This sudden failure led to a spike in load on the internal lock service, which manages node responsibility for data and metadata. And while this lock services is replicated accross multiple data centers, the load spike wat too sudden and too high.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Blast Radius&lt;/strong&gt;: Initially, the impact was confined to the storage nodes in the affected data center. However, the increased load on the centralized lock service, crucial for all SimpleDB operations, caused cascading failures that affected the entire service.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Affected Services and Processes&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SimpleDB: The service became unavailable for all API calls, except for a small fraction of eventually consistent read calls, because the storage and metadata nodes couldn’t renew their membership with the overloaded lock service. This unavailability prevented users from accessing and managing their data.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This outage highlights the critical importance of addressing the single point of failure when designing systems. The centralized nature of the lock service, intended for coordination, became a single point of failure. A more distributed or load-balanced approach for the lock service could have mitigated the impact of the simultaneous node failures.&lt;/p&gt;
+&lt;h2 id=&#34;scaling-for-the-better&#34;&gt;Scaling for the better&lt;/h2&gt;
+&lt;figure&gt;
+
+
+
+
+&lt;img loading=&#34;lazy&#34;
+     src=&#34;scaling-for-the-better.jpg&#34;
+    alt=&#34;In search of absolute&#34;width=&#34;500&#34;
+height=&#34;500&#34;
+/&gt; &lt;figcaption&gt;
+    &lt;p&gt;In search of absolute&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The Amazon Kinesis event in the US East Region on November 25, 2020&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;, is a perfect example of how adding capacity can unexpectedly trigger a cascade of failures due to unforeseen dependencies and resource limitations. What could possibly go wrong by adding more nodes to the cluster? Scaling horizontally is best practice, right? Well, it depends.&lt;/p&gt;
+&lt;p&gt;A small capacity addition to the front-end fleet of the Kinesis service led to unexpected behavior in the front-end servers responsible for routing requests.&lt;/p&gt;
+&lt;p&gt;These newly added servers exceeded the maximum allowed threads due to operating system configuration: each front-end server creates operating system threads for each of the other servers in the front-end fleet — this is needed for services to learn about new servers added to the cluster. Eventually, all this caused cache construction failures and prevented servers from routing requests to the back-end clusters.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Blast Radius&lt;/strong&gt;: Although the initial trigger was a capacity addition intended to enhance performance, the resulting issue affected the entire Kinesis service in the US East Region. The dependency of many AWS services on Kinesis amplified the impact significantly.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Affected Services and Processes&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Kinesis: Customers experienced failures and increased latencies when putting and getting Kinesis records, rendering the service unusable for real-time data processing.&lt;/li&gt;
+&lt;li&gt;Cognito: As a dependent service on Kinesis, Cognito faced elevated API failures and increased latencies for user pools and identity pools. This disruption prevented external users from authenticating or obtaining temporary AWS credentials.&lt;/li&gt;
+&lt;li&gt;CloudWatch: Kinesis Data Streams are used by CloudWatch to process metrics and log data. The event caused increased error rates and latencies for CloudWatch APIs (PutMetricData and PutLogEvents), with alarms transitioning to an INSUFFICIENT_DATA state, hindering monitoring and alerting capabilities.&lt;/li&gt;
+&lt;li&gt;Auto Scaling and Lambda: These services rely on CloudWatch metrics, so they were indirectly affected, too. Reactive Auto Scaling policies experienced delays, and Lambda function invocations encountered increased error rates due to memory contention caused by backlogged CloudWatch metric data.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This incident highlights the importance of thoroughly understanding dependencies, resource limitations, and potential failure points when making changes to a system, even those intended to improve capacity or performance. Robust testing and monitoring are crucial to identify and mitigate such unexpected behaviors.&lt;/p&gt;
+&lt;h2 id=&#34;final-thoughts&#34;&gt;Final Thoughts&lt;/h2&gt;
+&lt;p&gt;The AWS outage reports reveal a fundamental truth about system design: &lt;strong&gt;complexity and interdependency can be both our greatest strengths and our most significant vulnerabilities&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;As we build and scale our systems, let&amp;rsquo;s strive for simplicity, resilience, and a thorough understanding of our dependencies.&lt;/p&gt;
+&lt;p&gt;To ensure our systems are prepared for the unexpected, it&amp;rsquo;s crucial to internalize and act upon the lessons these incidents teach us. Here are some key takeaways to guide us in this:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Embrace Resilience&lt;/strong&gt;: Design systems with robust fault-tolerance mechanisms to handle unexpected failures without cascading effects.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Understand Dependencies&lt;/strong&gt;: Map out and regularly review your system&amp;rsquo;s dependencies to identify and mitigate potential single points of failure.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Continuous Learning&lt;/strong&gt;: Analyze past incidents, both your own and industry-wide, to gain insights and improve your system design.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Proactive Monitoring&lt;/strong&gt;: Implement comprehensive monitoring and alerting to detect and address issues before they escalate.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Thorough Testing&lt;/strong&gt;: Regularly test your systems under various failure scenarios to ensure they can withstand real-world conditions.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The path to reliable systems is paved with continuous learning and adaptation. Let&amp;rsquo;s embrace these lessons and push the boundaries of what our systems can achieve, ensuring that we are always prepared for the unexpected.  🙂&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://aws.amazon.com/message/65648/&#34;&gt;Summary of the Amazon EC2 and Amazon RDS Service Disruption in the US East Region, April 21, 2011&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://aws.amazon.com/message/67457/&#34;&gt;Summary of the AWS Service Event in the US East Region, June 29, 2012&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://aws.amazon.com/message/65649/&#34;&gt;Summary of the Amazon SimpleDB Service Disruption, June 13, 2014.&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://aws.amazon.com/message/11201/&#34;&gt;Summary of the Amazon Kinesis Event in the Northern Virginia (US-EAST-1) Region, November 25, 2020&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</content>
+    </entry>
+    <entry>
         <title>A Deep Dive Into Terraform Static Code Analysis Tools: Features and Comparisons</title>
         <link href="https://devdosvid.blog/2024/04/16/a-deep-dive-into-terraform-static-code-analysis-tools-features-and-comparisons/" hreflang="en" rel="alternate"/>
         <published>2024-04-16T19:14:15Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2024/04/16/a-deep-dive-into-terraform-static-code-analysis-tools-features-and-comparisons/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -461,7 +563,7 @@ License: &lt;a href=&#34;https://github.com/semgrep/semgrep/blob/develop/LICENSE
         <title>Mastering AWS API Gateway V2 HTTP and AWS Lambda With Terraform</title>
         <link href="https://devdosvid.blog/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/" hreflang="en" rel="alternate"/>
         <published>2024-01-09T02:33:10Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -849,7 +951,7 @@ AWS HTTP API code logically represents the &amp;ldquo;global&amp;rdquo; (within 
         <title>Hello Terraform Data; Goodbye Null Resource</title>
         <link href="https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/" hreflang="en" rel="alternate"/>
         <published>2023-04-15T23:25:18Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -977,7 +1079,7 @@ height=&#34;409.00&#34;
         <title>Five Practical Ways To Get The Verified EC2 AMI</title>
         <link href="https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/" hreflang="en" rel="alternate"/>
         <published>2022-07-24T13:21:05Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1107,7 +1209,7 @@ height=&#34;213.69&#34;
         <title>Golden Image Pipelines With HCP Packer</title>
         <link href="https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/" hreflang="en" rel="alternate"/>
         <published>2022-06-26T13:13:12Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1371,7 +1473,7 @@ height=&#34;501.24&#34;
         <title>New Lifecycle Options and Refactoring Capabilities in Terraform 1.1 and 1.2</title>
         <link href="https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/" hreflang="en" rel="alternate"/>
         <published>2022-05-04T20:27:47Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1633,7 +1735,7 @@ height=&#34;342&#34;
         <title>Monterey Shortcuts for Easy and Fast Image Processing</title>
         <link href="https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/" hreflang="en" rel="alternate"/>
         <published>2022-01-31T21:46:04Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -1751,7 +1853,7 @@ height=&#34;1176.98&#34;
         <title>Some Techniques to Enhance Your Terraform Proficiency</title>
         <link href="https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/" hreflang="en" rel="alternate"/>
         <published>2022-01-15T23:59:51Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2007,7 +2109,7 @@ bash /opt/system-init/register-monitoring.sh
         <title>Guide to Using Terraform in CI/CD</title>
         <link href="https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/" hreflang="en" rel="alternate"/>
         <published>2021-11-24T20:20:45Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2162,7 +2264,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         <title>Apply Cloudfront Security Headers With Terraform</title>
         <link href="https://devdosvid.blog/2021/11/05/apply-cloudfront-security-headers-with-terraform/" hreflang="en" rel="alternate"/>
         <published>2021-11-05T12:20:58Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2021/11/05/apply-cloudfront-security-headers-with-terraform/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2262,7 +2364,7 @@ height=&#34;903.43&#34;
         <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
         <link href="https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/" hreflang="en" rel="alternate"/>
         <published>2021-10-23T23:00:31Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2487,7 +2589,7 @@ And you can leverage the &lt;a href=&#34;https://registry.terraform.io/providers
         <title>AWS Resource Access Manager — Multi Account Resource Governance</title>
         <link href="https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/" hreflang="en" rel="alternate"/>
         <published>2021-09-24T21:54:23Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2573,7 +2675,7 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
         <title>Run Ansible playbook on Mac EC2 Instances fleet with AWS Systems Manager</title>
         <link href="https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/" hreflang="en" rel="alternate"/>
         <published>2021-05-27T00:00:00Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2714,7 +2816,7 @@ height=&#34;476.68&#34;
         <title>Configure HTTP Security headers with CloudFront Functions</title>
         <link href="https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/" hreflang="en" rel="alternate"/>
         <published>2021-05-21T00:00:00Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2922,7 +3024,7 @@ height=&#34;626.15&#34;
         <title>Using TinyPNG Image Compression From MacOS Finder Contextual Menu</title>
         <link href="https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/" hreflang="en" rel="alternate"/>
         <published>2021-02-14T00:00:00Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -2993,7 +3095,7 @@ height=&#34;702.36&#34;
         <title>Customizing mac1.metal EC2 AMI — new guts, more glory</title>
         <link href="https://devdosvid.blog/2021/02/01/customizing-mac1.metal-ec2-ami-new-guts-more-glory/" hreflang="en" rel="alternate"/>
         <published>2021-02-01T00:00:00Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2021/02/01/customizing-mac1.metal-ec2-ami-new-guts-more-glory/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -3137,7 +3239,7 @@ height=&#34;702.36&#34;
         <title>Terraforming mac1.metal at AWS</title>
         <link href="https://devdosvid.blog/2021/01/20/terraforming-mac1.metal-at-aws/" hreflang="en" rel="alternate"/>
         <published>2021-01-20T00:00:00Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2021/01/20/terraforming-mac1.metal-at-aws/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -3188,7 +3290,7 @@ height=&#34;702.36&#34;
         <title>mac1.metal and mac2.metal EC2 Instances — user experience</title>
         <link href="https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/" hreflang="en" rel="alternate"/>
         <published>2021-01-19T00:00:00Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -3418,7 +3520,7 @@ Such an easy thing to do, right? Well, it depends.&lt;/p&gt;
         <title>AWS CloudShell</title>
         <link href="https://devdosvid.blog/2020/12/16/aws-cloudshell/" hreflang="en" rel="alternate"/>
         <published>2020-12-16T00:00:00Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
+        <updated>2024-06-04T09:43:20Z</updated>
         <id>https://devdosvid.blog/2020/12/16/aws-cloudshell/</id>
         <author>
             <name>Serhii Vasylenko</name>
@@ -3440,171 +3542,5 @@ So it is not another &lt;a href=&#34;https://aws.amazon.com/devops-guru/&#34;&gt
 &lt;h5 id=&#34;more-yes-and-nos-here&#34;&gt;More Yes and No’s here:&lt;/h5&gt;
 &lt;p&gt;&lt;a href=&#34;https://docs.aws.amazon.com/cloudshell/latest/userguide/faq-list.html&#34;&gt;https://docs.aws.amazon.com/cloudshell/latest/userguide/faq-list.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://aws.amazon.com/cloudshell/faqs/&#34;&gt;https://aws.amazon.com/cloudshell/faqs/&lt;/a&gt;&lt;/p&gt;</content>
-    </entry>
-    <entry>
-        <title>Terraform Workflow — Working Individually and in a Team</title>
-        <link href="https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team/" hreflang="en" rel="alternate"/>
-        <published>2020-09-16T00:00:00Z</published>
-        <updated>2024-05-09T21:58:25Z</updated>
-        <id>https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team/</id>
-        <author>
-            <name>Serhii Vasylenko</name>
-        </author>
-        <logo>https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team/cover-image.jpeg</logo>
-        <content type="html">&lt;p&gt;The work with Terraform code may become tangled sometimes. Here are some guides on how to streamline it and make it transparent for you and your team.&lt;/p&gt;
-&lt;p&gt;It is extremely helpful in a team, and can benefit you even if you work individually. A good workflow enables you to streamline a process, organize it, and make it less error-prone.&lt;/p&gt;
-&lt;p&gt;This article summaries several approaches when working with Terraform, both individually and in a team. I tried to gather the most common ones, but you might also want to develop your own.&lt;/p&gt;
-&lt;p&gt;The common requirement for all of them is a version control system (such as Git). This is how you ensure nothing is lost and all your code changes are properly versioned tracked.&lt;/p&gt;
-&lt;h2 id=&#34;basic-concepts&#34;&gt;Basic Concepts&lt;/h2&gt;
-&lt;p&gt;Let’s define the basic actions first.&lt;/p&gt;
-&lt;p&gt;All described workflows are built on top of three key steps: Write, Plan, and Apply. Nevertheless, their details and actions vary between workflows.&lt;/p&gt;
-&lt;figure&gt;
-
-
-
-
-&lt;img loading=&#34;lazy&#34;
-     src=&#34;tf-workflow.png&#34;
-    alt=&#34;Basic 3-steps Terraform workflow&#34;width=&#34;800&#34;
-height=&#34;89.88&#34;
-/&gt; &lt;figcaption&gt;
-    &lt;p&gt;Basic 3-steps Terraform workflow&lt;/p&gt;
-&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;&lt;strong&gt;Write&lt;/strong&gt; – this is where you make changes to the code.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Plan&lt;/strong&gt; – this is where you review changes and decide whether to accept them.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Apply&lt;/strong&gt; – this is where you accept changes and apply them against real infrastructure.&lt;/p&gt;
-&lt;p&gt;It&amp;rsquo;s a simple idea with a variety of possible implementations.&lt;/p&gt;
-&lt;h2 id=&#34;core-individual-workflow&#34;&gt;Core individual workflow&lt;/h2&gt;
-&lt;p&gt;This is the most simple workflow if you work alone on a relatively small TF project. This workflow suits both local and remote backends well.&lt;/p&gt;
-&lt;figure&gt;
-
-
-
-
-&lt;img loading=&#34;lazy&#34;
-     src=&#34;tf-workflow-individual.png&#34;
-    alt=&#34;Git-based Terraform workflow&#34;width=&#34;800&#34;
-height=&#34;267.41&#34;
-/&gt; &lt;figcaption&gt;
-    &lt;p&gt;Git-based Terraform workflow&lt;/p&gt;
-&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h3 id=&#34;write&#34;&gt;Write&lt;/h3&gt;
-&lt;p&gt;You clone the remote code repo or pull the latest changes, edit the configuration code, then run the &lt;code&gt;terraform validate&lt;/code&gt; and &lt;code&gt;terraform fmt&lt;/code&gt; commands to make sure your code works well.&lt;/p&gt;
-&lt;h3 id=&#34;plan&#34;&gt;Plan&lt;/h3&gt;
-&lt;p&gt;This is where you run the &lt;code&gt;terraform plan&lt;/code&gt; command to make sure that your changes do what you need. This is a good time to commit your code changes changes (or you can do it in the next step).&lt;/p&gt;
-&lt;h3 id=&#34;apply&#34;&gt;Apply&lt;/h3&gt;
-&lt;p&gt;This is when you run &lt;code&gt;terraform apply&lt;/code&gt; and introduce the changes to real infrastructure objects. Also, this is when you push committed changes to the remote repository.&lt;/p&gt;
-&lt;h2 id=&#34;core-team-workflow&#34;&gt;Core team workflow&lt;/h2&gt;
-&lt;p&gt;This workflow is good for when you work with configuration code in a team and want to use feature branches to manage the changes accurately.&lt;/p&gt;
-&lt;figure&gt;
-
-
-
-
-&lt;img loading=&#34;lazy&#34;
-     src=&#34;tf-core-workflow-team.png&#34;
-    alt=&#34;Git-based Terraform workflow in a team&#34;width=&#34;800&#34;
-height=&#34;298.41&#34;
-/&gt; &lt;figcaption&gt;
-    &lt;p&gt;Git-based Terraform workflow in a team&lt;/p&gt;
-&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h3 id=&#34;write-1&#34;&gt;Write&lt;/h3&gt;
-&lt;p&gt;Start by checking out a new branch, make your changes, and run the &lt;code&gt;terraform validate&lt;/code&gt; and &lt;code&gt;terraform fmt&lt;/code&gt; commands to make sure your code works well.&lt;/p&gt;
-&lt;p&gt;Running &lt;code&gt;terraform plan&lt;/code&gt; at this step will help ensure that you&amp;rsquo;ll get what you expect.&lt;/p&gt;
-&lt;h3 id=&#34;plan-1&#34;&gt;Plan&lt;/h3&gt;
-&lt;p&gt;This is where code and plan reviews happen.&lt;/p&gt;
-&lt;p&gt;Add the output of the &lt;code&gt;terraform plan&lt;/code&gt; command to the Pull Request with your changes. It would be a good idea to add only the changed parts of the common output, which is the part that starts with &amp;ldquo;Terraform will perform the following actions&amp;rdquo; string.&lt;/p&gt;
-&lt;h3 id=&#34;apply-1&#34;&gt;Apply&lt;/h3&gt;
-&lt;p&gt;Once the PR is reviewed and merged to the upstream branch, it is safe to finally pull the upstream branch locally and apply the configuration with &lt;code&gt;terraform apply&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;team-workflow-with-automation&#34;&gt;Team workflow with automation&lt;/h2&gt;
-&lt;p&gt;In a nutshell, this workflow allows you to introduce a kind of smoke test for your infrastructure code (using &lt;code&gt;plan&lt;/code&gt;) and also to automate the feedback in the CI process.&lt;/p&gt;
-&lt;p&gt;The automated part of this workflow consists of a speculative plan on commit and/or Pull Request (PR ), along with adding the output of &lt;code&gt;plan&lt;/code&gt; to the comment of the PR. A speculative plan mean just to show the changes, and not apply them afterward.&lt;/p&gt;
-&lt;figure&gt;
-
-
-
-
-&lt;img loading=&#34;lazy&#34;
-     src=&#34;tf-workflow-team-automation-1.png&#34;
-    alt=&#34;Git-based Terraform workflow with automation&#34;width=&#34;800&#34;
-height=&#34;272.90&#34;
-/&gt; &lt;figcaption&gt;
-    &lt;p&gt;Git-based Terraform workflow with automation&lt;/p&gt;
-&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h3 id=&#34;write-2&#34;&gt;Write&lt;/h3&gt;
-&lt;p&gt;This step is the same as in the previous workflow.&lt;/p&gt;
-&lt;h3 id=&#34;plan-2&#34;&gt;Plan&lt;/h3&gt;
-&lt;p&gt;This is where your CI tool does its job.&lt;/p&gt;
-&lt;p&gt;Let’s review this step by step:&lt;/p&gt;
-&lt;p&gt;1️⃣ You create a PR with the code changes you wish to implement.&lt;/p&gt;
-&lt;p&gt;2️⃣ The CI pipeline is triggered by an event from your code repository (such as webhook push) and it runs a speculative plan against your code.&lt;/p&gt;
-&lt;p&gt;3️⃣ The list of changes (a so-called &amp;ldquo;plan diff&amp;rdquo;) is added to PR for review by the CI.&lt;/p&gt;
-&lt;p&gt;4️⃣ Once merged, the CI pipeline runs again and you get the final plan that&amp;rsquo;s ready to be applied to the infrastructure.&lt;/p&gt;
-&lt;h3 id=&#34;apply-2&#34;&gt;Apply&lt;/h3&gt;
-&lt;p&gt;Now that you have a branch (i.e. main) with the fresh code to apply, you need to pull it locally and run &lt;code&gt;terraform apply&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;You can also add the automated apply here – step 5 in the picture below. This may be very useful for disposable environments such as testing, staging, development, and so on.&lt;/p&gt;
-&lt;p&gt;The exact CI tool to be used here is up to you: Jenkins, GitHub Actions, and Travis CI all work well.&lt;/p&gt;
-&lt;p&gt;An important thing to note is that the CI pipeline must be configured in a bi-directional way with your repository to get the code from it and report back with comments to PR.&lt;/p&gt;
-&lt;p&gt;As an option, you may consider using Terraform Cloud which has a lot of functionality, including the above mentioned repo integration, even with the free subscription.&lt;/p&gt;
-&lt;p&gt;If you have never worked with Terraform Cloud before and want to advice to get started, I&amp;rsquo;ll provide the links at the end of this article.&lt;/p&gt;
-&lt;h2 id=&#34;import-workflow&#34;&gt;Import workflow&lt;/h2&gt;
-&lt;p&gt;This workflow refers to a situation when you have some objects already created (i.e., up and running), and you need to manage them with Terraform.&lt;/p&gt;
-&lt;p&gt;Suppose we already have an S3 bucket in AWS called &amp;ldquo;someassetsbucket&amp;rdquo; and we want to include it into our configuration code.‌‌&lt;/p&gt;
-&lt;figure&gt;
-
-
-
-
-&lt;img loading=&#34;lazy&#34;
-     src=&#34;tf-workflow-import.png&#34;
-    alt=&#34;Terraform resource import workflow&#34;width=&#34;800&#34;
-height=&#34;238.20&#34;
-/&gt; &lt;figcaption&gt;
-    &lt;p&gt;Terraform resource import workflow&lt;/p&gt;
-&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h3 id=&#34;prepare&#34;&gt;Prepare&lt;/h3&gt;
-&lt;p&gt;You should create a resource block to be used later for the real object you’re going to import.&lt;/p&gt;
-&lt;p&gt;You don’t need to fill the arguments in it at the start, so it may be just a blank resource block, for example:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;resource &amp;#34;aws_s3_bucket&amp;#34; &amp;#34;someassetsbucket&amp;#34; {
-
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;import&#34;&gt;Import&lt;/h3&gt;
-&lt;p&gt;Now you need to import the information about the real object into your existing Terraform state file.&lt;/p&gt;
-&lt;p&gt;This can be done with the &lt;code&gt;terraform import&lt;/code&gt; command, for example:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;terraform import aws_s3_bucket.assets &amp;#34;someassetsbucket&amp;#34;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Be sure to also check the list of possible options import accepts with &lt;code&gt;terraform import -h&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;write-3&#34;&gt;Write&lt;/h3&gt;
-&lt;p&gt;Now you need to write the corresponding Terraform code for this bucket.&lt;/p&gt;
-&lt;p&gt;To avoid modifying your real object on the &lt;code&gt;terraform apply&lt;/code&gt; action, you should specify all needed arguments with the exact values from the import phase.&lt;/p&gt;
-&lt;p&gt;You can see the details by running the &lt;code&gt;terraform state show&lt;/code&gt; command, for example:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;terraform state show aws_s3_bucket.assets
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The output of this command will be very similar to the configuration code. But it contains both arguments and attributes of the resource, so you need to clean it up before applying it.&lt;/p&gt;
-&lt;p&gt;You can use one of the following tactics:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;either copy/paste it, and then run &lt;code&gt;terraform validate&lt;/code&gt; and &lt;code&gt;terraform plan&lt;/code&gt; several times to make sure there are no errors like &amp;ldquo;argument is not expected here&amp;rdquo; or &amp;ldquo;this field cannot be set&amp;rdquo;&lt;/li&gt;
-&lt;li&gt;or you can pick and write only the necessary arguments&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;In any case, be sure to refer to the documentation of the resource during this process.&lt;/p&gt;
-&lt;h3 id=&#34;plan-3&#34;&gt;Plan&lt;/h3&gt;
-&lt;p&gt;The goal is to have a &lt;code&gt;terraform plan&lt;/code&gt; output showing &amp;ldquo;~ update in-place&amp;rdquo; changes only.&lt;/p&gt;
-&lt;p&gt;However, it is not always clear whether the real object will be modified or only the state file will be updated. This is why you should understand how a real object works and know its life cycle to make sure it is safe to apply the plan.&lt;/p&gt;
-&lt;h3 id=&#34;apply-3&#34;&gt;Apply&lt;/h3&gt;
-&lt;p&gt;This is usual the &lt;code&gt;terraform apply&lt;/code&gt; action.&lt;/p&gt;
-&lt;p&gt;Once applied, your configuration and state file will correspond to the real object configuration.&lt;/p&gt;
-&lt;h2 id=&#34;wrapping-up&#34;&gt;Wrapping up&lt;/h2&gt;
-&lt;p&gt;Here is an overview of Terraform Cloud for those who never worked with it before: &lt;a href=&#34;https://www.terraform.io/docs/cloud/overview.html&#34;&gt;‌‌Overview of Terraform Cloud Features&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;And here is a nice tutorial to start with: &lt;a href=&#34;https://learn.hashicorp.com/collections/terraform/cloud-get-started&#34;&gt;Get Started - Terraform Cloud&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Also, here is an overview of workflows at scale from the HashiCorp CTO which might be useful for more experienced Terraform users: &lt;a href=&#34;https://www.hashicorp.com/resources/terraform-workflow-best-practices-at-scale&#34;&gt;Terraform Workflow Best Practices at Scale&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Thank you for reading. I hope you will try one of these workflows, or develop your own!&lt;/p&gt;</content>
     </entry>
 </feed>
