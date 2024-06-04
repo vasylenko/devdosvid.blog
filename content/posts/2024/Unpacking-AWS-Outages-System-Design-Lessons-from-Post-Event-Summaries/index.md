@@ -7,9 +7,8 @@ cover:
     image: cover-image.png
     relative: true
     alt: "preventing cascading failures"
-tags: [aws, cloud, monitoring, redundancy, system design, post-event-reports, incident-response, incident-management, postmortems, cascade failures, lessons from AWS]
-categories: []
-draft: true
+tags: [aws, cloud, monitoring, redundancy, system design, post event reports, incident response, incident management, postmortems, cascade failures, lessons from AWS]
+categories: ["Amazon Web Services"]
 ---
 In this blog post, I’m excited to share some valuable system design insights drawn from AWS’s post-event summaries on major outages. 
 
@@ -22,7 +21,7 @@ Let's explore these intriguing reports and uncover the key strategies for buildi
 ## Remirroring Storm
 The April 21, 2011, Amazon EC2/EBS event[^1] in the US East Region provides valuable insights into dependency management and the dangers of cascading failures.
 
-A network configuration change set off a cascade of failures in the Amazon Elastic Block Store system. This change caused many EBS nodes to disconnect from their replicas. When these nodes reconnected, they tried to replicate their data on other nodes, quickly overwhelming the EBS cluster’s capacity. This surge, known as a “remirroring storm,” left many EBS volumes “stuck,” unable to process read and write operations.
+A network configuration change, promoted as a part of normal scaling activity, set off a cascade of failures in the Amazon Elastic Block Store system. The intention was simple — to upgrade the capacity of the primary network. This operation involved a traffic shift between underlying networks, but it was executed incorrectly so that change caused many EBS nodes to disconnect from their replicas. When these nodes reconnected, they tried to replicate their data on other nodes, quickly overwhelming the EBS cluster’s capacity. This surge, or as AWS called it “remirroring storm,” left many EBS volumes “stuck,” unable to process read and write operations.
 
 **Blast Radius**: Initially, the issue affected only a single Availability Zone in the US East Region, and about 13% of the volumes were in this “stuck” state. However, the outage soon spread to the entire region. The EBS control plane, responsible for handling API requests, was dependent on the degraded EBS cluster. The increased traffic from the remirroring storm overwhelmed the control plane, making it intermittently unavailable and affecting users across the region.
 
@@ -36,9 +35,9 @@ This incident underscores the importance of building resilient systems. The EBS 
 ## Electrical Storm
 The June 29, 2012, AWS services event[^2] in the US East Region exemplifies how a localized power outage can trigger a region-wide service disruption due to complex dependencies.
 
-A severe electrical storm caused a power outage in a single data center, impacting a small portion of AWS resources in the US East Region.
+A severe electrical storm caused a power outage in a single data center, impacting a small portion of AWS resources in the US East Region — a single-digit percentage of the total resources in the region (as of the date of the incident).
 
-**Blast Radius**: The power outage was initially confined to the affected Availability Zone. However, it soon led to degrading service control planes that manage resources across the entire region. While these control planes aren't required for ongoing resource usage, their degradation hindered users' ability to respond to the outage, such as moving resources to other Availability Zones.
+**Blast Radius**: The power outage was initially confined to the affected Availability Zone. However, it soon led to degrading service control planes that manage resources across the entire region. While these control planes aren't required for ongoing resource usage, their degradation hindered users' ability to respond to the outage, such using the AWS console to try moving resources to other Availability Zones.
 
 **Affected Services and Processes**:
 * EC2 and EBS: Approximately 7% of EC2 instances and a similar proportion of EBS volumes in the region were offline until power was restored and systems restarted. The control planes for both services were significantly impacted, making it difficult for users to launch new instances, create EBS volumes, or attach volumes in any Availability Zone within the region.
@@ -50,7 +49,7 @@ Even though we host our applications in the cloud and power outages may not be a
 ## Simple Point of Failure
 Another excellent example of how small can quickly become big — is the Amazon SimpleDB service disruption on June 13, 2014, in the US East Region[^3]. This incident demonstrates how a seemingly minor issue can escalate into a significant disruption due to dependencies on a centralized service.
 
-A power outage in a single data center caused multiple storage nodes to become unavailable. This sudden failure led to a spike in load on the internal lock service, which manages node responsibility for data and metadata.
+A power outage in a single data center caused multiple storage nodes to become unavailable. This sudden failure led to a spike in load on the internal lock service, which manages node responsibility for data and metadata. And while this lock services is replicated accross multiple data centers, the load spike wat too sudden and too high.
 
 **Blast Radius**: Initially, the impact was confined to the storage nodes in the affected data center. However, the increased load on the centralized lock service, crucial for all SimpleDB operations, caused cascading failures that affected the entire service.
 
