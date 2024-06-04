@@ -59,7 +59,7 @@ A power outage in a single data center caused multiple storage nodes to become u
 This outage highlights the critical importance of addressing the single point of failure when designing systems. The centralized nature of the lock service, intended for coordination, became a single point of failure. A more distributed or load-balanced approach for the lock service could have mitigated the impact of the simultaneous node failures.
 
 ## Scaling for the better
-{{< figure src="scaling-for-the-better.jpg" caption="Scaling for the better" >}}
+{{< figure src="scaling-for-the-better.jpg" caption="In search of absolute" >}}
 
 The Amazon Kinesis event in the US East Region on November 25, 2020[^4], is a perfect example of how adding capacity can unexpectedly trigger a cascade of failures due to unforeseen dependencies and resource limitations. What could possibly go wrong by adding more nodes to the cluster? Scaling horizontally is best practice, right? Well, it depends.
 
