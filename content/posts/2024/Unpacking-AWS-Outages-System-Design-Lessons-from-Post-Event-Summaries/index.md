@@ -12,11 +12,11 @@ categories: ["Amazon Web Services"]
 ---
 In this blog post, I’m excited to share some valuable system design insights drawn from AWS’s post-event summaries on major outages. 
 
-System design is a topic I’m especially passionate about—it’s even my favorite interview question at Grammarly, and I love to conduct those interviews. This fascination led me to thoroughly analyze AWS’s PES in search of the most interesting cases. From the sixteen reports available at the time of writing, I’ve selected the four most captivating ones. Each presents unexpected challenges and turns of events, along with valuable outcomes we can learn from.
+System design is a topic I’m especially passionate about—it’s even my favorite interview question at Grammarly, and I love to conduct those interviews. This fascination led me to thoroughly analyze AWS’s PES in search of the most interesting cases. 
 
-Learning from mistakes is essential. Yet it's precious to learn from others' mistakes because they come for free. The AWS team is doing a great job sharing their Post-Event Summaries because they not only demonstrate the open engineering culture but also help others.
+Learning from mistakes is essential. Yet it's precious to learn from others' mistakes because they come for free (for you, but not for their owners). The AWS team is doing a great job sharing their Post-Event Summaries because they not only demonstrate the open engineering culture but also help others.
 
-Let's explore these intriguing reports and uncover the key strategies for building more resilient systems.
+From the sixteen reports available at the time of writing, I’ve selected the four most captivating ones. Each presents unexpected challenges and turns of events, along with valuable outcomes we can learn from. Let's explore these intriguing reports and uncover the key strategies for building more resilient systems.
 
 ## Remirroring Storm
 The April 21, 2011, Amazon EC2/EBS event[^1] in the US East Region provides valuable insights into dependency management and the dangers of cascading failures.
