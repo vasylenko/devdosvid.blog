@@ -6,7 +6,7 @@ RUN wget -q -c \
     -O hugo.tag.gz
 RUN tar -xzf hugo.tag.gz
 
-FROM golang:1.22
+FROM golang:1.23
 ARG HUGO_VERSION
 COPY --from=builder /hugo/hugo /
 WORKDIR /site
