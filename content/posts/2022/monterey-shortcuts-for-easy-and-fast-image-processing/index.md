@@ -16,7 +16,7 @@ and
 
 [Image Resize](#resize)
 
-About a year ago, I posted [the blog about the Automator quick action]({{< ref "/image-compression-with-tinypng-from-macos-contextual-menu" >}} "Using TinyPNG Image Compression From MacOS Finder Contextual Menu") to optimize PNG and JPEG images with TinyPNG service and save the processed images next to the original ones.
+About a year ago, I posted the blog about the Automator quick action "Using TinyPNG Image Compression From MacOS Finder Contextual Menu") to optimize PNG and JPEG images with TinyPNG service and save the processed images next to the original ones.
 
 While that Automator-based solution still works, macOS Monterey now supports Shortcuts — a new automating tool that seems to substitute the old fellow Automator.
 

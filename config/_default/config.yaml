@@ -7,7 +7,9 @@ author:
 module:
   imports:
     - path: github.com/adityatelange/hugo-PaperMod
-paginate: 7
+
+pagination:
+  pagerSize: 10
 
 ### BUILD
 publishDir: publishdir

@@ -2,7 +2,7 @@ FROM alpine:latest as builder
 ARG HUGO_VERSION
 WORKDIR /hugo
 RUN wget -q -c \
-    "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz" \
+    "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz" \
     -O hugo.tag.gz
 RUN tar -xzf hugo.tag.gz
 
