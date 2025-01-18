@@ -23,13 +23,18 @@ jobs:
           build-artifact: ${{ env.ARTIFACT }}
 
       - name: Deploy to CloudFlare
-        uses: cloudflare/pages-action@1
+        uses: cloudflare/wrangler-action@v3
         id: deploy_to_cloudflare
         with:
           apiToken: ${{ secrets.CLOUDFLARE_GH_PAGES_ACTION_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ${{ env.CF_PREVIEW_PROJECT_NAME }}
-          directory: ${{ env.ARTIFACT }}
+          command: pages deploy ${{ env.ARTIFACT }} --project-name=${{ env.CF_PREVIEW_PROJECT_NAME }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.head_ref }}
-          wranglerVersion: '3'
+      
+      - name: Print deployment url's
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy_to_cloudflare.outputs.deployment-url }}
+          DEPLOYMENT_ALIAS_URL: ${{ steps.deploy_to_cloudflare.outputs.pages-deployment-alias-url }}
+        run: |
+          echo $DEPLOYMENT_URL
+          echo $DEPLOYMENT_ALIAS_URL
