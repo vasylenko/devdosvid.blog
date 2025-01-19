@@ -2,35 +2,40 @@
 {{- if eq (.Get "align") "center" }}align-center {{ end }}
 {{- with .Get "class" }}{{ . }}{{- end }}"
 {{- end -}}>
-{{- if .Get "link" -}}
-<a href="{{ .Get "link" }}"{{ with .Get "target" }} target="{{ . }}"{{ end }}{{ with .Get "rel" }} rel="{{ . }}"{{ end }}>
-{{- end }}
-{{ $image := .Page.Resources.GetMatch (.Get "src") }}
-{{ $postWidth := 800 }}
-{{ $defaultWidth := cond (gt $image.Width $postWidth) $postWidth $image.Width }}
-{{ $defaultHeight := cond (gt $image.Width $postWidth) (printf "%.2f" (div $postWidth (div (float $image.Width) $image.Height))) $image.Height }}
-<img loading="lazy"
-     src="{{ .Get "src" }}{{- if eq (.Get "align") "center" }}#center{{- end }}"
-{{- if or (.Get "alt") (.Get "caption") }}
-    alt="{{ with .Get "alt" }}{{ . }}{{ else }}{{ .Get "caption" | markdownify| plainify }}{{ end }}"
-{{- end -}}
-{{ if (.Get "width") }}width="{{ .Get "width" }}"{{ else }}width="{{ $defaultWidth }}"{{ end }}
-{{ if (.Get "height") }}height="{{ .Get "height" }}"{{ else }}height="{{ $defaultHeight }}"{{ end }}
-/> <!-- Closing img tag -->
-{{- if .Get "link" }}</a>{{ end -}}
-{{- if or (or (.Get "title") (.Get "caption")) (.Get "attr") -}}
-<figcaption>
-    {{ with (.Get "title") -}}
-    {{ . }}
-    {{- end -}}
-    {{- if or (.Get "caption") (.Get "attr") -}}<p>
-    {{- .Get "caption" | markdownify -}}
-    {{- with .Get "attrlink" }}
-    <a href="{{ . }}">
+    {{ $image := .Page.Resources.GetMatch (.Get "src") }}
+    {{ if $image }}
+        {{ $postWidth := 800 }}
+        {{ $defaultWidth := cond (gt $image.Width $postWidth) $postWidth $image.Width }}
+        {{ $defaultHeight := cond (gt $image.Width $postWidth) (printf "%.2f" (div $postWidth (div (float $image.Width) $image.Height))) $image.Height }}
+        {{ $webpFilter := images.Process "webp" }}
+        {{ $webpImage := $image | images.Filter $webpFilter }}
+        {{ if .Get "link" -}}
+            <a href="{{ .Get "link" }}"{{ with .Get "target" }} target="{{ . }}"{{ end }}{{ with .Get "rel" }} rel="{{ . }}"{{ end }}>
+        {{ end }}
+        <img loading="lazy"
+             src="{{ $webpImage.RelPermalink }}"
+             {{- if or (.Get "alt") (.Get "caption") }}
+                 alt="{{ with .Get "alt" }}{{ . }}{{ else }}{{ .Get "caption" | markdownify | plainify }}{{ end }}"
+             {{- end -}}
+             {{- if (.Get "width") }}width="{{ .Get "width" }}"{{ else }}width="{{ $defaultWidth }}"{{ end }}
+             {{- if (.Get "height") }}height="{{ .Get "height" }}"{{ else }}height="{{ $defaultHeight }}"{{ end }} />
+        {{ if .Get "link" }}</a>{{ end }}
+    {{ end }}
+    {{- if or (or (.Get "title") (.Get "caption")) (.Get "attr") }}
+    <figcaption>
+        {{ with (.Get "title") -}}
+            {{ . }}
         {{- end -}}
-        {{- .Get "attr" | markdownify -}}
-        {{- if .Get "attrlink" }}</a>{{ end }}</p>
+        {{- if or (.Get "caption") (.Get "attr") -}}
+            <p>
+                {{- .Get "caption" | markdownify -}}
+                {{- with .Get "attrlink" }}
+                <a href="{{ . }}">
+                {{- end -}}
+                {{- .Get "attr" | markdownify -}}
+                {{- if .Get "attrlink" }}</a>{{ end }}
+            </p>
+        {{- end }}
+    </figcaption>
     {{- end }}
-</figcaption>
-{{- end }}
 </figure>
