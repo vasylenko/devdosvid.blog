@@ -3,155 +3,155 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://devdosvid.blog/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/posts/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2024/06/03/unpacking-aws-outages-system-design-lessons-from-post-event-summaries/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2024/04/16/a-deep-dive-into-terraform-static-code-analysis-tools-features-and-comparisons/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/terraform-proficiency/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/06/26/golden-image-pipelines-with-hcp-packer/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/11/05/apply-cloudfront-security-headers-with-terraform/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/mac1.metal-at-aws/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/02/01/customizing-mac1.metal-ec2-ami-new-guts-more-glory/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/01/20/terraforming-mac1.metal-at-aws/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/12/16/aws-cloudshell/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/09/16/terraform-workflow-working-individually-and-in-a-team/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/09/15/terraform-certification-tips/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/09/09/what-are-terraform-modules-and-how-do-they-work/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/08/25/terraform-cli-shortcuts/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/08/06/manage-ansible-playbook-secrets-with-aws-services/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/05/02/terraform-explained-in-english/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/03/18/github-actions-first-impression/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2020/03/15/aws-saa-exam-results/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/latest-post/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/about/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/archive/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/search/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/cv/</loc>
-    <lastmod>2024-06-04T11:43:20+02:00</lastmod>
+    <lastmod>2025-01-19T13:44:57+01:00</lastmod>
     <changefreq>monthly</changefreq>
   </url>
 </urlset>
