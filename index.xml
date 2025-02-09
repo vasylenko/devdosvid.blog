@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.141.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Feb 2025 18:58:16 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 09 Feb 2025 19:34:15 +0100</lastBuildDate>
     <atom:link href="https://devdosvid.blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Aws S3 Cost Optimization: Removing Redundancy and Implementing Intelligent Tiering</title>
@@ -126,6 +126,8 @@ The first bucket contains CI/CD builds and cached third-party artifacts — esse
 </div>
 <p>Lifecycle Configuration has a price of $0.01 per 1,000 Transition requests, which technically adds $0.00001 as the one-time cost of each object affected by the policy.</p>
 <p>For example, in my case, moving 21 million objects to the Intelligent-Tiering class had a one-time cost of $210, but ROI for this is much more significant the next month.</p>
+<p>The effect of applying Intelligent-Tiering comes in time. At least 60 days should pass to see the real difference: 30 days to trigger the first tiering relocation and then another 30 for the next month&rsquo;s usage so you can compare.</p>
+<p>Based on Storage Lense and Storage Class Analysis statistics, I expect about 60% of the objects to remain in the archive tier, reducing the total costs of the primary S3 bucket by 48%.</p>
 <h1 id="untrivial-termination-of-a-large-s3-bucket">Untrivial termination of a large S3 bucket</h1>
 <p>How hard can it be to empty and delete the bucket with 21 million objects inside? (To clarify: S3 does not allow deletion of a non-empty bucket)</p>
 <p>The most obvious way, at first glance, would be to use the AWS S3 web Console option called &ldquo;Empty&rdquo;, right?</p>
@@ -274,11 +276,13 @@ The first bucket contains CI/CD builds and cached third-party artifacts — esse
 </div>
 <h1 id="implementation-results">Implementation Results</h1>
 <ul>
-<li>Cost reduction: $120,000 baseline or $270,000 if the 7% growth rate remains</li>
+<li>Immediate cost reduction: $120,000 baseline or $270,000 if the 7% growth rate remains</li>
+<li>Projected additional cost reduction from Intelligent-Tiering: 48% — means the drop of the baseline price of the main bucket from $120,000 to roughly $63,000 a year</li>
 <li>One-time transition cost: $210</li>
 <li>Implementation time: 2 days</li>
 <li>Storage class transition completed in 1 day</li>
 </ul>
+<p>The final $63,000 versus $235,000 is a nice result. Combining the data from Intelligent-Tiering with built-in Artifactory retention policies can reduce that even more. However, it would require some custom logic wrapped around.</p>
 <h1 id="key-takeaways">Key Takeaways</h1>
 <ul>
 <li>Challenge your architecture decisions overtime.</li>
