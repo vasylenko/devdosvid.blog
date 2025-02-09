@@ -1,54 +1,69 @@
 ---
 title: "Aws S3 Cost Optimization: Removing Redundancy and Implementing Intelligent Tiering"
 date: 2025-02-09T02:48:15+01:00
-summary: ~112 or ~22 words
-description: ~112 or ~22 words
+summary: Legacy setups can hide costs, and sometimes big. By challenging this, I learned some cool stuff about S3 Intelligent-Tiering and Lifecycle Configuration.
+description: Legacy setups can hide costs, and sometimes big. By challenging this, I learned some cool stuff about S3 Intelligent-Tiering and Lifecycle Configuration.
 cover:
-    image: cover-image.png
+    image: cover.webp
     relative: true
-    alt:
+    alt: "AWS S3 Cost Optimization: Removing Redundancy and Implementing Intelligent Tiering"
 tags: []
 categories: []
 ---
 
-Legacy architectural decisions often carry hidden costs. Here's how questioning a storage replication setup saved us nearly a quarter of a million dollars.
+Legacy architectural decisions often carry hidden costs. Here's how questioning a storage configuration saved us a hundred thousand and taught some lessons about S3.
 
-This is a technical walkthrough of identifying, analyzing, and solving two specific S3 cost optimization problems: eliminating unnecessary data and implementing intelligent storage tiering. 
+This is a technical walkthrough of identifying, analyzing, and solving two specific S3 cost optimization problems I faced recently: eliminating unnecessary data and implementing intelligent storage tiering. 
 
 _Note: All mentioned AWS prices are from January 2025 in the us-east-1 region. AWS pricing and features may have changed since the publication._
 
-# The setting
+# What was the cause
 Picture this: In December 2024, two S3 buckets quietly consumed about $19,500. The price is just for one month. That's nearly $235,000 annually, but the size of buckets slowly grows, so it's going to be more.
-We use [JFrog Artifactory](https://jfrog.com/artifactory/), which supports AWS S3 as a file storage. 
-One bucket is a replica of another, and that original bucket contains CI/CD builds and third-party artifacts — essential data we need daily, yet not to the extent that it should cost $120,000 a year.
+These buckets are for [JFrog Artifactory](https://jfrog.com/artifactory/), which supports AWS S3 as a file storage. 
+The first bucket contains CI/CD builds and cached third-party artifacts — essential data we need daily. The second bucket is the replica in another region. This build data is important, yet it does not feel like it is important to the extent that redundancy should cost $120,000 a year.
 
 Now the question is: WHY do we have such a setup with replication? As always happens, that was configured long ago, so no one knows by now.
 
-But let's give this a fresh look: S3 provides 11-nines durability by design; if something gets deleted by accident, we can always re-run CI/CD and build that again. 
+Let's give this a fresh look: S3 provides 11-nines durability by design; if something gets deleted by accident, we can always re-run CI/CD and build that again. Does replication provide any value?
 
 The problem statement is simple: the buckets are enormous, we pay half the price for nothing, and the amount of data might grow more.
 
 - Two S3 buckets: main in us-east-1 and replica in us-west-2
-- About 320TB each
-- 20+ million objects per bucket
+- About 340TB each
+- 21+ million objects per bucket
+- Average object size: 17MB
 - 7% monthly growth rate based on the last 12 months' trend
 
 The two-fold solution to that was not that trivial, though. 
 
 # Addressing the unpredicted S3 bucket growth and access patterns
-By the design of S3 service, a client (you or your application) should specify the storage class when uploading the object to an S3 bucket; there is no "default storage class for new objects" feature.
+By the design of S3 service, a client (you or your application) should specify the storage class when uploading the object to an S3 bucket; there is no thing like "default storage class for new objects".
 
-Surprisingly, despite quite versatile configuration options for S3, JFrog Artifactory does not support setting storage classes for the objects. So, everything you store is stored in the Standard storage class.
+Surprisingly, despite a versatile configuration options for S3, JFrog Artifactory does not allow setting storage classes for the objects it stores. So, everything you store is sent to S3 with the Standard storage class.
 
-Moreover, on a large scale, with many teams and projects, it is pretty hard to predict the lifetime and the frequency of one or other artifact for the particular team. [Auto-cleanup options](https://jfrog.com/help/r/artifactory-cleanup-best-practices/artifactory-cleanup-best-practices) are built into Artifactory, but they do not answer the retention questions anyway: How long? How frequent?
+On a large scale, with many teams and projects, it is pretty hard to predict the lifetime and the frequency of one or other artifact for the particular team. [Auto-cleanup options](https://jfrog.com/help/r/artifactory-cleanup-best-practices/artifactory-cleanup-best-practices) are built into Artifactory, but they do not answer the retention questions anyway: How long? How frequent?
 
-Luckily, AWS has two powerful things to offer to address that:
+Luckily, AWS has two powerful things to address these issues:
 1. [Intelligent-Tiering storage class](https://aws.amazon.com/getting-started/hands-on/getting-started-using-amazon-s3-intelligent-tiering/)
 2. [Lifecycle Configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html)
 
 ## Benefits of Intelligent-Tiering Storage class
 
 As its name implies, Intelligent-Tiering automatically defines the best access tier when access patterns change. There are three basic tiers: one is optimized for frequent access, another for infrequent access, and a very low-cost tier, which is optimized for rarely accessed data.
+
+For a relatively small price, which is negligible on scale, S3 does the monitoring and tier transition of the objects:
+
+- Monitoring: $0.0025 per 1,000 objects/month
+- Storage for GB/month:
+	- $0.021 — frequent tier: object stored here by default
+	- $0.0125 — infrequent tier: object moved here after 30 days without access
+	- $0.004 — archive tier: object moved here after 90 days without access
+
+{{< attention >}}
+The vast advantage of Intelligent-Tiering comes with the infrequent and archive tier prices on scale.
+
+But note that objects smaller than 128 KB are not eligible for auto tiering.
+{{< /attention >}}
 
 {{< figure 
     src="s3-intelligent-tiering.png" 
@@ -57,24 +72,14 @@ As its name implies, Intelligent-Tiering automatically defines the best access t
     width="800" 
 >}}
 
-For a relatively small price, which is negligible on scale, S3 does the monitoring and tier transition:
-
-- Monitoring: $0.0025 per 1,000 objects/month
-- Storage for GB/month:
-	- $0.021 — frequent tier
-	- $0.0125 — infrequent tier (30 days without access)
-	- $0.004 — archive tier (90 days without access)
-
-The vast advantage comes here with the infrequent and archive tier prices on scale.
-
 ## Lifecycle Configuration to move S3 objects between storage classes
-So, the Intelligent-Tiering storage class is great, but what about all those objects uploaded and stored with the Standard storage class?
+So now the question is: how to move all the objects to Intelligent-Tiering, old and any new ones?
 
 Here comes Lifecycle Configuration. S3 Lifecycle also manipulates objects, but the key difference between Intelligent-Tiering and Lifecycle Configuration is that Configuration does not have the access pattern analysis as a trigger — the only trigger for Configuration is the time (e.g., trigger in N days).
 
 However, a trigger by time mark is precisely what's needed when your software does not support the custom storage classes — you want to move objects as soon as possible to Intelligent-Tiering using Lifecycle Configuration. 
 
-Here's how you need to configure the Lifecycle:
+Here's how you need to configure the Lifecycle to move all the objects to Intelligent-Tiering:
 - Apply to all objects in the bucket
 - Actions:
 	- The 1st option — Transition current versions of objects between storage classes
@@ -111,15 +116,17 @@ The most obvious way, at first glance, would be to use the AWS S3 web Console op
     width="800" 
 >}}
 
-Alas, it is not that simple:
-- When you go that way, it is your browser who removes the objects by sending API calls to AWS; there is no background job for you. It does that efficiently, sending DELETE requests in 1000-item batches, but it does that as long as your IAM session remains active (or the browser window remains open, whatever ends first).
-- If your bucket has Bucket Versioning enabled, this action will not remove all the object versions. 
+Alas, it is not that simple.
+
+When you go that way, **it is your browser who removes the objects by sending API calls to AWS**. There is no background job for you. It does that efficiently, sending DELETE requests in 1000-item batches, but it does that as long as your IAM session remains active (or the browser window remains open, whatever ends first).
+
+If your bucket has Bucket Versioning enabled, **"Empty" action will not remove all the object versions**. 
 
 So then we have two other options:
 - Either run some script that removes all object versions (including current, older, and null versions) and delete markers.
-- Or set up a couple of other Lifecycle Configuration rules to do that in an unattended way.
+- Or set up a couple of Lifecycle Configuration rules to purge a bucket in an unattended way.
 
-If the total number of objects is relatively small, e.g., up to few hundred thousand, you can run a script that removes all object versions and delete markers.
+If the total number of objects is relatively small, e.g., up to few hundred thousand, it is feasible to run a script that removes all object versions and delete markers.
 {{< snippet >}}
 ```python
 #!/usr/bin/env python3
@@ -209,17 +216,17 @@ S3 Lifecycle operations are asynchronous, and it may take some time for the Life
 {{< /attention >}}
 
 # Implementation Results
-- Cost reduction: $120,000 annually 
+- Cost reduction: $120,000 baseline or $270,000 if the 7% growth rate remains
 - One-time transition cost: $210
 - Implementation time: 2 days
 - Storage class transition completed in 1 day
 
 # Key Takeaways
-- Don't assume current architectures are still optimal.
+- Challenge your architecture decisions overtime.
 - Challenge redundancy — is it providing real value?
-- Regular cost reviews can be the source of quick wins.
-- AWS Simple Storage Service, despite its name, might be tricky, but AWS has a bunch of tools to help you.
+- Regular cost reviews can be a source of quick wins.
 - Let automated solutions do the job, and do not overengineer things.
+- AWS Simple Storage Service, despite its name, might be tricky, but AWS has a bunch of tools to help you.
 
 
 S3 Lifecycle rules proved their worth twice: first by automating our transition to Intelligent-Tiering despite Artifactory's limitations and then by cleaning up millions of versioned objects without operational overhead.
