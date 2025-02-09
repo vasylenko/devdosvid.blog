@@ -1,6 +1,6 @@
 ---
 title: "Aws S3 Cost Optimization: Removing Redundancy and Implementing Intelligent Tiering"
-date: 2025-02-09T02:48:15+01:00
+date: 2025-01-29T02:48:15+01:00
 summary: Legacy setups can hide costs, and sometimes big. By challenging this, I learned some cool stuff about S3 Intelligent-Tiering and Lifecycle Configuration.
 description: Legacy setups can hide costs, and sometimes big. By challenging this, I learned some cool stuff about S3 Intelligent-Tiering and Lifecycle Configuration.
 cover:
