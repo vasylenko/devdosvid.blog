@@ -20,7 +20,7 @@ _Note: All mentioned AWS prices are from January 2025 in the us-east-1 region. A
 # What was the cause
 Picture this: In December 2024, two S3 buckets quietly consumed about $19,500. The price is just for one month. That's nearly $235,000 annually, but the size of buckets slowly grows, so it's going to be more.
 These buckets are for [JFrog Artifactory](https://jfrog.com/artifactory/), which supports AWS S3 as a file storage. 
-The first bucket contains CI/CD builds and cached third-party artifacts — essential data we need daily. The second bucket is the replica in another region. This build data is important, yet it does not feel like it is important to the extent that redundancy should cost $120,000 a year.
+The first bucket contains CI/CD builds and cached third-party artifacts — essential data we need daily. The second bucket is the replica in another region. This build data is important, yet paying $120,000 a year to duplicate that data seems overkill.
 
 Now the question is: WHY do we have such a setup with replication? As always happens, that was configured long ago, so no one knows by now.
 
