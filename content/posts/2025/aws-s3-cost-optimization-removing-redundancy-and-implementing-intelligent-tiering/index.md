@@ -7,8 +7,8 @@ cover:
     image: cover.webp
     relative: true
     alt: "AWS S3 Cost Optimization: Removing Redundancy and Implementing Intelligent Tiering"
-tags: []
-categories: []
+tags: [aws, aws s3, intelligent-tiering, cost optimization, lifecycle configuration, empty versioned bucket]
+categories: [Amazon Web Services]
 ---
 
 Legacy architectural decisions often carry hidden costs. Here's how questioning a storage configuration saved us a hundred thousand and taught some lessons about S3.
@@ -103,6 +103,10 @@ I confirmed with AWS technical support that there are no indications of throttli
 Lifecycle Configuration has a price of $0.01 per 1,000 Transition requests, which technically adds $0.00001 as the one-time cost of each object affected by the policy. 
 
 For example, in my case, moving 21 million objects to the Intelligent-Tiering class had a one-time cost of $210, but ROI for this is much more significant the next month.
+
+The effect of applying Intelligent-Tiering comes in time. At least 60 days should pass to see the real difference: 30 days to trigger the first tiering relocation and then another 30 for the next month's usage so you can compare. 
+
+Based on Storage Lense and Storage Class Analysis statistics, I expect about 60% of the objects to remain in the archive tier, reducing the total costs of the primary S3 bucket by 48%.
 
 # Untrivial termination of a large S3 bucket
 How hard can it be to empty and delete the bucket with 21 million objects inside? (To clarify: S3 does not allow deletion of a non-empty bucket)
@@ -216,10 +220,13 @@ S3 Lifecycle operations are asynchronous, and it may take some time for the Life
 {{< /attention >}}
 
 # Implementation Results
-- Cost reduction: $120,000 baseline or $270,000 if the 7% growth rate remains
+- Immediate cost reduction: $120,000 baseline or $270,000 if the 7% growth rate remains
+- Projected additional cost reduction from Intelligent-Tiering: 48% — means the drop of the baseline price of the main bucket from $120,000 to roughly $63,000 a year
 - One-time transition cost: $210
 - Implementation time: 2 days
 - Storage class transition completed in 1 day
+
+The final $63,000 versus $235,000 is a nice result. Combining the data from Intelligent-Tiering with built-in Artifactory retention policies can reduce that even more. However, it would require some custom logic wrapped around.
 
 # Key Takeaways
 - Challenge your architecture decisions overtime.
