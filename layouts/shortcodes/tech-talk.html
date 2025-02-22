@@ -1,0 +1,37 @@
+<div class="tech-talk">
+    <div class="talk-content">
+        {{- with .Get "image" }}
+        <div class="talk-image">
+            <img src="{{ . }}" alt="Talk preview for {{ $.Get "title" }}" loading="lazy">
+        </div>
+        {{- end }}
+        <div class="talk-details">
+            <div class="talk-header">
+                <h4 class="talk-title">{{ .Get "title" }}</h4>
+                <span class="talk-event">{{ .Get "event" }}</span>
+            </div>
+            <div class="talk-meta">
+                <span class="talk-date">{{ .Get "date" }}</span>
+                {{- with .Get "recording" }}
+                <a href="{{ . }}" class="talk-link" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                    </svg>
+                    Watch Recording
+                </a>
+                {{- end }}
+                {{- with .Get "slides" }}
+                <a href="{{ . }}" class="talk-link" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/>
+                    </svg>
+                    View Slides
+                </a>
+                {{- end }}
+            </div>
+            {{- with .Get "description" }}
+            <p class="talk-description">{{ . }}</p>
+            {{- end }}
+        </div>
+    </div>
+</div> 
