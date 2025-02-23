@@ -8,7 +8,13 @@
         <div class="talk-details">
             <div class="talk-header">
                 <h4 class="talk-title">{{ .Get "title" }}</h4>
-                <span class="talk-event">{{ .Get "event" }}</span>
+                <span class="talk-event">
+                    {{- with .Get "event_link" }}
+                    <a href="{{ . }}" target="_blank" rel="noopener">{{ $.Get "event" }}</a>
+                    {{- else }}
+                    {{ $.Get "event" }}
+                    {{- end }}
+                </span>
             </div>
             <div class="talk-meta">
                 <span class="talk-date">{{ .Get "date" }}</span>

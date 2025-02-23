@@ -68,6 +68,17 @@
     margin-top: 0.2rem;
 }
 
+.talk-event a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.talk-event a:hover {
+    font-weight: var(--font-bold);
+    background: var(--color-red);
+    color: var(--color-white);
+}
+
 .talk-meta {
     display: flex;
     gap: 1rem;
