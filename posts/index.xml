@@ -9,9 +9,9 @@
       <url>https://devdosvid.blog/assets/img/websitelogo.jpg</url>
       <link>https://devdosvid.blog/assets/img/websitelogo.jpg</link>
     </image>
-    <generator>Hugo -- 0.141.0</generator>
+    <generator>Hugo -- 0.143.1</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Feb 2025 19:34:15 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 23 Feb 2025 01:17:31 +0100</lastBuildDate>
     <atom:link href="https://devdosvid.blog/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Aws S3 Cost Optimization: Removing Redundancy and Implementing Intelligent Tiering</title>
@@ -74,7 +74,7 @@ The first bucket contains CI/CD builds and cached third-party artifacts — esse
         
         
         <img loading="lazy"
-             src="/2025/01/29/aws-s3-cost-optimization-removing-redundancy-and-implementing-intelligent-tiering/s3-intelligent-tiering_hu5298648550714154372.webp"
+             src="/2025/01/29/aws-s3-cost-optimization-removing-redundancy-and-implementing-intelligent-tiering/s3-intelligent-tiering_hu_eb5862288ab23237.webp"
                  alt="S3 Intelligent-Tiering"width="800"height="370.23" />
         
     
@@ -110,7 +110,7 @@ The first bucket contains CI/CD builds and cached third-party artifacts — esse
         
         
         <img loading="lazy"
-             src="/2025/01/29/aws-s3-cost-optimization-removing-redundancy-and-implementing-intelligent-tiering/s3-lifecycle-move-to-it_hu9079021189187701173.webp"
+             src="/2025/01/29/aws-s3-cost-optimization-removing-redundancy-and-implementing-intelligent-tiering/s3-lifecycle-move-to-it_hu_15e1faed58ed46f4.webp"
                  alt="S3 Lifecycle Rule: Move to Intelligent-Tiering"width="800"height="1180.04" />
         
     
@@ -141,7 +141,7 @@ The first bucket contains CI/CD builds and cached third-party artifacts — esse
         
         
         <img loading="lazy"
-             src="/2025/01/29/aws-s3-cost-optimization-removing-redundancy-and-implementing-intelligent-tiering/s3-empty-bucket_hu1098926438879126733.webp"
+             src="/2025/01/29/aws-s3-cost-optimization-removing-redundancy-and-implementing-intelligent-tiering/s3-empty-bucket_hu_835a651db5a41a5f.webp"
                  alt="S3 Empty Bucket"width="800"height="420.16" />
         
     
@@ -239,7 +239,7 @@ The first bucket contains CI/CD builds and cached third-party artifacts — esse
         
         
         <img loading="lazy"
-             src="/2025/01/29/aws-s3-cost-optimization-removing-redundancy-and-implementing-intelligent-tiering/s3-lifecycle-delete-versions_hu18354963282920142177.webp"
+             src="/2025/01/29/aws-s3-cost-optimization-removing-redundancy-and-implementing-intelligent-tiering/s3-lifecycle-delete-versions_hu_7f11510da04596bc.webp"
                  alt="S3 Lifecycle Rule: Delete Versions"width="800"height="1000.66" />
         
     
@@ -261,7 +261,7 @@ The first bucket contains CI/CD builds and cached third-party artifacts — esse
         
         
         <img loading="lazy"
-             src="/2025/01/29/aws-s3-cost-optimization-removing-redundancy-and-implementing-intelligent-tiering/s3-lifecycle-delete-markers_hu15721420798360840597.webp"
+             src="/2025/01/29/aws-s3-cost-optimization-removing-redundancy-and-implementing-intelligent-tiering/s3-lifecycle-delete-markers_hu_376fdbd6194a89ec.webp"
                  alt="S3 Lifecycle Rule: Delete Markers"width="800"height="1057.09" />
         
     
@@ -346,7 +346,7 @@ The first bucket contains CI/CD builds and cached third-party artifacts — esse
         
         
         <img loading="lazy"
-             src="/2024/06/03/unpacking-aws-outages-system-design-lessons-from-post-event-summaries/scaling-for-the-better_hu4237966339864993369.webp"
+             src="/2024/06/03/unpacking-aws-outages-system-design-lessons-from-post-event-summaries/scaling-for-the-better_hu_fc5f52324b2a6bc7.webp"
                  alt="In search of absolute"width="500"height="500" />
         
     
@@ -863,7 +863,7 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
         
         
         <img loading="lazy"
-             src="/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/api-gateway-lambda-authorization-flow_hu930799113825989666.webp"
+             src="/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/api-gateway-lambda-authorization-flow_hu_5baac0e04f3b3ca.webp"
                  alt="HTTP API Gateway and AWS Lambda flowchart"width="800"height="440.50" />
         
     
@@ -1011,7 +1011,7 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
         
         
         <img loading="lazy"
-             src="/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/terraform-aws-lambda-http-api-integration_hu13630988060189788556.webp"
+             src="/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/terraform-aws-lambda-http-api-integration_hu_8f7095d327b0ed10.webp"
                  alt="AWS Lambda and HTTP API Terraform integration diagram"width="800"height="552.50" />
         
     
@@ -1270,7 +1270,7 @@ While the null provider is still available and there are no statements about its
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-1_hu13984640825099231062.webp"
+             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-1_hu_806b63ec76a5080d.webp"
                  alt="terraform data resource arguments"width="800"height="182.16" />
         
     
@@ -1295,7 +1295,7 @@ While the null provider is still available and there are no statements about its
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-2_hu12289789779230548278.webp"
+             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-2_hu_1efde4882f03327c.webp"
                  alt="terraform data resource attributes"width="800"height="271.36" />
         
     
@@ -1328,7 +1328,7 @@ While the null provider is still available and there are no statements about its
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-3_hu9751412755483262580.webp"
+             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-3_hu_dd3f94068f7e92dd.webp"
                  alt="trigger replacement based on input variable"width="800"height="386.00" />
         
     
@@ -1349,7 +1349,7 @@ While the null provider is still available and there are no statements about its
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-4_hu15922866263126454987.webp"
+             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-4_hu_42432796ae5d8ebe.webp"
                  alt="terraform_data with replace_triggered_by"width="800"height="341.59" />
         
     
@@ -1373,7 +1373,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-5_hu10249724238766152013.webp"
+             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-5_hu_6590af059b34b4c5.webp"
                  alt="terraform_data with provisioner"width="800"height="409.00" />
         
     
@@ -1413,7 +1413,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/who-is-ami-owner_hu12818887399765007295.webp"
+             src="/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/who-is-ami-owner_hu_dc5ad19a324177d8.webp"
                  alt="Find the Waldo verified AMI owner"width="800"height="400.00" />
         
     
@@ -1438,7 +1438,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/verified-ami-in-ami-catalog_hu6824358273506313229.webp"
+             src="/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/verified-ami-in-ami-catalog_hu_64e5f9af9a1aedbe.webp"
                  alt="Verified AMI in the AMI Catalog"width="800"height="413.65" />
         
     
@@ -1464,7 +1464,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/verified-amazon-linux-2-ami-in-ami-browser-ec2-console_hu19893978468537280.webp"
+             src="/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/verified-amazon-linux-2-ami-in-ami-browser-ec2-console_hu_54f45a0d3c1b79b6.webp"
                  alt="Official Amazon Linux 2 AMI"width="800"height="400.00" />
         
     
@@ -1488,7 +1488,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/verified-official-amazon-linux-2-ami-terraform-datasource_hu10481841325326622963.webp"
+             src="/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/verified-official-amazon-linux-2-ami-terraform-datasource_hu_6774d3b845821711.webp"
                  alt="Finding the official Amazon Linux 2 AMI with Terraform"width="800"height="580.24" />
         
     
@@ -1513,7 +1513,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/verified-official-amazon-linux-2-ami-in-aws-cli_hu16197637103509778964.webp"
+             src="/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/verified-official-amazon-linux-2-ami-in-aws-cli_hu_6401c7369239a157.webp"
                  alt="Find the verified AMI with AWS CLI"width="800"height="486.75" />
         
     
@@ -1536,7 +1536,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/verified-official-amazon-eks-optimized-ami-aws-cli_hu12395086480643478328.webp"
+             src="/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/verified-official-amazon-eks-optimized-ami-aws-cli_hu_813043eab0171df6.webp"
                  alt="Get the latest EKS optimized AMI from SSM"width="800"height="213.69" />
         
     
@@ -1580,7 +1580,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/hcp-packer-how-it-works_hu5049126585974766198.webp"
+             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/hcp-packer-how-it-works_hu_1cd5f51dfd010a7f.webp"
                  alt="OS Image lifecycle with HCP Packer"width="800"height="400" />
         
     
@@ -1604,7 +1604,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/hcp-packer-service-principals_hu13140157996208875152.webp"
+             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/hcp-packer-service-principals_hu_62f05120dd22409f.webp"
                  alt="Service Principals for HCP"width="800"height="237.88" />
         
     
@@ -1636,7 +1636,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/image-buckets_hu6725662654863769549.webp"
+             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/image-buckets_hu_20a0ff5c89d190c9.webp"
                  alt="HCP Packer Image Buckets"width="800"height="278.87" />
         
     
@@ -1662,7 +1662,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/packer-iterations_hu2808924034530356987.webp"
+             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/packer-iterations_hu_e22ab709d54ce86b.webp"
                  alt="HCP Packer Iterations"width="800"height="278.87" />
         
     
@@ -1684,7 +1684,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/packer-iteration-builds_hu12340463641935036000.webp"
+             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/packer-iteration-builds_hu_8880a34533eaaa00.webp"
                  alt="HCP Packer Iteration Builds"width="800"height="574.57" />
         
     
@@ -1707,7 +1707,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/packer-template-example_hu7416307997082794107.webp"
+             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/packer-template-example_hu_7e314e0bc97f6173.webp"
                  alt="HCP Packer registry usage in a Packer template"width="800"height="554.00" />
         
     
@@ -1740,7 +1740,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/hcp-packer-image-channel_hu13254153915548901298.webp"
+             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/hcp-packer-image-channel_hu_bf77fa8f190e358b.webp"
                  alt="HCP Packer Image Channel"width="800"height="338.15" />
         
     
@@ -1773,7 +1773,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/packer-build-output_hu1286204008333489781.webp"
+             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/packer-build-output_hu_3bdb0eed72308703.webp"
                  alt="Packer build output with Iteration ULID"width="800"height="218.00" />
         
     
@@ -1821,7 +1821,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/terraform-hcp-packer_hu7687929151789258880.webp"
+             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/terraform-hcp-packer_hu_5dfebcfe48defd17.webp"
                  alt="Using HCP Packer registry with Terraform"width="800"height="529.00" />
         
     
@@ -1856,7 +1856,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/logic-for-revoked-iteration_hu4151678195903471034.webp"
+             src="/2022/06/26/golden-image-pipelines-with-hcp-packer/logic-for-revoked-iteration_hu_c462e6f7ad252bfb.webp"
                  alt="Work with revoked HCP Packer image in Terraform"width="800"height="501.24" />
         
     
@@ -1911,7 +1911,7 @@ Once that is described, Terraform performs the movement of the resource within t
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-1_hu6078939687280499827.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-1_hu_4aa1960a5552dd5c.webp"
                  alt="An example resource"width="800"height="150" />
         
     
@@ -1938,7 +1938,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-2_hu18344013205262839280.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-2_hu_eb13c021cec2d80e.webp"
                  alt="Resource address update with the Moved block"width="800"height="270" />
         
     
@@ -1959,7 +1959,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-3_hu7415148835436136.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-3_hu_53497fff0a5193d7.webp"
                  alt="Terraform plan output"width="800"height="318" />
         
     
@@ -1982,7 +1982,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-4_hu8562384911728609248.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-4_hu_713b305a5f3ee68f.webp"
                  alt="Two modules with generic names"width="800"height="437" />
         
     
@@ -2005,7 +2005,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-5_hu5903117221687850784.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-5_hu_f3c218ea084353c8.webp"
                  alt="Two modules renamed"width="800"height="629" />
         
     
@@ -2026,7 +2026,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-6_hu921823232233142112.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-6_hu_179dc9d8bd340e9b.webp"
                  alt="Terraform error: module not installed"width="800"height="246" />
         
     
@@ -2067,7 +2067,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-7_hu15709894334894757009.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-7_hu_b3e66acb6aee8109.webp"
                  alt="New configuration options for the lifecycle meta-argument"width="800"height="365" />
         
     
@@ -2103,7 +2103,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-8_hu2560727675822768371.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-8_hu_cbfcb6852bb42cf5.webp"
                  alt="Data Source Postcondition"width="800"height="446" />
         
     
@@ -2126,7 +2126,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-9_hu14141736382405473534.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-9_hu_230cb5568eef55fa.webp"
                  alt="Resource postcondition error"width="800"height="240" />
         
     
@@ -2151,7 +2151,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-10_hu3711423283326306646.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-10_hu_5fdb543d84bfe964.webp"
                  alt="Module output precondition"width="800"height="342" />
         
     
@@ -2179,7 +2179,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-11_hu11798197560474463145.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-11_hu_a4a183f76653d174.webp"
                  alt="replace_triggered_by example"width="800"height="342" />
         
     
@@ -2233,7 +2233,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/shortcut-import-optimized_hu56643359124553480.webp"
+             src="/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/shortcut-import-optimized_hu_743ac03b99a90c9b.webp"
                  alt="Shortcut Import Dialog"width="800"height="595.00" />
         
     
@@ -2254,7 +2254,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/shortcut-settings-optimized_hu4550153916826018704.webp"
+             src="/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/shortcut-settings-optimized_hu_a36059c717f68633.webp"
                  alt="Shortcut Settings"width="800"height="666.00" />
         
     
@@ -2272,8 +2272,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
 <li><em>Sends the original file to TinyPNG</em></li>
 <li><em>Process the response with URL to download the optimized image</em></li>
 <li><em>Downloads the optimized image using the URL from the response and replaces the original image with the optimized</em></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 <p>And here is how this Shortcuts looks if you want to create it from scratch:</p>
 <figure>
     
@@ -2285,7 +2284,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/image-optimization-shortcut_hu14786379682115512110.webp"
+             src="/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/image-optimization-shortcut_hu_de1928fc0522d3e4.webp"
                  alt="Image Optimization Shortcut"width="800"height="1954.66" />
         
     
@@ -2307,7 +2306,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/shortcut-demo_hu13932344667655287534.webp"
+             src="/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/shortcut-demo_hu_75a730acec428998.webp"
                  alt="Shortcut Demo"width="800"height="620.00" />
         
     
@@ -2333,7 +2332,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/image-resize-shortcut-optimized_hu8874384562565740261.webp"
+             src="/2022/01/31/monterey-shortcuts-for-easy-and-fast-image-processing/image-resize-shortcut-optimized_hu_e53a60e7d3b3c179.webp"
                  alt="Image Resizing Shortcut"width="800"height="1176.98" />
         
     
@@ -2369,7 +2368,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/condiitonal-resource-creation_hu1734993227823674832.webp"width="400"height="400.00" />
+             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/condiitonal-resource-creation_hu_40881a6a31d15011.webp"width="400"height="400.00" />
         
     
 </figure>
@@ -2438,7 +2437,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/conditional-resource-argument_hu1735187358661939444.webp"width="400"height="400.00" />
+             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/conditional-resource-argument_hu_800103069fc576.webp"width="400"height="400.00" />
         
     
 </figure>
@@ -2479,7 +2478,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/types-converstion_hu1605912690353415157.webp"width="400"height="400.00" />
+             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/types-converstion_hu_e3e70aec17c92843.webp"width="400"height="400.00" />
         
     
 </figure>
@@ -2521,7 +2520,7 @@ Ok, let&rsquo;s move to the less conditional things now 😅</p>
         
         
         <img loading="lazy"
-             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/write-yaml-json-as-terraform-code_hu9718022366429122376.webp"width="400"height="400.00" />
+             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/write-yaml-json-as-terraform-code_hu_fceb6d283c60b5ff.webp"width="400"height="400.00" />
         
     
 </figure>
@@ -2579,7 +2578,7 @@ Sometimes you need to supply JSON or YAML files to the services you manage with 
         
         
         <img loading="lazy"
-             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/templatize-stuff_hu4964106210539108356.webp"width="400"height="400.00" />
+             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/templatize-stuff_hu_7ee38532b37a40f5.webp"width="400"height="400.00" />
         
     
 </figure>
@@ -2856,7 +2855,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         
         
         <img loading="lazy"
-             src="/2021/11/05/apply-cloudfront-security-headers-with-terraform/observatory-results_hu17062957022202034657.webp"
+             src="/2021/11/05/apply-cloudfront-security-headers-with-terraform/observatory-results_hu_3765cf1f524e3500.webp"
                  alt="Scan summary for CloudFront distribution with security headers policy"width="800"height="903.43" />
         
     
@@ -2906,7 +2905,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         
         
         <img loading="lazy"
-             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/general-scheme_compressed_hu8961863004118525361.webp"
+             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/general-scheme_compressed_hu_2521ced38117a711.webp"
                  alt="Services logical interconnection"width="800"height="639" />
         
     
@@ -2931,7 +2930,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         
         
         <img loading="lazy"
-             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/license-configuration_compressed_hu3043406961891655149.webp"
+             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/license-configuration_compressed_hu_822897f09b0f6299.webp"
                  alt="Licence configuration values"width="800"height="807" />
         
     
@@ -2956,7 +2955,7 @@ However, Auto Scaling Group will maintain the desired number of instances if one
         
         
         <img loading="lazy"
-             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/host-resource-group_compressed_hu8081941916323364160.webp"
+             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/host-resource-group_compressed_hu_ede5f8d90e504b9.webp"
                  alt="Host resource group configuration values"width="800"height="902" />
         
     
@@ -2981,7 +2980,7 @@ However, Auto Scaling Group will maintain the desired number of instances if one
         
         
         <img loading="lazy"
-             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/launch-template_compressed_hu17158554016913274308.webp"
+             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/launch-template_compressed_hu_9fe034ef0cdd519d.webp"
                  alt="Launch Template configuration values"width="800"height="741" />
         
     
@@ -3164,7 +3163,7 @@ In a nutshell, the RAM service allows you to share the AWS resources you create 
         
         
         <img loading="lazy"
-             src="/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/ram-diagram-800_hu7427282016409754312.webp"width="800"height="533" />
+             src="/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/ram-diagram-800_hu_61c844392dd27e46.webp"width="800"height="533" />
         
     
 </figure>
@@ -3242,7 +3241,7 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
         
         
         <img loading="lazy"
-             src="/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/aws_ssm_document_clone_hu12668160904278774839.webp"width="800"height="476.68" />
+             src="/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/aws_ssm_document_clone_hu_839ae658a5a61deb.webp"width="800"height="476.68" />
         
     
 </figure>
@@ -3398,7 +3397,7 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
         
         
         <img loading="lazy"
-             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/request_flow_hu18446277352328296747.webp"width="800"height="171.67" />
+             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/request_flow_hu_43cf1ab5a9c11148.webp"width="800"height="171.67" />
         
     
 </figure>
@@ -3421,7 +3420,7 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
         
         
         <img loading="lazy"
-             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/create_function_hu5782885322565297984.webp"width="800"height="255.83" />
+             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/create_function_hu_ee88251566b369ea.webp"width="800"height="255.83" />
         
     
 </figure>
@@ -3440,7 +3439,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         
         
         <img loading="lazy"
-             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/function_editor_hu3870105500011186020.webp"width="800"height="467.84" />
+             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/function_editor_hu_40a83a96f9ed0cce.webp"width="800"height="467.84" />
         
     
 </figure>
@@ -3477,7 +3476,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         
         
         <img loading="lazy"
-             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/function_test_hu15797597810350433633.webp"width="800"height="624.03" />
+             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/function_test_hu_306411e918e14934.webp"width="800"height="624.03" />
         
     
 </figure>
@@ -3494,7 +3493,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         
         
         <img loading="lazy"
-             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/function_publish_hu11842692407877020982.webp"width="800"height="257.24" />
+             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/function_publish_hu_fb5339ed1832c607.webp"width="800"height="257.24" />
         
     
 </figure>
@@ -3512,7 +3511,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         
         
         <img loading="lazy"
-             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/function_associate_hu10101413601339999970.webp"width="800"height="366.08" />
+             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/function_associate_hu_98f37d7aa4670bc6.webp"width="800"height="366.08" />
         
     
 </figure>
@@ -3549,7 +3548,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         
         
         <img loading="lazy"
-             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/scan_result-1_hu805611249349398412.webp"width="800"height="345.58" />
+             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/scan_result-1_hu_61d50af533207c47.webp"width="800"height="345.58" />
         
     
 </figure>
@@ -3564,7 +3563,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         
         
         <img loading="lazy"
-             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/scan_result-2_hu382657006460964810.webp"width="800"height="626.15" />
+             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/scan_result-2_hu_ca4fc1a66c94e7.webp"width="800"height="626.15" />
         
     
 </figure>
@@ -3621,7 +3620,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         
         
         <img loading="lazy"
-             src="/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/quick_action_compressed_hu9774351387060898181.webp"width="800"height="695.62" />
+             src="/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/quick_action_compressed_hu_d549db512e665eee.webp"width="800"height="695.62" />
         
     
 </figure>
@@ -3644,14 +3643,13 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         
         
         <img loading="lazy"
-             src="/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/run_shell_script_compressed_hu9791468289748001633.webp"width="800"height="702.36" />
+             src="/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/run_shell_script_compressed_hu_903fc6746a0e59fa.webp"width="800"height="702.36" />
         
     
 </figure>
 
 <p>Put the following script into the <strong>Run Shell Script</strong> window, replacing the <em>YOUR_API_KEY_HERE</em> string with your API key obtained from TinyPNG.</p>
 <script src="https://gist.github.com/vasylenko/13cb423aa83265e79ac5ad900195603f.js"></script>
-
 <h2 id="utilities-used-in-the-script--explained">Utilities used in the script — explained</h2>
 <p><code>curl</code> — used to make web requests (like your browser does)</p>
 <p><code>grep</code> — used to parse the response for the needed header (i.e., field) with the file download link</p>
@@ -3973,7 +3971,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         
         
         <img loading="lazy"
-             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/launch_hu2922766104425326468.webp"width="400"height="200" />
+             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/launch_hu_2844c2ce9da1be7d.webp"width="400"height="200" />
         
     
 </figure>
@@ -3995,7 +3993,7 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
         
         
         <img loading="lazy"
-             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/customize_hu13174262953532247300.webp"width="400"height="200" />
+             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/customize_hu_c872125bfdd282b0.webp"width="400"height="200" />
         
     
 </figure>
@@ -4023,7 +4021,7 @@ I wrote a separate post about mac1.metal AMI customization and creation, so chec
         
         
         <img loading="lazy"
-             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/cleanup_hu15869239200421019745.webp"width="400"height="200" />
+             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/cleanup_hu_9fe240d8bbddd46d.webp"width="400"height="200" />
         
     
 </figure>

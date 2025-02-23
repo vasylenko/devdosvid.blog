@@ -9,9 +9,9 @@
       <url>https://devdosvid.blog/assets/img/websitelogo.jpg</url>
       <link>https://devdosvid.blog/assets/img/websitelogo.jpg</link>
     </image>
-    <generator>Hugo -- 0.141.0</generator>
+    <generator>Hugo -- 0.143.1</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Feb 2025 19:34:15 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 23 Feb 2025 01:17:31 +0100</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/mac1.metal-at-aws/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
@@ -43,7 +43,7 @@
         
         
         <img loading="lazy"
-             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/general-scheme_compressed_hu8961863004118525361.webp"
+             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/general-scheme_compressed_hu_2521ced38117a711.webp"
                  alt="Services logical interconnection"width="800"height="639" />
         
     
@@ -68,7 +68,7 @@
         
         
         <img loading="lazy"
-             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/license-configuration_compressed_hu3043406961891655149.webp"
+             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/license-configuration_compressed_hu_822897f09b0f6299.webp"
                  alt="Licence configuration values"width="800"height="807" />
         
     
@@ -93,7 +93,7 @@ However, Auto Scaling Group will maintain the desired number of instances if one
         
         
         <img loading="lazy"
-             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/host-resource-group_compressed_hu8081941916323364160.webp"
+             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/host-resource-group_compressed_hu_ede5f8d90e504b9.webp"
                  alt="Host resource group configuration values"width="800"height="902" />
         
     
@@ -118,7 +118,7 @@ However, Auto Scaling Group will maintain the desired number of instances if one
         
         
         <img loading="lazy"
-             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/launch-template_compressed_hu17158554016913274308.webp"
+             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/launch-template_compressed_hu_9fe034ef0cdd519d.webp"
                  alt="Launch Template configuration values"width="800"height="741" />
         
     
@@ -292,7 +292,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
         
         
         <img loading="lazy"
-             src="/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/aws_ssm_document_clone_hu12668160904278774839.webp"width="800"height="476.68" />
+             src="/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/aws_ssm_document_clone_hu_839ae658a5a61deb.webp"width="800"height="476.68" />
         
     
 </figure>
@@ -710,7 +710,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
         
         
         <img loading="lazy"
-             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/launch_hu2922766104425326468.webp"width="400"height="200" />
+             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/launch_hu_2844c2ce9da1be7d.webp"width="400"height="200" />
         
     
 </figure>
@@ -732,7 +732,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
         
         
         <img loading="lazy"
-             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/customize_hu13174262953532247300.webp"width="400"height="200" />
+             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/customize_hu_c872125bfdd282b0.webp"width="400"height="200" />
         
     
 </figure>
@@ -760,7 +760,7 @@ I wrote a separate post about mac1.metal AMI customization and creation, so chec
         
         
         <img loading="lazy"
-             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/cleanup_hu15869239200421019745.webp"width="400"height="200" />
+             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/cleanup_hu_9fe240d8bbddd46d.webp"width="400"height="200" />
         
     
 </figure>

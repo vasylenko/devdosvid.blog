@@ -9,9 +9,9 @@
       <url>https://devdosvid.blog/assets/img/websitelogo.jpg</url>
       <link>https://devdosvid.blog/assets/img/websitelogo.jpg</link>
     </image>
-    <generator>Hugo -- 0.141.0</generator>
+    <generator>Hugo -- 0.143.1</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Feb 2025 19:34:15 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 23 Feb 2025 01:17:31 +0100</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/terraform-proficiency/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>A Deep Dive Into Terraform Static Code Analysis Tools: Features and Comparisons</title>
@@ -487,7 +487,7 @@ While the null provider is still available and there are no statements about its
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-1_hu13984640825099231062.webp"
+             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-1_hu_806b63ec76a5080d.webp"
                  alt="terraform data resource arguments"width="800"height="182.16" />
         
     
@@ -512,7 +512,7 @@ While the null provider is still available and there are no statements about its
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-2_hu12289789779230548278.webp"
+             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-2_hu_1efde4882f03327c.webp"
                  alt="terraform data resource attributes"width="800"height="271.36" />
         
     
@@ -545,7 +545,7 @@ While the null provider is still available and there are no statements about its
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-3_hu9751412755483262580.webp"
+             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-3_hu_dd3f94068f7e92dd.webp"
                  alt="trigger replacement based on input variable"width="800"height="386.00" />
         
     
@@ -566,7 +566,7 @@ While the null provider is still available and there are no statements about its
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-4_hu15922866263126454987.webp"
+             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-4_hu_42432796ae5d8ebe.webp"
                  alt="terraform_data with replace_triggered_by"width="800"height="341.59" />
         
     
@@ -590,7 +590,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-5_hu10249724238766152013.webp"
+             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-5_hu_6590af059b34b4c5.webp"
                  alt="terraform_data with provisioner"width="800"height="409.00" />
         
     
@@ -644,7 +644,7 @@ Once that is described, Terraform performs the movement of the resource within t
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-1_hu6078939687280499827.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-1_hu_4aa1960a5552dd5c.webp"
                  alt="An example resource"width="800"height="150" />
         
     
@@ -671,7 +671,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-2_hu18344013205262839280.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-2_hu_eb13c021cec2d80e.webp"
                  alt="Resource address update with the Moved block"width="800"height="270" />
         
     
@@ -692,7 +692,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-3_hu7415148835436136.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-3_hu_53497fff0a5193d7.webp"
                  alt="Terraform plan output"width="800"height="318" />
         
     
@@ -715,7 +715,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-4_hu8562384911728609248.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-4_hu_713b305a5f3ee68f.webp"
                  alt="Two modules with generic names"width="800"height="437" />
         
     
@@ -738,7 +738,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-5_hu5903117221687850784.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-5_hu_f3c218ea084353c8.webp"
                  alt="Two modules renamed"width="800"height="629" />
         
     
@@ -759,7 +759,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-6_hu921823232233142112.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-6_hu_179dc9d8bd340e9b.webp"
                  alt="Terraform error: module not installed"width="800"height="246" />
         
     
@@ -800,7 +800,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-7_hu15709894334894757009.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-7_hu_b3e66acb6aee8109.webp"
                  alt="New configuration options for the lifecycle meta-argument"width="800"height="365" />
         
     
@@ -836,7 +836,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-8_hu2560727675822768371.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-8_hu_cbfcb6852bb42cf5.webp"
                  alt="Data Source Postcondition"width="800"height="446" />
         
     
@@ -859,7 +859,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-9_hu14141736382405473534.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-9_hu_230cb5568eef55fa.webp"
                  alt="Resource postcondition error"width="800"height="240" />
         
     
@@ -884,7 +884,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-10_hu3711423283326306646.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-10_hu_5fdb543d84bfe964.webp"
                  alt="Module output precondition"width="800"height="342" />
         
     
@@ -912,7 +912,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-11_hu11798197560474463145.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-11_hu_a4a183f76653d174.webp"
                  alt="replace_triggered_by example"width="800"height="342" />
         
     
@@ -957,7 +957,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
         
         
         <img loading="lazy"
-             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/condiitonal-resource-creation_hu1734993227823674832.webp"width="400"height="400.00" />
+             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/condiitonal-resource-creation_hu_40881a6a31d15011.webp"width="400"height="400.00" />
         
     
 </figure>
@@ -1026,7 +1026,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
         
         
         <img loading="lazy"
-             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/conditional-resource-argument_hu1735187358661939444.webp"width="400"height="400.00" />
+             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/conditional-resource-argument_hu_800103069fc576.webp"width="400"height="400.00" />
         
     
 </figure>
@@ -1067,7 +1067,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
         
         
         <img loading="lazy"
-             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/types-converstion_hu1605912690353415157.webp"width="400"height="400.00" />
+             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/types-converstion_hu_e3e70aec17c92843.webp"width="400"height="400.00" />
         
     
 </figure>
@@ -1109,7 +1109,7 @@ Ok, let&rsquo;s move to the less conditional things now ðŸ˜…</p>
         
         
         <img loading="lazy"
-             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/write-yaml-json-as-terraform-code_hu9718022366429122376.webp"width="400"height="400.00" />
+             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/write-yaml-json-as-terraform-code_hu_fceb6d283c60b5ff.webp"width="400"height="400.00" />
         
     
 </figure>
@@ -1167,7 +1167,7 @@ Sometimes you need to supply JSON or YAML files to the services you manage with 
         
         
         <img loading="lazy"
-             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/templatize-stuff_hu4964106210539108356.webp"width="400"height="400.00" />
+             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/templatize-stuff_hu_7ee38532b37a40f5.webp"width="400"height="400.00" />
         
     
 </figure>
@@ -1384,7 +1384,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         
         
         <img loading="lazy"
-             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-workflow_hu11234558892051338158.webp"
+             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-workflow_hu_67ccf615b4552cfc.webp"
                  alt="Basic 3-steps Terraform workflow"width="800"height="89.88" />
         
     
@@ -1410,7 +1410,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         
         
         <img loading="lazy"
-             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-workflow-individual_hu13169329012412663952.webp"
+             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-workflow-individual_hu_4cb162ed50a9602b.webp"
                  alt="Git-based Terraform workflow"width="800"height="267.41" />
         
     
@@ -1438,7 +1438,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         
         
         <img loading="lazy"
-             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-core-workflow-team_hu11021830240658568958.webp"
+             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-core-workflow-team_hu_d3a97430ca465c56.webp"
                  alt="Git-based Terraform workflow in a team"width="800"height="298.41" />
         
     
@@ -1469,7 +1469,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         
         
         <img loading="lazy"
-             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-workflow-team-automation-1_hu10359334051009282965.webp"
+             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-workflow-team-automation-1_hu_3a84f3744d814e55.webp"
                  alt="Git-based Terraform workflow with automation"width="800"height="272.90" />
         
     
@@ -1508,7 +1508,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         
         
         <img loading="lazy"
-             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-workflow-import_hu17548438983158030152.webp"
+             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-workflow-import_hu_9147950a544cbc1a.webp"
                  alt="Terraform resource import workflow"width="800"height="238.20" />
         
     
@@ -1577,7 +1577,7 @@ For example, you can make a plan from the resources I outlined below in this art
         
         
         <img loading="lazy"
-             src="/2020/09/15/terraform-certification-tips/todo-list_hu10843248182369917139.webp"width="585"height="540" />
+             src="/2020/09/15/terraform-certification-tips/todo-list_hu_56f5ee47bfb2ea75.webp"width="585"height="540" />
         
     
 </figure>
@@ -1618,7 +1618,7 @@ For example, you can make a plan from the resources I outlined below in this art
         
         
         <img loading="lazy"
-             src="/2020/09/15/terraform-certification-tips/real-world-demo_hu796265217673270612.webp"width="585"height="405" />
+             src="/2020/09/15/terraform-certification-tips/real-world-demo_hu_ee5c37b3cd7c8a0a.webp"width="585"height="405" />
         
     
 </figure>
@@ -1636,7 +1636,7 @@ For example, you can make a plan from the resources I outlined below in this art
         
         
         <img loading="lazy"
-             src="/2020/09/15/terraform-certification-tips/tf-forum_hu11711225038706468566.webp"width="585"height="650" />
+             src="/2020/09/15/terraform-certification-tips/tf-forum_hu_33d86d1c47a6aa31.webp"width="585"height="650" />
         
     
 </figure>
@@ -1680,7 +1680,7 @@ For example, you can make a plan from the resources I outlined below in this art
         
         
         <img loading="lazy"
-             src="/2020/09/09/what-are-terraform-modules-and-how-do-they-work/1_hu14109282925847018292.webp"
+             src="/2020/09/09/what-are-terraform-modules-and-how-do-they-work/1_hu_40dd7eb9bc593566.webp"
                  alt="Terraform module example"width="425"height="253" />
         
     
@@ -1731,7 +1731,7 @@ For example, you can make a plan from the resources I outlined below in this art
         
         
         <img loading="lazy"
-             src="/2020/09/09/what-are-terraform-modules-and-how-do-they-work/2_hu8467856233725687738.webp"
+             src="/2020/09/09/what-are-terraform-modules-and-how-do-they-work/2_hu_a16dc9d6d2cd822d.webp"
                  alt="Terraform modules relations"width="800"height="299.75" />
         
     
@@ -1785,7 +1785,7 @@ For example, you can make a plan from the resources I outlined below in this art
         
         
         <img loading="lazy"
-             src="/2020/09/09/what-are-terraform-modules-and-how-do-they-work/3_hu2478353197864856368.webp"
+             src="/2020/09/09/what-are-terraform-modules-and-how-do-they-work/3_hu_c452e97d87cc038e.webp"
                  alt="Resource incapsulation in Terraform modules"width="800"height="255.43" />
         
     
@@ -1807,7 +1807,7 @@ For example, you can make a plan from the resources I outlined below in this art
         
         
         <img loading="lazy"
-             src="/2020/09/09/what-are-terraform-modules-and-how-do-they-work/4_hu10593539119335722535.webp"
+             src="/2020/09/09/what-are-terraform-modules-and-how-do-they-work/4_hu_247ff679f92b4d48.webp"
                  alt="Module outputs and input variables"width="800"height="573.38" />
         
     
@@ -1935,7 +1935,7 @@ module_alb/alb.tf
         
         
         <img loading="lazy"
-             src="/2020/05/02/terraform-explained-in-english/how-it-works-optimized_hu9576235416219422355.webp"
+             src="/2020/05/02/terraform-explained-in-english/how-it-works-optimized_hu_45dd8a37a45d42dc.webp"
                  alt="How Terraform works"width="800"height="400.00" />
         
     
@@ -1982,7 +1982,7 @@ module_alb/alb.tf
         
         
         <img loading="lazy"
-             src="/2020/05/02/terraform-explained-in-english/module-example_hu15040306079353967096.webp"
+             src="/2020/05/02/terraform-explained-in-english/module-example_hu_1bfc5a5ad1a31420.webp"
                  alt="Terraform module"width="800"height="400.00" />
         
     
