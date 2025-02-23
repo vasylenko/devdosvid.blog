@@ -1,0 +1,135 @@
+.tech-talk {
+    background: var(--color-background);
+    border-radius: 8px;
+    padding: 1rem 0;
+    margin: 0;
+    border-top: 1px solid var(--color-border);
+    transition: transform 0.2s ease;
+}
+
+.tech-talk:not(:last-child)::after {
+    content: "";
+    display: block;
+    margin: 1rem auto 0;
+    width: 3rem;
+    height: 3px;
+    background: transparent;
+    border-top: 3px dotted var(--color-border);
+}
+
+.tech-talk:hover {
+    transform: translateY(-2px);
+}
+
+.talk-content {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    flex-direction: row-reverse;
+}
+
+.talk-image {
+    flex-shrink: 0;
+    max-width: 200px;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.talk-image img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.talk-details {
+    flex-grow: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.talk-header {
+    margin-bottom: 0.5rem;
+}
+
+.talk-title {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    line-height: 1.2;
+}
+
+.talk-event {
+    font-size: 0.9rem;
+    color: var(--color-secondary);
+    display: block;
+    margin-top: 0.2rem;
+}
+
+.talk-meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.talk-date {
+    color: var(--color-secondary);
+}
+
+.talk-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    text-decoration: none;
+    color: var(--color-primary);
+}
+
+.talk-link:hover {
+    text-decoration: underline;
+}
+
+.talk-link svg {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+}
+
+.talk-description {
+    margin: 0.5rem 0 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 600px) {
+    .talk-content {
+        flex-direction: column;
+    }
+    
+    .talk-image {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .talk-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 380px) {
+    .talk-title {
+        font-size: 1rem;
+    }
+    
+    .talk-description {
+        font-size: 0.9rem;
+    }
+} 

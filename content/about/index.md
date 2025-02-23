@@ -14,23 +14,38 @@ ShowLicense: false
 EmailSubscribeForm: false
 ---
 
-So, you opened this page to read more about me? Thanks! I am delighted! 🤩
+Hello! I am Serhii, a software engineer by day and a tech enthusiast by night, currently crafting DevSecOps magic at [Grammarly](https://www.grammarly.com/).
 
-My name is Serhii Vasylenko. I am Ukrainian 🇺🇦, and I live in Berlin.
+My passion lies in creating and integrating developer experience and security automation tools.\
+My journey has been accompanied by leadership roles in strategic projects, which have strengthened infrastructure and boosted team efficiency.\
+Curiosity fuels my days, and I believe there's always room for improvement.
 
-In my professional life, I am:
-- Senior Engineer at [Grammarly](https://grammarly.com) since November 2020
-- [AWS Community Builder](https://aws.amazon.com/developer/community/community-builders/community-builders-directory/?cb-cards.sort-by=item.additionalFields.cbName&cb-cards.sort-order=asc&awsf.builder-category=*all&awsf.location=*all&awsf.year=*all&cb-cards.q=Serhii%2BVasylenko&cb-cards.q_operator=AND) in 2021, 2022, and 2023
-- [HashiCorp Ambassador](https://www.credly.com/badges/9b7eacad-3de1-481d-a483-6ee6db3126e6/public_url) in 2022, 2023, and 2024
-
-I welcome you to read more [in my CV](/cv)!
+And I welcome you to read more about me [in my CV](/cv)!
 
 Technical blogging is my hobby; I am also fond of astronomy and history.
 
-By the way, the blog name — "**devDosvid**" — is made of the word "dosvid" (pronounced as [dɔsʋid]), which means "experience" in Ukrainian. It's kind of a nerdy way to name it, huh? 😄
+By the way, the blog name — "**devDosvid**" — is made of the word "dosvid" (pronounced as [dɔsʋid]), which means "experience" in Ukrainian. 
 
-If you would like to contact me, feel free to mail me at [contact@devdosvid.blog](mailto:contact@devdosvid.blog).
+Feel free to connect if our paths cross, whether it's for a tech chat or a new opportunity! 🙌\
+[contact@devdosvid.blog](mailto:contact@devdosvid.blog).
 
-And I'd be happy to connect with you on these platforms:
 
-{{<social-profiles>}}
+## Some of selected tech talks
+
+{{< tech-talk
+    title="Building Trust: Strengthening Your Software Supply Chain Security"
+    event="DevOps fwdays'25 conference"
+    date="February 22, 2025"
+    image="talks/supply-chain-fwdays-2025.webp"
+    slides="https://fwdays.com/en/event/devops-fwdays-2025/review/building-trust-strengthening-your-software-supply-chain-security"
+    description="This talk highlights automating Supply Chain security by integrating tools like Renovate, Wiz, GitLab, and JFrog Artifactory into existing workflows. It details centralized artifact management, embedding automated security scans that block vulnerable deployments (with an override option), and maintaining source code security with runtime monitoring and effective SLAs."
+>}}
+
+{{< tech-talk
+    title="Scalable CI/CD Infrastructure with EKS and Karpenter"
+    event="KCD Ukraine Fundraiser 2023"
+    date="Apr 6, 2023"
+    image="talks/k8s-ci-infra.png"
+    recording="https://www.youtube.com/watch?v=ZOYA1XNqFBI"
+    description="This talk shares the ways we manage the GitLab CI runners infrastructure with EKS and Karpenter: what the permissions (IAM) and network management look like; how we mutate K8s pods at launch with the Kyverno policy engine to provide more agility for CI configuration to users; how ArgoCD and GitLab are relevant in this process."
+>}}
