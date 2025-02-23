@@ -30,7 +30,7 @@ Feel free to connect if our paths cross, whether it's for a tech chat or a new o
 [contact@devdosvid.blog](mailto:contact@devdosvid.blog).
 
 
-## My Recent Tech Talks
+## Some of selected tech talks
 
 {{< tech-talk
     title="Building Trust: Strengthening Your Software Supply Chain Security"

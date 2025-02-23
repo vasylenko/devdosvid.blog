@@ -1,7 +1,9 @@
 body {
-    font-family: 'Albert Sans', 'Roboto', -apple-system, sans-serif, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue';
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", "Arial Nova", Arial, sans-serif;
     background-color: var(--color-background);
     color: var(--color-font);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 h1 {

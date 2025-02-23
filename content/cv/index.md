@@ -6,9 +6,6 @@ disableshare: true
 disableHLJS: true
 disableAnchoredHeadings: true
 hideSummary: true
-cover:
-    hidden: true
-    image: professional-experience.png
 ShowBreadCrumbs: false
 keywords: [Developer Experience Engineer, DevOps Coach, Software Development Life Cycle (SDLC), AWS, Infrastructure 
   Automation, Observability, Terraform, Ansible, GitLab, Docker]
