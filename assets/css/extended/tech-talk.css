@@ -1,20 +1,10 @@
 .tech-talk {
     background: var(--color-background);
     border-radius: 8px;
-    padding: 1rem 0;
-    margin: 0;
-    border-top: 1px solid var(--color-border);
+    padding: 1rem;
+    margin: 1rem 0;
+    border: 1px solid var(--color-gray);
     transition: transform 0.2s ease;
-}
-
-.tech-talk:not(:last-child)::after {
-    content: "";
-    display: block;
-    margin: 1rem auto 0;
-    width: 3rem;
-    height: 3px;
-    background: transparent;
-    border-top: 3px dotted var(--color-border);
 }
 
 .tech-talk:hover {
@@ -41,6 +31,7 @@
     width: 100%;
     height: auto;
     object-fit: contain;
+    margin-top: 0;
 }
 
 .talk-details {
@@ -54,15 +45,14 @@
     margin-bottom: 0.5rem;
 }
 
-.talk-title {
+.talk-header h4.talk-title {
     margin: 0;
-    font-size: 1.1rem;
     color: var(--color-primary);
     line-height: 1.2;
+    font-size: 1em;
 }
 
 .talk-event {
-    font-size: 0.9rem;
     color: var(--color-secondary);
     display: block;
     margin-top: 0.2rem;
@@ -85,7 +75,6 @@
     align-items: center;
     flex-wrap: wrap;
     margin: 0.5rem 0;
-    font-size: 0.9rem;
 }
 
 .talk-date {
@@ -112,7 +101,6 @@
 
 .talk-description {
     margin: 0.5rem 0 0;
-    font-size: 0.95rem;
     line-height: 1.5;
 }
 
@@ -137,10 +125,8 @@
 /* Small mobile devices */
 @media (max-width: 380px) {
     .talk-title {
-        font-size: 1rem;
     }
     
     .talk-description {
-        font-size: 0.9rem;
     }
 } 

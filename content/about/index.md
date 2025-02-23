@@ -33,7 +33,7 @@ Feel free to connect if our paths cross, whether it's for a tech chat or a new o
 ## Some of selected tech talks
 
 {{< tech-talk
-    title="Building Trust: Strengthening Your Software Supply Chain Security [🇬🇧 EN]"
+    title="[EN] Building Trust: Strengthening Your Software Supply Chain Security"
     event="DevOps fwdays'25 conference"
     event_link="https://fwdays.com/en/event/devops-fwdays-2025"
     date="February 22, 2025"
@@ -43,7 +43,7 @@ Feel free to connect if our paths cross, whether it's for a tech chat or a new o
 >}}
 
 {{< tech-talk
-    title="DevOps not about tooling — practical experience of launching an internal education project [🇺🇦 UA]"
+    title="[UA] DevOps not about tooling — practical experience of launching an internal education project"
     event="Благодійний івент «DevOps у стані 2023»"
     event_link="https://dou.ua/calendar/46956"
     date="May 13, 2023"
@@ -53,7 +53,7 @@ Feel free to connect if our paths cross, whether it's for a tech chat or a new o
 >}}
 
 {{< tech-talk
-    title="Scalable CI/CD Infrastructure with EKS and Karpenter [🇬🇧 EN]"
+    title="[EN] Scalable CI/CD Infrastructure with EKS and Karpenter"
     event="KCD Ukraine Fundraiser 2023"
     event_link="https://community.cncf.io/events/details/cncf-kcd-ukraine-presents-kcd-ukraine-2023-fundraiser"
     date="April 6, 2023"
