@@ -1,54 +1,151 @@
-div.cv-job-title {
-    margin-top: 2em;
+/* CV-specific styles - isolated from main site styles */
+.cv-content {
+    /* Base styles for all CV content */
+}
+
+/* Page title styling */
+.cv-page-title {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 28px;
+}
+
+/* Heading styles */
+.post-content h1 {
+    text-align: center;
+    margin-top: 1em;
     margin-bottom: 1em;
-    display: grid;
-    grid-template-columns: 60px auto;
-    grid-template-rows:  max-content max-content;
-    grid-template-areas: "img head"
-                         "img details";
-}
-img.cv-job-title {
-    grid-area: img;
-    margin: 0 auto;
-    max-height: 50px;
-
-}
-h3.cv-job-title {
-    line-height: 1em;
-    grid-area: head;
-    margin: 0 auto 0 10px;
-
-}
-p.cv-job-title {
-    grid-area: details;
-    margin: 0 auto 0 10px;
-    align-self: end;
+    font-size: 28px;
 }
 
+.post-content h2 {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.post-content h3 {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+/* Reduce paragraph spacing */
+.post-content p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+/* Styled list bullets */
+.post-content ul {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+    list-style: none;
+    padding-left: 1.2em;
+}
+
+.post-content ul li {
+    margin-bottom: 0.2em;
+    position: relative;
+}
+
+.post-content ul li::before {
+    content: "•";
+    color: var(--primary);
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    position: absolute;
+    left: -1em;
+}
+
+/* Style for nested lists */
+.post-content ul ul li::before {
+    content: "○";
+}
+
+/* Custom styling for definition lists */
+.post-content dl {
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+
+.post-content dt {
+    font-weight: 600;
+    margin-top: 0.5em;
+}
+
+.post-content dd {
+    margin-left: 1.5em;
+    margin-bottom: 0.3em;
+}
+
+/* Print-specific styles for CV */
 @media print {
     body {
         font-family: Verdana, Helvetica, sans-serif;
         max-width: 850px;
-        font-size: 14px;
     }
-    h1,h2,h3,h4,h4+ul,dd,dt{
+
+    /* Specific font sizes for print */
+    .post-title,
+    .post-content h1 {
+        font-size: 14px;
+        color: black;
         break-after: avoid;
+    }
+
+    .post-content h2 {
+        font-size: 12px;
+        color: black;
+        break-after: avoid;
+    }
+
+    .post-content h3 {
+        font-size: 10px;
+        font-weight: bold;
+        color: black;
+        break-after: avoid;
+    }
+
+    .post-content p,
+    .post-content li,
+    .post-content dd,
+    .post-content dt {
+        font-size: 10px;
         color: black;
     }
-    dd, ul, li {
+
+    .post-content dd,
+    .post-content ul,
+    .post-content li {
         break-inside: avoid;
     }
 
-    h6, .header, .footer, .post-footer, .breadcrumbs, .post-meta, .toc, .top-link {
+    /* Hide elements not needed in print */
+    h6,
+    .header,
+    .footer,
+    .post-footer,
+    .breadcrumbs,
+    .post-meta,
+    .toc,
+    .top-link {
         display: none !important;
     }
-    a {
+
+    /* Link styling for print */
+    .post-content a {
         font-weight: bold;
         text-decoration: none;
         color: black;
         pointer-events: none;
         cursor: default;
     }
+
+    /* Ensure content is black */
     .post-content {
         color: black;
     }
