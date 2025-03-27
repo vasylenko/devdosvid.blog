@@ -1,0 +1,23 @@
+{{ define "main" }}
+<article class="post-single">
+    <header class="post-header">
+        {{- if .Params.ShowBreadCrumbs }}
+        {{- partial "breadcrumbs.html" . }}
+        {{- end }}
+        <h1 class="post-title cv-page-title">
+            {{ .Title }}
+            {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
+        </h1>
+        {{- if .Params.hidemeta | default false }}{{- else }}
+        <div class="post-meta">
+            {{- partial "post_meta.html" . -}}
+        </div>
+        {{- end }}
+    </header>
+    <div class="post-content">
+        {{- if not (.Param "disableAnchoredHeadings") }}
+        {{- partial "anchored_headings.html" .Content -}}
+        {{- else }}{{ .Content }}{{ end }}
+    </div>
+</article>
+{{ end }}
