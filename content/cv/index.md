@@ -32,7 +32,7 @@ Proven ability to architect robust systems, enhance developer productivity, and 
 - Reduced engineer onboarding time from four weeks to one week by creating the Platform University learning program.
 - Improved engineering productivity by integrating tools like Sourcegraph and GitHub Copilot, recognized internally as top productivity enhancements (~220 MAU).
 - Enabled direct reports to lead complex initiatives independently by mentoring and leading teams of two to five engineers.
-- Strengthened the hiring process by conducting over 60 System Design interviews and creating specialized formats for critical engineering roles.
+- Strengthened the hiring process by shaping and conducting System Design and SRE interviews for Platform teams and creating specialized formats for critical engineering roles.
 
 ## DevOps Coach, Hillel IT School, part-time, 06/2020 - 04/2023
 - Achieved an 85% job placement rate for graduates by delivering practical DevOps training focused on industry-relevant skills and technologies.
