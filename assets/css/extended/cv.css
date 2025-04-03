@@ -1,89 +1,82 @@
 /* CV-specific styles - isolated from main site styles */
 .cv-content {
-    /* Base styles for all CV content */
-}
+    .cv-page-title {
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: bold;
+        font-size: 28px;
+        border-bottom: 2px solid var(--color-orange);
+        padding-bottom: 8px;
+    }
 
-/* Page title styling */
-.cv-page-title {
-    text-transform: uppercase;
-    text-align: center;
-    font-size: 28px;
-    border-bottom: 2px solid var(--color-orange);
-    padding-bottom: 8px;
-}
+    h1 {
+        text-align: center;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        font-size: 28px;
+        border-bottom: 2px solid var(--color-orange);
+        padding-bottom: 8px;
+    }
 
-/* Heading styles */
-.post-content h1 {
-    text-align: center;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    font-size: 28px;
-    border-bottom: 2px solid var(--color-orange);
-    padding-bottom: 8px;
-}
+    h2 {
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+        font-weight: 500;
+        font-size: 24px;
+    }
 
-.post-content h2 {
-    margin-top: 1em;
-    margin-bottom: 0.5em;
-    font-weight: 500;
-    font-size: 24px;
-}
+    h3 {
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+        font-weight: 500;
+        font-size: 20px;
+    }
 
-.post-content h3 {
-    margin-top: 1em;
-    margin-bottom: 0.5em;
-    font-weight: 500;
-    font-size: 20px;
-}
+    p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
 
-/* Reduce paragraph spacing */
-.post-content p {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-}
+    ul {
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        list-style: none;
+        padding-left: 1.2em;
+    }
 
-/* Styled list bullets */
-.post-content ul {
-    margin-top: 0.3em;
-    margin-bottom: 0.3em;
-    list-style: none;
-    padding-left: 1.2em;
-}
+    ul li {
+        margin-bottom: 0.2em;
+        position: relative;
+    }
 
-.post-content ul li {
-    margin-bottom: 0.2em;
-    position: relative;
-}
+    ul li::before {
+        content: "•";
+        color: var(--primary);
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        position: absolute;
+        left: -1em;
+    }
 
-.post-content ul li::before {
-    content: "•";
-    color: var(--primary);
-    font-weight: bold;
-    display: inline-block;
-    width: 1em;
-    position: absolute;
-    left: -1em;
-}
+    ul ul li::before {
+        content: "○";
+    }
 
-/* Style for nested lists */
-.post-content ul ul li::before {
-    content: "○";
-}
+    dl {
+        margin-top: 0.5em;
+        margin-bottom: 1em;
+    }
 
-/* Custom styling for definition lists */
-.post-content dl {
-    margin-top: 0.5em;
-    margin-bottom: 1em;
-}
+    dt {
+        font-weight: 600;
+        margin-top: 0.5em;
+    }
 
-.post-content dt {
-    font-weight: 600;
-    margin-top: 0.5em;
-}
-
-.post-content dd {
-    margin-left: 1.5em;
-    margin-bottom: 0.3em;
+    dd {
+        margin-left: 1.5em;
+        margin-bottom: 0.3em;
+    }
 }
 
 /* Print-specific styles for CV */
