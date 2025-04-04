@@ -15,8 +15,6 @@ runs:
     - name: Authenticate to GitHub Container Registry
       shell: bash
       run: echo "${{ github.token }}" | docker login ghcr.io -u $ --password-stdin
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
     - name: Build Preview website
       shell: bash
       if: ${{ inputs.env == 'preview' }}
