@@ -16,23 +16,20 @@ ShowLicense: false
 EmailSubscribeForm: false
 ---
 
-Staff Software Engineer with expertise in infrastructure modernization, CI/CD optimization, and security automation.
-
-Proven ability to architect robust systems, enhance developer productivity, and cultivate high-performing engineering teams through effective leadership and mentorship.
+Staff Engineer delivering strategic improvements across platform scalability, security posture, and developer productivity. Proven expertise in architecting and leading complex initiatives, such as reducing critical vulnerabilities by 59% across 70+ services (CISO priority) and saving $500K+ annually via CI/CD optimization (Kubernetes). My impact bridges infrastructure and security domains, balancing robust system design with operational excellence and developer velocity. I am a passionate mentor dedicated to building high-performing teams and enabling engineers to lead independently.
 
 # Experience
 
 ## Staff Engineer, Infrastructure & Security, Grammarly, 11/2020 - Present
-- Reduced critical vulnerabilities by 59% by leading the Supply Chain Security initiative (CISO's top priority) and implementing end-to-end security controls for over 70 production services while maintaining a seamless developer experience with guided break-glass procedures.
-- Established a foundation for strategic enterprise initiatives by leading a team of five engineers to architect and deliver the Infra and CI/CD stack for the Customer Cloud PoC, enabling the deployment of Grammarly's text-processing services in Kubernetes environments for enterprise customers.
-- Achieved an annual cost reduction of $500K in CI by redesigning and launching infrastructure for Linux-based GitLab Runners on Kubernetes while improving scalability and developer self-service capabilities.
-- Delivered a 40% faster CI and 35% cost savings for iOS and macOS teams by implementing macOS GitLab Runners with self-service horizontal scaling and Apple Silicon processor support.
-- Improved security operations by formalizing vulnerability management processes and boosting CI security coverage by reducing security job failures from 30% to 4.5%.
-- Enhanced security coverage for business-critical resources by establishing Wiz-JFrog integration for workload scanning within the internal network, addressing security audit requirements.
-- Reduced engineer onboarding time from four weeks to one week by creating the Platform University learning program.
-- Improved engineering productivity by integrating tools like Sourcegraph and GitHub Copilot, recognized internally as top productivity enhancements (~220 MAU).
+- Reduced critical vulnerabilities by 59% by designing and leading the Supply Chain Security project (CISO's top priority) and implementing end-to-end security controls across 70 production services owned by 14 teams while maintaining a seamless developer experience with guided break-glass procedures. Led a team of 5 ICs through the project lifecycle. 
+- Led the delivery of the foundational K8s-based Infrastructure and CI/CD stack for the strategic Customer Cloud initiative, directly supporting company OKRs for enterprise market expansion. Led a team of 4 ICs through the project lifecycle.
+- Proactively identified inefficiencies and architected a new Kubernetes-based CI infrastructure for backend services teams, achieving $500K+ annual CI cost savings while enhancing scalability and developer self-service. 
+- Led and architected the implementation of scalable CI infrastructure for mobile and desktop client teams, delivering 40% faster CI builds and 35% cost savings for iOS/macOS teams and improving cross-functional developer productivity. 
+- Drove improvements in security operations by formalizing vulnerability management processes and optimizing CI security tooling, reducing critical job failures from 30% to 4.5%. 
+- Created and launched 'Platform University', a comprehensive onboarding program including documentation and hands-on labs, reducing platform ramp-up time for new engineers from 4 weeks to 1 week.
+- Led the integration of key developer productivity tools (Sourcegraph, GitHub Copilot), adopted by ~220 engineers monthly and recognized as top internal enhancements. 
+- Contributed strategically to talent acquisition by conducting System Design/SRE interviews for senior roles and designing specialized interview formats for critical infrastructure roles.
 - Enabled direct reports to lead complex initiatives independently by mentoring and leading teams of two to five engineers.
-- Strengthened the hiring process by shaping and conducting System Design and SRE interviews for Platform teams and creating specialized formats for critical engineering roles.
 
 ## DevOps Coach, Hillel IT School, part-time, 06/2020 - 04/2023
 - Achieved an 85% job placement rate for graduates by delivering practical DevOps training focused on industry-relevant skills and technologies.
