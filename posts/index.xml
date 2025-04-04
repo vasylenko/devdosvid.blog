@@ -11,8 +11,133 @@
     </image>
     <generator>Hugo -- 0.143.1</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Apr 2025 02:14:19 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 04 Apr 2025 02:12:44 +0200</lastBuildDate>
     <atom:link href="https://devdosvid.blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Delegate for Growth: Scaling Your Impact Through Others</title>
+      <link>https://devdosvid.blog/2025/04/04/delegate-for-growth-scaling-your-impact-through-others/</link>
+      <pubDate>Fri, 04 Apr 2025 00:36:23 +0200</pubDate>
+      <guid>https://devdosvid.blog/2025/04/04/delegate-for-growth-scaling-your-impact-through-others/</guid>
+      <description>Senior IC guide to scaling impact. Master peer influence &amp;amp; growth delegation to effectively lead without formal authority.</description>
+      <content:encoded><![CDATA[<p>As senior engineers, we often hit the ceiling at some point: our individual output is high, but writing more code or spinning up one more cluster does not feel like the best way to make more impact.</p>
+<p>A more significant impact comes from multiplying our efforts. But how do you do that without a team reporting to you? How do you effectively involve peers in your projects, influencing their priorities when you don&rsquo;t control their backlog or performance review?</p>
+<p>I had been looking for the answers to these questions for quite a long time, and then I realized there was no definitive answer or a straightforward rule to follow. Yet my brain always needs something systemized, and for those like me, I decided to compile this write-up: synthesis of my personal experience that worked well and learnings from books and blogs on that topic.</p>
+<p>The foundation of influencing peers lies in understanding their perspective. Before asking someone to take on work, especially the work you&rsquo;re <strong>proposing</strong>, you need to answer the fundamental question: <strong>What&rsquo;s in it for them?</strong></p>
+<p><em>This is my very first non-technical blog. And I hope it is not the last either</em> 😄</p>
+<h2 id="understanding-the-why-the-engine-of-peer-collaboration">Understanding the &ldquo;Why&rdquo;: The Engine of Peer Collaboration</h2>
+<p>Why would a fellow engineer prioritize something offered by a peer like you rather than a directive from their manager?</p>
+<p>It rarely comes down to just one reason. Usually, it&rsquo;s a blend of motivations deeply rooted in personal drive and effective team dynamics:</p>
+<ul>
+<li>
+<p><strong>The Hunger for Growth &amp; Mastery:</strong> Does this task offer a chance to learn a coveted new skill, dive deeper into an interesting technology, or tackle a challenge that stretches their capabilities? Tapping into this intrinsic drive is incredibly powerful.</p>
+</li>
+<li>
+<p><strong>The Desire for Impact &amp; Purpose:</strong> Can you clearly articulate how this work contributes to something meaningful? Whether it&rsquo;s a key product goal, squashing critical tech debt, or improving life for the whole team, connecting the task to the bigger picture gives it weight.</p>
+</li>
+<li>
+<p><strong>The Value of Visibility &amp; Recognition:</strong> Will this work get noticed? Could it lead to a cool demo, wider acknowledgment, or even open doors for future opportunities? Sometimes, positive exposure is a significant motivator.</p>
+</li>
+<li>
+<p><strong>The Power of Connection &amp; Collaboration:</strong> Is working closely with you part of the appeal? Offering a chance to learn directly from a respected senior peer, build rapport, and strengthen their network can be a draw in itself.</p>
+</li>
+<li>
+<p><strong>The Relief of Reducing Future Pain:</strong> Does this task promise to automate some hard work, fix a persistent thorn in the side, or establish a pattern that saves everyone time down the line? Framing it as an investment with future payoffs can be compelling.</p>
+</li>
+<li>
+<p><strong>The Spark of Intrinsic Interest:</strong> Sometimes, the problem itself is just plain fascinating, or it involves technology the peer genuinely enjoys working with. Don&rsquo;t underestimate the power of intellectual curiosity.</p>
+</li>
+<li>
+<p><strong>The Clarity of Strategic Alignment:</strong> This is often crucial. If you can demonstrate a direct link between the task and an agreed-upon team OKR, a strategic technical initiative, or a critical product outcome, it elevates the request beyond personal preference. It becomes a shared priority, providing justification for them (and potentially their manager) to consider adjusting focus.</p>
+</li>
+<li>
+<p><strong>The Pull of a Shared Technical Vision:</strong> If you&rsquo;re championing a specific technical direction or architecture that resonates with your peers, they&rsquo;ll be more inclined to pick up tasks that help realize that vision.</p>
+</li>
+<li>
+<p><strong>The Currency of Reciprocity &amp; Trust:</strong> Have you built &ldquo;relationship capital&rdquo;? A history of helping others, providing timely code reviews, and tackling unglamorous tasks yourself makes peers more likely to reciprocate when you offer an opportunity or ask for help.</p>
+</li>
+<li>
+<p><strong>The Strength of a Collaborative Culture:</strong> In healthy teams, there&rsquo;s an inherent understanding that helping each other and sharing interesting work benefits everyone. Your offer reinforces this positive norm.</p>
+</li>
+</ul>
+<p>Understanding these potential &ldquo;Whys&rdquo; is your key. Now, how do you translate that understanding into effectively approaching your peers?</p>
+<h2 id="crafting-the-opportunity-making-the-ask-compelling">Crafting the Opportunity: Making the Ask Compelling</h2>
+<p>Knowing the potential motivators allows you to frame your request not as an ask for help but as presenting a valuable opportunity.</p>
+<p><strong>Frame Based on Mutual Benefit:</strong> Tailor your pitch. Does this task primarily offer growth? Highlight the learning potential. Is it about impact? Emphasize its strategic importance. Does it align with their known interests? Point that out. Frame it as a chance for partnership or mentorship if that fits.</p>
+<p><strong>Lower the Barrier to Entry:</strong> Make it easy to say &ldquo;yes&rdquo; (or at least &ldquo;tell me more&rdquo;). Do the heavy lifting: clearly define the problem, provide essential context, perhaps outline potential approaches, and have a task ready in your tracker. Reduce the initial friction and cognitive load. A well-defined, manageable scope is far less daunting than a vague, massive undertaking.</p>
+<p><strong>Empower, Don&rsquo;t Micromanage:</strong> Offer challenging work that genuinely stretches capabilities. Provide clear context and constraints (the &ldquo;guardrails&rdquo;). Then – critically – give them the space to figure things out. Use check-ins and discussions about success criteria as support mechanisms, not control tactics. Explicitly state why you think this is a good opportunity for their development.</p>
+<p><strong>Build and Leverage Trust:</strong> This is paramount and underpins everything else when evolved. Your technical credibility and relationship capital are essential. Peers are more likely to engage when they:</p>
+<ul>
+<li>
+<p><strong>Trust the Problem &amp; Direction:</strong> They believe the problem is worth solving, and your proposed path (or the space you give them to find one) is sound.</p>
+</li>
+<li>
+<p><strong>Trust Your Motives:</strong> They believe you&rsquo;re genuinely offering this for their growth and the project&rsquo;s benefit, not just offloading grunt work. Your history of collaboration, giving credit, and supporting others builds this trust.</p>
+</li>
+<li>
+<p><strong>Trust Your Support:</strong> They believe you&rsquo;ll provide necessary context, answer questions, help unblock them, and shield them from related distractions.</p>
+</li>
+</ul>
+<p>Of course, even the best-framed opportunity might meet a scheduling conflict. What happens when the answer is &ldquo;I&rsquo;m swamped, I can&rsquo;t&rdquo;?</p>
+<h2 id="navigating-the-no-or-not-now">Navigating the &ldquo;No&rdquo; (or &ldquo;Not Now&rdquo;)</h2>
+<p>Hearing &ldquo;I don&rsquo;t have bandwidth&rdquo; is common and perfectly okay. How you <strong>respond matters</strong> for the long-term relationship and potential future collaboration.</p>
+<p><strong>Validate &amp; Understand First:</strong> Always start by acknowledging their situation.</p>
+<p>&ldquo;<em>Okay, totally understand you&rsquo;re busy.</em>&rdquo;</p>
+<p>Then, gently probe to distinguish bandwidth issues from lack of interest or alignment: &ldquo;<em>Just so I understand better, is the main challenge fitting it in time-wise alongside existing priorities, or does this opportunity maybe not feel like the right fit/priority compared to what&rsquo;s on your plate?</em>&rdquo;</p>
+<p><strong>Adapt the Ask:</strong> If bandwidth is the only issue, can the scope be reduced? Is there a smaller, valuable piece they could contribute (e.g., brainstorming, reviewing a design, tackling one specific sub-task)?</p>
+<p><strong>Align Priorities Collaboratively (Handle with Care):</strong> If the task is strategically important, the peer is interested, but they&rsquo;re blocked by conflicting priorities, this is where careful alignment is needed.</p>
+<ul>
+<li>
+<p><strong>Crucially: Get Peer Buy-in First:</strong> Never go directly to their manager without discussing it with your peer first.
+Doing so instantly undermines trust. Instead, frame the idea of talking to the manager together as a way to seek support for their growth and achieve important shared team/organization goals. It is also OK to talk to their manager one-on-one; just confirm that with your peer first. The same goes if your peer says they will do that. The main point is that you talked to your peer first, and you agreed to continue.</p>
+</li>
+<li>
+<p><strong>Frame the Manager Conversation:</strong> If you do talk to the manager with your peer, focus on shared objectives.
+&ldquo;<em>We identified this task as crucial for [Goal X]. [Peer Name] is interested, and it seems like a great growth opportunity. Given their current commitments, how can we best align priorities to make this feasible?</em>&rdquo; This turns it into collaborative problem-solving, not top-down pressure.</p>
+</li>
+</ul>
+<p><strong>Respect Boundaries:</strong> If the answer remains &ldquo;no,&rdquo; accept it gracefully. Thank them for considering it. Preserving the relationship is key for future influence.</p>
+<p><strong>Seek Alternatives:</strong> If it&rsquo;s not feasible, consider other peers. Can you tackle a smaller version of this task yourself? Is it worth deferring (sometimes rethinking reveals it wasn&rsquo;t as critical as initially thought)?</p>
+<p>Creating specific task-based opportunities is powerful, but scaling your impact as a senior IC involves broader strategies too.</p>
+<h2 id="broader-strategies-for-scaling-your-impact">Broader Strategies for Scaling Your Impact</h2>
+<p>Beyond direct &ldquo;delegation-as-opportunity,&rdquo; think about these leverage points:</p>
+<p><strong>Mentorship &amp; Sponsorship:</strong> Formalize the growth angle. Move beyond ad-hoc tasks to explicitly mentor someone through a larger piece of work. Actively sponsor them by highlighting their contributions and advocating for their visibility.</p>
+<p><strong>Creating Leverage via Platforms, Tools, &amp; Frameworks:</strong> Build things that make many engineers more effective. A robust library, a streamlined CI/CD pipeline, and a well-designed service template – that scale your impact exponentially without direct task delegation. You&rsquo;re essentially &ldquo;delegating&rdquo; efficiency and good practices.</p>
+<p><strong>Establishing Patterns and Best Practices:</strong> Defining and evangelizing clear architectural patterns, coding standards, or review processes guide the work of many, scaling your influence on quality, consistency, and maintainability. You&rsquo;re shaping how work gets done.</p>
+<p><strong>Architectural Guidance and Technical Strategy:</strong> Setting a clear, well-communicated technical direction influences the choices and priorities of the entire team or organization, ensuring efforts align towards a cohesive vision.</p>
+<p><strong>Effective Documentation and Knowledge Sharing:</strong> Writing clear design documents, Architecture Decision Records (ADRs), runbooks, and tutorials enable others to understand systems, contribute effectively, and operate autonomously within the technical landscape you&rsquo;ve helped shape.</p>
+<h2 id="time-to-try-practical-exercises">Time to Try: Practical Exercises</h2>
+<p>Two practical exercises to go and try.</p>
+<h3 id="find-a-growth-opportunity">Find a Growth Opportunity</h3>
+<p>Scan your current or upcoming workload. Identify one item that isn&rsquo;t just work to be done but represents a genuine development opportunity for a specific colleague. Think about why it&rsquo;s a good fit for them.</p>
+<p>Then, practice framing it as an opportunity, highlighting their potential gains (learning, impact, interest). Prepare the context they&rsquo;d need, and be ready to offer mentorship, not micromanagement. Anticipate how you&rsquo;d handle a &ldquo;too busy&rdquo; response using the adaptive strategies.</p>
+<h3 id="pitch-strategic-alignment">Pitch Strategic Alignment</h3>
+<p>Identify a task (on your plate or the team&rsquo;s radar) that directly supports a key team or organizational goal (e.g., an OKR, a critical roadmap item, fixing a major pain point).</p>
+<p>Clearly articulate why this task is strategically important – quantify its impact if possible. Mentally select a relevant peer and craft a concise pitch focusing first on the task&rsquo;s alignment with shared objectives and its broader impact, then on the technical details or learning aspects.</p>
+<p>Crucially, plan how you would suggest a collaborative discussion about priority alignment (potentially involving their manager, with their consent) if they express interest but cite conflicting priorities due to the task&rsquo;s strategic value.</p>
+<h2 id="afterword-influence-is-the-goal">Afterword: Influence is the Goal</h2>
+<p>Scaling your impact as an individual contributor isn&rsquo;t about wielding authority you don&rsquo;t have. It&rsquo;s about building <strong>influence, trust, and shared understanding.</strong> You leverage your technical credibility, strategic thinking, and relationship capital to create opportunities that are genuinely valuable for your peers while advancing collective goals.</p>
+<p>Peers engage not because they have to but because they want to – driven by growth, impact, interest, or trust in you and the mission.</p>
+<p>Prioritization becomes a conversation about value and strategic alignment, sometimes requiring collaborative discussions with managers, rather than a zero-sum game.</p>
+<p>Yes, this takes conscious effort. It requires empathy, clear communication, and sometimes navigating tricky conversations.</p>
+<p>But &ldquo;this <strong>is</strong> the path&rdquo; because focusing on building trust, clearly articulating the &ldquo;why,&rdquo; connecting tasks to strategic goals, and genuinely investing in the growth of those around you is the essence of being a force multiplier as a senior IC.</p>
+<p>Naturally, every team and individual is different, so consider these strategies a <strong>starting</strong> point or a toolkit to adapt to your unique context.</p>
+<div class="attention">
+    <p>Books on this topic:</p>
+<ul>
+<li>Will Larson&rsquo;s &ldquo;Staff Engineer&rdquo; and &ldquo;An Elegant Puzzle&rdquo;,</li>
+<li>Camille Fournier&rsquo;s &ldquo;The Manager&rsquo;s Path&rdquo;,</li>
+<li>&ldquo;The Software Engineer&rsquo;s Guidebook&rdquo; by Gergely Orosz,</li>
+<li>&ldquo;Drive&rdquo; by Daniel Pink for concepts around influence and motivation</li>
+</ul>
+<p>Blogs on this and many other great things:</p>
+<ul>
+<li>&ldquo;A Life Engineered&rdquo; by Steve Huynh <a href="https://alifeengineered.substack.com/">https://alifeengineered.substack.com/</a></li>
+<li>&ldquo;Pragmatic Engineer&rdquo; by Gergely Orosz <a href="https://newsletter.pragmaticengineer.com/about">https://newsletter.pragmaticengineer.com/about</a></li>
+</ul>
+
+</div>
+]]></content:encoded>
+    </item>
     <item>
       <title>Aws S3 Cost Optimization: Removing Redundancy and Implementing Intelligent Tiering</title>
       <link>https://devdosvid.blog/2025/01/29/aws-s3-cost-optimization-removing-redundancy-and-implementing-intelligent-tiering/</link>
@@ -3849,245 +3974,6 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
     Pro tip: you can leverage the <code>aws_ec2_instance_type_offerings</code> <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings">Data Source</a> and use its output with <code>aws_subnet</code> source to avoid availability zone hardcoding.
 </div></p>
 <p>To make the code more uniform and reusable, you can wrap it into a <a href="/2020/09/09/terraform-modules-explained.html">Terraform module</a> that accepts specific parameters (such as <code>instance_type</code> or <code>availability_zone</code>) as input variables.</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>mac1.metal and mac2.metal EC2 Instances — user experience</title>
-      <link>https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/</link>
-      <pubDate>Tue, 19 Jan 2021 00:00:00 +0000</pubDate>
-      <guid>https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/</guid>
-      <description>Apple macOS development ecosystem with the power of AWS Cloud</description>
-      <content:encoded><![CDATA[<p>This is the review of EC2 Mac instances, <strong>mac1.metal</strong> and <strong>mac2.metal</strong> — the new EC2 instance types that enables macOS workloads on AWS.</p>
-<div class="updatenotice">
-    <strong>Updated in June 2022</strong>: new information added about the offering — more cool stuff 🤩
-</div>
-<p>AWS announced EC2 macOS instances based on the Intel CPU on 30 November 2020.</p>
-<p>After a year and a half, the M1 Mac Instances arrived (7 July 2022).</p>
-<p>Some basic information about the Mac EC2 first:</p>
-<ul>
-<li>
-<p>The <strong>mac1.metal</strong> instances are Intel-based</p>
-<p>12 vCPU, 32 GiB RAM | 10 Gbps Network and 8 Gbps EBS bandwidth</p>
-</li>
-<li>
-<p>The <strong>mac2.metal</strong> instances are powered by M1 Apple Silicon processors.</p>
-<p>8 vCPU, 16 GiB RAM, 16 core Apple Neural Engine | 10 Gbps Network and 8 Gbps EBS bandwidth</p>
-</li>
-<li>
-<p>The Instance must be placed onto a <a href="https://aws.amazon.com/ec2/dedicated-hosts/">Dedicated Host</a> because these are physical Apple Mac minis.</p>
-</li>
-<li>
-<p>AWS has integrated the <a href="https://aws.amazon.com/ec2/nitro/">Nitro System</a> to make Macs work as EC2 instances and connect them with many other services.</p>
-<p>Mac minis are connected to the AWS Nitro via Thunderbolt, just a fun fact.</p>
-</li>
-<li>
-<p>You don&rsquo;t pay anything for the Instance itself, but you pay for the Dedicated Host leasing, and the minimum lease time is 24 hours.</p>
-</li>
-</ul>
-<div class="substack-embedded-container">
-    <h3>Subscribe to blog updates!</h3>
-    <iframe title="Substack" class="substack-embedded-iframe" src="https://devdosvid.substack.com/embed" height="250"
-            loading="lazy"></iframe>
-</div>
-<h2 id="ec2-mac-instance-prices-june-2022">EC2 Mac Instance Prices (June 2022)</h2>
-<p>On-demand pricing (us-east-1, North Virginia:</p>
-<ul>
-<li>mac1.metal costs 1.083 USD per hour or about 780 USD per month</li>
-<li>mac2.metal costs 0.65 USD per hour or about 470 USD per month</li>
-</ul>
-<div class="attention">
-    The mac2.metal costs 40% less compared to the mac1.metal
-</div>
-<p>Since the minimal leas time for the mac*.metal dedicated host is 24 hours, the first launch of the Instance is always costly, mind that while testing.</p>
-<p>One day of mac1.metal usage costs 26 USD</p>
-<p>One day of mac2.metal usage costs 15.6 USD</p>
-<p>To save yourself some money, you can use <a href="https://aws.amazon.com/savingsplans/compute-pricing/">Savings Plans</a>, both Instance and Compute, and save up to 44% off On-Demand pricing.</p>
-<p>For example, with the one-year commitment, partial 50% upfront payment, and the Instance Savings pricing model, you can get the 20% lower price per hour:</p>
-<ul>
-<li>mac1.metal — 0.867 USD</li>
-<li>mac2.metal — 0.52 USD</li>
-</ul>
-<p>Feel free to play with the numbers in the <a href="https://calculator.aws/#/createCalculator/EC2DedicatedHosts">Dedicated Host Pricing Calculator</a></p>
-<h2 id="supported-operating-systems-june-2022">Supported Operating Systems (June 2022)</h2>
-<ul>
-<li>macOS Mojave 10.14.x (mac1.metal only)</li>
-<li>macOS Catalina 10.15.x (mac1.metal only)</li>
-<li>macOS Big Sur 11.x</li>
-<li>macOS Monterey 12.x</li>
-</ul>
-<h2 id="what-can-it-do">What can it do</h2>
-<p>Here is a list of some features that the mac1.metal and mac2.metal instances have:</p>
-<ul>
-<li>
-<p>It lives in your VPC because it is an EC2 Instance, so you can access many other services.</p>
-</li>
-<li>
-<p>For EBS, it supports the attachment of up to 16 volumes for mac1 and 10 for mac2.</p>
-</li>
-<li>
-<p>It supports SSM Agent and Session Manager.</p>
-</li>
-<li>
-<p>It has several AWS tools pre-installed: AWS CLI, SSM Agent, EFS Utils, and more.</p>
-</li>
-<li>
-<p>It has pre-installed Enhanced Network Interface drivers. My test upload/download to S3 was about 300GB/s.</p>
-</li>
-<li>
-<p>It can report CPU metrics to CloudWatch.</p>
-</li>
-<li>
-<p>It supports <a href="https://devdosvid.blog/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/">AutoScaling</a> 🚀</p>
-</li>
-<li>
-<p>And you can share the instances using <a href="https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/">AWS Resource Access Manager</a>.</p>
-<p>For example, you can have a dedicated AWS account used solely as a MacOS-based farm in your organization where instances are shared with other accounts.</p>
-</li>
-<li>
-<p>Although there is a local SSD disk available, EC2 Mac can boot only from the EBS</p>
-</li>
-</ul>
-<div class="attention">
-    <p>The built-it physical SSD is still there and yours to use: build-cache, temporary storage, etc.</p>
-<p>However, AWS does not manage or support the Apple hardware&rsquo;s internal SSD. So there is no guarantee for data persistency.</p>
-
-</div>
-<h2 id="what-cant-it-do">What can&rsquo;t it do</h2>
-<ul>
-<li>It can&rsquo;t recognize the attached EBS if you connected it while the instance was running — you must reboot the instance to make it visible.</li>
-<li>It does not recognize the live resize of EBS either — you must reboot the instance so resize change can take effect.</li>
-<li>And the same relates to the Elastic Network Interfaces — attach and reboot the instance to apply it.</li>
-<li>It does not support several services that rely on additional custom software, such as &ldquo;EC2 Instance Connect&rdquo; and &ldquo;AWS Inspect.&rdquo; But I think that AWS will add macOS distros for those soon.</li>
-</ul>
-<p>As of July 2022, mac2.metal is not supported by Host Resource Groups. Therefore you cannot use mac2.metal Instances in Auto Scaling Groups. But AWS support says they are working on that, so fingers crossed!</p>
-<h2 id="launching-the-instance">Launching the Instance</h2>
-<figure>
-    
-    
-        
-        
-        
-        
-        
-        
-        <img loading="lazy"
-             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/launch_hu_2844c2ce9da1be7d.webp"width="400"height="200" />
-        
-    
-</figure>
-
-<p>Jeff Bar <a href="https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/">published</a> an excellent how-to about kickstart of the &ldquo;mac1.metal&rdquo;, so I will focus on things he did not mention.</p>
-<p>Once you allocated the Dedicated Host and launched an Instance, the underlying system connects the EBS with a root file system to the Mac Mini.</p>
-<p>The Mac metal Instances can boot from the EBS-backed macOS AMIs only.</p>
-<p>If you specified the EBS size to be more than AMI&rsquo;s default, you need to resize the disk inside the system manually after the boot <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
-<p>The time from the Instance launch until you can SSH into it varies between 5 and 20 minutes.</p>
-<p>You have the option to access it over SSH with your private key. For example, if you need to set up Screen Sharing, you must allow it through the &ldquo;kickstart&rdquo; command-line utility and set the user password <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
-<h2 id="customizing-the-instance">Customizing the Instance</h2>
-<p><figure>
-    
-    
-        
-        
-        
-        
-        
-        
-        <img loading="lazy"
-             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/customize_hu_c872125bfdd282b0.webp"width="400"height="200" />
-        
-    
-</figure>
-
-I wrote a separate post about mac1.metal AMI customization and creation, so check it out!</p>
-<p><a href="https://devdosvid.blog/2021/02/01/customizing-mac1.metal-ec2-ami-new-guts-more-glory/"><strong>Customizing mac1.metal EC2 AMI — new guts, more glory</strong></a></p>
-<p>Though, I would like to mention two things here:</p>
-<ol>
-<li>System updates are disabled by default in the macOS AMIs provided by AWS.</li>
-</ol>
-<p>But you can use them with no issues. For example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo softwareupdate --install --all
-</span></span></code></pre></div><ol start="2">
-<li>It is possible to set a custom screen resolution when connected to the instance using native ScreenSharing or any other VNC-compatible software.</li>
-</ol>
-<p>There are many tools, but AWS suggests the <a href="https://github.com/jakehilborn/displayplacer">displayplacer</a>.</p>
-<h2 id="destroying-the-instance">Destroying the Instance</h2>
-<p><figure>
-    
-    
-        
-        
-        
-        
-        
-        
-        <img loading="lazy"
-             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/cleanup_hu_9fe240d8bbddd46d.webp"width="400"height="200" />
-        
-    
-</figure>
-
-Such an easy thing to do, right? Well, it depends.</p>
-<p>The complex Instance scrubbing process begins when you click on the &ldquo;Terminate&rdquo; item in the Instance actions menu.</p>
-<p>AWS wants to ensure that anyone who uses the Host (Mac mini) after you will get your data stored neither on disks (including the physical SSD mentioned earlier) nor inside memory or NVRAM, nor anywhere else.</p>
-<p>AWS does not share many details of this scrubbing process, but it takes more than an hour to complete.</p>
-<p>When scrubbing is started, the Dedicated Host transitions to the Pending state.</p>
-<p>Dedicated Host transitions to Available state once scrubbing is finished. But you must wait for another 10-15 minutes to be able to release it finally.</p>
-<p>I don&rsquo;t know why they set the Available state value earlier than the Host is available for operations, but this is how it works now (Jan'21).</p>
-<p>Therefore, you can launch the next Instance on the same Host no earlier than ~1,5 hours after you terminated the previous one. That doesn&rsquo;t seem very pleasant in the first couple of weeks, but you will get used to it. 😄</p>
-<p>And again: you can release the &ldquo;mac1.metal&rdquo; Dedicated Host no earlier than 24 hours after it was allocated. So plan your tests wisely.</p>
-<div class="attention">
-    If the lease time of a host is more than 24 hours, you don’t need to wait for the scrubbing process to finish to release that host.
-</div>
-<h2 id="legal-things">Legal things</h2>
-<p>It is a bit tricky thing, but in short words:</p>
-<ul>
-<li>you are allowed to use the Instances solely for developer purposes</li>
-<li>you must agree to all software EULAs on the system</li>
-</ul>
-<p>Here is the license agreement of the macOS Monterey if you want to deal with it like a pro — <a href="https://www.apple.com/legal/sla/docs/macOSMonterey.pdf">link</a>.</p>
-<h2 id="some-more-cool-stuff-to-check">Some more cool stuff to check:</h2>
-<p><a href="https://github.com/aws/ec2-macos-init">EC2 macOS Init</a> launch daemon, which initializes Mac instances.
-<a href="https://github.com/aws/homebrew-aws">EC2 macOS Homebrew Tap</a> (Third-Party Repository) with several management tools which come pre-installed into macOS AMI from AWS.</p>
-<p>Indeed it is powerful, and it has its trade-offs, such as price and some technical constraints. But it is an actual macOS device natively integrated into the AWS environment. So I guess it is worth to be tried!</p>
-<p>Thanks for reading this! Stay tuned for more user experience feedback about baking custom AMIs, automated software provisioning with Ansible, and other adventures with mac1.metal!</p>
-<div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p><strong>How to resize the EBS at mac1.metal in Terminal</strong></p>
-<p>Get the identifier of EBS (look for the first one with GUID_partition_scheme):
-<code>diskutil list physical external</code></p>
-<p>Or here is a more advanced version to be used in a script:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#79c0ff">DISK_ID</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#ff7b72">$(</span>diskutil list physical external | grep <span style="color:#a5d6ff">&#39;GUID_partition_scheme&#39;</span>| tr -s <span style="color:#a5d6ff">&#39; &#39;</span> | cut -d<span style="color:#a5d6ff">&#39; &#39;</span> -f6<span style="color:#ff7b72">)</span>
-</span></span></code></pre></div><p>It would probably be <code>disk0</code> if you did not attach additional EBS.</p>
-<p>Then run the repair job for the disk, using its identifier:
-<code>diskutil repairDisk disk0</code></p>
-<p>Advanced version:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>yes | diskutil repairDisk <span style="color:#79c0ff">$DISK_ID</span>
-</span></span></code></pre></div><p>Now get the APFS container identifier (look for Apple_APFS):
-<code>diskutil list physical external</code></p>
-<p>Advanced version:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#79c0ff">APFS_ID</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#ff7b72">$(</span>diskutil list physical external | grep <span style="color:#a5d6ff">&#39;Apple_APFS&#39;</span> | tr -s <span style="color:#a5d6ff">&#39; &#39;</span> | cut -d<span style="color:#a5d6ff">&#39; &#39;</span> -f8<span style="color:#ff7b72">)</span>
-</span></span></code></pre></div><p>It would probably be <code>disk0s2</code> if you did not attach additional EBS.</p>
-<p>Finally, resize the APFS container:
-<code>diskutil apfs resizeContainer disk0s2</code></p>
-<p>Advanced version</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>diskutil apfs resizeContainer <span style="color:#79c0ff">$APFS_ID</span>
-</span></span></code></pre></div>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></li>
-<li id="fn:2">
-<p><strong>How to setup Screen Sharing at mac1.metal in Terminal</strong></p>
-<p>The <code>kickstart</code> command-line tool resides in <code>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/</code> so you&rsquo;ll better to cd into that directory for convenience:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Turn On Remote Management for a user to be specified later</span>
-</span></span><span style="display:flex;"><span>sudo ./kickstart -activate -configure -allowAccessFor -specifiedUsers
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Enable Remote Management for ec2-user user</span>
-</span></span><span style="display:flex;"><span>sudo ./kickstart -configure -users ec2-user -access -on -privs -all
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Set the user password </span>
-</span></span><span style="display:flex;"><span>sudo passwd ec2-user
-</span></span></code></pre></div>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></li>
-</ol>
-</div>
 ]]></content:encoded>
     </item>
   </channel>
