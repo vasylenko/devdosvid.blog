@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.143.1</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 Apr 2025 21:07:26 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 09 Apr 2025 00:06:11 +0200</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/mac1.metal-at-aws/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
@@ -623,10 +623,11 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 <p>You don&rsquo;t pay anything for the Instance itself, but you pay for the Dedicated Host leasing, and the minimum lease time is 24 hours.</p>
 </li>
 </ul>
-<div class="substack-embedded-container">
+<div class="beehiiv-subscribe-container">
     <h3>Subscribe to blog updates!</h3>
-    <iframe title="Substack" class="substack-embedded-iframe" src="https://devdosvid.substack.com/embed" height="250"
-            loading="lazy"></iframe>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
+        height="52" frameborder="0" scrolling="no"
+        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
 </div>
 <h2 id="ec2-mac-instance-prices-june-2022">EC2 Mac Instance Prices (June 2022)</h2>
 <p>On-demand pricing (us-east-1, North Virginia:</p>

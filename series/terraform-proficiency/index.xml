@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.143.1</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 Apr 2025 21:07:26 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 09 Apr 2025 00:06:11 +0200</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/terraform-proficiency/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>A Deep Dive Into Terraform Static Code Analysis Tools: Features and Comparisons</title>
@@ -468,10 +468,11 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
 <li>firstly, it allows arbitrary values to be stored and used afterward to implement lifecycle triggers of other resources</li>
 <li>secondly, it can be used to trigger provisioners when there isn&rsquo;t a more appropriate managed resource available.</li>
 </ul>
-<div class="substack-embedded-container">
+<div class="beehiiv-subscribe-container">
     <h3>Subscribe to blog updates!</h3>
-    <iframe title="Substack" class="substack-embedded-iframe" src="https://devdosvid.substack.com/embed" height="250"
-            loading="lazy"></iframe>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
+        height="52" frameborder="0" scrolling="no"
+        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
 </div>
 <p>For those of you, who are familiar with the null provider, the <code>terraform_data</code> resource might look very similar. And you&rsquo;re right!<br>
 Rather than being a separate provider, the terraform_data managed resource now offers the same capabilities as an integrated feature. Pretty cool! <br>
@@ -621,10 +622,11 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
 <p>It&rsquo;s been only a few months since Terraform 1.1 was released with the <code>moved</code> block that empowers the code refactoring.</p>
 <p>Now Terraform 1.2 is almost <a href="*https://github.com/hashicorp/terraform/releases/tag/v1.2.0-rc1*">ready</a> (as I am writing this blog in early May 2022) to bring three new efficient controls to the resource lifecycle.<br>
 These are three new expressions: <code>precondition</code>, <code>postcondition</code>, and <code>replace_triggered_by</code>.</p>
-<div class="substack-embedded-container">
+<div class="beehiiv-subscribe-container">
     <h3>Subscribe to blog updates!</h3>
-    <iframe title="Substack" class="substack-embedded-iframe" src="https://devdosvid.substack.com/embed" height="250"
-            loading="lazy"></iframe>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
+        height="52" frameborder="0" scrolling="no"
+        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
 </div>
 <h2 id="terraform-code-refactoring-with-the-moved-block">Terraform Code Refactoring With the Moved Block</h2>
 <p>Starting from the 1.1 version, Terraform users can use the <code>moved</code> block to describe the changes in resource or module addresses (or resources inside a module) in the form of code. <br>
@@ -1010,10 +1012,11 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 </span></span></code></pre></div><p>And just like with the <code>count</code> meta-argument, with the <code>for_each</code>, resource addresses will have the identifier named by the values provided to <code>for_each</code>.</p>
 <p>For example, here is how I would reference a resource created in the module with <code>for_each</code> described earlier:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span>bucket_name = module.bucket[<span style="color:#a5d6ff">&#34;photos&#34;</span>].name
-</span></span></code></pre></div><div class="substack-embedded-container">
+</span></span></code></pre></div><div class="beehiiv-subscribe-container">
     <h3>Subscribe to blog updates!</h3>
-    <iframe title="Substack" class="substack-embedded-iframe" src="https://devdosvid.substack.com/embed" height="250"
-            loading="lazy"></iframe>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
+        height="52" frameborder="0" scrolling="no"
+        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
 </div>
 <h2 id="conditional-resource-arguments-attributes-setting">Conditional resource arguments (attributes) setting</h2>
 <figure>
@@ -1653,10 +1656,11 @@ For example, you can make a plan from the resources I outlined below in this art
       <content:encoded><![CDATA[<p>Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds of lines of configuration code.</p>
 <p>I assume you already know some basics about Terraform or even tried to use it in some way before reading the article.</p>
 <p>Please note: I do not use real code examples with some specific provider like AWS or Google intentionally, just for the sake of simplicity.</p>
-<div class="substack-embedded-container">
+<div class="beehiiv-subscribe-container">
     <h3>Subscribe to blog updates!</h3>
-    <iframe title="Substack" class="substack-embedded-iframe" src="https://devdosvid.substack.com/embed" height="250"
-            loading="lazy"></iframe>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
+        height="52" frameborder="0" scrolling="no"
+        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
 </div>
 <h2 id="terraform-modules">Terraform modules</h2>
 <p>You already write modules even if you think you donâ€™t.</p>

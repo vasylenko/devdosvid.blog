@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.143.1</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 Apr 2025 21:07:26 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 09 Apr 2025 00:06:11 +0200</lastBuildDate>
     <atom:link href="https://devdosvid.blog/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Delegate for Growth: Scaling Your Impact Through Others</title>
@@ -1002,10 +1002,11 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
 <p>The HTTP API can have multiple routes (e.g., &ldquo;/calendar,&rdquo; &ldquo;/meters,&rdquo; and so on) and use different Authorizers per route or a single one for all of them. Clients that send their requests to the API must include specific identification information in their request header or query string. In this project, I go with a single authorizer to keep it simple.</p>
 <p>Upon receiving a request, the API service forwards a payload to the Authorizer containing metadata about the request, such as headers and query string components. The Authorizer processes this metadata (headers, in my case) to determine the request&rsquo;s legitimacy.</p>
 <p>The decision, Allow or Deny, is passed back to the API, and if allowed, the API service then forwards the original request to the back-end, which, in this case, is implemented by additional Lambda functions. Otherwise, the client gets a response with a 403 status code, and the original request is not passed to the back-end.</p>
-<div class="substack-embedded-container">
+<div class="beehiiv-subscribe-container">
     <h3>Subscribe to blog updates!</h3>
-    <iframe title="Substack" class="substack-embedded-iframe" src="https://devdosvid.substack.com/embed" height="250"
-            loading="lazy"></iframe>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
+        height="52" frameborder="0" scrolling="no"
+        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
 </div>
 <h2 id="behind-the-decision-why-such-a-setup">Behind The Decision: Why Such a Setup?</h2>
 <p>Choosing the right architectural setup is critical in balancing simplicity, cost-efficiency, and security. In this section, we uncover why integrating AWS HTTP API Gateway with Lambda Authorizer is a compelling choice, offering a streamlined approach without compromising security.</p>
@@ -1376,10 +1377,11 @@ AWS HTTP API code logically represents the &ldquo;global&rdquo; (within a projec
 <li>firstly, it allows arbitrary values to be stored and used afterward to implement lifecycle triggers of other resources</li>
 <li>secondly, it can be used to trigger provisioners when there isn&rsquo;t a more appropriate managed resource available.</li>
 </ul>
-<div class="substack-embedded-container">
+<div class="beehiiv-subscribe-container">
     <h3>Subscribe to blog updates!</h3>
-    <iframe title="Substack" class="substack-embedded-iframe" src="https://devdosvid.substack.com/embed" height="250"
-            loading="lazy"></iframe>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
+        height="52" frameborder="0" scrolling="no"
+        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
 </div>
 <p>For those of you, who are familiar with the null provider, the <code>terraform_data</code> resource might look very similar. And you&rsquo;re right!<br>
 Rather than being a separate provider, the terraform_data managed resource now offers the same capabilities as an integrated feature. Pretty cool! <br>
@@ -2013,10 +2015,11 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
 <p>It&rsquo;s been only a few months since Terraform 1.1 was released with the <code>moved</code> block that empowers the code refactoring.</p>
 <p>Now Terraform 1.2 is almost <a href="*https://github.com/hashicorp/terraform/releases/tag/v1.2.0-rc1*">ready</a> (as I am writing this blog in early May 2022) to bring three new efficient controls to the resource lifecycle.<br>
 These are three new expressions: <code>precondition</code>, <code>postcondition</code>, and <code>replace_triggered_by</code>.</p>
-<div class="substack-embedded-container">
+<div class="beehiiv-subscribe-container">
     <h3>Subscribe to blog updates!</h3>
-    <iframe title="Substack" class="substack-embedded-iframe" src="https://devdosvid.substack.com/embed" height="250"
-            loading="lazy"></iframe>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
+        height="52" frameborder="0" scrolling="no"
+        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
 </div>
 <h2 id="terraform-code-refactoring-with-the-moved-block">Terraform Code Refactoring With the Moved Block</h2>
 <p>Starting from the 1.1 version, Terraform users can use the <code>moved</code> block to describe the changes in resource or module addresses (or resources inside a module) in the form of code. <br>
@@ -2546,10 +2549,11 @@ Check the following detailed guide from HashiCorp that explains how to do that �
 </span></span></code></pre></div><p>And just like with the <code>count</code> meta-argument, with the <code>for_each</code>, resource addresses will have the identifier named by the values provided to <code>for_each</code>.</p>
 <p>For example, here is how I would reference a resource created in the module with <code>for_each</code> described earlier:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span>bucket_name = module.bucket[<span style="color:#a5d6ff">&#34;photos&#34;</span>].name
-</span></span></code></pre></div><div class="substack-embedded-container">
+</span></span></code></pre></div><div class="beehiiv-subscribe-container">
     <h3>Subscribe to blog updates!</h3>
-    <iframe title="Substack" class="substack-embedded-iframe" src="https://devdosvid.substack.com/embed" height="250"
-            loading="lazy"></iframe>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
+        height="52" frameborder="0" scrolling="no"
+        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
 </div>
 <h2 id="conditional-resource-arguments-attributes-setting">Conditional resource arguments (attributes) setting</h2>
 <figure>
@@ -3490,10 +3494,11 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
 <p>A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.</p>
 <p>It is “true edge” because Functions work on 200+ edge locations (<a href="https://aws.amazon.com/cloudfront/features/?whats-new-cloudfront.sort-by=item.additionalFields.postDateTime&amp;whats-new-cloudfront.sort-order=desc#Edge_Computing">link to doc</a>) while its predecessor, the Lambda@Edge, runs on a small number of regional edge caches.</p>
 <p>One of the use cases for Lambda@Edge was adding security HTTP headers (it’s even listed on the <a href="https://aws.amazon.com/lambda/edge/">product page</a>), and now there is one more way to make it using CloudFront Functions.</p>
-<div class="substack-embedded-container">
+<div class="beehiiv-subscribe-container">
     <h3>Subscribe to blog updates!</h3>
-    <iframe title="Substack" class="substack-embedded-iframe" src="https://devdosvid.substack.com/embed" height="250"
-            loading="lazy"></iframe>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
+        height="52" frameborder="0" scrolling="no"
+        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
 </div>
 <h2 id="what-are-security-headers-and-why-it-matters">What are security headers, and why it matters</h2>
 <p>Security Headers are one of the web security pillars.</p>
