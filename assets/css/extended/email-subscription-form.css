@@ -1,0 +1,17 @@
+.beehiiv-subscribe-container {
+    background: var(--color-background);
+    width: 100%;
+    border: none;
+    text-align: center;
+}
+
+.beehiiv-subscribe-container h3 {
+    font-weight: bold;
+    font-size: 1.5em;
+    padding-bottom: 0;
+    margin-bottom: 5px;
+}
+
+.beehiiv-subscribe-container iframe {
+    width: 100%;
+}
