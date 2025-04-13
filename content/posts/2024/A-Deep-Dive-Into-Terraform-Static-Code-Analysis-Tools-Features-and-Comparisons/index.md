@@ -41,6 +41,8 @@ With a clear understanding of the necessary features in a static code analyzer, 
 
 Let's take a closer look at some leading options!
 
+{{< email-subscription >}}
+
 ## Meet the Static Code Analyzers for Terraform
 Following on what makes a static code analyzer robust, let's dive into some open-source tools that exemplify these essential features.
 
