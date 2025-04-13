@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.143.1</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 09 Apr 2025 00:06:11 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 13 Apr 2025 15:55:55 +0200</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/terraform-proficiency/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>A Deep Dive Into Terraform Static Code Analysis Tools: Features and Comparisons</title>
@@ -43,6 +43,13 @@
 </ul>
 <p>With a clear understanding of the necessary features in a static code analyzer, which tools on the market best fulfill these criteria?</p>
 <p>Let&rsquo;s take a closer look at some leading options!</p>
+<div class="beehiiv-subscribe-container">
+    <h3>Subscribe to blog updates!</h3>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
+        height="52" frameborder="0" scrolling="no"
+        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
+</div>
 <h2 id="meet-the-static-code-analyzers-for-terraform">Meet the Static Code Analyzers for Terraform</h2>
 <p>Following on what makes a static code analyzer robust, let&rsquo;s dive into some open-source tools that exemplify these essential features.</p>
 <p>I picked six tools for my review. I know there are more on the market, but I focused on <strong>open-source, free-to-use</strong> tools and those that provide at least &gt;100 out-of-the-box scanning policies for Terraform.</p>
@@ -473,6 +480,7 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
     <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
         height="52" frameborder="0" scrolling="no"
         style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
 </div>
 <p>For those of you, who are familiar with the null provider, the <code>terraform_data</code> resource might look very similar. And you&rsquo;re right!<br>
 Rather than being a separate provider, the terraform_data managed resource now offers the same capabilities as an integrated feature. Pretty cool! <br>
@@ -627,6 +635,7 @@ These are three new expressions: <code>precondition</code>, <code>postcondition<
     <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
         height="52" frameborder="0" scrolling="no"
         style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
 </div>
 <h2 id="terraform-code-refactoring-with-the-moved-block">Terraform Code Refactoring With the Moved Block</h2>
 <p>Starting from the 1.1 version, Terraform users can use the <code>moved</code> block to describe the changes in resource or module addresses (or resources inside a module) in the form of code. <br>
@@ -1017,6 +1026,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
     <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
         height="52" frameborder="0" scrolling="no"
         style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
 </div>
 <h2 id="conditional-resource-arguments-attributes-setting">Conditional resource arguments (attributes) setting</h2>
 <figure>
@@ -1661,6 +1671,7 @@ For example, you can make a plan from the resources I outlined below in this art
     <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
         height="52" frameborder="0" scrolling="no"
         style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
 </div>
 <h2 id="terraform-modules">Terraform modules</h2>
 <p>You already write modules even if you think you donâ€™t.</p>

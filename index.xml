@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.143.1</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 09 Apr 2025 00:06:11 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 13 Apr 2025 15:55:55 +0200</lastBuildDate>
     <atom:link href="https://devdosvid.blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Delegate for Growth: Scaling Your Impact Through Others</title>
@@ -59,7 +59,14 @@
 <p><strong>The Strength of a Collaborative Culture:</strong> In healthy teams, there&rsquo;s an inherent understanding that helping each other and sharing interesting work benefits everyone. Your offer reinforces this positive norm.</p>
 </li>
 </ul>
-<p>Understanding these potential &ldquo;Whys&rdquo; is your key. Now, how do you translate that understanding into effectively approaching your peers?</p>
+<p>Understanding these potential &ldquo;Whys&rdquo; is your key. Now, how do you translate that understanding into effectively approaching your peers?
+<div class="beehiiv-subscribe-container">
+    <h3>Subscribe to blog updates!</h3>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
+        height="52" frameborder="0" scrolling="no"
+        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
+</div></p>
 <h2 id="crafting-the-opportunity-making-the-ask-compelling">Crafting the Opportunity: Making the Ask Compelling</h2>
 <p>Knowing the potential motivators allows you to frame your request not as an ask for help but as presenting a valuable opportunity.</p>
 <p><strong>Frame Based on Mutual Benefit:</strong> Tailor your pitch. Does this task primarily offer growth? Highlight the learning potential. Is it about impact? Emphasize its strategic importance. Does it align with their known interests? Point that out. Frame it as a chance for partnership or mentorship if that fits.</p>
@@ -554,6 +561,13 @@ The first bucket contains CI/CD builds and cached third-party artifacts — esse
 </ul>
 <p>With a clear understanding of the necessary features in a static code analyzer, which tools on the market best fulfill these criteria?</p>
 <p>Let&rsquo;s take a closer look at some leading options!</p>
+<div class="beehiiv-subscribe-container">
+    <h3>Subscribe to blog updates!</h3>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
+        height="52" frameborder="0" scrolling="no"
+        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
+</div>
 <h2 id="meet-the-static-code-analyzers-for-terraform">Meet the Static Code Analyzers for Terraform</h2>
 <p>Following on what makes a static code analyzer robust, let&rsquo;s dive into some open-source tools that exemplify these essential features.</p>
 <p>I picked six tools for my review. I know there are more on the market, but I focused on <strong>open-source, free-to-use</strong> tools and those that provide at least &gt;100 out-of-the-box scanning policies for Terraform.</p>
@@ -1007,6 +1021,7 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
     <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
         height="52" frameborder="0" scrolling="no"
         style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
 </div>
 <h2 id="behind-the-decision-why-such-a-setup">Behind The Decision: Why Such a Setup?</h2>
 <p>Choosing the right architectural setup is critical in balancing simplicity, cost-efficiency, and security. In this section, we uncover why integrating AWS HTTP API Gateway with Lambda Authorizer is a compelling choice, offering a streamlined approach without compromising security.</p>
@@ -1382,6 +1397,7 @@ AWS HTTP API code logically represents the &ldquo;global&rdquo; (within a projec
     <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
         height="52" frameborder="0" scrolling="no"
         style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
 </div>
 <p>For those of you, who are familiar with the null provider, the <code>terraform_data</code> resource might look very similar. And you&rsquo;re right!<br>
 Rather than being a separate provider, the terraform_data managed resource now offers the same capabilities as an integrated feature. Pretty cool! <br>
@@ -2020,6 +2036,7 @@ These are three new expressions: <code>precondition</code>, <code>postcondition<
     <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
         height="52" frameborder="0" scrolling="no"
         style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
 </div>
 <h2 id="terraform-code-refactoring-with-the-moved-block">Terraform Code Refactoring With the Moved Block</h2>
 <p>Starting from the 1.1 version, Terraform users can use the <code>moved</code> block to describe the changes in resource or module addresses (or resources inside a module) in the form of code. <br>
@@ -2554,6 +2571,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
     <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
         height="52" frameborder="0" scrolling="no"
         style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
 </div>
 <h2 id="conditional-resource-arguments-attributes-setting">Conditional resource arguments (attributes) setting</h2>
 <figure>
@@ -3499,6 +3517,7 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
     <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
         height="52" frameborder="0" scrolling="no"
         style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
 </div>
 <h2 id="what-are-security-headers-and-why-it-matters">What are security headers, and why it matters</h2>
 <p>Security Headers are one of the web security pillars.</p>
