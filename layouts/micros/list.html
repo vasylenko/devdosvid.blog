@@ -17,27 +17,15 @@
                 {{ .Date.Format "Jan 2" }}
             </time>
         </div>
-        <div class="micro-bubble">
+        <div class="micro-card">
             {{- if .Title }}
             <h3 class="micro-item-title">
                 <a href="{{ .Permalink }}">{{ .Title }}</a>
             </h3>
             {{- end }}
-            <div class="micro-summary">
-                {{- if .Summary }}
-                {{ .Summary }}
-                {{- else }}
-                {{ .Content | truncate 200 }}
-                {{- end }}
+            <div class="micro-content">
+                {{ .Content }}
             </div>
-            {{- if .Params.tags }}
-            <div class="micro-item-tags">
-                {{- range .Params.tags }}
-                <span class="micro-tag">#{{ . }}</span>
-                {{- end }}
-            </div>
-            {{- end }}
-            <a href="{{ .Permalink }}" class="micro-link">Read more →</a>
         </div>
     </article>
     {{- end }}
@@ -60,17 +48,17 @@
 
 .micro-item {
     display: flex;
-    margin-bottom: 30px;
+    margin-bottom: 24px;
     position: relative;
 }
 
 .micro-item::before {
     content: '';
     position: absolute;
-    left: 80px;
-    top: 25px;
-    bottom: -30px;
-    width: 2px;
+    left: 60px;
+    top: 0;
+    bottom: -24px;
+    width: 1px;
     background: var(--border);
 }
 
@@ -79,48 +67,24 @@
 }
 
 .micro-date {
-    width: 70px;
-    padding-right: 10px;
+    width: 50px;
+    padding-right: 15px;
     text-align: right;
     flex-shrink: 0;
 }
 
 .micro-date time {
-    font-size: 0.9em;
+    font-size: 0.85em;
     color: var(--secondary);
     font-weight: 500;
 }
 
-.micro-bubble {
+.micro-card {
     flex: 1;
     background: var(--entry);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 15px 20px;
-    margin-left: 20px;
-    position: relative;
-}
-
-.micro-bubble::before {
-    content: '';
-    position: absolute;
-    left: -8px;
-    top: 20px;
-    width: 0;
-    height: 0;
-    border: 8px solid transparent;
-    border-right-color: var(--entry);
-}
-
-.micro-bubble::after {
-    content: '';
-    position: absolute;
-    left: -9px;
-    top: 20px;
-    width: 0;
-    height: 0;
-    border: 8px solid transparent;
-    border-right-color: var(--border);
+    border-left: 3px solid var(--primary);
+    padding: 16px 20px;
+    margin-left: 15px;
 }
 
 .micro-item-title {
@@ -137,32 +101,9 @@
     text-decoration: underline;
 }
 
-.micro-summary {
+.micro-content {
     color: var(--content);
     line-height: 1.6;
-    margin-bottom: 10px;
-}
-
-.micro-item-tags {
-    margin: 10px 0;
-}
-
-.micro-tag {
-    display: inline-block;
-    color: var(--primary);
-    font-size: 0.85em;
-    margin-right: 8px;
-}
-
-.micro-link {
-    color: var(--primary);
-    text-decoration: none;
-    font-size: 0.9em;
-    font-weight: 500;
-}
-
-.micro-link:hover {
-    text-decoration: underline;
 }
 
 .empty-state {
@@ -197,38 +138,32 @@
 
 @media (max-width: 768px) {
     .micro-posts-timeline {
-        padding: 10px;
+        padding: 15px;
     }
     
     .micro-item::before {
-        left: 60px;
+        left: 40px;
     }
     
     .micro-date {
-        width: 50px;
+        width: 40px;
         font-size: 0.8em;
     }
     
-    .micro-bubble {
-        margin-left: 15px;
+    .micro-card {
+        margin-left: 10px;
         padding: 12px 16px;
-    }
-    
-    .micro-bubble::before,
-    .micro-bubble::after {
-        left: -6px;
-        border-width: 6px;
     }
 }
 
 @media (max-width: 480px) {
     .micro-posts-timeline {
-        padding: 5px;
+        padding: 10px;
     }
     
     .micro-item {
         flex-direction: column;
-        margin-bottom: 20px;
+        margin-bottom: 16px;
     }
     
     .micro-item::before {
@@ -238,16 +173,12 @@
     .micro-date {
         width: 100%;
         text-align: left;
-        margin-bottom: 5px;
+        margin-bottom: 8px;
     }
     
-    .micro-bubble {
+    .micro-card {
         margin-left: 0;
-    }
-    
-    .micro-bubble::before,
-    .micro-bubble::after {
-        display: none;
+        border-left: 2px solid var(--primary);
     }
 }
 </style>

@@ -18,20 +18,8 @@
                 {{- end }}
             </div>
             <div class="micro-card-content">
-                {{- if .Summary }}
-                {{ .Summary }}
-                {{- else }}
-                {{ .Content | truncate 150 }}
-                {{- end }}
+                {{ .Content }}
             </div>
-            {{- if .Params.tags }}
-            <div class="micro-card-tags">
-                {{- range first 3 .Params.tags }}
-                <span class="micro-tag">#{{ . }}</span>
-                {{- end }}
-            </div>
-            {{- end }}
-            <a href="{{ .Permalink }}" class="micro-card-link">Read more</a>
         </article>
         {{- end }}
     </div>
@@ -104,29 +92,6 @@
 .micro-card-content {
     color: var(--content);
     line-height: 1.6;
-    margin-bottom: 15px;
-}
-
-.micro-card-tags {
-    margin-bottom: 15px;
-}
-
-.micro-tag {
-    display: inline-block;
-    color: var(--primary);
-    font-size: 0.85em;
-    margin-right: 8px;
-}
-
-.micro-card-link {
-    color: var(--primary);
-    text-decoration: none;
-    font-size: 0.9em;
-    font-weight: 500;
-}
-
-.micro-card-link:hover {
-    text-decoration: underline;
 }
 
 @media (max-width: 768px) {

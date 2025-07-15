@@ -23,14 +23,6 @@
     <footer class="micro-footer">
         {{- partial "post_meta.html" . -}}
         {{- partial "edit_post.html" . -}}
-        
-        {{- if .Params.tags }}
-        <div class="micro-tags">
-            {{- range .Params.tags }}
-            <span class="micro-tag">#{{ . }}</span>
-            {{- end }}
-        </div>
-        {{- end }}
     </footer>
 </article>
 
@@ -81,17 +73,6 @@
     margin-top: 20px;
     padding-top: 15px;
     border-top: 1px solid var(--border);
-}
-
-.micro-tags {
-    margin-top: 10px;
-}
-
-.micro-tag {
-    display: inline-block;
-    color: var(--primary);
-    font-size: 0.9em;
-    margin-right: 10px;
 }
 </style>
 
