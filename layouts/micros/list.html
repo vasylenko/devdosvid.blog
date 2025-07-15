@@ -8,8 +8,8 @@
 </header>
 
 <div class="micro-posts-timeline">
-    {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
-    {{- $micros := where $pages "Section" "micros" }}
+    {{- $micros := where (where site.RegularPages "Section" "micros") ".Params.draft" "!=" true }}
+    {{- if $micros }}
     {{- range $micros.ByDate.Reverse }}
     <article class="micro-item">
         <div class="micro-date">
@@ -40,6 +40,14 @@
             <a href="{{ .Permalink }}" class="micro-link">Read more →</a>
         </div>
     </article>
+    {{- end }}
+    {{- else }}
+    <div class="empty-state">
+        <div class="empty-state-icon">📝</div>
+        <h3>No micro posts yet</h3>
+        <p>Start sharing your quick thoughts and updates!</p>
+        <p>Use <code>./newmicro.sh "your thought"</code> to create your first micro post.</p>
+    </div>
     {{- end }}
 </div>
 
@@ -155,6 +163,92 @@
 
 .micro-link:hover {
     text-decoration: underline;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--secondary);
+}
+
+.empty-state-icon {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    margin: 0 0 15px 0;
+    color: var(--primary);
+    font-size: 1.5em;
+}
+
+.empty-state p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.empty-state code {
+    background: var(--code-bg, #f4f4f4);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: var(--content, inherit);
+}
+
+@media (max-width: 768px) {
+    .micro-posts-timeline {
+        padding: 10px;
+    }
+    
+    .micro-item::before {
+        left: 60px;
+    }
+    
+    .micro-date {
+        width: 50px;
+        font-size: 0.8em;
+    }
+    
+    .micro-bubble {
+        margin-left: 15px;
+        padding: 12px 16px;
+    }
+    
+    .micro-bubble::before,
+    .micro-bubble::after {
+        left: -6px;
+        border-width: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .micro-posts-timeline {
+        padding: 5px;
+    }
+    
+    .micro-item {
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+    
+    .micro-item::before {
+        display: none;
+    }
+    
+    .micro-date {
+        width: 100%;
+        text-align: left;
+        margin-bottom: 5px;
+    }
+    
+    .micro-bubble {
+        margin-left: 0;
+    }
+    
+    .micro-bubble::before,
+    .micro-bubble::after {
+        display: none;
+    }
 }
 </style>
 
