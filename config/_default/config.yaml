@@ -38,6 +38,10 @@ menu:
           name: "All posts"
           url: /archive
           weight: 20
+        - identifier: micros
+          name: "Micro Posts"
+          url: /micros/
+          weight: 15
         - identifier: category
           name: "RSS Feed"
           url: /index.xml
@@ -87,6 +91,7 @@ imaging:
 
 ### THEME SETTINGS
 params:
+    mainSections: ["posts", "micros"]
     opengraphimage: "/assets/img/websitelogo.jpg"
     twitterimage: "/assets/img/websitelogo.jpg"
     twittersite: "@vasylenko"

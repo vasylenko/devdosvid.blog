@@ -1,0 +1,161 @@
+{{- define "main" }}
+
+<header class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{- if .Description }}
+    <div class="post-description">{{ .Description }}</div>
+    {{- end }}
+</header>
+
+<div class="micro-posts-timeline">
+    {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+    {{- $micros := where $pages "Section" "micros" }}
+    {{- range $micros.ByDate.Reverse }}
+    <article class="micro-item">
+        <div class="micro-date">
+            <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                {{ .Date.Format "Jan 2" }}
+            </time>
+        </div>
+        <div class="micro-bubble">
+            {{- if .Title }}
+            <h3 class="micro-item-title">
+                <a href="{{ .Permalink }}">{{ .Title }}</a>
+            </h3>
+            {{- end }}
+            <div class="micro-summary">
+                {{- if .Summary }}
+                {{ .Summary }}
+                {{- else }}
+                {{ .Content | truncate 200 }}
+                {{- end }}
+            </div>
+            {{- if .Params.tags }}
+            <div class="micro-item-tags">
+                {{- range .Params.tags }}
+                <span class="micro-tag">#{{ . }}</span>
+                {{- end }}
+            </div>
+            {{- end }}
+            <a href="{{ .Permalink }}" class="micro-link">Read more →</a>
+        </div>
+    </article>
+    {{- end }}
+</div>
+
+<style>
+.micro-posts-timeline {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.micro-item {
+    display: flex;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.micro-item::before {
+    content: '';
+    position: absolute;
+    left: 80px;
+    top: 25px;
+    bottom: -30px;
+    width: 2px;
+    background: var(--border);
+}
+
+.micro-item:last-child::before {
+    display: none;
+}
+
+.micro-date {
+    width: 70px;
+    padding-right: 10px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.micro-date time {
+    font-size: 0.9em;
+    color: var(--secondary);
+    font-weight: 500;
+}
+
+.micro-bubble {
+    flex: 1;
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-left: 20px;
+    position: relative;
+}
+
+.micro-bubble::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 20px;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-right-color: var(--entry);
+}
+
+.micro-bubble::after {
+    content: '';
+    position: absolute;
+    left: -9px;
+    top: 20px;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-right-color: var(--border);
+}
+
+.micro-item-title {
+    margin: 0 0 10px 0;
+    font-size: 1.1em;
+}
+
+.micro-item-title a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.micro-item-title a:hover {
+    text-decoration: underline;
+}
+
+.micro-summary {
+    color: var(--content);
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.micro-item-tags {
+    margin: 10px 0;
+}
+
+.micro-tag {
+    display: inline-block;
+    color: var(--primary);
+    font-size: 0.85em;
+    margin-right: 8px;
+}
+
+.micro-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.micro-link:hover {
+    text-decoration: underline;
+}
+</style>
+
+{{- end }}

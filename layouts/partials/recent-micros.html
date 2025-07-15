@@ -1,0 +1,144 @@
+{{- $micros := where (where site.RegularPages "Section" "micros") ".Params.draft" "!=" true }}
+{{- if $micros }}
+<section class="recent-micros">
+    <div class="micros-header">
+        <h2>Latest Micro Posts</h2>
+        <a href="/micros/" class="micros-view-all">View all →</a>
+    </div>
+    
+    <div class="micros-grid">
+        {{- range first 3 $micros.ByDate.Reverse }}
+        <article class="micro-card">
+            <div class="micro-card-header">
+                <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                    {{ .Date.Format "Jan 2" }}
+                </time>
+                {{- if .Title }}
+                <h3 class="micro-card-title">{{ .Title }}</h3>
+                {{- end }}
+            </div>
+            <div class="micro-card-content">
+                {{- if .Summary }}
+                {{ .Summary }}
+                {{- else }}
+                {{ .Content | truncate 150 }}
+                {{- end }}
+            </div>
+            {{- if .Params.tags }}
+            <div class="micro-card-tags">
+                {{- range first 3 .Params.tags }}
+                <span class="micro-tag">#{{ . }}</span>
+                {{- end }}
+            </div>
+            {{- end }}
+            <a href="{{ .Permalink }}" class="micro-card-link">Read more</a>
+        </article>
+        {{- end }}
+    </div>
+</section>
+
+<style>
+.recent-micros {
+    margin: 40px 0;
+    padding: 30px 0;
+    border-top: 1px solid var(--border);
+}
+
+.micros-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.micros-header h2 {
+    margin: 0;
+    font-size: 1.5em;
+    color: var(--primary);
+}
+
+.micros-view-all {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.micros-view-all:hover {
+    text-decoration: underline;
+}
+
+.micros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.micro-card {
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    transition: box-shadow 0.2s ease;
+}
+
+.micro-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.micro-card-header {
+    margin-bottom: 15px;
+}
+
+.micro-card-header time {
+    font-size: 0.9em;
+    color: var(--secondary);
+    font-weight: 500;
+}
+
+.micro-card-title {
+    margin: 5px 0 0 0;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.micro-card-content {
+    color: var(--content);
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.micro-card-tags {
+    margin-bottom: 15px;
+}
+
+.micro-tag {
+    display: inline-block;
+    color: var(--primary);
+    font-size: 0.85em;
+    margin-right: 8px;
+}
+
+.micro-card-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.micro-card-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .micros-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .micros-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+</style>
+{{- end }}

@@ -1,0 +1,96 @@
+{{- define "main" }}
+
+<article class="micro-post">
+    <header class="micro-header">
+        {{ partial "breadcrumbs.html" . }}
+        <div class="micro-meta">
+            <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                {{ .Date.Format "Jan 2, 2006 at 3:04 PM" }}
+            </time>
+            {{- if .Draft }}
+            <span class="draft-badge">Draft</span>
+            {{- end }}
+        </div>
+        {{- if .Title }}
+        <h1 class="micro-title">{{ .Title }}</h1>
+        {{- end }}
+    </header>
+
+    <div class="micro-content">
+        {{- .Content }}
+    </div>
+
+    <footer class="micro-footer">
+        {{- partial "post_meta.html" . -}}
+        {{- partial "edit_post.html" . -}}
+        
+        {{- if .Params.tags }}
+        <div class="micro-tags">
+            {{- range .Params.tags }}
+            <span class="micro-tag">#{{ . }}</span>
+            {{- end }}
+        </div>
+        {{- end }}
+    </footer>
+</article>
+
+<style>
+.micro-post {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--entry);
+}
+
+.micro-header {
+    margin-bottom: 15px;
+}
+
+.micro-meta {
+    font-size: 0.9em;
+    color: var(--secondary);
+    margin-bottom: 10px;
+}
+
+.draft-badge {
+    background: #f59e0b;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+.micro-title {
+    font-size: 1.2em;
+    margin: 0;
+    font-weight: 600;
+}
+
+.micro-content {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin: 15px 0;
+}
+
+.micro-footer {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border);
+}
+
+.micro-tags {
+    margin-top: 10px;
+}
+
+.micro-tag {
+    display: inline-block;
+    color: var(--primary);
+    font-size: 0.9em;
+    margin-right: 10px;
+}
+</style>
+
+{{- end }}
