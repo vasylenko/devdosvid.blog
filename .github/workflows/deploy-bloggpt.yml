@@ -1,0 +1,198 @@
+name: Deploy BlogGPT AI Ecosystem
+run-name: ${{ github.workflow }} - ${{ github.event_name }}
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'cloudflare-worker/**'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - development
+          - production
+
+env:
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  deploy-bloggpt:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'production' }}
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: cloudflare-worker/package-lock.json
+          
+      - name: Install Dependencies
+        run: |
+          cd cloudflare-worker
+          npm ci
+          
+      - name: Setup Wrangler CLI
+        run: npm install -g wrangler
+        
+      - name: Authenticate with CloudFlare
+        run: |
+          echo "${{ secrets.CLOUDFLARE_API_TOKEN }}" | wrangler auth api-token
+          
+      - name: Create CloudFlare Resources (if needed)
+        run: |
+          cd cloudflare-worker
+          
+          # Check if KV namespace exists, create if not
+          if ! wrangler kv:namespace list | grep -q "BLOG_METADATA"; then
+            echo "Creating KV namespaces..."
+            KV_ID=$(wrangler kv:namespace create "BLOG_METADATA" --json | jq -r '.id')
+            KV_PREVIEW_ID=$(wrangler kv:namespace create "BLOG_METADATA" --preview --json | jq -r '.id')
+            
+            # Update wrangler.toml with new IDs
+            sed -i "s/id = \"blog_metadata_namespace\"/id = \"$KV_ID\"/" wrangler.toml
+            sed -i "s/preview_id = \"blog_metadata_preview\"/preview_id = \"$KV_PREVIEW_ID\"/" wrangler.toml
+          fi
+          
+          # Check if Vectorize index exists, create if not
+          if ! wrangler vectorize list | grep -q "blog-content-vectors"; then
+            echo "Creating Vectorize index..."
+            wrangler vectorize create blog-content-vectors --dimensions=768 --metric=cosine
+          fi
+          
+      - name: Configure Secrets
+        run: |
+          cd cloudflare-worker
+          
+          # Set GitHub token for BlogGPT to access repository
+          echo "${{ secrets.BLOGGPT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}" | wrangler secret put GITHUB_TOKEN
+          
+          # Set webhook secret if provided
+          if [ -n "${{ secrets.WEBHOOK_SECRET }}" ]; then
+            echo "${{ secrets.WEBHOOK_SECRET }}" | wrangler secret put WEBHOOK_SECRET
+          fi
+          
+      - name: Update Configuration
+        run: |
+          cd cloudflare-worker
+          
+          # Extract repository information
+          REPO_OWNER="${{ github.repository_owner }}"
+          REPO_NAME="${{ github.event.repository.name }}"
+          
+          # Update wrangler.toml with repository information
+          sed -i "s/GITHUB_REPO_OWNER = \"vasylenko\"/GITHUB_REPO_OWNER = \"$REPO_OWNER\"/" wrangler.toml
+          sed -i "s/GITHUB_REPO_NAME = \"devdosvid.blog\"/GITHUB_REPO_NAME = \"$REPO_NAME\"/" wrangler.toml
+          
+          # Update blog URL if provided
+          if [ -n "${{ secrets.BLOG_BASE_URL }}" ]; then
+            sed -i "s|BLOG_BASE_URL = \"https://serhii.vasylenko.info\"|BLOG_BASE_URL = \"${{ secrets.BLOG_BASE_URL }}\"/" wrangler.toml
+          fi
+          
+      - name: Build BlogGPT
+        run: |
+          cd cloudflare-worker
+          npm run build
+          
+      - name: Deploy to CloudFlare Workers
+        run: |
+          cd cloudflare-worker
+          wrangler deploy --env ${{ github.event.inputs.environment || 'production' }}
+          
+      - name: Test Deployment
+        run: |
+          cd cloudflare-worker
+          
+          # Wait for deployment to propagate
+          sleep 10
+          
+          # Get worker URL and test
+          WORKER_URL="https://bloggpt-ai-ecosystem.${{ github.repository_owner }}.workers.dev"
+          
+          # Test status endpoint
+          if curl -f -s "$WORKER_URL/api/status" > /dev/null; then
+            echo "✅ BlogGPT deployment successful!"
+            echo "🌐 Available at: $WORKER_URL"
+          else
+            echo "❌ Deployment test failed"
+            exit 1
+          fi
+          
+      - name: Update Documentation
+        run: |
+          # Create or update deployment status file
+          mkdir -p .github/deployment-status
+          
+          cat > .github/deployment-status/bloggpt.md << EOF
+          # BlogGPT Deployment Status
+          
+          **Status**: ✅ Deployed Successfully
+          **Deployed At**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          **Environment**: ${{ github.event.inputs.environment || 'production' }}
+          **Commit**: ${{ github.sha }}
+          **Worker URL**: https://bloggpt-ai-ecosystem.${{ github.repository_owner }}.workers.dev
+          
+          ## Features Available
+          - 🗣️ Natural Language Blog Creation
+          - 🧠 AI-Powered Content Research
+          - 📝 Automated Hugo Post Generation
+          - 🎨 Cover Image Creation
+          - 🚀 SEO Optimization
+          - 📊 Performance Analytics
+          
+          ## Usage Examples
+          \`\`\`bash
+          # Create a blog post
+          curl -X POST https://bloggpt-ai-ecosystem.${{ github.repository_owner }}.workers.dev/api/chat \\
+            -H "Content-Type: application/json" \\
+            -d '{"message": "Write a blog post about CloudFlare Workers AI"}'
+          
+          # Check system status
+          curl https://bloggpt-ai-ecosystem.${{ github.repository_owner }}.workers.dev/api/status
+          \`\`\`
+          
+          Last updated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          EOF
+          
+      - name: Post-Deployment Notification
+        if: success()
+        run: |
+          echo "🎉 BlogGPT AI Ecosystem deployed successfully!"
+          echo ""
+          echo "🌐 Web Interface: https://bloggpt-ai-ecosystem.${{ github.repository_owner }}.workers.dev"
+          echo "📡 API Endpoint: https://bloggpt-ai-ecosystem.${{ github.repository_owner }}.workers.dev/api/chat"
+          echo "📊 Status: https://bloggpt-ai-ecosystem.${{ github.repository_owner }}.workers.dev/api/status"
+          echo ""
+          echo "Try creating your first AI-generated blog post:"
+          echo 'curl -X POST https://bloggpt-ai-ecosystem.${{ github.repository_owner }}.workers.dev/api/chat \'
+          echo '  -H "Content-Type: application/json" \'
+          echo '  -d '"'"'{"message": "Write a blog post about the revolutionary BlogGPT system"}'"'"
+          
+  trigger-blog-rebuild:
+    needs: deploy-bloggpt
+    runs-on: ubuntu-latest
+    if: success()
+    
+    steps:
+      - name: Trigger Blog Rebuild
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: bloggpt-deployed
+          client-payload: |
+            {
+              "deployment_url": "https://bloggpt-ai-ecosystem.${{ github.repository_owner }}.workers.dev",
+              "environment": "${{ github.event.inputs.environment || 'production' }}",
+              "commit": "${{ github.sha }}"
+            }

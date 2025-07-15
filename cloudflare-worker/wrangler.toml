@@ -1,0 +1,40 @@
+name = "bloggpt-ai-ecosystem"
+main = "src/index.js"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Environment variables
+[vars]
+GITHUB_REPO_OWNER = "vasylenko"
+GITHUB_REPO_NAME = "devdosvid.blog"
+BLOG_BASE_URL = "https://serhii.vasylenko.info"
+
+# Bindings
+[[kv_namespaces]]
+binding = "BLOG_METADATA"
+id = "blog_metadata_namespace"
+preview_id = "blog_metadata_preview"
+
+[[vectorize]]
+binding = "BLOG_VECTORIZE"
+index_name = "blog-content-vectors"
+
+[[ai]]
+binding = "AI"
+
+# Secrets (to be set via wrangler secret put)
+# GITHUB_TOKEN - GitHub Personal Access Token
+# OPENAI_API_KEY - For additional AI capabilities if needed
+# WEBHOOK_SECRET - For securing webhook endpoints
+
+[build]
+command = "npm run build"
+cwd = "."
+
+# Development settings
+[env.development.vars]
+ENVIRONMENT = "development"
+
+# Production settings  
+[env.production.vars]
+ENVIRONMENT = "production"
