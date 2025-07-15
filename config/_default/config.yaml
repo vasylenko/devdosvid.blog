@@ -142,6 +142,9 @@ params:
     homeInfoParams:
         Title: "devDosvid blog"
         Content: "This blog shares my experience and findings related to technologies I use in my day-to-day work, and all-around-devops practices.
+        
+        ✨ **New**: Check out my [micro posts](/micros/) for quick thoughts and updates!
+        
         Thank you for reading me!"
     cover:
         hidden: false # hide everywhere but not in structured data
