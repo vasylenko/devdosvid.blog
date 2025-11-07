@@ -37,7 +37,7 @@ Feel free to connect if our paths cross, whether it's for a tech chat or a new o
     event="Platform Engineering Conference"
     date="2025"
     recording="https://www.youtube.com/watch?v=h-ihAlCjVCo"
-    description="In this talk I walk you through the history and evolution of Grammarly's engineering platform team from 2021 to 2025. Challenges, visions, solutions, pitfalls, lessons and wins – all around our understanding and re-understanding of the famous "you build it, you own it" principle."
+    description="In this talk I walk you through the history and evolution of Grammarly's engineering platform team from 2021 to 2025. Challenges, visions, solutions, pitfalls, lessons and wins – all around our understanding and re-understanding of the famous 'you build it, you own it' principle."
 >}}
 
 {{< tech-talk
