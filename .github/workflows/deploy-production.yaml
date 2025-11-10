@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Build Hugo Website
         uses: ./.github/actions/build-hugo-website
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the branch for website hosting
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: '${{ env.GHPAGES_BRANCH }}'
 
