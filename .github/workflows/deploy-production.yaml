@@ -44,7 +44,7 @@ jobs:
           ref: '${{ env.GHPAGES_BRANCH }}'
 
       - name: Get the new website content
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: ${{ env.ARTIFACT }}
           path: ./
