@@ -58,13 +58,13 @@ static/                          # Favicons, fonts (woff2), social SVG icons
 
 ## Development
 
-**Local server** (two options):
-- `./server.sh` — runs Hugo directly, binds to LAN IP or localhost, builds drafts and future posts
-- `docker compose up` — runs Hugo in Docker container on port 8080 (matches CI environment)
+**Local server**: `docker compose up` — runs Hugo in a Docker container (`ghcr.io/vasylenko/hugo-runtime`) on port 8080. Builds drafts and future posts, disables fast render for reliable live reload. Hugo version is pinned in `.env` and shared with CI.
 
-**New blog post**: `./newpost.sh <slug>` — scaffolds a page bundle from the `post-bundle` archetype
+**New blog post**: `./newpost.sh <slug>` — scaffolds a page bundle under `content/posts/` from the `post-bundle` archetype (requires local Hugo install)
 
-**Hugo environment configs**: `development` is used locally (drafts, no minification), `production` is used in CI (base URL, minification, analytics injection)
+**Hugo environment configs**: `development` is used locally (drafts enabled, no minification), `production` is used in CI (real base URL, minification, Simple Analytics injection)
+
+**Docker image** (`hugo-runtime.dockerfile`): Two-stage build — Alpine downloads the Hugo extended binary, copies it into a `golang:1.22` image (Go is needed for Hugo modules). Published to `ghcr.io/vasylenko/hugo-runtime:${HUGO_VERSION}`. Rebuilt automatically by CI when the Dockerfile, compose file, or `.env` changes.
 
 ## Content Conventions
 
