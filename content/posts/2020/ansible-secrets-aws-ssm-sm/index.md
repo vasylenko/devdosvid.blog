@@ -7,7 +7,6 @@ images: ["2020-08-06-ansible-secrets-aws-ssm-sm.png"]
 cover:
     image: cover-image.png
     relative: true
-description: A better way to store sensitive information for Ansible on EC2 or other services
 tags: ["ansible", "aws", "devops", "security", "ssm"]
 categories: [Amazon Web Services, Ansible]
 aliases: ["/2020/08/06/ansible-secrets-aws-ssm-sm.html"]

@@ -5,7 +5,6 @@ summary: Summary of a learning path to HashiCorp Certified — Terraform Associa
 cover:
     image: cover-image.png
     relative: true
-description: Summary of a learning path to HashiCorp Certified — Terraform Associate
 tags: ["terraform", "certification", "terraform associate exam", "hashicorp certification"]
 categories: [Terraform]
 title: Terraform Certification Tips
