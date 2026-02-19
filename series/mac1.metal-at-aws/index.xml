@@ -9,9 +9,9 @@
       <url>https://devdosvid.blog/assets/img/websitelogo.jpg</url>
       <link>https://devdosvid.blog/assets/img/websitelogo.jpg</link>
     </image>
-    <generator>Hugo -- 0.143.1</generator>
+    <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 Feb 2026 23:50:42 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 19 Feb 2026 14:25:45 +0100</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/mac1.metal-at-aws/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
@@ -43,7 +43,7 @@
         
         
         <img loading="lazy"
-             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/general-scheme_compressed_hu_2521ced38117a711.webp"
+             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/general-scheme_compressed_hu_e721a5f98096682.webp"
                  alt="Services logical interconnection"width="800"height="639" />
         
     
@@ -68,7 +68,7 @@
         
         
         <img loading="lazy"
-             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/license-configuration_compressed_hu_822897f09b0f6299.webp"
+             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/license-configuration_compressed_hu_971ca68c218fb108.webp"
                  alt="Licence configuration values"width="800"height="807" />
         
     
@@ -93,7 +93,7 @@ However, Auto Scaling Group will maintain the desired number of instances if one
         
         
         <img loading="lazy"
-             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/host-resource-group_compressed_hu_ede5f8d90e504b9.webp"
+             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/host-resource-group_compressed_hu_a845902ad7822bba.webp"
                  alt="Host resource group configuration values"width="800"height="902" />
         
     
@@ -118,7 +118,7 @@ However, Auto Scaling Group will maintain the desired number of instances if one
         
         
         <img loading="lazy"
-             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/launch-template_compressed_hu_9fe034ef0cdd519d.webp"
+             src="/2021/10/24/auto-scaling-group-for-your-macos-ec2-instances-fleet/launch-template_compressed_hu_a926f471b8c51cc9.webp"
                  alt="Launch Template configuration values"width="800"height="741" />
         
     
@@ -137,7 +137,7 @@ However, Auto Scaling Group will maintain the desired number of instances if one
 <div class="code-snippet">
 <details>
 <summary markdown="span">Click here to see the code snippet</summary>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; aws ec2 describe-instance-type-offerings --location-type availability-zone-id --filters <span style="color:#79c0ff">Name</span><span style="color:#ff7b72;font-weight:bold">=</span>instance-type,Values<span style="color:#ff7b72;font-weight:bold">=</span>mac1.metal --region us-east-1 --output text
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; aws ec2 describe-instance-type-offerings --location-type availability-zone-id --filters <span style="color:#79c0ff">Name</span><span style="color:#ff7b72;font-weight:bold">=</span>instance-type,Values<span style="color:#ff7b72;font-weight:bold">=</span>mac1.metal --region us-east-1 --output text
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>INSTANCETYPEOFFERINGS	mac1.metal	use1-az6	availability-zone-id
 </span></span><span style="display:flex;"><span>INSTANCETYPEOFFERINGS	mac1.metal	use1-az4	availability-zone-id
@@ -160,17 +160,17 @@ However, Auto Scaling Group will maintain the desired number of instances if one
 <div class="code-snippet">
 <details>
 <summary markdown="span">Click here to see the code snippet</summary>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_licensemanager_license_configuration&#34; &#34;this&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_licensemanager_license_configuration&#34; &#34;this&#34;</span> {
 </span></span><span style="display:flex;"><span>  name                     <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">local</span>.<span style="color:#ff7b72">full_name</span>
 </span></span><span style="display:flex;"><span>  license_counting_type    <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;Socket&#34;</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_cloudformation_stack&#34; &#34;this&#34;</span> {
 </span></span><span style="display:flex;"><span>  name          <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">local</span>.<span style="color:#ff7b72">full_name</span><span style="color:#8b949e;font-style:italic"> # the name of CloudFormation stack
-</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  template_body <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">file</span>(<span style="color:#a5d6ff">&#34;${path.module}/resource-group-cf-stack-template.json&#34;</span>)
+</span></span></span><span style="display:flex;"><span>  template_body <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">file</span>(<span style="color:#a5d6ff">&#34;${path.module}/resource-group-cf-stack-template.json&#34;</span>)
 </span></span><span style="display:flex;"><span>  parameters <span style="color:#ff7b72;font-weight:bold">=</span> {
 </span></span><span style="display:flex;"><span>    GroupName <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">local</span>.<span style="color:#ff7b72">full_name</span><span style="color:#8b949e;font-style:italic"> # the name for the Host group, passed to CloudFormation template
-</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  }
+</span></span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>  on_failure <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;DELETE&#34;</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
@@ -180,7 +180,7 @@ However, Auto Scaling Group will maintain the desired number of instances if one
 <div class="code-snippet">
 <details>
 <summary markdown="span">Click here to see the code snippet</summary>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;Parameters&#34;</span> : {
 </span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;GroupName&#34;</span> : {
 </span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;Type&#34;</span> : <span style="color:#a5d6ff">&#34;String&#34;</span>,
@@ -275,7 +275,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 <p>It’s called “AWS-RunAnsiblePlaybook,” and you can find it in AWS SSM → Documents → Owned by Amazon.</p>
 <p>However, this Document is not quite “friendly” to macOS. When the SSM agent calls Ansible on the Mac EC2 instance, it does not recognize the Ansible installed with Homebrew (de-facto most used macOS package manager).</p>
 <p>So if you try to run a command on the mac1.metal instance using this Document, you will get the following error:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Ansible is not installed. Please install Ansible and rerun the command.
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Ansible is not installed. Please install Ansible and rerun the command.
 </span></span></code></pre></div><p>The root cause is trivial: the path to Ansible binary is not present on the list of paths available to the SSM agent by default.</p>
 <p>There are several ways to solve that, but I believe that the most convenient one would be to create your custom Document — a slightly adjusted version of the default one provided by AWS.</p>
 <h2 id="creating-own-ssm-document-for-ansible-installed-with-homebrew">Creating own SSM Document for Ansible installed with Homebrew</h2>
@@ -292,7 +292,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
         
         
         <img loading="lazy"
-             src="/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/aws_ssm_document_clone_hu_839ae658a5a61deb.webp"width="800"height="476.68" />
+             src="/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/aws_ssm_document_clone_hu_c54b72e49bd906aa.webp"width="800"height="476.68" />
         
     
 </figure>
@@ -302,7 +302,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 <div class="code-snippet">
 <details>
 <summary markdown="span">Click here to see the code snippet</summary>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;schemaVersion&#34;</span>: <span style="color:#a5d6ff">&#34;2.0&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;description&#34;</span>: <span style="color:#a5d6ff">&#34;Use this document to run arbitrary Ansible playbooks on macOS EC2 instances. Specify either YAML text or URL. If you specify both, the URL parameter will be used. Use the extravar parameter to send runtime variables to the Ansible execution. Use the check parameter to perform a dry run of the Ansible execution. The output of the dry run shows the changes that will be made when the playbook is executed.&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;parameters&#34;</span>: {
@@ -425,21 +425,21 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 <p><em>Some values are hardcoded intentionally in the code examples for the sake of simplicity and easy reading. You would probably want to parametrize them.</em></p>
 <h2 id="xcode-installation-example">Xcode installation example</h2>
 <p>The following tasks will help you to automate the basics.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Install Xcode</span><span style="color:#6e7681">
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Install Xcode</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">      </span><span style="color:#7ee787">shell</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;xip --expand Xcode.xip&#34;</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">      </span><span style="color:#7ee787">args</span>:<span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span><span style="color:#7ee787">chdir</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">/Applications</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
-</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>- <span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Accept License Agreement</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span>- <span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Accept License Agreement</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">shell</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -license accept&#34;</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
-</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>- <span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Accept License Agreement</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span>- <span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Accept License Agreement</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">shell</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -runFirstLaunch&#34;</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
-</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>- <span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Switch into newly installed Xcode context</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span>- <span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Switch into newly installed Xcode context</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">shell</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;xcode-select --switch /Applications/Xcode.app/Contents/Developer&#34;</span><span style="color:#6e7681">
 </span></span></span></code></pre></div><h2 id="example-of-software-installation-with-brew">Example of software installation with Brew</h2>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Install common build software</span><span style="color:#6e7681">
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Install common build software</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">community.general.homebrew</span>:<span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;{{ item }}&#34;</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#7ee787">state</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">latest</span><span style="color:#6e7681">
@@ -448,12 +448,12 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>- <span style="color:#a5d6ff">swiftformat</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>- <span style="color:#a5d6ff">wget</span><span style="color:#6e7681">
 </span></span></span></code></pre></div><h2 id="screensharing-remote-desktop-configuration-example">ScreenSharing (remote desktop) configuration example</h2>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Turn On Remote Management</span><span style="color:#6e7681">
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Turn On Remote Management</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">shell</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;./kickstart -activate -configure -allowAccessFor -specifiedUsers&#34;</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">args</span>:<span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#7ee787">chdir</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
-</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>- <span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Enable Remote Management for CI user</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span>- <span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">Enable Remote Management for CI user</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">shell</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;./kickstart -configure -users ec2-user -access -on -privs -all&#34;</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">args</span>:<span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#7ee787">chdir</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/</span><span style="color:#6e7681">
@@ -470,20 +470,20 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 <h2 id="timeouts">Timeouts</h2>
 <p>As I mentioned in the <a href="/2021/01/19/mac1-metal-EC2-Instance-user-experience.html">previous article</a>, the creation and deletion time of the &ldquo;mac1.metal&rdquo; Instance is significantly bigger than Linux. That is why you should raise the polling parameters for the builder.</p>
 <p>Example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#a5d6ff">&#34;aws_polling&#34;</span><span style="color:#f85149">:</span> {
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#a5d6ff">&#34;aws_polling&#34;</span><span style="color:#f85149">:</span> {
 </span></span><span style="display:flex;"><span>        <span style="color:#7ee787">&#34;delay_seconds&#34;</span>: <span style="color:#a5d6ff">30</span>,
 </span></span><span style="display:flex;"><span>        <span style="color:#7ee787">&#34;max_attempts&#34;</span>: <span style="color:#a5d6ff">60</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>And it would be best if you also increased the SSH timeout:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;ssh_timeout&#34;</span><span style="color:#f85149">:</span> <span style="color:#a5d6ff">&#34;1h&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;ssh_timeout&#34;</span><span style="color:#f85149">:</span> <span style="color:#a5d6ff">&#34;1h&#34;</span>
 </span></span></code></pre></div><p>Fortunately, Packer&rsquo;s AMI builder does not require an explicit declaration of the Dedicated Host ID. So you can just reference the same subnet where you allocated the Host, assuming you did it with the enabled &ldquo;Auto placement&rdquo; parameter during the host creation.</p>
 <p>Example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;tenancy&#34;</span><span style="color:#f85149">:</span> <span style="color:#a5d6ff">&#34;host&#34;</span><span style="color:#f85149">,</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;tenancy&#34;</span><span style="color:#f85149">:</span> <span style="color:#a5d6ff">&#34;host&#34;</span><span style="color:#f85149">,</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;subnet_id&#34;</span><span style="color:#f85149">:</span> <span style="color:#a5d6ff">&#34;your-subnet-id&#34;</span>
 </span></span></code></pre></div><h2 id="provisioning">Provisioning</h2>
 <p>Packer has <a href="https://www.packer.io/docs/provisioners/ansible">Ansible Provisioner</a> that I used for the AMI. Its documentation is also very clean and straightforward.</p>
 <p>But it is still worth mentioning that if you want to parametrize the Ansible playbook, then the following configuration example will be handy:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;extra_arguments&#34;</span><span style="color:#f85149">:</span> [
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;extra_arguments&#34;</span><span style="color:#f85149">:</span> [
 </span></span><span style="display:flex;"><span>    <span style="color:#a5d6ff">&#34;--extra-vars&#34;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#a5d6ff">&#34;your-variable-foo=your-value-bar]&#34;</span>
 </span></span><span style="display:flex;"><span>  ]<span style="color:#f85149">,</span>
@@ -523,10 +523,10 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 <p>I suggest looking into the default <a href="https://github.com/aws/ec2-macos-init/blob/master/configuration/init.toml">init.toml</a> configuration file to get yourself more familiar with the capabilities of the tool.</p>
 <p>The init tool can also clear its history, which is useful for the new AMI creation.</p>
 <p>Example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ec2-macos-init clean -all
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ec2-macos-init clean -all
 </span></span></code></pre></div><p>And you can run the init manually for debugging purposes.</p>
 <p>Example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ec2-macos-init run
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ec2-macos-init run
 </span></span></code></pre></div><p>You can also combine the EC2 macOS Init actions (made by modules) with your script in user data for more accurate nontrivial configurations.</p>
 <h1 id="wrapping-up">Wrapping up</h1>
 <p>As a whole, building and operating macOS-based AMI does not differ from AMI management for other platforms.</p>
@@ -555,7 +555,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 <p>I believe this is huge, even despite the number of constraints this solution has. This offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.</p>
 <p>So here is a quick-start example of creating the dedicated host and the instance altogether using Terraform.</p>
 <p>I intentionally used some hardcoded values for the sake of simplicity in the example.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_ec2_host&#34; &#34;example_host&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_ec2_host&#34; &#34;example_host&#34;</span> {
 </span></span><span style="display:flex;"><span>  instance_type     <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;mac1.metal&#34;</span>
 </span></span><span style="display:flex;"><span>  availability_zone <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;us-east-1a&#34;</span>
 </span></span><span style="display:flex;"><span>}
@@ -571,7 +571,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 </span></span><span style="display:flex;"><span>  availability_zone <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;us-east-1a&#34;</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">filter</span> {
 </span></span><span style="display:flex;"><span>    name   <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;tag:Tier&#34;</span><span style="color:#8b949e;font-style:italic"> # you should omit this filter if you don&#39;t distinguish your subnets on private and public 
-</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    values <span style="color:#ff7b72;font-weight:bold">=</span> [<span style="color:#a5d6ff">&#34;private&#34;</span>]
+</span></span></span><span style="display:flex;"><span>    values <span style="color:#ff7b72;font-weight:bold">=</span> [<span style="color:#a5d6ff">&#34;private&#34;</span>]
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
@@ -581,7 +581,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 </span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">filter</span> {
 </span></span><span style="display:flex;"><span>    name   <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;name&#34;</span>
 </span></span><span style="display:flex;"><span>    values <span style="color:#ff7b72;font-weight:bold">=</span> [<span style="color:#a5d6ff">&#34;amzn-ec2-macos-11*&#34;</span>]<span style="color:#8b949e;font-style:italic"> # get latest BigSur AMI
-</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  }
+</span></span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Simple as that, yes. Now, you can integrate it into your CI system and have the Mac instance with the underlying host in a bundle.
 <div class="attention">
@@ -623,13 +623,6 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 <p>You don&rsquo;t pay anything for the Instance itself, but you pay for the Dedicated Host leasing, and the minimum lease time is 24 hours.</p>
 </li>
 </ul>
-<div class="beehiiv-subscribe-container">
-    <h3>Subscribe to blog updates!</h3>
-    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
-        height="52" frameborder="0" scrolling="no"
-        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
-    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
-</div>
 <h2 id="ec2-mac-instance-prices-june-2022">EC2 Mac Instance Prices (June 2022)</h2>
 <p>On-demand pricing (us-east-1, North Virginia:</p>
 <ul>
@@ -712,7 +705,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
         
         
         <img loading="lazy"
-             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/launch_hu_2844c2ce9da1be7d.webp"width="400"height="200" />
+             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/launch_hu_2048fec4b678a207.webp"width="400"height="200" />
         
     
 </figure>
@@ -734,7 +727,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
         
         
         <img loading="lazy"
-             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/customize_hu_c872125bfdd282b0.webp"width="400"height="200" />
+             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/customize_hu_8a890d50bcf1aeb.webp"width="400"height="200" />
         
     
 </figure>
@@ -746,7 +739,7 @@ I wrote a separate post about mac1.metal AMI customization and creation, so chec
 <li>System updates are disabled by default in the macOS AMIs provided by AWS.</li>
 </ol>
 <p>But you can use them with no issues. For example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo softwareupdate --install --all
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo softwareupdate --install --all
 </span></span></code></pre></div><ol start="2">
 <li>It is possible to set a custom screen resolution when connected to the instance using native ScreenSharing or any other VNC-compatible software.</li>
 </ol>
@@ -762,7 +755,7 @@ I wrote a separate post about mac1.metal AMI customization and creation, so chec
         
         
         <img loading="lazy"
-             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/cleanup_hu_9fe240d8bbddd46d.webp"width="400"height="200" />
+             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/cleanup_hu_d93a27022b1cb855.webp"width="400"height="200" />
         
     
 </figure>
@@ -799,26 +792,26 @@ Such an easy thing to do, right? Well, it depends.</p>
 <p>Get the identifier of EBS (look for the first one with GUID_partition_scheme):
 <code>diskutil list physical external</code></p>
 <p>Or here is a more advanced version to be used in a script:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#79c0ff">DISK_ID</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#ff7b72">$(</span>diskutil list physical external | grep <span style="color:#a5d6ff">&#39;GUID_partition_scheme&#39;</span>| tr -s <span style="color:#a5d6ff">&#39; &#39;</span> | cut -d<span style="color:#a5d6ff">&#39; &#39;</span> -f6<span style="color:#ff7b72">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#79c0ff">DISK_ID</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#ff7b72">$(</span>diskutil list physical external | grep <span style="color:#a5d6ff">&#39;GUID_partition_scheme&#39;</span>| tr -s <span style="color:#a5d6ff">&#39; &#39;</span> | cut -d<span style="color:#a5d6ff">&#39; &#39;</span> -f6<span style="color:#ff7b72">)</span>
 </span></span></code></pre></div><p>It would probably be <code>disk0</code> if you did not attach additional EBS.</p>
 <p>Then run the repair job for the disk, using its identifier:
 <code>diskutil repairDisk disk0</code></p>
 <p>Advanced version:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>yes | diskutil repairDisk <span style="color:#79c0ff">$DISK_ID</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>yes | diskutil repairDisk <span style="color:#79c0ff">$DISK_ID</span>
 </span></span></code></pre></div><p>Now get the APFS container identifier (look for Apple_APFS):
 <code>diskutil list physical external</code></p>
 <p>Advanced version:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#79c0ff">APFS_ID</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#ff7b72">$(</span>diskutil list physical external | grep <span style="color:#a5d6ff">&#39;Apple_APFS&#39;</span> | tr -s <span style="color:#a5d6ff">&#39; &#39;</span> | cut -d<span style="color:#a5d6ff">&#39; &#39;</span> -f8<span style="color:#ff7b72">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#79c0ff">APFS_ID</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#ff7b72">$(</span>diskutil list physical external | grep <span style="color:#a5d6ff">&#39;Apple_APFS&#39;</span> | tr -s <span style="color:#a5d6ff">&#39; &#39;</span> | cut -d<span style="color:#a5d6ff">&#39; &#39;</span> -f8<span style="color:#ff7b72">)</span>
 </span></span></code></pre></div><p>It would probably be <code>disk0s2</code> if you did not attach additional EBS.</p>
 <p>Finally, resize the APFS container:
 <code>diskutil apfs resizeContainer disk0s2</code></p>
 <p>Advanced version</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>diskutil apfs resizeContainer <span style="color:#79c0ff">$APFS_ID</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>diskutil apfs resizeContainer <span style="color:#79c0ff">$APFS_ID</span>
 </span></span></code></pre></div>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></li>
 <li id="fn:2">
 <p><strong>How to setup Screen Sharing at mac1.metal in Terminal</strong></p>
 <p>The <code>kickstart</code> command-line tool resides in <code>/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/</code> so you&rsquo;ll better to cd into that directory for convenience:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Turn On Remote Management for a user to be specified later</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Turn On Remote Management for a user to be specified later</span>
 </span></span><span style="display:flex;"><span>sudo ./kickstart -activate -configure -allowAccessFor -specifiedUsers
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Enable Remote Management for ec2-user user</span>

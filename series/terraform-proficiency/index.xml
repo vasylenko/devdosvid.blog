@@ -9,9 +9,9 @@
       <url>https://devdosvid.blog/assets/img/websitelogo.jpg</url>
       <link>https://devdosvid.blog/assets/img/websitelogo.jpg</link>
     </image>
-    <generator>Hugo -- 0.143.1</generator>
+    <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 Feb 2026 23:50:42 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 19 Feb 2026 14:25:45 +0100</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/terraform-proficiency/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>A Deep Dive Into Terraform Static Code Analysis Tools: Features and Comparisons</title>
@@ -43,13 +43,6 @@
 </ul>
 <p>With a clear understanding of the necessary features in a static code analyzer, which tools on the market best fulfill these criteria?</p>
 <p>Let&rsquo;s take a closer look at some leading options!</p>
-<div class="beehiiv-subscribe-container">
-    <h3>Subscribe to blog updates!</h3>
-    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
-        height="52" frameborder="0" scrolling="no"
-        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
-    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
-</div>
 <h2 id="meet-the-static-code-analyzers-for-terraform">Meet the Static Code Analyzers for Terraform</h2>
 <p>Following on what makes a static code analyzer robust, let&rsquo;s dive into some open-source tools that exemplify these essential features.</p>
 <p>I picked six tools for my review. I know there are more on the market, but I focused on <strong>open-source, free-to-use</strong> tools and those that provide at least &gt;100 out-of-the-box scanning policies for Terraform.</p>
@@ -141,7 +134,7 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
 <p><strong>YAML</strong> syntax is used by <a href="https://www.checkov.io/3.Custom%20Policies/Custom%20Policies%20Overview.html">Checkov</a> and <a href="https://semgrep.dev/docs/writing-rules/rule-syntax/">Semgrep</a>. This offers a familiar and straightforward start, with Checkov also allowing policies to be written in Python, albeit with some constraints. With YAML, the ease of use is balanced against the limitations set by the tool&rsquo;s capabilities.</p>
 <p>Understanding these differences will guide you to a tool that matches your security requirements, your team&rsquo;s expertise, and the scope of your infrastructure projects.</p>
 <p>To illustrate, here is an example of a KICS Rego policy checking for default RDS instance ports:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>package Cx
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>package Cx
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>import data.generic.common as common_lib
 </span></span><span style="display:flex;"><span>import data.generic.terraform as tf_lib
@@ -166,12 +159,12 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>And an example of a Checkov YAML policy forbidding specific EC2 instance types:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff7b72">---</span><span style="color:#6e7681">
-</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">metadata</span>:<span style="color:#6e7681">
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff7b72">---</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#7ee787">metadata</span>:<span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681"> </span><span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;Org&#39;s compute instances should not be p5.48xlarge or p4d.24xlarge&#34;</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681"> </span><span style="color:#7ee787">id</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;ACME_AWS_FORBIDDEN_EC2_TYPES&#34;</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681"> </span><span style="color:#7ee787">category</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;NETWORKING&#34;</span><span style="color:#6e7681">
-</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">definition</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#7ee787">definition</span>:<span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681"> </span><span style="color:#7ee787">or</span>:<span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681"> </span>- <span style="color:#7ee787">cond_type</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;attribute&#34;</span><span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">   </span><span style="color:#7ee787">resource_types</span>:<span style="color:#6e7681">
@@ -475,13 +468,6 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
 <li>firstly, it allows arbitrary values to be stored and used afterward to implement lifecycle triggers of other resources</li>
 <li>secondly, it can be used to trigger provisioners when there isn&rsquo;t a more appropriate managed resource available.</li>
 </ul>
-<div class="beehiiv-subscribe-container">
-    <h3>Subscribe to blog updates!</h3>
-    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
-        height="52" frameborder="0" scrolling="no"
-        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
-    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
-</div>
 <p>For those of you, who are familiar with the null provider, the <code>terraform_data</code> resource might look very similar. And you&rsquo;re right!<br>
 Rather than being a separate provider, the terraform_data managed resource now offers the same capabilities as an integrated feature. Pretty cool! <br>
 While the null provider is still available and there are no statements about its deprecation thus far (<a href="https://registry.terraform.io/providers/hashicorp/null/3.2.1/docs">as of April 2023, v3.2.1</a>), the  <code>terraform_data</code> is the native replacement of the <code>null_resource</code>, and the latter might soon become deprecated.</p>
@@ -496,7 +482,7 @@ While the null provider is still available and there are no statements about its
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-1_hu_806b63ec76a5080d.webp"
+             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-1_hu_30488782ddaf4ea.webp"
                  alt="terraform data resource arguments"width="800"height="182.16" />
         
     
@@ -521,7 +507,7 @@ While the null provider is still available and there are no statements about its
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-2_hu_1efde4882f03327c.webp"
+             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-2_hu_80860b149145c3c2.webp"
                  alt="terraform data resource attributes"width="800"height="271.36" />
         
     
@@ -554,7 +540,7 @@ While the null provider is still available and there are no statements about its
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-3_hu_dd3f94068f7e92dd.webp"
+             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-3_hu_10eefecae1e357ac.webp"
                  alt="trigger replacement based on input variable"width="800"height="386.00" />
         
     
@@ -575,7 +561,7 @@ While the null provider is still available and there are no statements about its
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-4_hu_42432796ae5d8ebe.webp"
+             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-4_hu_4b30572300309abe.webp"
                  alt="terraform_data with replace_triggered_by"width="800"height="341.59" />
         
     
@@ -599,7 +585,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-5_hu_6590af059b34b4c5.webp"
+             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-5_hu_80337dbcf4157c5.webp"
                  alt="terraform_data with provisioner"width="800"height="409.00" />
         
     
@@ -630,13 +616,6 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
 <p>It&rsquo;s been only a few months since Terraform 1.1 was released with the <code>moved</code> block that empowers the code refactoring.</p>
 <p>Now Terraform 1.2 is almost <a href="*https://github.com/hashicorp/terraform/releases/tag/v1.2.0-rc1*">ready</a> (as I am writing this blog in early May 2022) to bring three new efficient controls to the resource lifecycle.<br>
 These are three new expressions: <code>precondition</code>, <code>postcondition</code>, and <code>replace_triggered_by</code>.</p>
-<div class="beehiiv-subscribe-container">
-    <h3>Subscribe to blog updates!</h3>
-    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
-        height="52" frameborder="0" scrolling="no"
-        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
-    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
-</div>
 <h2 id="terraform-code-refactoring-with-the-moved-block">Terraform Code Refactoring With the Moved Block</h2>
 <p>Starting from the 1.1 version, Terraform users can use the <code>moved</code> block to describe the changes in resource or module addresses (or resources inside a module) in the form of code. <br>
 Once that is described, Terraform performs the movement of the resource within the state during the first apply.</p>
@@ -655,7 +634,7 @@ Once that is described, Terraform performs the movement of the resource within t
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-1_hu_4aa1960a5552dd5c.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-1_hu_3f4af7e078b69bed.webp"
                  alt="An example resource"width="800"height="150" />
         
     
@@ -682,7 +661,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-2_hu_eb13c021cec2d80e.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-2_hu_59f55b8e14fd05dc.webp"
                  alt="Resource address update with the Moved block"width="800"height="270" />
         
     
@@ -703,7 +682,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-3_hu_53497fff0a5193d7.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-3_hu_dc391d85b5b6d514.webp"
                  alt="Terraform plan output"width="800"height="318" />
         
     
@@ -726,7 +705,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-4_hu_713b305a5f3ee68f.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-4_hu_7d51caa55dd67e71.webp"
                  alt="Two modules with generic names"width="800"height="437" />
         
     
@@ -749,7 +728,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-5_hu_f3c218ea084353c8.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-5_hu_dbe3022f4df31ab4.webp"
                  alt="Two modules renamed"width="800"height="629" />
         
     
@@ -770,7 +749,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-6_hu_179dc9d8bd340e9b.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-6_hu_1046b560b4295b1b.webp"
                  alt="Terraform error: module not installed"width="800"height="246" />
         
     
@@ -811,7 +790,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-7_hu_b3e66acb6aee8109.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-7_hu_c52c48557b0e07dd.webp"
                  alt="New configuration options for the lifecycle meta-argument"width="800"height="365" />
         
     
@@ -847,7 +826,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-8_hu_cbfcb6852bb42cf5.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-8_hu_2b8c2156c745ad60.webp"
                  alt="Data Source Postcondition"width="800"height="446" />
         
     
@@ -870,7 +849,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-9_hu_230cb5568eef55fa.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-9_hu_bb426922424ec407.webp"
                  alt="Resource postcondition error"width="800"height="240" />
         
     
@@ -895,7 +874,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-10_hu_5fdb543d84bfe964.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-10_hu_36edd7eee6595a15.webp"
                  alt="Module output precondition"width="800"height="342" />
         
     
@@ -923,7 +902,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-11_hu_a4a183f76653d174.webp"
+             src="/2022/05/04/new-lifecycle-options-and-refactoring-capabilities-in-terraform-1-1-and-1-2/figure-11_hu_50787987f9c61eba.webp"
                  alt="replace_triggered_by example"width="800"height="342" />
         
     
@@ -968,7 +947,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/condiitonal-resource-creation_hu_40881a6a31d15011.webp"width="400"height="400.00" />
+             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/condiitonal-resource-creation_hu_c8874a0a9a3f14d1.webp"width="400"height="400.00" />
         
     
 </figure>
@@ -977,58 +956,51 @@ Check the following detailed guide from HashiCorp that explains how to do that �
 <p>Let&rsquo;s start from the most popular one: whether to create a resource depending on some fact, e.g., the value of a variable.</p>
 <p>Terraform meta-argument <code>count</code> helps to describe that kind of resource creation logic.</p>
 <p>Here is how it may look like:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">data</span> <span style="color:#a5d6ff">&#34;aws_ssm_parameter&#34;</span> <span style="color:#a5d6ff">&#34;ami_id&#34;</span> {
-</span></span><span style="display:flex;"><span>  count    = var.ami_channel =<span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;&#34;</span> <span style="color:#ff7b72;font-weight:bold">?</span> <span style="color:#a5d6ff">0</span> <span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">data</span> <span style="color:#a5d6ff">&#34;aws_ssm_parameter&#34;</span> <span style="color:#a5d6ff">&#34;ami_id&#34;</span> {
+</span></span><span style="display:flex;"><span>  count    <span style="color:#ff7b72;font-weight:bold">=</span> var.ami_channel <span style="color:#ff7b72;font-weight:bold">==</span> <span style="color:#a5d6ff">&#34;&#34;</span> <span style="color:#ff7b72;font-weight:bold">?</span> <span style="color:#a5d6ff">0</span> <span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  name     = local.ami_channels[var.ami_channel]
+</span></span><span style="display:flex;"><span>  name     <span style="color:#ff7b72;font-weight:bold">=</span> local.ami_channels[var.ami_channel]
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The notation <code>var.ami_channel == &quot;&quot; ? 0 : 1</code> is called <em>conditional expression</em> and means the following: if my variable is empty (<code>var.ami_channel == &quot;&quot;</code> — hence, true) then set the count to 0, otherwise set to 1.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>condition ? true_val : false_val
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>condition ? true_val : false_val
 </span></span></code></pre></div><p>In this illustration, I want to get the AMI ID from the SSM Parameter only if the AMI channel (e.g., beta or alpha) is specified. Otherwise, providing that the <code>ami_channel</code> variable is an empty string by default (&quot;&quot;), the data source should not be created.</p>
 <p>When following this method, keep in mind that the resource address will contain the index identifier. So when I need to use the value of the SSM parameter from our example, I need to reference it the following way:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span>ami_id = data.aws_ssm_parameter.ami_id[<span style="color:#a5d6ff">0</span>].value
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span>ami_id <span style="color:#ff7b72;font-weight:bold">=</span> data.aws_ssm_parameter.ami_id[<span style="color:#a5d6ff">0</span>].value
 </span></span></code></pre></div><p>The <code>count</code> meta-argument can also be used when you need to conditionally create a Terraform module.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;bucket&#34;</span> {
-</span></span><span style="display:flex;"><span>  count             = var.create_bucket =<span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#79c0ff">true</span> <span style="color:#ff7b72;font-weight:bold">?</span> <span style="color:#a5d6ff">1</span> <span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span>
-</span></span><span style="display:flex;"><span>  source            = <span style="color:#a5d6ff">&#34;./modules/s3_bucket&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;bucket&#34;</span> {
+</span></span><span style="display:flex;"><span>  count             <span style="color:#ff7b72;font-weight:bold">=</span> var.create_bucket <span style="color:#ff7b72;font-weight:bold">==</span> <span style="color:#79c0ff">true</span> <span style="color:#ff7b72;font-weight:bold">?</span> <span style="color:#a5d6ff">1</span> <span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span>
+</span></span><span style="display:flex;"><span>  source            <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;./modules/s3_bucket&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  name              = <span style="color:#a5d6ff">&#34;my-unique-bucket&#34;</span>
+</span></span><span style="display:flex;"><span>  name              <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;my-unique-bucket&#34;</span>
 </span></span><span style="display:flex;"><span>  ...
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The <code>var.create_bucket == true ? 1 : 0</code>  expression can be written even shorter: <code>var.create_bucket ? 1 : 0</code>  because the <code>create_bucket</code> variable has boolean type, apparently.</p>
 <p>But what if you need to produce more than one instance of a resource or module? And still be able to avoid their creation.</p>
 <p>Another meta-argument — <code>for_each</code> — will do the trick.</p>
 <p>For example, this is how the <code>for_each</code> argument works for the conditional module creation:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;bucket&#34;</span> {
-</span></span><span style="display:flex;"><span>  for_each          = var.bucket_names =<span style="color:#ff7b72;font-weight:bold">=</span> [] <span style="color:#ff7b72;font-weight:bold">?</span> [] <span style="color:#ff7b72;font-weight:bold">:</span> var.bucket_names
-</span></span><span style="display:flex;"><span>  source            = <span style="color:#a5d6ff">&#34;./modules/s3_bucket&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;bucket&#34;</span> {
+</span></span><span style="display:flex;"><span>  for_each          <span style="color:#ff7b72;font-weight:bold">=</span> var.bucket_names <span style="color:#ff7b72;font-weight:bold">==</span> [] <span style="color:#ff7b72;font-weight:bold">?</span> [] <span style="color:#ff7b72;font-weight:bold">:</span> var.bucket_names
+</span></span><span style="display:flex;"><span>  source            <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;./modules/s3_bucket&#34;</span>
 </span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  name              = <span style="color:#a5d6ff">&#34;</span><span style="color:#a5d6ff">${</span>each.key<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#34;</span>
-</span></span><span style="display:flex;"><span>  enable_encryption = <span style="color:#79c0ff">true</span>
+</span></span><span style="display:flex;"><span>  name              <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;</span><span style="color:#a5d6ff">${</span>each.key<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#34;</span>
+</span></span><span style="display:flex;"><span>  enable_encryption <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#79c0ff">true</span>
 </span></span><span style="display:flex;"><span>  ...
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>In this illustration, I also used a conditional expression that makes Terraform iterate through the set of values of <code>var.bucket_names</code> if it&rsquo;s not empty and create several modules. Otherwise, do not iterate at all and do not create anything.</p>
 <p>The same can be done for the resources. For example, when you need to create an arbitrary number of security group rules, e.g., to allowlist some IPs for your bastion host:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_security_group_rule&#34;</span> <span style="color:#a5d6ff">&#34;allowlist&#34;</span> {
-</span></span><span style="display:flex;"><span>  for_each           = var.cidr_blocks =<span style="color:#ff7b72;font-weight:bold">=</span> [] <span style="color:#ff7b72;font-weight:bold">?</span> [] <span style="color:#ff7b72;font-weight:bold">:</span> var.cidr_blocks
-</span></span><span style="display:flex;"><span>  type               = <span style="color:#a5d6ff">&#34;ingress&#34;</span>
-</span></span><span style="display:flex;"><span>  from_port          = <span style="color:#a5d6ff">22</span>
-</span></span><span style="display:flex;"><span>  to_port            = <span style="color:#a5d6ff">22</span>
-</span></span><span style="display:flex;"><span>  protocol           = <span style="color:#a5d6ff">&#34;tcp&#34;</span>
-</span></span><span style="display:flex;"><span>  cidr_blocks        = [each.value]
-</span></span><span style="display:flex;"><span>  security_group_id  = aws_security_group.bastion.id
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_security_group_rule&#34;</span> <span style="color:#a5d6ff">&#34;allowlist&#34;</span> {
+</span></span><span style="display:flex;"><span>  for_each           <span style="color:#ff7b72;font-weight:bold">=</span> var.cidr_blocks <span style="color:#ff7b72;font-weight:bold">==</span> [] <span style="color:#ff7b72;font-weight:bold">?</span> [] <span style="color:#ff7b72;font-weight:bold">:</span> var.cidr_blocks
+</span></span><span style="display:flex;"><span>  type               <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;ingress&#34;</span>
+</span></span><span style="display:flex;"><span>  from_port          <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">22</span>
+</span></span><span style="display:flex;"><span>  to_port            <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">22</span>
+</span></span><span style="display:flex;"><span>  protocol           <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;tcp&#34;</span>
+</span></span><span style="display:flex;"><span>  cidr_blocks        <span style="color:#ff7b72;font-weight:bold">=</span> [each.value]
+</span></span><span style="display:flex;"><span>  security_group_id  <span style="color:#ff7b72;font-weight:bold">=</span> aws_security_group.bastion.id
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>And just like with the <code>count</code> meta-argument, with the <code>for_each</code>, resource addresses will have the identifier named by the values provided to <code>for_each</code>.</p>
 <p>For example, here is how I would reference a resource created in the module with <code>for_each</code> described earlier:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span>bucket_name = module.bucket[<span style="color:#a5d6ff">&#34;photos&#34;</span>].name
-</span></span></code></pre></div><div class="beehiiv-subscribe-container">
-    <h3>Subscribe to blog updates!</h3>
-    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
-        height="52" frameborder="0" scrolling="no"
-        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
-    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
-</div>
-<h2 id="conditional-resource-arguments-attributes-setting">Conditional resource arguments (attributes) setting</h2>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span>bucket_name <span style="color:#ff7b72;font-weight:bold">=</span> module.bucket[<span style="color:#a5d6ff">&#34;photos&#34;</span>].name
+</span></span></code></pre></div><h2 id="conditional-resource-arguments-attributes-setting">Conditional resource arguments (attributes) setting</h2>
 <figure>
     
     
@@ -1039,31 +1011,31 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/conditional-resource-argument_hu_800103069fc576.webp"width="400"height="400.00" />
+             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/conditional-resource-argument_hu_56d1348a9e2b3a23.webp"width="400"height="400.00" />
         
     
 </figure>
 
 <p>Now let&rsquo;s go deeper and see how resource arguments can be conditionally set (or not).</p>
 <p>First, let&rsquo;s review the conditional argument value setting with the <code>null</code> data type:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_launch_template&#34;</span> <span style="color:#a5d6ff">&#34;this&#34;</span> {
-</span></span><span style="display:flex;"><span>  name     = <span style="color:#a5d6ff">&#34;my-launch-template&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_launch_template&#34;</span> <span style="color:#a5d6ff">&#34;this&#34;</span> {
+</span></span><span style="display:flex;"><span>  name     <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;my-launch-template&#34;</span>
 </span></span><span style="display:flex;"><span>  ...
-</span></span><span style="display:flex;"><span>  key_name = var.use_default_keypair <span style="color:#ff7b72;font-weight:bold">?</span> var.keypair_name <span style="color:#ff7b72;font-weight:bold">:</span> null
+</span></span><span style="display:flex;"><span>  key_name <span style="color:#ff7b72;font-weight:bold">=</span> var.use_default_keypair <span style="color:#ff7b72;font-weight:bold">?</span> var.keypair_name <span style="color:#ff7b72;font-weight:bold">:</span> null
 </span></span><span style="display:flex;"><span>  ...
 </span></span></code></pre></div><p>Here I want to skip the usage of the EC2 Key Pair for the Launch Template in some instances and Terraform allows me to write the conditional expression that will set the <code>null</code> value for the argument. It means the <em>absence</em> or <em>omission</em> and Terraform would behave the same as if you did not specify the argument at all.</p>
 <p>Dynamic blocks are another case where conditional creation suits best. Take a look at the following piece of CloudFront resource code where I want to either describe the configuration for the custom error response or omit that completely:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_cloudfront_distribution&#34;</span> <span style="color:#a5d6ff">&#34;cdn&#34;</span> {
-</span></span><span style="display:flex;"><span>  enabled = <span style="color:#79c0ff">true</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_cloudfront_distribution&#34;</span> <span style="color:#a5d6ff">&#34;cdn&#34;</span> {
+</span></span><span style="display:flex;"><span>  enabled <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#79c0ff">true</span>
 </span></span><span style="display:flex;"><span>  ...
 </span></span><span style="display:flex;"><span>  dynamic <span style="color:#a5d6ff">&#34;custom_error_response&#34;</span> {
-</span></span><span style="display:flex;"><span>    for_each = var.custom_error_response =<span style="color:#ff7b72;font-weight:bold">=</span> null <span style="color:#ff7b72;font-weight:bold">?</span> [] <span style="color:#ff7b72;font-weight:bold">:</span> [var.custom_error_response]
-</span></span><span style="display:flex;"><span>    iterator = cer
+</span></span><span style="display:flex;"><span>    for_each <span style="color:#ff7b72;font-weight:bold">=</span> var.custom_error_response <span style="color:#ff7b72;font-weight:bold">==</span> null <span style="color:#ff7b72;font-weight:bold">?</span> [] <span style="color:#ff7b72;font-weight:bold">:</span> [var.custom_error_response]
+</span></span><span style="display:flex;"><span>    iterator <span style="color:#ff7b72;font-weight:bold">=</span> cer
 </span></span><span style="display:flex;"><span>    content {
-</span></span><span style="display:flex;"><span>      error_code            = lookup(cer.value, <span style="color:#a5d6ff">&#34;error_code&#34;</span>, null)
-</span></span><span style="display:flex;"><span>      error_caching_min_ttl = lookup(cer.value, <span style="color:#a5d6ff">&#34;error_caching_min_ttl&#34;</span>, null)
-</span></span><span style="display:flex;"><span>      response_code         = lookup(cer.value, <span style="color:#a5d6ff">&#34;response_code&#34;</span>, null)
-</span></span><span style="display:flex;"><span>      response_page_path    = lookup(cer.value, <span style="color:#a5d6ff">&#34;response_page_path&#34;</span>, null)
+</span></span><span style="display:flex;"><span>      error_code            <span style="color:#ff7b72;font-weight:bold">=</span> lookup(cer.value, <span style="color:#a5d6ff">&#34;error_code&#34;</span>, null)
+</span></span><span style="display:flex;"><span>      error_caching_min_ttl <span style="color:#ff7b72;font-weight:bold">=</span> lookup(cer.value, <span style="color:#a5d6ff">&#34;error_caching_min_ttl&#34;</span>, null)
+</span></span><span style="display:flex;"><span>      response_code         <span style="color:#ff7b72;font-weight:bold">=</span> lookup(cer.value, <span style="color:#a5d6ff">&#34;response_code&#34;</span>, null)
+</span></span><span style="display:flex;"><span>      response_page_path    <span style="color:#ff7b72;font-weight:bold">=</span> lookup(cer.value, <span style="color:#a5d6ff">&#34;response_page_path&#34;</span>, null)
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>  ...
@@ -1080,7 +1052,7 @@ Check the following detailed guide from HashiCorp that explains how to do that �
         
         
         <img loading="lazy"
-             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/types-converstion_hu_e3e70aec17c92843.webp"width="400"height="400.00" />
+             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/types-converstion_hu_bd143b0a8780fe18.webp"width="400"height="400.00" />
         
     
 </figure>
@@ -1088,28 +1060,28 @@ Check the following detailed guide from HashiCorp that explains how to do that �
 Ok, let&rsquo;s move to the less conditional things now 😅</p>
 <p>Terraform has several type conversion functions: <code>tobool()</code>, <code>tolist()</code>,<code>tomap()</code>, <code>tonumber()</code>, <code>toset()</code>, and <code>tostring()</code>. Their purpose is to convert the input values to the compatible types.</p>
 <p>For example, suppose I need to pass the set to the <code>for_each</code> (it accepts only sets and maps types of value), but I got the list as an input; let&rsquo;s say I got it as an output from another module. In such a case, I would do something like this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span>for_each = toset(var.remote_access_ports)
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span>for_each <span style="color:#ff7b72;font-weight:bold">=</span> toset(var.remote_access_ports)
 </span></span></code></pre></div><p>However, I can make my code cleaner and avoid the explicit conversion — I just need to define the value type in the configuration block of the <code>my_list</code> variable. Terraform will do the conversion automatically when the value is assigned.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">variable</span> <span style="color:#a5d6ff">&#34;remote_access_ports&#34;</span> {
-</span></span><span style="display:flex;"><span>  description = <span style="color:#a5d6ff">&#34;Ports for remote access&#34;</span>
-</span></span><span style="display:flex;"><span>  type        = set(string)
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">variable</span> <span style="color:#a5d6ff">&#34;remote_access_ports&#34;</span> {
+</span></span><span style="display:flex;"><span>  description <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;Ports for remote access&#34;</span>
+</span></span><span style="display:flex;"><span>  type        <span style="color:#ff7b72;font-weight:bold">=</span> set(string)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>While Terraform can do a lot of implicit conversions for you, explicit type conversions are practical during values normalization or when you need to calculate some complex value for a variable. For example, the Local Values, known as <code>locals</code>, are the most suitable place for doing that.</p>
 <p>By the way, although there is a <code>tolist()</code> function, there is no such thing as the <code>tostring()</code> function. But what if you need to convert the list to string in Terraform?</p>
 <p>The <code>one()</code> function can help here: it takes a list, set, or tuple value with either zero or one element and returns either <code>null</code> or that one element in the form of string.</p>
 <p>It&rsquo;s useful in cases when a resource created using conditional expression is represented as either a zero- or one-element list, and you need to get a single value which may be either <code>null</code> or <code>string</code>, for example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_kms_key&#34;</span> <span style="color:#a5d6ff">&#34;main&#34;</span> {
-</span></span><span style="display:flex;"><span>  count               = var.ebs_encrypted <span style="color:#ff7b72;font-weight:bold">?</span> <span style="color:#a5d6ff">1</span> <span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_kms_key&#34;</span> <span style="color:#a5d6ff">&#34;main&#34;</span> {
+</span></span><span style="display:flex;"><span>  count               <span style="color:#ff7b72;font-weight:bold">=</span> var.ebs_encrypted <span style="color:#ff7b72;font-weight:bold">?</span> <span style="color:#a5d6ff">1</span> <span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  enable_key_rotation = <span style="color:#79c0ff">true</span>
-</span></span><span style="display:flex;"><span>  tags                = var.tags
+</span></span><span style="display:flex;"><span>  enable_key_rotation <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#79c0ff">true</span>
+</span></span><span style="display:flex;"><span>  tags                <span style="color:#ff7b72;font-weight:bold">=</span> var.tags
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#ff7b72">
-</span></span></span><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_kms_alias&#34;</span> <span style="color:#a5d6ff">&#34;main&#34;</span> {
-</span></span><span style="display:flex;"><span>  count         = var.ebs_encrypted <span style="color:#ff7b72;font-weight:bold">?</span> <span style="color:#a5d6ff">1</span> <span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  name          = <span style="color:#a5d6ff">&#34;alias/encrypt-ebs&#34;</span>
-</span></span><span style="display:flex;"><span>  target_key_id = one(aws_kms_key.main[<span style="color:#ff7b72;font-weight:bold">*</span>]key_id)
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_kms_alias&#34;</span> <span style="color:#a5d6ff">&#34;main&#34;</span> {
+</span></span><span style="display:flex;"><span>  count         <span style="color:#ff7b72;font-weight:bold">=</span> var.ebs_encrypted <span style="color:#ff7b72;font-weight:bold">?</span> <span style="color:#a5d6ff">1</span> <span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  name          <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;alias/encrypt-ebs&#34;</span>
+</span></span><span style="display:flex;"><span>  target_key_id <span style="color:#ff7b72;font-weight:bold">=</span> one(aws_kms_key.main[<span style="color:#ff7b72;font-weight:bold">*</span>]key_id)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h2 id="write-yaml-or-json-as-terraform-code-hcl">Write YAML or JSON as Terraform code (HCL)</h2>
 <p><figure>
@@ -1122,7 +1094,7 @@ Ok, let&rsquo;s move to the less conditional things now 😅</p>
         
         
         <img loading="lazy"
-             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/write-yaml-json-as-terraform-code_hu_fceb6d283c60b5ff.webp"width="400"height="400.00" />
+             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/write-yaml-json-as-terraform-code_hu_787bda7f45a5614d.webp"width="400"height="400.00" />
         
     
 </figure>
@@ -1131,9 +1103,9 @@ Sometimes you need to supply JSON or YAML files to the services you manage with 
 <p>Instead of maintaining another file in JSON or YAML format, you can embed JSON or YAML code management into HCL by taking benefit of the  <code>jsonencode()</code> or <code>yamlencode()</code>  functions.</p>
 <p>The attractiveness of this approach is that you can reference other Terraform resources or their attributes right in the code of your object, and you have more freedom in terms of the code syntax and its formatting comparable to native JSON or YAML.</p>
 <p>Here is how it looks like:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span>locals {
-</span></span><span style="display:flex;"><span>	some_string = <span style="color:#a5d6ff">&#34;ult&#34;</span>
-</span></span><span style="display:flex;"><span>  myjson_object = jsonencode({
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span>locals {
+</span></span><span style="display:flex;"><span>	some_string <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;ult&#34;</span>
+</span></span><span style="display:flex;"><span>  myjson_object <span style="color:#ff7b72;font-weight:bold">=</span> jsonencode({
 </span></span><span style="display:flex;"><span>    <span style="color:#a5d6ff">&#34;Hashicorp Products&#34;</span><span style="color:#ff7b72;font-weight:bold">:</span> {
 </span></span><span style="display:flex;"><span>      Terra<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;form&#34;</span>
 </span></span><span style="display:flex;"><span>      Con<span style="color:#ff7b72;font-weight:bold">:</span>   <span style="color:#a5d6ff">&#34;sul&#34;</span>
@@ -1143,7 +1115,7 @@ Sometimes you need to supply JSON or YAML files to the services you manage with 
 </span></span><span style="display:flex;"><span>  })
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The value of the <code>myjson_object</code> local variable would look like this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;Hashicorp Products&#34;</span>: {
 </span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;Con&#34;</span>: <span style="color:#a5d6ff">&#34;sul&#34;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;Terra&#34;</span>: <span style="color:#a5d6ff">&#34;form&#34;</span>,
@@ -1152,8 +1124,8 @@ Sometimes you need to supply JSON or YAML files to the services you manage with 
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>And here is a piece of real-world example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span>locals {
-</span></span><span style="display:flex;"><span>  cf_template_body = jsonencode({
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span>locals {
+</span></span><span style="display:flex;"><span>  cf_template_body <span style="color:#ff7b72;font-weight:bold">=</span> jsonencode({
 </span></span><span style="display:flex;"><span>    Resources <span style="color:#ff7b72;font-weight:bold">:</span> {
 </span></span><span style="display:flex;"><span>      DedicatedHostGroup <span style="color:#ff7b72;font-weight:bold">:</span> {
 </span></span><span style="display:flex;"><span>        Type <span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;AWS::ResourceGroups::Group&#34;</span>
@@ -1180,7 +1152,7 @@ Sometimes you need to supply JSON or YAML files to the services you manage with 
         
         
         <img loading="lazy"
-             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/templatize-stuff_hu_7ee38532b37a40f5.webp"width="400"height="400.00" />
+             src="/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/templatize-stuff_hu_fce35775f45aaa66.webp"width="400"height="400.00" />
         
     
 </figure>
@@ -1188,8 +1160,8 @@ Sometimes you need to supply JSON or YAML files to the services you manage with 
 The last case in this blog but not the least by its efficacy — render source file content as a template in Terraform.</p>
 <p>Let&rsquo;s review the following scenario: you launch an EC2 instance and want to supply it with a bash script (via the user-data parameter) for some additional configuration at launch.</p>
 <p>Suppose we have the following bash script <code>instance-init.sh</code> that sets the hostname and registers our instance in a monitoring system:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#8b949e;font-weight:bold;font-style:italic">#!/bin/bash
-</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-weight:bold;font-style:italic"></span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#8b949e;font-weight:bold;font-style:italic">#!/bin/bash
+</span></span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>hostname example.com
 </span></span><span style="display:flex;"><span>bash /opt/system-init/register-monitoring.sh
 </span></span></code></pre></div><p>But what if you want to set a different hostname per instance, and some instances should not be registered in the monitoring system?</p>
@@ -1201,13 +1173,13 @@ hostname ${system_hostname}
 bash /opt/system-init/register-monitoring.sh
 %{endif}
 </code></pre><p>And when you supply this file as an argument for the EC2 instance resource in Terraform, you will use the <code>templatefile()</code> function to make the magic happen:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_instance&#34;</span> <span style="color:#a5d6ff">&#34;web&#34;</span> {
-</span></span><span style="display:flex;"><span>  ami           = var.my_ami_id
-</span></span><span style="display:flex;"><span>  instance_type = var.instance_type
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_instance&#34;</span> <span style="color:#a5d6ff">&#34;web&#34;</span> {
+</span></span><span style="display:flex;"><span>  ami           <span style="color:#ff7b72;font-weight:bold">=</span> var.my_ami_id
+</span></span><span style="display:flex;"><span>  instance_type <span style="color:#ff7b72;font-weight:bold">=</span> var.instance_type
 </span></span><span style="display:flex;"><span>  ...
-</span></span><span style="display:flex;"><span>  user_data = templatefile(<span style="color:#a5d6ff">&#34;</span><span style="color:#a5d6ff">${</span>path.module<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">/instance-init.tftpl&#34;</span>, {
-</span></span><span style="display:flex;"><span>    system_hostname     = var.system_hostname
-</span></span><span style="display:flex;"><span>    register_monitoring = var.add_to_monitoring
+</span></span><span style="display:flex;"><span>  user_data <span style="color:#ff7b72;font-weight:bold">=</span> templatefile(<span style="color:#a5d6ff">&#34;</span><span style="color:#a5d6ff">${</span>path.module<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">/instance-init.tftpl&#34;</span>, {
+</span></span><span style="display:flex;"><span>    system_hostname     <span style="color:#ff7b72;font-weight:bold">=</span> var.system_hostname
+</span></span><span style="display:flex;"><span>    register_monitoring <span style="color:#ff7b72;font-weight:bold">=</span> var.add_to_monitoring
 </span></span><span style="display:flex;"><span>  })
 </span></span><span style="display:flex;"><span>  ...
 </span></span><span style="display:flex;"><span>}
@@ -1247,24 +1219,24 @@ bash /opt/system-init/register-monitoring.sh
 <p>Docker image with a Terraform binary is one of the popular solutions that address this. Once created, you can execute Terraform within a container context with configuration files mounted as a Docker volume.</p>
 <p>You can use the official <a href="https://hub.docker.com/r/hashicorp/terraform/">image from Hashicorp</a>, but sometimes it makes sense to maintain your own Docker images with additional tools you may need. For instance, you can bake the <code>tfsec</code> tool into the image to use it for security inspection and have it ready inside the Docker container without the need to install it every time.</p>
 <p>Here is an example of a Dockerfile that builds an image with a custom Terraform version (you can override it as a build argument) and a <code>tfsec</code> tool. This example also shows how to verify the installed Terraform binary to make sure it&rsquo;s signed by HashiCorp before we run it.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span><span style="color:#ff7b72">FROM</span><span style="color:#a5d6ff"> alpine:3.14</span><span style="color:#f85149">
-</span></span></span><span style="display:flex;"><span><span style="color:#f85149"></span><span style="color:#ff7b72">ARG</span> <span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">1</span>.0.11<span style="color:#f85149">
-</span></span></span><span style="display:flex;"><span><span style="color:#f85149"></span><span style="color:#ff7b72">ARG</span> <span style="color:#79c0ff">TFSEC_VERSION</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">0</span>.59.0<span style="color:#f85149">
-</span></span></span><span style="display:flex;"><span><span style="color:#f85149"></span><span style="color:#ff7b72">RUN</span> apk add --no-cache --virtual .sig-check gnupg<span style="color:#f85149">
-</span></span></span><span style="display:flex;"><span><span style="color:#f85149"></span><span style="color:#ff7b72">RUN</span> wget -O /usr/bin/tfsec https://github.com/aquasecurity/tfsec/releases/download/v<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TFSEC_VERSION</span><span style="color:#a5d6ff">}</span>/tfsec-linux-amd64 <span style="color:#79c0ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> chmod +x /usr/bin/tfsec<span style="color:#f85149">
-</span></span></span><span style="display:flex;"><span><span style="color:#f85149"></span><span style="color:#ff7b72">RUN</span> cd /tmp <span style="color:#79c0ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> wget <span style="color:#a5d6ff">&#34;https://releases.hashicorp.com/terraform/</span><span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">/terraform_</span><span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">_linux_amd64.zip&#34;</span> <span style="color:#79c0ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> wget https://keybase.io/hashicorp/pgp_keys.asc <span style="color:#79c0ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> gpg --import pgp_keys.asc <span style="color:#79c0ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> gpg --fingerprint --list-signatures <span style="color:#a5d6ff">&#34;HashiCorp Security&#34;</span> | grep -q <span style="color:#a5d6ff">&#34;C874 011F 0AB4 0511 0D02  1055 3436 5D94 72D7 468F&#34;</span> <span style="color:#ff7b72;font-weight:bold">||</span> exit <span style="color:#a5d6ff">1</span> <span style="color:#79c0ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> gpg --fingerprint --list-signatures <span style="color:#a5d6ff">&#34;HashiCorp Security&#34;</span> | grep -q <span style="color:#a5d6ff">&#34;34365D9472D7468F&#34;</span> <span style="color:#ff7b72;font-weight:bold">||</span> exit <span style="color:#a5d6ff">1</span> <span style="color:#79c0ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> wget https://releases.hashicorp.com/terraform/<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span>/terraform_<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span>_SHA256SUMS <span style="color:#79c0ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> wget https://releases.hashicorp.com/terraform/<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span>/terraform_<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span>_SHA256SUMS.sig <span style="color:#79c0ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> gpg --verify terraform_<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span>_SHA256SUMS.sig terraform_<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span>_SHA256SUMS <span style="color:#ff7b72;font-weight:bold">||</span> exit <span style="color:#a5d6ff">1</span> <span style="color:#79c0ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> sha256sum -c terraform_<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span>_SHA256SUMS 2&gt;&amp;<span style="color:#a5d6ff">1</span> | grep -q <span style="color:#a5d6ff">&#34;terraform_</span><span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">_linux_amd64.zip: OK&#34;</span> <span style="color:#ff7b72;font-weight:bold">||</span> exit <span style="color:#a5d6ff">1</span> <span style="color:#79c0ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> unzip terraform_<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span>_linux_amd64.zip -d /bin <span style="color:#79c0ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> rm -rf /tmp/* <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> apk del .sig-check<span style="color:#f85149">
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">alpine:3.14</span><span style="color:#f85149">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff7b72">ARG</span> <span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">1</span>.0.11<span style="color:#f85149">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff7b72">ARG</span> <span style="color:#79c0ff">TFSEC_VERSION</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">0</span>.59.0<span style="color:#f85149">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff7b72">RUN</span> apk add --no-cache --virtual .sig-check gnupg<span style="color:#f85149">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff7b72">RUN</span> wget -O /usr/bin/tfsec https://github.com/aquasecurity/tfsec/releases/download/v<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TFSEC_VERSION</span><span style="color:#a5d6ff">}</span>/tfsec-linux-amd64 <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> chmod +x /usr/bin/tfsec<span style="color:#f85149">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff7b72">RUN</span> cd /tmp <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> wget <span style="color:#a5d6ff">&#34;https://releases.hashicorp.com/terraform/</span><span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">/terraform_</span><span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">_linux_amd64.zip&#34;</span> <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> wget https://keybase.io/hashicorp/pgp_keys.asc <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> gpg --import pgp_keys.asc <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> gpg --fingerprint --list-signatures <span style="color:#a5d6ff">&#34;HashiCorp Security&#34;</span> | grep -q <span style="color:#a5d6ff">&#34;C874 011F 0AB4 0511 0D02  1055 3436 5D94 72D7 468F&#34;</span> <span style="color:#ff7b72;font-weight:bold">||</span> exit <span style="color:#a5d6ff">1</span> <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> gpg --fingerprint --list-signatures <span style="color:#a5d6ff">&#34;HashiCorp Security&#34;</span> | grep -q <span style="color:#a5d6ff">&#34;34365D9472D7468F&#34;</span> <span style="color:#ff7b72;font-weight:bold">||</span> exit <span style="color:#a5d6ff">1</span> <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> wget https://releases.hashicorp.com/terraform/<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span>/terraform_<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span>_SHA256SUMS <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> wget https://releases.hashicorp.com/terraform/<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span>/terraform_<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span>_SHA256SUMS.sig <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> gpg --verify terraform_<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span>_SHA256SUMS.sig terraform_<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span>_SHA256SUMS <span style="color:#ff7b72;font-weight:bold">||</span> exit <span style="color:#a5d6ff">1</span> <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> sha256sum -c terraform_<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span>_SHA256SUMS 2&gt;&amp;<span style="color:#a5d6ff">1</span> | grep -q <span style="color:#a5d6ff">&#34;terraform_</span><span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">_linux_amd64.zip: OK&#34;</span> <span style="color:#ff7b72;font-weight:bold">||</span> exit <span style="color:#a5d6ff">1</span> <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> unzip terraform_<span style="color:#a5d6ff">${</span><span style="color:#79c0ff">TERRAFORM_VERSION</span><span style="color:#a5d6ff">}</span>_linux_amd64.zip -d /bin <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> rm -rf /tmp/* <span style="color:#ff7b72;font-weight:bold">&amp;&amp;</span> apk del .sig-check<span style="color:#f85149">
 </span></span></span></code></pre></div><p>But the main functionality of Terraform is delivered by provider plugins. It takes time to download the provider: for example, the AWS provider is about 250MB, and in a large scale, with hundreds of Terraform runs per day, this makes a difference.</p>
 <p>There are two common ways to deal with it: either use a shared cache available to your pipeline workloads or bake provider binaries into the runtime environment (i.e., Docker image).</p>
 <p>The critical element for both approaches is the configuration of the plugin cache directory path. By default, Terraform looks for plugins and downloads them in the <code>.terraform</code> directory, which is local to the main project directory. But you can override this, and you can leverage the <code>TF_PLUGIN_CACHE_DIR</code> environment variable to do that.</p>
@@ -1283,13 +1255,13 @@ bash /opt/system-init/register-monitoring.sh
 <h2 id="initialization">Initialization</h2>
 <p>CI/CD pipelines generally run in stateless environments. Thus, every subsequent run of Terraform looks like a fresh start, so the project needs to be initialized before other actions can be performed.</p>
 <p>The usage of the <code>init</code> command in CI/CD slightly differs from its common local usage:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; terraform init -input<span style="color:#ff7b72;font-weight:bold">=</span>false
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; terraform init -input<span style="color:#ff7b72;font-weight:bold">=</span>false
 </span></span></code></pre></div><p>The <code>-input=false</code> option prevents Terraform CLI from asking for user actions (it will throw an error if the input was required).</p>
 <p><em>Also, there is <code>-no-color</code> option that prevents the usage of color codes in a shell, so the output will look much cleaner if your CI/CD logging system cannot render the terminal formatting.</em></p>
 <p>Another option of the init command that is useful in CI — is the <code>-backend-config</code>. That option allows you to override the backend configuration in your code or define it if you prefer to use partial configuration, thus creating more uniform pipelines.</p>
 <p>For example, here is how you can use the same code with different roles in different environments on AWS:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; terraform init -input<span style="color:#ff7b72;font-weight:bold">=</span>false <span style="color:#79c0ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>-backend-config<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;role_arn=arn:aws:iam::012345678901:role/QADeploymentAutomation&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; terraform init -input<span style="color:#ff7b72;font-weight:bold">=</span>false <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span>-backend-config<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;role_arn=arn:aws:iam::012345678901:role/QADeploymentAutomation&#34;</span>
 </span></span></code></pre></div><p>Terraform <code>init</code> produces two artifacts:</p>
 <ul>
 <li><code>.terraform</code> directory, which Terraform uses to manage cached provider plugins and modules, and record backend information</li>
@@ -1302,20 +1274,20 @@ bash /opt/system-init/register-monitoring.sh
 <p>By default, Terraform prints the plan output in a human-friendly format but also supports machine-readable JSON. With additional command-line options, you can extend your CI experience.</p>
 <p>For example, you can use your validation conditions to decide whether to apply the changes automatically; or you can parse the plan details and integrate the summary into a Pull Request description. Let’s review a simple example that illustrates it.</p>
 <p>First, you need to save the plan output to the file:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; terraform plan -input<span style="color:#ff7b72;font-weight:bold">=</span>false -compact-warnings -out<span style="color:#ff7b72;font-weight:bold">=</span>plan.file
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; terraform plan -input<span style="color:#ff7b72;font-weight:bold">=</span>false -compact-warnings -out<span style="color:#ff7b72;font-weight:bold">=</span>plan.file
 </span></span></code></pre></div><p>The main point here is the <code>-out</code> option — it tells Terraform to save its output into a binary plan file, and we will talk about it in the next paragraph.</p>
 <p>The <code>-compact-warnings</code> option suppresses the warning-level messages produced by Terraform.</p>
 <p>Also, the <code>plan</code> command has the <code>-detailed-exitcode</code> option that returns detailed exit codes when the command exits. For example, you can leverage this in a script that wraps Terraform and adds more conditional logic to its execution, because CIs will generally fail the pipeline on a command’s non-zero exit code. However, that may add complexity to the pipeline logic.</p>
 <p>So if you need to get detailed info about the plan, I suggest parsing the plan output.</p>
 <p>When you have a plan file, you can read it in JSON format and parse it. Here is a code snippet that illustrates that:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; terraform show -json plan.file| jq -r <span style="color:#a5d6ff">&#39;([.resource_changes[]?.change.actions?]|flatten)|{&#34;create&#34;:(map(select(.==&#34;create&#34;))|length),&#34;update&#34;:(map(select(.==&#34;update&#34;))|length),&#34;delete&#34;:(map(select(.==&#34;delete&#34;))|length)}&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; terraform show -json plan.file| jq -r <span style="color:#a5d6ff">&#39;([.resource_changes[]?.change.actions?]|flatten)|{&#34;create&#34;:(map(select(.==&#34;create&#34;))|length),&#34;update&#34;:(map(select(.==&#34;update&#34;))|length),&#34;delete&#34;:(map(select(.==&#34;delete&#34;))|length)}&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72;font-weight:bold">{</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;create&#34;</span>: 1,
 </span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;update&#34;</span>: 0,
 </span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;delete&#34;</span>: <span style="color:#a5d6ff">0</span>
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72;font-weight:bold">}</span>
 </span></span></code></pre></div><p>Another way to see the information about changes, is to run the <code>plan</code> command with <code>-json</code> option and parse its output to stdout (available starting from Terraform 1.0.5):</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; terraform plan -json|jq <span style="color:#a5d6ff">&#39;select( .type == &#34;change_summary&#34;)|.&#34;@message&#34;&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; terraform plan -json|jq <span style="color:#a5d6ff">&#39;select( .type == &#34;change_summary&#34;)|.&#34;@message&#34;&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#a5d6ff">&#34;Plan: 1 to add, 0 to change, 0 to destroy.&#34;</span>
 </span></span></code></pre></div><p><div class="attention">
     This technique can make your Pull Request messages more informative and improve your collaboration with teammates.
@@ -1325,10 +1297,10 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 <h2 id="apply">Apply</h2>
 <p>When the plan file is ready, and the proposed changes are expected and approved, it&rsquo;s time to <code>apply</code> them.</p>
 <p>Here is how the <code>apply</code> command may look like in automation:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>terraform apply -input<span style="color:#ff7b72;font-weight:bold">=</span>false -compact-warnings plan.file
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>terraform apply -input<span style="color:#ff7b72;font-weight:bold">=</span>false -compact-warnings plan.file
 </span></span></code></pre></div><p>Here, the <code>plan.file</code> is the file we got from the previous plan step.</p>
 <p>Alternatively, you might want to omit the planning phase at all. In that case, the following command will apply the configuration immediately, without the need for a plan:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>terraform apply -input<span style="color:#ff7b72;font-weight:bold">=</span>false -compact-warnings -auto-approve
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>terraform apply -input<span style="color:#ff7b72;font-weight:bold">=</span>false -compact-warnings -auto-approve
 </span></span></code></pre></div><p>Here, the <code>-auto-approve</code> option tells Terraform to create the plan implicitly and skip the interactive approval of that plan before applying.</p>
 <p>Whichever way you choose, keep in mind the destructive nature of the apply command. Hence, the fully automated apply of configuration generally works well with environments that tolerate unexpected downtimes, such as development or testing. Whereas plan review is recommended for production-grade environments, and in that case, the <code>apply</code> job is configured for a manual trigger.</p>
 <h1 id="dealing-with-stateless-environments">Dealing with stateless environments</h1>
@@ -1344,10 +1316,10 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 <p>There are two common ways how you can pass values for the variables used in the configuration:</p>
 <ol>
 <li>Using a <code>-var-file</code> option with the variable definitions file — a filename ending in <code>.tfvars</code> or <code>.tfvars.json</code>. For example:
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>terraform apply -var-file<span style="color:#ff7b72;font-weight:bold">=</span>development.tfvars -input<span style="color:#ff7b72;font-weight:bold">=</span>false -no-color -compact-warnings -auto-approve
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>terraform apply -var-file<span style="color:#ff7b72;font-weight:bold">=</span>development.tfvars -input<span style="color:#ff7b72;font-weight:bold">=</span>false -no-color -compact-warnings -auto-approve
 </span></span></code></pre></div>Also, Terraform can automatically load the variables from files named exactly <code>terraform.tfvars</code> or <code>terraform.tfvars.json</code>: with that approach, you don’t need to specify the tfvar file as a command option explicitly.</li>
 <li>Using environment variables with the prefix <code>TF_VAR_</code>. Implicitly, Terraform always looks for the environment variables (within its process context) with that prefix, so the same &ldquo;instance_type&rdquo; variables from the example above can be passed as follows:
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>export <span style="color:#79c0ff">TF_VAR_instance_type</span><span style="color:#ff7b72;font-weight:bold">=</span>t3.nano
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>export <span style="color:#79c0ff">TF_VAR_instance_type</span><span style="color:#ff7b72;font-weight:bold">=</span>t3.nano
 </span></span><span style="display:flex;"><span>terraform -input<span style="color:#ff7b72;font-weight:bold">=</span>false -no-color -compact-warnings -auto-approve
 </span></span></code></pre></div></li>
 </ol>
@@ -1357,7 +1329,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 <ul>
 <li><code>TF_INPUT</code> — when set to &ldquo;false&rdquo; or &ldquo;0&rdquo;, this tells Terraform to behave the same way as with the <code>-input=false</code> flag;</li>
 <li><code>TF_CLI_ARGS</code> — can contain a set of command-line options that will be passed to one or another Terraform command. Therefore, the following notation can simplify the execution of <code>apply</code> and <code>plan</code> commands by unifying their options for CI:
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>export <span style="color:#79c0ff">TF_CLI_ARGS</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;-input=false -no-color -compact-warnings&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>export <span style="color:#79c0ff">TF_CLI_ARGS</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;-input=false -no-color -compact-warnings&#34;</span>
 </span></span><span style="display:flex;"><span>terraform plan ...
 </span></span><span style="display:flex;"><span>terraform apply ...
 </span></span></code></pre></div>You can advantage this even more when using this variable as the environment configuration of stages or jobs in a CI/CD tool.</li>
@@ -1397,7 +1369,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         
         
         <img loading="lazy"
-             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-workflow_hu_67ccf615b4552cfc.webp"
+             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-workflow_hu_fe601c659e589dea.webp"
                  alt="Basic 3-steps Terraform workflow"width="800"height="89.88" />
         
     
@@ -1423,7 +1395,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         
         
         <img loading="lazy"
-             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-workflow-individual_hu_4cb162ed50a9602b.webp"
+             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-workflow-individual_hu_5300e22694a615c6.webp"
                  alt="Git-based Terraform workflow"width="800"height="267.41" />
         
     
@@ -1451,7 +1423,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         
         
         <img loading="lazy"
-             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-core-workflow-team_hu_d3a97430ca465c56.webp"
+             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-core-workflow-team_hu_c6bd70d02654ff88.webp"
                  alt="Git-based Terraform workflow in a team"width="800"height="298.41" />
         
     
@@ -1482,7 +1454,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         
         
         <img loading="lazy"
-             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-workflow-team-automation-1_hu_3a84f3744d814e55.webp"
+             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-workflow-team-automation-1_hu_2c0c8b4ca8fd910c.webp"
                  alt="Git-based Terraform workflow with automation"width="800"height="272.90" />
         
     
@@ -1521,7 +1493,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
         
         
         <img loading="lazy"
-             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-workflow-import_hu_9147950a544cbc1a.webp"
+             src="/2020/09/16/terraform-workflow-working-individually-and-in-a-team/tf-workflow-import_hu_135390f74320a4c5.webp"
                  alt="Terraform resource import workflow"width="800"height="238.20" />
         
     
@@ -1590,7 +1562,7 @@ For example, you can make a plan from the resources I outlined below in this art
         
         
         <img loading="lazy"
-             src="/2020/09/15/terraform-certification-tips/todo-list_hu_56f5ee47bfb2ea75.webp"width="585"height="540" />
+             src="/2020/09/15/terraform-certification-tips/todo-list_hu_82064ebff1b19eb5.webp"width="585"height="540" />
         
     
 </figure>
@@ -1631,7 +1603,7 @@ For example, you can make a plan from the resources I outlined below in this art
         
         
         <img loading="lazy"
-             src="/2020/09/15/terraform-certification-tips/real-world-demo_hu_ee5c37b3cd7c8a0a.webp"width="585"height="405" />
+             src="/2020/09/15/terraform-certification-tips/real-world-demo_hu_6116ed1b26d04a67.webp"width="585"height="405" />
         
     
 </figure>
@@ -1649,7 +1621,7 @@ For example, you can make a plan from the resources I outlined below in this art
         
         
         <img loading="lazy"
-             src="/2020/09/15/terraform-certification-tips/tf-forum_hu_33d86d1c47a6aa31.webp"width="585"height="650" />
+             src="/2020/09/15/terraform-certification-tips/tf-forum_hu_be359c2adf0e7f5d.webp"width="585"height="650" />
         
     
 </figure>
@@ -1666,13 +1638,6 @@ For example, you can make a plan from the resources I outlined below in this art
       <content:encoded><![CDATA[<p>Surprisingly, a lot of beginners skip over Terraform modules for the sake of simplicity, or so they think. Later, they find themselves going through hundreds of lines of configuration code.</p>
 <p>I assume you already know some basics about Terraform or even tried to use it in some way before reading the article.</p>
 <p>Please note: I do not use real code examples with some specific provider like AWS or Google intentionally, just for the sake of simplicity.</p>
-<div class="beehiiv-subscribe-container">
-    <h3>Subscribe to blog updates!</h3>
-    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed"
-        height="52" frameborder="0" scrolling="no"
-        style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
-    <p>No spam or promotions, or other crap. Just a gentle update when I publish a new post.</p>
-</div>
 <h2 id="terraform-modules">Terraform modules</h2>
 <p>You already write modules even if you think you don’t.</p>
 <p>Even when you don&rsquo;t create a module intentionally, if you use Terraform, you are already writing a module – a so-called &ldquo;root&rdquo; module.</p>
@@ -1695,7 +1660,7 @@ For example, you can make a plan from the resources I outlined below in this art
         
         
         <img loading="lazy"
-             src="/2020/09/09/what-are-terraform-modules-and-how-do-they-work/1_hu_40dd7eb9bc593566.webp"
+             src="/2020/09/09/what-are-terraform-modules-and-how-do-they-work/1_hu_68cc2048701b0e50.webp"
                  alt="Terraform module example"width="425"height="253" />
         
     
@@ -1709,12 +1674,12 @@ For example, you can make a plan from the resources I outlined below in this art
 <p>Here is an example that illustrates how our &ldquo;server&rdquo; module might be called.
 &ldquo;To call a module&rdquo; means to use it in the configuration file.</p>
 <p>Here we create 5 instances of the &ldquo;server&rdquo; using single set of configurations (in the module):</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;server&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;server&#34;</span> {
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    count         = <span style="color:#a5d6ff">5</span>
+</span></span><span style="display:flex;"><span>    count         <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">5</span>
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    source        = <span style="color:#a5d6ff">&#34;./module_server&#34;</span>
-</span></span><span style="display:flex;"><span>    some_variable = some_value
+</span></span><span style="display:flex;"><span>    source        <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;./module_server&#34;</span>
+</span></span><span style="display:flex;"><span>    some_variable <span style="color:#ff7b72;font-weight:bold">=</span> some_value
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h3 id="modules-organisation-child-and-root">Modules organisation: child and root</h3>
 <p>Of course, you would probably want to create more than one module. Here are some common examples:</p>
@@ -1726,14 +1691,14 @@ For example, you can make a plan from the resources I outlined below in this art
 <li>and whatever else you consider a distinct logical component of the infrastructure</li>
 </ul>
 <p>Let&rsquo;s say we have two different modules: a &ldquo;server&rdquo; module and a &ldquo;network&rdquo; module. The module called &ldquo;network&rdquo; is where we define and configure our virtual network and place servers in it:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;server&#34;</span> {
-</span></span><span style="display:flex;"><span>    source        = <span style="color:#a5d6ff">&#34;./module_server&#34;</span>
-</span></span><span style="display:flex;"><span>    some_variable = some_value
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;server&#34;</span> {
+</span></span><span style="display:flex;"><span>    source        <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;./module_server&#34;</span>
+</span></span><span style="display:flex;"><span>    some_variable <span style="color:#ff7b72;font-weight:bold">=</span> some_value
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#ff7b72">
-</span></span></span><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;network&#34;</span> {  
-</span></span><span style="display:flex;"><span>    source              = <span style="color:#a5d6ff">&#34;./module_network&#34;</span>
-</span></span><span style="display:flex;"><span>    some_other_variable = some_other_value
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;network&#34;</span> {  
+</span></span><span style="display:flex;"><span>    source              <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;./module_network&#34;</span>
+</span></span><span style="display:flex;"><span>    some_other_variable <span style="color:#ff7b72;font-weight:bold">=</span> some_other_value
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Once we have some custom modules, we can refer to them as &ldquo;child&rdquo; modules. And the configuration file where we call child modules relates to the root module.</p>
 <figure>
@@ -1746,7 +1711,7 @@ For example, you can make a plan from the resources I outlined below in this art
         
         
         <img loading="lazy"
-             src="/2020/09/09/what-are-terraform-modules-and-how-do-they-work/2_hu_a16dc9d6d2cd822d.webp"
+             src="/2020/09/09/what-are-terraform-modules-and-how-do-they-work/2_hu_8d135885ee21c094.webp"
                  alt="Terraform modules relations"width="800"height="299.75" />
         
     
@@ -1771,20 +1736,20 @@ For example, you can make a plan from the resources I outlined below in this art
 <h3 id="module-scope">Module Scope</h3>
 <p>All resource instances, names, and therefore, resource visibility, are isolated in a module&rsquo;s scope. For example, module &ldquo;A&rdquo; can&rsquo;t see and does not know about resources in module &ldquo;B&rdquo; by default.</p>
 <p>Resource visibility, sometimes called resource isolation, ensures that resources will have unique names within a module&rsquo;s namespace. For example, with our 5 instances of the &ldquo;server&rdquo; module:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>module.server<span style="color:#ff7b72;font-weight:bold">[</span>0<span style="color:#ff7b72;font-weight:bold">]</span>.resource_type.resource_name
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>module.server<span style="color:#ff7b72;font-weight:bold">[</span>0<span style="color:#ff7b72;font-weight:bold">]</span>.resource_type.resource_name
 </span></span><span style="display:flex;"><span>module.server<span style="color:#ff7b72;font-weight:bold">[</span>1<span style="color:#ff7b72;font-weight:bold">]</span>.resource_type.resource_name
 </span></span><span style="display:flex;"><span>module.server<span style="color:#ff7b72;font-weight:bold">[</span>2<span style="color:#ff7b72;font-weight:bold">]</span>.resource_type.resource_name
 </span></span></code></pre></div><p>On the other hand, we could create two instances of the same module with different names:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;server-alpha&#34;</span> {    
-</span></span><span style="display:flex;"><span>    source        = <span style="color:#a5d6ff">&#34;./module_server&#34;</span>
-</span></span><span style="display:flex;"><span>    some_variable = some_value
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;server-alpha&#34;</span> {    
+</span></span><span style="display:flex;"><span>    source        <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;./module_server&#34;</span>
+</span></span><span style="display:flex;"><span>    some_variable <span style="color:#ff7b72;font-weight:bold">=</span> some_value
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;server-beta&#34;</span> {
-</span></span><span style="display:flex;"><span>    source        = <span style="color:#a5d6ff">&#34;./module_server&#34;</span>
-</span></span><span style="display:flex;"><span>    some_variable = some_value
+</span></span><span style="display:flex;"><span>    source        <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;./module_server&#34;</span>
+</span></span><span style="display:flex;"><span>    some_variable <span style="color:#ff7b72;font-weight:bold">=</span> some_value
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>In this case, the naming or address of resources would be as follows:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>module.server-alpha.resource_type.resource_name
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>module.server-alpha.resource_type.resource_name
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>module.server-beta.resource_type.resource_name
 </span></span></code></pre></div><h3 id="explicit-resources-exposure">Explicit resources exposure</h3>
@@ -1800,7 +1765,7 @@ For example, you can make a plan from the resources I outlined below in this art
         
         
         <img loading="lazy"
-             src="/2020/09/09/what-are-terraform-modules-and-how-do-they-work/3_hu_c452e97d87cc038e.webp"
+             src="/2020/09/09/what-are-terraform-modules-and-how-do-they-work/3_hu_9bd9438ed0da0ba7.webp"
                  alt="Resource incapsulation in Terraform modules"width="800"height="255.43" />
         
     
@@ -1822,7 +1787,7 @@ For example, you can make a plan from the resources I outlined below in this art
         
         
         <img loading="lazy"
-             src="/2020/09/09/what-are-terraform-modules-and-how-do-they-work/4_hu_247ff679f92b4d48.webp"
+             src="/2020/09/09/what-are-terraform-modules-and-how-do-they-work/4_hu_a500b99f238d59ac.webp"
                  alt="Module outputs and input variables"width="800"height="573.38" />
         
     
@@ -1834,18 +1799,18 @@ For example, you can make a plan from the resources I outlined below in this art
 
 <p>This explicit declaration of the output is the way to expose some resource (or information about it) outside — to the scope of the &lsquo;root&rsquo; module, hence to make it available for other modules.</p>
 <p>Next, when we call the child module &ldquo;server&rdquo;  in the root module, we should assign the output from the &ldquo;network&rdquo; module to the variable of the &ldquo;server&rdquo; module:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#79c0ff">network_id</span> <span style="color:#ff7b72;font-weight:bold">=</span> module.network.network_id
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#79c0ff">network_id</span> <span style="color:#ff7b72;font-weight:bold">=</span> module.network.network_id
 </span></span></code></pre></div><p>Here is how the final code for calling our child modules will look like in result:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;server&#34;</span> {
-</span></span><span style="display:flex;"><span>    count         = <span style="color:#a5d6ff">5</span>
-</span></span><span style="display:flex;"><span>    source        = <span style="color:#a5d6ff">&#34;./module_server&#34;</span>
-</span></span><span style="display:flex;"><span>    some_variable = some_value
-</span></span><span style="display:flex;"><span>    network_id    = module.network.network_id
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;server&#34;</span> {
+</span></span><span style="display:flex;"><span>    count         <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">5</span>
+</span></span><span style="display:flex;"><span>    source        <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;./module_server&#34;</span>
+</span></span><span style="display:flex;"><span>    some_variable <span style="color:#ff7b72;font-weight:bold">=</span> some_value
+</span></span><span style="display:flex;"><span>    network_id    <span style="color:#ff7b72;font-weight:bold">=</span> module.network.network_id
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#ff7b72">
-</span></span></span><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;network&#34;</span> {  
-</span></span><span style="display:flex;"><span>    source              = <span style="color:#a5d6ff">&#34;./module_network&#34;</span>
-</span></span><span style="display:flex;"><span>    some_other_variable = some_other_value
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;network&#34;</span> {  
+</span></span><span style="display:flex;"><span>    source              <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;./module_network&#34;</span>
+</span></span><span style="display:flex;"><span>    some_other_variable <span style="color:#ff7b72;font-weight:bold">=</span> some_other_value
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>This example configuration would create 5 instances of the same server, with all the necessary resources, in the network we created with as a separate module.</p>
 <h3 id="wrap-up">Wrap up</h3>
@@ -1868,7 +1833,7 @@ Requirements &mdash; bash-compatible interpreter, because aliases and functions 
 <p>Then just source this file, for example: <code>source ~/.zshrc</code></p>
 <h2 id="function-list-outputs-and-variables-of-given-module">Function: list outputs and variables of given module</h2>
 <p>You need to provide the path to module directory, and this function will list all declared variables and outputs module has. It comes very useful when you don&rsquo;t remember them all and just need to take a quick look.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">## TerraForm MOdule Explained</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">## TerraForm MOdule Explained</span>
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72">function</span> tfmoe <span style="color:#ff7b72;font-weight:bold">{</span>
 </span></span><span style="display:flex;"><span>  echo -e <span style="color:#a5d6ff">&#34;\nOutputs:&#34;</span>
 </span></span><span style="display:flex;"><span>  grep -r <span style="color:#a5d6ff">&#34;output \&#34;.*\&#34;&#34;</span> <span style="color:#79c0ff">$1</span> |awk <span style="color:#a5d6ff">&#39;{print &#34;\t&#34;,$2}&#39;</span> |tr -d <span style="color:#a5d6ff">&#39;&#34;&#39;</span>
@@ -1889,7 +1854,7 @@ Variables:
 	 tags
 </code></pre><h2 id="function-pre-fill-module-directory-with-configuration-files">Function: pre-fill module directory with configuration files</h2>
 <p>You need to provide a path to the module directory and this function will create a bunch of empty &lsquo;default&rsquo; .tf files in it.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">#TerraForm MOdule Initialize</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">#TerraForm MOdule Initialize</span>
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72">function</span> tfmoi <span style="color:#ff7b72;font-weight:bold">{</span>
 </span></span><span style="display:flex;"><span>  touch <span style="color:#79c0ff">$1</span>/variables.tf
 </span></span><span style="display:flex;"><span>  touch <span style="color:#79c0ff">$1</span>/outputs.tf
@@ -1903,7 +1868,7 @@ user@localhost $: ls ./module_foo
 main.tf      outputs.tf   variables.tf versions.tf
 </code></pre><h2 id="aliases">Aliases</h2>
 <p>The purpose of these aliases is just to keep you from typing long commands when you want to do a simple action.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>alias <span style="color:#79c0ff">tf</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;terraform&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>alias <span style="color:#79c0ff">tf</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;terraform&#39;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>alias <span style="color:#79c0ff">tfv</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;terraform validate&#39;</span>
 </span></span><span style="display:flex;"><span>
@@ -1911,7 +1876,7 @@ main.tf      outputs.tf   variables.tf versions.tf
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>alias <span style="color:#79c0ff">tfp</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;terraform plan&#39;</span> 
 </span></span></code></pre></div><p>This one is useful because it makes format tool to go in-depth (recursively) through directories.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>alias <span style="color:#79c0ff">tfm</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;terraform fmt -recursive&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>alias <span style="color:#79c0ff">tfm</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;terraform fmt -recursive&#39;</span>
 </span></span></code></pre></div><p>Example usage:</p>
 <pre tabindex="0"><code class="language-terminal" data-lang="terminal">user@localhost $: tfm 
 module_ecs_cluster/ecs.tf
@@ -1950,7 +1915,7 @@ module_alb/alb.tf
         
         
         <img loading="lazy"
-             src="/2020/05/02/terraform-explained-in-english/how-it-works-optimized_hu_45dd8a37a45d42dc.webp"
+             src="/2020/05/02/terraform-explained-in-english/how-it-works-optimized_hu_a9ec373750239895.webp"
                  alt="How Terraform works"width="800"height="400.00" />
         
     
@@ -1963,7 +1928,7 @@ module_alb/alb.tf
 <p>Terraform supports many platforms: cloud providers such as AWS, Azure, GCP, DigitalOcean, and other platforms such as OVH, 1&amp;1, Hetzner, etc. It also supports infrastructure software such as Docker, Kubernetes, Chef, and even databases and monitoring software. That is why Terraform is so popular — it is an actual Swiss knife in the operations world.</p>
 <p>So to create, change, or destroy the infrastructure, Terraform needs the source code.</p>
 <p>The <strong>source code</strong> is a set of configuration files that defines your infrastructure state. The code uses its syntax, but it looks very user-friendly. Here is an example: the following configuration block describes the virtual server (EC2 instance) in AWS.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_instance&#34; &#34;web_server&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_instance&#34; &#34;web_server&#34;</span> {
 </span></span><span style="display:flex;"><span>  ami           <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;ami-a1b2c3d4&#34;</span>
 </span></span><span style="display:flex;"><span>  instance_type <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;t3.micro&#34;</span>
 </span></span><span style="display:flex;"><span>  }
@@ -1979,7 +1944,7 @@ module_alb/alb.tf
 <p><strong>Resource</strong> is the essential part of the configuration code. That is where the definition of infrastructure objects happens.</p>
 <p>Resources are the main building blocks of the whole code. A resource can represent some object in the hosting provider (example: server) or the part of a compound object (example: attachable storage for a server)</p>
 <p>Every resource has a type and local name. For example, here is how EC2 instance configuration may look like:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_instance&#34; &#34;web_server&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_instance&#34; &#34;web_server&#34;</span> {
 </span></span><span style="display:flex;"><span>  ami           <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;ami-a1b2c3d4&#34;</span>
 </span></span><span style="display:flex;"><span>  instance_type <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;t3.micro&#34;</span>
 </span></span><span style="display:flex;"><span>  }
@@ -1997,7 +1962,7 @@ module_alb/alb.tf
         
         
         <img loading="lazy"
-             src="/2020/05/02/terraform-explained-in-english/module-example_hu_1bfc5a5ad1a31420.webp"
+             src="/2020/05/02/terraform-explained-in-english/module-example_hu_810a684bcbf24cc2.webp"
                  alt="Terraform module"width="800"height="400.00" />
         
     
@@ -2009,7 +1974,7 @@ module_alb/alb.tf
 
 <p><strong>Modules</strong> is the kind of logical containers or groups for resources you define and use together. The purpose of modules is the grouping of resources and the possibility of reusing the same code with different variables.</p>
 <p>Let’s get back to the example with the EC2 instance and say you need to have a static public IP address with it. In such a case, here is how the module for web server may look like:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_instance&#34; &#34;web_server&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_instance&#34; &#34;web_server&#34;</span> {
 </span></span><span style="display:flex;"><span>  ami           <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;ami-a1b2c3d4&#34;</span>
 </span></span><span style="display:flex;"><span>  instance_type <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;t3.micro&#34;</span>
 </span></span><span style="display:flex;"><span>  }
@@ -2021,7 +1986,7 @@ module_alb/alb.tf
 <p>The modules is a kind of standalone topic in Terraform. There is <a href="/2020/09/09/terraform-modules-explained.html">a separate article in my blog</a> that explains what modules are and how do they work.</p>
 <h3 id="variables">Variables</h3>
 <p><strong>Input variables</strong> work as parameters for the modules so module code could be reusable. Let’s look at the previous example: it has some hardcoded values — instance image ID and instance type. Here is how you can make it more abstract and reusable:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#ff7b72">variable</span> <span style="color:#a5d6ff">&#34;image_id&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#ff7b72">variable</span> <span style="color:#a5d6ff">&#34;image_id&#34;</span> {
 </span></span><span style="display:flex;"><span>  type          <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">string</span>
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72">variable</span> <span style="color:#a5d6ff">&#34;instance_type&#34;</span> {
@@ -2032,7 +1997,7 @@ module_alb/alb.tf
 </span></span><span style="display:flex;"><span>  instance_type <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">var</span>.<span style="color:#ff7b72">instance_type</span>
 </span></span><span style="display:flex;"><span>  }
 </span></span></code></pre></div><p>Values for the variables then can be passed either via CLI and environment variables (if you have only the one, so-called root module) or via explicit values in the block where you call a module, for example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;web_server_production&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#ff7b72">module</span> <span style="color:#a5d6ff">&#34;web_server_production&#34;</span> {
 </span></span><span style="display:flex;"><span>  source        <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;./modules/web_server&#34;</span>
 </span></span><span style="display:flex;"><span>  image_id      <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;ami-a1b2c3d4&#34;</span>
 </span></span><span style="display:flex;"><span>  instance_type <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;m5.large&#34;</span>
