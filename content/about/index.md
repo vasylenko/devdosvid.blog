@@ -9,7 +9,6 @@ hideSummary: true
 cover.hidden: true
 ShowBreadCrumbs: false
 title: About me — Serhii Vasylenko
-kind: page
 ShowLicense: false
 EmailSubscribeForm: false
 ---

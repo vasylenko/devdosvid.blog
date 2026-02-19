@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Build Hugo Website
         uses: ./.github/actions/build-hugo-website
@@ -24,7 +24,7 @@ jobs:
           build-artifact: ${{ env.ARTIFACT }}
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ env.ARTIFACT }}
           path: ${{ env.ARTIFACT }}
@@ -39,16 +39,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the branch for website hosting
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: '${{ env.GHPAGES_BRANCH }}'
 
       - name: Get the new website content
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: ${{ env.ARTIFACT }}
           path: ./
-          retention-days: 1
 
       - name: Deploy website
         run: |

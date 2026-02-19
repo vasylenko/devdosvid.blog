@@ -53,7 +53,37 @@ Click the **Option** button at the bottom of the Action window and **Uncheck** `
 
 Put the following script into the **Run Shell Script** window, replacing the *YOUR_API_KEY_HERE* string with your API key obtained from TinyPNG.
 
-{{< gist vasylenko 13cb423aa83265e79ac5ad900195603f >}}
+```zsh
+# MacOS Automator Quick Action for image compression using Tinypng.com
+# You need to register to obtain a personal API key
+# https://tinypng.com/developers
+#
+# The code below should be put inside "Run Shell Script" Action with the following configuration in the Automator:
+# workflow receives current: files or folders | in Finder
+# shell: /bin/zsh
+# pass input: as arguments
+
+set -e -o pipefail
+export PATH="$PATH:/usr/local/bin"
+APIKEY=YOUR_API_KEY_HERE
+tinypng () {
+	file_name="$1:t:r"
+	file_ext="$1:t:e"
+	file_dir="$1:h"
+	compressed_url="$(curl -D - -o /dev/null --user api:$APIKEY --data-binary @"$1" https://api.tinify.com/shrink|grep location|cut -d ' ' -f 2|sed 's/\r//')"
+	curl -o "${file_dir}/${file_name}_compressed.${file_ext}" "$compressed_url"
+}
+
+for f in "$@"
+do
+	if [ -f "$f" ]; then
+		tinypng "$f"
+	elif [ -d "$f" ]; then
+		find "$f" -name "*.png" -o -name "*.jpeg" -o -name "*.jpg" | while read file_name; do
+		tinypng "$file_name"; done
+	fi
+done
+```
 
 ## Utilities used in the script — explained
 
