@@ -47,7 +47,7 @@ It rarely comes down to just one reason. Usually, it's a blend of motivations de
 - **The Strength of a Collaborative Culture:** In healthy teams, there's an inherent understanding that helping each other and sharing interesting work benefits everyone. Your offer reinforces this positive norm.   
 
 Understanding these potential "Whys" is your key. Now, how do you translate that understanding into effectively approaching your peers?
-{{< email-subscription >}}
+
 ## Crafting the Opportunity: Making the Ask Compelling
 Knowing the potential motivators allows you to frame your request not as an ask for help but as presenting a valuable opportunity.
 

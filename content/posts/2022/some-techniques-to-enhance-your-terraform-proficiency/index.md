@@ -99,8 +99,6 @@ For example, here is how I would reference a resource created in the module with
 bucket_name = module.bucket["photos"].name
 ```
 
-{{<email-subscription>}}
-
 ## Conditional resource arguments (attributes) setting
 {{<figure src="conditional-resource-argument.png" width="400">}}
 

@@ -13,7 +13,6 @@ keywords: [Staff Engineer, Platform Engineering, Security Automation, Developer 
 summary: "Serhii Vasylenko — professional experience"
 title: "Serhii Vasylenko"
 ShowLicense: false
-EmailSubscribeForm: false
 ---
 
 Staff Engineer delivering strategic improvements across platform scalability, security posture, and developer productivity. Proven expertise in architecting and leading complex initiatives, such as reducing critical vulnerabilities by 59% across 70+ services (CISO priority) and saving $500K+ annually via CI/CD optimization (Kubernetes). My impact bridges infrastructure and security domains, balancing robust system design with operational excellence and developer velocity. I am a passionate mentor dedicated to building high-performing teams and enabling engineers to lead independently.

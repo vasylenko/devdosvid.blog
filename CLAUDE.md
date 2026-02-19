@@ -86,7 +86,6 @@ static/                          # Favicons, fonts (woff2), social SVG icons
 | `{{< youtube src="VIDEO_ID" title="..." >}}` | Responsive YouTube embed |
 | `{{< animation src="..." >}}` | Looping webm video |
 | `{{< tech-talk title="..." event="..." date="..." >}}` | Tech talk card (about page) |
-| `{{< email-subscription >}}` | Beehiiv subscription form |
 | `{{< rawhtml >}}...{{< /rawhtml >}}` | Raw HTML passthrough |
 
 ## Code Style & Conventions

@@ -19,8 +19,6 @@ I assume you already know some basics about Terraform or even tried to use it in
 
 Please note: I do not use real code examples with some specific provider like AWS or Google intentionally, just for the sake of simplicity.
 
-{{<email-subscription>}}
-
 ## Terraform modules
 You already write modules even if you think you don’t.
 

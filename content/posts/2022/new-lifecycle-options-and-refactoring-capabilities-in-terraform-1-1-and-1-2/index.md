@@ -20,8 +20,6 @@ It's been only a few months since Terraform 1.1 was released with the `moved` bl
 Now Terraform 1.2 is almost [ready](*https://github.com/hashicorp/terraform/releases/tag/v1.2.0-rc1*) (as I am writing this blog in early May 2022) to bring three new efficient controls to the resource lifecycle.\
 These are three new expressions: `precondition`, `postcondition`, and `replace_triggered_by`.
 
-{{<email-subscription>}}
-
 ## Terraform Code Refactoring With the Moved Block
 Starting from the 1.1 version, Terraform users can use the `moved` block to describe the changes in resource or module addresses (or resources inside a module) in the form of code. \
 Once that is described, Terraform performs the movement of the resource within the state during the first apply.

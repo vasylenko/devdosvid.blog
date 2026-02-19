@@ -3,7 +3,6 @@ buildFuture: true
 buildExpired: true
 params:
     env: development
-    EmailSubscribeForm: true
 minify:
     disableCSS: false
     disableHTML: false
