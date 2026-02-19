@@ -11,8 +11,57 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 19 Feb 2026 14:25:45 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 19 Feb 2026 16:27:38 +0100</lastBuildDate>
     <atom:link href="https://devdosvid.blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Positional Dominance Is Making You a Worse Engineer</title>
+      <link>https://devdosvid.blog/2026/02/19/positional-dominance-is-making-you-a-worse-engineer/</link>
+      <pubDate>Thu, 19 Feb 2026 15:41:54 +0100</pubDate>
+      <guid>https://devdosvid.blog/2026/02/19/positional-dominance-is-making-you-a-worse-engineer/</guid>
+      <description>At Staff level, needing to be the source of every best idea — positional dominance — quietly undermines your leadership. Here&amp;#39;s the shift to outcome dominance.</description>
+      <content:encoded><![CDATA[<p>A while back, I spent a few weeks designing the new access control system for our infrastructure. Three environments, multiple teams, a permissions model complex enough that every approach I tried had some trade-off I couldn’t fully resolve. I’d landed on something I felt solid about.</p>
+<p>Then, in the design review, a teammate suggested a different model — simpler access boundaries in lower environments, with resource-level policy enforcement handling the sensitive parts. Five minutes into his explanation, I knew he was right. His model let engineers roam freely across lower environments — not locked to their own namespaces — which meant debugging a cross-service issue no longer required hunting down someone from another team to pull logs for you. His approach was better.</p>
+<p>My first reaction was to defend mine anyway.</p>
+<p>Not loudly. Not stupidly. I pushed back moderately, documented all the approaches, and kept things professional. But internally, I caught myself doing something worth naming: I was bothered, not by the logic of his idea, but by the fact that it was his.</p>
+<h2 id="the-pattern-and-the-reframe">The pattern and the reframe</h2>
+<p>At senior levels, most of us have been the person with the best technical ideas in the room for long enough that it becomes part of how we measure ourselves. We don’t just want good outcomes — we want to be the source of them. When someone else generates a better idea, it registers, somewhere below rational thought, as a small loss.</p>
+<p>I’d call this <strong>positional dominance</strong>: needing to have the best ideas to feel like you’re leading. It’s zero-sum by design. Every peer’s strong contribution feels like a threat to your position, because in this frame, there’s only one winner per decision.</p>
+<p>It’s also exhausting. And it quietly makes you worse at your job.</p>
+<p>“Be humble” or “let others shine” are just positional thinking with better PR. The real shift is changing what you’re optimizing for.</p>
+<p><strong>Outcome dominance</strong>: You win when the project wins. Full stop.</p>
+<p>If that means your design gets replaced by something better, you still win — because you led the process that surfaced the better design. The peer’s idea was raw material. Your leadership turned raw material into a shipped, working system.</p>
+<h2 id="the-next-morning">The next morning</h2>
+<p>The day after, I reviewed my notes. His approach was clearly better. It would simplify implementation without compromising what actually needs to be protected. I dropped my design and wrote up his.</p>
+<p>That choice — and the lack of resentment I felt making it — is what outcome dominance actually feels like in practice.</p>
+<h2 id="what-leadership-actually-is-at-staff-level">What leadership actually is at Staff level</h2>
+<p>This reframe only holds if you’re clear on what your leadership contribution actually is. Because if you think leadership = best ideas, then giving up your idea feels like giving up your role.</p>
+<p>I had been leading that project for weeks before that meeting. Here is what that looked like:</p>
+<ul>
+<li>Identified the problem and defined what “good” looked like</li>
+<li>Brought the right people into the design conversation</li>
+<li>Synthesized the options into a coherent decision</li>
+<li>Was accountable for delivery</li>
+</ul>
+<p>None of that changed because his model was better than mine. That list is the leadership contribution. A peer’s ideas are inputs to that process, not competition with it.</p>
+<p>The engineer who comes up with a good idea in a meeting isn’t leading the project. You are. Those aren’t in conflict — they’re complementary.</p>
+<h2 id="the-practical-test">The practical test</h2>
+<p>Here’s how I know when I’ve actually internalized this vs. just telling myself a nice story about it:</p>
+<p>Can I say “their approach was better, and I’m glad we went with it” — out loud, to the team, without any residue of resentment?</p>
+<p>If yes: outcome dominance. If I’m still quietly keeping score, looking for ways to qualify the credit, or framing it as “we ended up going with a combined approach” when we really just used theirs — I’m still optimizing for position.</p>
+<p>The honest answer, in that RBAC project, was yes. His model shipped. It made the system simpler. That’s the outcome I was responsible for delivering. I delivered it.</p>
+<h2 id="the-messy-parts">The messy parts</h2>
+<p>This isn’t a one-time switch. The positional response is fast and automatic — it fires before the rational brain catches up. The work is noticing it when it happens, not preventing it from happening at all.</p>
+<p>Also: documenting competing approaches before making a call, as I did in that meeting, is one of the most useful habits I’ve developed. It creates a day’s distance between the emotional reaction and the decision. That gap is where clear thinking lives.</p>
+<p>And one more thing: outcome dominance doesn’t mean your ideas don’t matter or that you should drop them at the first sign of pushback. Sometimes your design is right and needs defending. The difference is whether you’re defending it because the logic holds, or because it’s yours.</p>
+<p>There’s also a quieter fear worth naming: if the idea that shipped wasn’t mine, what do I point to in a performance review?</p>
+<p>This is real, especially when promo cycles reward visible output. But a peer’s idea appearing in the final design isn’t an absence of your leadership — it’s evidence that your process worked.</p>
+<p>What’s actually worth making visible is the upstream work: you defined the problem, you ran the review that surfaced the better approach, you synthesized the options, and made the call. Document that, not the idea. If you led the process that produced the outcome, that’s what you put in front of your manager — and it’s a stronger case than “my design shipped” ever was.</p>
+<h2 id="the-lesson">The lesson</h2>
+<p>What’s more rare — and what actually scales — is creating conditions where the best ideas, regardless of source, reliably surface and ship.</p>
+<p>The metric isn’t “did my idea win?” It’s “did the right outcome happen, and did I lead the process that got us there?”</p>
+<p>You can be the smartest person in the room, or you can be the person who made the room smarter. At Staff level, only one of those scales.</p>
+]]></content:encoded>
+    </item>
     <item>
       <title>Delegate for Growth: Scaling Your Impact Through Others</title>
       <link>https://devdosvid.blog/2025/04/04/delegate-for-growth-scaling-your-impact-through-others/</link>
@@ -3550,12 +3599,12 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72">var</span> response <span style="color:#ff7b72;font-weight:bold">=</span> event.response;
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72">var</span> headers <span style="color:#ff7b72;font-weight:bold">=</span> response.headers;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>headers[<span style="color:#a5d6ff">&#39;strict-transport-security&#39;</span>] <span style="color:#ff7b72;font-weight:bold">=</span> { value<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#f85149">&#39;</span>max<span style="color:#ff7b72;font-weight:bold">-</span>age<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">63072000</span>; includeSubdomains; preload<span style="color:#a5d6ff">&#39;}; 
-</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">headers[&#39;</span>content<span style="color:#ff7b72;font-weight:bold">-</span>security<span style="color:#ff7b72;font-weight:bold">-</span>policy<span style="color:#a5d6ff">&#39;] = { value: &#34;default-src &#39;</span>none<span style="color:#a5d6ff">&#39;; img-src &#39;</span>self<span style="color:#a5d6ff">&#39;; script-src &#39;</span>self<span style="color:#a5d6ff">&#39;; style-src &#39;</span>self<span style="color:#a5d6ff">&#39;; object-src &#39;</span>none<span style="color:#a5d6ff">&#39;; frame-ancestors &#39;</span>none<span style="color:#a5d6ff">&#39;&#34;}; 
-</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">headers[&#39;</span>x<span style="color:#ff7b72;font-weight:bold">-</span>content<span style="color:#ff7b72;font-weight:bold">-</span>type<span style="color:#ff7b72;font-weight:bold">-</span>options<span style="color:#a5d6ff">&#39;] = { value: &#39;</span>nosniff<span style="color:#a5d6ff">&#39;}; 
-</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">headers[&#39;</span>x<span style="color:#ff7b72;font-weight:bold">-</span>xss<span style="color:#ff7b72;font-weight:bold">-</span>protection<span style="color:#a5d6ff">&#39;] = {value: &#39;</span><span style="color:#a5d6ff">1</span>; mode<span style="color:#ff7b72;font-weight:bold">=</span>block<span style="color:#a5d6ff">&#39;};
-</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">headers[&#39;</span>referrer<span style="color:#ff7b72;font-weight:bold">-</span>policy<span style="color:#a5d6ff">&#39;] = {value: &#39;</span>same<span style="color:#ff7b72;font-weight:bold">-</span>origin<span style="color:#a5d6ff">&#39;};
-</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">headers[&#39;</span>x<span style="color:#ff7b72;font-weight:bold">-</span>frame<span style="color:#ff7b72;font-weight:bold">-</span>options<span style="color:#a5d6ff">&#39;] = {value: &#39;</span>DENY<span style="color:#f85149">&#39;</span>};
+</span></span><span style="display:flex;"><span>headers[<span style="color:#a5d6ff">&#39;strict-transport-security&#39;</span>] <span style="color:#ff7b72;font-weight:bold">=</span> { value<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;max-age=63072000; includeSubdomains; preload&#39;</span>}; 
+</span></span><span style="display:flex;"><span>headers[<span style="color:#a5d6ff">&#39;content-security-policy&#39;</span>] <span style="color:#ff7b72;font-weight:bold">=</span> { value<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;default-src &#39;none&#39;; img-src &#39;self&#39;; script-src &#39;self&#39;; style-src &#39;self&#39;; object-src &#39;none&#39;; frame-ancestors &#39;none&#39;&#34;</span>}; 
+</span></span><span style="display:flex;"><span>headers[<span style="color:#a5d6ff">&#39;x-content-type-options&#39;</span>] <span style="color:#ff7b72;font-weight:bold">=</span> { value<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;nosniff&#39;</span>}; 
+</span></span><span style="display:flex;"><span>headers[<span style="color:#a5d6ff">&#39;x-xss-protection&#39;</span>] <span style="color:#ff7b72;font-weight:bold">=</span> {value<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;1; mode=block&#39;</span>};
+</span></span><span style="display:flex;"><span>headers[<span style="color:#a5d6ff">&#39;referrer-policy&#39;</span>] <span style="color:#ff7b72;font-weight:bold">=</span> {value<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;same-origin&#39;</span>};
+</span></span><span style="display:flex;"><span>headers[<span style="color:#a5d6ff">&#39;x-frame-options&#39;</span>] <span style="color:#ff7b72;font-weight:bold">=</span> {value<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;DENY&#39;</span>};
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72">return</span> response;
 </span></span><span style="display:flex;"><span>}
@@ -3930,54 +3979,6 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
 </ul>
 <p>Getting into all this was both fun and interesting. Sometimes painful, though. 😆</p>
 <p>I sincerely hope this article was helpful to you. Thank you for reading!</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>Terraforming mac1.metal at AWS</title>
-      <link>https://devdosvid.blog/2021/01/20/terraforming-mac1.metal-at-aws/</link>
-      <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
-      <guid>https://devdosvid.blog/2021/01/20/terraforming-mac1.metal-at-aws/</guid>
-      <description>How to manage MacOS EC2 Instances with Terraform</description>
-      <content:encoded><![CDATA[<div class="updatenotice">
-    Updated on the 23rd of October, 2021: Terraform AWS provider now <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_host">supports</a> Dedicated Hosts natively
-</div>
-<p>In November 2021, AWS <a href="https://aws.amazon.com/blogs/aws/new-use-mac-instances-to-build-test-macos-ios-ipados-tvos-and-watchos-apps/">announced</a> the support for Mac mini instances.</p>
-<p>I believe this is huge, even despite the number of constraints this solution has. This offering opens the door to seamless macOS CI/CD integration into existing AWS infrastructure.</p>
-<p>So here is a quick-start example of creating the dedicated host and the instance altogether using Terraform.</p>
-<p>I intentionally used some hardcoded values for the sake of simplicity in the example.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_ec2_host&#34; &#34;example_host&#34;</span> {
-</span></span><span style="display:flex;"><span>  instance_type     <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;mac1.metal&#34;</span>
-</span></span><span style="display:flex;"><span>  availability_zone <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;us-east-1a&#34;</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_instance&#34; &#34;example_instance&#34;</span> {
-</span></span><span style="display:flex;"><span>  ami           <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">data</span>.<span style="color:#ff7b72">aws_ami</span>.<span style="color:#ff7b72">mac1metal</span>.<span style="color:#ff7b72">id</span>
-</span></span><span style="display:flex;"><span>  host_id       <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">aws_ec2_host</span>.<span style="color:#ff7b72">example_host</span>.<span style="color:#ff7b72">id</span>
-</span></span><span style="display:flex;"><span>  instance_type <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;mac1.metal&#34;</span>
-</span></span><span style="display:flex;"><span>  subnet_id     <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">data</span>.<span style="color:#ff7b72">aws_subnet</span>.<span style="color:#ff7b72">example_subnet</span>.<span style="color:#ff7b72">id</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff7b72">data</span> <span style="color:#a5d6ff">&#34;aws_subnet&#34; &#34;example_subnet&#34;</span> {
-</span></span><span style="display:flex;"><span>  availability_zone <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;us-east-1a&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">filter</span> {
-</span></span><span style="display:flex;"><span>    name   <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;tag:Tier&#34;</span><span style="color:#8b949e;font-style:italic"> # you should omit this filter if you don&#39;t distinguish your subnets on private and public 
-</span></span></span><span style="display:flex;"><span>    values <span style="color:#ff7b72;font-weight:bold">=</span> [<span style="color:#a5d6ff">&#34;private&#34;</span>]
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff7b72">data</span> <span style="color:#a5d6ff">&#34;aws_ami&#34; &#34;mac1metal&#34;</span> {
-</span></span><span style="display:flex;"><span>  owners      <span style="color:#ff7b72;font-weight:bold">=</span> [<span style="color:#a5d6ff">&#34;amazon&#34;</span>]
-</span></span><span style="display:flex;"><span>  most_recent <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">true</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">filter</span> {
-</span></span><span style="display:flex;"><span>    name   <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;name&#34;</span>
-</span></span><span style="display:flex;"><span>    values <span style="color:#ff7b72;font-weight:bold">=</span> [<span style="color:#a5d6ff">&#34;amzn-ec2-macos-11*&#34;</span>]<span style="color:#8b949e;font-style:italic"> # get latest BigSur AMI
-</span></span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Simple as that, yes. Now, you can integrate it into your CI system and have the Mac instance with the underlying host in a bundle.
-<div class="attention">
-    Pro tip: you can leverage the <code>aws_ec2_instance_type_offerings</code> <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_instance_type_offerings">Data Source</a> and use its output with <code>aws_subnet</code> source to avoid availability zone hardcoding.
-</div></p>
-<p>To make the code more uniform and reusable, you can wrap it into a <a href="/2020/09/09/terraform-modules-explained.html">Terraform module</a> that accepts specific parameters (such as <code>instance_type</code> or <code>availability_zone</code>) as input variables.</p>
 ]]></content:encoded>
     </item>
   </channel>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Engineering Leadership on devDosvid blog</title>
+    <link>https://devdosvid.blog/series/engineering-leadership/</link>
+    <description>Recent content in Engineering Leadership on devDosvid blog</description>
+    <image>
+      <title>devDosvid blog</title>
+      <url>https://devdosvid.blog/assets/img/websitelogo.jpg</url>
+      <link>https://devdosvid.blog/assets/img/websitelogo.jpg</link>
+    </image>
+    <generator>Hugo -- 0.156.0</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 19 Feb 2026 16:27:38 +0100</lastBuildDate>
+    <atom:link href="https://devdosvid.blog/series/engineering-leadership/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Positional Dominance Is Making You a Worse Engineer</title>
+      <link>https://devdosvid.blog/2026/02/19/positional-dominance-is-making-you-a-worse-engineer/</link>
+      <pubDate>Thu, 19 Feb 2026 15:41:54 +0100</pubDate>
+      <guid>https://devdosvid.blog/2026/02/19/positional-dominance-is-making-you-a-worse-engineer/</guid>
+      <description>At Staff level, needing to be the source of every best idea — positional dominance — quietly undermines your leadership. Here&amp;#39;s the shift to outcome dominance.</description>
+      <content:encoded><![CDATA[<p>A while back, I spent a few weeks designing the new access control system for our infrastructure. Three environments, multiple teams, a permissions model complex enough that every approach I tried had some trade-off I couldn’t fully resolve. I’d landed on something I felt solid about.</p>
+<p>Then, in the design review, a teammate suggested a different model — simpler access boundaries in lower environments, with resource-level policy enforcement handling the sensitive parts. Five minutes into his explanation, I knew he was right. His model let engineers roam freely across lower environments — not locked to their own namespaces — which meant debugging a cross-service issue no longer required hunting down someone from another team to pull logs for you. His approach was better.</p>
+<p>My first reaction was to defend mine anyway.</p>
+<p>Not loudly. Not stupidly. I pushed back moderately, documented all the approaches, and kept things professional. But internally, I caught myself doing something worth naming: I was bothered, not by the logic of his idea, but by the fact that it was his.</p>
+<h2 id="the-pattern-and-the-reframe">The pattern and the reframe</h2>
+<p>At senior levels, most of us have been the person with the best technical ideas in the room for long enough that it becomes part of how we measure ourselves. We don’t just want good outcomes — we want to be the source of them. When someone else generates a better idea, it registers, somewhere below rational thought, as a small loss.</p>
+<p>I’d call this <strong>positional dominance</strong>: needing to have the best ideas to feel like you’re leading. It’s zero-sum by design. Every peer’s strong contribution feels like a threat to your position, because in this frame, there’s only one winner per decision.</p>
+<p>It’s also exhausting. And it quietly makes you worse at your job.</p>
+<p>“Be humble” or “let others shine” are just positional thinking with better PR. The real shift is changing what you’re optimizing for.</p>
+<p><strong>Outcome dominance</strong>: You win when the project wins. Full stop.</p>
+<p>If that means your design gets replaced by something better, you still win — because you led the process that surfaced the better design. The peer’s idea was raw material. Your leadership turned raw material into a shipped, working system.</p>
+<h2 id="the-next-morning">The next morning</h2>
+<p>The day after, I reviewed my notes. His approach was clearly better. It would simplify implementation without compromising what actually needs to be protected. I dropped my design and wrote up his.</p>
+<p>That choice — and the lack of resentment I felt making it — is what outcome dominance actually feels like in practice.</p>
+<h2 id="what-leadership-actually-is-at-staff-level">What leadership actually is at Staff level</h2>
+<p>This reframe only holds if you’re clear on what your leadership contribution actually is. Because if you think leadership = best ideas, then giving up your idea feels like giving up your role.</p>
+<p>I had been leading that project for weeks before that meeting. Here is what that looked like:</p>
+<ul>
+<li>Identified the problem and defined what “good” looked like</li>
+<li>Brought the right people into the design conversation</li>
+<li>Synthesized the options into a coherent decision</li>
+<li>Was accountable for delivery</li>
+</ul>
+<p>None of that changed because his model was better than mine. That list is the leadership contribution. A peer’s ideas are inputs to that process, not competition with it.</p>
+<p>The engineer who comes up with a good idea in a meeting isn’t leading the project. You are. Those aren’t in conflict — they’re complementary.</p>
+<h2 id="the-practical-test">The practical test</h2>
+<p>Here’s how I know when I’ve actually internalized this vs. just telling myself a nice story about it:</p>
+<p>Can I say “their approach was better, and I’m glad we went with it” — out loud, to the team, without any residue of resentment?</p>
+<p>If yes: outcome dominance. If I’m still quietly keeping score, looking for ways to qualify the credit, or framing it as “we ended up going with a combined approach” when we really just used theirs — I’m still optimizing for position.</p>
+<p>The honest answer, in that RBAC project, was yes. His model shipped. It made the system simpler. That’s the outcome I was responsible for delivering. I delivered it.</p>
+<h2 id="the-messy-parts">The messy parts</h2>
+<p>This isn’t a one-time switch. The positional response is fast and automatic — it fires before the rational brain catches up. The work is noticing it when it happens, not preventing it from happening at all.</p>
+<p>Also: documenting competing approaches before making a call, as I did in that meeting, is one of the most useful habits I’ve developed. It creates a day’s distance between the emotional reaction and the decision. That gap is where clear thinking lives.</p>
+<p>And one more thing: outcome dominance doesn’t mean your ideas don’t matter or that you should drop them at the first sign of pushback. Sometimes your design is right and needs defending. The difference is whether you’re defending it because the logic holds, or because it’s yours.</p>
+<p>There’s also a quieter fear worth naming: if the idea that shipped wasn’t mine, what do I point to in a performance review?</p>
+<p>This is real, especially when promo cycles reward visible output. But a peer’s idea appearing in the final design isn’t an absence of your leadership — it’s evidence that your process worked.</p>
+<p>What’s actually worth making visible is the upstream work: you defined the problem, you ran the review that surfaced the better approach, you synthesized the options, and made the call. Document that, not the idea. If you led the process that produced the outcome, that’s what you put in front of your manager — and it’s a stronger case than “my design shipped” ever was.</p>
+<h2 id="the-lesson">The lesson</h2>
+<p>What’s more rare — and what actually scales — is creating conditions where the best ideas, regardless of source, reliably surface and ship.</p>
+<p>The metric isn’t “did my idea win?” It’s “did the right outcome happen, and did I lead the process that got us there?”</p>
+<p>You can be the smartest person in the room, or you can be the person who made the room smarter. At Staff level, only one of those scales.</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Delegate for Growth: Scaling Your Impact Through Others</title>
+      <link>https://devdosvid.blog/2025/04/04/delegate-for-growth-scaling-your-impact-through-others/</link>
+      <pubDate>Fri, 04 Apr 2025 00:36:23 +0200</pubDate>
+      <guid>https://devdosvid.blog/2025/04/04/delegate-for-growth-scaling-your-impact-through-others/</guid>
+      <description>Senior IC guide to scaling impact. Master peer influence &amp;amp; growth delegation to effectively lead without formal authority.</description>
+      <content:encoded><![CDATA[<p>As senior engineers, we often hit the ceiling at some point: our individual output is high, but writing more code or spinning up one more cluster does not feel like the best way to make more impact.</p>
+<p>A more significant impact comes from multiplying our efforts. But how do you do that without a team reporting to you? How do you effectively involve peers in your projects, influencing their priorities when you don&rsquo;t control their backlog or performance review?</p>
+<p>I had been looking for the answers to these questions for quite a long time, and then I realized there was no definitive answer or a straightforward rule to follow. Yet my brain always needs something systemized, and for those like me, I decided to compile this write-up: synthesis of my personal experience that worked well and learnings from books and blogs on that topic.</p>
+<p>The foundation of influencing peers lies in understanding their perspective. Before asking someone to take on work, especially the work you&rsquo;re <strong>proposing</strong>, you need to answer the fundamental question: <strong>What&rsquo;s in it for them?</strong></p>
+<p><em>This is my very first non-technical blog. And I hope it is not the last either</em> 😄</p>
+<h2 id="understanding-the-why-the-engine-of-peer-collaboration">Understanding the &ldquo;Why&rdquo;: The Engine of Peer Collaboration</h2>
+<p>Why would a fellow engineer prioritize something offered by a peer like you rather than a directive from their manager?</p>
+<p>It rarely comes down to just one reason. Usually, it&rsquo;s a blend of motivations deeply rooted in personal drive and effective team dynamics:</p>
+<ul>
+<li>
+<p><strong>The Hunger for Growth &amp; Mastery:</strong> Does this task offer a chance to learn a coveted new skill, dive deeper into an interesting technology, or tackle a challenge that stretches their capabilities? Tapping into this intrinsic drive is incredibly powerful.</p>
+</li>
+<li>
+<p><strong>The Desire for Impact &amp; Purpose:</strong> Can you clearly articulate how this work contributes to something meaningful? Whether it&rsquo;s a key product goal, squashing critical tech debt, or improving life for the whole team, connecting the task to the bigger picture gives it weight.</p>
+</li>
+<li>
+<p><strong>The Value of Visibility &amp; Recognition:</strong> Will this work get noticed? Could it lead to a cool demo, wider acknowledgment, or even open doors for future opportunities? Sometimes, positive exposure is a significant motivator.</p>
+</li>
+<li>
+<p><strong>The Power of Connection &amp; Collaboration:</strong> Is working closely with you part of the appeal? Offering a chance to learn directly from a respected senior peer, build rapport, and strengthen their network can be a draw in itself.</p>
+</li>
+<li>
+<p><strong>The Relief of Reducing Future Pain:</strong> Does this task promise to automate some hard work, fix a persistent thorn in the side, or establish a pattern that saves everyone time down the line? Framing it as an investment with future payoffs can be compelling.</p>
+</li>
+<li>
+<p><strong>The Spark of Intrinsic Interest:</strong> Sometimes, the problem itself is just plain fascinating, or it involves technology the peer genuinely enjoys working with. Don&rsquo;t underestimate the power of intellectual curiosity.</p>
+</li>
+<li>
+<p><strong>The Clarity of Strategic Alignment:</strong> This is often crucial. If you can demonstrate a direct link between the task and an agreed-upon team OKR, a strategic technical initiative, or a critical product outcome, it elevates the request beyond personal preference. It becomes a shared priority, providing justification for them (and potentially their manager) to consider adjusting focus.</p>
+</li>
+<li>
+<p><strong>The Pull of a Shared Technical Vision:</strong> If you&rsquo;re championing a specific technical direction or architecture that resonates with your peers, they&rsquo;ll be more inclined to pick up tasks that help realize that vision.</p>
+</li>
+<li>
+<p><strong>The Currency of Reciprocity &amp; Trust:</strong> Have you built &ldquo;relationship capital&rdquo;? A history of helping others, providing timely code reviews, and tackling unglamorous tasks yourself makes peers more likely to reciprocate when you offer an opportunity or ask for help.</p>
+</li>
+<li>
+<p><strong>The Strength of a Collaborative Culture:</strong> In healthy teams, there&rsquo;s an inherent understanding that helping each other and sharing interesting work benefits everyone. Your offer reinforces this positive norm.</p>
+</li>
+</ul>
+<p>Understanding these potential &ldquo;Whys&rdquo; is your key. Now, how do you translate that understanding into effectively approaching your peers?</p>
+<h2 id="crafting-the-opportunity-making-the-ask-compelling">Crafting the Opportunity: Making the Ask Compelling</h2>
+<p>Knowing the potential motivators allows you to frame your request not as an ask for help but as presenting a valuable opportunity.</p>
+<p><strong>Frame Based on Mutual Benefit:</strong> Tailor your pitch. Does this task primarily offer growth? Highlight the learning potential. Is it about impact? Emphasize its strategic importance. Does it align with their known interests? Point that out. Frame it as a chance for partnership or mentorship if that fits.</p>
+<p><strong>Lower the Barrier to Entry:</strong> Make it easy to say &ldquo;yes&rdquo; (or at least &ldquo;tell me more&rdquo;). Do the heavy lifting: clearly define the problem, provide essential context, perhaps outline potential approaches, and have a task ready in your tracker. Reduce the initial friction and cognitive load. A well-defined, manageable scope is far less daunting than a vague, massive undertaking.</p>
+<p><strong>Empower, Don&rsquo;t Micromanage:</strong> Offer challenging work that genuinely stretches capabilities. Provide clear context and constraints (the &ldquo;guardrails&rdquo;). Then – critically – give them the space to figure things out. Use check-ins and discussions about success criteria as support mechanisms, not control tactics. Explicitly state why you think this is a good opportunity for their development.</p>
+<p><strong>Build and Leverage Trust:</strong> This is paramount and underpins everything else when evolved. Your technical credibility and relationship capital are essential. Peers are more likely to engage when they:</p>
+<ul>
+<li>
+<p><strong>Trust the Problem &amp; Direction:</strong> They believe the problem is worth solving, and your proposed path (or the space you give them to find one) is sound.</p>
+</li>
+<li>
+<p><strong>Trust Your Motives:</strong> They believe you&rsquo;re genuinely offering this for their growth and the project&rsquo;s benefit, not just offloading grunt work. Your history of collaboration, giving credit, and supporting others builds this trust.</p>
+</li>
+<li>
+<p><strong>Trust Your Support:</strong> They believe you&rsquo;ll provide necessary context, answer questions, help unblock them, and shield them from related distractions.</p>
+</li>
+</ul>
+<p>Of course, even the best-framed opportunity might meet a scheduling conflict. What happens when the answer is &ldquo;I&rsquo;m swamped, I can&rsquo;t&rdquo;?</p>
+<h2 id="navigating-the-no-or-not-now">Navigating the &ldquo;No&rdquo; (or &ldquo;Not Now&rdquo;)</h2>
+<p>Hearing &ldquo;I don&rsquo;t have bandwidth&rdquo; is common and perfectly okay. How you <strong>respond matters</strong> for the long-term relationship and potential future collaboration.</p>
+<p><strong>Validate &amp; Understand First:</strong> Always start by acknowledging their situation.</p>
+<p>&ldquo;<em>Okay, totally understand you&rsquo;re busy.</em>&rdquo;</p>
+<p>Then, gently probe to distinguish bandwidth issues from lack of interest or alignment: &ldquo;<em>Just so I understand better, is the main challenge fitting it in time-wise alongside existing priorities, or does this opportunity maybe not feel like the right fit/priority compared to what&rsquo;s on your plate?</em>&rdquo;</p>
+<p><strong>Adapt the Ask:</strong> If bandwidth is the only issue, can the scope be reduced? Is there a smaller, valuable piece they could contribute (e.g., brainstorming, reviewing a design, tackling one specific sub-task)?</p>
+<p><strong>Align Priorities Collaboratively (Handle with Care):</strong> If the task is strategically important, the peer is interested, but they&rsquo;re blocked by conflicting priorities, this is where careful alignment is needed.</p>
+<ul>
+<li>
+<p><strong>Crucially: Get Peer Buy-in First:</strong> Never go directly to their manager without discussing it with your peer first.
+Doing so instantly undermines trust. Instead, frame the idea of talking to the manager together as a way to seek support for their growth and achieve important shared team/organization goals. It is also OK to talk to their manager one-on-one; just confirm that with your peer first. The same goes if your peer says they will do that. The main point is that you talked to your peer first, and you agreed to continue.</p>
+</li>
+<li>
+<p><strong>Frame the Manager Conversation:</strong> If you do talk to the manager with your peer, focus on shared objectives.
+&ldquo;<em>We identified this task as crucial for [Goal X]. [Peer Name] is interested, and it seems like a great growth opportunity. Given their current commitments, how can we best align priorities to make this feasible?</em>&rdquo; This turns it into collaborative problem-solving, not top-down pressure.</p>
+</li>
+</ul>
+<p><strong>Respect Boundaries:</strong> If the answer remains &ldquo;no,&rdquo; accept it gracefully. Thank them for considering it. Preserving the relationship is key for future influence.</p>
+<p><strong>Seek Alternatives:</strong> If it&rsquo;s not feasible, consider other peers. Can you tackle a smaller version of this task yourself? Is it worth deferring (sometimes rethinking reveals it wasn&rsquo;t as critical as initially thought)?</p>
+<p>Creating specific task-based opportunities is powerful, but scaling your impact as a senior IC involves broader strategies too.</p>
+<h2 id="broader-strategies-for-scaling-your-impact">Broader Strategies for Scaling Your Impact</h2>
+<p>Beyond direct &ldquo;delegation-as-opportunity,&rdquo; think about these leverage points:</p>
+<p><strong>Mentorship &amp; Sponsorship:</strong> Formalize the growth angle. Move beyond ad-hoc tasks to explicitly mentor someone through a larger piece of work. Actively sponsor them by highlighting their contributions and advocating for their visibility.</p>
+<p><strong>Creating Leverage via Platforms, Tools, &amp; Frameworks:</strong> Build things that make many engineers more effective. A robust library, a streamlined CI/CD pipeline, and a well-designed service template – that scale your impact exponentially without direct task delegation. You&rsquo;re essentially &ldquo;delegating&rdquo; efficiency and good practices.</p>
+<p><strong>Establishing Patterns and Best Practices:</strong> Defining and evangelizing clear architectural patterns, coding standards, or review processes guide the work of many, scaling your influence on quality, consistency, and maintainability. You&rsquo;re shaping how work gets done.</p>
+<p><strong>Architectural Guidance and Technical Strategy:</strong> Setting a clear, well-communicated technical direction influences the choices and priorities of the entire team or organization, ensuring efforts align towards a cohesive vision.</p>
+<p><strong>Effective Documentation and Knowledge Sharing:</strong> Writing clear design documents, Architecture Decision Records (ADRs), runbooks, and tutorials enable others to understand systems, contribute effectively, and operate autonomously within the technical landscape you&rsquo;ve helped shape.</p>
+<h2 id="time-to-try-practical-exercises">Time to Try: Practical Exercises</h2>
+<p>Two practical exercises to go and try.</p>
+<h3 id="find-a-growth-opportunity">Find a Growth Opportunity</h3>
+<p>Scan your current or upcoming workload. Identify one item that isn&rsquo;t just work to be done but represents a genuine development opportunity for a specific colleague. Think about why it&rsquo;s a good fit for them.</p>
+<p>Then, practice framing it as an opportunity, highlighting their potential gains (learning, impact, interest). Prepare the context they&rsquo;d need, and be ready to offer mentorship, not micromanagement. Anticipate how you&rsquo;d handle a &ldquo;too busy&rdquo; response using the adaptive strategies.</p>
+<h3 id="pitch-strategic-alignment">Pitch Strategic Alignment</h3>
+<p>Identify a task (on your plate or the team&rsquo;s radar) that directly supports a key team or organizational goal (e.g., an OKR, a critical roadmap item, fixing a major pain point).</p>
+<p>Clearly articulate why this task is strategically important – quantify its impact if possible. Mentally select a relevant peer and craft a concise pitch focusing first on the task&rsquo;s alignment with shared objectives and its broader impact, then on the technical details or learning aspects.</p>
+<p>Crucially, plan how you would suggest a collaborative discussion about priority alignment (potentially involving their manager, with their consent) if they express interest but cite conflicting priorities due to the task&rsquo;s strategic value.</p>
+<h2 id="afterword-influence-is-the-goal">Afterword: Influence is the Goal</h2>
+<p>Scaling your impact as an individual contributor isn&rsquo;t about wielding authority you don&rsquo;t have. It&rsquo;s about building <strong>influence, trust, and shared understanding.</strong> You leverage your technical credibility, strategic thinking, and relationship capital to create opportunities that are genuinely valuable for your peers while advancing collective goals.</p>
+<p>Peers engage not because they have to but because they want to – driven by growth, impact, interest, or trust in you and the mission.</p>
+<p>Prioritization becomes a conversation about value and strategic alignment, sometimes requiring collaborative discussions with managers, rather than a zero-sum game.</p>
+<p>Yes, this takes conscious effort. It requires empathy, clear communication, and sometimes navigating tricky conversations.</p>
+<p>But &ldquo;this <strong>is</strong> the path&rdquo; because focusing on building trust, clearly articulating the &ldquo;why,&rdquo; connecting tasks to strategic goals, and genuinely investing in the growth of those around you is the essence of being a force multiplier as a senior IC.</p>
+<p>Naturally, every team and individual is different, so consider these strategies a <strong>starting</strong> point or a toolkit to adapt to your unique context.</p>
+<div class="attention">
+    <p>Books on this topic:</p>
+<ul>
+<li>Will Larson&rsquo;s &ldquo;Staff Engineer&rdquo; and &ldquo;An Elegant Puzzle&rdquo;,</li>
+<li>Camille Fournier&rsquo;s &ldquo;The Manager&rsquo;s Path&rdquo;,</li>
+<li>&ldquo;The Software Engineer&rsquo;s Guidebook&rdquo; by Gergely Orosz,</li>
+<li>&ldquo;Drive&rdquo; by Daniel Pink for concepts around influence and motivation</li>
+</ul>
+<p>Blogs on this and many other great things:</p>
+<ul>
+<li>&ldquo;A Life Engineered&rdquo; by Steve Huynh <a href="https://alifeengineered.substack.com/">https://alifeengineered.substack.com/</a></li>
+<li>&ldquo;Pragmatic Engineer&rdquo; by Gergely Orosz <a href="https://newsletter.pragmaticengineer.com/about">https://newsletter.pragmaticengineer.com/about</a></li>
+</ul>
+
+</div>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>
