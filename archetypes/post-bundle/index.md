@@ -7,8 +7,7 @@ cover:
     image: cover.png
     relative: true
     alt:
-tags: []
-categories: []
 draft: true
+series: ""
 ---
 
