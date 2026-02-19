@@ -5,6 +5,7 @@ services:
       dockerfile: hugo-runtime.dockerfile
       args:
         HUGO_VERSION: ${HUGO_VERSION}
+        GO_VERSION: ${GO_VERSION}
       tags:
         - "ghcr.io/vasylenko/hugo-runtime:${HUGO_VERSION}"
       platforms:

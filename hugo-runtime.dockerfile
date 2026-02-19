@@ -1,3 +1,5 @@
+# Must be before the first FROM to be available in FROM instructions
+ARG GO_VERSION=1.25
 FROM alpine:3.23 AS builder
 ARG HUGO_VERSION
 ARG TARGETARCH
@@ -7,12 +9,13 @@ RUN wget -q -c \
     -O hugo.tar.gz
 RUN tar -xzf hugo.tar.gz
 
-FROM golang:1.25
+FROM golang:${GO_VERSION}
 ARG HUGO_VERSION
+ARG GO_VERSION
 COPY --from=builder /hugo/hugo /
 WORKDIR /site
 ENTRYPOINT ["/hugo"]
 
 LABEL org.opencontainers.image.source=https://github.com/vasylenko/devdosvid.blog
-LABEL org.opencontainers.image.description="Official Hugo v${HUGO_VERSION} binary in Golang v1.25 Image to run or build a hugo website."
+LABEL org.opencontainers.image.description="Official Hugo v${HUGO_VERSION} binary in Golang v${GO_VERSION} Image to run or build a hugo website."
 LABEL org.opencontainers.image.licenses=MIT

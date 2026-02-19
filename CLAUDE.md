@@ -12,7 +12,6 @@ Personal blog by Serhii Vasylenko. Shares experience and insights on Technical L
 - **PR previews**: Cloudflare Pages (`devdosvid-preview` project)
 - **Analytics**: Simple Analytics (privacy-first, no Google Analytics)
 - **Comments**: Giscus (GitHub Discussions-based)
-- **Email subscriptions**: Beehiiv (embedded iframe)
 - **Fonts**: Albert Sans, self-hosted (no Google Fonts)
 - **Docker**: Hugo runtime image on `ghcr.io/vasylenko/hugo-runtime`, used in CI and optionally for local dev
 
@@ -32,14 +31,12 @@ content/                         # All site content (Markdown + YAML front matte
   search/index.md                # Search page (requires JSON output format)
 
 layouts/                         # Template overrides and custom components
-  _default/single.html           # Full override of PaperMod's single post template
   _default/cv.html               # Custom CV layout
   partials/                      # PaperMod extension points and custom partials
     extend_head.html             # Font faces, Twitter meta, Simple Analytics
     extend_footer.html           # Ukrainian themed footer
-    hooks/post-content-end.html  # Injects email subscription after post content
     comments.html                # Giscus integration
-  shortcodes/                    # 12 custom shortcodes (see SHORTCODES.md)
+  shortcodes/                    # Custom shortcodes (see SHORTCODES.md)
 
 assets/css/extended/             # Custom CSS (PaperMod's user override directory)
   variables.css                  # CSS custom properties (design tokens, color palette)
@@ -64,7 +61,7 @@ static/                          # Favicons, fonts (woff2), social SVG icons
 
 **Hugo environment configs**: `development` is used locally (drafts enabled, no minification), `production` is used in CI (real base URL, minification, Simple Analytics injection)
 
-**Docker image** (`hugo-runtime.dockerfile`): Two-stage build — Alpine downloads the Hugo extended binary, copies it into a `golang:1.22` image (Go is needed for Hugo modules). Published to `ghcr.io/vasylenko/hugo-runtime:${HUGO_VERSION}`. Rebuilt automatically by CI when the Dockerfile, compose file, or `.env` changes.
+**Docker image** (`hugo-runtime.dockerfile`): Two-stage build — Alpine downloads the Hugo extended binary, copies it into a Go image (Go is needed for Hugo modules). Published to `ghcr.io/vasylenko/hugo-runtime:${HUGO_VERSION}`. Both Hugo and Go versions are pinned in `.env` and shared with CI. Rebuilt automatically by CI when the Dockerfile, compose file, or `.env` changes.
 
 ## Content Conventions
 
@@ -92,8 +89,8 @@ static/                          # Favicons, fonts (woff2), social SVG icons
 
 ### Templates (layouts)
 
-- Extend PaperMod using its designated extension points (`extend_head.html`, `extend_footer.html`, `hooks/`) rather than copying entire templates
-- When a full template override is unavoidable (like `single.html`), keep it as close to the original as possible
+- Extend PaperMod using its designated extension points (`extend_head.html`, `extend_footer.html`) rather than copying entire templates
+- Avoid full template overrides when possible — use PaperMod's extension points instead
 - Shortcodes use named parameters via `.Get "param"` and process inner content with `{{ .Inner | markdownify }}`
 
 ### CSS
@@ -113,7 +110,7 @@ static/                          # Favicons, fonts (woff2), social SVG icons
 ## Quirks
 
 ### PaperMod theme overrides are fragile
-Custom layouts in `layouts/` override PaperMod templates. When the theme updates (via `go get`), overridden templates may break silently if PaperMod changes its internal structure. After theme updates, verify that `single.html`, `cover.html`, and all `extend_*.html` partials still work correctly.
+Custom layouts in `layouts/` override PaperMod templates. When the theme updates (via `go get`), overridden templates may break silently if PaperMod changes its internal structure. After theme updates, verify that all `extend_*.html` partials and any custom layouts still work correctly.
 
 ### Docker build is required for CI parity
 The CI pipeline builds inside a Docker container (`ghcr.io/vasylenko/hugo-runtime`). Local `hugo` commands may produce different results if your local Hugo version differs. Use `docker compose up` to match CI behavior exactly.
