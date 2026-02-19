@@ -9,6 +9,7 @@ services:
         - "ghcr.io/vasylenko/hugo-runtime:${HUGO_VERSION}"
       platforms:
         - "linux/amd64"
+        - "linux/arm64"
     expose:
       - 8080
     ports:

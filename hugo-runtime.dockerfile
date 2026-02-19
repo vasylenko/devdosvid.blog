@@ -1,8 +1,9 @@
 FROM alpine:3.23 AS builder
 ARG HUGO_VERSION
+ARG TARGETARCH
 WORKDIR /hugo
 RUN wget -q -c \
-    "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz" \
+    "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-${TARGETARCH}.tar.gz" \
     -O hugo.tar.gz
 RUN tar -xzf hugo.tar.gz
 
