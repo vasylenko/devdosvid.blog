@@ -6,9 +6,7 @@ cover:
     image: cover.jpeg
     relative: true
     alt: "growing tree, full of life"
-tags: []
-categories: []
-draft: false
+series: ["Engineering Leadership"]
 ---
 
 As senior engineers, we often hit the ceiling at some point: our individual output is high, but writing more code or spinning up one more cluster does not feel like the best way to make more impact.
