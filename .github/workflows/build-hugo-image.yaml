@@ -6,13 +6,32 @@ on:
       - 'hugo-runtime.dockerfile'
       - 'compose.yaml'
       - '.env'
+      - '.github/workflows/build-hugo-image.yaml'
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Authenticate to GitHub Container Registry
         run: echo "${{ github.token }}" | docker login ghcr.io -u $ --password-stdin
-      - name: Build and push Docker image
-        run: docker compose build --push
+      - name: Read versions from .env
+        id: env
+        run: |
+          echo "HUGO_VERSION=$(grep '^HUGO_VERSION=' .env | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+          echo "GO_VERSION=$(grep '^GO_VERSION=' .env | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+      - name: Build and push multi-arch Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: hugo-runtime.dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          build-args: |
+            HUGO_VERSION=${{ steps.env.outputs.HUGO_VERSION }}
+            GO_VERSION=${{ steps.env.outputs.GO_VERSION }}
+          tags: ghcr.io/vasylenko/hugo-runtime:${{ steps.env.outputs.HUGO_VERSION }}

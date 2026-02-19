@@ -1,5 +1,5 @@
 name: 'Build Hugo Website'
-description: 'This action build my hugo blod for preview or production env'
+description: 'This action build my hugo blog for preview or production env'
 inputs:
   env:  # id of input
     description: 'Environment name: preview or production'

@@ -21,7 +21,7 @@
     }
     .post-entry figure.entry-cover img {
         width: 300px;
-=    }
+    }
 
     .post-entry div.entry-content {
         grid-area: content;

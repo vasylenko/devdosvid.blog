@@ -9,9 +9,7 @@ hideSummary: true
 cover.hidden: true
 ShowBreadCrumbs: false
 title: About me — Serhii Vasylenko
-kind: page
 ShowLicense: false
-EmailSubscribeForm: false
 ---
 
 Hello! I am Serhii, a software engineer by day and a tech enthusiast by night, currently crafting DevSecOps magic at [Grammarly](https://www.grammarly.com/).

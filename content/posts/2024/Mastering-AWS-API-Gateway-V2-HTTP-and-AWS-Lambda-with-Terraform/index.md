@@ -40,8 +40,6 @@ Upon receiving a request, the API service forwards a payload to the Authorizer c
 
 The decision, Allow or Deny, is passed back to the API, and if allowed, the API service then forwards the original request to the back-end, which, in this case, is implemented by additional Lambda functions. Otherwise, the client gets a response with a 403 status code, and the original request is not passed to the back-end.
 
-{{<email-subscription>}}
-
 ## Behind The Decision: Why Such a Setup?
 Choosing the right architectural setup is critical in balancing simplicity, cost-efficiency, and security. In this section, we uncover why integrating AWS HTTP API Gateway with Lambda Authorizer is a compelling choice, offering a streamlined approach without compromising security.
 
