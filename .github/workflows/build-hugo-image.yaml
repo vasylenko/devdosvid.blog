@@ -6,6 +6,7 @@ on:
       - 'hugo-runtime.dockerfile'
       - 'compose.yaml'
       - '.env'
+      - '.github/workflows/build-hugo-image.yaml'
 jobs:
   build:
     runs-on: ubuntu-latest
