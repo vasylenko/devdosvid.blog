@@ -23,7 +23,9 @@ Nobody was telling us it had to be done next quarter. Our management said, "It's
 
 But you know what happens to migrations that stretch for many months. They lose momentum. Engineers rotate off. Institutional knowledge erodes. The remaining services -- always the hardest ones -- sit in a permanent "next quarter" backlog.
 
+{{< attention >}}
 You don't have a staffing problem. You have an execution model problem.
+{{< /attention >}}
 
 ### Why serial breaks down
 The default migration approach is serial: one engineer owns a service end-to-end and walks it through every step -- networking, permissions, environment adjustments, certificates, CI/CD, DNS, cleanup. This works fine for a couple of services. This breaks down at scale.
@@ -105,7 +107,7 @@ When the project moves from layer execution to per-service traffic switching, th
 
 This is where a **handoff log** pays for itself. A shared document -- not "made progress on Service X" but the actual PR link, the specific blocker, the decision to skip WAF configuration for this service, and why. What made it work: specificity over summary, explicit ownership, and early surfacing of blockers.
 
-We heavily utilized this approach during the last phase of migration -- the traffic switch -- when two team members went to our SF hub to be on site with service owners, and two stayed in Berlin. But this isn't a timezone trick -- it works for co-located teams just as well. Fewer meetings, more focused execution, and a written record that prevents "I thought you were handling that" conversations.
+We heavily used this approach during the last phase of migration -- the traffic switch -- when two team members went to our SF hub to be on site with service owners, and two stayed in Berlin. But this isn't a timezone trick -- it works for co-located teams just as well. Fewer meetings, more focused execution, and a written record that prevents "I thought you were handling that" conversations.
 
 The lesson: match the coordination model to the shape of the work. When work is homogeneous, synchronize. When it diverges, structure async handoffs and get out of each other's way.
 
@@ -152,5 +154,5 @@ This is not an either/or decision. In our migration, the layered approach covere
 3. **Match coordination to the shape of the work.** Synchronize when work is homogeneous. Structure async handoffs when it diverges.
 4. **Recognize what doesn't fit the pattern.** Some services are genuinely unique. Budget for serial migration alongside the layer sweeps.
 5. **The traffic switch is its own phase.** Layer execution is predictable. Traffic switching is where surprises live. Treat it with a graduated cadence and observation days.
-6. **The methodology enables the tooling, not the other way around.** We paired layer-based execution with AI-assisted automation -- and that's what made one engineer sweeping 8-10 services in a day realistic. But the automation only worked *because* the layers created predictable, repeatable patterns. That story is next.
+6. **The methodology enables the tooling, not the other way around.** We paired layer-based execution with AI-assisted automation -- and that's what made one engineer sweeping 6-8 services in a day realistic. But the automation only worked *because* the layers created predictable, repeatable patterns. That story is next.
 
