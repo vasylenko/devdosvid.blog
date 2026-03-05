@@ -156,3 +156,4 @@ This is not an either/or decision. In our migration, the layered approach covere
 5. **The traffic switch is its own phase.** Layer execution is predictable. Traffic switching is where surprises live. Treat it with a graduated cadence and observation days.
 6. **The methodology enables the tooling, not the other way around.** We paired layer-based execution with AI-assisted automation -- and that's what made one engineer sweeping 6-8 services in a day realistic. But the automation only worked *because* the layers created predictable, repeatable patterns. That story is next.
 
+If this feels like a problem you've hit -- or you're about to -- I'd like to hear your approach. Same constraint, different solution? A migration where layers didn't work? Drop a comment.
