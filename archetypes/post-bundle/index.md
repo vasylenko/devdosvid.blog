@@ -8,6 +8,7 @@ cover:
     relative: true
     alt:
 draft: true
+keywords: []
 series: ""
 ---
 
