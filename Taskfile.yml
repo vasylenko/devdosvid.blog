@@ -1,0 +1,25 @@
+version: '3'
+
+vars:
+  FOO: bar
+  
+tasks:
+  default:
+    desc: Show available tasks
+    cmds:
+      - task --list
+
+  server-start:
+    desc: Run local dev server with the blog
+    cmds:
+      - docker compose up -d
+  
+  server-stop:
+    desc: Stop local dev server with blog
+    cmds:
+      - docker compose down
+
+  server-logs:
+    desc: Show logs of local dev server with the blog
+    cmds:
+      - docker compose logs --no-log-prefix --no-color
