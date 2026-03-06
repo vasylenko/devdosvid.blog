@@ -1,0 +1,4 @@
+<blockquote class="alert alert-{{ .AlertType }}">
+  <p class="alert-heading">{{ .AlertTitle | default (title .AlertType) }}</p>
+  {{ .Text }}
+</blockquote>
