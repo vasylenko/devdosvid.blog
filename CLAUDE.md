@@ -135,9 +135,6 @@ The CI pipeline builds inside a Docker container (`ghcr.io/vasylenko/hugo-runtim
 ### Content structure is SEO-sensitive
 The permalink pattern (`posts/:year/:month/:day/:slug`), page bundle structure, and front matter fields (`summary`, `description`, `cover`) are tuned for SEO. Changing these affects existing URLs, sitemap, and search engine indexing. Don't reorganize content paths without understanding the SEO impact.
 
-### Typo in CSS filename
-`assets/css/extended/profiels.css` is intentionally misspelled (should be "profiles"). Don't rename it without updating any references.
-
 ### Build output directory
 Hugo's `publishDir` is set to `publishdir` (not the default `public`). This directory is git-ignored.
 
