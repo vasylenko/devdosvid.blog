@@ -124,31 +124,6 @@ body#top main.main {
     display: inline;
 }
 
-.post-series {
-    position: relative;
-    margin: 1em 0 1em 0;
-}
-
-.post-series ul {
-    padding-left: 1em;
-    list-style: none;
-}
-
-.post-series a {
-    text-decoration: underline;
-}
-
-.license {
-    font-size: 0.8em;
-    text-align: center;
-    font-style: italic;
-    color: var(--color-gray);
-}
-.license a {
-    text-decoration: underline;
-    margin: 1em 0 1em 0;
-
-}
 
 .code-snippet summary {
     cursor: pointer;

@@ -12,7 +12,8 @@ Personal blog by Serhii Vasylenko. Shares experience and insights on Technical L
 - **PR previews**: Cloudflare Pages (`devdosvid-preview` project)
 - **Analytics**: Simple Analytics (privacy-first, no Google Analytics)
 - **Comments**: Giscus (GitHub Discussions-based)
-- **Fonts**: Albert Sans, self-hosted (no Google Fonts)
+- **Fonts**: System font stack (`-apple-system, system-ui, ...`); no Google Fonts
+- **Newsletter**: Beehiiv (embedded via iframe in a reusable partial)
 - **Docker**: Hugo runtime image on `ghcr.io/vasylenko/hugo-runtime`, used in CI and optionally for local dev
 
 ## Project Structure
@@ -32,32 +33,45 @@ content/                         # All site content (Markdown + YAML front matte
 
 layouts/                         # Template overrides and custom components
   _default/cv.html               # Custom CV layout
+  _default/_markup/              # Hugo render hooks
+    render-blockquote-alert.html # GFM-style alert blockquotes (NOTE, WARNING, etc.)
   partials/                      # PaperMod extension points and custom partials
-    extend_head.html             # Font faces, Twitter meta, Simple Analytics
-    extend_footer.html           # Ukrainian themed footer
-    comments.html                # Giscus integration
+    extend_head.html             # Twitter meta, Simple Analytics
+    extend_footer.html           # Ukrainian themed footer + subscribe (home page)
+    comments.html                # Subscribe form + Giscus integration
+    subscribe.html               # Beehiiv newsletter embed (reusable partial)
   shortcodes/                    # Custom shortcodes (see SHORTCODES.md)
 
 assets/css/extended/             # Custom CSS (PaperMod's user override directory)
   variables.css                  # CSS custom properties (design tokens, color palette)
   custom.css                     # Main custom styles
   cv.css                         # CV page styles (with print @media rules)
+  subscribe.css                  # Newsletter subscription form styles
+  alerts.css                     # GFM alert blockquote styles
   (+ feature-specific CSS files)
 
-static/                          # Favicons, fonts (woff2), social SVG icons
+static/                          # Favicons, social SVG icons
 
 .github/
   workflows/deploy-production.yaml  # main → build in Docker → gh-pages-hugo → Cloudflare purge
   workflows/deploy-preview.yaml     # PR → build → Cloudflare Pages preview
   workflows/build-hugo-image.yaml   # Dockerfile/compose changes → rebuild GHCR image
   actions/build-hugo-website/       # Shared composite action for Hugo builds
+  dependabot.yml                    # Weekly updates for gomod, docker, github-actions
+
+Taskfile.yml                       # Task runner for local dev (wraps Docker Compose)
+compose.yaml                       # Docker Compose config for local Hugo server
+hugo-runtime.dockerfile            # Hugo runtime Docker image definition
+.env                               # Pinned Hugo and Go versions (shared with CI)
 ```
 
 ## Development
 
-**Local server**: `docker compose up` — runs Hugo in a Docker container (`ghcr.io/vasylenko/hugo-runtime`) on port 8080. Builds drafts and future posts, disables fast render for reliable live reload. Hugo version is pinned in `.env` and shared with CI.
+**Local server**: `docker compose up` (or `task server-start`) — runs Hugo in a Docker container (`ghcr.io/vasylenko/hugo-runtime`) on port 8080. Builds drafts and future posts, disables fast render for reliable live reload. Hugo version is pinned in `.env` and shared with CI.
 
-**New blog post**: `./newpost.sh <slug>` — scaffolds a page bundle under `content/posts/` from the `post-bundle` archetype (requires local Hugo install)
+**Task runner**: `Taskfile.yml` provides shortcuts — `task server-start`, `task server-stop`, `task server-logs`.
+
+**New blog post**: `./newpost.sh <title>` — takes a title string (not a slug), auto-generates the slug, and scaffolds a page bundle under `content/posts/YYYY/` from the `post-bundle` archetype (requires local Hugo install)
 
 **Hugo environment configs**: `development` is used locally (drafts enabled, no minification), `production` is used in CI (real base URL, minification, Simple Analytics injection)
 
@@ -66,11 +80,13 @@ static/                          # Favicons, fonts (woff2), social SVG icons
 ## Content Conventions
 
 - Every blog post is a **page bundle**: a directory with `index.md` and co-located images
-- Front matter is **YAML** with fields: `title`, `date`, `summary`, `description`, `cover` (with `image`, `relative: true`, `alt`), `tags`, `categories`, `draft`
+- Front matter is **YAML** with fields: `title`, `date`, `summary`, `description`, `cover` (with `image`, `relative: true`, `alt`), `keywords`, `series`, `draft`
+- Older posts (pre-2025) used `tags` and `categories`, but these taxonomies are no longer configured — only `series` is declared in Hugo config
 - Post directories live under `content/posts/YYYY/` organized by year
 - Permalink pattern: `posts/:year/:month/:day/:slug` — this is SEO-critical, do not change
 - Cover images use co-located files (e.g., `cover-image.png`) with `relative: true` in front matter
 - Posts use custom shortcodes for rich content — see `SHORTCODES.md` for full reference
+- GFM-style alert blockquotes are supported via a render hook: `> [!NOTE]`, `> [!WARNING]`, `> [!IMPORTANT]`, `> [!CAUTION]`
 
 ### Key Shortcodes
 
@@ -83,6 +99,7 @@ static/                          # Favicons, fonts (woff2), social SVG icons
 | `{{< youtube src="VIDEO_ID" title="..." >}}` | Responsive YouTube embed |
 | `{{< animation src="..." >}}` | Looping webm video |
 | `{{< tech-talk title="..." event="..." date="..." >}}` | Tech talk card (about page) |
+| `{{< social-profiles >}}` | Social profile links (about page) |
 | `{{< rawhtml >}}...{{< /rawhtml >}}` | Raw HTML passthrough |
 
 ## Code Style & Conventions
@@ -124,8 +141,11 @@ Hugo v0.143.0 deprecated the built-in `gist` shortcode. It still works but will 
 ### Typo in CSS filename
 `assets/css/extended/profiels.css` is intentionally misspelled (should be "profiles"). Don't rename it without updating any references.
 
+### Build output directory
+Hugo's `publishDir` is set to `publishdir` (not the default `public`). This directory is git-ignored.
+
 ## Architectural Decisions
 
 - **Hugo modules over git submodules**: The PaperMod theme is managed via Go modules (`go.mod`/`go.sum`), not a git submodule. This means theme updates go through `go get -u`, and the theme version is locked in `go.sum`.
-- **Self-hosted fonts + privacy-first analytics**: No external font loading (Google Fonts) or tracking (Google Analytics). Albert Sans is bundled as woff2 files; analytics use Simple Analytics which doesn't track individuals.
+- **Privacy-first analytics, no external fonts**: No Google Fonts or Google Analytics. System font stack is used; analytics use Simple Analytics which doesn't track individuals.
 - **Light theme only**: Deliberate design decision — `disableThemeToggle: true` in config. No dark mode CSS exists or is planned.
