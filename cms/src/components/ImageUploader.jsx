@@ -40,9 +40,8 @@ export default function ImageUploader({ year, slug, onInsert, onSetCover }) {
   }
 
   return (
-    <div className="image-panel">
+    <div>
       <div className="image-panel-header">
-        <h3>Images</h3>
         <button
           className="btn-primary btn-small"
           onClick={() => fileRef.current.click()}
@@ -57,6 +56,9 @@ export default function ImageUploader({ year, slug, onInsert, onSetCover }) {
           onChange={handleUpload}
           hidden
         />
+        {images.length === 0 && (
+          <span className="image-empty">No images uploaded yet</span>
+        )}
       </div>
       {images.length > 0 && (
         <div className="image-list">

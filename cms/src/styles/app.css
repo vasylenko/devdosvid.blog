@@ -140,48 +140,190 @@ a:hover {
   color: #ff4d45;
 }
 
-/* Editor */
+/* ─── Editor page ─── */
+
+.editor-page {
+  background: #fff;
+}
+
+/* The viewport section: toolbar + title + editor = 100vh */
+.editor-viewport {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Compact toolbar */
 .editor-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  padding: 0 1rem;
+  height: 48px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #e0e0e0;
+  background: #fff;
 }
-.editor-title {
-  font-size: 1.3rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+
+.toolbar-back {
+  color: #545454;
+  font-size: 0.85rem;
+  font-weight: 500;
 }
-.editor-actions {
+.toolbar-back:hover {
+  color: #1c1c1c;
+  text-decoration: none;
+}
+
+.toolbar-right {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  flex-shrink: 0;
+}
+
+/* Draft toggle pill */
+.draft-toggle {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.draft-toggle input[type='checkbox'] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.draft-pill {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: background 0.15s, color 0.15s;
+  user-select: none;
+}
+.draft-pill.is-draft {
+  background: #fff3e0;
+  color: #e88e15;
+  border: 1px solid #ffd699;
+}
+.draft-pill.is-published {
+  background: #e6f5f2;
+  color: #027e6f;
+  border: 1px solid #a3ddd4;
+}
+
+/* Save button */
+.btn-save {
+  background: #1c1c1c;
+  color: #fff;
+  border: none;
+  padding: 0.35rem 1rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-save:hover {
+  background: #333;
+}
+.btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .status-success {
   color: #027e6f;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 .status-error {
   color: #ff4d45;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
-/* Front matter grid */
-.front-matter-grid {
+/* Inline title input */
+.editor-title-input {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: inherit;
+  color: #1c1c1c;
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+  outline: none;
+  background: transparent;
+  flex-shrink: 0;
+}
+.editor-title-input::placeholder {
+  color: #bbb;
+  font-weight: 400;
+}
+.editor-title-input:focus {
+  border-bottom-color: #ff9f1c;
+}
+
+/* Editor body fills remaining space */
+.editor-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.editor-body .w-md-editor {
+  flex: 1 !important;
+  height: 100% !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+/* ─── Below-the-fold sections ─── */
+
+.editor-section {
+  border-top: 1px solid #e0e0e0;
+}
+
+.editor-section-summary {
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #545454;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.editor-section-summary::-webkit-details-marker {
+  display: none;
+}
+.editor-section-summary::before {
+  content: '▸';
+  font-size: 0.7rem;
+  transition: transform 0.15s;
+}
+.editor-section[open] > .editor-section-summary::before {
+  transform: rotate(90deg);
+}
+
+.editor-section-content {
+  padding: 0 1rem 1rem;
+}
+
+/* Metadata grid */
+.metadata-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.75rem;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
 }
+
 .field {
   display: flex;
   flex-direction: column;
@@ -212,28 +354,8 @@ a:hover {
 .full-width {
   grid-column: 1 / -1;
 }
-.field-checkbox {
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
-}
-.field-checkbox input[type='checkbox'] {
-  width: 1rem;
-  height: 1rem;
-}
 
-/* Editor body */
-.editor-body {
-  margin-bottom: 1.5rem;
-}
-
-/* Image panel */
-.image-panel {
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  padding: 1rem;
-}
+/* Image panel (inside collapsible section) */
 .image-panel-header {
   display: flex;
   align-items: center;
@@ -272,4 +394,8 @@ a:hover {
   color: #545454;
   text-align: center;
   word-break: break-all;
+}
+.image-empty {
+  font-size: 0.85rem;
+  color: #999;
 }

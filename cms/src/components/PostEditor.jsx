@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import MDEditor from '@uiw/react-md-editor';
 import { fetchPost, updatePost, fetchSeries } from '../api/client';
 import ImageUploader from './ImageUploader';
@@ -94,88 +94,112 @@ export default function PostEditor() {
   if (loading) return <p className="loading">Loading post...</p>;
 
   return (
-    <div className="editor">
-      <div className="editor-toolbar">
-        <h1 className="editor-title">{title || 'Untitled'}</h1>
-        <div className="editor-actions">
-          {status && (
-            <span className={status === 'Saved' ? 'status-success' : 'status-error'}>
-              {status}
-            </span>
-          )}
-          <button className="btn-primary" onClick={save} disabled={saving}>
-            {saving ? 'Saving...' : 'Save'}
-          </button>
+    <div className="editor-page">
+      <div className="editor-viewport">
+        {/* Compact toolbar */}
+        <div className="editor-toolbar">
+          <Link to="/" className="toolbar-back">← Posts</Link>
+          <div className="toolbar-right">
+            <label className="draft-toggle">
+              <input
+                type="checkbox"
+                checked={draft}
+                onChange={e => setDraft(e.target.checked)}
+              />
+              <span className={`draft-pill ${draft ? 'is-draft' : 'is-published'}`}>
+                {draft ? 'Draft' : 'Published'}
+              </span>
+            </label>
+            {status && (
+              <span className={status === 'Saved' ? 'status-success' : 'status-error'}>
+                {status}
+              </span>
+            )}
+            <button className="btn-save" onClick={save} disabled={saving}>
+              {saving ? 'Saving...' : 'Save'}
+            </button>
+          </div>
+        </div>
+
+        {/* Inline title */}
+        <input
+          className="editor-title-input"
+          type="text"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          placeholder="Post title..."
+        />
+
+        {/* Markdown editor fills remaining space */}
+        <div className="editor-body" data-color-mode="light">
+          <MDEditor
+            value={body}
+            onChange={setBody}
+            height={800}
+            preview="edit"
+          />
         </div>
       </div>
 
-      <div className="front-matter-grid">
-        <label className="field full-width">
-          <span>Title</span>
-          <input type="text" value={title} onChange={e => setTitle(e.target.value)} />
-        </label>
+      {/* Below-the-fold sections */}
+      <details className="editor-section">
+        <summary className="editor-section-summary">Images</summary>
+        <div className="editor-section-content">
+          <ImageUploader
+            year={year}
+            slug={slug}
+            onInsert={handleInsertImage}
+            onSetCover={handleSetCover}
+          />
+        </div>
+      </details>
 
-        <label className="field">
-          <span>Summary</span>
-          <textarea rows={2} value={summary} onChange={e => setSummary(e.target.value)} />
-        </label>
+      <details className="editor-section">
+        <summary className="editor-section-summary">Metadata</summary>
+        <div className="editor-section-content">
+          <div className="metadata-grid">
+            <label className="field full-width">
+              <span>Summary</span>
+              <textarea rows={2} value={summary} onChange={e => setSummary(e.target.value)} />
+            </label>
 
-        <label className="field">
-          <span>Description</span>
-          <textarea rows={2} value={description} onChange={e => setDescription(e.target.value)} />
-        </label>
+            <label className="field full-width">
+              <span>Description</span>
+              <textarea rows={2} value={description} onChange={e => setDescription(e.target.value)} />
+            </label>
 
-        <label className="field">
-          <span>Series</span>
-          <select value={series} onChange={e => setSeries(e.target.value)}>
-            <option value="">None</option>
-            {seriesOptions.map(s => (
-              <option key={s} value={s}>{s}</option>
-            ))}
-          </select>
-        </label>
+            <label className="field">
+              <span>Series</span>
+              <select value={series} onChange={e => setSeries(e.target.value)}>
+                <option value="">None</option>
+                {seriesOptions.map(s => (
+                  <option key={s} value={s}>{s}</option>
+                ))}
+              </select>
+            </label>
 
-        <label className="field">
-          <span>Keywords (comma-separated)</span>
-          <input type="text" value={keywords} onChange={e => setKeywords(e.target.value)} />
-        </label>
+            <label className="field">
+              <span>Keywords (comma-separated)</span>
+              <input type="text" value={keywords} onChange={e => setKeywords(e.target.value)} />
+            </label>
 
-        <label className="field">
-          <span>Cover Alt Text</span>
-          <input type="text" value={coverAlt} onChange={e => setCoverAlt(e.target.value)} />
-        </label>
+            <label className="field">
+              <span>Cover Image</span>
+              <input type="text" value={coverImage} readOnly />
+            </label>
 
-        <label className="field">
-          <span>Cover Image</span>
-          <input type="text" value={coverImage} readOnly />
-        </label>
+            <label className="field">
+              <span>Cover Alt Text</span>
+              <input type="text" value={coverAlt} onChange={e => setCoverAlt(e.target.value)} />
+            </label>
 
-        <label className="field">
-          <span>Date</span>
-          <input type="text" value={date ? new Date(date).toLocaleDateString() : ''} readOnly />
-        </label>
-
-        <label className="field field-checkbox">
-          <input type="checkbox" checked={draft} onChange={e => setDraft(e.target.checked)} />
-          <span>Draft</span>
-        </label>
-      </div>
-
-      <div className="editor-body" data-color-mode="light">
-        <MDEditor
-          value={body}
-          onChange={setBody}
-          height={500}
-          preview="edit"
-        />
-      </div>
-
-      <ImageUploader
-        year={year}
-        slug={slug}
-        onInsert={handleInsertImage}
-        onSetCover={handleSetCover}
-      />
+            <label className="field">
+              <span>Date</span>
+              <input type="text" value={date ? new Date(date).toLocaleDateString() : ''} readOnly />
+            </label>
+          </div>
+        </div>
+      </details>
     </div>
   );
 }
