@@ -12,7 +12,9 @@ tasks:
   server-start:
     desc: Run local dev server with the blog
     cmds:
-      - docker compose up -d
+      - docker compose up --no-log-prefix --no-color --force-recreate --build
+      - defer:
+          task: server-stop
   
   server-stop:
     desc: Stop local dev server with blog
