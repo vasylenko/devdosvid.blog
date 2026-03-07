@@ -267,6 +267,42 @@ a:hover {
   border-bottom-color: #ff9f1c;
 }
 
+/* Shortcode toolbar */
+.shortcode-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fafafa;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+.shortcode-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-right: 0.25rem;
+}
+.shortcode-btn {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, monospace;
+  color: #545454;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.shortcode-btn:hover {
+  border-color: #ff9f1c;
+  color: #1c1c1c;
+  background: #fff8f0;
+}
+
 /* Editor body fills remaining space */
 .editor-body {
   flex: 1;

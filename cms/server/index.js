@@ -5,6 +5,7 @@ import fs from 'fs';
 import { CONTENT_DIR } from './config.js';
 import postRoutes from './routes/posts.js';
 import imageRoutes from './routes/images.js';
+import shortcodeRoutes from './routes/shortcodes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use('/api', postRoutes);
 app.use('/api', imageRoutes);
+app.use('/api', shortcodeRoutes);
 
 const distPath = path.resolve(import.meta.dirname, '../dist');
 if (fs.existsSync(distPath)) {

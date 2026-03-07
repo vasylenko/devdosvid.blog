@@ -1,8 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import MDEditor from '@uiw/react-md-editor';
 import { fetchPost, updatePost, fetchSeries } from '../api/client';
 import ImageUploader from './ImageUploader';
+import ShortcodeToolbar from './ShortcodeToolbar';
 
 export default function PostEditor() {
   const { year, slug } = useParams();
@@ -22,6 +23,7 @@ export default function PostEditor() {
   const [body, setBody] = useState('');
 
   const [seriesOptions, setSeriesOptions] = useState([]);
+  const editorRef = useRef(null);
 
   useEffect(() => {
     Promise.all([fetchPost(year, slug), fetchSeries()])
@@ -83,9 +85,25 @@ export default function PostEditor() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [save]);
 
-  const handleInsertImage = useCallback((shortcode) => {
-    setBody(prev => prev + '\n' + shortcode);
+  const insertAtCursor = useCallback((text) => {
+    const textarea = editorRef.current?.querySelector('textarea');
+    if (!textarea) {
+      setBody(prev => prev + '\n' + text);
+      return;
+    }
+    const { selectionStart, selectionEnd } = textarea;
+    setBody(prev => prev.slice(0, selectionStart) + text + prev.slice(selectionEnd));
+    // Restore focus and cursor position after React re-render
+    requestAnimationFrame(() => {
+      textarea.focus();
+      const newPos = selectionStart + text.length;
+      textarea.setSelectionRange(newPos, newPos);
+    });
   }, []);
+
+  const handleInsertImage = useCallback((shortcode) => {
+    insertAtCursor(shortcode);
+  }, [insertAtCursor]);
 
   const handleSetCover = useCallback((filename) => {
     setCoverImage(filename);
@@ -130,8 +148,11 @@ export default function PostEditor() {
           placeholder="Post title..."
         />
 
+        {/* Shortcode toolbar */}
+        <ShortcodeToolbar onInsert={insertAtCursor} />
+
         {/* Markdown editor fills remaining space */}
-        <div className="editor-body" data-color-mode="light">
+        <div className="editor-body" data-color-mode="light" ref={editorRef}>
           <MDEditor
             value={body}
             onChange={setBody}

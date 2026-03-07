@@ -58,3 +58,7 @@ export async function fetchImages(year, slug) {
 export async function fetchSeries() {
   return request('/series');
 }
+
+export async function fetchShortcodes() {
+  return request('/shortcodes');
+}

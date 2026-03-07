@@ -38,5 +38,7 @@ services:
       - 3000:3000
     volumes:
       - ./content:/site/content
+      - ./layouts/shortcodes:/site/shortcodes:ro
     environment:
       - CONTENT_DIR=/site/content
+      - SHORTCODES_DIR=/site/shortcodes
