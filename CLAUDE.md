@@ -126,8 +126,8 @@ hugo-runtime.dockerfile            # Hugo runtime Docker image definition
 
 ## Quirks
 
-### PaperMod theme overrides are fragile
-Custom layouts in `layouts/` override PaperMod templates. When the theme updates (via `go get`), overridden templates may break silently if PaperMod changes its internal structure. After theme updates, verify that all `extend_*.html` partials and any custom layouts still work correctly.
+### No full PaperMod template overrides
+All customizations use PaperMod's extension points (`extend_head.html`, `extend_footer.html`, `comments.html`) rather than overriding core templates like `single.html` or `list.html`. Keep it this way — full overrides break silently on theme updates.
 
 ### Docker build is required for CI parity
 The CI pipeline builds inside a Docker container (`ghcr.io/vasylenko/hugo-runtime`). Local `hugo` commands may produce different results if your local Hugo version differs. Use `docker compose up` to match CI behavior exactly.
