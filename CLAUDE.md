@@ -1,145 +1,75 @@
 # devDosvid blog
 
-## Purpose
-
-Personal blog by Serhii Vasylenko. Shares experience and insights on Technical Leadership and Platform Engineering. Built for long-term content publishing with strong SEO and reader privacy.
+Personal blog by Serhii Vasylenko about Technical Leadership and Platform Engineering.
 
 ## Tech Stack
 
-- **Static site generator**: Hugo 
-- **Theme**: [PaperMod](https://github.com/adityatelange/hugo-PaperMod/) — imported as a Hugo module (not a git submodule) via `go.mod`
-- **Hosting**: GitHub Pages (branch `gh-pages-hugo`) with Cloudflare CDN in front
-- **PR previews**: Cloudflare Pages (`devdosvid-preview` project)
+- **Hugo** static site generator with [PaperMod](https://github.com/adityatelange/hugo-PaperMod/) theme (imported as Hugo module via `go.mod`, not a git submodule)
+- **Hosting**: GitHub Pages (`gh-pages-hugo` branch) + Cloudflare CDN; PR previews on Cloudflare Pages
+- **Newsletter**: Beehiiv (iframe in `partials/subscribe.html`, rendered on posts and home page)
+- **Comments**: Giscus (GitHub Discussions)
 - **Analytics**: Simple Analytics (privacy-first, no Google Analytics)
-- **Comments**: Giscus (GitHub Discussions-based)
-- **Fonts**: System font stack (`-apple-system, system-ui, ...`); no Google Fonts
-- **Newsletter**: Beehiiv (embedded via iframe in a reusable partial)
-- **Docker**: Hugo runtime image on `ghcr.io/vasylenko/hugo-runtime`, used in CI and optionally for local dev
+- **Fonts**: System font stack, no external font loading
+- **CSS**: Plain CSS only, light theme only (`disableThemeToggle: true`)
 
 ## Project Structure
 
 ```
-config/                          # Hugo configuration (per-environment)
+config/
   _default/config.yaml           # Main config: permalinks, theme params, taxonomy
   development/config.yaml        # Drafts enabled, no minification
   production/config.yaml         # Production base URL, minification, analytics
 
-content/                         # All site content (Markdown + YAML front matter)
-  posts/YYYY/<slug>/index.md     # Blog posts as page bundles (co-located images)
-  about/index.md                 # About page (includes tech talks section)
-  cv/index.md                    # CV page with custom layout and print styles
-  archives.md                    # Archive listing (PaperMod built-in layout)
-  search/index.md                # Search page (requires JSON output format)
+content/
+  posts/YYYY/<slug>/index.md     # Blog posts (page bundles with co-located images)
+  about/index.md                 # About page
+  cv/index.md                    # CV page (custom layout + print styles)
 
-layouts/                         # Template overrides and custom components
+layouts/
   _default/cv.html               # Custom CV layout
-  _default/_markup/              # Hugo render hooks
-    render-blockquote-alert.html # GFM-style alert blockquotes (NOTE, WARNING, etc.)
-  partials/                      # PaperMod extension points and custom partials
+  _default/_markup/
+    render-blockquote-alert.html # GFM alerts: > [!NOTE], > [!WARNING], etc.
+  partials/
     extend_head.html             # Twitter meta, Simple Analytics
-    extend_footer.html           # Ukrainian themed footer + subscribe (home page)
-    comments.html                # Subscribe form + Giscus integration
-    subscribe.html               # Beehiiv newsletter embed (reusable partial)
-  shortcodes/                    # Custom shortcodes (see SHORTCODES.md)
+    extend_footer.html           # Ukrainian footer + subscribe (home page only)
+    comments.html                # Subscribe form + Giscus
+    subscribe.html               # Beehiiv embed (called from comments + footer)
+  shortcodes/                    # See SHORTCODES.md
 
-assets/css/extended/             # Custom CSS (PaperMod's user override directory)
-  variables.css                  # CSS custom properties (design tokens, color palette)
+assets/css/extended/             # PaperMod's user override directory
+  variables.css                  # Design tokens: --color-*, --font-*, --radius
   custom.css                     # Main custom styles
-  cv.css                         # CV page styles (with print @media rules)
-  subscribe.css                  # Newsletter subscription form styles
-  alerts.css                     # GFM alert blockquote styles
-  (+ feature-specific CSS files)
-
-static/                          # Favicons, social SVG icons
+  cv.css                         # CV styles (with print @media)
+  subscribe.css                  # Newsletter form styles
+  alerts.css                     # GFM alert styles
 
 .github/
-  workflows/deploy-production.yaml  # main → build in Docker → gh-pages-hugo → Cloudflare purge
-  workflows/deploy-preview.yaml     # PR → build → Cloudflare Pages preview
-  workflows/build-hugo-image.yaml   # Dockerfile/compose changes → rebuild GHCR image
-  actions/build-hugo-website/       # Shared composite action for Hugo builds
-  dependabot.yml                    # Weekly updates for gomod, docker, github-actions
-
-Taskfile.yml                       # Task runner for local dev (wraps Docker Compose)
-compose.yaml                       # Docker Compose config for local Hugo server
-hugo-runtime.dockerfile            # Hugo runtime Docker image definition
-.env                               # Pinned Hugo and Go versions (shared with CI)
+  workflows/deploy-production.yaml  # main -> Docker build -> gh-pages-hugo -> Cloudflare purge
+  workflows/deploy-preview.yaml     # PR -> Docker build -> Cloudflare Pages
+  workflows/build-hugo-image.yaml   # Rebuild ghcr.io/vasylenko/hugo-runtime on Dockerfile/.env changes
+  dependabot.yml                    # Weekly updates: gomod, docker, github-actions
 ```
 
 ## Development
 
-**Local server**: `docker compose up` (or `task server-start`) — runs Hugo in a Docker container (`ghcr.io/vasylenko/hugo-runtime`) on port 8080. Builds drafts and future posts, disables fast render for reliable live reload. Hugo version is pinned in `.env` and shared with CI.
-
-**Task runner**: `Taskfile.yml` provides shortcuts — `task server-start`, `task server-stop`, `task server-logs`.
-
-**New blog post**: `./newpost.sh <title>` — takes a title string (not a slug), auto-generates the slug, and scaffolds a page bundle under `content/posts/YYYY/` from the `post-bundle` archetype (requires local Hugo install)
-
-**Hugo environment configs**: `development` is used locally (drafts enabled, no minification), `production` is used in CI (real base URL, minification, Simple Analytics injection)
-
-**Docker image** (`hugo-runtime.dockerfile`): Two-stage build — Alpine downloads the Hugo extended binary, copies it into a Go image (Go is needed for Hugo modules). Published to `ghcr.io/vasylenko/hugo-runtime:${HUGO_VERSION}`. Both Hugo and Go versions are pinned in `.env` and shared with CI. Rebuilt automatically by CI when the Dockerfile, compose file, or `.env` changes.
+- **Local server**: `task server-start` or `docker compose up` — Hugo in Docker on port 8080, drafts enabled
+- **New post**: `./newpost.sh <title>` — auto-generates slug, scaffolds page bundle under `content/posts/YYYY/`
+- **Hugo + Go versions**: pinned in `.env`, shared between `compose.yaml` and CI
+- **Build output**: `publishdir/` (not default `public`), git-ignored
+- **CI parity**: always use Docker for local builds — local Hugo binary may differ from CI
 
 ## Content Conventions
 
-- Every blog post is a **page bundle**: a directory with `index.md` and co-located images
-- Front matter is **YAML** with fields: `title`, `date`, `summary`, `description`, `cover` (with `image`, `relative: true`, `alt`), `keywords`, `series`, `draft`
-- Older posts (pre-2025) used `tags` and `categories`, but these taxonomies are no longer configured — only `series` is declared in Hugo config
-- Post directories live under `content/posts/YYYY/` organized by year
-- Permalink pattern: `posts/:year/:month/:day/:slug` — this is SEO-critical, do not change
-- Cover images use co-located files (e.g., `cover-image.png`) with `relative: true` in front matter
-- Posts use custom shortcodes for rich content — see `SHORTCODES.md` for full reference
-- GFM-style alert blockquotes are supported via a render hook: `> [!NOTE]`, `> [!WARNING]`, `> [!IMPORTANT]`, `> [!CAUTION]`
-
-### Key Shortcodes
-
-| Shortcode | Purpose |
-|-----------|---------|
-| `{{< attention >}}...{{< /attention >}}` | Highlighted callout box |
-| `{{< updatenotice >}}...{{< /updatenotice >}}` | Update/revision notice |
-| `{{< snippet >}}...{{< /snippet >}}` | Expandable code snippet |
-| `{{< figure src="..." alt="..." caption="..." >}}` | Image with caption (custom, not Hugo built-in) |
-| `{{< youtube src="VIDEO_ID" title="..." >}}` | Responsive YouTube embed |
-| `{{< animation src="..." >}}` | Looping webm video |
-| `{{< tech-talk title="..." event="..." date="..." >}}` | Tech talk card (about page) |
-| `{{< social-profiles >}}` | Social profile links (about page) |
-| `{{< rawhtml >}}...{{< /rawhtml >}}` | Raw HTML passthrough |
-
-## Code Style & Conventions
-
-### Templates (layouts)
-
-- Extend PaperMod using its designated extension points (`extend_head.html`, `extend_footer.html`) rather than copying entire templates
-- Avoid full template overrides when possible — use PaperMod's extension points instead
-- Shortcodes use named parameters via `.Get "param"` and process inner content with `{{ .Inner | markdownify }}`
-
-### CSS
-
-- All custom CSS goes in `assets/css/extended/` — this is PaperMod's convention for user overrides
-- Design tokens are in `variables.css` using `--color-*`, `--font-*`, `--radius` naming
+- Posts are **page bundles**: directory with `index.md` + co-located images
+- Front matter (YAML): `title`, `date`, `summary`, `description`, `cover` (`image`, `relative: true`, `alt`), `keywords`, `series`, `draft`
+- Post paths: `content/posts/YYYY/<slug>/`
+- Permalinks: `posts/:year/:month/:day/:slug` — SEO-critical, do not change
+- Only `series` taxonomy is configured; older posts have `tags`/`categories` but those taxonomies are disabled
 - Color palette: orange `#FF9F1C`, green `#027E6F`, red `#FF4D45`, toxic `#D5FF00`, gray `#545454`, charcoal `#1C1C1C`
-- Plain CSS only — no preprocessors, no Tailwind, no CSS-in-JS
-- Light theme only (deliberate choice, no dark mode support)
 
-### Naming
+## Code Conventions
 
-- CSS files: `lowercase-hyphenated.css`
-- Shortcode files: `lowercase-hyphenated.html`
-- Post slugs: descriptive kebab-case (e.g., `positional-dominance-is-making-you-a-worse-engineer`)
-
-## Quirks
-
-### No full PaperMod template overrides
-All customizations use PaperMod's extension points (`extend_head.html`, `extend_footer.html`, `comments.html`) rather than overriding core templates like `single.html` or `list.html`. Keep it this way — full overrides break silently on theme updates.
-
-### Docker build is required for CI parity
-The CI pipeline builds inside a Docker container (`ghcr.io/vasylenko/hugo-runtime`). Local `hugo` commands may produce different results if your local Hugo version differs. Use `docker compose up` to match CI behavior exactly.
-
-### Content structure is SEO-sensitive
-The permalink pattern (`posts/:year/:month/:day/:slug`), page bundle structure, and front matter fields (`summary`, `description`, `cover`) are tuned for SEO. Changing these affects existing URLs, sitemap, and search engine indexing. Don't reorganize content paths without understanding the SEO impact.
-
-### Build output directory
-Hugo's `publishDir` is set to `publishdir` (not the default `public`). This directory is git-ignored.
-
-## Architectural Decisions
-
-- **Hugo modules over git submodules**: The PaperMod theme is managed via Go modules (`go.mod`/`go.sum`), not a git submodule. This means theme updates go through `go get -u`, and the theme version is locked in `go.sum`.
-- **Privacy-first analytics, no external fonts**: No Google Fonts or Google Analytics. System font stack is used; analytics use Simple Analytics which doesn't track individuals.
-- **Light theme only**: Deliberate design decision — `disableThemeToggle: true` in config. No dark mode CSS exists or is planned.
+- **Templates**: use PaperMod extension points only (`extend_head`, `extend_footer`, `comments`) — no full template overrides
+- **Shortcodes**: named parameters via `.Get "param"`, inner content via `{{ .Inner | markdownify }}`
+- **CSS**: all files in `assets/css/extended/`, design tokens in `variables.css`
+- **Naming**: CSS files `lowercase-hyphenated.css`, shortcodes `lowercase-hyphenated.html`, post slugs `descriptive-kebab-case`
