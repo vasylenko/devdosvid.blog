@@ -1,3 +1,4 @@
+{{/* cms: src, alt, caption */}}
 <figure{{ if or (.Get "class") (eq (.Get "align") "center") }} class="
 {{- if eq (.Get "align") "center" }}align-center {{ end }}
 {{- with .Get "class" }}{{ . }}{{- end }}"

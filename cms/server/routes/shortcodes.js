@@ -6,9 +6,16 @@ import { SHORTCODES_DIR } from '../config.js';
 const router = Router();
 
 function parseShortcodeTemplate(content) {
-  // Extract named parameters from .Get "param" calls
-  const paramMatches = content.matchAll(/\.Get\s+"([^"]+)"/g);
-  const params = [...new Set([...paramMatches].map(m => m[1]))];
+  // Honor explicit CMS annotation: {{/* cms: param1, param2 */}}
+  const cmsMatch = content.match(/\{\{\/\*\s*cms:\s*(.+?)\s*\*\/\}\}/);
+  let params;
+  if (cmsMatch) {
+    params = cmsMatch[1].split(',').map(p => p.trim()).filter(Boolean);
+  } else {
+    // Fallback: extract all named parameters from .Get "param" calls
+    const paramMatches = content.matchAll(/\.Get\s+"([^"]+)"/g);
+    params = [...new Set([...paramMatches].map(m => m[1]))];
+  }
 
   // Detect paired shortcodes by checking for .Inner usage
   const hasInner = /\.Inner\b/.test(content);
