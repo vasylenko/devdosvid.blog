@@ -13,9 +13,7 @@ This document serves as a reference for all custom shortcodes available in this 
   - [YouTube](#youtube)
   - [Figure](#figure)
   - [Animation](#animation)
-  - [Gist](#gist)
 - [Components](#components)
-  - [Email Subscription](#email-subscription)
   - [Social Profiles](#social-profiles)
   - [Tech Talk](#tech-talk)
 - [Utilities](#utilities)
@@ -131,32 +129,7 @@ Embeds a looping video animation (webm format).
 ffmpeg -i source-file.gif -c vp9 -filter:v scale=800:-1 -b:v 0 -crf 41 dest-file.webm
 ```
 
-### Gist
-
-**Note:** This shortcode is deprecated in Hugo v0.143.0 and will be removed in a future release.
-
-Embeds a GitHub Gist.
-
-**Parameters:**
-- First parameter: GitHub username
-- Second parameter: Gist ID
-- Third parameter (optional): Specific file from the Gist
-
-**Usage:**
-```
-{{< gist username gist_id >}}
-```
-
 ## Components
-
-### Email Subscription
-
-Embeds a Beehiiv subscription form.
-
-**Usage:**
-```
-{{< email-subscription >}}
-```
 
 ### Social Profiles
 
