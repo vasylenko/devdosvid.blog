@@ -1,0 +1,275 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+  color: #1c1c1c;
+  background: #fafafa;
+  line-height: 1.5;
+}
+
+a {
+  color: #ff9f1c;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Navbar */
+.navbar {
+  background: #1c1c1c;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.75rem 1.5rem;
+}
+.navbar-title {
+  color: #ff9f1c;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.navbar-title:hover {
+  text-decoration: none;
+  opacity: 0.9;
+}
+.navbar-link {
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* Page header */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.page-header h1 {
+  font-size: 1.5rem;
+}
+
+/* Buttons */
+.btn-primary {
+  background: #ff9f1c;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: #e88e15;
+}
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.btn-small {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+}
+.btn-link {
+  background: none;
+  border: none;
+  color: #ff9f1c;
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 0;
+}
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+/* Post table */
+.post-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.post-table th,
+.post-table td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+.post-table th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #545454;
+  border-bottom: 2px solid #ccc;
+}
+.post-table tbody tr:hover {
+  background: #f5f5f5;
+}
+
+/* Draft badge */
+.badge-draft {
+  display: inline-block;
+  background: #ff9f1c;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+/* Loading / error */
+.loading {
+  padding: 2rem;
+  color: #545454;
+}
+.error {
+  padding: 2rem;
+  color: #ff4d45;
+}
+
+/* Editor */
+.editor-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.editor-title {
+  font-size: 1.3rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.editor-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.status-success {
+  color: #027e6f;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.status-error {
+  color: #ff4d45;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Front matter grid */
+.front-matter-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.field span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #545454;
+  text-transform: uppercase;
+}
+.field input[type='text'],
+.field textarea,
+.field select {
+  padding: 0.4rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+.field input[readonly] {
+  background: #f5f5f5;
+  color: #545454;
+}
+.field textarea {
+  resize: vertical;
+}
+.full-width {
+  grid-column: 1 / -1;
+}
+.field-checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+.field-checkbox input[type='checkbox'] {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Editor body */
+.editor-body {
+  margin-bottom: 1.5rem;
+}
+
+/* Image panel */
+.image-panel {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 1rem;
+}
+.image-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+.image-panel-header h3 {
+  font-size: 1rem;
+  margin: 0;
+}
+.image-list {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.image-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  width: 100px;
+}
+.image-thumb {
+  width: 100px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  cursor: pointer;
+}
+.image-thumb:hover {
+  border-color: #ff9f1c;
+}
+.image-name {
+  font-size: 0.7rem;
+  color: #545454;
+  text-align: center;
+  word-break: break-all;
+}

@@ -29,3 +29,14 @@ services:
     ]
     volumes:
       - .:/site
+
+  cms:
+    build:
+      context: ./cms
+      dockerfile: cms.dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./content:/site/content
+    environment:
+      - CONTENT_DIR=/site/content

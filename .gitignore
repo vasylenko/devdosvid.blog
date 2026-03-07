@@ -9,3 +9,5 @@ code-samples/
 .terraform
 _vendor
 deployment-artifact/**
+cms/node_modules
+cms/dist
