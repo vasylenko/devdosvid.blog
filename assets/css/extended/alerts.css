@@ -11,10 +11,14 @@
     margin-bottom: 0;
 }
 
-.alert-heading {
+.alert p.alert-heading {
     font-weight: 600;
     color: var(--alert-color);
-    margin-bottom: 0.25em;
+    margin-bottom: 0;
+}
+
+.alert p.alert-heading + p {
+    margin-top: 0.25em;
 }
 
 .alert-important,
