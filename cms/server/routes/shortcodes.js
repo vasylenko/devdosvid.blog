@@ -5,7 +5,7 @@ import { SHORTCODES_DIR } from '../config.js';
 
 const router = Router();
 
-function parseShortcodeTemplate(content) {
+export function parseShortcodeTemplate(content) {
   // Honor explicit CMS annotation: {{/* cms: param1, param2 */}}
   const cmsMatch = content.match(/\{\{\/\*\s*cms:\s*(.+?)\s*\*\/\}\}/);
   let params;
