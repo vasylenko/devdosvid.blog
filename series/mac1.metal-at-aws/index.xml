@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 07 Mar 2026 23:46:53 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 08 Mar 2026 02:40:19 +0100</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/mac1.metal-at-aws/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
@@ -33,6 +33,7 @@
 <h2 id="auto-scaling-for-macos-ec2-instances">Auto Scaling for macOS EC2 Instances</h2>
 <p>So how does all that work?</p>
 <p>Let’s review the diagram that illustrates the interconnection between involved services:</p>
+
 <figure>
     
     
@@ -58,6 +59,7 @@
 <p>First, you need to create a License Configuration so that the Host resource group can allocate the hots.</p>
 <p>Go to AWS License Manager -&gt; Customer managed licenses -&gt; Create customer-managed license.</p>
 <p>Specify <strong>Sockets</strong> as the Licence type. You may skip setting the Number of Sockets. However, the actual limit of mac1.metal instances per account is regulated by Service Quota. The default number of mac instances allowed per account is 3. Therefore, consider <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html">increasing</a> this to a more significant number.</p>
+
 <figure>
     
     
@@ -83,6 +85,7 @@
 <p>When creating the Host resource group, check “<strong>Allocate hosts automatically</strong>” and “<strong>Release hosts automatically</strong>” but leave “Recover hosts automatically” unchecked. Dedicated Host does <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html#dedicated-hosts-recovery-instances">not support host recovery</a> for mac1.metal.
 However, Auto Scaling Group will maintain the desired number of instances if one fails the health check (which assumes the case of host failure as well).</p>
 <p>Also, I recommend specifying “mac1” as an allowed Instance family for the sake of transparent resource management: only this instance type is permitted to allocate hosts in the group.</p>
+
 <figure>
     
     
@@ -108,6 +111,7 @@ However, Auto Scaling Group will maintain the desired number of instances if one
 <p>Create Launch Template: EC2 -&gt; Launch templates -&gt; Create launch template.</p>
 <p>I will skip the description of all Launch Template parameters (but here is a nice <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html">tutorial</a>), if you don’t mind, and keep focus only on the items relevant to the current case.</p>
 <p>Specify mac1.metal as the Instance type. Later, in Advanced details: find the <strong>Tenancy</strong> parameter and set it to “Dedicated host”; for <strong>Target host by</strong> select “Host resource group”, and once selected the new parameter <strong>Tenancy host resource group</strong> will appear where you should choose your host group; select your license in <strong>License configurations</strong> parameter.</p>
+
 <figure>
     
     
@@ -282,6 +286,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 <p>All you need to do is clone the Document provided by AWS and change its code a little — replace the callouts of <code>ansible</code> with the full path to the binary.</p>
 <p>Navigate to AWS SSM → Documents → Owned by Amazon and type <code>AWS-RunAnsiblePlaybook</code> in the search field.</p>
 <p>Select the Document by pressing the circle on its top-right corner and then click Actions → Clone document.</p>
+
 <figure>
     
     
@@ -695,6 +700,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 </ul>
 <p>As of July 2022, mac2.metal is not supported by Host Resource Groups. Therefore you cannot use mac2.metal Instances in Auto Scaling Groups. But AWS support says they are working on that, so fingers crossed!</p>
 <h2 id="launching-the-instance">Launching the Instance</h2>
+
 <figure>
     
     
@@ -717,7 +723,8 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 <p>The time from the Instance launch until you can SSH into it varies between 5 and 20 minutes.</p>
 <p>You have the option to access it over SSH with your private key. For example, if you need to set up Screen Sharing, you must allow it through the &ldquo;kickstart&rdquo; command-line utility and set the user password <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
 <h2 id="customizing-the-instance">Customizing the Instance</h2>
-<p><figure>
+<p>
+<figure>
     
     
         
@@ -745,7 +752,8 @@ I wrote a separate post about mac1.metal AMI customization and creation, so chec
 </ol>
 <p>There are many tools, but AWS suggests the <a href="https://github.com/jakehilborn/displayplacer">displayplacer</a>.</p>
 <h2 id="destroying-the-instance">Destroying the Instance</h2>
-<p><figure>
+<p>
+<figure>
     
     
         

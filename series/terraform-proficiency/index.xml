@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 07 Mar 2026 23:46:53 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 08 Mar 2026 02:40:19 +0100</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/terraform-proficiency/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>A Deep Dive Into Terraform Static Code Analysis Tools: Features and Comparisons</title>
@@ -472,6 +472,7 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
 Rather than being a separate provider, the terraform_data managed resource now offers the same capabilities as an integrated feature. Pretty cool! <br>
 While the null provider is still available and there are no statements about its deprecation thus far (<a href="https://registry.terraform.io/providers/hashicorp/null/3.2.1/docs">as of April 2023, v3.2.1</a>), the  <code>terraform_data</code> is the native replacement of the <code>null_resource</code>, and the latter might soon become deprecated.</p>
 <p>The  <code>terraform_data</code> resource has two optional arguments, <strong>input</strong> and <strong>triggers_replace</strong>, and its configuration looks as follows:</p>
+
 <figure>
     
     
@@ -497,6 +498,7 @@ While the null provider is still available and there are no statements about its
 <li>The <code>triggers_replace</code> (optional) is a value that triggers resource replacement when changes.</li>
 </ul>
 <p>There are two attributes, in addition to the arguments, which are stored in the state: <strong>id</strong> and <strong>output</strong> after the resource is created. Let&rsquo;s take a look:</p>
+
 <figure>
     
     
@@ -530,6 +532,7 @@ While the null provider is still available and there are no statements about its
 <p>The replace_triggered_by is a powerful feature, but here is the thing about it: only a resource or its attribute must be specified, and <strong>you cannot use a variable or a local value for replace_triggered_by</strong>.</p>
 <p>But with terraform_data, you can indirectly initiate another resource replacement by using either a variable or an expression within a local value for the <code>input</code> argument.</p>
 <p>Let me give you an example here. Consider the following code:</p>
+
 <figure>
     
     
@@ -551,6 +554,7 @@ While the null provider is still available and there are no statements about its
 </figure>
 
 <p>By modifying the  <code>revision</code> variable, the next Terraform plan will suggest a replacement action against aws_instance.webserver:</p>
+
 <figure>
     
     
@@ -575,6 +579,7 @@ While the null provider is still available and there are no statements about its
 <p>Before we start: HashiCorp suggests (and I also support that) avoiding provisioner usage unless you have no other options left. One of the reasons â€” additional, implicit, and unobvious dependency that appears in the codebase â€” the binary, which is called inside the provisioner block, must be present on the machine. <br>
 But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsquo;s always that one unique project that needs it.</p>
 <p>Here is the code snippet that demonstrates the usage of the provisioner within the terraform_data resource:</p>
+
 <figure>
     
     
@@ -624,6 +629,7 @@ Once that is described, Terraform performs the movement of the resource within t
 <p>Let&rsquo;s review some examples that illustrate how it works.</p>
 <h3 id="move-or-rename-a-resource">Move or rename a resource</h3>
 <p>In a module, I have a bucket policy that has a generic, meaningless name. It is used in a module that creates a CloudFront distribution with an S3 bucket.</p>
+
 <figure>
     
     
@@ -651,6 +657,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
 <div class="attention">
     The <code>moved</code> block allows you to document how you rename or move an object in Terraform so that other code users can have the same changes afterward.
 </div>
+
 <figure>
     
     
@@ -672,6 +679,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
 </figure>
 
 <p>Terraform follows the instructions inside the <code>module</code> block to plan and apply changes. Although the resource address update is not counted as a change in the Plan output, Terraform will perform that update during apply.</p>
+
 <figure>
     
     
@@ -695,6 +703,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
 <h3 id="move-or-rename-a-module">Move or rename a module</h3>
 <p>The same approach can be applied to a module â€” you can move or rename it as a code too.</p>
 <p>Here, I use two modules to create static hosting for a website with a custom TLS certificate.</p>
+
 <figure>
     
     
@@ -718,6 +727,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
 <p>Again, if I need to add another couple of the CDN+Certificate modules, I would like to have meaningful names in my code so clearly distinguish one from another.</p>
 <p>Therefore, I would add two <code>moved</code> blocks â€” one per module call.</p>
 <p>And by the way, since I renamed the module (from <code>cert</code> to <code>example_com_cert</code>), I need to update all references to that module&rsquo;s outputs in the code too.</p>
+
 <figure>
     
     
@@ -739,6 +749,7 @@ For example, I could rename the old policy with the <code>terraform state mv</co
 </figure>
 
 <p>However, there is one nuance: when you rename a module and declare that in the <code>moved</code> block, you need to run the <code>terraform init</code> before applying the change because Terraform must initialize the module with the new name first.</p>
+
 <figure>
     
     
@@ -780,6 +791,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 </div>
 <h2 id="lifecycle-expressions-conditions-and-replacement-trigger">Lifecycle expressions: conditions and replacement trigger</h2>
 <p>Terraform 1.2 fundamentally improves the <code>lifecycle</code> meta-argument by adding three new configuration options with rich capabilities.</p>
+
 <figure>
     
     
@@ -816,6 +828,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 <p>Let&rsquo;s review this new feature with an example of <code>postcondition</code> usage.</p>
 <p>Consider the following case: our module receives AMI ID as the input variable, and that AMI should be used in the Launch Template then; we also have the requirement for the EC2 instance created from that Launch Template â€” its root EBS size must be equal or bigger than 600 GB.</p>
 <p>We cannot validate the EBS size using the variable that accepts the AMI ID. But we can write a <strong>postcondition</strong> for the Data Source that gets the information about the AMI and reference that Data Source in the Launch Template resource afterward.</p>
+
 <figure>
     
     
@@ -839,6 +852,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 <p>The <code>condition</code> argument within the block accepts any of Terraform&rsquo;s built-in functions or language operators.</p>
 <p>The special <code>self</code> object is available only for the <code>postcondition</code> block because it assumes that validation can be performed after the object is created and its attributes are known.</p>
 <p>Later, if a module user specifies the AMI with an EBS size lesser than 600 GB, Terraform will fail to create the Launch Template because it depends on the Data Source that did not pass the postcondition check.</p>
+
 <figure>
     
     
@@ -864,6 +878,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 <p>The <code>precondition</code> block is also available for the module outputs.</p>
 <p>Just like the variable validation block assures that module input meets certain expectations, the <code>precondition</code> is intended to ensure that a module produces the valid output.</p>
 <p>Here is an example: a module that creates an ACM certificate must prevent the usage of a specific domain name in the certificate&rsquo;s Common Name or its SANs.</p>
+
 <figure>
     
     
@@ -892,6 +907,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 <p>Sometimes it&rsquo;s needed to specify the dependency in the way that recreates a resource when another resource or its attribute changes.</p>
 <p>This is useful when two (or more) resources do not have any explicit dependency.</p>
 <p>Consider the following case: you have two EC2 instances, A and B, and need to recreate the B instance if the private IP of instance A is changed.</p>
+
 <figure>
     
     
@@ -937,6 +953,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
     Some code examples in this article will work with Terraform version 0.15 and onwards. But if you&rsquo;re still using 0.14 or lower, here&rsquo;s another motivation for you to upgrade.
 </div>
 <h2 id="conditional-resource-creation-or-how-to-implement-the-if-else-statement-in-terraform">Conditional resource creation or how to implement the &ldquo;if else&rdquo; statement in Terraform</h2>
+
 <figure>
     
     
@@ -1001,6 +1018,7 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 <p>For example, here is how I would reference a resource created in the module with <code>for_each</code> described earlier:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span>bucket_name <span style="color:#ff7b72;font-weight:bold">=</span> module.bucket[<span style="color:#a5d6ff">&#34;photos&#34;</span>].name
 </span></span></code></pre></div><h2 id="conditional-resource-arguments-attributes-setting">Conditional resource arguments (attributes) setting</h2>
+
 <figure>
     
     
@@ -1042,7 +1060,8 @@ Check the following detailed guide from HashiCorp that explains how to do that â
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The <code>custom_error_response</code> variable is <code>null</code> by default, but it has the <code>object</code> type, and users can assign the variable with the required nested specifications if needed. And when they do it, Terraform will add the <code>custom_error_response</code> block to the resource configuration. Otherwise, it will be omitted entirely.</p>
 <h2 id="convert-types-in-terraform-with-ease">Convert types in Terraform with ease</h2>
-<p><figure>
+<p>
+<figure>
     
     
         
@@ -1084,7 +1103,8 @@ Ok, let&rsquo;s move to the less conditional things now ðŸ˜…</p>
 </span></span><span style="display:flex;"><span>  target_key_id <span style="color:#ff7b72;font-weight:bold">=</span> one(aws_kms_key.main[<span style="color:#ff7b72;font-weight:bold">*</span>]key_id)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h2 id="write-yaml-or-json-as-terraform-code-hcl">Write YAML or JSON as Terraform code (HCL)</h2>
-<p><figure>
+<p>
+<figure>
     
     
         
@@ -1142,7 +1162,8 @@ Sometimes you need to supply JSON or YAML files to the services you manage with 
 </span></span><span style="display:flex;"><span>			...
 </span></span><span style="display:flex;"><span>			...
 </span></span></code></pre></div><h2 id="create-custom-file-templates-in-terraform">Create custom file templates in Terraform</h2>
-<p><figure>
+<p>
+<figure>
     
     
         
@@ -1359,6 +1380,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 <h2 id="basic-concepts">Basic Concepts</h2>
 <p>Letâ€™s define the basic actions first.</p>
 <p>All described workflows are built on top of three key steps: Write, Plan, and Apply. Nevertheless, their details and actions vary between workflows.</p>
+
 <figure>
     
     
@@ -1385,6 +1407,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 <p>It&rsquo;s a simple idea with a variety of possible implementations.</p>
 <h2 id="core-individual-workflow">Core individual workflow</h2>
 <p>This is the most simple workflow if you work alone on a relatively small TF project. This workflow suits both local and remote backends well.</p>
+
 <figure>
     
     
@@ -1413,6 +1436,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 <p>This is when you run <code>terraform apply</code> and introduce the changes to real infrastructure objects. Also, this is when you push committed changes to the remote repository.</p>
 <h2 id="core-team-workflow">Core team workflow</h2>
 <p>This workflow is good for when you work with configuration code in a team and want to use feature branches to manage the changes accurately.</p>
+
 <figure>
     
     
@@ -1444,6 +1468,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 <h2 id="team-workflow-with-automation">Team workflow with automation</h2>
 <p>In a nutshell, this workflow allows you to introduce a kind of smoke test for your infrastructure code (using <code>plan</code>) and also to automate the feedback in the CI process.</p>
 <p>The automated part of this workflow consists of a speculative plan on commit and/or Pull Request (PR ), along with adding the output of <code>plan</code> to the comment of the PR. A speculative plan mean just to show the changes, and not apply them afterward.</p>
+
 <figure>
     
     
@@ -1483,6 +1508,7 @@ You can write a custom script/function that sends a Pull Request comment to VCS 
 <h2 id="import-workflow">Import workflow</h2>
 <p>This workflow refers to a situation when you have some objects already created (i.e., up and running), and you need to manage them with Terraform.</p>
 <p>Suppose we already have an S3 bucket in AWS called &ldquo;someassetsbucket&rdquo; and we want to include it into our configuration code.â€Œâ€Œ</p>
+
 <figure>
     
     
@@ -1552,6 +1578,7 @@ It should look at a &ldquo;todo&rdquo; or &ldquo;check&rdquo;-list. It may seem 
 For example, you can make a plan from the resources I outlined below in this article.</p>
 <p>I encourage you to explore the Internet for something by yourself as well. Who knows, perhaps you will find some learning course that fits you better. And that is great! However, when you find it, take extra 5-10 minutes to go through its curriculum and create a list with lessons.</p>
 <p>It feels so nice to cross out items off the todo list, believe me ðŸ˜„
+
 <figure>
     
     
@@ -1593,6 +1620,7 @@ For example, you can make a plan from the resources I outlined below in this art
 <p>You can greatly improve your practice by mocking some real business cases.</p>
 <p>If you already work in some company you can set up the project you&rsquo;re working with using Terraform. If you donâ€™t have a real project or afraid to accidentally violate NDA, try this open-source demo project: <a href="https://github.com/gothinkster/realworld">Real World Example Apps</a>.</p>
 <p>It is a collection of different codebases for front-end and back-end used to build the same project. Just find the combination that suits your experience better and try to build the infrastructure for it using Terraform.</p>
+
 <figure>
     
     
@@ -1611,6 +1639,7 @@ For example, you can make a plan from the resources I outlined below in this art
 <h4 id="answer-forum-topics">Answer forum topics</h4>
 <p>Last but not least advice â€” try to answer some questions on the official <a href="https://discuss.hashicorp.com/c/terraform-core/">Terraform forum</a>.</p>
 <p>This is a nice way to test your knowledge, help others, and develop the community around Terraform. Just register there, look for the latest topics, and have fun!</p>
+
 <figure>
     
     
@@ -1650,6 +1679,7 @@ For example, you can make a plan from the resources I outlined below in this art
 â€“ a static public IP mapped to the server&rsquo;s virtual network interface
 â€“ a set of firewall rules to be attached to the server
 â€“ something else&hellip; (i.e. another block device, additional network interface, etc)</p>
+
 <figure>
     
     
@@ -1701,6 +1731,7 @@ For example, you can make a plan from the resources I outlined below in this art
 </span></span><span style="display:flex;"><span>    some_other_variable <span style="color:#ff7b72;font-weight:bold">=</span> some_other_value
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Once we have some custom modules, we can refer to them as &ldquo;child&rdquo; modules. And the configuration file where we call child modules relates to the root module.</p>
+
 <figure>
     
     
@@ -1755,6 +1786,7 @@ For example, you can make a plan from the resources I outlined below in this art
 </span></span></code></pre></div><h3 id="explicit-resources-exposure">Explicit resources exposure</h3>
 <p>If you want to access some details for the resources in another module, you&rsquo;ll need to explicitly configure that.</p>
 <p>By default, our module &ldquo;server&rdquo; doesn&rsquo;t know about the network that was created in the &ldquo;network&rdquo; module.</p>
+
 <figure>
     
     
@@ -1777,6 +1809,7 @@ For example, you can make a plan from the resources I outlined below in this art
 
 <p>So we must declare an <code>output</code> value in the &ldquo;network&rdquo; module to export its resource, or an attribute of a resource, to other modules.</p>
 <p>The module &ldquo;server&rdquo; must declare a <code>variable</code> to be used later as the input.</p>
+
 <figure>
     
     
@@ -1905,6 +1938,7 @@ module_alb/alb.tf
 </ul>
 <h2 id="how-does-it-work">How does it work?</h2>
 <p>Terraform works with the source code of configuration and interprets the code into real objects inside on-premise or cloud platforms.</p>
+
 <figure>
     
     
@@ -1952,6 +1986,7 @@ module_alb/alb.tf
 <p>Once created, Terraform will store the ID in the state file with mapping information that logically connects it with <code>web_server</code>.</p>
 <p>The <code>ami</code>, <code>instance_type</code>, and <code>private_ip</code> are the arguments with values that define the actual state of the resource. However, there are many value types, depending on the particular argument and particular resource type, so I will not focus on them here.</p>
 <h3 id="modules">Modules</h3>
+
 <figure>
     
     
