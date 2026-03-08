@@ -17,6 +17,10 @@ const matterOptions = {
   },
 };
 
+function normalizeSeries(value) {
+  return Array.isArray(value) ? value : value ? [value] : [];
+}
+
 export function generateSlug(title) {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
@@ -46,7 +50,7 @@ router.get('/posts', async (req, res) => {
           draft: data.draft || false,
           year,
           slug,
-          series: Array.isArray(data.series) ? data.series : data.series ? [data.series] : [],
+          series: normalizeSeries(data.series),
         };
       })
     );
@@ -63,7 +67,7 @@ router.get('/posts/:year/:slug', async (req, res) => {
     const filePath = postFile(req.params.year, req.params.slug);
     const content = await fs.readFile(filePath, 'utf-8');
     const { data, content: body } = matter(content, matterOptions);
-    res.json({ frontMatter: data, body });
+    res.json({ frontMatter: { ...data, series: normalizeSeries(data.series) }, body });
   } catch (err) {
     if (err.code === 'ENOENT') {
       return res.status(404).json({ error: 'Post not found' });
@@ -133,7 +137,7 @@ router.get('/series', async (req, res) => {
       postFiles.map(async ({ fullPath }) => {
         const content = await fs.readFile(fullPath, 'utf-8');
         const { data } = matter(content, matterOptions);
-        const series = Array.isArray(data.series) ? data.series : data.series ? [data.series] : [];
+        const series = normalizeSeries(data.series);
         series.forEach(s => allSeries.add(s));
       })
     );

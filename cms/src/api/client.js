@@ -2,7 +2,7 @@ export const API_BASE = '/api';
 
 async function request(path, options = {}) {
   const headers = { ...options.headers };
-  if (options.body && typeof options.body === 'string') {
+  if (options.body && !(options.body instanceof FormData)) {
     headers['Content-Type'] = 'application/json';
   }
   const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
