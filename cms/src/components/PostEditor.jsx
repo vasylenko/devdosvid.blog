@@ -9,7 +9,7 @@ export default function PostEditor() {
   const { year, slug } = useParams();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [status, setStatus] = useState(null);
+  const [saveMessage, setSaveMessage] = useState(null);
 
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
@@ -42,13 +42,13 @@ export default function PostEditor() {
         setBody(post.body || '');
         setSeriesOptions(seriesList || []);
       })
-      .catch(err => setStatus(`Error loading post: ${err.message}`))
+      .catch(err => setSaveMessage(`Error loading post: ${err.message}`))
       .finally(() => setLoading(false));
   }, [year, slug]);
 
   const save = useCallback(async () => {
     setSaving(true);
-    setStatus(null);
+    setSaveMessage(null);
     try {
       const frontMatter = {
         title,
@@ -65,10 +65,10 @@ export default function PostEditor() {
         },
       };
       await updatePost(year, slug, { frontMatter, body });
-      setStatus('Saved');
-      setTimeout(() => setStatus(null), 2000);
+      setSaveMessage('Saved');
+      setTimeout(() => setSaveMessage(null), 2000);
     } catch (err) {
-      setStatus(`Save failed: ${err.message}`);
+      setSaveMessage(`Save failed: ${err.message}`);
     } finally {
       setSaving(false);
     }
@@ -101,14 +101,6 @@ export default function PostEditor() {
     });
   }, []);
 
-  const handleInsertImage = useCallback((shortcode) => {
-    insertAtCursor(shortcode);
-  }, [insertAtCursor]);
-
-  const handleSetCover = useCallback((filename) => {
-    setCoverImage(filename);
-  }, []);
-
   if (loading) return <p className="loading">Loading post...</p>;
 
   return (
@@ -128,9 +120,9 @@ export default function PostEditor() {
                 {draft ? 'Draft' : 'Published'}
               </span>
             </label>
-            {status && (
-              <span className={status === 'Saved' ? 'status-success' : 'status-error'}>
-                {status}
+            {saveMessage && (
+              <span className={saveMessage === 'Saved' ? 'status-success' : 'status-error'}>
+                {saveMessage}
               </span>
             )}
             <button className="btn-save" onClick={save} disabled={saving}>
@@ -156,7 +148,6 @@ export default function PostEditor() {
           <MDEditor
             value={body}
             onChange={setBody}
-            height={800}
             preview="edit"
           />
         </div>
@@ -169,8 +160,8 @@ export default function PostEditor() {
           <ImageUploader
             year={year}
             slug={slug}
-            onInsert={handleInsertImage}
-            onSetCover={handleSetCover}
+            onInsert={insertAtCursor}
+            onSetCover={setCoverImage}
           />
         </div>
       </details>

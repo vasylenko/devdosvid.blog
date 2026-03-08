@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@uiw/react-md-editor": "^4.0.0",
-    "cors": "^2.8.5",
     "express": "^4.21.0",
     "gray-matter": "^4.0.3",
     "js-yaml": "^4.1.1",

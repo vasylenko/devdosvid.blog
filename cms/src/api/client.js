@@ -1,13 +1,11 @@
-const API_BASE = '/api';
+export const API_BASE = '/api';
 
 async function request(path, options = {}) {
-  const res = await fetch(`${API_BASE}${path}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
-    ...options,
-  });
+  const headers = { ...options.headers };
+  if (options.body && typeof options.body === 'string') {
+    headers['Content-Type'] = 'application/json';
+  }
+  const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
   if (!res.ok) {
     const text = await res.text();
     throw new Error(text || `Request failed: ${res.status}`);
@@ -37,6 +35,8 @@ export async function updatePost(year, slug, data) {
   });
 }
 
+// Uses fetch directly because FormData requires the browser to set Content-Type
+// with the multipart boundary — setting it manually would break the upload.
 export async function uploadImage(year, slug, file) {
   const formData = new FormData();
   formData.append('image', file);

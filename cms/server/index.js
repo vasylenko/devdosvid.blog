@@ -1,5 +1,4 @@
 import express from 'express';
-import cors from 'cors';
 import path from 'path';
 import fs from 'fs';
 import { CONTENT_DIR } from './config.js';
@@ -10,7 +9,6 @@ import shortcodeRoutes from './routes/shortcodes.js';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
 app.use(express.json());
 
 app.use('/api', postRoutes);

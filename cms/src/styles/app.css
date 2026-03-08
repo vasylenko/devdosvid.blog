@@ -1,3 +1,18 @@
+:root {
+  --color-orange: #ff9f1c;
+  --color-orange-hover: #e88e15;
+  --color-green: #027e6f;
+  --color-red: #ff4d45;
+  --color-charcoal: #1c1c1c;
+  --color-gray: #545454;
+  --color-muted: #999;
+  --color-border: #e0e0e0;
+  --color-border-light: #f0f0f0;
+  --color-bg: #fafafa;
+  --color-bg-hover: #f5f5f5;
+  --color-bg-input-ro: #f5f5f5;
+}
+
 *,
 *::before,
 *::after {
@@ -9,13 +24,13 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, sans-serif;
-  color: #1c1c1c;
-  background: #fafafa;
+  color: var(--color-charcoal);
+  background: var(--color-bg);
   line-height: 1.5;
 }
 
 a {
-  color: #ff9f1c;
+  color: var(--color-orange);
   text-decoration: none;
 }
 a:hover {
@@ -24,7 +39,7 @@ a:hover {
 
 /* Navbar */
 .navbar {
-  background: #1c1c1c;
+  background: var(--color-charcoal);
   color: #fff;
   display: flex;
   align-items: center;
@@ -32,7 +47,7 @@ a:hover {
   padding: 0.75rem 1.5rem;
 }
 .navbar-title {
-  color: #ff9f1c;
+  color: var(--color-orange);
   font-weight: 700;
   font-size: 1.1rem;
 }
@@ -65,7 +80,7 @@ a:hover {
 
 /* Buttons */
 .btn-primary {
-  background: #ff9f1c;
+  background: var(--color-orange);
   color: #fff;
   border: none;
   padding: 0.5rem 1.25rem;
@@ -75,7 +90,7 @@ a:hover {
   cursor: pointer;
 }
 .btn-primary:hover {
-  background: #e88e15;
+  background: var(--color-orange-hover);
 }
 .btn-primary:disabled {
   opacity: 0.6;
@@ -88,7 +103,7 @@ a:hover {
 .btn-link {
   background: none;
   border: none;
-  color: #ff9f1c;
+  color: var(--color-orange);
   cursor: pointer;
   font-size: 0.75rem;
   padding: 0;
@@ -106,22 +121,22 @@ a:hover {
 .post-table td {
   text-align: left;
   padding: 0.6rem 0.75rem;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--color-border);
 }
 .post-table th {
   font-size: 0.8rem;
   text-transform: uppercase;
-  color: #545454;
+  color: var(--color-gray);
   border-bottom: 2px solid #ccc;
 }
 .post-table tbody tr:hover {
-  background: #f5f5f5;
+  background: var(--color-bg-hover);
 }
 
 /* Draft badge */
 .badge-draft {
   display: inline-block;
-  background: #ff9f1c;
+  background: var(--color-orange);
   color: #fff;
   font-size: 0.7rem;
   font-weight: 600;
@@ -133,11 +148,11 @@ a:hover {
 /* Loading / error */
 .loading {
   padding: 2rem;
-  color: #545454;
+  color: var(--color-gray);
 }
 .error {
   padding: 2rem;
-  color: #ff4d45;
+  color: var(--color-red);
 }
 
 /* ─── Editor page ─── */
@@ -161,17 +176,17 @@ a:hover {
   padding: 0 1rem;
   height: 48px;
   flex-shrink: 0;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--color-border);
   background: #fff;
 }
 
 .toolbar-back {
-  color: #545454;
+  color: var(--color-gray);
   font-size: 0.85rem;
   font-weight: 500;
 }
 .toolbar-back:hover {
-  color: #1c1c1c;
+  color: var(--color-charcoal);
   text-decoration: none;
 }
 
@@ -205,18 +220,18 @@ a:hover {
 }
 .draft-pill.is-draft {
   background: #fff3e0;
-  color: #e88e15;
+  color: var(--color-orange-hover);
   border: 1px solid #ffd699;
 }
 .draft-pill.is-published {
   background: #e6f5f2;
-  color: #027e6f;
+  color: var(--color-green);
   border: 1px solid #a3ddd4;
 }
 
 /* Save button */
 .btn-save {
-  background: #1c1c1c;
+  background: var(--color-charcoal);
   color: #fff;
   border: none;
   padding: 0.35rem 1rem;
@@ -234,12 +249,12 @@ a:hover {
 }
 
 .status-success {
-  color: #027e6f;
+  color: var(--color-green);
   font-size: 0.8rem;
   font-weight: 600;
 }
 .status-error {
-  color: #ff4d45;
+  color: var(--color-red);
   font-size: 0.8rem;
   font-weight: 600;
 }
@@ -252,9 +267,9 @@ a:hover {
   font-size: 1.5rem;
   font-weight: 700;
   font-family: inherit;
-  color: #1c1c1c;
+  color: var(--color-charcoal);
   border: none;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--color-border-light);
   outline: none;
   background: transparent;
   flex-shrink: 0;
@@ -264,7 +279,7 @@ a:hover {
   font-weight: 400;
 }
 .editor-title-input:focus {
-  border-bottom-color: #ff9f1c;
+  border-bottom-color: var(--color-orange);
 }
 
 /* Shortcode toolbar */
@@ -273,15 +288,15 @@ a:hover {
   align-items: center;
   gap: 0.35rem;
   padding: 0.3rem 1rem;
-  border-bottom: 1px solid #f0f0f0;
-  background: #fafafa;
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-bg);
   flex-shrink: 0;
   flex-wrap: wrap;
 }
 .shortcode-label {
   font-size: 0.7rem;
   font-weight: 600;
-  color: #999;
+  color: var(--color-muted);
   text-transform: uppercase;
   letter-spacing: 0.03em;
   margin-right: 0.25rem;
@@ -293,13 +308,13 @@ a:hover {
   padding: 0.2rem 0.5rem;
   font-size: 0.75rem;
   font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, monospace;
-  color: #545454;
+  color: var(--color-gray);
   cursor: pointer;
   white-space: nowrap;
 }
 .shortcode-btn:hover {
-  border-color: #ff9f1c;
-  color: #1c1c1c;
+  border-color: var(--color-orange);
+  color: var(--color-charcoal);
   background: #fff8f0;
 }
 
@@ -320,14 +335,14 @@ a:hover {
 /* ─── Below-the-fold sections ─── */
 
 .editor-section {
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--color-border);
 }
 
 .editor-section-summary {
   padding: 0.75rem 1rem;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #545454;
+  color: var(--color-gray);
   text-transform: uppercase;
   letter-spacing: 0.03em;
   cursor: pointer;
@@ -368,7 +383,7 @@ a:hover {
 .field span {
   font-size: 0.75rem;
   font-weight: 600;
-  color: #545454;
+  color: var(--color-gray);
   text-transform: uppercase;
 }
 .field input[type='text'],
@@ -381,8 +396,8 @@ a:hover {
   font-family: inherit;
 }
 .field input[readonly] {
-  background: #f5f5f5;
-  color: #545454;
+  background: var(--color-bg-input-ro);
+  color: var(--color-gray);
 }
 .field textarea {
   resize: vertical;
@@ -419,19 +434,19 @@ a:hover {
   height: 70px;
   object-fit: cover;
   border-radius: 4px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--color-border);
   cursor: pointer;
 }
 .image-thumb:hover {
-  border-color: #ff9f1c;
+  border-color: var(--color-orange);
 }
 .image-name {
   font-size: 0.7rem;
-  color: #545454;
+  color: var(--color-gray);
   text-align: center;
   word-break: break-all;
 }
 .image-empty {
   font-size: 0.85rem;
-  color: #999;
+  color: var(--color-muted);
 }

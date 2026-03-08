@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { fetchImages, uploadImage } from '../api/client';
+import { API_BASE, fetchImages, uploadImage } from '../api/client';
 
 export default function ImageUploader({ year, slug, onInsert, onSetCover }) {
   const [images, setImages] = useState([]);
@@ -65,7 +65,7 @@ export default function ImageUploader({ year, slug, onInsert, onSetCover }) {
           {images.map(img => (
             <div key={img} className="image-item">
               <img
-                src={`/api/posts/${year}/${slug}/images/${img}`}
+                src={`${API_BASE}/posts/${year}/${slug}/images/${img}`}
                 alt={img}
                 className="image-thumb"
                 onClick={() => handleInsert(img)}
