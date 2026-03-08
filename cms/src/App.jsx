@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router';
 import PostList from './components/PostList';
 import PostEditor from './components/PostEditor';
 

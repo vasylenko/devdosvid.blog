@@ -11,13 +11,13 @@
   },
   "dependencies": {
     "@uiw/react-md-editor": "^4.0.0",
-    "express": "^4.21.0",
+    "express": "^5.2.1",
     "gray-matter": "^4.0.3",
     "js-yaml": "^4.1.1",
     "multer": "^2.1.1",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0",
-    "react-router-dom": "^6.28.0"
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router": "^7.13.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.0",
