@@ -3,7 +3,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import matter from 'gray-matter';
 import yaml from 'js-yaml';
-import { CONTENT_DIR } from '../config.js';
+import { CONTENT_DIR, postDir, postFile, validateYear, validateSlug } from '../config.js';
 
 const router = Router();
 
@@ -17,26 +17,41 @@ const matterOptions = {
   },
 };
 
+export function generateSlug(title) {
+  return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+
 async function findPostFiles() {
   const postsDir = path.join(CONTENT_DIR, 'posts');
   const entries = await fs.readdir(postsDir, { recursive: true });
   return entries
     .filter(entry => entry.endsWith('index.md'))
-    .map(entry => ({
-      fullPath: path.join(postsDir, entry),
-      parts: entry.split(path.sep),
-    }));
+    .map(entry => {
+      const parts = entry.split(path.sep);
+      return { fullPath: path.join(postsDir, entry), year: parts[0], slug: parts[1] };
+    });
+}
+
+function validatePostParams(req, res) {
+  const { year, slug } = req.params;
+  if (!validateYear(year)) {
+    res.status(400).json({ error: 'Invalid year parameter' });
+    return false;
+  }
+  if (!validateSlug(slug)) {
+    res.status(400).json({ error: 'Invalid slug parameter' });
+    return false;
+  }
+  return true;
 }
 
 router.get('/posts', async (req, res) => {
   try {
     const postFiles = await findPostFiles();
     const posts = await Promise.all(
-      postFiles.map(async ({ fullPath, parts }) => {
+      postFiles.map(async ({ fullPath, year, slug }) => {
         const content = await fs.readFile(fullPath, 'utf-8');
         const { data } = matter(content, matterOptions);
-        const year = parts[0];
-        const slug = parts[1];
         return {
           title: data.title || '',
           date: data.date || '',
@@ -45,7 +60,6 @@ router.get('/posts', async (req, res) => {
           year,
           slug,
           series: data.series || '',
-          hasCover: !!(data.cover && data.cover.image),
         };
       })
     );
@@ -57,8 +71,9 @@ router.get('/posts', async (req, res) => {
 });
 
 router.get('/posts/:year/:slug', async (req, res) => {
+  if (!validatePostParams(req, res)) return;
   try {
-    const filePath = path.join(CONTENT_DIR, 'posts', req.params.year, req.params.slug, 'index.md');
+    const filePath = postFile(req.params.year, req.params.slug);
     const content = await fs.readFile(filePath, 'utf-8');
     const { data, content: body } = matter(content, matterOptions);
     res.json({ frontMatter: data, body });
@@ -76,14 +91,17 @@ router.post('/posts', async (req, res) => {
     if (!title) {
       return res.status(400).json({ error: 'Title is required' });
     }
-    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    const slug = generateSlug(title);
+    if (!slug) {
+      return res.status(400).json({ error: 'Title must contain at least one Latin letter or digit' });
+    }
     const year = String(new Date().getFullYear());
-    const postDir = path.join(CONTENT_DIR, 'posts', year, slug);
-    await fs.mkdir(postDir, { recursive: true });
+    const dir = postDir(year, slug);
+    await fs.mkdir(dir, { recursive: true });
 
     const frontMatter = {
       title,
-      date: new Date().toISOString().replace('Z', '+01:00'),
+      date: new Date().toISOString(),
       summary: '',
       description: '',
       cover: {
@@ -96,7 +114,7 @@ router.post('/posts', async (req, res) => {
       series: '',
     };
     const fileContent = matter.stringify('\n', frontMatter, matterOptions);
-    await fs.writeFile(path.join(postDir, 'index.md'), fileContent);
+    await fs.writeFile(postFile(year, slug), fileContent);
     res.status(201).json({ year, slug });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -104,9 +122,13 @@ router.post('/posts', async (req, res) => {
 });
 
 router.put('/posts/:year/:slug', async (req, res) => {
+  if (!validatePostParams(req, res)) return;
   try {
     const { frontMatter, body } = req.body;
-    const filePath = path.join(CONTENT_DIR, 'posts', req.params.year, req.params.slug, 'index.md');
+    if (!frontMatter || typeof frontMatter !== 'object' || !frontMatter.title) {
+      return res.status(400).json({ error: 'Valid frontMatter with title is required' });
+    }
+    const filePath = postFile(req.params.year, req.params.slug);
     const fileContent = matter.stringify(body || '', frontMatter, matterOptions);
     await fs.writeFile(filePath, fileContent);
     res.json({ success: true });
@@ -117,9 +139,8 @@ router.put('/posts/:year/:slug', async (req, res) => {
 
 router.get('/series', async (req, res) => {
   try {
-    const knownSeries = ['Engineering Leadership', 'Terraform Proficiency', 'mac1.metal at AWS'];
     const postFiles = await findPostFiles();
-    const allSeries = new Set(knownSeries);
+    const allSeries = new Set();
 
     await Promise.all(
       postFiles.map(async ({ fullPath }) => {

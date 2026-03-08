@@ -2,39 +2,68 @@ import { Router } from 'express';
 import fs from 'fs/promises';
 import path from 'path';
 import multer from 'multer';
-import { CONTENT_DIR } from '../config.js';
+import { postDir, validateYear, validateSlug, sanitizeFilename } from '../config.js';
 
 const router = Router();
 
 const IMAGE_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif', '.svg']);
 
+function validateImageParams(req, res) {
+  const { year, slug } = req.params;
+  if (!validateYear(year)) {
+    res.status(400).json({ error: 'Invalid year parameter' });
+    return false;
+  }
+  if (!validateSlug(slug)) {
+    res.status(400).json({ error: 'Invalid slug parameter' });
+    return false;
+  }
+  return true;
+}
+
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    const dir = path.join(CONTENT_DIR, 'posts', req.params.year, req.params.slug);
-    cb(null, dir);
+    cb(null, postDir(req.params.year, req.params.slug));
   },
   filename(req, file, cb) {
-    cb(null, file.originalname);
+    cb(null, sanitizeFilename(file.originalname));
   },
 });
 
-const upload = multer({ storage });
-
-router.post('/posts/:year/:slug/images', upload.single('image'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: 'No image uploaded' });
+function fileFilter(req, file, cb) {
+  const ext = path.extname(file.originalname).toLowerCase();
+  if (!IMAGE_EXTENSIONS.has(ext)) {
+    return cb(new Error(`File type ${ext} is not allowed. Accepted: ${[...IMAGE_EXTENSIONS].join(', ')}`));
   }
-  res.json({ filename: req.file.originalname });
+  cb(null, true);
+}
+
+const upload = multer({ storage, fileFilter });
+
+router.post('/posts/:year/:slug/images', (req, res) => {
+  if (!validateImageParams(req, res)) return;
+  upload.single('image')(req, res, (err) => {
+    if (err) {
+      return res.status(400).json({ error: err.message });
+    }
+    if (!req.file) {
+      return res.status(400).json({ error: 'No image uploaded' });
+    }
+    res.json({ filename: req.file.filename });
+  });
 });
 
 router.get('/posts/:year/:slug/images/:filename', (req, res) => {
-  const filePath = path.join(CONTENT_DIR, 'posts', req.params.year, req.params.slug, req.params.filename);
+  if (!validateImageParams(req, res)) return;
+  const safe = sanitizeFilename(req.params.filename);
+  const filePath = path.join(postDir(req.params.year, req.params.slug), safe);
   res.sendFile(filePath);
 });
 
 router.get('/posts/:year/:slug/images', async (req, res) => {
+  if (!validateImageParams(req, res)) return;
   try {
-    const dir = path.join(CONTENT_DIR, 'posts', req.params.year, req.params.slug);
+    const dir = postDir(req.params.year, req.params.slug);
     const entries = await fs.readdir(dir);
     const images = entries.filter(f => IMAGE_EXTENSIONS.has(path.extname(f).toLowerCase()));
     res.json({ images });
