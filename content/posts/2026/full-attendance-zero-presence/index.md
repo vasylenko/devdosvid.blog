@@ -1,15 +1,21 @@
 ---
-title: "Full Attendance, Zero Presence"
+title: Full Attendance, Zero Presence
 date: 2026-03-06T20:04:21+01:00
 summary: Most listening advice says add behaviors. The real fix is the opposite — stop doing everything else.
 description: How presence breaks down in meetings — silent nods, solving before hearing, and what being present actually looks like.
-cover:
-    image: cover.jpg
-    relative: true
-    alt:
 draft: true
-keywords: ["active listening", "meeting presence", "listening in meetings", "meeting anti-patterns", "engineering communication", "1:1 meetings"]
-series: ["Engineering Leadership"]
+keywords:
+  - active listening
+  - meeting presence
+  - listening in meetings
+  - meeting anti-patterns
+  - engineering communication
+  - 1:1 meetings
+series: Engineering Leadership
+cover:
+  image: cover.jpg
+  relative: true
+  alt: ''
 ---
 
 Five minutes after the all-hands, someone asks me in the hallway, "What did he mean by that?" Then another person: "So what are we actually supposed to do?" I didn't have a great answer either. We'd all sat through twenty minutes of a strategy change presentation. We all nodded. None of us was in the conversation.
@@ -18,7 +24,8 @@ This isn't a one-off. I see this pattern everywhere -- across teams, across func
 
 There's plenty of good advice on asking better questions -- Steve Huynh wrote a sharp piece on how the questions you ask reveal how you think. And Wes Kao wrote about detecting the "question behind the question" when you're answering. Both are worth reading (links at the end). But both assume something that breaks constantly: that the person on the other side is actually listening.
 
-> [!TIP] Most advice on listening tells you to add behaviors -- nod more, paraphrase, ask clarifying questions. I think the fix is the opposite. Presence isn't something you perform. It's what remains when you stop doing everything else.
+> [!NOTE]
+Most advice on listening tells you to add behaviors -- nod more, paraphrase, ask clarifying questions. I think the fix is the opposite. Presence isn't something you perform. It's what remains when you stop doing everything else.
 
 This isn't a listening guide. What follows are patterns -- ways presence breaks down in rooms I've been in, including when I was the one not present. Once you start recognizing them, they're hard to unsee.
 
@@ -34,7 +41,8 @@ This is the one that does the most damage, and it's invisible in the moment.
 
 The disagreement never entered the room where it could have changed something. It lived in the hallway, in the coffee chat, in the Slack DM. By the time it surfaced -- slow execution, low quality, quiet attrition -- nobody connected it back to that meeting where everyone nodded.
 
-> [!TIP] Both flavors look identical in the room. Silent nods. But one is a comprehension gap, and the other is a trust gap. A speaker who's actually paying attention to the room -- not just broadcasting -- can sometimes tell the difference. Yet most speakers don't, because they're focused on getting through their material. They're not listening either.
+> [!NOTE]
+Both flavors look identical in the room. Silent nods. But one is a comprehension gap, and the other is a trust gap. A speaker who's actually paying attention to the room -- not just broadcasting -- can sometimes tell the difference. Yet most speakers don't, because they're focused on getting through their material. They're not listening either.
 
 ### Solving before hearing
 Engineers are trained to decompose problems. It's the job. But that instinct kicks in too early in conversations. Someone starts describing a situation. Ten seconds in, your brain is already pattern-matching and mapping it to something you've seen before, composing a solution.
@@ -70,7 +78,8 @@ Here's the thing about active listening that most advice gets wrong: it's not a 
 
 It only works when you actually stop thinking about everything else. You look at the person. Not staring -- eye contact from time to time. You let them flesh out their thoughts. You can be completely silent. That's fine. Nobody needs you to nod on a timer.
 
-> [!TIP] The real skill is subtraction, not addition. Remove the distractions. Remove the urge to respond. Remove the performance. What's left is just... focus. You're in this conversation and nowhere else. That's simpler than any framework, and harder than all of them.
+> [!NOTE]
+The real skill is subtraction, not addition. Remove the distractions. Remove the urge to respond. Remove the performance. What's left is just... focus. You're in this conversation and nowhere else. That's simpler than any framework, and harder than all of them.
 
 ### Holding back
 Before a recent vacation, I was handing over a project I'd been leading -- research done, core team assembled, draft plan written. My teammate needed to pick it up and run with it.
