@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { generateSlug } from './posts.js';
+import { generateSlug, normalizeSeries } from './posts.js';
 
 describe('generateSlug', () => {
   it('converts title to lowercase kebab-case', () => {
@@ -28,5 +28,27 @@ describe('generateSlug', () => {
 
   it('handles special characters', () => {
     expect(generateSlug("What's New? A Developer's Guide!")).toBe('what-s-new-a-developer-s-guide');
+  });
+});
+
+describe('normalizeSeries', () => {
+  it('passes through an array unchanged', () => {
+    expect(normalizeSeries(['a', 'b'])).toEqual(['a', 'b']);
+  });
+
+  it('wraps a string in an array', () => {
+    expect(normalizeSeries('my-series')).toEqual(['my-series']);
+  });
+
+  it('returns empty array for empty string', () => {
+    expect(normalizeSeries('')).toEqual([]);
+  });
+
+  it('returns empty array for undefined', () => {
+    expect(normalizeSeries(undefined)).toEqual([]);
+  });
+
+  it('returns empty array for null', () => {
+    expect(normalizeSeries(null)).toEqual([]);
   });
 });

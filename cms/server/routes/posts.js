@@ -17,7 +17,7 @@ const matterOptions = {
   },
 };
 
-function normalizeSeries(value) {
+export function normalizeSeries(value) {
   return Array.isArray(value) ? value : value ? [value] : [];
 }
 
