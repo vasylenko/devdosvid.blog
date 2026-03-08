@@ -35,7 +35,7 @@ export default function PostEditor() {
         setDescription(fm.description || '');
         setDraft(fm.draft || false);
         setKeywords(Array.isArray(fm.keywords) ? fm.keywords.join(', ') : '');
-        const seriesVal = Array.isArray(fm.series) ? fm.series[0] || '' : fm.series || '';
+        const seriesVal = fm.series?.[0] || '';
         setSeries(seriesVal);
         setCoverImage(fm.cover?.image || '');
         setCoverAlt(fm.cover?.alt || '');

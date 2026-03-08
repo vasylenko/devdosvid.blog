@@ -2,24 +2,11 @@ import { Router } from 'express';
 import fs from 'fs/promises';
 import path from 'path';
 import multer from 'multer';
-import { postDir, validateYear, validateSlug, sanitizeFilename } from '../config.js';
+import { postDir, validateRouteParams, sanitizeFilename } from '../config.js';
 
 const router = Router();
 
 const IMAGE_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif', '.svg']);
-
-function validateImageParams(req, res) {
-  const { year, slug } = req.params;
-  if (!validateYear(year)) {
-    res.status(400).json({ error: 'Invalid year parameter' });
-    return false;
-  }
-  if (!validateSlug(slug)) {
-    res.status(400).json({ error: 'Invalid slug parameter' });
-    return false;
-  }
-  return true;
-}
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
@@ -41,7 +28,7 @@ function fileFilter(req, file, cb) {
 const upload = multer({ storage, fileFilter });
 
 router.post('/posts/:year/:slug/images', (req, res) => {
-  if (!validateImageParams(req, res)) return;
+  if (!validateRouteParams(req, res)) return;
   upload.single('image')(req, res, (err) => {
     if (err) {
       return res.status(400).json({ error: err.message });
@@ -54,14 +41,14 @@ router.post('/posts/:year/:slug/images', (req, res) => {
 });
 
 router.get('/posts/:year/:slug/images/:filename', (req, res) => {
-  if (!validateImageParams(req, res)) return;
+  if (!validateRouteParams(req, res)) return;
   const safe = sanitizeFilename(req.params.filename);
   const filePath = path.join(postDir(req.params.year, req.params.slug), safe);
   res.sendFile(filePath);
 });
 
 router.get('/posts/:year/:slug/images', async (req, res) => {
-  if (!validateImageParams(req, res)) return;
+  if (!validateRouteParams(req, res)) return;
   try {
     const dir = postDir(req.params.year, req.params.slug);
     const entries = await fs.readdir(dir);

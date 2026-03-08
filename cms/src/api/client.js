@@ -35,20 +35,13 @@ export async function updatePost(year, slug, data) {
   });
 }
 
-// Uses fetch directly because FormData requires the browser to set Content-Type
-// with the multipart boundary — setting it manually would break the upload.
 export async function uploadImage(year, slug, file) {
   const formData = new FormData();
   formData.append('image', file);
-  const res = await fetch(`${API_BASE}/posts/${year}/${slug}/images`, {
+  return request(`/posts/${year}/${slug}/images`, {
     method: 'POST',
     body: formData,
   });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || `Upload failed: ${res.status}`);
-  }
-  return res.json();
 }
 
 export async function fetchImages(year, slug) {

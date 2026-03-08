@@ -25,3 +25,16 @@ export function validateSlug(slug) {
 export function sanitizeFilename(name) {
   return path.basename(name).replace(/[^a-zA-Z0-9._-]/g, '_');
 }
+
+export function validateRouteParams(req, res) {
+  const { year, slug } = req.params;
+  if (!validateYear(year)) {
+    res.status(400).json({ error: 'Invalid year parameter' });
+    return false;
+  }
+  if (!validateSlug(slug)) {
+    res.status(400).json({ error: 'Invalid slug parameter' });
+    return false;
+  }
+  return true;
+}

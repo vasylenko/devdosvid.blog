@@ -64,7 +64,7 @@ export default function PostList() {
                   <Link to={`/edit/${post.year}/${post.slug}`}>{post.title}</Link>
                 </td>
                 <td>{formatDate(post.date)}</td>
-                <td>{Array.isArray(post.series) ? post.series.join(', ') : post.series || ''}</td>
+                <td>{post.series.join(', ')}</td>
                 <td>
                   {post.draft && <span className="badge-draft">Draft</span>}
                 </td>

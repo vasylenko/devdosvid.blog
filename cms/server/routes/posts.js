@@ -3,7 +3,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import matter from 'gray-matter';
 import yaml from 'js-yaml';
-import { CONTENT_DIR, postDir, postFile, validateYear, validateSlug } from '../config.js';
+import { CONTENT_DIR, postDir, postFile, validateRouteParams } from '../config.js';
 
 const router = Router();
 
@@ -32,19 +32,6 @@ async function findPostFiles() {
     });
 }
 
-function validatePostParams(req, res) {
-  const { year, slug } = req.params;
-  if (!validateYear(year)) {
-    res.status(400).json({ error: 'Invalid year parameter' });
-    return false;
-  }
-  if (!validateSlug(slug)) {
-    res.status(400).json({ error: 'Invalid slug parameter' });
-    return false;
-  }
-  return true;
-}
-
 router.get('/posts', async (req, res) => {
   try {
     const postFiles = await findPostFiles();
@@ -59,7 +46,7 @@ router.get('/posts', async (req, res) => {
           draft: data.draft || false,
           year,
           slug,
-          series: data.series || '',
+          series: Array.isArray(data.series) ? data.series : data.series ? [data.series] : [],
         };
       })
     );
@@ -71,7 +58,7 @@ router.get('/posts', async (req, res) => {
 });
 
 router.get('/posts/:year/:slug', async (req, res) => {
-  if (!validatePostParams(req, res)) return;
+  if (!validateRouteParams(req, res)) return;
   try {
     const filePath = postFile(req.params.year, req.params.slug);
     const content = await fs.readFile(filePath, 'utf-8');
@@ -122,7 +109,7 @@ router.post('/posts', async (req, res) => {
 });
 
 router.put('/posts/:year/:slug', async (req, res) => {
-  if (!validatePostParams(req, res)) return;
+  if (!validateRouteParams(req, res)) return;
   try {
     const { frontMatter, body } = req.body;
     if (!frontMatter || typeof frontMatter !== 'object' || !frontMatter.title) {
@@ -146,11 +133,8 @@ router.get('/series', async (req, res) => {
       postFiles.map(async ({ fullPath }) => {
         const content = await fs.readFile(fullPath, 'utf-8');
         const { data } = matter(content, matterOptions);
-        if (Array.isArray(data.series)) {
-          data.series.forEach(s => allSeries.add(s));
-        } else if (data.series) {
-          allSeries.add(data.series);
-        }
+        const series = Array.isArray(data.series) ? data.series : data.series ? [data.series] : [];
+        series.forEach(s => allSeries.add(s));
       })
     );
 
