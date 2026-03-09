@@ -25,7 +25,7 @@ jobs:
           echo "HUGO_VERSION=$(grep '^HUGO_VERSION=' .env | cut -d= -f2)" >> "$GITHUB_OUTPUT"
           echo "GO_VERSION=$(grep '^GO_VERSION=' .env | cut -d= -f2)" >> "$GITHUB_OUTPUT"
       - name: Build and push multi-arch Docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: hugo-runtime.dockerfile
