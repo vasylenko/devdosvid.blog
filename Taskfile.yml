@@ -11,6 +11,9 @@ tasks:
 
   server-start:
     desc: Run local dev server with the blog
+    env:
+      HOST_IP:
+        sh: ipconfig getifaddr en1
     cmds:
       - docker compose up --no-log-prefix --no-color --force-recreate --build
       - defer:
