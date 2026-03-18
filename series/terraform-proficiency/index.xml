@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 12 Mar 2026 00:15:49 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 18 Mar 2026 21:02:07 +0100</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/terraform-proficiency/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>A Deep Dive Into Terraform Static Code Analysis Tools: Features and Comparisons</title>
