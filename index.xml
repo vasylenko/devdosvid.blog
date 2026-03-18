@@ -11,8 +11,82 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 Mar 2026 21:02:07 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 18 Mar 2026 21:12:36 +0100</lastBuildDate>
     <atom:link href="https://devdosvid.blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Full Attendance, Zero Presence</title>
+      <link>https://devdosvid.blog/2026/03/18/full-attendance-zero-presence/</link>
+      <pubDate>Wed, 18 Mar 2026 20:04:21 +0100</pubDate>
+      <guid>https://devdosvid.blog/2026/03/18/full-attendance-zero-presence/</guid>
+      <description>How presence breaks down in meetings — silent nods, solving before hearing, and what being present actually looks like.</description>
+      <content:encoded><![CDATA[<p>Five minutes after the all-hands, someone asks me in the hallway, &ldquo;What did he mean by that?&rdquo; Then another person: &ldquo;So what are we actually supposed to do?&rdquo; I didn&rsquo;t have a great answer either. We&rsquo;d all sat through twenty minutes of a strategy change presentation. We all nodded. None of us was in the conversation.</p>
+<p>This isn&rsquo;t a one-off. I see this pattern everywhere &ndash; across teams, across functions, across seniority levels. People show up to meetings. They sit. They nod. They leave without having processed what was said. Full attendance, zero presence.</p>
+<blockquote class="alert alert-note">
+  <p class="alert-heading">Note</p>
+  <p>Most advice on listening tells you to add behaviors &ndash; nod more, paraphrase, ask clarifying questions. I think the fix is the opposite. Presence isn&rsquo;t something you perform. It&rsquo;s what remains when you stop doing everything else.</p>
+</blockquote>
+<p>This isn&rsquo;t a listening guide. What follows are patterns &ndash; ways presence breaks down in rooms I&rsquo;ve been in, including when I was the one not present. Once you start recognizing them, they&rsquo;re hard to unsee.</p>
+<h2 id="how-presence-breaks-down">How presence breaks down</h2>
+<p>I see this play out in a few distinct ways. Sometimes it&rsquo;s obvious &ndash; a room full of silent nods. Sometimes it&rsquo;s subtler.</p>
+<h3 id="silent-nods-two-flavors">Silent nods, two flavors</h3>
+<p>This is the one that does the most damage, and it&rsquo;s invisible in the moment.</p>
+<p><strong>Flavor one: don&rsquo;t understand, won&rsquo;t say so.</strong> That all-hands I described at the top &ndash; this was exactly it. A room full of people nodding along to something they hadn&rsquo;t actually processed. Nobody asked a clarifying question. Nobody said, &ldquo;I don&rsquo;t follow.&rdquo; The meeting felt smooth. The hallway afterward told the real story.</p>
+<p><strong>Flavor two: understand fine, disagree, won&rsquo;t surface it.</strong> A manager assigned a direction. The team silently accepted. Later, over coffee, one of the engineers told me directly: he disagreed, saw no value in it, and was going to do the minimum to get it off his plate.</p>
+<p>The disagreement never entered the room where it could have changed something. It lived in the hallway, in the coffee chat, in the Slack DM. By the time it surfaced &ndash; slow execution, low quality, quiet attrition &ndash; nobody connected it back to that meeting where everyone nodded.</p>
+<blockquote class="alert alert-note">
+  <p class="alert-heading">Note</p>
+  <p>Both flavors look identical in the room. Silent nods. But one is a comprehension gap, and the other is a trust gap. A speaker who&rsquo;s actually paying attention to the room &ndash; not just broadcasting &ndash; can sometimes tell the difference. Yet most speakers don&rsquo;t, because they&rsquo;re focused on getting through their material. They&rsquo;re not listening either.</p>
+</blockquote>
+<h3 id="solving-before-hearing">Solving before hearing</h3>
+<p>Engineers are trained to decompose problems. It&rsquo;s the job. But that instinct kicks in too early in conversations. Someone starts describing a situation. Ten seconds in, your brain is already pattern-matching and mapping it to something you&rsquo;ve seen before, composing a solution.</p>
+<p>The problem: you&rsquo;re now building your response in parallel with the other person still talking. You&rsquo;re not tracking their reasoning &ndash; you&rsquo;re constructing your own. By the time they finish, you&rsquo;ve got an answer to a question they didn&rsquo;t ask, because you stopped listening after the first thirty seconds.</p>
+<h3 id="listening-for-your-turn">Listening for your turn</h3>
+<p>This one I catch myself doing. Someone is talking, and I&rsquo;m holding my argument in my head, waiting for a gap. The physical tell is real &ndash; I lean forward, I nod faster. Not because I agree, but because I want them to finish so I can say my thing.</p>
+<p>People who are vocal and not shy do this without thinking. They fire their thoughts at every opening. They fire their thoughts at every opening. The quieter person&rsquo;s point never fully lands because the room has already moved on to the next response.</p>
+<p>The worst part: you don&rsquo;t realize you&rsquo;re doing it until someone&rsquo;s point slides past you and you can&rsquo;t recall what they actually said. And when it happens to me &ndash; when I&rsquo;m the one not being heard &ndash; I push through. Force the idea through anyway. It works, but it&rsquo;s not solving the listening problem. It&rsquo;s bulldozing past it.</p>
+<h3 id="it-happens-in-11s-too">It happens in 1:1s too</h3>
+<p>You might think this is a group-meeting problem &ndash; too many people, too many laptops, too much noise. But it happens in the most intimate format we have: the 1:1.</p>
+<p>I&rsquo;ve caught myself doing it. Someone is talking to me one-on-one, and my eyes drift to the screen. I&rsquo;m scanning something &ndash; a notification, a message, a tab I forgot to close. Tracking something that isn&rsquo;t the person in front of me. Not because I don&rsquo;t care. Because the pull of the inbox is stronger than any of us wants to admit.</p>
+<p>This is the version of the problem that&rsquo;s hardest to name, because it feels personal.</p>
+<h2 id="what-being-present-actually-looks-like">What being present actually looks like</h2>
+<h3 id="closing-the-lid">Closing the lid</h3>
+<p>I was in a meeting with my team. Everyone had laptops open &ndash; the usual. Someone was presenting an idea, and the room had that familiar energy: half-listening, half-typing.</p>
+<p>I closed my laptop lid. Started looking at the speaker. Actually tracking what they were saying.</p>
+<p>I saw something shift in their eyes &ndash; a kind of recognition that someone was paying attention. Then one of my teammates closed their lid too. Then another. Not everyone, but enough. The conversation changed. Suddenly, there were real questions. Pushback. Ideas building on each other. Before the lids closed, it was a broadcast. After, it was a dialogue.</p>
+<p>That small act &ndash; closing a laptop &ndash; did more for the conversation than any &ldquo;great question&rdquo; could have. Because the question only works if you&rsquo;ve been listening long enough to know what to ask.</p>
+<h3 id="dropping-performance">Dropping performance</h3>
+<p>Here&rsquo;s the thing about active listening that most advice gets wrong: it&rsquo;s not a technique. If you try to perform it &ndash; the nodding, the eye contact, the clarification question every twenty seconds &ndash; people notice. They feel the gap between your body language and your attention.</p>
+<p>It only works when you actually stop thinking about everything else. You look at the person. Not staring &ndash; eye contact from time to time. You let them flesh out their thoughts. You can be completely silent. That&rsquo;s fine. Nobody needs you to nod on a timer.</p>
+<blockquote class="alert alert-note">
+  <p class="alert-heading">Note</p>
+  <p>The real skill is subtraction, not addition. Remove the distractions. Remove the urge to respond. Remove the performance. What&rsquo;s left is just&hellip; focus. You&rsquo;re in this conversation and nowhere else. That&rsquo;s simpler than any framework, and harder than all of them.</p>
+</blockquote>
+<h3 id="holding-back">Holding back</h3>
+<p>Before a recent vacation, I was handing over a project I&rsquo;d been leading &ndash; research done, core team assembled, draft plan written. My teammate needed to pick it up and run with it.</p>
+<p>In our 1:1 handover meeting, she started asking questions and sharing her own vision for how to approach it. I remember the tension in my own head &ndash; I knew the answers. I had my understanding, my vision, my plan. Every instinct said: jump in, push the knowledge, save time.</p>
+<p>I didn&rsquo;t say a word. I just listened. Looked at her screen when she showed me things. Nodded &ndash; naturally, not performatively.</p>
+<p>She covered the whole story. Answered the majority of her own questions just by working through the plan and my notes. And then she proposed a couple of insights I had missed in the planning &ndash; things she added as follow-up topics for the project team.</p>
+<p>I&rsquo;m fairly sure that wouldn&rsquo;t have happened if I&rsquo;d started in expert mode. The handover would have been faster, but worse. She would have received my understanding instead of building her own. And those insights she caught? Buried under my monologue.</p>
+<h3 id="pulling-the-rope">Pulling the rope</h3>
+<p>Here&rsquo;s how I think about it. When someone is explaining a hard problem &ndash; the kind that doesn&rsquo;t have clean edges &ndash; they&rsquo;re pulling a heavy rock up from the bottom on a rope.</p>
+<p>You can stand there and watch them pull. Or you can step closer, grab the rope, and help.</p>
+<p>Active listening is the grabbing. Resist the urge to decompose immediately. Follow the other person&rsquo;s thread before you start your own. That&rsquo;s the rope-pulling: making the effort to understand what they&rsquo;re actually saying before you decide whether you agree.</p>
+<h2 id="key-takeaways">Key takeaways</h2>
+<p>The next time you&rsquo;re in a room, you&rsquo;ll probably catch one of these &ndash; in yourself or someone else. That&rsquo;s the point. Once you see the pattern, you can&rsquo;t run it on autopilot anymore. You don&rsquo;t need a technique for what happens next. You just stop doing the thing you caught yourself doing.</p>
+<ol>
+<li>Presence is not attendance. Being in the room and being in the conversation are different things.</li>
+<li>Engineers default to problem-solving mode, which means they start constructing responses before they&rsquo;ve finished hearing the problem. Resist the decomposition reflex.</li>
+<li>Silent nods hide two different problems: people who don&rsquo;t understand and people who disagree. Both look the same. Both break things differently.</li>
+<li>Listening is labor, not passivity. You&rsquo;re helping the speaker articulate something hard, not waiting for them to finish so you can talk.</li>
+<li>Listening isn&rsquo;t a skill to add to your toolkit. It&rsquo;s setting down reflexes you already have &ndash; the solving, the responding, the performing.</li>
+</ol>
+<h2 id="further-reading">Further reading</h2>
+<ul>
+<li><strong>Steve Huynh</strong> — on how the questions you ask communicate how you think: <a href="https://alifeengineered.substack.com/p/5-questions-that-make-people-take">5 Questions That Make People Take You Seriously</a></li>
+<li><strong>Wes Kao</strong> — on detecting and addressing the <a href="https://newsletter.weskao.com/p/question-behind-the-question">Question behind the question</a></li>
+</ul>
+]]></content:encoded>
+    </item>
     <item>
       <title>Flip the Axis: A Layer-Based Approach to Multi-Service Migrations</title>
       <link>https://devdosvid.blog/2026/03/05/flip-the-axis-a-layer-based-approach-to-multi-service-migrations/</link>
@@ -3951,111 +4025,6 @@ Enter the name of your Function (e.g., “security-headers”) and click Continu
 <li><a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions.html">Choosing between CloudFront Functions and Lambda@Edge</a></li>
 <li><a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-how-to-choose-event.html">How to Decide Which CloudFront Event to Use to Trigger a Lambda Function</a></li>
 </ul>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>Using TinyPNG Image Compression From MacOS Finder Contextual Menu</title>
-      <link>https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/</link>
-      <pubDate>Sun, 14 Feb 2021 00:00:00 +0000</pubDate>
-      <guid>https://devdosvid.blog/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/</guid>
-      <description>How to add TinyPNG image compression to your macOS Finder contextual menu</description>
-      <content:encoded><![CDATA[<p>I just wanted to compress one image, but went to far&hellip;</p>
-<p>or &ldquo;How to add TinyPNG image compression to your macOS Finder contextual menu.&rdquo;</p>
-<h1 id="what-is-it-and-how-it-works">What is it and how it works</h1>
-<p>You select needed files or folders, then right-click on them, click on the Services menu item and choose TinyPNG.</p>
-<p>After a moment, the new optimized versions of images will appear near to original files.</p>
-<p>If you selected a folder along with the files, the script would process all <code>png</code> and <code>jpeg</code> files in it.</p>
-<video class="animation" autoplay loop muted playsinline>
-    <source src="context_menu_full_compressed.webm" type="video/webm">
-</video>
-
-
-<h1 id="prerequisites">Prerequisites</h1>
-<p>You need to register at TinyPNG and get your API key here — <a href="https://tinypng.com/developers">Developer API</a>.</p>
-<p>They sometimes block some countries (for example, Ukraine) from registration; in that case, try to use a web-proxy or VPN.</p>
-<h1 id="how-to-create-quick-action-workflow">How to create Quick Action Workflow</h1>
-<p>Open Automator application. If you never used this app before, please read about it on the official <a href="https://support.apple.com/guide/automator/create-a-workflow-aut7cac58839/2.10/mac/11.0">user guide website</a>.</p>
-<p>On the New Action screen, chose <strong>Quick Action</strong></p>
-
-<figure>
-    
-    
-        
-        
-        
-        
-        
-        
-        <img loading="lazy"
-             src="/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/quick_action_compressed_hu_d647cefc72d825ab.webp"width="800"height="695.62" />
-        
-    
-</figure>
-
-<p>After you click the &ldquo;Choose&rdquo; button, you&rsquo;ll see the workflow configuration window.</p>
-<h1 id="workflow-configuration">Workflow configuration</h1>
-<p>Find the <strong>Run Shell Script</strong> action on the Utilities list in Library on the left, and drag it onto the right side of the panel.</p>
-<p>Set the following workflow configuration options as described below:</p>
-<p><strong>Workflow receives current</strong> <code>files and folders</code> <strong>in</strong> <code>Finder</code></p>
-<p><strong>Shell</strong> <code>/bin/zsh</code></p>
-<p><strong>Pass input</strong> <code>as arguments</code></p>
-<p>Click the <strong>Option</strong> button at the bottom of the Action window and <strong>Uncheck</strong> <code>Show this action when the workflow runs.</code></p>
-
-<figure>
-    
-    
-        
-        
-        
-        
-        
-        
-        <img loading="lazy"
-             src="/2021/02/14/using-tinypng-image-compression-from-macos-finder-contextual-menu/run_shell_script_compressed_hu_3ceb57f721a23c09.webp"width="800"height="702.36" />
-        
-    
-</figure>
-
-<p>Put the following script into the <strong>Run Shell Script</strong> window, replacing the <em>YOUR_API_KEY_HERE</em> string with your API key obtained from TinyPNG.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-zsh" data-lang="zsh"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># MacOS Automator Quick Action for image compression using Tinypng.com</span>
-</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># You need to register to obtain a personal API key</span>
-</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># https://tinypng.com/developers</span>
-</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">#</span>
-</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># The code below should be put inside &#34;Run Shell Script&#34; Action with the following configuration in the Automator:</span>
-</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># workflow receives current: files or folders | in Finder</span>
-</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># shell: /bin/zsh</span>
-</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># pass input: as arguments</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>set -e -o pipefail
-</span></span><span style="display:flex;"><span>export <span style="color:#79c0ff">PATH</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;</span><span style="color:#79c0ff">$PATH</span><span style="color:#a5d6ff">:/usr/local/bin&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#79c0ff">APIKEY</span><span style="color:#ff7b72;font-weight:bold">=</span>YOUR_API_KEY_HERE
-</span></span><span style="display:flex;"><span>tinypng <span style="color:#ff7b72;font-weight:bold">()</span> <span style="color:#ff7b72;font-weight:bold">{</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#79c0ff">file_name</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;</span><span style="color:#79c0ff">$1</span><span style="color:#a5d6ff">:t:r&#34;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#79c0ff">file_ext</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;</span><span style="color:#79c0ff">$1</span><span style="color:#a5d6ff">:t:e&#34;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#79c0ff">file_dir</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;</span><span style="color:#79c0ff">$1</span><span style="color:#a5d6ff">:h&#34;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#79c0ff">compressed_url</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;</span><span style="color:#ff7b72">$(</span>curl -D - -o /dev/null --user api:<span style="color:#79c0ff">$APIKEY</span> --data-binary @<span style="color:#a5d6ff">&#34;</span><span style="color:#79c0ff">$1</span><span style="color:#a5d6ff">&#34;</span> https://api.tinify.com/shrink|grep location|cut -d <span style="color:#a5d6ff">&#39; &#39;</span> -f 2|sed <span style="color:#a5d6ff">&#39;s/\r//&#39;</span><span style="color:#ff7b72">)</span><span style="color:#a5d6ff">&#34;</span>
-</span></span><span style="display:flex;"><span>	curl -o <span style="color:#a5d6ff">&#34;</span><span style="color:#a5d6ff">${</span><span style="color:#79c0ff">file_dir</span><span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">/</span><span style="color:#a5d6ff">${</span><span style="color:#79c0ff">file_name</span><span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">_compressed.</span><span style="color:#a5d6ff">${</span><span style="color:#79c0ff">file_ext</span><span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#34;</span> <span style="color:#a5d6ff">&#34;</span><span style="color:#79c0ff">$compressed_url</span><span style="color:#a5d6ff">&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff7b72;font-weight:bold">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff7b72">for</span> f in <span style="color:#a5d6ff">&#34;</span><span style="color:#79c0ff">$@</span><span style="color:#a5d6ff">&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff7b72">do</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#ff7b72">if</span> <span style="color:#ff7b72;font-weight:bold">[</span> -f <span style="color:#a5d6ff">&#34;</span><span style="color:#79c0ff">$f</span><span style="color:#a5d6ff">&#34;</span> <span style="color:#ff7b72;font-weight:bold">]</span>; <span style="color:#ff7b72">then</span>
-</span></span><span style="display:flex;"><span>		tinypng <span style="color:#a5d6ff">&#34;</span><span style="color:#79c0ff">$f</span><span style="color:#a5d6ff">&#34;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#ff7b72">elif</span> <span style="color:#ff7b72;font-weight:bold">[</span> -d <span style="color:#a5d6ff">&#34;</span><span style="color:#79c0ff">$f</span><span style="color:#a5d6ff">&#34;</span> <span style="color:#ff7b72;font-weight:bold">]</span>; <span style="color:#ff7b72">then</span>
-</span></span><span style="display:flex;"><span>		find <span style="color:#a5d6ff">&#34;</span><span style="color:#79c0ff">$f</span><span style="color:#a5d6ff">&#34;</span> -name <span style="color:#a5d6ff">&#34;*.png&#34;</span> -o -name <span style="color:#a5d6ff">&#34;*.jpeg&#34;</span> -o -name <span style="color:#a5d6ff">&#34;*.jpg&#34;</span> | <span style="color:#ff7b72">while</span> read file_name; <span style="color:#ff7b72">do</span>
-</span></span><span style="display:flex;"><span>		tinypng <span style="color:#a5d6ff">&#34;</span><span style="color:#79c0ff">$file_name</span><span style="color:#a5d6ff">&#34;</span>; <span style="color:#ff7b72">done</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#ff7b72">fi</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff7b72">done</span>
-</span></span></code></pre></div><h2 id="utilities-used-in-the-script--explained">Utilities used in the script — explained</h2>
-<p><code>curl</code> — used to make web requests (like your browser does)</p>
-<p><code>grep</code> — used to parse the response for the needed header (i.e., field) with the file download link</p>
-<p><code>cut</code> — used to extract the URL from the parsed result</p>
-<p><code>sed</code> — used to remove the trailing &ldquo;carriage return&rdquo; symbol at the end of extracted string</p>
-<p>The response body also contains a JSON object that includes the download URL; you can parse it with <code>jq</code>, for example. But I intentionally refused to use the <code>jq</code> tool because it is not pre-installed in MacOS.</p>
-<h1 id="conclusion">Conclusion</h1>
-<p>It is simple, and it does its job fine. And you don&rsquo;t need to install anything to make it work.</p>
-<p>To make this a bit fancier, you might also like to add a &ldquo;Display Notification&rdquo; (from the Utilities library on the left) after the &ldquo;Run Shell Script&rdquo;. The action will display a notification once image processing is completed.</p>
-<p>Thank you for reading!</p>
 ]]></content:encoded>
     </item>
   </channel>
