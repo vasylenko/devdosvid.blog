@@ -1,9 +1,8 @@
 ---
 title: Full Attendance, Zero Presence
-date: 2026-03-06T20:04:21+01:00
+date: 2026-03-18T20:04:21+01:00
 summary: Most listening advice says add behaviors. The real fix is the opposite — stop doing everything else.
 description: How presence breaks down in meetings — silent nods, solving before hearing, and what being present actually looks like.
-draft: true
 keywords:
   - active listening
   - meeting presence
@@ -15,14 +14,12 @@ series: Engineering Leadership
 cover:
   image: cover.jpg
   relative: true
-  alt: ''
+  alt: 'people are in the room with you but you are not'
 ---
 
 Five minutes after the all-hands, someone asks me in the hallway, "What did he mean by that?" Then another person: "So what are we actually supposed to do?" I didn't have a great answer either. We'd all sat through twenty minutes of a strategy change presentation. We all nodded. None of us was in the conversation.
 
 This isn't a one-off. I see this pattern everywhere -- across teams, across functions, across seniority levels. People show up to meetings. They sit. They nod. They leave without having processed what was said. Full attendance, zero presence.
-
-There's plenty of good advice on asking better questions -- Steve Huynh wrote a sharp piece on how the questions you ask reveal how you think. And Wes Kao wrote about detecting the "question behind the question" when you're answering. Both are worth reading (links at the end). But both assume something that breaks constantly: that the person on the other side is actually listening.
 
 > [!NOTE]
 Most advice on listening tells you to add behaviors -- nod more, paraphrase, ask clarifying questions. I think the fix is the opposite. Presence isn't something you perform. It's what remains when you stop doing everything else.
@@ -52,7 +49,7 @@ The problem: you're now building your response in parallel with the other person
 ### Listening for your turn
 This one I catch myself doing. Someone is talking, and I'm holding my argument in my head, waiting for a gap. The physical tell is real -- I lean forward, I nod faster. Not because I agree, but because I want them to finish so I can say my thing.
 
-People who are vocal and not shy exploit this subconsciously. They fire their thoughts at every opening. The quieter person's point never fully lands because the room has already moved on to the next response.
+People who are vocal and not shy do this without thinking. They fire their thoughts at every opening. They fire their thoughts at every opening. The quieter person's point never fully lands because the room has already moved on to the next response.
 
 The worst part: you don't realize you're doing it until someone's point slides past you and you can't recall what they actually said. And when it happens to me -- when I'm the one not being heard -- I push through. Force the idea through anyway. It works, but it's not solving the listening problem. It's bulldozing past it.
 
