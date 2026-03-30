@@ -1,10 +1,10 @@
 .alert {
-    --alert-color: var(--color-green);
+    --alert-color: var(--color-text-muted);
     padding: 0.75em 1em;
     margin: 1.5em 0;
-    border-left: 0.3em solid var(--alert-color);
-    border-radius: var(--radius);
-    background-color: color-mix(in srgb, var(--alert-color) 8%, transparent);
+    border-left: 2px solid var(--alert-color);
+    border-radius: 0;
+    background-color: transparent;
 }
 
 .alert p:last-child {
@@ -23,7 +23,7 @@
 
 .alert-important,
 .alert-warning {
-    --alert-color: var(--color-orange);
+    --alert-color: var(--color-amber);
 }
 
 .alert-caution {

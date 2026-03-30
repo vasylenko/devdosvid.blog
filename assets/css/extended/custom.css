@@ -1,22 +1,185 @@
+/* === Base Typography — Inter, confident === */
 body {
-    font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", "Arial Nova", Arial, sans-serif;
+    font-family: 'Inter', -apple-system, system-ui, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.65;
     background-color: var(--color-background);
     color: var(--color-font);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    font-feature-settings: 'cv11' 1, 'ss01' 1;
 }
 
+/* === Headings — bold, commanding (from D) === */
 h1 {
-    font-weight: 600;
+    font-weight: var(--font-heavy);
+    letter-spacing: -0.03em;
 }
 
+h2 {
+    letter-spacing: -0.025em;
+}
+
+.post-content h1 {
+    font-size: 1.75rem;
+    line-height: 1.15;
+    margin-top: 3rem;
+    margin-bottom: 0.75rem;
+    font-weight: var(--font-heavy);
+    text-wrap: balance;
+}
+
+.post-content h2 {
+    font-size: 1.4rem;
+    line-height: 1.2;
+    margin-top: 2.75rem;
+    margin-bottom: 0.75rem;
+    font-weight: var(--font-bold);
+    text-wrap: balance;
+}
+
+.post-content h3 {
+    font-size: 1.2rem;
+    line-height: 1.3;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: var(--font-semibold);
+    text-wrap: balance;
+}
+
+.post-content h4 {
+    font-size: 1.0625rem;
+    line-height: 1.35;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: var(--font-bold);
+}
+
+.post-content h5 {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: var(--font-semibold);
+}
+
+.post-content h6 {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: var(--font-medium);
+    color: var(--color-text-secondary);
+}
+
+/* === Post title — commanding presence (from D) === */
+.post-title {
+    font-size: 2.25rem;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+    font-weight: var(--font-heavy);
+    line-height: 1.1;
+}
+
+/* === Post metadata === */
+.post-meta {
+    color: var(--color-text-muted);
+    font-size: 0.8125rem;
+}
+
+/* === Content === */
+.post-content p {
+    line-height: 1.65;
+    margin-bottom: 1.25em;
+    text-wrap: pretty;
+}
+
+.post-content ul,
+.post-content ol {
+    line-height: 1.65;
+    margin-bottom: 1.25em;
+}
+
+/* === Blockquotes — matter-of-fact (from D) === */
+.post-content blockquote {
+    border-left: 2px solid var(--color-text-muted);
+    padding-left: 1.25em;
+    color: var(--color-text-secondary);
+    font-style: normal;
+    margin: 1.5em 0;
+}
+
+/* === Links — editorial underline (from C) === */
+.post-content a {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-link) 35%, transparent);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: text-decoration-color 0.2s ease, color 0.2s ease;
+}
+
+.post-content a:hover {
+    color: var(--color-link-hover);
+    text-decoration-color: var(--color-link-hover);
+    text-decoration-thickness: 2px;
+    background: none;
+    font-weight: inherit;
+}
+
+/* === Code — shadow blocks (from C), github-dark kept === */
+.post-content code {
+    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+    font-size: 0.875em;
+}
+
+.post-content pre {
+    border-radius: var(--radius);
+    padding: 1.25em;
+    margin: 1.75em 0;
+    overflow-x: auto;
+    tab-size: 4;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+.post-content p code,
+.post-content li code,
+.post-content td code {
+    background-color: var(--color-code-bg);
+    padding: 0.125em 0.375em;
+    border-radius: 4px;
+    font-size: 0.85em;
+}
+
+.post-content .highlight:not(table) {
+    margin-bottom: 2em;
+}
+
+/* === Footnotes === */
+.footnote-ref {
+    font-weight: var(--font-medium);
+    color: var(--color-link);
+    background-color: transparent;
+    padding: 0;
+    font-size: 0.8em;
+    vertical-align: super;
+}
+
+.footnote-ref:hover {
+    color: var(--color-link-hover);
+}
+
+/* === Layout === */
 .main {
     border-radius: var(--radius);
 }
 
 .archive-year {
-    background-color: var(--color-background);
-    padding: 0.5em 0.5em 0.5em 0.5em;
+    background-color: var(--color-surface);
+    padding: 0.5em 0.75em;
     border-radius: var(--radius);
 }
 
@@ -28,29 +191,28 @@ body#top main.main {
     background-color: var(--color-background);
 }
 
-#top > main {}
-
-
 .list {
     background: var(--color-background);
 }
 
-.entry-content p{
-    font-size: 16px;
+/* === Entry content (list page) === */
+.entry-content p {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
 }
 
+/* === Attention/callout boxes — minimal (from D) === */
 .attention {
-    padding: 0.5em 0.5em 0.5em 0.5em;
-    margin: 1em 0 1em 0;
-    border-left-width: 0.5em;
-    border-left-style: solid;
-    border-right-width: 2px;
-    border-right-style: solid;
-    border-top-style: solid;
-    border-bottom-style: solid;
-    border-color: var(--color-green);
-    border-radius: var(--radius);
+    padding: 0.75em 1em;
+    margin: 1.5em 0;
+    border-left: 2px solid var(--color-text-muted);
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 0;
     font-style: italic;
+    background: none;
 }
 
 .attention p {
@@ -62,53 +224,29 @@ body#top main.main {
     margin: 0;
 }
 
-/*CSS block that add hover style for links*/
-.post-content a:hover {
-    /*color: var(--color-orange);*/
-    font-weight: var(--font-bold);
-    background: var(--color-red);
-    color: var(--color-white);
-}
-
-.footnote-ref {
-    font-weight: bold;
-    background-color: var(--color-green);
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
+/* === Update notices === */
 .updatenotice {
     border-radius: var(--radius);
-    padding: 0.5em 0.5em 0.5em 1.5em;
-    margin-bottom: 1em;
-    border-left-width: 0.5em;
-    border-left-style: solid;
-    border-right-width: 0.5em;
-    border-right-style: solid;
-    border-color: var(--color-green);
+    padding: 0.75em 1em 0.75em 1.25em;
+    margin-bottom: 1.5em;
+    border-left: 2px solid var(--color-teal);
+    border-right: none;
+    background-color: var(--color-teal-light);
 }
+
 .updatenotice a {
-    /*color: white;*/
-    font-weight: bold;
-    color: var(--color-green);
+    font-weight: var(--font-semibold);
+    color: var(--color-teal);
 }
+
 .updatenotice p {
     margin-bottom: 0;
 }
 
+/* === Misc === */
 .write_me_on_twitter a {
     box-shadow: 0 1px;
     cursor: pointer;
-    /*color: darkgreen;*/
-}
-
-.post-content .highlight:not(table) {
-    margin-bottom: 2em;
-}
-
-
-.post-content p {
-    line-height: 1.75em;
 }
 
 .first-entry.home-info {
@@ -124,24 +262,92 @@ body#top main.main {
     display: inline;
 }
 
-
 .code-snippet summary {
     cursor: pointer;
-    /* font-size: 0.8em; */
-    font-weight: bold
+    font-weight: var(--font-semibold);
 }
 
 footer.post-footer {
-    margin-top: 1em;
+    margin-top: 2em;
+    padding-top: 1.25em;
+    border-top: 1px solid var(--color-border-light);
 }
 
-nav.pagination > a.next, nav.pagination > a.prev {
-    background-color: var(--color-green);
-    padding-left: 2em;
-    padding-right: 2em;
-    font-size: 1em;
+/* === Pagination — ghost buttons (from D) === */
+nav.pagination > a.next,
+nav.pagination > a.prev {
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    padding: 0.5em 2em;
+    font-size: 0.9375rem;
+    border-radius: var(--radius);
+    transition: border-color 0.15s ease;
 }
 
+nav.pagination > a.next:hover,
+nav.pagination > a.prev:hover {
+    border-color: var(--color-text-secondary);
+}
+
+/* === Post entry cards — shadow-based (from C) === */
 article.post-entry {
-    border-color: var(--color-gray);
+    border-color: transparent;
+    border-radius: var(--radius);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.2s ease;
+}
+
+article.post-entry:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+/* === Images === */
+.post-content img {
+    border-radius: var(--radius);
+}
+
+.post-content figure {
+    margin: 2em 0;
+}
+
+.post-content figcaption {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    margin-top: 0.5em;
+    text-align: center;
+}
+
+/* === HR === */
+.post-content hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 2.5rem 0;
+}
+
+/* === Tables (from C) === */
+.post-content table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1.75em 0;
+    font-size: 0.9375rem;
+}
+
+.post-content th {
+    background-color: var(--color-surface);
+    font-weight: var(--font-semibold);
+    text-align: left;
+    padding: 0.625em 0.75em;
+    border-bottom: 2px solid var(--color-border);
+    font-size: 0.875rem;
+}
+
+.post-content td {
+    padding: 0.625em 0.75em;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+/* === Selection color (from C) === */
+::selection {
+    background-color: color-mix(in srgb, var(--color-teal) 20%, transparent);
 }

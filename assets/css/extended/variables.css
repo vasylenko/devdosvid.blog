@@ -1,7 +1,8 @@
 :root {
-    --main-width: 800px;
-    
-    /* Font weights matching SF Pro Display */
+    /* Content width — ~65 chars/line at 18px Inter */
+    --main-width: 680px;
+
+    /* Font weights */
     --font-thin: 100;
     --font-ultralight: 200;
     --font-light: 300;
@@ -14,17 +15,40 @@
 
     --radius: 8px;
 
-    --color-baby-powder: #FEFEFA;
+    /* Near-monochrome palette + single accent */
     --color-white: #FFFFFF;
-    --color-orange: #FF9F1C;
-    --color-green: #027E6F;
-    --color-red: #FF4D45;
-    --color-toxic: #D5FF00;
-    --color-gray: #545454;
-    --color-charcoal: #1C1C1C;
+    --color-surface: #F8F9FA;
+    --color-text-primary: #111111;
+    --color-text-secondary: #555555;
+    --color-text-muted: #888888;
+    --color-teal: #0D7E6F;
+    --color-teal-dark: #065A4F;
+    --color-teal-light: #EDF7F5;
+    --color-code-bg: #F1F3F4;
+    --color-red: #C53030;
+    --color-amber: #D69E2E;
+    --color-border: #E5E5E5;
+    --color-border-light: #F0F0F0;
 
+    /* Semantic tokens */
     --color-background: var(--color-white);
-    --color-font: var(--color-charcoal);
-    --color-outline: var(--color-green);
-    --color-buttons: var(--color-red);
+    --color-font: var(--color-text-primary);
+    --color-link: var(--color-teal);
+    --color-link-hover: var(--color-teal-dark);
+    --color-accent: var(--color-teal);
+    --color-meta: var(--color-text-secondary);
+    --color-meta-light: var(--color-text-muted);
+
+    /* PaperMod overrides */
+    --theme: rgb(255, 255, 255);
+    --entry: rgb(255, 255, 255);
+    --primary: rgb(17, 17, 17);
+    --secondary: rgb(85, 85, 85);
+    --tertiary: rgb(229, 229, 229);
+    --content: rgb(17, 17, 17);
+    --code-block-bg: rgb(40, 42, 54);
+    --code-bg: rgb(241, 243, 244);
+    --border: rgb(229, 229, 229);
+    --gap: 24px;
+    --content-gap: 20px;
 }
