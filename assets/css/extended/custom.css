@@ -245,12 +245,22 @@ body#top main.main {
 }
 
 .first-entry.home-info {
-    margin-bottom: 5px;
-    margin-top: 5px;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border: none;
+    border-bottom: 1px solid var(--color-border-light);
+    box-shadow: none;
+}
+
+.first-entry.home-info .entry-content {
+    color: var(--color-text-secondary);
+    font-size: 1.0625rem;
+    line-height: 1.6;
 }
 
 .first-entry {
-    min-height: 100px;
+    min-height: auto;
 }
 
 .terms-tags li {

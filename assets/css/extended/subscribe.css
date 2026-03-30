@@ -1,14 +1,17 @@
 .subscribe {
     text-align: center;
     margin: 2.5em 0;
-    padding: 2em 1em;
-    border-top: 1px solid var(--color-border-light);
+    padding: 2em 1.5em;
+    background-color: var(--color-surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border-light);
 }
 
 .subscribe-cta {
-    margin: 0 0 1em 0;
-    font-size: 0.9375em;
-    color: var(--color-text-secondary);
+    margin: 0 0 0.75em 0;
+    font-size: 1.0625em;
+    font-weight: var(--font-semibold);
+    color: var(--color-font);
 }
 
 .subscribe iframe {

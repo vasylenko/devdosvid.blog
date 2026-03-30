@@ -30,22 +30,22 @@ permalinks:
 
 menu:
     main:
-        - identifier: about
-          name: "About me"
-          url: /about/
-          weight: 21
         - identifier: archive
           name: "All posts"
           url: /archive
-          weight: 20
-        - identifier: category
-          name: "RSS Feed"
-          url: /index.xml
-          weight: 1
+          weight: 10
         - identifier: series
           name: "Post Series"
           url: /series
+          weight: 20
+        - identifier: about
+          name: "About me"
+          url: /about/
           weight: 30
+        - identifier: category
+          name: "RSS"
+          url: /index.xml
+          weight: 40
 #        - identifier: cv
 #          name: "My CV"
 #          url: /cv/
@@ -93,7 +93,7 @@ params:
     twittercreator: "@vasylenko"
     ShowLicense: true
     title: devDosvid blog
-    description: "This blog shares my experience and findings related to AWS, Terraform, and all-around-devops practices."
+    description: "Writing about technical leadership, platform engineering, and the practices that help teams and infrastructure scale."
     keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education, Developer Experience, Infrastructure, Explanations]
     author: Serhii Vasylenko
     images: ["/assets/img/websitelogo.jpg"]
@@ -115,6 +115,7 @@ params:
     hideSummary: false
     showtoc: false
     tocopen: false
+    hideAuthor: true
     hideFooter: true
 
 
@@ -131,13 +132,12 @@ params:
         safari_pinned_tab: "/safari-pinned-tab.svg"
 
     label:
-        text: "🏠 Home"
+        text: "devDosvid"
 #        icon: "/apple-touch-icon.png"
 
     homeInfoParams:
         Title: "devDosvid blog"
-        Content: "This blog shares my experience and findings related to technologies I use in my day-to-day work, and all-around-devops practices.
-        Thank you for reading me!"
+        Content: "Writing about technical leadership, platform engineering, and the practices that help teams and infrastructure scale."
     cover:
         hidden: false # hide everywhere but not in structured data
         hiddenInList: false # hide on list pages and home
