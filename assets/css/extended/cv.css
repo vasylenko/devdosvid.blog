@@ -5,7 +5,7 @@
         text-align: center;
         font-weight: bold;
         font-size: 28px;
-        border-bottom: 2px solid var(--color-orange);
+        border-bottom: 2px solid var(--color-teal);
         padding-bottom: 8px;
     }
 
@@ -14,7 +14,7 @@
         margin-top: 1em;
         margin-bottom: 1em;
         font-size: 28px;
-        border-bottom: 2px solid var(--color-orange);
+        border-bottom: 2px solid var(--color-teal);
         padding-bottom: 8px;
     }
 

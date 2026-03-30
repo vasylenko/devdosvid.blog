@@ -51,4 +51,42 @@
     --border: rgb(229, 229, 229);
     --gap: 24px;
     --content-gap: 20px;
+
+    /* Shadow tokens (light-tuned) */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.06);
+    --shadow-code: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+/* === Dark mode === */
+:root[data-theme="dark"] {
+    --color-white: #1D1E20;
+    --color-surface: #2E2E33;
+    --color-text-primary: #DADADE;
+    --color-text-secondary: #9B9C9D;
+    --color-text-muted: #737475;
+    --color-teal: #2EC4B6;
+    --color-teal-dark: #5DD9CE;
+    --color-teal-light: #1A2F2C;
+    --color-code-bg: #37383E;
+    --color-red: #FC8181;
+    --color-amber: #F6E05E;
+    --color-border: #3A3A3D;
+    --color-border-light: #2E2E33;
+
+    /* PaperMod overrides — dark */
+    --theme: rgb(29, 30, 32);
+    --entry: rgb(46, 46, 51);
+    --primary: rgb(218, 218, 219);
+    --secondary: rgb(155, 156, 157);
+    --tertiary: rgb(65, 66, 68);
+    --content: rgb(196, 196, 197);
+    --code-block-bg: rgb(46, 46, 51);
+    --code-bg: rgb(55, 56, 62);
+    --border: rgb(51, 51, 51);
+
+    /* Shadow tokens (dark-tuned) */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06);
+    --shadow-code: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }

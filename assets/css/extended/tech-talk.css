@@ -3,7 +3,7 @@
     border-radius: 8px;
     padding: 1rem;
     margin: 1rem 0;
-    border: 1px solid var(--color-gray);
+    border: 1px solid var(--color-border);
     transition: transform 0.2s ease;
 }
 
@@ -47,13 +47,13 @@
 
 .talk-header h4.talk-title {
     margin: 0;
-    color: var(--color-primary);
+    color: var(--primary);
     line-height: 1.2;
     font-size: 1em;
 }
 
 .talk-event {
-    color: var(--color-secondary);
+    color: var(--secondary);
     display: block;
     margin-top: 0.2rem;
 }
@@ -64,9 +64,8 @@
 }
 
 .talk-event a:hover {
-    font-weight: var(--font-bold);
-    background: var(--color-red);
-    color: var(--color-white);
+    color: var(--color-link-hover);
+    text-decoration: underline;
 }
 
 .talk-meta {
@@ -78,7 +77,7 @@
 }
 
 .talk-date {
-    color: var(--color-secondary);
+    color: var(--secondary);
 }
 
 .talk-link {
@@ -86,7 +85,7 @@
     align-items: center;
     gap: 0.3rem;
     text-decoration: none;
-    color: var(--color-primary);
+    color: var(--primary);
 }
 
 .talk-link:hover {
