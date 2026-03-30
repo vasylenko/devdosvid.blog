@@ -12,7 +12,7 @@
 }
 
 .alert p.alert-heading {
-    font-weight: 600;
+    font-weight: var(--font-semibold);
     color: var(--alert-color);
     margin-bottom: 0;
 }

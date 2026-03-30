@@ -7,10 +7,8 @@ body {
     color: var(--color-font);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    -moz-text-size-adjust: none;
-    -webkit-text-size-adjust: none;
-    text-size-adjust: none;
-    font-feature-settings: 'cv11' 1, 'ss01' 1;
+    text-size-adjust: none; /* override PaperMod's 100% to fully prevent mobile text inflation */
+    font-feature-settings: 'cv11' 1, 'ss01' 1; /* Inter: cv11 = single-story a, ss01 = alternate digits */
 }
 
 /* === Headings — bold, commanding (from D) === */
@@ -28,7 +26,6 @@ h2 {
     line-height: 1.15;
     margin-top: 3rem;
     margin-bottom: 0.75rem;
-    font-weight: var(--font-heavy);
     text-wrap: balance;
 }
 
@@ -92,14 +89,12 @@ h2 {
 
 /* === Content === */
 .post-content p {
-    line-height: 1.65;
     margin-bottom: 1.25em;
     text-wrap: pretty;
 }
 
 .post-content ul,
 .post-content ol {
-    line-height: 1.65;
     margin-bottom: 1.25em;
 }
 
@@ -142,7 +137,7 @@ h2 {
     margin: 1.75em 0;
     overflow-x: auto;
     tab-size: 4;
-    box-shadow: var(--shadow-code);
+    box-shadow: var(--shadow-sm);
 }
 
 .post-content p code,
