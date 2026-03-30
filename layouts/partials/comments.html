@@ -1,16 +1,24 @@
 {{- partial "subscribe.html" . }}
-<script src="https://giscus.app/client.js"
-        data-repo="vasylenko/devdosvid.blog"
-        data-repo-id="MDEwOlJlcG9zaXRvcnkyNDUyNTMxODE="
-        data-category="General"
-        data-category-id="DIC_kwDODp5EPc4CA59c"
-        data-mapping="title"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-lang="en"
-        data-theme="light"
-        crossorigin="anonymous"
-        async>
+<div class="giscus"></div>
+<script>
+/* Dynamically create Giscus script with the correct theme from the start */
+(function() {
+    var theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    var s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    s.setAttribute('data-repo', 'vasylenko/devdosvid.blog');
+    s.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyNDUyNTMxODE=');
+    s.setAttribute('data-category', 'General');
+    s.setAttribute('data-category-id', 'DIC_kwDODp5EPc4CA59c');
+    s.setAttribute('data-mapping', 'title');
+    s.setAttribute('data-strict', '0');
+    s.setAttribute('data-reactions-enabled', '1');
+    s.setAttribute('data-emit-metadata', '0');
+    s.setAttribute('data-input-position', 'bottom');
+    s.setAttribute('data-lang', 'en');
+    s.setAttribute('data-theme', theme);
+    s.crossOrigin = 'anonymous';
+    s.async = true;
+    document.querySelector('.giscus').appendChild(s);
+})();
 </script>

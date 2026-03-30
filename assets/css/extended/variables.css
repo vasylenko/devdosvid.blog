@@ -1,30 +1,82 @@
 :root {
-    --main-width: 800px;
-    
-    /* Font weights matching SF Pro Display */
-    --font-thin: 100;
-    --font-ultralight: 200;
-    --font-light: 300;
-    --font-normal: 400;
+    /* Content width — ~65 chars/line at 18px Inter */
+    --main-width: 680px;
+
+    /* Font weights (only weights loaded and used) */
     --font-medium: 500;
     --font-semibold: 600;
     --font-bold: 700;
     --font-heavy: 800;
-    --font-black: 900;
 
     --radius: 8px;
 
-    --color-baby-powder: #FEFEFA;
-    --color-white: #FFFFFF;
-    --color-orange: #FF9F1C;
-    --color-green: #027E6F;
-    --color-red: #FF4D45;
-    --color-toxic: #D5FF00;
-    --color-gray: #545454;
-    --color-charcoal: #1C1C1C;
+    /* Near-monochrome palette + single accent */
+    --color-bg-base: #FFFFFF;
+    --color-surface: #F8F9FA;
+    --color-text-primary: #111111;
+    --color-text-secondary: #555555;
+    --color-text-muted: #888888;
+    --color-teal: #0D7E6F;
+    --color-teal-dark: #065A4F;
+    --color-teal-light: #EDF7F5;
+    --color-code-bg: #F1F3F4;
+    --color-red: #C53030;
+    --color-amber: #D69E2E;
+    --color-border: #E5E5E5;
+    --color-border-light: #F0F0F0;
 
-    --color-background: var(--color-white);
-    --color-font: var(--color-charcoal);
-    --color-outline: var(--color-green);
-    --color-buttons: var(--color-red);
+    /* Semantic tokens */
+    --color-background: var(--color-bg-base);
+    --color-font: var(--color-text-primary);
+    --color-link: var(--color-teal);
+    --color-link-hover: var(--color-teal-dark);
+
+    /* PaperMod overrides */
+    --theme: #FFFFFF;
+    --entry: #FFFFFF;
+    --primary: #111111;
+    --secondary: #555555;
+    --tertiary: #E5E5E5;
+    --content: #111111;
+    --code-block-bg: rgb(40, 42, 54);
+    --code-bg: #F1F3F4;
+    --border: #E5E5E5;
+    --gap: 24px;
+    --content-gap: 20px;
+
+    /* Shadow tokens */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+/* === Dark mode === */
+:root[data-theme="dark"] {
+    --color-bg-base: #1D1E20;
+    --color-surface: #2E2E33;
+    --color-text-primary: #DADADE;
+    --color-text-secondary: #9B9C9D;
+    --color-text-muted: #737475;
+    --color-teal: #2EC4B6;
+    --color-teal-dark: #5DD9CE;
+    --color-teal-light: #1A2F2C;
+    --color-code-bg: #37383E;
+    --color-red: #FC8181;
+    --color-amber: #F6E05E;
+    --color-border: #3A3A3D;
+    --color-border-light: #2E2E33;
+
+    /* PaperMod overrides — dark */
+    --theme: #1D1E20;
+    --entry: #2E2E33;
+    --primary: #DADADE;
+    --secondary: #9B9C9D;
+    --tertiary: #41424A;
+    --content: #C4C4C5;
+    --code-block-bg: #2E2E33;
+    --code-bg: #37383E;
+    --border: #333333;
+
+    /* Shadow tokens — dark */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06);
 }

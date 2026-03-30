@@ -9,8 +9,8 @@ Personal blog by Serhii Vasylenko about Technical Leadership and Platform Engine
 - **Newsletter**: Beehiiv (iframe in `partials/subscribe.html`, rendered on posts and home page)
 - **Comments**: Giscus (GitHub Discussions)
 - **Analytics**: Simple Analytics (privacy-first, no Google Analytics)
-- **Fonts**: System font stack, no external font loading
-- **CSS**: Plain CSS only, light theme only (`disableThemeToggle: true`)
+- **Fonts**: Inter (self-hosted variable font, latin + cyrillic subsets) with system font fallback
+- **CSS**: Plain CSS only, light + dark theme (`defaultTheme: auto`, toggle enabled)
 
 ## Project Structure
 

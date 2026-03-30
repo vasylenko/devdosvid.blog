@@ -16,3 +16,16 @@
         <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
     </span>
 </footer>
+<script>
+/* Sync Giscus theme on toggle (initial load handled in comments.html) */
+new MutationObserver(function() {
+    var theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    var giscus = document.querySelector('iframe.giscus-frame');
+    if (giscus) {
+        giscus.contentWindow.postMessage(
+            { giscus: { setConfig: { theme: theme } } },
+            'https://giscus.app'
+        );
+    }
+}).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+</script>
