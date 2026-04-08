@@ -11,8 +11,104 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 30 Mar 2026 18:07:52 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 08 Apr 2026 11:07:45 +0200</lastBuildDate>
     <atom:link href="https://devdosvid.blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Layers Made It Universal. Harnesses Made It Run</title>
+      <link>https://devdosvid.blog/2026/04/07/layers-made-it-universal.-harnesses-made-it-run/</link>
+      <pubDate>Tue, 07 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://devdosvid.blog/2026/04/07/layers-made-it-universal.-harnesses-made-it-run/</guid>
+      <description>Harness engineering applied to infrastructure migration, not coding agents. How a prompt pipeline mixing scripts, AI, and validation made a 21-service ECS-to-EKS migration trustworthy -- four engineers, twelve layers, one pipeline.</description>
+      <content:encoded><![CDATA[<p><em>A continuation of <a href="https://devdosvid.blog/2026/03/05/flip-the-axis-a-layer-based-approach-to-multi-service-migrations/">Flip the Axis: A Layer-Based Approach to Multi-Service Migrations</a>.</em></p>
+<h2 id="tldr">TL;DR</h2>
+<p>You can&rsquo;t script your way across a fleet of snowflake repositories. Neither can you just ask an AI agent to &ldquo;migrate this service&rdquo; and hope. What worked for the eight-quarter migration was a harness &ndash; a prompt pipeline in which each layer was a sequence of ordered steps: some calling scripts for deterministic changes, some using AI to discover and adapt, and some validating the results. The harness chained their outputs, ran each layer across 21 repos at once, and landed merge requests when it was done.</p>
+<p>Here&rsquo;s what that looked like in practice &ndash; including the parts we got wrong.</p>
+<h2 id="from-methodology-to-machinery">From methodology to machinery</h2>
+<p>The previous article ended on a line worth repeating: <em>the methodology enables the tooling, not the other way around</em>. This post is where that line becomes machinery.</p>
+<p>The project: migrating 21 services from ECS to EKS &ndash; the final wave of an eight-quarter effort. Four engineers, targeting roughly ten repos per engineer per day on a given layer. The services were snowflakes: each with its own code style, CI configuration, logging framework, naming conventions, and infrastructure setup. The layers defined <em>what</em> to do &ndash; add an OIDC provider, swap the logging appender, rewrite the CI pipeline, set up a piece of infra &ndash; and the action was identical across services. But <em>how</em> to execute each layer varied across repositories. Same change, different wiring, 21 times over &ndash; toil that doesn&rsquo;t yield to a single script. The layer approach made that pace imaginable. The harness made it real &ndash; though the most important piece wasn&rsquo;t what we built first.</p>
+<h2 id="how-a-layer-runs">How a layer runs</h2>
+<p>Every layer ran through the same pipeline &ndash; a workflow of ordered prompts that mixed step types.</p>
+<p>Take logging. One service uses <code>logback.xml</code> and is Java, another uses a custom logging setup and is NodeJS, and another has a custom appender in a shared library. You can&rsquo;t script that discovery &ndash; but you <em>can</em> script adding the dependency once the agent finds the right config. So the workflow does both: an AI step to discover and adapt, a script step for the deterministic edit, and a validation step to check the result.</p>
+<p>Some steps called Go tools for deterministic changes &ndash; known target, computable edit, no reasoning required. Others used AI to discover and adapt: Terraform is a good example &ndash; we could not realistically script the changes, but we could give the LLM the modules to use for adding new configuration. Others validated what the earlier ones produced. The pipeline chained their outputs, for example:</p>
+<ul>
+<li>What a script produced in step 3 informed what the agent analyzed in step 4.</li>
+<li>What the agent implemented in step 5 was what the validation prompt checked in step 7.</li>
+</ul>
+<p><img alt="Step chaining diagram showing a workflow with mixed step types &ndash; CONTEXT, AI, SCRIPT, and VALIDATE &ndash; where outputs chain between steps" loading="lazy" src="/2026/04/07/layers-made-it-universal.-harnesses-made-it-run/step-chaining.png"></p>
+<h2 id="why-ask-claude-to-migrate-this-service-fails">Why &ldquo;ask Claude to migrate this service&rdquo; fails</h2>
+<p>You cannot ask an AI agent to &ldquo;migrate this service to EKS.&rdquo; The task is too broad. The context is too large. The agent will hallucinate a plausible-looking solution, skip steps it decided weren&rsquo;t important, or produce something that <em>looks</em> right and isn&rsquo;t.</p>
+<blockquote class="alert alert-note">
+  <p class="alert-heading">Note</p>
+  <p>The failure mode isn&rsquo;t that the AI is dumb. It&rsquo;s that the task has no structure, so the agent invents its own &ndash; and its structure drifts between runs.</p>
+</blockquote>
+<p>You get 21 repositories migrated in 21 different ways, with 21 different sets of mistakes to audit. That&rsquo;s worse than having done nothing.</p>
+<p>The fix isn&rsquo;t a better prompt. The fix is everything <em>around</em> the prompt.</p>
+<h2 id="harness-engineering-named-a-little-late">Harness engineering, named a little late</h2>
+<p>A few months ago, the term <em>harness engineering</em> started showing up &ndash; a zero-volume search term until early 2026. The idea: design the constraints and scaffolding around an LLM that make it reliable. Not whether to use AI, but to answer: what do you do <em>after</em> it&rsquo;s part of your toolchain?</p>
+<p>So far, the conversation is mostly about coding agents. We got here through infrastructure migration &ndash; and structured infra work is where the pattern fits most naturally. The changes follow patterns. The validation criteria are concrete. And the same change repeats across dozens of repos &ndash; which is exactly what a harness is built for.</p>
+<p>The answer turns out to be unsexy: a pipeline that runs prompts in a fixed order, enforces what the agent can touch at each step, and validates its own work before declaring done.</p>
+<p>I didn&rsquo;t have that term in October 2025 when we built our own version of one. It&rsquo;s easier to name a thing after you&rsquo;ve already built it wrong twice. We just kept running into the same failure &ndash; the agent doing too much, too fast, with not enough guardrails &ndash; and kept adding constraints until it stopped failing. Mutation boundaries. Ordered steps. Explicit reasoning gates. Validation passes.</p>
+<p>What was new &ndash; for us &ndash; was treating the harness as the <em>primary engineering artifact</em>. Not the prompt. Not the model. The pipeline around them.</p>
+<p>The shift worth taking from it is this &ndash; stop optimizing the prompt, start engineering the pipeline that runs it.</p>
+<h2 id="what-our-harness-looked-like">What our harness looked like</h2>
+<p>A workflow is a sequence of numbered markdown files &ndash; each one a step prompt. The agent runs them in order inside an isolated Claude Code session. Context compounds: what step 2 discovered informs what step 5 decides.</p>
+<p>The shape is always the same: context → discovery → analysis → planning → implementation → validation → ship → report.</p>
+<p>Not every step needs the agent to reason. Some prompts call a Go tool or script for a deterministic change &ndash; same edit, known target, no drift. Others need AI to discover, analyze, and adapt. The workflow mixes both and outputs the chain forward.</p>
+<p>Six things make this structure trustworthy:</p>
+<ul>
+<li>
+<p><strong>Mutation boundaries.</strong> Every step is tagged <code>READ ONLY</code>, <code>MAKES CHANGES</code>, or <code>PLANNING ONLY</code>. The agent knows what it&rsquo;s allowed to do at each point. No surprise writes during discovery.</p>
+</li>
+<li>
+<p><strong>Context anchoring.</strong> Step 0 explains <em>why</em>, not just <em>what</em>. &ldquo;Here is why we move this piece of infrastructure and need it to be X and Z in a new destination.&rdquo; &ldquo;Here is why templates can&rsquo;t be applied blindly.&rdquo; The agent gets the intent before it touches any code.</p>
+</li>
+<li>
+<p><strong>Domain knowledge in the prompts.</strong> Hard-won lessons encoded directly: <em>&ldquo;BOM manages versions &ndash; you still must declare STS explicitly.&rdquo;</em> <em>&ldquo;Check actual pipeline behavior, not just config files.&rdquo;</em> These are the footnotes a senior engineer would leave for a junior one. The agent gets them every time.</p>
+</li>
+</ul>
+<p>The first three give the agent the right starting position. The rest keep it from wandering.</p>
+<ul>
+<li>
+<p><strong>Early exits.</strong> If the dependency already exists, skip to the report. If a values file for a Helm chart is already configured, skip to the report. Not every repo needs every step.</p>
+</li>
+<li>
+<p><strong>Explicit reasoning gates.</strong> Complex steps require reasoning, so the agent has to reason through the problem before acting &ndash; no freestyle implementation &ndash; and this must be declared explicitly.</p>
+</li>
+<li>
+<p><strong>The implement/validate split.</strong> For critical layers, two separate workflows ran in sequence: one to implement, one to validate. The validation workflow reviewed the implementation against defined criteria rather than rubber-stamping its own work. This did more for reliability than any other constraint we added.</p>
+</li>
+</ul>
+<p>None of these is about making the agent smarter. They&rsquo;re about making it <em>predictable</em>. Every constraint trades a degree of freedom for a degree of reliability. That&rsquo;s the whole game.</p>
+<h2 id="the-instrument">The instrument</h2>
+<p>Workflows describe <em>what</em> the agent should do per repo. We still needed an orchestrator to run them &ndash; and to run them across a batch of repos at once.</p>
+<p>So we built a parallel execution wrapper on top of the Claude Agent SDK. Think of it as a prompt pipeline runner. Point it at a workflow and a list of repositories, and for each repo it clones into its own git worktree, spins up an isolated Claude Code session, runs the workflow&rsquo;s step files in order, enforces the mutation boundaries from the previous section, and lands a per-repo report when it&rsquo;s done. One engineer monitors the batch and reviews the results.</p>
+<p><img alt="Parallel execution diagram showing a workflow and repo list fanning out to isolated sessions per repository, converging to engineer review" loading="lazy" src="/2026/04/07/layers-made-it-universal.-harnesses-made-it-run/parallel-execution.png"></p>
+<p>Each session adapts to its repository while following the same workflow. The agent in repo A figures out one logging setup; the agent in repo B figures out a completely different one. Both produce the same kind of report. The engineer opens ten reports instead of writing ten PRs.</p>
+<p>This is the automated <a href="https://devdosvid.blog/2026/03/05/flip-the-axis-a-layer-based-approach-to-multi-service-migrations/">flip-the-axis</a> model. One layer, one workflow, N repos, one human in the loop. All twelve migration layers ran through this pipeline.</p>
+<p>Prompt pipeline + parallel sessions + per-repo reports + human review at the end.</p>
+<h2 id="prompts-as-production-code">Prompts as production code</h2>
+<p>The non-obvious part: all of this lived in a shared repository. Workflows, runbooks, Go tools, scripts, per-service metadata &ndash; all version-controlled in one place. The project headquarters.</p>
+<p>This wasn&rsquo;t convenient. It was a knowledge-sharing mechanism.</p>
+<p>When an engineer discovered a prompt needed more specificity &ndash; say, the IAM workflow missed an edge case with cross-account trust policies &ndash; they updated the prompt and committed it. On the next pull, every teammate got the improvement. Same for validation scripts, runbook instructions, and service metadata.</p>
+<p><strong>The lesson:</strong> treat AI prompts and workflows like production code. Review changes. Iterate as a team. The prompts you write in week 1 will not be the prompts you need in week 6 &ndash; and every improvement should propagate to everyone automatically.</p>
+<p>If your team is adopting AI for infra work and the prompts live in private gists, you&rsquo;ve already lost the compounding advantage.</p>
+<h2 id="honest-assessment">Honest assessment</h2>
+<p><strong>Cross-referencing was the hardest problem we didn&rsquo;t fully solve.</strong> The Helm values layer required correlating data from Terraform configs, ECS task definitions, and application codebases into a single file. AI agents working within a single repository can&rsquo;t hold that full picture. Human judgment and manual cross-checking stayed essential here, and I don&rsquo;t think that&rsquo;s going to change for this class of problem anytime soon.</p>
+<p><strong>The reliability gradient was predictable.</strong> Within each workflow, the deterministic steps &ndash; the ones calling scripts &ndash; never drifted. The AI steps were reliable when isolated to a single file following a repeatable pattern. Reliability dropped when a step required cross-repository context or judgment calls about tradeoffs. Those stayed with humans.</p>
+<p><strong>We validated &ndash; but not enough.</strong> The implement/validate split worked wherever we applied it &ndash; it was the highest-leverage pattern in the whole setup. But we didn&rsquo;t apply it to every layer, and we should have. The same workflows we used for implementation could have run in verification mode at near-zero additional cost. Our QA and PREPROD environments caught what universal validation would have. They shouldn&rsquo;t have had to.</p>
+<p>If I were starting this project again tomorrow, the first thing I&rsquo;d build is a validation workflow for every implementation workflow, from day one. Not as an afterthought. As a matching pair.</p>
+<h2 id="what-this-means">What this means</h2>
+<p>Layers made the work universal. Harnesses made the AI trustworthy enough to run it &ndash; even across 21 repos, each wired differently. Together they closed out an eight-quarter migration &ndash; four engineers, not forty.</p>
+<p>The next time someone frames it as &ldquo;just write a script&rdquo; versus &ldquo;just use AI&rdquo; &ndash; it&rsquo;s the wrong question. Build the harness that runs both.</p>
+<hr>
+<p><strong>Further reading:</strong></p>
+<ul>
+<li><a href="https://www.anthropic.com/engineering/harness-design-long-running-apps">Harness Design for Long-Running Application Development</a> &ndash; Anthropic&rsquo;s engineering team on the same concept applied to agentic coding.</li>
+<li><a href="https://openai.com/index/harness-engineering/">Harness Engineering</a> &ndash; OpenAI&rsquo;s take on the same discipline.</li>
+<li><a href="https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents">It&rsquo;s a Skill Issue: Harness Engineering for Coding Agents</a> &ndash; HumanLayer on harness configuration for coding agents.</li>
+</ul>
+]]></content:encoded>
+    </item>
     <item>
       <title>Full Attendance, Zero Presence</title>
       <link>https://devdosvid.blog/2026/03/18/full-attendance-zero-presence/</link>
@@ -3785,246 +3881,6 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
 <p>Select the Document, and you’ll see its parameters and settings.</p>
 <p>The rest is self-explanatory. Enter either a playbook code or a link to the source file, add extra variables if needed, and select the target host or a filtered bunch (I like that feature with tags filtering!). Finally, click on the “Run” orange button to apply your playbook.</p>
 <p>That’s it! Now you can make all your ansible-playbook dreams come true! 😁</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>Configure HTTP Security headers with CloudFront Functions</title>
-      <link>https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/</link>
-      <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
-      <guid>https://devdosvid.blog/2021/05/21/configure-http-security-headers-with-cloudfront-functions/</guid>
-      <description>Modifying response headers to enforce the security of the web application</description>
-      <content:encoded><![CDATA[<div class="updatenotice">
-    <p>In November 2021, AWS has added this functionality as a native CloudFront feature.</p>
-<p>I suggest switching to the native implementation. I have described how to configure Security Response Headers for CloudFront in the following article:</p>
-<p><a href="/2021/11/05/apply-cloudfront-security-headers-with-terraform/">Apply Cloudfront Security Headers With Terraform</a></p>
-
-</div>
-<p>A couple of weeks ago, AWS released CloudFront Functions — a “true edge” compute capability for the CloudFront.</p>
-<p>It is “true edge” because Functions work on 200+ edge locations (<a href="https://aws.amazon.com/cloudfront/features/?whats-new-cloudfront.sort-by=item.additionalFields.postDateTime&amp;whats-new-cloudfront.sort-order=desc#Edge_Computing">link to doc</a>) while its predecessor, the Lambda@Edge, runs on a small number of regional edge caches.</p>
-<p>One of the use cases for Lambda@Edge was adding security HTTP headers (it’s even listed on the <a href="https://aws.amazon.com/lambda/edge/">product page</a>), and now there is one more way to make it using CloudFront Functions.</p>
-<h2 id="what-are-security-headers-and-why-it-matters">What are security headers, and why it matters</h2>
-<p>Security Headers are one of the web security pillars.</p>
-<p>They specify security-related information of communication between a web application (i.e., website) and a client (i.e., browser) and protect the web app from different types of attacks. Also, HIPAA and PCI, and other security standard certifications generally include these headers in their rankings.</p>
-<p>We will use CloudFront Functions to set the following headers:</p>
-<ul>
-<li><a href="https://infosec.mozilla.org/guidelines/web_security#content-security-policy">Content Security Policy</a></li>
-<li><a href="https://infosec.mozilla.org/guidelines/web_security#http-strict-transport-security">Strict Transport Security</a></li>
-<li><a href="https://infosec.mozilla.org/guidelines/web_security#x-content-type-options">X-Content-Type-Options</a></li>
-<li><a href="https://infosec.mozilla.org/guidelines/web_security#x-xss-protection">X-XSS-Protection</a></li>
-<li><a href="https://infosec.mozilla.org/guidelines/web_security#x-frame-options">X-Frame-Options</a></li>
-<li><a href="https://infosec.mozilla.org/guidelines/web_security#referrer-policy">Referrer Policy</a></li>
-</ul>
-<p>You can find a short and detailed explanation for each security header on <a href="https://infosec.mozilla.org/guidelines/web_security">Web Security cheatsheet made by Mozilla</a></p>
-<h2 id="cloudfront-functions-overview">CloudFront Functions overview</h2>
-<p>In a nutshell, CloudFront Functions allow performing simple actions against HTTP(s) request (from the client) and response (from the CloudFront cache at the edge). Functions take less than one millisecond to execute, support JavaScript (ECMAScript 5.1 compliant), and cost $0.10 per 1 million invocations.</p>
-<p>Every CloudFront distribution has one (default) or more Cache behaviors, and Functions can be associated with these behaviors to execute upon a specific event.</p>
-<p>That is how the request flow looks like in general, and here is where CloudFront Functions execution happens:</p>
-
-<figure>
-    
-    
-        
-        
-        
-        
-        
-        
-        <img loading="lazy"
-             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/request_flow_hu_fb9781fe1491aeef.webp"width="800"height="171.67" />
-        
-    
-</figure>
-
-<p>CloudFront Functions support Viewer Request (after CloudFront receives a request from a client) and Viewer Response (before CloudFront forwards the response to the client) events.</p>
-<p>You can read more about the events types and their properties here — <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-cloudfront-trigger-events.html">CloudFront Events That Can Trigger a Lambda Function - Amazon CloudFront</a>.</p>
-<p>Also, the CloudFront Functions allow you to manage and operate the code and lifecycle of the functions directly from the CloudFront web interface.</p>
-<h2 id="solution-overview">Solution overview</h2>
-<p>CloudFront distribution should exist before Function creation so you could associate the Function with the distribution.</p>
-<p>Creation and configuration of the CloudFront Function consist of the following steps:</p>
-<h3 id="create-function">Create Function</h3>
-<p>In the AWS Console, open CloudFront service and lick on the Functions on the left navigation bar, then click Create function button.
-
-<figure>
-    
-    
-        
-        
-        
-        
-        
-        
-        <img loading="lazy"
-             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/create_function_hu_9d6c9576e2b5f322.webp"width="800"height="255.83" />
-        
-    
-</figure>
-
-Enter the name of your Function (e.g., “security-headers”) and click Continue.</p>
-<h3 id="build-function">Build Function</h3>
-<p>On the function settings page, you will see four tabs with the four lifecycle steps: Build, Test, Publish, Associate.</p>
-<p>Paste the function code into the editor and click “Save.”</p>
-
-<figure>
-    
-    
-        
-        
-        
-        
-        
-        
-        <img loading="lazy"
-             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/function_editor_hu_45bcab16911a60f6.webp"width="800"height="467.84" />
-        
-    
-</figure>
-
-<p>Here is the source code of the function:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#ff7b72">function</span> handler(event) {
-</span></span><span style="display:flex;"><span><span style="color:#ff7b72">var</span> response <span style="color:#ff7b72;font-weight:bold">=</span> event.response;
-</span></span><span style="display:flex;"><span><span style="color:#ff7b72">var</span> headers <span style="color:#ff7b72;font-weight:bold">=</span> response.headers;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>headers[<span style="color:#a5d6ff">&#39;strict-transport-security&#39;</span>] <span style="color:#ff7b72;font-weight:bold">=</span> { value<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;max-age=63072000; includeSubdomains; preload&#39;</span>}; 
-</span></span><span style="display:flex;"><span>headers[<span style="color:#a5d6ff">&#39;content-security-policy&#39;</span>] <span style="color:#ff7b72;font-weight:bold">=</span> { value<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;default-src &#39;none&#39;; img-src &#39;self&#39;; script-src &#39;self&#39;; style-src &#39;self&#39;; object-src &#39;none&#39;; frame-ancestors &#39;none&#39;&#34;</span>}; 
-</span></span><span style="display:flex;"><span>headers[<span style="color:#a5d6ff">&#39;x-content-type-options&#39;</span>] <span style="color:#ff7b72;font-weight:bold">=</span> { value<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;nosniff&#39;</span>}; 
-</span></span><span style="display:flex;"><span>headers[<span style="color:#a5d6ff">&#39;x-xss-protection&#39;</span>] <span style="color:#ff7b72;font-weight:bold">=</span> {value<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;1; mode=block&#39;</span>};
-</span></span><span style="display:flex;"><span>headers[<span style="color:#a5d6ff">&#39;referrer-policy&#39;</span>] <span style="color:#ff7b72;font-weight:bold">=</span> {value<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;same-origin&#39;</span>};
-</span></span><span style="display:flex;"><span>headers[<span style="color:#a5d6ff">&#39;x-frame-options&#39;</span>] <span style="color:#ff7b72;font-weight:bold">=</span> {value<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;DENY&#39;</span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff7b72">return</span> response;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="test-function">Test Function</h3>
-<p>Open the “Test” tab — let’s try our function first before it becomes live!</p>
-<p>Select Viewer Response event type and Development Stage, then select “Viewer response with headers” as a Sample test event (you will get a simple set of headers automatically).</p>
-<p>Now click the blue “Test” button and observe the output results:</p>
-<ul>
-<li>Compute utilization represents the relative amount of time (on a scale between 0 and 100) your function took to run</li>
-<li>Check the Response headers tab and take a look at how the function added custom headers.</li>
-</ul>
-
-<figure>
-    
-    
-        
-        
-        
-        
-        
-        
-        <img loading="lazy"
-             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/function_test_hu_47813949520a6079.webp"width="800"height="624.03" />
-        
-    
-</figure>
-
-<h3 id="publish-function">Publish Function</h3>
-<p>Let’s publish our function. To do that, open the Publish tab and click on the blue button “Publish and update.”
-
-<figure>
-    
-    
-        
-        
-        
-        
-        
-        
-        <img loading="lazy"
-             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/function_publish_hu_e17346829c4550ce.webp"width="800"height="257.24" />
-        
-    
-</figure>
-</p>
-<h3 id="associate-your-function-with-cloudfront-distribution">Associate your Function with CloudFront distribution</h3>
-<p>Now, you can associate the function with the CloudFront distribution.</p>
-<p>To do so, open the Associate tab, select the distribution and event type (Viewer Response), and select the Cache behavior of your distribution which you want to use for the association.</p>
-
-<figure>
-    
-    
-        
-        
-        
-        
-        
-        
-        <img loading="lazy"
-             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/function_associate_hu_7364e9695a4e25a2.webp"width="800"height="366.08" />
-        
-    
-</figure>
-
-<p>Once you associate the function with the CloudFront distribution, you can test it in live mode.</p>
-<p>I will use curl here to demonstrate it:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; curl -i https://d30i87a4ss9ifz.cloudfront.net
-</span></span><span style="display:flex;"><span>HTTP/2 <span style="color:#a5d6ff">200</span>
-</span></span><span style="display:flex;"><span>content-type: text/html
-</span></span><span style="display:flex;"><span>content-length: <span style="color:#a5d6ff">140</span>
-</span></span><span style="display:flex;"><span>date: Sat, <span style="color:#a5d6ff">22</span> May <span style="color:#a5d6ff">2021</span> 00:22:18 GMT
-</span></span><span style="display:flex;"><span>last-modified: Tue, <span style="color:#a5d6ff">27</span> Apr <span style="color:#a5d6ff">2021</span> 23:07:14 GMT
-</span></span><span style="display:flex;"><span>etag: <span style="color:#a5d6ff">&#34;a855a3189f8223db53df8a0ca362dd62&#34;</span>
-</span></span><span style="display:flex;"><span>accept-ranges: bytes
-</span></span><span style="display:flex;"><span>server: AmazonS3
-</span></span><span style="display:flex;"><span>via: 1.1 50f21cb925e6471490e080147e252d7d.cloudfront.net <span style="color:#ff7b72;font-weight:bold">(</span>CloudFront<span style="color:#ff7b72;font-weight:bold">)</span>
-</span></span><span style="display:flex;"><span>content-security-policy: default-src <span style="color:#a5d6ff">&#39;none&#39;</span>; img-src <span style="color:#a5d6ff">&#39;self&#39;</span>; script-src <span style="color:#a5d6ff">&#39;self&#39;</span>; style-src <span style="color:#a5d6ff">&#39;self&#39;</span>; object-src <span style="color:#a5d6ff">&#39;none&#39;</span>; frame-ancestors <span style="color:#a5d6ff">&#39;none&#39;</span>
-</span></span><span style="display:flex;"><span>strict-transport-security: max-age<span style="color:#ff7b72;font-weight:bold">=</span>63072000; includeSubdomains; preload
-</span></span><span style="display:flex;"><span>x-xss-protection: 1; <span style="color:#79c0ff">mode</span><span style="color:#ff7b72;font-weight:bold">=</span>block
-</span></span><span style="display:flex;"><span>x-frame-options: DENY
-</span></span><span style="display:flex;"><span>referrer-policy: same-origin
-</span></span><span style="display:flex;"><span>x-content-type-options: nosniff
-</span></span><span style="display:flex;"><span>x-cache: Miss from cloudfront
-</span></span><span style="display:flex;"><span>x-amz-cf-pop: WAW50-C1
-</span></span><span style="display:flex;"><span>x-amz-cf-id: ud3qH8rLs7QmbhUZ-DeupGwFhWLpKDSD59vr7uWC65Hui5m2U8o2mw<span style="color:#ff7b72;font-weight:bold">==</span>
-</span></span></code></pre></div><p>You can also test your results here — <a href="https://observatory.mozilla.org/">Mozilla Observatory</a></p>
-<p>
-<figure>
-    
-    
-        
-        
-        
-        
-        
-        
-        <img loading="lazy"
-             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/scan_result-1_hu_9ee370a1f68d9588.webp"width="800"height="345.58" />
-        
-    
-</figure>
-
-
-<figure>
-    
-    
-        
-        
-        
-        
-        
-        
-        <img loading="lazy"
-             src="/2021/05/21/configure-http-security-headers-with-cloudfront-functions/scan_result-2_hu_b3b6dab91bf5d75c.webp"width="800"height="626.15" />
-        
-    
-</figure>
-</p>
-<h2 id="read-more">Read more</h2>
-<p>That was a simplified overview of the CloudFront Functions capabilities.</p>
-<p>But if you want to get deeper, here is a couple of useful links to start:</p>
-<ul>
-<li>Another overview from AWS — <a href="https://aws.amazon.com/blogs/aws/introducing-cloudfront-functions-run-your-code-at-the-edge-with-low-latency-at-any-scale">CloudFront Functions Launch Blog</a></li>
-<li>More about creating, testing, updating and publishing of CloudFront Functions — <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/managing-functions.html">Managing functions in CloudFront Functions - Amazon CloudFront</a></li>
-</ul>
-<h2 id="so-what-to-choose">So what to choose?</h2>
-<p>CloudFront Functions are simpler than Lambda@Edge and run faster with minimal latency and minimal time penalty for your web clients.</p>
-<p>Lambda@Edge takes more time to invoke, but it can run upon Origin Response event so that CloudFront can cache the processed response (including headers) and return it faster afterward.</p>
-<p>But again, the CloudFront Functions invocations are much cheaper (6x times) than Lambda@Edge, and you do not pay for the function execution duration.</p>
-<p>The final decision would also depend on the dynamic/static nature of the content you have at your origin.</p>
-<p>To make a wise and deliberate decision, try to analyze your use case using these two documentation articles:</p>
-<ul>
-<li><a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions.html">Choosing between CloudFront Functions and Lambda@Edge</a></li>
-<li><a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-how-to-choose-event.html">How to Decide Which CloudFront Event to Use to Trigger a Lambda Function</a></li>
-</ul>
 ]]></content:encoded>
     </item>
   </channel>

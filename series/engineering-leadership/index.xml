@@ -11,8 +11,104 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 30 Mar 2026 18:07:52 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 08 Apr 2026 11:07:45 +0200</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/engineering-leadership/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Layers Made It Universal. Harnesses Made It Run</title>
+      <link>https://devdosvid.blog/2026/04/07/layers-made-it-universal.-harnesses-made-it-run/</link>
+      <pubDate>Tue, 07 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://devdosvid.blog/2026/04/07/layers-made-it-universal.-harnesses-made-it-run/</guid>
+      <description>Harness engineering applied to infrastructure migration, not coding agents. How a prompt pipeline mixing scripts, AI, and validation made a 21-service ECS-to-EKS migration trustworthy -- four engineers, twelve layers, one pipeline.</description>
+      <content:encoded><![CDATA[<p><em>A continuation of <a href="https://devdosvid.blog/2026/03/05/flip-the-axis-a-layer-based-approach-to-multi-service-migrations/">Flip the Axis: A Layer-Based Approach to Multi-Service Migrations</a>.</em></p>
+<h2 id="tldr">TL;DR</h2>
+<p>You can&rsquo;t script your way across a fleet of snowflake repositories. Neither can you just ask an AI agent to &ldquo;migrate this service&rdquo; and hope. What worked for the eight-quarter migration was a harness &ndash; a prompt pipeline in which each layer was a sequence of ordered steps: some calling scripts for deterministic changes, some using AI to discover and adapt, and some validating the results. The harness chained their outputs, ran each layer across 21 repos at once, and landed merge requests when it was done.</p>
+<p>Here&rsquo;s what that looked like in practice &ndash; including the parts we got wrong.</p>
+<h2 id="from-methodology-to-machinery">From methodology to machinery</h2>
+<p>The previous article ended on a line worth repeating: <em>the methodology enables the tooling, not the other way around</em>. This post is where that line becomes machinery.</p>
+<p>The project: migrating 21 services from ECS to EKS &ndash; the final wave of an eight-quarter effort. Four engineers, targeting roughly ten repos per engineer per day on a given layer. The services were snowflakes: each with its own code style, CI configuration, logging framework, naming conventions, and infrastructure setup. The layers defined <em>what</em> to do &ndash; add an OIDC provider, swap the logging appender, rewrite the CI pipeline, set up a piece of infra &ndash; and the action was identical across services. But <em>how</em> to execute each layer varied across repositories. Same change, different wiring, 21 times over &ndash; toil that doesn&rsquo;t yield to a single script. The layer approach made that pace imaginable. The harness made it real &ndash; though the most important piece wasn&rsquo;t what we built first.</p>
+<h2 id="how-a-layer-runs">How a layer runs</h2>
+<p>Every layer ran through the same pipeline &ndash; a workflow of ordered prompts that mixed step types.</p>
+<p>Take logging. One service uses <code>logback.xml</code> and is Java, another uses a custom logging setup and is NodeJS, and another has a custom appender in a shared library. You can&rsquo;t script that discovery &ndash; but you <em>can</em> script adding the dependency once the agent finds the right config. So the workflow does both: an AI step to discover and adapt, a script step for the deterministic edit, and a validation step to check the result.</p>
+<p>Some steps called Go tools for deterministic changes &ndash; known target, computable edit, no reasoning required. Others used AI to discover and adapt: Terraform is a good example &ndash; we could not realistically script the changes, but we could give the LLM the modules to use for adding new configuration. Others validated what the earlier ones produced. The pipeline chained their outputs, for example:</p>
+<ul>
+<li>What a script produced in step 3 informed what the agent analyzed in step 4.</li>
+<li>What the agent implemented in step 5 was what the validation prompt checked in step 7.</li>
+</ul>
+<p><img alt="Step chaining diagram showing a workflow with mixed step types &ndash; CONTEXT, AI, SCRIPT, and VALIDATE &ndash; where outputs chain between steps" loading="lazy" src="/2026/04/07/layers-made-it-universal.-harnesses-made-it-run/step-chaining.png"></p>
+<h2 id="why-ask-claude-to-migrate-this-service-fails">Why &ldquo;ask Claude to migrate this service&rdquo; fails</h2>
+<p>You cannot ask an AI agent to &ldquo;migrate this service to EKS.&rdquo; The task is too broad. The context is too large. The agent will hallucinate a plausible-looking solution, skip steps it decided weren&rsquo;t important, or produce something that <em>looks</em> right and isn&rsquo;t.</p>
+<blockquote class="alert alert-note">
+  <p class="alert-heading">Note</p>
+  <p>The failure mode isn&rsquo;t that the AI is dumb. It&rsquo;s that the task has no structure, so the agent invents its own &ndash; and its structure drifts between runs.</p>
+</blockquote>
+<p>You get 21 repositories migrated in 21 different ways, with 21 different sets of mistakes to audit. That&rsquo;s worse than having done nothing.</p>
+<p>The fix isn&rsquo;t a better prompt. The fix is everything <em>around</em> the prompt.</p>
+<h2 id="harness-engineering-named-a-little-late">Harness engineering, named a little late</h2>
+<p>A few months ago, the term <em>harness engineering</em> started showing up &ndash; a zero-volume search term until early 2026. The idea: design the constraints and scaffolding around an LLM that make it reliable. Not whether to use AI, but to answer: what do you do <em>after</em> it&rsquo;s part of your toolchain?</p>
+<p>So far, the conversation is mostly about coding agents. We got here through infrastructure migration &ndash; and structured infra work is where the pattern fits most naturally. The changes follow patterns. The validation criteria are concrete. And the same change repeats across dozens of repos &ndash; which is exactly what a harness is built for.</p>
+<p>The answer turns out to be unsexy: a pipeline that runs prompts in a fixed order, enforces what the agent can touch at each step, and validates its own work before declaring done.</p>
+<p>I didn&rsquo;t have that term in October 2025 when we built our own version of one. It&rsquo;s easier to name a thing after you&rsquo;ve already built it wrong twice. We just kept running into the same failure &ndash; the agent doing too much, too fast, with not enough guardrails &ndash; and kept adding constraints until it stopped failing. Mutation boundaries. Ordered steps. Explicit reasoning gates. Validation passes.</p>
+<p>What was new &ndash; for us &ndash; was treating the harness as the <em>primary engineering artifact</em>. Not the prompt. Not the model. The pipeline around them.</p>
+<p>The shift worth taking from it is this &ndash; stop optimizing the prompt, start engineering the pipeline that runs it.</p>
+<h2 id="what-our-harness-looked-like">What our harness looked like</h2>
+<p>A workflow is a sequence of numbered markdown files &ndash; each one a step prompt. The agent runs them in order inside an isolated Claude Code session. Context compounds: what step 2 discovered informs what step 5 decides.</p>
+<p>The shape is always the same: context → discovery → analysis → planning → implementation → validation → ship → report.</p>
+<p>Not every step needs the agent to reason. Some prompts call a Go tool or script for a deterministic change &ndash; same edit, known target, no drift. Others need AI to discover, analyze, and adapt. The workflow mixes both and outputs the chain forward.</p>
+<p>Six things make this structure trustworthy:</p>
+<ul>
+<li>
+<p><strong>Mutation boundaries.</strong> Every step is tagged <code>READ ONLY</code>, <code>MAKES CHANGES</code>, or <code>PLANNING ONLY</code>. The agent knows what it&rsquo;s allowed to do at each point. No surprise writes during discovery.</p>
+</li>
+<li>
+<p><strong>Context anchoring.</strong> Step 0 explains <em>why</em>, not just <em>what</em>. &ldquo;Here is why we move this piece of infrastructure and need it to be X and Z in a new destination.&rdquo; &ldquo;Here is why templates can&rsquo;t be applied blindly.&rdquo; The agent gets the intent before it touches any code.</p>
+</li>
+<li>
+<p><strong>Domain knowledge in the prompts.</strong> Hard-won lessons encoded directly: <em>&ldquo;BOM manages versions &ndash; you still must declare STS explicitly.&rdquo;</em> <em>&ldquo;Check actual pipeline behavior, not just config files.&rdquo;</em> These are the footnotes a senior engineer would leave for a junior one. The agent gets them every time.</p>
+</li>
+</ul>
+<p>The first three give the agent the right starting position. The rest keep it from wandering.</p>
+<ul>
+<li>
+<p><strong>Early exits.</strong> If the dependency already exists, skip to the report. If a values file for a Helm chart is already configured, skip to the report. Not every repo needs every step.</p>
+</li>
+<li>
+<p><strong>Explicit reasoning gates.</strong> Complex steps require reasoning, so the agent has to reason through the problem before acting &ndash; no freestyle implementation &ndash; and this must be declared explicitly.</p>
+</li>
+<li>
+<p><strong>The implement/validate split.</strong> For critical layers, two separate workflows ran in sequence: one to implement, one to validate. The validation workflow reviewed the implementation against defined criteria rather than rubber-stamping its own work. This did more for reliability than any other constraint we added.</p>
+</li>
+</ul>
+<p>None of these is about making the agent smarter. They&rsquo;re about making it <em>predictable</em>. Every constraint trades a degree of freedom for a degree of reliability. That&rsquo;s the whole game.</p>
+<h2 id="the-instrument">The instrument</h2>
+<p>Workflows describe <em>what</em> the agent should do per repo. We still needed an orchestrator to run them &ndash; and to run them across a batch of repos at once.</p>
+<p>So we built a parallel execution wrapper on top of the Claude Agent SDK. Think of it as a prompt pipeline runner. Point it at a workflow and a list of repositories, and for each repo it clones into its own git worktree, spins up an isolated Claude Code session, runs the workflow&rsquo;s step files in order, enforces the mutation boundaries from the previous section, and lands a per-repo report when it&rsquo;s done. One engineer monitors the batch and reviews the results.</p>
+<p><img alt="Parallel execution diagram showing a workflow and repo list fanning out to isolated sessions per repository, converging to engineer review" loading="lazy" src="/2026/04/07/layers-made-it-universal.-harnesses-made-it-run/parallel-execution.png"></p>
+<p>Each session adapts to its repository while following the same workflow. The agent in repo A figures out one logging setup; the agent in repo B figures out a completely different one. Both produce the same kind of report. The engineer opens ten reports instead of writing ten PRs.</p>
+<p>This is the automated <a href="https://devdosvid.blog/2026/03/05/flip-the-axis-a-layer-based-approach-to-multi-service-migrations/">flip-the-axis</a> model. One layer, one workflow, N repos, one human in the loop. All twelve migration layers ran through this pipeline.</p>
+<p>Prompt pipeline + parallel sessions + per-repo reports + human review at the end.</p>
+<h2 id="prompts-as-production-code">Prompts as production code</h2>
+<p>The non-obvious part: all of this lived in a shared repository. Workflows, runbooks, Go tools, scripts, per-service metadata &ndash; all version-controlled in one place. The project headquarters.</p>
+<p>This wasn&rsquo;t convenient. It was a knowledge-sharing mechanism.</p>
+<p>When an engineer discovered a prompt needed more specificity &ndash; say, the IAM workflow missed an edge case with cross-account trust policies &ndash; they updated the prompt and committed it. On the next pull, every teammate got the improvement. Same for validation scripts, runbook instructions, and service metadata.</p>
+<p><strong>The lesson:</strong> treat AI prompts and workflows like production code. Review changes. Iterate as a team. The prompts you write in week 1 will not be the prompts you need in week 6 &ndash; and every improvement should propagate to everyone automatically.</p>
+<p>If your team is adopting AI for infra work and the prompts live in private gists, you&rsquo;ve already lost the compounding advantage.</p>
+<h2 id="honest-assessment">Honest assessment</h2>
+<p><strong>Cross-referencing was the hardest problem we didn&rsquo;t fully solve.</strong> The Helm values layer required correlating data from Terraform configs, ECS task definitions, and application codebases into a single file. AI agents working within a single repository can&rsquo;t hold that full picture. Human judgment and manual cross-checking stayed essential here, and I don&rsquo;t think that&rsquo;s going to change for this class of problem anytime soon.</p>
+<p><strong>The reliability gradient was predictable.</strong> Within each workflow, the deterministic steps &ndash; the ones calling scripts &ndash; never drifted. The AI steps were reliable when isolated to a single file following a repeatable pattern. Reliability dropped when a step required cross-repository context or judgment calls about tradeoffs. Those stayed with humans.</p>
+<p><strong>We validated &ndash; but not enough.</strong> The implement/validate split worked wherever we applied it &ndash; it was the highest-leverage pattern in the whole setup. But we didn&rsquo;t apply it to every layer, and we should have. The same workflows we used for implementation could have run in verification mode at near-zero additional cost. Our QA and PREPROD environments caught what universal validation would have. They shouldn&rsquo;t have had to.</p>
+<p>If I were starting this project again tomorrow, the first thing I&rsquo;d build is a validation workflow for every implementation workflow, from day one. Not as an afterthought. As a matching pair.</p>
+<h2 id="what-this-means">What this means</h2>
+<p>Layers made the work universal. Harnesses made the AI trustworthy enough to run it &ndash; even across 21 repos, each wired differently. Together they closed out an eight-quarter migration &ndash; four engineers, not forty.</p>
+<p>The next time someone frames it as &ldquo;just write a script&rdquo; versus &ldquo;just use AI&rdquo; &ndash; it&rsquo;s the wrong question. Build the harness that runs both.</p>
+<hr>
+<p><strong>Further reading:</strong></p>
+<ul>
+<li><a href="https://www.anthropic.com/engineering/harness-design-long-running-apps">Harness Design for Long-Running Application Development</a> &ndash; Anthropic&rsquo;s engineering team on the same concept applied to agentic coding.</li>
+<li><a href="https://openai.com/index/harness-engineering/">Harness Engineering</a> &ndash; OpenAI&rsquo;s take on the same discipline.</li>
+<li><a href="https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents">It&rsquo;s a Skill Issue: Harness Engineering for Coding Agents</a> &ndash; HumanLayer on harness configuration for coding agents.</li>
+</ul>
+]]></content:encoded>
+    </item>
     <item>
       <title>Full Attendance, Zero Presence</title>
       <link>https://devdosvid.blog/2026/03/18/full-attendance-zero-presence/</link>
