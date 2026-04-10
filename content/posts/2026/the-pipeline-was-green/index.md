@@ -7,7 +7,6 @@ cover:
     image: cover.png
     relative: true
     alt: "A green spotlight on a tripod standing on cracked red ground"
-draft: true
 keywords: ["AI agent", "CI/CD pipeline", "platform engineering", "AI automation", "Helm chart", "Kubernetes", "AI-friendly repository"]
 series: ["Engineering Leadership"]
 ---
