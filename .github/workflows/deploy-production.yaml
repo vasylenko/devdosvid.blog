@@ -24,7 +24,7 @@ jobs:
           build-artifact: ${{ env.ARTIFACT }}
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ env.ARTIFACT }}
           path: ${{ env.ARTIFACT }}
@@ -44,7 +44,7 @@ jobs:
           ref: '${{ env.GHPAGES_BRANCH }}'
 
       - name: Get the new website content
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: ${{ env.ARTIFACT }}
           path: ./

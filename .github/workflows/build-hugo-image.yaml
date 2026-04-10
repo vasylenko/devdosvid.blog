@@ -14,9 +14,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
       - name: Authenticate to GitHub Container Registry
         run: echo "${{ github.token }}" | docker login ghcr.io -u $ --password-stdin
       - name: Read versions from .env
@@ -25,7 +25,7 @@ jobs:
           echo "HUGO_VERSION=$(grep '^HUGO_VERSION=' .env | cut -d= -f2)" >> "$GITHUB_OUTPUT"
           echo "GO_VERSION=$(grep '^GO_VERSION=' .env | cut -d= -f2)" >> "$GITHUB_OUTPUT"
       - name: Build and push multi-arch Docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: hugo-runtime.dockerfile
