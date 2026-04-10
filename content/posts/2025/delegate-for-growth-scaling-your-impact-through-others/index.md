@@ -90,6 +90,8 @@ Then, gently probe to distinguish bandwidth issues from lack of interest or alig
 
 Creating specific task-based opportunities is powerful, but scaling your impact as a senior IC involves broader strategies too.
 
+{{< subscribe >}}
+
 ## Broader Strategies for Scaling Your Impact
 Beyond direct "delegation-as-opportunity," think about these leverage points:
 

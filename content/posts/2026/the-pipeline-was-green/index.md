@@ -28,7 +28,7 @@ The Terraform plan was green. The apply was green. The PR was closed. Nobody tol
 
 I spent the next seven hours before Christmas break untangling the damage. I tried rolling back. I tried manually migrating the resources. Neither worked -- the change was too widespread. Eventually, I had to recreate the chart from scratch and clean up its remnants from across the cluster, heavily leaning on Claude Code to help diagnose what I was dealing with, because honestly, I hadn't worked with Helm charts at this depth before.
 
-**But the broken cluster wasn't the real problem. The real problem was that every signal in our system said: "safe."**
+> [!NOTE] But the broken cluster wasn't the real problem. The real problem was that every signal in our system said: "safe."
 
 ## The Signal That Lied
 
@@ -54,11 +54,13 @@ I sat there listening and realized I was looking at a mirror. The frustration I'
 
 But this distinction -- that green means "technically possible," not "safe" -- lived entirely inside our team's heads. It wasn't written down. It wasn't encoded in the pipeline. There was nothing for the automation or the engineer to read that would have surfaced the risk.
 
-**This wasn't a careless team breaking another team's things. This was two teams reading the same signal through completely different mental models, with no mechanism to surface the gap.**
+> [!NOTE] This wasn't a careless team breaking another team's things. This was two teams reading the same signal through completely different mental models, with no mechanism to surface the gap.
 
 The Platform's CI gave a false signal of safety. Security's automation trusted it. The disconnect was mutual.
 
 Locking down contributors wouldn't fix a false signal. You'd still have a pipeline that says "safe" when it means "technically possible." You'd just have fewer people triggering it.
+
+{{< subscribe >}}
 
 ## We Know How to Build Walls
 
@@ -90,7 +92,7 @@ So instead of closing the door, we decided to redesign the room.
 
 The core idea is clear, even if executing it isn't: treat an AI agent the way you'd treat a newcomer engineer. Someone with deep domain expertise but zero context about your specific project. If your repo isn't legible to that person, it's not legible to an agent either -- they were trained on human-created content, after all.
 
-**The best AI-friendly repo is first and foremost a human-friendly repo.**
+> [!NOTE] The best AI-friendly repo is first and foremost a human-friendly repo.
 
 Not fewer guardrails -- guardrails that don't require tribal knowledge to understand.
 
