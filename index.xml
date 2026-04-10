@@ -11,8 +11,79 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Apr 2026 15:39:18 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 11 Apr 2026 00:06:28 +0200</lastBuildDate>
     <atom:link href="https://devdosvid.blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Pipeline Was Green</title>
+      <link>https://devdosvid.blog/2026/04/10/the-pipeline-was-green/</link>
+      <pubDate>Fri, 10 Apr 2026 22:03:53 +0200</pubDate>
+      <guid>https://devdosvid.blog/2026/04/10/the-pipeline-was-green/</guid>
+      <description>Our CI said green. An AI agent trusted it and broke QA for three days. The problem wasn&amp;#39;t the agent -- it was our own false signals.</description>
+      <content:encoded><![CDATA[<p>Late December, two days before Christmas break. Half the company is already gone. The other half is trying to close out whatever they can before the end of the year.</p>
+<p>I open Argo CD because I&rsquo;m working with the QA cluster that day. A few projects marked red. Not unusual &ndash; QA has its moments. Shit happens.</p>
+<p>Then a message shows up in a different Slack channel. A developer asking his own team: &ldquo;Hey, does anyone know what&rsquo;s happening with QA? Since Friday night, all our services are down.&rdquo;</p>
+<p>Since Friday night. It&rsquo;s been days.</p>
+<p>I go back to Argo CD. Hit refresh. Watch a few red dots turn into a wall of red &ndash; every application in the cluster, failing.</p>
+<p>On Friday evening, an AI-powered automation &ndash; Renovate paired with Claude Code &ndash; had patched the External Secrets Operator Helm chart from an early 0.x to 1.x. A major version bump. New API version, incompatible Custom Resource Definitions. Every service that consumed secrets from AWS, which was most of them, couldn&rsquo;t deploy.</p>
+<p>The Terraform plan was green. The apply was green. The PR was closed. Nobody told anyone.</p>
+<p>I spent the next seven hours before Christmas break untangling the damage. I tried rolling back. I tried manually migrating the resources. Neither worked &ndash; the change was too widespread. Eventually, I had to recreate the chart from scratch and clean up its remnants from across the cluster, heavily leaning on Claude Code to help diagnose what I was dealing with, because honestly, I hadn&rsquo;t worked with Helm charts at this depth before.</p>
+<blockquote class="alert alert-note">
+  <p class="alert-heading">But the broken cluster wasn&rsquo;t the real problem. The real problem was that every signal in our system said: &ldquo;safe.&rdquo;</p>
+  
+</blockquote>
+<h2 id="the-signal-that-lied">The Signal That Lied</h2>
+<p>Here&rsquo;s what the pipeline saw: a Helm chart update. Terraform plan &ndash; green. Terraform apply on QA &ndash; green. The CI applied the change as part of the PR pipeline &ndash; no merge required. The PR was closed afterward, discarded like a test run. But the change had already landed. QA was already broken.</p>
+<p>Here&rsquo;s what the pipeline didn&rsquo;t see: that jumping from an early 0.x to 1.x changes the Custom Resource Definitions. That every service consuming secrets through this operator would break. That &ldquo;QA&rdquo; in our team&rsquo;s vocabulary means something closer to &ldquo;production&rdquo; &ndash; it&rsquo;s the environment where all development happens, where every team deploys their backend services, where breaking something means blocking the entire engineering organization. This is a production environment for the team that owns it &ndash; the Platform team.</p>
+<p>From the outside &ndash; from somebody who doesn&rsquo;t know our internals &ndash; the green pipeline looked fine. It&rsquo;s just QA, right?</p>
+<p>Same green. Two completely different meanings.</p>
+<h2 id="the-first-instinct">The First Instinct</h2>
+<p>Our first reaction was natural. Lock it down. Restrict contributors. Protect the repos. Nobody touches platform infrastructure without explicit approval.</p>
+<p>This is what most organizations do when AI-assisted automation causes an incident. Add mandatory peer review for AI-generated changes. Scope permissions down. Layer compliance checks on top. It&rsquo;s the responsible-sounding answer &ndash; and it&rsquo;s what we were discussing with the team in the first few hours.</p>
+<p>Then I had a thirty-minute call with the security engineer who had run the automation.</p>
+<p>He walked me through how he&rsquo;d set it up: the Renovate and Claude Code combination, his vision for automating security patches at scale, and what he expected it to do. He wasn&rsquo;t defensive. He was genuinely surprised it had caused damage. From his perspective, the automation had worked exactly as intended. The pipeline was green. No errors. No warnings. He hadn&rsquo;t checked the Terraform plan job logs because &ndash; why would he? The job passed.</p>
+<p>I sat there listening and realized I was looking at a mirror. The frustration I&rsquo;d been carrying for three days was aimed at the wrong target. He had done everything our process told him to do. He ran the automation. The CI gave him a green light. He moved on. If I were in his position &ndash; without years of context about how the Platform treats QA, without the instinct to read Terraform plan logs even when the job is green &ndash; I would have done the same thing.</p>
+<p>But this distinction &ndash; that green means &ldquo;technically possible,&rdquo; not &ldquo;safe&rdquo; &ndash; lived entirely inside our team&rsquo;s heads. It wasn&rsquo;t written down. It wasn&rsquo;t encoded in the pipeline. There was nothing for the automation or the engineer to read that would have surfaced the risk.</p>
+<blockquote class="alert alert-note">
+  <p class="alert-heading">This wasn&rsquo;t a careless team breaking another team&rsquo;s things. This was two teams reading the same signal through completely different mental models, with no mechanism to surface the gap.</p>
+  
+</blockquote>
+<p>The Platform&rsquo;s CI gave a false signal of safety. Security&rsquo;s automation trusted it. The disconnect was mutual.</p>
+<p>Locking down contributors wouldn&rsquo;t fix a false signal. You&rsquo;d still have a pipeline that says &ldquo;safe&rdquo; when it means &ldquo;technically possible.&rdquo; You&rsquo;d just have fewer people triggering it.</p>
+<div class="subscribe subscribe-inline">
+    <p class="subscribe-cta">If this resonates, subscribe -- I write about platform engineering and technical leadership.</p>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed" height="52" frameborder="0" scrolling="no" style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+</div>
+
+<h2 id="we-know-how-to-build-walls">We Know How to Build Walls</h2>
+<p>I&rsquo;m not against gates. We&rsquo;ve built them before, and they work.</p>
+<p>A year earlier, when I was on the Security Automation team, we ran a supply chain security project &ndash; defined by our CISO as a top risk. I had to implement security gates across the CI/CD pipeline for every Docker image going to production. Platform, security, and developers co-designed it together.</p>
+<p>The first proposal had five gates. We thought it was thorough. The developers we brought into the design review had a different take: &ldquo;Are you crazy? You want us to wait fifteen extra minutes for all this scanning? Don&rsquo;t do this.&rdquo;</p>
+<p>So we iterated. Five gates became three: build-time scan, a Clean Room registry with an admission controller that only allows scanned images into the cluster, and runtime scanning. We pushed it out by default &ndash; no team had to opt in &ndash; but gave every team the freedom to opt out if the scanner was blocking them. We added whitelisting for specific CVEs in developer tooling that wouldn&rsquo;t reach production.</p>
+<p>That project worked. The threat was well-defined, the contributors were human, and the people affected were in the room arguing about the design. The &ldquo;are you crazy?&rdquo; feedback didn&rsquo;t slow us down &ndash; it made the final version better.</p>
+<h2 id="why-this-is-different">Why This Is Different</h2>
+<p>Autonomous AI agents don&rsquo;t join your design session. They don&rsquo;t say &ldquo;are you crazy?&rdquo; They read your <code>CLAUDE.md</code> or <code>AGENTS.md</code> and your CI configuration, and do exactly what those say. If the instructions are incomplete, they fill the gap with their own judgment &ndash; often technically correct but contextually wrong.</p>
+<p>The supply chain gates worked because human contributors could push back, ask questions, and iterate. An AI agent that reads a green pipeline and closes a PR doesn&rsquo;t push back. It doesn&rsquo;t ask &ldquo;is this QA cluster actually critical?&rdquo; It trusts the signal.</p>
+<p>You can&rsquo;t gate your way out of that. More approvals on a process that gives false signals just give you more confident false signals.</p>
+<p>AI-assisted contributions at our company aren&rsquo;t hypothetical &ndash; engineers use AI-coding agents and automated patching agents every day. We push AI adoption hard, and for good reason &ndash; it&rsquo;s a force multiplier. But when the signals are wrong, it multiplies that too.</p>
+<p>The instinct to lock down makes sense when you can define the threat and put the affected people in a room to argue about the solution. When the contributor is a machine reading your pipeline output as the source of truth, the threat isn&rsquo;t the contributor. It&rsquo;s your own system telling it the wrong thing.</p>
+<h2 id="the-direction-not-the-destination">The Direction, Not the Destination</h2>
+<p>So instead of closing the door, we decided to redesign the room.</p>
+<p>The core idea is clear, even if executing it isn&rsquo;t: treat an AI agent the way you&rsquo;d treat a newcomer engineer. Someone with deep domain expertise but zero context about your specific project. If your repo isn&rsquo;t legible to that person, it&rsquo;s not legible to an agent either &ndash; they were trained on human-created content, after all.</p>
+<blockquote class="alert alert-note">
+  <p class="alert-heading">The best AI-friendly repo is first and foremost a human-friendly repo.</p>
+  
+</blockquote>
+<p>Not fewer guardrails &ndash; guardrails that don&rsquo;t require tribal knowledge to understand.</p>
+<p>What this looks like in practice:</p>
+<p><strong>1. Write instruction files.</strong> A <code>CLAUDE.md</code> or <code>AGENTS.md</code> that explains what the repo does, how CI works, and what to never touch. A newcomer&rsquo;s onboarding doc, readable by both humans and agents.</p>
+<p><strong>2. Enforce guardrails as code.</strong> Critical-file protections as scripts that fail hard in CI. Pre-commit hooks for linters and style checks &ndash; the agent picks up the issues and fixes them before pushing. Not documented wishes. Enforcement.</p>
+<p><strong>3. Add an AI code reviewer to CI.</strong> One that reads dependency changelogs before the PR is reviewed. When a Helm chart jumps a major version, the reviewer flags the risk before anyone looks at the Terraform plan output.</p>
+<p><strong>4. Make pipeline output descriptive.</strong> Not just <code>error</code> or <code>passed</code> &ndash; what happened, what it means, what to do next. The same standard you&rsquo;d want for a newcomer reading logs for the first time. This is especially important for homegrown software and tools, which are often the first to become tribal knowledge rather than well-documented.</p>
+<p>And then there&rsquo;s the naming. Our QA cluster is called &ldquo;QA,&rdquo; which signals &ldquo;safe to experiment on&rdquo; to anyone outside the platform team. But for us, it&rsquo;s production-grade infrastructure. That label is a false signal too &ndash; the same kind of false signal that started this whole mess. The solution &ndash; a separate sandbox cluster where agents can operate with full autonomy and low risk, so that developer QA stays stable. Start restrictive, loosen with evidence. The better the agent proves itself, the more autonomy it earns.</p>
+<p>The incident didn&rsquo;t make me less convinced about AI adoption. It made me more convinced &ndash; and more honest about what our repos need to look like for engineers, security teams, and AI agents to all contribute safely.</p>
+<p>We&rsquo;re not done. This is a conviction, not a result. The project exists, and the team is working on it. Not everyone agrees on the direction &ndash; some colleagues still think the answer is tighter restrictions, more gates. I think that&rsquo;s solving the wrong problem. The green pipeline didn&rsquo;t lie because we lacked gates. It lied because it was built for one audience and read by another.</p>
+]]></content:encoded>
+    </item>
     <item>
       <title>Layers Made It Universal. Harnesses Made It Run</title>
       <link>https://devdosvid.blog/2026/04/07/layers-made-it-universal.-harnesses-made-it-run/</link>
@@ -38,7 +109,7 @@
 <h2 id="why-ask-claude-to-migrate-this-service-fails">Why &ldquo;ask Claude to migrate this service&rdquo; fails</h2>
 <p>You cannot ask an AI agent to &ldquo;migrate this service to EKS.&rdquo; The task is too broad. The context is too large. The agent will hallucinate a plausible-looking solution, skip steps it decided weren&rsquo;t important, or produce something that <em>looks</em> right and isn&rsquo;t.</p>
 <blockquote class="alert alert-note">
-  <p class="alert-heading">Note</p>
+  
   <p>The failure mode isn&rsquo;t that the AI is dumb. It&rsquo;s that the task has no structure, so the agent invents its own &ndash; and its structure drifts between runs.</p>
 </blockquote>
 <p>You get 21 repositories migrated in 21 different ways, with 21 different sets of mistakes to audit. That&rsquo;s worse than having done nothing.</p>
@@ -50,6 +121,11 @@
 <p>I didn&rsquo;t have that term in October 2025 when we built our own version of one. It&rsquo;s easier to name a thing after you&rsquo;ve already built it wrong twice. We just kept running into the same failure &ndash; the agent doing too much, too fast, with not enough guardrails &ndash; and kept adding constraints until it stopped failing. Mutation boundaries. Ordered steps. Explicit reasoning gates. Validation passes.</p>
 <p>What was new &ndash; for us &ndash; was treating the harness as the <em>primary engineering artifact</em>. Not the prompt. Not the model. The pipeline around them.</p>
 <p>The shift worth taking from it is this &ndash; stop optimizing the prompt, start engineering the pipeline that runs it.</p>
+<div class="subscribe subscribe-inline">
+    <p class="subscribe-cta">If this resonates, subscribe -- I write about platform engineering and technical leadership.</p>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed" height="52" frameborder="0" scrolling="no" style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+</div>
+
 <h2 id="what-our-harness-looked-like">What our harness looked like</h2>
 <p>A workflow is a sequence of numbered markdown files &ndash; each one a step prompt. The agent runs them in order inside an isolated Claude Code session. Context compounds: what step 2 discovered informs what step 5 decides.</p>
 <p>The shape is always the same: context → discovery → analysis → planning → implementation → validation → ship → report.</p>
@@ -118,7 +194,7 @@
       <content:encoded><![CDATA[<p>Five minutes after the all-hands, someone asks me in the hallway, &ldquo;What did he mean by that?&rdquo; Then another person: &ldquo;So what are we actually supposed to do?&rdquo; I didn&rsquo;t have a great answer either. We&rsquo;d all sat through twenty minutes of a strategy change presentation. We all nodded. None of us was in the conversation.</p>
 <p>This isn&rsquo;t a one-off. I see this pattern everywhere &ndash; across teams, across functions, across seniority levels. People show up to meetings. They sit. They nod. They leave without having processed what was said. Full attendance, zero presence.</p>
 <blockquote class="alert alert-note">
-  <p class="alert-heading">Note</p>
+  
   <p>Most advice on listening tells you to add behaviors &ndash; nod more, paraphrase, ask clarifying questions. I think the fix is the opposite. Presence isn&rsquo;t something you perform. It&rsquo;s what remains when you stop doing everything else.</p>
 </blockquote>
 <p>This isn&rsquo;t a listening guide. What follows are patterns &ndash; ways presence breaks down in rooms I&rsquo;ve been in, including when I was the one not present. Once you start recognizing them, they&rsquo;re hard to unsee.</p>
@@ -130,7 +206,7 @@
 <p><strong>Flavor two: understand fine, disagree, won&rsquo;t surface it.</strong> A manager assigned a direction. The team silently accepted. Later, over coffee, one of the engineers told me directly: he disagreed, saw no value in it, and was going to do the minimum to get it off his plate.</p>
 <p>The disagreement never entered the room where it could have changed something. It lived in the hallway, in the coffee chat, in the Slack DM. By the time it surfaced &ndash; slow execution, low quality, quiet attrition &ndash; nobody connected it back to that meeting where everyone nodded.</p>
 <blockquote class="alert alert-note">
-  <p class="alert-heading">Note</p>
+  
   <p>Both flavors look identical in the room. Silent nods. But one is a comprehension gap, and the other is a trust gap. A speaker who&rsquo;s actually paying attention to the room &ndash; not just broadcasting &ndash; can sometimes tell the difference. Yet most speakers don&rsquo;t, because they&rsquo;re focused on getting through their material. They&rsquo;re not listening either.</p>
 </blockquote>
 <h3 id="solving-before-hearing">Solving before hearing</h3>
@@ -144,6 +220,11 @@
 <p>You might think this is a group-meeting problem &ndash; too many people, too many laptops, too much noise. But it happens in the most intimate format we have: the 1:1.</p>
 <p>I&rsquo;ve caught myself doing it. Someone is talking to me one-on-one, and my eyes drift to the screen. I&rsquo;m scanning something &ndash; a notification, a message, a tab I forgot to close. Tracking something that isn&rsquo;t the person in front of me. Not because I don&rsquo;t care. Because the pull of the inbox is stronger than any of us wants to admit.</p>
 <p>This is the version of the problem that&rsquo;s hardest to name, because it feels personal.</p>
+<div class="subscribe subscribe-inline">
+    <p class="subscribe-cta">If this resonates, subscribe -- I write about platform engineering and technical leadership.</p>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed" height="52" frameborder="0" scrolling="no" style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+</div>
+
 <h2 id="what-being-present-actually-looks-like">What being present actually looks like</h2>
 <h3 id="closing-the-lid">Closing the lid</h3>
 <p>I was in a meeting with my team. Everyone had laptops open &ndash; the usual. Someone was presenting an idea, and the room had that familiar energy: half-listening, half-typing.</p>
@@ -154,7 +235,7 @@
 <p>Here&rsquo;s the thing about active listening that most advice gets wrong: it&rsquo;s not a technique. If you try to perform it &ndash; the nodding, the eye contact, the clarification question every twenty seconds &ndash; people notice. They feel the gap between your body language and your attention.</p>
 <p>It only works when you actually stop thinking about everything else. You look at the person. Not staring &ndash; eye contact from time to time. You let them flesh out their thoughts. You can be completely silent. That&rsquo;s fine. Nobody needs you to nod on a timer.</p>
 <blockquote class="alert alert-note">
-  <p class="alert-heading">Note</p>
+  
   <p>The real skill is subtraction, not addition. Remove the distractions. Remove the urge to respond. Remove the performance. What&rsquo;s left is just&hellip; focus. You&rsquo;re in this conversation and nowhere else. That&rsquo;s simpler than any framework, and harder than all of them.</p>
 </blockquote>
 <h3 id="holding-back">Holding back</h3>
@@ -276,6 +357,11 @@
 <p>Start from a single service migration you&rsquo;ve already done. List every change you made, in order. Group changes by type, not by when they happened. Each group is a candidate layer.</p>
 <p>Then validate: can this layer be applied independently of the next one? Can you validate it before moving on? If yes, it&rsquo;s a good layer boundary. If two changes are tightly coupled and can&rsquo;t be validated separately, merge them into one layer.</p>
 <p>One rule we learned the hard way: <strong>one layer per pull request.</strong> Early on, some PRs combined changes from multiple layers &ndash; networking and permissions in the same commit. Validation got complex, rollbacks got messy. Keep them separate.</p>
+<div class="subscribe subscribe-inline">
+    <p class="subscribe-cta">If this resonates, subscribe -- I write about platform engineering and technical leadership.</p>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed" height="52" frameborder="0" scrolling="no" style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+</div>
+
 <h2 id="execution-model">Execution Model</h2>
 <p>A layer sweep works like this: the team takes on a layer, splits the service list among themselves, and each engineer applies that layer to their assigned services. Everyone works the same type of change simultaneously.</p>
 <p>One engineer can realistically sweep a single layer across 6-8 services in a day. That number surprises people &ndash; until they know the tooling. We paired the layered methodology with AI-assisted automation that handled the repetitive configuration work across services. But the important thing is: <strong>the layer-based structure is what makes that automation possible</strong>.</p>
@@ -365,6 +451,11 @@
 </ul>
 <p>None of that changed because his model was better than mine. That list is the leadership contribution. A peer’s ideas are inputs to that process, not competition with it.</p>
 <p>The engineer who comes up with a good idea in a meeting isn’t leading the project. You are. Those aren’t in conflict — they’re complementary.</p>
+<div class="subscribe subscribe-inline">
+    <p class="subscribe-cta">If this resonates, subscribe -- I write about platform engineering and technical leadership.</p>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed" height="52" frameborder="0" scrolling="no" style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+</div>
+
 <h2 id="the-practical-test">The practical test</h2>
 <p>Here’s how I know when I’ve actually internalized this vs. just telling myself a nice story about it:</p>
 <p>Can I say “their approach was better, and I’m glad we went with it” — out loud, to the team, without any residue of resentment?</p>
@@ -468,6 +559,11 @@ Doing so instantly undermines trust. Instead, frame the idea of talking to the m
 <p><strong>Respect Boundaries:</strong> If the answer remains &ldquo;no,&rdquo; accept it gracefully. Thank them for considering it. Preserving the relationship is key for future influence.</p>
 <p><strong>Seek Alternatives:</strong> If it&rsquo;s not feasible, consider other peers. Can you tackle a smaller version of this task yourself? Is it worth deferring (sometimes rethinking reveals it wasn&rsquo;t as critical as initially thought)?</p>
 <p>Creating specific task-based opportunities is powerful, but scaling your impact as a senior IC involves broader strategies too.</p>
+<div class="subscribe subscribe-inline">
+    <p class="subscribe-cta">If this resonates, subscribe -- I write about platform engineering and technical leadership.</p>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed" height="52" frameborder="0" scrolling="no" style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+</div>
+
 <h2 id="broader-strategies-for-scaling-your-impact">Broader Strategies for Scaling Your Impact</h2>
 <p>Beyond direct &ldquo;delegation-as-opportunity,&rdquo; think about these leverage points:</p>
 <p><strong>Mentorship &amp; Sponsorship:</strong> Formalize the growth angle. Move beyond ad-hoc tasks to explicitly mentor someone through a larger piece of work. Actively sponsor them by highlighting their contributions and advocating for their visibility.</p>
@@ -3738,149 +3834,6 @@ How to report these IPs to all organization accounts/users? And if the IP set ch
 <p>Another everyday use case of RAM is the VPC sharing that can form the foundation of the <a href="https://aws.amazon.com/blogs/networking-and-content-delivery/vpc-sharing-a-new-approach-to-multiple-accounts-and-vpc-management/">multi-account AWS architectures</a>.</p>
 <hr>
 <p>Of course, the RAM service is not the only way to organize and centralize resource management in AWS. There are Service Catalog, Control Tower, Systems Manager, Config, and others. However, the RAM is relatively simple to adopt but is capable of providing worthy outcomes.</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>Run Ansible playbook on Mac EC2 Instances fleet with AWS Systems Manager</title>
-      <link>https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/</link>
-      <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
-      <guid>https://devdosvid.blog/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/</guid>
-      <description>Configuration management for mac1.metal and mac2.metal AWS Instances</description>
-      <content:encoded><![CDATA[<p>In days of containers and serverless applications, Ansible looks not such a trendy thing.</p>
-<p>But still, there are cases when it helps, and there are cases when it combines very well with brand new product offerings, such as EC2 Mac instances.</p>
-<p>The <a href="/2021/02/01/customizing-mac1-metal-ec2-ami.html">more I use mac1.metal</a> in AWS, the more I see that Ansible becomes a bedrock of software customization in my case.</p>
-<p>And when you have a large instances fleet, the AWS Systems Manager becomes your best friend (the sooner you get along together, the better).</p>
-<p>So is it possible to use Ansible playbooks for mac1.metal on a big scale, with the help of AWS Systems Manager?</p>
-<h2 id="not-available-out-of-the-box">(Not) Available out of the box</h2>
-<p>AWS Systems Manager (SSM hereafter) has a pre-defined, shared Document that allows running Ansible playbooks.</p>
-<p>It’s called “AWS-RunAnsiblePlaybook,” and you can find it in AWS SSM → Documents → Owned by Amazon.</p>
-<p>However, this Document is not quite “friendly” to macOS. When the SSM agent calls Ansible on the Mac EC2 instance, it does not recognize the Ansible installed with Homebrew (de-facto most used macOS package manager).</p>
-<p>So if you try to run a command on the mac1.metal instance using this Document, you will get the following error:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Ansible is not installed. Please install Ansible and rerun the command.
-</span></span></code></pre></div><p>The root cause is trivial: the path to Ansible binary is not present on the list of paths available to the SSM agent by default.</p>
-<p>There are several ways to solve that, but I believe that the most convenient one would be to create your custom Document — a slightly adjusted version of the default one provided by AWS.</p>
-<h2 id="creating-own-ssm-document-for-ansible-installed-with-homebrew">Creating own SSM Document for Ansible installed with Homebrew</h2>
-<p>All you need to do is clone the Document provided by AWS and change its code a little — replace the callouts of <code>ansible</code> with the full path to the binary.</p>
-<p>Navigate to AWS SSM → Documents → Owned by Amazon and type <code>AWS-RunAnsiblePlaybook</code> in the search field.</p>
-<p>Select the Document by pressing the circle on its top-right corner and then click Actions → Clone document.</p>
-
-<figure>
-    
-    
-        
-        
-        
-        
-        
-        
-        <img loading="lazy"
-             src="/2021/05/27/run-ansible-playbook-on-mac-ec2-instances-fleet-with-aws-systems-manager/aws_ssm_document_clone_hu_c54b72e49bd906aa.webp"width="800"height="476.68" />
-        
-    
-</figure>
-
-<p>Give the new SSM Document a name, e.g., <code>macos-arbitrary-ansible-playbook</code>, and change the <code>ansible</code> callouts (at the end of the code) with the full path to the ansible symlink made by Homebrew which is <code>/usr/local/bin/ansible</code></p>
-<p>Here is the complete source code of the Document with adjusted Ansible path:</p>
-<div class="code-snippet">
-<details>
-<summary markdown="span">Click here to see the code snippet</summary>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;schemaVersion&#34;</span>: <span style="color:#a5d6ff">&#34;2.0&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;description&#34;</span>: <span style="color:#a5d6ff">&#34;Use this document to run arbitrary Ansible playbooks on macOS EC2 instances. Specify either YAML text or URL. If you specify both, the URL parameter will be used. Use the extravar parameter to send runtime variables to the Ansible execution. Use the check parameter to perform a dry run of the Ansible execution. The output of the dry run shows the changes that will be made when the playbook is executed.&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;parameters&#34;</span>: {
-</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;playbook&#34;</span>: {
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;type&#34;</span>: <span style="color:#a5d6ff">&#34;String&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;description&#34;</span>: <span style="color:#a5d6ff">&#34;(Optional) If you don&#39;t specify a URL, then you must specify playbook YAML in this field.&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;default&#34;</span>: <span style="color:#a5d6ff">&#34;&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;displayType&#34;</span>: <span style="color:#a5d6ff">&#34;textarea&#34;</span>
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;playbookurl&#34;</span>: {
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;type&#34;</span>: <span style="color:#a5d6ff">&#34;String&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;description&#34;</span>: <span style="color:#a5d6ff">&#34;(Optional) If you don&#39;t specify playbook YAML, then you must specify a URL where the playbook is stored. You can specify the URL in the following formats: http://example.com/playbook.yml  or s3://examplebucket/plabook.url. For security reasons, you can&#39;t specify a URL with quotes.&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;default&#34;</span>: <span style="color:#a5d6ff">&#34;&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;allowedPattern&#34;</span>: <span style="color:#a5d6ff">&#34;^\\s*$|^(http|https|s3)://[^&#39;]*$&#34;</span>
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;extravars&#34;</span>: {
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;type&#34;</span>: <span style="color:#a5d6ff">&#34;String&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;description&#34;</span>: <span style="color:#a5d6ff">&#34;(Optional) Additional variables to pass to Ansible at runtime. Enter a space separated list of key/value pairs. For example: color=red or fruits=[apples,pears]&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;default&#34;</span>: <span style="color:#a5d6ff">&#34;foo=bar&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;displayType&#34;</span>: <span style="color:#a5d6ff">&#34;textarea&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;allowedPattern&#34;</span>: <span style="color:#a5d6ff">&#34;^((^|\\s)\\w+=(\\S+|&#39;.*&#39;))*$&#34;</span>
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;check&#34;</span>: {
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;type&#34;</span>: <span style="color:#a5d6ff">&#34;String&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;description&#34;</span>: <span style="color:#a5d6ff">&#34; (Optional) Use the check parameter to perform a dry run of the Ansible execution.&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;allowedValues&#34;</span>: [
-</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;True&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;False&#34;</span>
-</span></span><span style="display:flex;"><span>      ],
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;default&#34;</span>: <span style="color:#a5d6ff">&#34;False&#34;</span>
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;timeoutSeconds&#34;</span>: {
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;type&#34;</span>: <span style="color:#a5d6ff">&#34;String&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;description&#34;</span>: <span style="color:#a5d6ff">&#34;(Optional) The time in seconds for a command to be completed before it is considered to have failed.&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;default&#34;</span>: <span style="color:#a5d6ff">&#34;3600&#34;</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;mainSteps&#34;</span>: [
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;action&#34;</span>: <span style="color:#a5d6ff">&#34;aws:runShellScript&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;name&#34;</span>: <span style="color:#a5d6ff">&#34;runShellScript&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;inputs&#34;</span>: {
-</span></span><span style="display:flex;"><span>        <span style="color:#7ee787">&#34;timeoutSeconds&#34;</span>: <span style="color:#a5d6ff">&#34;{{ timeoutSeconds }}&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#7ee787">&#34;runCommand&#34;</span>: [
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;#!/bin/bash&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;/usr/local/bin/ansible --version&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;if [ $? -ne 0 ]; then&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34; echo \&#34;Ansible is not installed. Please install Ansible and rerun the command\&#34; &gt;&amp;2&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34; exit 1&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;fi&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;execdir=$(dirname $0)&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;cd $execdir&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;if [ -z &#39;{{playbook}}&#39; ] ; then&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34; if [[ \&#34;{{playbookurl}}\&#34; == http* ]]; then&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;   wget &#39;{{playbookurl}}&#39; -O playbook.yml&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;   if [ $? -ne 0 ]; then&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;       echo \&#34;There was a problem downloading the playbook. Make sure the URL is correct and that the playbook exists.\&#34; &gt;&amp;2&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;       exit 1&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;   fi&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34; elif [[ \&#34;{{playbookurl}}\&#34; == s3* ]] ; then&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;   aws --version&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;   if [ $? -ne 0 ]; then&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;       echo \&#34;The AWS CLI is not installed. The CLI is required to process Amazon S3 URLs. Install the AWS CLI and run the command again.\&#34; &gt;&amp;2&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;       exit 1&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;   fi&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;   aws s3 cp &#39;{{playbookurl}}&#39; playbook.yml&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;   if [ $? -ne 0 ]; then&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;       echo \&#34;Error while downloading the document from S3\&#34; &gt;&amp;2&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;       exit 1&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;   fi&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34; else&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;   echo \&#34;The playbook URL is not valid. Verify the URL and try again.\&#34;&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34; fi&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;else&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34; echo &#39;{{playbook}}&#39; &gt; playbook.yml&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;fi&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;if  [[ \&#34;{{check}}\&#34; == True ]] ; then&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;   /usr/local/bin/ansible-playbook -i \&#34;localhost,\&#34; --check -c local -e \&#34;{{extravars}}\&#34; playbook.yml&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;else&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;   /usr/local/bin/ansible-playbook -i \&#34;localhost,\&#34; -c local -e \&#34;{{extravars}}\&#34; playbook.yml&#34;</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#a5d6ff">&#34;fi&#34;</span>
-</span></span><span style="display:flex;"><span>        ]
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  ]
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div>
-</details>
-</div>
-<h2 id="applying-ansible-playbook-to-the-fleet-of-mac1metal">Applying Ansible playbook to the fleet of mac1.metal</h2>
-<p>Let’s give our new SSM Document a try! (I suppose you have at least one mac1 instance running, right?)</p>
-<p>In AWS SSM, go to the Run Command feature, then click on the Run Command button.</p>
-<p>On the new panel, type the name of your Document (<code>macos-arbitrary-ansible-playbook</code> in this example) in the search field and press enter.</p>
-<p>Select the Document, and you’ll see its parameters and settings.</p>
-<p>The rest is self-explanatory. Enter either a playbook code or a link to the source file, add extra variables if needed, and select the target host or a filtered bunch (I like that feature with tags filtering!). Finally, click on the “Run” orange button to apply your playbook.</p>
-<p>That’s it! Now you can make all your ansible-playbook dreams come true! 😁</p>
 ]]></content:encoded>
     </item>
   </channel>
