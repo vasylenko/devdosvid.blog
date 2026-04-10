@@ -60,6 +60,8 @@ I've caught myself doing it. Someone is talking to me one-on-one, and my eyes dr
 
 This is the version of the problem that's hardest to name, because it feels personal.
 
+{{< subscribe >}}
+
 ## What being present actually looks like
 ### Closing the lid
 I was in a meeting with my team. Everyone had laptops open -- the usual. Someone was presenting an idea, and the room had that familiar energy: half-listening, half-typing.

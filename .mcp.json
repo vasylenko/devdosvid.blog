@@ -12,6 +12,10 @@
     "coda": {
       "type": "http",
       "url": "https://coda.io/apis/mcp"
-      }
+    },
+    "beehiiv": {
+      "type": "http",
+      "url": "https://mcp.beehiiv.com/mcp"
+    }
   }
 }

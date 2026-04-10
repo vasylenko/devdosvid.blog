@@ -63,6 +63,8 @@ What was new -- for us -- was treating the harness as the *primary engineering a
 
 The shift worth taking from it is this -- stop optimizing the prompt, start engineering the pipeline that runs it.
 
+{{< subscribe >}}
+
 ## What our harness looked like
 
 A workflow is a sequence of numbered markdown files -- each one a step prompt. The agent runs them in order inside an isolated Claude Code session. Context compounds: what step 2 discovered informs what step 5 decides.

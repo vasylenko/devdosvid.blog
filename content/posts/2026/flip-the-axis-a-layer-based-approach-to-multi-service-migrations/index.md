@@ -77,6 +77,8 @@ Then validate: can this layer be applied independently of the next one? Can you 
 
 One rule we learned the hard way: **one layer per pull request.** Early on, some PRs combined changes from multiple layers -- networking and permissions in the same commit. Validation got complex, rollbacks got messy. Keep them separate.
 
+{{< subscribe >}}
+
 ## Execution Model
 A layer sweep works like this: the team takes on a layer, splits the service list among themselves, and each engineer applies that layer to their assigned services. Everyone works the same type of change simultaneously.
 

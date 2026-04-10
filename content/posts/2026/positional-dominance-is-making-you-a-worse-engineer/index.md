@@ -54,6 +54,8 @@ None of that changed because his model was better than mine. That list is the le
 
 The engineer who comes up with a good idea in a meeting isn’t leading the project. You are. Those aren’t in conflict — they’re complementary.
 
+{{< subscribe >}}
+
 ## The practical test
 
 Here’s how I know when I’ve actually internalized this vs. just telling myself a nice story about it:

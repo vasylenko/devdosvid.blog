@@ -1,10 +1,11 @@
 .alert {
-    --alert-color: var(--color-text-muted);
-    padding: 0.75em 1em;
-    margin: 1.5em 0;
-    border-left: 2px solid var(--alert-color);
-    border-radius: 0;
-    background-color: transparent;
+    --alert-color: var(--color-teal);
+    --alert-bg: var(--color-teal-light);
+    padding: 1.25em 1.5em;
+    margin: 2em 0;
+    border-left: 4px solid var(--alert-color);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    background-color: var(--alert-bg);
 }
 
 .alert p:last-child {
@@ -24,8 +25,10 @@
 .alert-important,
 .alert-warning {
     --alert-color: var(--color-amber);
+    --alert-bg: color-mix(in srgb, var(--color-amber) 8%, var(--color-background));
 }
 
 .alert-caution {
     --alert-color: var(--color-red);
+    --alert-bg: color-mix(in srgb, var(--color-red) 8%, var(--color-background));
 }
