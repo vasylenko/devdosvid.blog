@@ -13,12 +13,12 @@ fi
 title="$*"
 year=$(date +%Y)
 slug=$(echo "$title" | tr '[:upper:]' '[:lower:]' | tr -cs '[:alnum:]' '-' | sed 's/^-*//;s/-*$//')
-path="posts/${year}/${slug}"
+post_path="posts/${year}/${slug}"
 
-/opt/homebrew/bin/hugo new content -k post-bundle "$path"
+/opt/homebrew/bin/hugo new content -k post-bundle "$post_path"
 
 # Replace Hugo's auto-generated title (derived from slug) with the original input
-index_file="content/${path}/index.md"
+index_file="content/${post_path}/index.md"
 escaped_title=$(printf '%s' "$title" | sed 's/&/\\&/g')
 sed -i '' "s|^title: \".*\"|title: \"${escaped_title}\"|" "$index_file"
 
