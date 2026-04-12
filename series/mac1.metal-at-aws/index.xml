@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Apr 2026 16:57:55 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 12 Apr 2026 16:59:13 +0200</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/mac1.metal-at-aws/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
@@ -308,8 +308,8 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 <details>
 <summary markdown="span">Click here to see the code snippet</summary>
 <div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;schemaVersion&#34;</span>: <span style="color:#a5d6ff">&#34;2.0&#34;</span><span style="color:#f85149">,</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;description&#34;</span>: <span style="color:#a5d6ff">&#34;Use this document to run arbitrary Ansible playbooks on macOS EC2 instances. Specify either YAML text or URL. If you specify both, the URL parameter will be used. Use the extravar parameter to send runtime variables to the Ansible execution. Use the check parameter to perform a dry run of the Ansible execution. The output of the dry run shows the changes that will be made when the playbook is executed.&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;schemaVersion&#34;</span>: <span style="color:#a5d6ff">&#34;2.0&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;description&#34;</span>: <span style="color:#a5d6ff">&#34;Use this document to run arbitrary Ansible playbooks on macOS EC2 instances. Specify either YAML text or URL. If you specify both, the URL parameter will be used. Use the extravar parameter to send runtime variables to the Ansible execution. Use the check parameter to perform a dry run of the Ansible execution. The output of the dry run shows the changes that will be made when the playbook is executed.&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;parameters&#34;</span>: {
 </span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;playbook&#34;</span>: {
 </span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&#34;type&#34;</span>: <span style="color:#a5d6ff">&#34;String&#34;</span>,
