@@ -1,6 +1,6 @@
 ---
 title: "{{ replace .Name "-" " " | title }}"
-slug: "{{ .Name }}"
+slug: "{{ .Name | urlize }}"
 date: {{ .Date }}
 summary: ~112 chars or ~22 words
 description: ~112 chars or ~22 words
