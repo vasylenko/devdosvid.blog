@@ -4,18 +4,13 @@
       "command": "npx",
       "args": [
         "-y",
-        "chrome-devtools-mcp@latest",
-        "--browserUrl",
-        "http://127.0.0.1:9222"
+        "chrome-devtools-mcp",
+        "--autoConnect"
       ]
     },
     "coda": {
       "type": "http",
       "url": "https://coda.io/apis/mcp"
-    },
-    "beehiiv": {
-      "type": "http",
-      "url": "https://mcp.beehiiv.com/mcp"
     }
   }
 }
