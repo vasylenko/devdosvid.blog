@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Apr 2026 16:52:57 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 12 Apr 2026 16:54:51 +0200</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/terraform-proficiency/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Terraform Static Code Analysis Tools Compared: Checkov, Trivy, KICS &amp; More</title>
@@ -125,6 +125,11 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
 <p>As you can see, all tools support the &ldquo;Big Three&rdquo; cloud service Terraform providers—AWS, Azure, and GCP—for managing resources on these popular platforms.</p>
 <p>With over 2000 out-of-the-box policies, Checkov significantly stands out from the competition. This tool also leads in the total number of supported Terraform providers.</p>
 <p>While the default policies provide a strong foundation for security scanning, the ability to tailor these policies is just as crucial. Next, we&rsquo;ll explore how each tool accommodates custom policy capabilities, allowing you to fine-tune the policies to fit your project&rsquo;s specific requirements.</p>
+<div class="subscribe subscribe-inline">
+    <p class="subscribe-cta">I write about Terraform, infrastructure security, and platform engineering practices.</p>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed" height="52" frameborder="0" scrolling="no" style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+</div>
+
 <h2 id="custom-policy-capabilities">Custom Policy Capabilities</h2>
 <p>Default policies serve as the foundation, but the nuances of each project demand the extension of this base.</p>
 <p>Here, we delve into how each tool enables you to add custom policies, thus enhancing and refining the provided defaults.</p>
@@ -608,6 +613,11 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
 </div>
 <p>As a side note, check out this <a href="https://docs.aws.amazon.com/lambda/latest/operatorguide/intro.html">AWS Lambda Operator Guide</a>, which offers specialized advice on developing, securing, and monitoring applications based on AWS Lambda.</p>
 <p>Let&rsquo;s switch to the HTTP API part to see how it looks and learn how it integrates Lambda functions.</p>
+<div class="subscribe subscribe-inline">
+    <p class="subscribe-cta">I write about AWS, Terraform, and the engineering practices behind reliable infrastructure.</p>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed" height="52" frameborder="0" scrolling="no" style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+</div>
+
 <h2 id="deep-dive-into-http-api-gateway">Deep Dive into HTTP API Gateway</h2>
 <p>Now, we focus on the HTTP API Gateway, delving into its essential concepts, seamless integration with AWS Lambda, and using Terraform efficiently for streamlined configuration.</p>
 <p>But before we do that, and since we have partially covered the Terraform code already, I&rsquo;d like to illustrate the logical connection between three main components of the project&rsquo;s Terraform codebase: AWS Lambda, HTTP API, and API Routes.</p>
@@ -968,6 +978,11 @@ While the null provider is still available and there are no statements about its
             </p>
     </figcaption>
 </figure>
+
+<div class="subscribe subscribe-inline">
+    <p class="subscribe-cta">More Terraform deep-dives and platform engineering insights — subscribe.</p>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed" height="52" frameborder="0" scrolling="no" style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+</div>
 
 <h2 id="use-case-for-terraform_data-with-provisioner">Use case for terraform_data with provisioner</h2>
 <p>Before we start: HashiCorp suggests (and I also support that) avoiding provisioner usage unless you have no other options left. One of the reasons — additional, implicit, and unobvious dependency that appears in the codebase — the binary, which is called inside the provisioner block, must be present on the machine. <br>

@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Apr 2026 16:52:57 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 12 Apr 2026 16:54:51 +0200</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/mac1.metal-at-aws/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
@@ -699,6 +699,11 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 <li>It does not support several services that rely on additional custom software, such as &ldquo;EC2 Instance Connect&rdquo; and &ldquo;AWS Inspect.&rdquo; But I think that AWS will add macOS distros for those soon.</li>
 </ul>
 <p>As of July 2022, mac2.metal is not supported by Host Resource Groups. Therefore you cannot use mac2.metal Instances in Auto Scaling Groups. But AWS support says they are working on that, so fingers crossed!</p>
+<div class="subscribe subscribe-inline">
+    <p class="subscribe-cta">I write about AWS, infrastructure automation, and engineering leadership.</p>
+    <iframe src="https://embeds.beehiiv.com/60009a3f-3202-4ac0-85f8-0d3db1ea781b?slim=true" data-test-id="beehiiv-embed" height="52" frameborder="0" scrolling="no" style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+</div>
+
 <h2 id="launching-the-instance">Launching the Instance</h2>
 
 <figure>
