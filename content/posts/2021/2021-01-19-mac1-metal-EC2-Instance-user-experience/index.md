@@ -1,6 +1,7 @@
 ---
 date: "2021-01-19T00:00:00Z"
 title: "mac1.metal and mac2.metal EC2 Instances: Pricing, Specs & Hands-on Review"
+slug: mac1.metal-and-mac2.metal-ec2-instances-user-experience
 description: "A hands-on review of AWS mac1.metal and mac2.metal EC2 instances — pricing, specs, performance, AMI customization, and the 24-hour minimum allocation gotcha."
 summary: "Hands-on review of AWS mac1.metal and mac2.metal EC2 instances: pricing, specs, and practical gotchas."
 cover:

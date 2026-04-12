@@ -10,6 +10,7 @@ cover:
 tags: ["aws", "cloudfront", "security", "cloudfront headers", "cdn"]
 categories: [Amazon Web Services]
 title: Configure HTTP Security headers with CloudFront Functions
+slug: configure-http-security-headers-with-cloudfront-functions
 aliases: ["/2021/05/21/configure-http-security-headers-with-cloudfront-functions.html"]
 ---
 

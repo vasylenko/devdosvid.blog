@@ -1,5 +1,6 @@
 ---
 title: "terraform_data vs null_resource: The Built-in Replacement in Terraform 1.4"
+slug: hello-terraform-data-goodbye-null-resource
 date: 2023-04-16T01:25:18+02:00
 summary: "terraform_data is the native replacement for null_resource starting with Terraform 1.4."
 description: "terraform_data replaces null_resource in Terraform 1.4 as a built-in managed resource. See the differences, use cases with triggers_replace and provisioners, plus migration examples."
