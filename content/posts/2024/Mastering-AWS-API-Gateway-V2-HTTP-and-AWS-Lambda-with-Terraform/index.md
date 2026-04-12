@@ -44,7 +44,7 @@ The decision, Allow or Deny, is passed back to the API, and if allowed, the API 
 Choosing the right architectural setup is critical in balancing simplicity, cost-efficiency, and security. In this section, we uncover why integrating AWS HTTP API Gateway with Lambda Authorizer is a compelling choice, offering a streamlined approach without compromising security.
 
 {{<updatenotice>}}
-**Updated in April 2026**: Starting August 1, 2025, AWS bills for the Lambda cold start initialization (INIT) phase for all runtimes, including zip-deployed functions. The cost estimates below may be slightly understated for workloads with frequent cold starts. Also, `provided.al2` reaches end of life on July 31, 2026 — this guide already uses `provided.al2023`, which is supported until June 30, 2029.
+**Updated in April 2026**: Starting August 1, 2025, AWS bills for the Lambda cold start initialization (INIT) phase for all runtimes, including zip-deployed functions. The cost estimates below may be slightly understated for workloads with frequent cold starts. Also, `provided.al2` reaches end of life on June 30, 2026 — this guide already uses `provided.al2023`, which is supported until June 30, 2029.
 {{</updatenotice>}}
 
 ### Cost-Effectiveness: Balancing Performance and Price
