@@ -43,6 +43,10 @@ The decision, Allow or Deny, is passed back to the API, and if allowed, the API 
 ## Behind The Decision: Why Such a Setup?
 Choosing the right architectural setup is critical in balancing simplicity, cost-efficiency, and security. In this section, we uncover why integrating AWS HTTP API Gateway with Lambda Authorizer is a compelling choice, offering a streamlined approach without compromising security.
 
+{{<updatenotice>}}
+**Updated in April 2026**: Starting August 1, 2025, AWS bills for the Lambda cold start initialization (INIT) phase for all runtimes, including zip-deployed functions. The cost estimates below may be slightly understated for workloads with frequent cold starts. Also, `provided.al2` reaches end of life on July 31, 2026 — this guide already uses `provided.al2023`, which is supported until June 30, 2029.
+{{</updatenotice>}}
+
 ### Cost-Effectiveness: Balancing Performance and Price
 The AWS HTTP API is noteworthy for its streamlined and simple design compared to other API Gateway options. That translates directly into cost savings for businesses. Its efficiency makes it an ideal choice for cost-effective serverless computing, especially for those looking to optimize their cloud infrastructure with Terraform automation. Here is a more detailed comparison of different API Gateway options — [Cost optimization](https://docs.aws.amazon.com/whitepapers/latest/best-practices-api-gateway-private-apis-integration/cost-optimization.html).
 
@@ -422,7 +426,11 @@ resource "aws_iam_role" "api_gateway_cloudwatch_logs" {
       }  
     ]  
   })  
-  managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"]  
+}  
+
+resource "aws_iam_role_policy_attachment" "api_gateway_cloudwatch_logs" {  
+  role       = aws_iam_role.api_gateway_cloudwatch_logs.name  
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"  
 }  
   
 resource "aws_cloudwatch_log_group" "api_gateway_logs_inkyframe" {  
