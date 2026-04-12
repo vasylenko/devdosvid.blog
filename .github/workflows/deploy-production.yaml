@@ -30,10 +30,8 @@ jobs:
           path: ${{ env.ARTIFACT }}
           retention-days: 1
 
-  # I need to checkout the ${{env.GHPAGES_BRANCH}} branch with the built website content,
-  # and then download the artifact from the build job into it.
-  # This will ultimately change/add some files — things I need to commit and push back to the branch.
-  # And this is where passing the artifacts between jobs makes sense.
+  # Checkout the deploy branch, clean all existing files, then replace with fresh build output.
+  # This ensures stale files from old builds (renamed posts, removed taxonomies) don't persist.
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
@@ -42,6 +40,9 @@ jobs:
         uses: actions/checkout@v6
         with:
           ref: '${{ env.GHPAGES_BRANCH }}'
+
+      - name: Clean existing files
+        run: find . -maxdepth 1 -not -name '.git' -not -name '.' -exec rm -rf {} +
 
       - name: Get the new website content
         uses: actions/download-artifact@v8
