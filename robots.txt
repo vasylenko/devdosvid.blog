@@ -1,3 +1,7 @@
 User-agent: *
-Disallow:
+Disallow: /index.json
+Disallow: /index.xml
+Disallow: /*/index.xml
+Disallow: /latest-post/
+
 Sitemap: https://devdosvid.blog/sitemap.xml
