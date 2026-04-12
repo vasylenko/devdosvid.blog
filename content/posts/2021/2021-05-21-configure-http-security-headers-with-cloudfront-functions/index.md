@@ -1,11 +1,12 @@
 ---
 date: "2021-05-21T00:00:00Z"
-description: Modifying response headers to enforce the security of the web application
-summary: Modifying response headers to enforce the security of the web application
+description: "Add HTTP security headers (CSP, HSTS, X-Frame-Options) to CloudFront responses using CloudFront Functions — with JavaScript examples and Terraform setup."
+summary: "Add HTTP security headers to CloudFront responses using CloudFront Functions with JavaScript examples."
 images: ["cover_image.png"]
 cover:
     image: "cover-image.png"
     relative: true
+    alt: "CloudFront Functions configuration for HTTP security response headers"
 tags: ["aws", "cloudfront", "security", "cloudfront headers", "cdn"]
 categories: [Amazon Web Services]
 title: Configure HTTP Security headers with CloudFront Functions

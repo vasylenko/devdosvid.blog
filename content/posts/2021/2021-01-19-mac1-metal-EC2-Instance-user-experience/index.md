@@ -1,11 +1,12 @@
 ---
 date: "2021-01-19T00:00:00Z"
-title: mac1.metal and mac2.metal EC2 Instances — user experience
-description: Apple macOS development ecosystem with the power of AWS Cloud
-summary: Apple macOS development ecosystem with the power of AWS Cloud
+title: "mac1.metal and mac2.metal EC2 Instances: Pricing, Specs & Hands-on Review"
+description: "A hands-on review of AWS mac1.metal and mac2.metal EC2 instances — pricing, specs, performance, AMI customization, and the 24-hour minimum allocation gotcha."
+summary: "Hands-on review of AWS mac1.metal and mac2.metal EC2 instances: pricing, specs, and practical gotchas."
 cover:
   image: cover-image.jpg
   relative: true
+  alt: "AWS mac1.metal and mac2.metal EC2 Mac instances overview"
 tags: ["mac1 metal", "macos aws", "mac1 metal pricing", "mac2 metal pricing", "mac1.metal", "mac2.metal", "aws mac ec2 pricing"]
 categories: [Amazon Web Services]
 aliases: ["/2021/01/19/mac1-metal-EC2-Instance-user-experience.html"]

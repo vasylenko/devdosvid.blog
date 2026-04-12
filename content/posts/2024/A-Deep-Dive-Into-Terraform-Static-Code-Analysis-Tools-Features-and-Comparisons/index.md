@@ -1,8 +1,8 @@
 ---
-title: "A Deep Dive Into Terraform Static Code Analysis Tools: Features and Comparisons"
+title: "Terraform Static Code Analysis Tools Compared: Checkov, Trivy, KICS & More"
 date: 2024-04-16T21:14:15+02:00
-summary: "Explore key features and comparisons of top Terraform static code analysis tools to enhance security and compliance in your infrastructure management."
-description: "Explore key features and comparisons of top Terraform static code analysis tools to enhance security and compliance in your infrastructure management."
+summary: "Side-by-side comparison of 6 Terraform static analysis tools: Checkov, Trivy, KICS, Terrascan, tfsec, and Semgrep."
+description: "Compare 6 Terraform static code analysis tools — Checkov, Trivy, KICS, Terrascan, tfsec, Semgrep — across built-in policies, custom rules, CI/CD integrations, and output formats."
 cover:
     image: cover-image.png
     relative: true

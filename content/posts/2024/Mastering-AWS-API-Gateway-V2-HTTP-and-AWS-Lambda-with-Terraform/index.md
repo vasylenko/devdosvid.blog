@@ -1,23 +1,22 @@
 ---
-title: "Mastering AWS API Gateway V2 HTTP and AWS Lambda With Terraform"
+title: "AWS API Gateway V2 + Lambda with Terraform: A Complete Guide"
 date: 2024-01-09T03:33:10+01:00
-summary: The article provides insights into using AWS API Gateway and AWS Lambda with Terraform for efficient, cost-effective serverless solutions.
-description: The article provides insights into using AWS API Gateway and AWS Lambda with Terraform for efficient, cost-effective serverless solutions.
+summary: Step-by-step guide to building a serverless backend with API Gateway V2 HTTP API and Lambda using Terraform.
+description: "Step-by-step Terraform guide to AWS API Gateway V2 HTTP API with Lambda authorizer, backend integration, custom domain, routes, stages, and CloudWatch monitoring."
 cover:
     image: cover-image.jpg
     relative: true
     alt: "Illustration of a cloud symbol containing icons of a gear, an API symbol, and geometric shapes, representing cloud computing and API management."
 tags: [
-  "AWS API Gateway V2",
-  "Serverless Architecture",
-  "AWS Lambda Functions",
-  "Terraform Automation",
-  "Cloud Computing",
-  "Infrastructure as Code",
-  "Cost-Efficient Cloud Services",
-  "Lambda Authorizer",
-  "API Gateway Integration"
+  "terraform",
+  "aws api gateway",
+  "aws lambda",
+  "serverless",
+  "api gateway v2",
+  "lambda authorizer",
+  "infrastructure as code"
 ]
+series: ["Terraform Proficiency"]
 draft: false
 ---
 
