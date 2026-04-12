@@ -13,7 +13,11 @@ categories: [Terraform]
 series: ["Terraform Proficiency"]
 ---
 
-Terraform version 1.4 was recently released and brought a range of new features, including improved run output in Terraform Cloud, the ability to use OPA policy results in the CLI, and a built-in alternative to the null resource — terraform_data.
+{{<updatenotice>}}
+**Updated in April 2026**: Added the `moved` block migration path (Terraform 1.9+), corrected the deprecation status of null_resource, and added notes about OpenTofu compatibility and Terraform 1.14 `action` blocks.
+{{</updatenotice>}}
+
+Terraform version 1.4 brought a range of new features, including improved run output in Terraform Cloud, the ability to use OPA policy results in the CLI, and a built-in alternative to the null resource — terraform_data.
 
 In this blog post, I want to demonstrate and explain the **terraform_data** resource that serves two purposes:
 - firstly, it allows arbitrary values to be stored and used afterward to implement lifecycle triggers of other resources
@@ -21,7 +25,7 @@ In this blog post, I want to demonstrate and explain the **terraform_data** reso
 
 For those of you, who are familiar with the null provider, the `terraform_data` resource might look very similar. And you're right!\
 Rather than being a separate provider, the terraform_data managed resource now offers the same capabilities as an integrated feature. Pretty cool! \
-While the null provider is still available and there are no statements about its deprecation thus far ([as of April 2023, v3.2.1](https://registry.terraform.io/providers/hashicorp/null/3.2.1/docs)), the  `terraform_data` is the native replacement of the `null_resource`, and the latter might soon become deprecated.
+While the null provider is still available and has not been formally deprecated ([as of April 2026, v3.2.4](https://registry.terraform.io/providers/hashicorp/null/3.2.4/docs)), the `terraform_data` is the recommended replacement for `null_resource`. The null provider registry now includes an official migration guide to `terraform_data`, and the CDKTF prebuilt bindings for null were archived in December 2025.
 
 The  `terraform_data` resource has two optional arguments, **input** and **triggers_replace**, and its configuration looks as follows:
 
@@ -74,9 +78,34 @@ In this example, the following happens:
 - When resources are created the first time, the provisioner inside `terraform_data` runs
 - Sequential plan/apply will trigger another execution of the provisioner only when the private IP of the instance (aws_instance.webserver.private_ip) changes because that will trigger `terraform_data` recreation. At the same time, no changes to the internal IP mean no provisioner execution.
 
+## Migrating from null_resource to terraform_data
+
+Starting with Terraform 1.9, you can use the `moved` block to migrate existing `null_resource` instances to `terraform_data` without destroying and recreating them. This is the smoothest migration path — it preserves state and avoids re-running provisioners.
+
+```terraform
+moved {
+  from = null_resource.example
+  to   = terraform_data.example
+}
+
+resource "terraform_data" "example" {
+  triggers_replace = var.trigger_value
+}
+```
+
+After running `terraform apply` with the `moved` block, Terraform updates the state in place. You can remove the `moved` block in a subsequent commit once the migration is applied.
+
+One thing to note when migrating: `null_resource.triggers` is a `map(string)`, while `terraform_data.triggers_replace` accepts any value type. This means some trigger expressions may need adjustment during migration.
+
+{{<attention>}}The `moved` block migration requires Terraform 1.9 or later. OpenTofu supports this starting from version 1.10.0.{{</attention>}}
+
+## A note on Terraform 1.14 action blocks
+
+Terraform 1.14 introduced `action` blocks — provider-defined, non-CRUD operations such as invoking a Lambda function or invalidating a CDN cache. For some use cases where `terraform_data` serves as a provisioner trigger, `action` blocks may offer a cleaner declarative alternative. This feature is still new, but worth keeping an eye on.
+
 ____
 
-With its ability to store and use values for lifecycle triggers and provisioners, **terraform_data** is a powerful tool that can enhance your Terraform configuration. 
+With its ability to store and use values for lifecycle triggers and provisioners, **terraform_data** is a powerful tool that can enhance your Terraform configuration. It works identically in both Terraform and [OpenTofu](https://opentofu.org/).
 
 Although the null provider still has its place in the Terraform ecosystem, terraform_data is its evolution, and its integration as a feature is certainly something to be excited about. 
 
