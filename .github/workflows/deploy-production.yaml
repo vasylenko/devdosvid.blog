@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 # full history for enableGitInfo sitemap lastmod
 
       - name: Build Hugo Website
         uses: ./.github/actions/build-hugo-website
