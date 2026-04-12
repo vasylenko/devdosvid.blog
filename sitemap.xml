@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://devdosvid.blog/</loc>
-    <lastmod>2026-04-12T16:57:55+02:00</lastmod>
+    <lastmod>2026-04-12T20:32:19+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/engineering-leadership/</loc>
@@ -11,11 +11,11 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/posts/</loc>
-    <lastmod>2026-04-12T16:57:55+02:00</lastmod>
+    <lastmod>2026-04-12T20:32:19+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/</loc>
-    <lastmod>2026-04-12T16:57:55+02:00</lastmod>
+    <lastmod>2026-04-12T20:32:19+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2026/04/10/the-pipeline-was-green/</loc>
@@ -51,19 +51,19 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/terraform-proficiency/</loc>
-    <lastmod>2026-04-12T16:57:55+02:00</lastmod>
+    <lastmod>2026-04-12T20:32:19+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2024/04/16/a-deep-dive-into-terraform-static-code-analysis-tools-features-and-comparisons/</loc>
-    <lastmod>2026-04-12T16:57:55+02:00</lastmod>
+    <lastmod>2026-04-12T20:32:19+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/</loc>
-    <lastmod>2026-04-12T16:57:55+02:00</lastmod>
+    <lastmod>2026-04-12T20:32:19+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/</loc>
-    <lastmod>2026-04-12T16:57:55+02:00</lastmod>
+    <lastmod>2026-04-12T20:32:19+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/07/24/five-practical-ways-to-get-the-verified-ec2-ami/</loc>

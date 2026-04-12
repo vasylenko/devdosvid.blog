@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Apr 2026 16:57:55 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 12 Apr 2026 20:32:19 +0200</lastBuildDate>
     <atom:link href="https://devdosvid.blog/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The Pipeline Was Green</title>
@@ -1004,7 +1004,7 @@ The first bucket contains CI/CD builds and cached third-party artifacts — esse
       <description>Compare 6 Terraform static code analysis tools — Checkov, Trivy, KICS, Terrascan, tfsec, Semgrep — across built-in policies, custom rules, CI/CD integrations, and output formats.</description>
       <content:encoded><![CDATA[<p>Many teams employ Terraform by HashiCorp to efficiently manage their infrastructure, leveraging its ability to automate the lifecycle of complex environments. Yet, integrating security scanning into Terraform pipelines often remains overlooked, exposing these environments to potential security risks and compliance issues.</p>
 <p>This article explores several prominent static code analyzers that support Terraform code and focus on its security scanning. This comparison will guide teams in choosing the right tool to enhance their security measures within Terraform workflows, ensuring safer and more compliant infrastructure management.</p>
-<p>Here are the tools we&rsquo;ll be reviewing: <strong>KICS</strong>, <strong>tfsec</strong>, <strong>Trivy</strong>, <strong>Terrascan</strong>, <strong>Checkov</strong>, and <strong>Semgrep OSS</strong>.</p>
+<p>Here are the tools we&rsquo;ll be reviewing: <strong>KICS</strong>, <strong>tfsec</strong>, <strong>Trivy</strong>, <strong>Terrascan</strong>, <strong>Checkov</strong>, and <strong>Semgrep Community Edition</strong> (Semgrep CE).</p>
 <p>While many of these tools also support other platforms and technologies, <strong>this review will concentrate exclusively on their functionality with Terraform.</strong></p>
 <h2 id="why-use-static-code-analysis-for-terraform">Why use Static Code Analysis for Terraform</h2>
 <p>Static code analysis tools are necessary to enhance the security of Terraform-managed infrastructures. Unlike linters, these tools focus not on syntax errors or coding style but delve deeply into the code to identify security vulnerabilities and potential compliance issues without running the actual code. This proactive approach to security helps safeguard the infrastructure from potential threats before deployment.</p>
@@ -1026,6 +1026,9 @@ The first bucket contains CI/CD builds and cached third-party artifacts — esse
 </ul>
 <p>With a clear understanding of the necessary features in a static code analyzer, which tools on the market best fulfill these criteria?</p>
 <p>Let&rsquo;s take a closer look at some leading options!</p>
+<div class="updatenotice">
+    <strong>Updated in April 2026</strong>: Tool statuses and policy counts have been refreshed. Terrascan has been archived by Tenable and is no longer maintained. Semgrep OSS has been renamed to Semgrep Community Edition, with a community fork (Opengrep) emerging after license changes.
+</div>
 <h2 id="meet-the-static-code-analyzers-for-terraform">Meet the Static Code Analyzers for Terraform</h2>
 <p>Following on what makes a static code analyzer robust, let&rsquo;s dive into some open-source tools that exemplify these essential features.</p>
 <p>I picked six tools for my review. I know there are more on the market, but I focused on <strong>open-source, free-to-use</strong> tools and those that provide at least &gt;100 out-of-the-box scanning policies for Terraform.</p>
@@ -1038,8 +1041,7 @@ Owner/Maintainer: Aqua Security (acquired in 2021)<br>
 Age: First released on GitHub on March 5th, 2019<br>
 License: <a href="https://github.com/aquasecurity/tfsec/blob/master/LICENSE">MIT License</a>
 <div class="attention">
-    tfsec project is no longer actively maintained in favor of the Trivy tool. But because many people still use it and it&rsquo;s quite famous, I added tfsec to this comparison.<br>
-However, I recommend against using it for new projects.
+    tfsec has been fully deprecated and archived. All tfsec checks have been migrated into Trivy, and tfsec does not support Terraform 1.5+ features. To migrate, replace <code>tfsec .</code> with <code>trivy config .</code> — all check IDs (e.g., AVD-AWS-0086) work unchanged in Trivy. I keep tfsec in this comparison for reference only.
 </div></p>
 <p><strong>Trivy</strong><br>
 Owner/Maintainer: Aqua Security<br>
@@ -1049,15 +1051,21 @@ License: <a href="https://github.com/aquasecurity/trivy/blob/main/LICENSE">Apach
 <p><strong>Terrascan</strong><br>
 Owner/Maintainer: Tenable (acquired in 2022)<br>
 Age: First release on GitHub on November 28th, 2017<br>
-License: <a href="https://github.com/tenable/terrascan/blob/master/LICENSE">Apache License 2.0</a></p>
+License: <a href="https://github.com/tenable/terrascan/blob/master/LICENSE">Apache License 2.0</a>
+<div class="attention">
+    Terrascan was archived by Tenable on November 20, 2025. The GitHub repository is read-only — no new issues, PRs, or releases are accepted. I keep it in this comparison for reference, but recommend migrating to Checkov, Trivy, or KICS.
+</div></p>
 <p><strong>Checkov</strong><br>
 Owner/Maintainer: Prisma Cloud by Palo Alto Networks (acquired in 2021)<br>
 Age: First released on GitHub on March 31st, 2021<br>
 License: <a href="https://github.com/bridgecrewio/checkov/blob/main/LICENSE">Apache License 2.0</a></p>
-<p><strong>Semgrep OSS</strong><br>
+<p><strong>Semgrep Community Edition</strong> (formerly Semgrep OSS)<br>
 Owner/Maintainer: Semgrep<br>
 Age: First release on GitHub on February 6th, 2020<br>
-License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU Lesser General Public License v2.1</a></p>
+License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU Lesser General Public License v2.1</a> (engine); rules under restrictive Semgrep Rules License v1.0
+<div class="attention">
+    In December 2024, Semgrep OSS was renamed to Semgrep Community Edition. The rules license was changed restrictively, and the free tier is now limited to single-file analysis only. A community fork called <a href="https://github.com/opengrep/opengrep">Opengrep</a> was created in January 2025 by a consortium of security companies as a fully open-source alternative.
+</div></p>
 <p>These tools are essential in enhancing Terraform&rsquo;s security posture and reflect a strong collaboration between open-source communities and enterprise backing. This blend ensures that the tools are not only accessible but also robustly maintained and up-to-date.</p>
 <p>Let’s explore how these tools stack up regarding features and usability.</p>
 <h2 id="comparing-out-of-the-box-policies-and-terraform-providers">Comparing Out-of-the-Box Policies and Terraform Providers</h2>
@@ -1075,7 +1083,7 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
   <tbody>
       <tr>
           <td><strong>KICS</strong></td>
-          <td>663</td>
+          <td>2,400+</td>
           <td>aws, azure, gcp, kubernetes, alicloud, databricks, github, nifcloud</td>
       </tr>
       <tr>
@@ -1085,21 +1093,21 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
       </tr>
       <tr>
           <td><strong>Trivy</strong></td>
-          <td>322</td>
+          <td>519+</td>
           <td>aws, azure, gcp, digitalocean, cloudstack, github, oracle, openstack</td>
       </tr>
       <tr>
           <td><strong>Terrascan</strong></td>
-          <td>790</td>
+          <td><del>790</del></td>
           <td>aws, azure, gcp, digitalocean, kubernetes, docker, github</td>
       </tr>
       <tr>
           <td><strong>Checkov</strong></td>
-          <td>2110</td>
+          <td>3,000+</td>
           <td>aws, azure, gcp, digitalocean, kubernetes, github, gitlab, ibm, linode, openstack, alicloud</td>
       </tr>
       <tr>
-          <td><strong>Semgrep OSS</strong></td>
+          <td><strong>Semgrep CE</strong></td>
           <td>362</td>
           <td>aws, azure, gcp</td>
       </tr>
@@ -1224,7 +1232,7 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
           <td>✅</td>
       </tr>
       <tr>
-          <td><strong>Semgrep OSS</strong></td>
+          <td><strong>Semgrep CE</strong></td>
           <td>✅</td>
           <td>VSCode, JetBrains, Emacs, Vim</td>
           <td>GitLab</td>
@@ -1244,9 +1252,9 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
 <p>Output formats extend the utility of static code analysis, facilitating integration with the CI/CD feedback loop and enabling its use as an artifact in subsequent CI jobs.</p>
 <p>This chapter examines the variety of formats each tool supports for this purpose.</p>
 <p>Each tool offers a range of output formats tailored to different needs.</p>
-<p><strong>For GitLab users</strong>: For teams leveraging GitLab&rsquo;s security scanning, KICS, Checkov, and Semgrep OSS are equipped with compatible output formats, facilitating smooth GitLab integration.</p>
+<p><strong>For GitLab users</strong>: For teams leveraging GitLab&rsquo;s security scanning, KICS, Checkov, and Semgrep CE are equipped with compatible output formats, facilitating smooth GitLab integration.</p>
 <p><strong>For GitHub users</strong>: SARIF&rsquo;s adoption as an industry standard, particularly by GitHub for code scanning, makes it a must-have. All tools assessed offer SARIF support, ensuring interoperability and broad utility.</p>
-<p><strong>JUnit Reports</strong>: The availability of JUnit output is crucial for capturing test results in a format recognizable by various CI systems. Trivy, Terrascan, Checkov, and Semgrep OSS support this, enabling clear visualization of test outcomes and enhancing the feedback loop within CI pipelines.</p>
+<p><strong>JUnit Reports</strong>: The availability of JUnit output is crucial for capturing test results in a format recognizable by various CI systems. Trivy, Terrascan, Checkov, and Semgrep CE support this, enabling clear visualization of test outcomes and enhancing the feedback loop within CI pipelines.</p>
 <p>Beyond these, each tool supports additional formats, enriching their application and versatility. Here&rsquo;s the full breakdown of the output formats, complementing the standard CLI output:</p>
 <table>
   <thead>
@@ -1277,7 +1285,7 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
           <td>CSV, CycloneDX, GItLab SAST, JSON, JUnit, SARIF, SPDX</td>
       </tr>
       <tr>
-          <td><strong>Semgrep OSS</strong></td>
+          <td><strong>Semgrep CE</strong></td>
           <td>Emacs, GitLab SAST, JSON, JUnit, SARIF, Vim</td>
       </tr>
   </tbody>
@@ -1354,7 +1362,7 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
           <td>✅</td>
       </tr>
       <tr>
-          <td><strong>Semgrep OSS</strong></td>
+          <td><strong>Semgrep CE</strong></td>
           <td>✅</td>
           <td>✅</td>
           <td>✅</td>
@@ -1386,7 +1394,7 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
   <tbody>
       <tr>
           <td><strong>KICS</strong></td>
-          <td>663</td>
+          <td>2,400+</td>
           <td>OPA Rego</td>
           <td>✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook</td>
           <td>ASFF, CSV, Code Climate, CycloneDX, GItLab SAST, HTML, JSON, JUnit, PDF, SARIF, SonarQube</td>
@@ -1402,7 +1410,7 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
       </tr>
       <tr>
           <td><strong>Trivy</strong></td>
-          <td>322</td>
+          <td>519+</td>
           <td>OPA Rego</td>
           <td>✅Docker, ✅IDE, ✅CI/CD, ❌Git Hook</td>
           <td>ASFF, Cosign, CycloneDX, JSON, SARIF, SPDX</td>
@@ -1410,7 +1418,7 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
       </tr>
       <tr>
           <td><strong>Terrascan</strong></td>
-          <td>790</td>
+          <td><del>790</del></td>
           <td>OPA Rego</td>
           <td>✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook</td>
           <td>JSON, JUnit, SARIF, XML, YAML</td>
@@ -1418,14 +1426,14 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
       </tr>
       <tr>
           <td><strong>Checkov</strong></td>
-          <td>2110</td>
+          <td>3,000+</td>
           <td>YAML, Python</td>
           <td>✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook</td>
           <td>CSV, CycloneDX, GItLab SAST, JSON, JUnit, SARIF, SPDX</td>
           <td>✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning</td>
       </tr>
       <tr>
-          <td><strong>Semgrep OSS</strong></td>
+          <td><strong>Semgrep CE</strong></td>
           <td>362</td>
           <td>YAML</td>
           <td>✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook</td>
@@ -1482,6 +1490,9 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
 <p>The decision, Allow or Deny, is passed back to the API, and if allowed, the API service then forwards the original request to the back-end, which, in this case, is implemented by additional Lambda functions. Otherwise, the client gets a response with a 403 status code, and the original request is not passed to the back-end.</p>
 <h2 id="behind-the-decision-why-such-a-setup">Behind The Decision: Why Such a Setup?</h2>
 <p>Choosing the right architectural setup is critical in balancing simplicity, cost-efficiency, and security. In this section, we uncover why integrating AWS HTTP API Gateway with Lambda Authorizer is a compelling choice, offering a streamlined approach without compromising security.</p>
+<div class="updatenotice">
+    <strong>Updated in April 2026</strong>: Starting August 1, 2025, AWS bills for the Lambda cold start initialization (INIT) phase for all runtimes, including zip-deployed functions. The cost estimates below may be slightly understated for workloads with frequent cold starts. Also, <code>provided.al2</code> reaches end of life on June 30, 2026 — this guide already uses <code>provided.al2023</code>, which is supported until June 30, 2029.
+</div>
 <h3 id="cost-effectiveness-balancing-performance-and-price">Cost-Effectiveness: Balancing Performance and Price</h3>
 <p>The AWS HTTP API is noteworthy for its streamlined and simple design compared to other API Gateway options. That translates directly into cost savings for businesses. Its efficiency makes it an ideal choice for cost-effective serverless computing, especially for those looking to optimize their cloud infrastructure with Terraform automation. Here is a more detailed comparison of different API Gateway options — <a href="https://docs.aws.amazon.com/whitepapers/latest/best-practices-api-gateway-private-apis-integration/cost-optimization.html">Cost optimization</a>.</p>
 <p>Security with Lambda Authorizer. This option means a Lambda function used for authorization, which is lean and efficient. It generally requires a bare minimum of resources. It executes quickly, particularly when configured with the ARM-based environment and 128M RAM allocation, costing $0,0000017 per second of running time, with $0.20 per 1M requests per month.</p>
@@ -1811,7 +1822,11 @@ AWS HTTP API code logically represents the &ldquo;global&rdquo; (within a projec
 </span></span><span style="display:flex;"><span>      }  
 </span></span><span style="display:flex;"><span>    ]  
 </span></span><span style="display:flex;"><span>  })  
-</span></span><span style="display:flex;"><span>  managed_policy_arns <span style="color:#ff7b72;font-weight:bold">=</span> [<span style="color:#a5d6ff">&#34;arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs&#34;</span>]  
+</span></span><span style="display:flex;"><span>}  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_iam_role_policy_attachment&#34;</span> <span style="color:#a5d6ff">&#34;api_gateway_cloudwatch_logs&#34;</span> {  
+</span></span><span style="display:flex;"><span>  role       <span style="color:#ff7b72;font-weight:bold">=</span> aws_iam_role.api_gateway_cloudwatch_logs.name  
+</span></span><span style="display:flex;"><span>  policy_arn <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs&#34;</span>  
 </span></span><span style="display:flex;"><span>}  
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;aws_cloudwatch_log_group&#34;</span> <span style="color:#a5d6ff">&#34;api_gateway_logs_inkyframe&#34;</span> {  
@@ -1849,7 +1864,10 @@ AWS HTTP API code logically represents the &ldquo;global&rdquo; (within a projec
       <pubDate>Sun, 16 Apr 2023 01:25:18 +0200</pubDate>
       <guid>https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/</guid>
       <description>terraform_data replaces null_resource in Terraform 1.4 as a built-in managed resource. See the differences, use cases with triggers_replace and provisioners, plus migration examples.</description>
-      <content:encoded><![CDATA[<p>Terraform version 1.4 was recently released and brought a range of new features, including improved run output in Terraform Cloud, the ability to use OPA policy results in the CLI, and a built-in alternative to the null resource — terraform_data.</p>
+      <content:encoded><![CDATA[<div class="updatenotice">
+    <strong>Updated in April 2026</strong>: Added the <code>moved</code> block migration path (Terraform 1.9+), corrected the deprecation status of null_resource, and added notes about OpenTofu compatibility and Terraform 1.14 <code>action</code> blocks.
+</div>
+<p>Terraform version 1.4 brought a range of new features, including improved run output in Terraform Cloud, the ability to use OPA policy results in the CLI, and a built-in alternative to the null resource — terraform_data.</p>
 <p>In this blog post, I want to demonstrate and explain the <strong>terraform_data</strong> resource that serves two purposes:</p>
 <ul>
 <li>firstly, it allows arbitrary values to be stored and used afterward to implement lifecycle triggers of other resources</li>
@@ -1857,7 +1875,7 @@ AWS HTTP API code logically represents the &ldquo;global&rdquo; (within a projec
 </ul>
 <p>For those of you, who are familiar with the null provider, the <code>terraform_data</code> resource might look very similar. And you&rsquo;re right!<br>
 Rather than being a separate provider, the terraform_data managed resource now offers the same capabilities as an integrated feature. Pretty cool! <br>
-While the null provider is still available and there are no statements about its deprecation thus far (<a href="https://registry.terraform.io/providers/hashicorp/null/3.2.1/docs">as of April 2023, v3.2.1</a>), the  <code>terraform_data</code> is the native replacement of the <code>null_resource</code>, and the latter might soon become deprecated.</p>
+While the null provider is still available and has not been formally deprecated (<a href="https://registry.terraform.io/providers/hashicorp/null/3.2.4/docs">as of April 2026, v3.2.4</a>), the <code>terraform_data</code> is the recommended replacement for <code>null_resource</code>. The null provider registry now includes an official migration guide to <code>terraform_data</code>, and the CDKTF prebuilt bindings for null were archived in December 2025.</p>
 <p>The  <code>terraform_data</code> resource has two optional arguments, <strong>input</strong> and <strong>triggers_replace</strong>, and its configuration looks as follows:</p>
 
 <figure>
@@ -1997,8 +2015,25 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
 <li>When resources are created the first time, the provisioner inside <code>terraform_data</code> runs</li>
 <li>Sequential plan/apply will trigger another execution of the provisioner only when the private IP of the instance (aws_instance.webserver.private_ip) changes because that will trigger <code>terraform_data</code> recreation. At the same time, no changes to the internal IP mean no provisioner execution.</li>
 </ul>
+<h2 id="migrating-from-null_resource-to-terraform_data">Migrating from null_resource to terraform_data</h2>
+<p>Starting with Terraform 1.9, you can use the <code>moved</code> block to migrate existing <code>null_resource</code> instances to <code>terraform_data</code> without destroying and recreating them. This is the smoothest migration path — it preserves state and avoids re-running provisioners.</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-terraform" data-lang="terraform"><span style="display:flex;"><span>moved {
+</span></span><span style="display:flex;"><span>  from <span style="color:#ff7b72;font-weight:bold">=</span> null_resource.example
+</span></span><span style="display:flex;"><span>  to   <span style="color:#ff7b72;font-weight:bold">=</span> terraform_data.example
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">resource</span> <span style="color:#a5d6ff">&#34;terraform_data&#34;</span> <span style="color:#a5d6ff">&#34;example&#34;</span> {
+</span></span><span style="display:flex;"><span>  triggers_replace <span style="color:#ff7b72;font-weight:bold">=</span> var.trigger_value
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>After running <code>terraform apply</code> with the <code>moved</code> block, Terraform updates the state in place. You can remove the <code>moved</code> block in a subsequent commit once the migration is applied.</p>
+<p>One thing to note when migrating: <code>null_resource.triggers</code> is a <code>map(string)</code>, while <code>terraform_data.triggers_replace</code> accepts any value type. This means some trigger expressions may need adjustment during migration.</p>
+<div class="attention">
+    The <code>moved</code> block migration requires Terraform 1.9 or later. OpenTofu supports this starting from version 1.10.0.
+</div>
+<h2 id="a-note-on-terraform-114-action-blocks">A note on Terraform 1.14 action blocks</h2>
+<p>Terraform 1.14 introduced <code>action</code> blocks — provider-defined, non-CRUD operations such as invoking a Lambda function or invalidating a CDN cache. For some use cases where <code>terraform_data</code> serves as a provisioner trigger, <code>action</code> blocks may offer a cleaner declarative alternative. This feature is still new, but worth keeping an eye on.</p>
 <hr>
-<p>With its ability to store and use values for lifecycle triggers and provisioners, <strong>terraform_data</strong> is a powerful tool that can enhance your Terraform configuration.</p>
+<p>With its ability to store and use values for lifecycle triggers and provisioners, <strong>terraform_data</strong> is a powerful tool that can enhance your Terraform configuration. It works identically in both Terraform and <a href="https://opentofu.org/">OpenTofu</a>.</p>
 <p>Although the null provider still has its place in the Terraform ecosystem, terraform_data is its evolution, and its integration as a feature is certainly something to be excited about.</p>
 <p>Why not give it a try in your next project and see how it can simplify your infrastructure as code workflows? Keep on coding! 🙌</p>
 ]]></content:encoded>
