@@ -17,7 +17,7 @@ Many teams employ Terraform by HashiCorp to efficiently manage their infrastruct
 
 This article explores several prominent static code analyzers that support Terraform code and focus on its security scanning. This comparison will guide teams in choosing the right tool to enhance their security measures within Terraform workflows, ensuring safer and more compliant infrastructure management.
 
-Here are the tools we'll be reviewing: **KICS**, **tfsec**, **Trivy**, **Terrascan**, **Checkov**, and **Semgrep OSS**.
+Here are the tools we'll be reviewing: **KICS**, **tfsec**, **Trivy**, **Terrascan**, **Checkov**, and **Semgrep Community Edition** (Semgrep CE).
 
 While many of these tools also support other platforms and technologies, **this review will concentrate exclusively on their functionality with Terraform.** 
 
@@ -42,6 +42,10 @@ With a clear understanding of the necessary features in a static code analyzer, 
 
 Let's take a closer look at some leading options!
 
+{{<updatenotice>}}
+**Updated in April 2026**: Tool statuses and policy counts have been refreshed. Terrascan has been archived by Tenable and is no longer maintained. Semgrep OSS has been renamed to Semgrep Community Edition, with a community fork (Opengrep) emerging after license changes.
+{{</updatenotice>}}
+
 ## Meet the Static Code Analyzers for Terraform
 Following on what makes a static code analyzer robust, let's dive into some open-source tools that exemplify these essential features.
 
@@ -56,8 +60,7 @@ License: [Apache License 2.0](https://github.com/Checkmarx/kics/blob/master/LICE
 Owner/Maintainer: Aqua Security (acquired in 2021)\
 Age: First released on GitHub on March 5th, 2019\
 License: [MIT License](https://github.com/aquasecurity/tfsec/blob/master/LICENSE)
-{{<attention>}}tfsec project is no longer actively maintained in favor of the Trivy tool. But because many people still use it and it's quite famous, I added tfsec to this comparison.\
-However, I recommend against using it for new projects.{{</attention>}}
+{{<attention>}}tfsec has been fully deprecated and archived. All tfsec checks have been migrated into Trivy, and tfsec does not support Terraform 1.5+ features. To migrate, replace `tfsec .` with `trivy config .` — all check IDs (e.g., AVD-AWS-0086) work unchanged in Trivy. I keep tfsec in this comparison for reference only.{{</attention>}}
 
 **Trivy**\
 Owner/Maintainer: Aqua Security\
@@ -69,16 +72,18 @@ _backward-compatible with tfsec_
 Owner/Maintainer: Tenable (acquired in 2022)\
 Age: First release on GitHub on November 28th, 2017\
 License: [Apache License 2.0](https://github.com/tenable/terrascan/blob/master/LICENSE)
+{{<attention>}}Terrascan was archived by Tenable on November 20, 2025. The GitHub repository is read-only — no new issues, PRs, or releases are accepted. I keep it in this comparison for reference, but recommend migrating to Checkov, Trivy, or KICS.{{</attention>}}
 
 **Checkov**\
 Owner/Maintainer: Prisma Cloud by Palo Alto Networks (acquired in 2021)\
 Age: First released on GitHub on March 31st, 2021\
 License: [Apache License 2.0](https://github.com/bridgecrewio/checkov/blob/main/LICENSE)
 
-**Semgrep OSS**\
+**Semgrep Community Edition** (formerly Semgrep OSS)\
 Owner/Maintainer: Semgrep\
 Age: First release on GitHub on February 6th, 2020\
-License: [GNU Lesser General Public License v2.1](https://github.com/semgrep/semgrep/blob/develop/LICENSE)
+License: [GNU Lesser General Public License v2.1](https://github.com/semgrep/semgrep/blob/develop/LICENSE) (engine); rules under restrictive Semgrep Rules License v1.0
+{{<attention>}}In December 2024, Semgrep OSS was renamed to Semgrep Community Edition. The rules license was changed restrictively, and the free tier is now limited to single-file analysis only. A community fork called [Opengrep](https://github.com/opengrep/opengrep) was created in January 2025 by a consortium of security companies as a fully open-source alternative.{{</attention>}}
 
 These tools are essential in enhancing Terraform's security posture and reflect a strong collaboration between open-source communities and enterprise backing. This blend ensures that the tools are not only accessible but also robustly maintained and up-to-date.
 
@@ -93,12 +98,12 @@ In this chapter, we delve into these foundational features across observed tools
 
 | Tool        | Policies | Supported Terraform Providers                                                               |
 |-------------|----------|---------------------------------------------------------------------------------------------|
-| **KICS**       | 663      | aws, azure, gcp, kubernetes, alicloud, databricks, github, nifcloud                         |
+| **KICS**       | 2,400+   | aws, azure, gcp, kubernetes, alicloud, databricks, github, nifcloud                         |
 | **tfsec**      | 154      | aws, azure, gcp, digitalocean, kubernetes, cloudstack, github, openstack, oracle            |
-| **Trivy**      | 322      | aws, azure, gcp, digitalocean, cloudstack, github, oracle, openstack                        |
-| **Terrascan**  | 790      | aws, azure, gcp, digitalocean, kubernetes, docker, github                                   |
-| **Checkov**    | 2110     | aws, azure, gcp, digitalocean, kubernetes, github, gitlab, ibm, linode, openstack, alicloud |
-| **Semgrep OSS** | 362      | aws, azure, gcp                                                                             |
+| **Trivy**      | 519+     | aws, azure, gcp, digitalocean, cloudstack, github, oracle, openstack                        |
+| **Terrascan**  | ~~790~~  | aws, azure, gcp, digitalocean, kubernetes, docker, github                                   |
+| **Checkov**    | 3,000+   | aws, azure, gcp, digitalocean, kubernetes, github, gitlab, ibm, linode, openstack, alicloud |
+| **Semgrep CE** | 362      | aws, azure, gcp                                                                             |
 
 As you can see, all tools support the "Big Three" cloud service Terraform providers—AWS, Azure, and GCP—for managing resources on these popular platforms.
 
@@ -195,7 +200,7 @@ We will assess each tool against four key integration points that are vital for 
 | **Trivy**      | ✅           | VSCode, JetBrains, Vim        | Azure DevOps, GitHub Actions, Buildkite, Dagger, Semaphore, CircleCI, Concourse CI | ❌    |
 | **Terrascan**  | ✅           | VSCode                        | GitHub Actions, Atlantis                                                           | ✅    |
 | **Checkov**    | ✅           | VSCode, JetBrains             | GitHub Actions, GitLab                                                                   | ✅    |
-| **Semgrep OSS** | ✅           | VSCode, JetBrains, Emacs, Vim | GitLab                                                                             | ✅    |
+| **Semgrep CE** | ✅           | VSCode, JetBrains, Emacs, Vim | GitLab                                                                             | ✅    |
 
 In addition to the table above, here are a few noteworthy features of some tools:
 - Checkov supports OpenAI integration to suggest remediations. But be careful because AI tends to hallucinate.
@@ -212,11 +217,11 @@ This chapter examines the variety of formats each tool supports for this purpose
 
 Each tool offers a range of output formats tailored to different needs.
 
-**For GitLab users**: For teams leveraging GitLab's security scanning, KICS, Checkov, and Semgrep OSS are equipped with compatible output formats, facilitating smooth GitLab integration.
+**For GitLab users**: For teams leveraging GitLab's security scanning, KICS, Checkov, and Semgrep CE are equipped with compatible output formats, facilitating smooth GitLab integration.
 
 **For GitHub users**: SARIF's adoption as an industry standard, particularly by GitHub for code scanning, makes it a must-have. All tools assessed offer SARIF support, ensuring interoperability and broad utility.
 
-**JUnit Reports**: The availability of JUnit output is crucial for capturing test results in a format recognizable by various CI systems. Trivy, Terrascan, Checkov, and Semgrep OSS support this, enabling clear visualization of test outcomes and enhancing the feedback loop within CI pipelines.
+**JUnit Reports**: The availability of JUnit output is crucial for capturing test results in a format recognizable by various CI systems. Trivy, Terrascan, Checkov, and Semgrep CE support this, enabling clear visualization of test outcomes and enhancing the feedback loop within CI pipelines.
 
 Beyond these, each tool supports additional formats, enriching their application and versatility. Here's the full breakdown of the output formats, complementing the standard CLI output:
 
@@ -227,7 +232,7 @@ Beyond these, each tool supports additional formats, enriching their application
 | **Trivy**      | ASFF, Cosign, CycloneDX, JSON, SARIF, SPDX                                                |
 | **Terrascan**  | JSON, JUnit, SARIF, XML, YAML                                                             |
 | **Checkov**    | CSV, CycloneDX, GItLab SAST, JSON, JUnit, SARIF, SPDX                                     |
-| **Semgrep OSS** | Emacs, GitLab SAST, JSON, JUnit, SARIF, Vim                                               |
+| **Semgrep CE** | Emacs, GitLab SAST, JSON, JUnit, SARIF, Vim                                               |
 
 Moving from output formats to operational adaptability, let's investigate the customization options for scanner settings. This important feature allows each tool to align with varied project demands.
 
@@ -252,7 +257,7 @@ Based on these criteria, the following table offers a comparative view of how ea
 | **Trivy**      | ✅            | ✅               | ✅            | ✅           | ✅                       | ✅               |
 | **Terrascan**  | ✅            | ✅               | ✅            | ✅           | ✅                       | ✅               |
 | **Checkov**    | ✅            | ✅               | ✅            | ✅           | ✅                       | ✅               |
-| **Semgrep OSS** | ✅            | ✅               | ✅            | ❌           | ✅                       | ❌               |
+| **Semgrep CE** | ✅            | ✅               | ✅            | ❌           | ✅                       | ❌               |
 
 Most reviewed tools meet nearly all the criteria set for scanner setting customization, demonstrating their flexibility and advanced capabilities. However, there are notable features worth considering:
 
@@ -266,12 +271,12 @@ Here's a comprehensive comparison summary to guide your selection of the most su
 
 | Tool        | Default Policies | Custom Policies | Integration                           | Output Formats                                                    | Customization                                                                                                      |
 |-------------|------------------|-----------------|---------------------------------------|-------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| **KICS**       | 663              | OPA Rego        | ✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook   | ASFF, CSV, Code Climate, CycloneDX, GItLab SAST, HTML, JSON, JUnit, PDF, SARIF, SonarQube | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ❌Module Scanning      |
+| **KICS**       | 2,400+           | OPA Rego        | ✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook   | ASFF, CSV, Code Climate, CycloneDX, GItLab SAST, HTML, JSON, JUnit, PDF, SARIF, SonarQube | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ❌Module Scanning      |
 | **tfsec**      | 154              | OPA Rego        | ✅Docker, ✅IDE, ✅CI/CD, ❌Git Hook   | Checkstyle, CSV, HTML, JSON, JUnit, Markdown, SARIF               | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning      |
-| **Trivy**      | 322              | OPA Rego        | ✅Docker, ✅IDE, ✅CI/CD, ❌Git Hook   | ASFF, Cosign, CycloneDX, JSON, SARIF, SPDX                        | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning      |
-| **Terrascan**  | 790              | OPA Rego        | ✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook   | JSON, JUnit, SARIF, XML, YAML                                     | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning      |
-| **Checkov**    | 2110             | YAML, Python    | ✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook   | CSV, CycloneDX, GItLab SAST, JSON, JUnit, SARIF, SPDX             | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning      |
-| **Semgrep OSS** | 362              | YAML            | ✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook   | Emacs, GitLab SAST, JSON, JUnit, SARIF, Vim                       | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ❌Config File, ✅Variables Interpolation, ❌Module Scanning      |
+| **Trivy**      | 519+             | OPA Rego        | ✅Docker, ✅IDE, ✅CI/CD, ❌Git Hook   | ASFF, Cosign, CycloneDX, JSON, SARIF, SPDX                        | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning      |
+| **Terrascan**  | ~~790~~          | OPA Rego        | ✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook   | JSON, JUnit, SARIF, XML, YAML                                     | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning      |
+| **Checkov**    | 3,000+           | YAML, Python    | ✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook   | CSV, CycloneDX, GItLab SAST, JSON, JUnit, SARIF, SPDX             | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ✅Config File, ✅Variables Interpolation, ✅Module Scanning      |
+| **Semgrep CE** | 362              | YAML            | ✅Docker, ✅IDE, ✅CI/CD, ✅Git Hook   | Emacs, GitLab SAST, JSON, JUnit, SARIF, Vim                       | ✅Targeted Scans, ✅Ignore Policies, ✅Min Severity, ❌Config File, ✅Variables Interpolation, ❌Module Scanning      |
 
 Integrating a Terraform security scanning into your development pipeline is a proven strategy to boost your security posture. These tools detect potential vulnerabilities early and enforce best practices and compliance standards, representing a proactive approach to infrastructure security.
 
