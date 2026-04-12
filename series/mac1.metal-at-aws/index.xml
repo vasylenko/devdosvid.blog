@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Apr 2026 16:35:12 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 12 Apr 2026 16:52:57 +0200</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/mac1.metal-at-aws/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
@@ -596,11 +596,11 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 ]]></content:encoded>
     </item>
     <item>
-      <title>mac1.metal and mac2.metal EC2 Instances — user experience</title>
-      <link>https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/</link>
+      <title>mac1.metal and mac2.metal EC2 Instances: Pricing, Specs &amp; Hands-on Review</title>
+      <link>https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-pricing-specs-hands-on-review/</link>
       <pubDate>Tue, 19 Jan 2021 00:00:00 +0000</pubDate>
-      <guid>https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/</guid>
-      <description>Apple macOS development ecosystem with the power of AWS Cloud</description>
+      <guid>https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-pricing-specs-hands-on-review/</guid>
+      <description>A hands-on review of AWS mac1.metal and mac2.metal EC2 instances — pricing, specs, performance, AMI customization, and the 24-hour minimum allocation gotcha.</description>
       <content:encoded><![CDATA[<p>This is the review of EC2 Mac instances, <strong>mac1.metal</strong> and <strong>mac2.metal</strong> — the new EC2 instance types that enables macOS workloads on AWS.</p>
 <div class="updatenotice">
     <strong>Updated in June 2022</strong>: new information added about the offering — more cool stuff 🤩
@@ -711,7 +711,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
         
         
         <img loading="lazy"
-             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/launch_hu_2048fec4b678a207.webp"width="400"height="200" />
+             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-pricing-specs-hands-on-review/launch_hu_2048fec4b678a207.webp"width="400"height="200" />
         
     
 </figure>
@@ -734,7 +734,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
         
         
         <img loading="lazy"
-             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/customize_hu_8a890d50bcf1aeb.webp"width="400"height="200" />
+             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-pricing-specs-hands-on-review/customize_hu_8a890d50bcf1aeb.webp"width="400"height="200" />
         
     
 </figure>
@@ -763,7 +763,7 @@ I wrote a separate post about mac1.metal AMI customization and creation, so chec
         
         
         <img loading="lazy"
-             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/cleanup_hu_d93a27022b1cb855.webp"width="400"height="200" />
+             src="/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-pricing-specs-hands-on-review/cleanup_hu_d93a27022b1cb855.webp"width="400"height="200" />
         
     
 </figure>

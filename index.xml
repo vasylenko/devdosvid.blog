@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Apr 2026 16:35:12 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 12 Apr 2026 16:52:57 +0200</lastBuildDate>
     <atom:link href="https://devdosvid.blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The Pipeline Was Green</title>
@@ -997,11 +997,11 @@ The first bucket contains CI/CD builds and cached third-party artifacts — esse
 ]]></content:encoded>
     </item>
     <item>
-      <title>A Deep Dive Into Terraform Static Code Analysis Tools: Features and Comparisons</title>
-      <link>https://devdosvid.blog/2024/04/16/a-deep-dive-into-terraform-static-code-analysis-tools-features-and-comparisons/</link>
+      <title>Terraform Static Code Analysis Tools Compared: Checkov, Trivy, KICS &amp; More</title>
+      <link>https://devdosvid.blog/2024/04/16/terraform-static-code-analysis-tools-compared-checkov-trivy-kics-more/</link>
       <pubDate>Tue, 16 Apr 2024 21:14:15 +0200</pubDate>
-      <guid>https://devdosvid.blog/2024/04/16/a-deep-dive-into-terraform-static-code-analysis-tools-features-and-comparisons/</guid>
-      <description>Explore key features and comparisons of top Terraform static code analysis tools to enhance security and compliance in your infrastructure management.</description>
+      <guid>https://devdosvid.blog/2024/04/16/terraform-static-code-analysis-tools-compared-checkov-trivy-kics-more/</guid>
+      <description>Compare 6 Terraform static code analysis tools — Checkov, Trivy, KICS, Terrascan, tfsec, Semgrep — across built-in policies, custom rules, CI/CD integrations, and output formats.</description>
       <content:encoded><![CDATA[<p>Many teams employ Terraform by HashiCorp to efficiently manage their infrastructure, leveraging its ability to automate the lifecycle of complex environments. Yet, integrating security scanning into Terraform pipelines often remains overlooked, exposing these environments to potential security risks and compliance issues.</p>
 <p>This article explores several prominent static code analyzers that support Terraform code and focus on its security scanning. This comparison will guide teams in choosing the right tool to enhance their security measures within Terraform workflows, ensuring safer and more compliant infrastructure management.</p>
 <p>Here are the tools we&rsquo;ll be reviewing: <strong>KICS</strong>, <strong>tfsec</strong>, <strong>Trivy</strong>, <strong>Terrascan</strong>, <strong>Checkov</strong>, and <strong>Semgrep OSS</strong>.</p>
@@ -1440,11 +1440,11 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
 ]]></content:encoded>
     </item>
     <item>
-      <title>Mastering AWS API Gateway V2 HTTP and AWS Lambda With Terraform</title>
-      <link>https://devdosvid.blog/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/</link>
+      <title>AWS API Gateway V2 &#43; Lambda with Terraform: A Complete Guide</title>
+      <link>https://devdosvid.blog/2024/01/09/aws-api-gateway-v2--lambda-with-terraform-a-complete-guide/</link>
       <pubDate>Tue, 09 Jan 2024 03:33:10 +0100</pubDate>
-      <guid>https://devdosvid.blog/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/</guid>
-      <description>The article provides insights into using AWS API Gateway and AWS Lambda with Terraform for efficient, cost-effective serverless solutions.</description>
+      <guid>https://devdosvid.blog/2024/01/09/aws-api-gateway-v2--lambda-with-terraform-a-complete-guide/</guid>
+      <description>Step-by-step Terraform guide to AWS API Gateway V2 HTTP API with Lambda authorizer, backend integration, custom domain, routes, stages, and CloudWatch monitoring.</description>
       <content:encoded><![CDATA[<p>With a solid foundation in AWS API Gateway and Lambda for serverless architecture, my recent deep dive into these cloud computing services felt like uncovering new layers in familiar territory. This article aims to be a comprehensive guide for developers and DevOps professionals looking to master serverless solutions using AWS and Terraform.</p>
 <p>The article provides an in-depth guide to <strong>combining AWS API Gateway V2 HTTP API</strong> (yes, this is the official name of that service 😄) <strong>and AWS Lambda</strong> services to implement a simple, robust, and cost-effective serverless back-end using Terraform.</p>
 <p>The journey was enlightening and engaging, especially as I were transforming these services into Infrastructure as Code. Through this article, I aim to share those moments of insight and the practical, hands-on tips that emerged from weaving these AWS services into a seamless, serverless architecture.</p>
@@ -1461,7 +1461,7 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
         
         
         <img loading="lazy"
-             src="/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/api-gateway-lambda-authorization-flow_hu_e35f0b4f743616b5.webp"
+             src="/2024/01/09/aws-api-gateway-v2--lambda-with-terraform-a-complete-guide/api-gateway-lambda-authorization-flow_hu_e35f0b4f743616b5.webp"
                  alt="HTTP API Gateway and AWS Lambda flowchart"width="800"height="440.50" />
         
     
@@ -1605,7 +1605,7 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
         
         
         <img loading="lazy"
-             src="/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/terraform-aws-lambda-http-api-integration_hu_5fc930f905f8fa3.webp"
+             src="/2024/01/09/aws-api-gateway-v2--lambda-with-terraform-a-complete-guide/terraform-aws-lambda-http-api-integration_hu_5fc930f905f8fa3.webp"
                  alt="AWS Lambda and HTTP API Terraform integration diagram"width="800"height="552.50" />
         
     
@@ -1834,11 +1834,11 @@ AWS HTTP API code logically represents the &ldquo;global&rdquo; (within a projec
 ]]></content:encoded>
     </item>
     <item>
-      <title>Hello Terraform Data; Goodbye Null Resource</title>
-      <link>https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/</link>
+      <title>terraform_data vs null_resource: The Built-in Replacement in Terraform 1.4</title>
+      <link>https://devdosvid.blog/2023/04/16/terraform_data-vs-null_resource-the-built-in-replacement-in-terraform-1.4/</link>
       <pubDate>Sun, 16 Apr 2023 01:25:18 +0200</pubDate>
-      <guid>https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/</guid>
-      <description>Native built-in replacement for null_resource with Terraform 1.4</description>
+      <guid>https://devdosvid.blog/2023/04/16/terraform_data-vs-null_resource-the-built-in-replacement-in-terraform-1.4/</guid>
+      <description>terraform_data replaces null_resource in Terraform 1.4 as a built-in managed resource. See the differences, use cases with triggers_replace and provisioners, plus migration examples.</description>
       <content:encoded><![CDATA[<p>Terraform version 1.4 was recently released and brought a range of new features, including improved run output in Terraform Cloud, the ability to use OPA policy results in the CLI, and a built-in alternative to the null resource — terraform_data.</p>
 <p>In this blog post, I want to demonstrate and explain the <strong>terraform_data</strong> resource that serves two purposes:</p>
 <ul>
@@ -1860,7 +1860,7 @@ While the null provider is still available and there are no statements about its
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-1_hu_30488782ddaf4ea.webp"
+             src="/2023/04/16/terraform_data-vs-null_resource-the-built-in-replacement-in-terraform-1.4/code-snippet-1_hu_30488782ddaf4ea.webp"
                  alt="terraform data resource arguments"width="800"height="182.16" />
         
     
@@ -1886,7 +1886,7 @@ While the null provider is still available and there are no statements about its
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-2_hu_80860b149145c3c2.webp"
+             src="/2023/04/16/terraform_data-vs-null_resource-the-built-in-replacement-in-terraform-1.4/code-snippet-2_hu_80860b149145c3c2.webp"
                  alt="terraform data resource attributes"width="800"height="271.36" />
         
     
@@ -1920,7 +1920,7 @@ While the null provider is still available and there are no statements about its
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-3_hu_10eefecae1e357ac.webp"
+             src="/2023/04/16/terraform_data-vs-null_resource-the-built-in-replacement-in-terraform-1.4/code-snippet-3_hu_10eefecae1e357ac.webp"
                  alt="trigger replacement based on input variable"width="800"height="386.00" />
         
     
@@ -1942,7 +1942,7 @@ While the null provider is still available and there are no statements about its
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-4_hu_4b30572300309abe.webp"
+             src="/2023/04/16/terraform_data-vs-null_resource-the-built-in-replacement-in-terraform-1.4/code-snippet-4_hu_4b30572300309abe.webp"
                  alt="terraform_data with replace_triggered_by"width="800"height="341.59" />
         
     
@@ -1967,7 +1967,7 @@ But let&rsquo;s be real, the provisioner feature is still kicking, and there&rsq
         
         
         <img loading="lazy"
-             src="/2023/04/16/hello-terraform-data-goodbye-null-resource/code-snippet-5_hu_80337dbcf4157c5.webp"
+             src="/2023/04/16/terraform_data-vs-null_resource-the-built-in-replacement-in-terraform-1.4/code-snippet-5_hu_80337dbcf4157c5.webp"
                  alt="terraform_data with provisioner"width="800"height="409.00" />
         
     
