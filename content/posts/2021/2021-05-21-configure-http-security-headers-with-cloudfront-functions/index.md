@@ -57,6 +57,8 @@ You can read more about the events types and their properties here — [CloudFro
 
 Also, the CloudFront Functions allow you to manage and operate the code and lifecycle of the functions directly from the CloudFront web interface.
 
+{{< subscribe cta="I write about AWS, infrastructure automation, and engineering leadership." >}}
+
 ## Solution overview
 
 CloudFront distribution should exist before Function creation so you could associate the Function with the distribution.

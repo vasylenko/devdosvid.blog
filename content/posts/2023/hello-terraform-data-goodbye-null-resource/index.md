@@ -58,6 +58,8 @@ By modifying the  `revision` variable, the next Terraform plan will suggest a re
     
 {{< figure src="code-snippet-4.png" caption="terraform_data with replace_triggered_by" width="800">}}
 
+{{< subscribe cta="More Terraform deep-dives and platform engineering insights — subscribe." >}}
+
 ## Use case for terraform_data with provisioner
 
 Before we start: HashiCorp suggests (and I also support that) avoiding provisioner usage unless you have no other options left. One of the reasons — additional, implicit, and unobvious dependency that appears in the codebase — the binary, which is called inside the provisioner block, must be present on the machine. \

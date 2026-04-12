@@ -105,6 +105,8 @@ With over 2000 out-of-the-box policies, Checkov significantly stands out from th
 
 While the default policies provide a strong foundation for security scanning, the ability to tailor these policies is just as crucial. Next, we'll explore how each tool accommodates custom policy capabilities, allowing you to fine-tune the policies to fit your project's specific requirements.
 
+{{< subscribe cta="I write about Terraform, infrastructure security, and platform engineering practices." >}}
+
 ## Custom Policy Capabilities
 
 Default policies serve as the foundation, but the nuances of each project demand the extension of this base.

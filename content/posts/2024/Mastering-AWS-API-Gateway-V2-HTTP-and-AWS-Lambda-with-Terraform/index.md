@@ -185,6 +185,8 @@ As a side note, check out this [AWS Lambda Operator Guide](https://docs.aws.amaz
 
 Let's switch to the HTTP API part to see how it looks and learn how it integrates Lambda functions.
 
+{{< subscribe cta="I write about AWS, Terraform, and the engineering practices behind reliable infrastructure." >}}
+
 ## Deep Dive into HTTP API Gateway
 Now, we focus on the HTTP API Gateway, delving into its essential concepts, seamless integration with AWS Lambda, and using Terraform efficiently for streamlined configuration.
 

@@ -102,6 +102,8 @@ However, AWS does not manage or support the Apple hardware's internal SSD. So th
 
 As of July 2022, mac2.metal is not supported by Host Resource Groups. Therefore you cannot use mac2.metal Instances in Auto Scaling Groups. But AWS support says they are working on that, so fingers crossed!
 
+{{< subscribe cta="I write about AWS, infrastructure automation, and engineering leadership." >}}
+
 ## Launching the Instance
 
 {{<figure src="launch.png" width="400" height="200">}}
