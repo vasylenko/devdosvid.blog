@@ -137,7 +137,7 @@ params:
 
     homeInfoParams:
         Title: "devDosvid blog"
-        Content: "Writing about technical leadership, platform engineering, and the practices that help teams and infrastructure scale."
+        Content: "There are many engineering blogs, but this one is mine — writing about technical leadership, platform engineering, and the practices that help teams and infrastructure scale."
     cover:
         hidden: false # hide everywhere but not in structured data
         hiddenInList: false # hide on list pages and home
