@@ -14,7 +14,7 @@ ShowLicense: false
 
 {{< author-intro name="Serhii Vasylenko" role="Staff Platform Engineer" company="Superhuman" company_url="https://superhuman.com" >}}
 
-Hi, I'm Serhii. I build tools and systems that help engineering teams ship faster and more safely — focusing on developer experience, infrastructure platforms, and security automation.
+Hi, I'm Serhii. I build solutions that help engineering teams ship faster and more safely — focusing on developer experience, infrastructure platforms, and security automation.
 
 You can read more about my professional background [in my CV](/cv).
 
