@@ -1,0 +1,6 @@
+<div class="author-intro">
+    <h2 class="author-intro__name">{{ .Get "name" }}</h2>
+    {{- with .Get "role" }}
+    <p class="author-intro__role">{{ . }}{{ with $.Get "company" }} at <a href="{{ $.Get "company_url" }}" target="_blank" rel="noopener">{{ . }}</a>{{ end }}</p>
+    {{- end }}
+</div>

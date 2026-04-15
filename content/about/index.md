@@ -12,9 +12,9 @@ title: Author
 ShowLicense: false
 ---
 
-{{< author-name name="Serhii Vasylenko" >}}
+{{< author-intro name="Serhii Vasylenko" role="Staff Platform Engineer" company="Superhuman" company_url="https://superhuman.com" >}}
 
-Hi, I'm Serhii — a Staff Platform Engineer at [Superhuman](https://superhuman.com), where I focus on developer experience, infrastructure platforms, and security automation. I build tools and systems that help engineering teams ship faster and more safely.
+Hi, I'm Serhii. I build tools and systems that help engineering teams ship faster and more safely — focusing on developer experience, infrastructure platforms, and security automation.
 
 You can read more about my professional background [in my CV](/cv).
 

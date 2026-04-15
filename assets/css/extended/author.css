@@ -1,36 +1,77 @@
 /* === Author page === */
 
-/* Author name — editorial display with teal accent */
-.post-content p.author-name {
-    font-size: 1.5rem;
-    font-weight: var(--font-bold);
-    letter-spacing: -0.025em;
-    line-height: 1.2;
+/* When an author-intro exists, transform the page title into an editorial label */
+.post-single:has(.author-intro) .post-title {
+    font-size: 0.75rem;
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+    line-height: 1;
+    text-wrap: auto;
+}
+
+.post-single:has(.author-intro) .post-header {
+    margin-bottom: 0.25rem;
+}
+
+/* Author intro header */
+.author-intro {
+    padding-bottom: 1.75rem;
+    margin-bottom: 0.25rem;
+}
+
+.post-content .author-intro__name {
+    font-size: 2rem;
+    font-weight: var(--font-heavy);
+    letter-spacing: -0.035em;
+    line-height: 1.1;
     margin: 0;
     color: var(--color-text-primary);
 }
 
-.post-content p.author-name::after {
-    content: '';
-    display: block;
-    width: 2.5rem;
-    height: 2px;
-    background: var(--color-teal);
-    margin-top: 0.5rem;
-    margin-bottom: 1.25rem;
+.post-content .author-intro__role {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin: 0.5rem 0 0;
+    letter-spacing: -0.005em;
 }
 
-/* Hobby project cards — complement tech-talk cards, simpler */
+.post-content .author-intro__role a {
+    color: var(--color-teal);
+    text-decoration: none;
+    font-weight: var(--font-medium);
+}
+
+.post-content .author-intro__role a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* Teal accent line */
+.author-intro::after {
+    content: '';
+    display: block;
+    width: 3rem;
+    height: 2px;
+    background: var(--color-teal);
+    margin-top: 1.25rem;
+}
+
+/* Hobby project cards — teal left accent, lift on hover */
 .hobby-project {
     border-radius: var(--radius);
-    padding: 1rem 1.25rem;
+    padding: 1.25rem 1.5rem;
     margin: 0.75rem 0;
     border: 1px solid var(--color-border);
-    transition: border-color 0.2s ease;
+    border-left: 3px solid var(--color-teal);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .hobby-project:hover {
-    border-color: var(--color-teal);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .hobby-project-title {
@@ -41,12 +82,12 @@
     color: var(--color-font);
 }
 
-.hobby-project-title a {
+.post-content .hobby-project-title a {
     color: inherit;
     text-decoration: none;
 }
 
-.hobby-project-title a:hover {
+.post-content .hobby-project-title a:hover {
     color: var(--color-link);
 }
 
