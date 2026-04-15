@@ -33,6 +33,12 @@ Feel free to connect if our paths cross!\
     link="https://bear-notes-mcp.vercel.app"
 >}}
 
+{{< hobby-project
+    title="Vigil for Mac"
+    description="A minimal macOS menu bar app that prevents your Mac from sleeping. One click, two modes, no clutter."
+    link="https://vigil-for-mac.vercel.app"
+>}}
+
 ## Selected Talks
 
 {{< tech-talk
