@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://devdosvid.blog/</loc>
-    <lastmod>2026-04-12T20:32:19+02:00</lastmod>
+    <lastmod>2026-04-15T23:16:58+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/engineering-leadership/</loc>
@@ -166,12 +166,12 @@
     <lastmod>2022-07-15T22:47:01+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
-    <loc>https://devdosvid.blog/about/</loc>
-    <lastmod>2026-02-19T14:25:45+01:00</lastmod>
-    <changefreq>monthly</changefreq>
-  </url><url>
     <loc>https://devdosvid.blog/archive/</loc>
     <lastmod>2021-11-04T12:19:46+02:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://devdosvid.blog/about/</loc>
+    <lastmod>2026-04-15T23:16:58+02:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/cv/</loc>
