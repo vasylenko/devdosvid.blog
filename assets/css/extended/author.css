@@ -1,19 +1,13 @@
 /* === Author page === */
 
-/* When an author-intro exists, transform the page title into an editorial label */
-.post-single:has(.author-intro) .post-title {
-    font-size: 0.75rem;
-    font-weight: var(--font-semibold);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-text-muted);
-    margin-bottom: 0;
-    line-height: 1;
-    text-wrap: auto;
-}
-
+/* When an author-intro exists, the shortcode IS the hero — hide the generic page title */
 .post-single:has(.author-intro) .post-header {
-    margin-bottom: 0.25rem;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
 }
 
 /* Author intro header */
