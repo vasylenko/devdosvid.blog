@@ -1,0 +1,12 @@
+<div class="hobby-project">
+    <h4 class="hobby-project-title">
+        {{- with .Get "link" -}}
+        <a href="{{ . }}" target="_blank" rel="noopener">{{ $.Get "title" }}</a>
+        {{- else -}}
+        {{ .Get "title" }}
+        {{- end -}}
+    </h4>
+    {{- with .Get "description" }}
+    <p class="hobby-project-description">{{ . }}</p>
+    {{- end }}
+</div>

@@ -8,27 +8,32 @@ disableAnchoredHeadings: true
 hideSummary: true
 cover.hidden: true
 ShowBreadCrumbs: false
-title: About me — Serhii Vasylenko
+title: Author
 ShowLicense: false
 ---
 
-Hello! I am Serhii, a software engineer by day and a tech enthusiast by night, currently crafting DevSecOps magic at [Grammarly](https://www.grammarly.com/).
+{{< author-name name="Serhii Vasylenko" >}}
 
-My passion lies in creating and integrating developer experience and security automation tools.\
-My journey has been accompanied by leadership roles in strategic projects, which have strengthened infrastructure and boosted team efficiency.\
-Curiosity fuels my days, and I believe there's always room for improvement.
+Hi, I'm Serhii — a Staff Platform Engineer at [Superhuman](https://superhuman.com), where I focus on developer experience, infrastructure platforms, and security automation. I build tools and systems that help engineering teams ship faster and more safely.
 
-And I welcome you to read more about me [in my CV](/cv)!
+You can read more about my professional background [in my CV](/cv).
 
-Technical blogging is my hobby; I am also fond of astronomy and history.
+Technical blogging is my hobby; I'm also fond of astronomy and history.
 
-By the way, the blog name — "**devDosvid**" — is made of the word "dosvid" (pronounced as [dɔsʋid]), which means "experience" in Ukrainian. 
+The blog name — "**devDosvid**" — is made of the word "dosvid" (pronounced as [dɔsʋid]), which means "experience" in Ukrainian.
 
-Feel free to connect if our paths cross, whether it's for a tech chat or a new opportunity! 🙌\
+Feel free to connect if our paths cross, whether it's for a tech chat or a new opportunity!\
 [contact@devdosvid.blog](mailto:contact@devdosvid.blog).
 
+## Hobby Projects
 
-## Some of selected tech talks
+{{< hobby-project
+    title="Bear Notes MCP Server"
+    description="An MCP server that connects AI assistants to Bear, a markdown note-taking app, enabling natural language interaction with your notes."
+    link="https://bear-notes-mcp.vercel.app"
+>}}
+
+## Selected Talks
 
 {{< tech-talk
     title="[EN] You Build It, You Own It: Evolution of Grammarly's Platform Engineering"

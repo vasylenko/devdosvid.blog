@@ -1,0 +1,58 @@
+/* === Author page === */
+
+/* Author name — editorial display with teal accent */
+.post-content p.author-name {
+    font-size: 1.5rem;
+    font-weight: var(--font-bold);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    margin: 0;
+    color: var(--color-text-primary);
+}
+
+.post-content p.author-name::after {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 2px;
+    background: var(--color-teal);
+    margin-top: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+/* Hobby project cards — complement tech-talk cards, simpler */
+.hobby-project {
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin: 0.75rem 0;
+    border: 1px solid var(--color-border);
+    transition: border-color 0.2s ease;
+}
+
+.hobby-project:hover {
+    border-color: var(--color-teal);
+}
+
+.hobby-project-title {
+    margin: 0 0 0.25rem 0;
+    font-size: 1em;
+    font-weight: var(--font-semibold);
+    line-height: 1.3;
+    color: var(--color-font);
+}
+
+.hobby-project-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.hobby-project-title a:hover {
+    color: var(--color-link);
+}
+
+.hobby-project-description {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+}

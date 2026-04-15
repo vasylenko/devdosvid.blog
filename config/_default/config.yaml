@@ -39,7 +39,7 @@ menu:
           url: /series
           weight: 20
         - identifier: about
-          name: "About me"
+          name: "Author"
           url: /about/
           weight: 30
         - identifier: category
