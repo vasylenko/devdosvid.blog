@@ -22,7 +22,7 @@ Technical blogging is my hobby; I'm also fond of astronomy and history.
 
 The blog name — "**devDosvid**" — is made of the word "dosvid" (pronounced as [dɔsʋid]), which means "experience" in Ukrainian.
 
-Feel free to connect if our paths cross, whether it's for a tech chat or a new opportunity!\
+Feel free to connect if our paths cross!\
 [contact@devdosvid.blog](mailto:contact@devdosvid.blog).
 
 ## Hobby Projects
