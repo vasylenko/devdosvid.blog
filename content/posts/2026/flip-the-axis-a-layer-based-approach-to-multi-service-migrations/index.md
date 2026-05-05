@@ -1,15 +1,15 @@
 ---
-title: "Flip the Axis: A Layer-Based Approach to Multi-Service Migrations"
+title: "Flip the Axis: Layer-Based Service Migration"
 slug: "flip-the-axis-a-layer-based-approach-to-multi-service-migrations"
 date: 2026-03-05T01:02:07+01:00
 summary: "How parallelizing by step instead of by service helped a half-sized team do twice the work"
-description: "A practical strategy for large-scale service migrations: parallelize by step, not by service, to compound learning, catch errors early, and enable automation"
+description: "A migration pattern for many services: parallelize by step instead of by service. Compound learning, catch errors early, enable automation across services."
 cover:
     image: cover.jpg
     relative: true
-    alt:
+    alt: "Diagram of a service migration flipped from per-service to per-step execution"
 series: ["Engineering Leadership"]
-keywords: ["multi-service migration", "migration strategy", "ECS to EKS migration", "Kubernetes migration", "infrastructure migration at scale", "platform engineering"]
+keywords: ["multi-service migration", "migration strategy", "migration parallelization", "layer-based migration", "ECS to EKS migration", "Kubernetes migration", "infrastructure migration at scale", "platform engineering", "engineering leadership", "scaling migrations"]
 ---
 
 ## TL;DR

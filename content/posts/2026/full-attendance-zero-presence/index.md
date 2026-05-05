@@ -1,16 +1,19 @@
 ---
-title: Full Attendance, Zero Presence
+title: "Full Attendance, Zero Presence in Meetings"
 slug: full-attendance-zero-presence
 date: 2026-03-18T20:04:21+01:00
 summary: Most listening advice says add behaviors. The real fix is the opposite — stop doing everything else.
-description: How presence breaks down in meetings — silent nods, solving before hearing, and what being present actually looks like.
+description: "Active listening in engineering meetings — silent-nod failures, solving before hearing, and what real presence looks like in 1:1s and all-hands."
 keywords:
   - active listening
+  - active listening in meetings
   - meeting presence
   - listening in meetings
   - meeting anti-patterns
   - engineering communication
   - 1:1 meetings
+  - engineering leadership
+  - silent disagreement in meetings
 series: Engineering Leadership
 cover:
   image: cover.jpg

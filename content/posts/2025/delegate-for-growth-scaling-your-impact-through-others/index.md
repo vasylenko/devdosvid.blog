@@ -1,8 +1,9 @@
 ---
-title: "Delegate for Growth: Scaling Your Impact Through Others"
+title: "Delegating Without Authority as a Senior Engineer"
 slug: "delegate-for-growth-scaling-your-impact-through-others"
 date: 2025-04-04T00:36:23+02:00
-description: "Senior IC guide to scaling impact. Master peer influence & growth delegation to effectively lead without formal authority."
+description: "How to delegate work as a senior engineer when you don't manage anyone — peer influence, scaling impact, and leading without formal authority."
+keywords: ["senior engineer delegation", "leading without authority", "scaling impact as IC", "peer influence", "staff engineer leadership", "IC leadership", "delegate as engineer", "influence without authority", "engineering leadership"]
 cover:
     image: cover.jpeg
     relative: true

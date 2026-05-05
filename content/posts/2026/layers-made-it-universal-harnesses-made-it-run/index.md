@@ -1,15 +1,15 @@
 ---
-title: "Layers Made It Universal. Harnesses Made It Run"
+title: "Harness Engineering: Layers Made It Universal"
 slug: "layers-made-it-universal.-harnesses-made-it-run"
 date: 2026-04-07
 summary: "What harness engineering looks like when the work is infrastructure, not application code."
-description: "Harness engineering applied to infrastructure migration, not coding agents. How a prompt pipeline mixing scripts, AI, and validation made a 21-service ECS-to-EKS migration trustworthy -- four engineers, twelve layers, one pipeline."
+description: "Harness engineering for infrastructure: a prompt pipeline mixing scripts, AI, and validation made a 21-service ECS-to-EKS migration trustworthy."
 cover:
     image: cover.png
     relative: true
-    alt: ""
+    alt: "Diagram of a prompt pipeline running across infrastructure repositories"
 series: ["Engineering Leadership"]
-keywords: ["harness engineering", "AI agents", "prompt pipeline", "ECS to EKS migration", "infrastructure automation", "platform engineering", "Claude Code", "AI for DevOps", "AI for infrastructure", "toil automation", "multi-service migration"]
+keywords: ["harness engineering", "AI agents", "AI agents for infrastructure", "prompt pipeline", "ECS to EKS migration", "infrastructure automation", "platform engineering", "Claude Code", "AI for DevOps", "AI for infrastructure", "toil automation", "multi-service migration", "engineering leadership"]
 ---
 
 *A continuation of [Flip the Axis: A Layer-Based Approach to Multi-Service Migrations](https://devdosvid.blog/2026/03/05/flip-the-axis-a-layer-based-approach-to-multi-service-migrations/).*
