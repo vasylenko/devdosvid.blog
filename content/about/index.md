@@ -14,9 +14,9 @@ ShowLicense: false
 
 {{< author-intro name="Serhii Vasylenko" role="Staff Platform Engineer" company="Superhuman" company_url="https://superhuman.com" >}}
 
-Hi, I'm Serhii. I build solutions that help engineering teams ship faster and more safely — focusing on developer experience, infrastructure platforms, and security automation.
+Hi, I'm Serhii. I'm a Staff Platform Engineer at Superhuman (formerly Grammarly), leading the design and operation of developer-experience and infrastructure-platform systems that help engineering teams ship faster and more safely. Across my career I've grown teams, mentored peers, and learned to lead and influence without formal authority — patterns I write about here alongside the technical work that makes large platforms reliable.
 
-You can read more about my professional background [in my CV](/cv).
+You'll find the leadership writing in the [Engineering Leadership series](/series/engineering-leadership/), the platform and infrastructure work across [all posts](/archive), and a fuller professional history [in my CV](/cv).
 
 Technical blogging is my hobby; I'm also fond of astronomy and history.
 

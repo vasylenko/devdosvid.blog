@@ -1,14 +1,15 @@
 ---
-title: "Flip the Axis: A Layer-Based Approach to Multi-Service Migrations"
+title: "Flip the Axis: Layer-Based Service Migration"
+slug: "flip-the-axis-a-layer-based-approach-to-multi-service-migrations"
 date: 2026-03-05T01:02:07+01:00
 summary: "How parallelizing by step instead of by service helped a half-sized team do twice the work"
-description: "A practical strategy for large-scale service migrations: parallelize by step, not by service, to compound learning, catch errors early, and enable automation"
+description: "A migration pattern for many services: parallelize by step instead of by service. Compound learning, catch errors early, enable automation across services."
 cover:
     image: cover.jpg
     relative: true
-    alt:
+    alt: "Diagram of a service migration flipped from per-service to per-step execution"
 series: ["Engineering Leadership"]
-keywords: ["multi-service migration", "migration strategy", "ECS to EKS migration", "Kubernetes migration", "infrastructure migration at scale", "platform engineering"]
+keywords: ["multi-service migration", "migration strategy", "migration parallelization", "layer-based migration", "ECS to EKS migration", "Kubernetes migration", "infrastructure migration at scale", "platform engineering", "engineering leadership", "scaling migrations"]
 ---
 
 ## TL;DR
@@ -84,7 +85,7 @@ A layer sweep works like this: the team takes on a layer, splits the service lis
 
 One engineer can realistically sweep a single layer across 6-8 services in a day. That number surprises people -- until they know the tooling. We paired the layered methodology with AI-assisted automation that handled the repetitive configuration work across services. But the important thing is: **the layer-based structure is what makes that automation possible**.
 
-When every service needs the same type of change with minor variations, you can build prompts, scripts, and validation checks that apply across the board. Serial, per-service work is too varied to automate effectively. The AI tooling story -- what worked, what failed, and where human judgment was irreplaceable -- is the subject of the next post in this series.
+When every service needs the same type of change with minor variations, you can build prompts, scripts, and validation checks that apply across the board. Serial, per-service work is too varied to automate effectively. The AI tooling story -- what worked, what failed, and where human judgment was irreplaceable -- is the subject of the [follow-up post on harness engineering for infrastructure](/2026/04/07/layers-made-it-universal.-harnesses-made-it-run/).
 
 During execution, the team meets briefly to sync on edge cases -- because the work is homogeneous, an edge case in one service is immediately relevant to every other service going through the same layer.
 

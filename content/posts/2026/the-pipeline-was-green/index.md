@@ -1,13 +1,14 @@
 ---
-title: "The Pipeline Was Green"
+title: "The Pipeline Was Green: AI Agents and CI Trust"
+slug: "the-pipeline-was-green"
 date: 2026-04-10T22:03:53+02:00
 summary: An AI agent upgraded a Helm chart, the pipeline said green, and QA was broken for three days. The first instinct was to lock everything down. The better answer was harder to accept.
-description: Our CI said green. An AI agent trusted it and broke QA for three days. The problem wasn't the agent -- it was our own false signals.
+description: "AI agent in CI/CD: our pipeline said green, the agent trusted it, and it broke QA for three days. The problem wasn't the agent — it was our false signals."
 cover:
     image: cover.png
     relative: true
     alt: "A green spotlight on a tripod standing on cracked red ground"
-keywords: ["AI agent", "CI/CD pipeline", "platform engineering", "AI automation", "Helm chart", "Kubernetes", "AI-friendly repository"]
+keywords: ["AI agent in CI/CD", "AI agents in pipelines", "trusting AI agents", "Renovate Claude Code", "CI signal trustworthiness", "AI for DevOps", "platform engineering", "AI automation", "Helm chart upgrade", "Kubernetes operator", "AI-friendly repository", "engineering leadership"]
 series: ["Engineering Leadership"]
 ---
 

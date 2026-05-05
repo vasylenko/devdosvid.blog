@@ -287,6 +287,8 @@ Terraform is far beyond the standard resource management operations. With the po
 
 ✅ And when you need to pass some files to the managed service, you can treat them as [templates](https://www.terraform.io/language/functions/templatefile) and make them multipurpose.
 
+Once these patterns become reflexive on a single service, the next-level problem is applying them across many services at once — without burning out the team. I wrote a separate post on the strategy that worked for us: a [layer-based approach to multi-service migration](/2026/03/05/flip-the-axis-a-layer-based-approach-to-multi-service-migrations/) — parallelizing by step instead of by service, so the same Terraform craft compounds across a fleet.
+
 Thank you for reading down to this point! 🤗
 
 If you have some favorite Terraform tricks — I would love to know!

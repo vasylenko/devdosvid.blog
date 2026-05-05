@@ -22,5 +22,41 @@
 {{- end }}
 <meta name="twitter:creator" content="{{ site.Params.twittercreator }}"/>
 <meta name="twitter:site" content="{{ site.Params.twittersite }}"/>
+{{- /* Standalone Person schema on /about/ only — fills the E-E-A-T attribution gap.
+       PaperMod emits Person at home (params.schema.publisherType=Person) and nested
+       inside each post's BlogPosting.author. This block adds a top-level Person
+       graph node specifically on the author page. Gated to avoid duplication. */ -}}
+{{- if eq .RelPermalink "/about/" }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Serhii Vasylenko",
+  "url": "{{ site.BaseURL }}about/",
+  "image": "{{ site.BaseURL }}{{ site.Params.opengraphimage | default "/assets/img/websitelogo.jpg" | strings.TrimPrefix "/" }}",
+  "jobTitle": "Staff Platform Engineer",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Superhuman",
+    "url": "https://superhuman.com"
+  },
+  "knowsAbout": [
+    "Engineering Leadership",
+    "Platform Engineering",
+    "Staff Engineer Career",
+    "Leading Without Authority",
+    "Developer Experience",
+    "Infrastructure as Code",
+    "Kubernetes",
+    "AWS"
+  ],
+  "sameAs": [
+    "https://x.com/vasylenko",
+    "https://github.com/vasylenko",
+    "https://www.linkedin.com/in/svasylenko"
+  ]
+}
+</script>
+{{- end }}
 <!-- 100% privacy-first analytics -->
 <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
