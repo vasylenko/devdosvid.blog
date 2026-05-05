@@ -1,5 +1,6 @@
 ---
 title: "Flip the Axis: A Layer-Based Approach to Multi-Service Migrations"
+slug: "flip-the-axis-a-layer-based-approach-to-multi-service-migrations"
 date: 2026-03-05T01:02:07+01:00
 summary: "How parallelizing by step instead of by service helped a half-sized team do twice the work"
 description: "A practical strategy for large-scale service migrations: parallelize by step, not by service, to compound learning, catch errors early, and enable automation"

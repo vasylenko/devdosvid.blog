@@ -1,5 +1,6 @@
 ---
 title: Full Attendance, Zero Presence
+slug: full-attendance-zero-presence
 date: 2026-03-18T20:04:21+01:00
 summary: Most listening advice says add behaviors. The real fix is the opposite — stop doing everything else.
 description: How presence breaks down in meetings — silent nods, solving before hearing, and what being present actually looks like.

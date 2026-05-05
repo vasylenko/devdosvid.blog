@@ -1,5 +1,6 @@
 ---
 title: "Positional Dominance Is Making You a Worse Engineer"
+slug: "positional-dominance-is-making-you-a-worse-engineer"
 date: 2026-02-19T15:41:54+01:00
 summary: When a teammate proposed a better design than mine, my first instinct was to defend my own — not because of logic, but because it was his idea, not mine.
 description: At Staff level, needing to be the source of every best idea — positional dominance — quietly undermines your leadership. Here's the shift to outcome dominance.

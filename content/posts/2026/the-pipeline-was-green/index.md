@@ -1,5 +1,6 @@
 ---
 title: "The Pipeline Was Green"
+slug: "the-pipeline-was-green"
 date: 2026-04-10T22:03:53+02:00
 summary: An AI agent upgraded a Helm chart, the pipeline said green, and QA was broken for three days. The first instinct was to lock everything down. The better answer was harder to accept.
 description: Our CI said green. An AI agent trusted it and broke QA for three days. The problem wasn't the agent -- it was our own false signals.

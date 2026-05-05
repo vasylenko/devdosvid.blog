@@ -1,5 +1,6 @@
 ---
 title: "Delegate for Growth: Scaling Your Impact Through Others"
+slug: "delegate-for-growth-scaling-your-impact-through-others"
 date: 2025-04-04T00:36:23+02:00
 description: "Senior IC guide to scaling impact. Master peer influence & growth delegation to effectively lead without formal authority."
 cover:

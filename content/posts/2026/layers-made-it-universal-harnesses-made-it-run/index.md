@@ -1,5 +1,6 @@
 ---
 title: "Layers Made It Universal. Harnesses Made It Run"
+slug: "layers-made-it-universal.-harnesses-made-it-run"
 date: 2026-04-07
 summary: "What harness engineering looks like when the work is infrastructure, not application code."
 description: "Harness engineering applied to infrastructure migration, not coding agents. How a prompt pipeline mixing scripts, AI, and validation made a 21-service ECS-to-EKS migration trustworthy -- four engineers, twelve layers, one pipeline."
