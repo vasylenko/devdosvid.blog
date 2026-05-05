@@ -1,5 +1,5 @@
 ---
-title: "AWS Resource Access Manager — Multi Account Resource Governance"
+title: "AWS Resource Access Manager: Multi-Account Governance"
 slug: aws-resource-access-manager-multi-account-resource-governance
 date: 2021-09-25T00:54:23+03:00
 description: Provision and manage resources within the AWS Organization with ease
