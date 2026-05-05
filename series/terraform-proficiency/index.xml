@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 May 2026 03:34:53 +0300</lastBuildDate>
+    <lastBuildDate>Tue, 05 May 2026 13:54:14 +0300</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/terraform-proficiency/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Terraform SAST Tools Compared: Checkov, Trivy, KICS</title>
@@ -460,6 +460,7 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
   </tbody>
 </table>
 <p>Integrating a Terraform security scanning into your development pipeline is a proven strategy to boost your security posture. These tools detect potential vulnerabilities early and enforce best practices and compliance standards, representing a proactive approach to infrastructure security.</p>
+<p>A scanner can catch the bugs you&rsquo;ve thought of. The harder problem is what to do when <a href="/2026/04/10/the-pipeline-was-green/">a green pipeline still lies</a> — when CI says &ldquo;safe&rdquo; but the change is anything but. I wrote about that case separately, including how an AI agent trusted a green build and broke a whole environment for three days.</p>
 <p>For teams not yet utilizing these tools, <strong>Checkov</strong> is my top recommendation:</p>
 <ul>
 <li>Biggest number of default policies and supported Terraform providers for a quick start.</li>
@@ -1655,6 +1656,7 @@ bash /opt/system-init/register-monitoring.sh
 <p>✅ Take advantage of <a href="https://www.terraform.io/language/expressions/types#type-conversion">implicit type conversion</a> when working with input variables and their values to keep your code cleaner.</p>
 <p>✅ Embed YAML and JSON-based objects right into your Terraform code using built-in <a href="https://www.terraform.io/language/functions/jsonencode">encoding</a> <a href="https://www.terraform.io/language/functions/yamlencode">functions</a>.</p>
 <p>✅ And when you need to pass some files to the managed service, you can treat them as <a href="https://www.terraform.io/language/functions/templatefile">templates</a> and make them multipurpose.</p>
+<p>Once these patterns become reflexive on a single service, the next-level problem is applying them across many services at once — without burning out the team. I wrote a separate post on the strategy that worked for us: a <a href="/2026/03/05/flip-the-axis-a-layer-based-approach-to-multi-service-migrations/">layer-based approach to multi-service migration</a> — parallelizing by step instead of by service, so the same Terraform craft compounds across a fleet.</p>
 <p>Thank you for reading down to this point! 🤗</p>
 <p>If you have some favorite Terraform tricks — I would love to know!</p>
 ]]></content:encoded>

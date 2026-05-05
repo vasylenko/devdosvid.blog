@@ -3,43 +3,39 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://devdosvid.blog/</loc>
-    <lastmod>2026-05-05T03:34:53+03:00</lastmod>
-    <changefreq>monthly</changefreq>
-  </url><url>
-    <loc>https://devdosvid.blog/series/engineering-leadership/</loc>
-    <lastmod>2026-04-11T00:06:28+02:00</lastmod>
+    <lastmod>2026-05-05T13:54:14+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/posts/</loc>
-    <lastmod>2026-05-05T03:34:53+03:00</lastmod>
+    <lastmod>2026-05-05T13:54:14+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/</loc>
-    <lastmod>2026-05-05T03:34:53+03:00</lastmod>
+    <lastmod>2026-05-05T13:54:14+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2026/04/10/the-pipeline-was-green/</loc>
-    <lastmod>2026-04-11T00:06:28+02:00</lastmod>
+    <lastmod>2026-05-05T13:54:14+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2026/04/07/layers-made-it-universal.-harnesses-made-it-run/</loc>
-    <lastmod>2026-04-11T00:06:28+02:00</lastmod>
+    <lastmod>2026-05-05T13:54:14+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2026/03/18/full-attendance-zero-presence/</loc>
-    <lastmod>2026-04-11T00:06:28+02:00</lastmod>
+    <lastmod>2026-05-05T13:54:14+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2026/03/05/flip-the-axis-a-layer-based-approach-to-multi-service-migrations/</loc>
-    <lastmod>2026-04-11T00:06:28+02:00</lastmod>
+    <lastmod>2026-05-05T13:54:14+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2026/02/19/positional-dominance-is-making-you-a-worse-engineer/</loc>
-    <lastmod>2026-04-11T00:06:28+02:00</lastmod>
+    <lastmod>2026-05-05T13:54:14+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2025/04/04/delegate-for-growth-scaling-your-impact-through-others/</loc>
-    <lastmod>2026-04-11T00:06:28+02:00</lastmod>
+    <lastmod>2026-05-05T13:54:14+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2025/01/29/aws-s3-cost-optimization-removing-redundancy-and-implementing-intelligent-tiering/</loc>
@@ -51,11 +47,11 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/series/terraform-proficiency/</loc>
-    <lastmod>2026-05-05T03:34:53+03:00</lastmod>
+    <lastmod>2026-05-05T13:54:14+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2024/04/16/a-deep-dive-into-terraform-static-code-analysis-tools-features-and-comparisons/</loc>
-    <lastmod>2026-05-05T03:34:53+03:00</lastmod>
+    <lastmod>2026-05-05T13:54:14+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/</loc>
@@ -83,7 +79,7 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2022/01/16/some-techniques-to-enhance-your-terraform-proficiency/</loc>
-    <lastmod>2026-02-19T14:25:45+01:00</lastmod>
+    <lastmod>2026-05-05T13:54:14+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/2021/11/24/guide-to-using-terraform-in-ci/cd/</loc>
@@ -171,7 +167,11 @@
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/about/</loc>
-    <lastmod>2026-04-15T23:16:58+02:00</lastmod>
+    <lastmod>2026-05-05T13:54:14+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://devdosvid.blog/series/engineering-leadership/</loc>
+    <lastmod>2026-05-05T13:54:14+03:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://devdosvid.blog/cv/</loc>

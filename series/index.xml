@@ -11,15 +11,8 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 May 2026 03:34:53 +0300</lastBuildDate>
+    <lastBuildDate>Tue, 05 May 2026 13:54:14 +0300</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Engineering Leadership</title>
-      <link>https://devdosvid.blog/series/engineering-leadership/</link>
-      <pubDate>Fri, 10 Apr 2026 22:03:53 +0200</pubDate>
-      <guid>https://devdosvid.blog/series/engineering-leadership/</guid>
-      <description></description>
-    </item>
     <item>
       <title>Terraform Proficiency</title>
       <link>https://devdosvid.blog/series/terraform-proficiency/</link>
@@ -33,6 +26,23 @@
       <pubDate>Sun, 24 Oct 2021 02:00:31 +0300</pubDate>
       <guid>https://devdosvid.blog/series/mac1.metal-at-aws/</guid>
       <description></description>
+    </item>
+    <item>
+      <title>Engineering Leadership</title>
+      <link>https://devdosvid.blog/series/engineering-leadership/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdosvid.blog/series/engineering-leadership/</guid>
+      <description>Essays on staff-level engineering leadership — leading without authority, scaling impact through peers, presence in meetings, and patterns that shape senior IC growth.</description>
+      <content:encoded><![CDATA[<p>This series collects essays on <strong>engineering leadership at staff and senior IC levels</strong> — the kind of leadership that has nothing to do with formal authority. It&rsquo;s about the patterns I&rsquo;ve watched (and lived through) on the way from &ldquo;deepest technical contributor in the room&rdquo; to &ldquo;person whose impact compounds through others.&rdquo;</p>
+<p>A few recurring threads I keep coming back to:</p>
+<p><strong>Leading without authority.</strong> The shift from doing the work yourself to multiplying through peers when nobody reports to you. How to get others invested in your priorities without managerial leverage — and what makes that work over time.</p>
+<p><strong>Outcome dominance over positional dominance.</strong> The hidden ego trap of needing to be the source of every best idea, and what changes when you optimize for the project&rsquo;s win instead of yours. Most &ldquo;be humble&rdquo; advice is positional thinking with better PR; the real shift is in what you&rsquo;re optimizing for.</p>
+<p><strong>Presence over attendance.</strong> What real listening looks like when meetings get harder, faster, and noisier — and the silent ways &ldquo;showing up&rdquo; stops being enough. The damage done by silent nods and disagreements that never enter the room.</p>
+<p><strong>Execution at scale.</strong> Migration patterns, layered execution models, and the harness engineering that turns AI agents into reliable teammates instead of liabilities. Where the methodology enables the tooling, not the other way around.</p>
+<p><strong>Trustworthy signals.</strong> When green pipelines lie, AI agents misjudge, and the systems we built to give us confidence stop being reliable. The work of restoring trust in the signals that production runs on.</p>
+<p>The audience is anyone navigating the senior-IC-to-staff transition — the career stretch where technical depth gets out-leveraged by leadership patterns, where &ldquo;the best idea wins&rdquo; stops being the only thing that matters, and where your impact starts being measured in the systems and people you grow rather than the code you write.</p>
+<p>The posts in this series, in publication order:</p>
+]]></content:encoded>
     </item>
   </channel>
 </rss>

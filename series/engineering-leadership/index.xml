@@ -11,14 +11,13 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 11 Apr 2026 00:06:28 +0200</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/engineering-leadership/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>The Pipeline Was Green</title>
+      <title>The Pipeline Was Green: AI Agents and CI Trust</title>
       <link>https://devdosvid.blog/2026/04/10/the-pipeline-was-green/</link>
       <pubDate>Fri, 10 Apr 2026 22:03:53 +0200</pubDate>
       <guid>https://devdosvid.blog/2026/04/10/the-pipeline-was-green/</guid>
-      <description>Our CI said green. An AI agent trusted it and broke QA for three days. The problem wasn&amp;#39;t the agent -- it was our own false signals.</description>
+      <description>AI agent in CI/CD: our pipeline said green, the agent trusted it, and it broke QA for three days. The problem wasn&amp;#39;t the agent — it was our false signals.</description>
       <content:encoded><![CDATA[<p>Late December, two days before Christmas break. Half the company is already gone. The other half is trying to close out whatever they can before the end of the year.</p>
 <p>I open Argo CD because I&rsquo;m working with the QA cluster that day. A few projects marked red. Not unusual &ndash; QA has its moments. Shit happens.</p>
 <p>Then a message shows up in a different Slack channel. A developer asking his own team: &ldquo;Hey, does anyone know what&rsquo;s happening with QA? Since Friday night, all our services are down.&rdquo;</p>
@@ -85,11 +84,11 @@
 ]]></content:encoded>
     </item>
     <item>
-      <title>Layers Made It Universal. Harnesses Made It Run</title>
+      <title>Harness Engineering: Layers Made It Universal</title>
       <link>https://devdosvid.blog/2026/04/07/layers-made-it-universal.-harnesses-made-it-run/</link>
       <pubDate>Tue, 07 Apr 2026 00:00:00 +0000</pubDate>
       <guid>https://devdosvid.blog/2026/04/07/layers-made-it-universal.-harnesses-made-it-run/</guid>
-      <description>Harness engineering applied to infrastructure migration, not coding agents. How a prompt pipeline mixing scripts, AI, and validation made a 21-service ECS-to-EKS migration trustworthy -- four engineers, twelve layers, one pipeline.</description>
+      <description>Harness engineering for infrastructure: a prompt pipeline mixing scripts, AI, and validation made a 21-service ECS-to-EKS migration trustworthy.</description>
       <content:encoded><![CDATA[<p><em>A continuation of <a href="https://devdosvid.blog/2026/03/05/flip-the-axis-a-layer-based-approach-to-multi-service-migrations/">Flip the Axis: A Layer-Based Approach to Multi-Service Migrations</a>.</em></p>
 <h2 id="tldr">TL;DR</h2>
 <p>You can&rsquo;t script your way across a fleet of snowflake repositories. Neither can you just ask an AI agent to &ldquo;migrate this service&rdquo; and hope. What worked for the eight-quarter migration was a harness &ndash; a prompt pipeline in which each layer was a sequence of ordered steps: some calling scripts for deterministic changes, some using AI to discover and adapt, and some validating the results. The harness chained their outputs, ran each layer across 21 repos at once, and landed merge requests when it was done.</p>
@@ -160,7 +159,7 @@
 <p>So we built a parallel execution wrapper on top of the Claude Agent SDK. Think of it as a prompt pipeline runner. Point it at a workflow and a list of repositories, and for each repo it clones into its own git worktree, spins up an isolated Claude Code session, runs the workflow&rsquo;s step files in order, enforces the mutation boundaries from the previous section, and lands a per-repo report when it&rsquo;s done. One engineer monitors the batch and reviews the results.</p>
 <p><img alt="Parallel execution diagram showing a workflow and repo list fanning out to isolated sessions per repository, converging to engineer review" loading="lazy" src="/2026/04/07/layers-made-it-universal.-harnesses-made-it-run/parallel-execution.png"></p>
 <p>Each session adapts to its repository while following the same workflow. The agent in repo A figures out one logging setup; the agent in repo B figures out a completely different one. Both produce the same kind of report. The engineer opens ten reports instead of writing ten PRs.</p>
-<p>This is the automated <a href="https://devdosvid.blog/2026/03/05/flip-the-axis-a-layer-based-approach-to-multi-service-migrations/">flip-the-axis</a> model. One layer, one workflow, N repos, one human in the loop. All twelve migration layers ran through this pipeline.</p>
+<p>This is the automated form of the <a href="https://devdosvid.blog/2026/03/05/flip-the-axis-a-layer-based-approach-to-multi-service-migrations/">layer-based multi-service migration model</a> — one layer, one workflow, N repos, one human in the loop. All twelve migration layers ran through this pipeline.</p>
 <p>Prompt pipeline + parallel sessions + per-repo reports + human review at the end.</p>
 <h2 id="prompts-as-production-code">Prompts as production code</h2>
 <p>The non-obvious part: all of this lived in a shared repository. Workflows, runbooks, Go tools, scripts, per-service metadata &ndash; all version-controlled in one place. The project headquarters.</p>
@@ -186,11 +185,11 @@
 ]]></content:encoded>
     </item>
     <item>
-      <title>Full Attendance, Zero Presence</title>
+      <title>Full Attendance, Zero Presence in Meetings</title>
       <link>https://devdosvid.blog/2026/03/18/full-attendance-zero-presence/</link>
       <pubDate>Wed, 18 Mar 2026 20:04:21 +0100</pubDate>
       <guid>https://devdosvid.blog/2026/03/18/full-attendance-zero-presence/</guid>
-      <description>How presence breaks down in meetings — silent nods, solving before hearing, and what being present actually looks like.</description>
+      <description>Active listening in engineering meetings — silent-nod failures, solving before hearing, and what real presence looks like in 1:1s and all-hands.</description>
       <content:encoded><![CDATA[<p>Five minutes after the all-hands, someone asks me in the hallway, &ldquo;What did he mean by that?&rdquo; Then another person: &ldquo;So what are we actually supposed to do?&rdquo; I didn&rsquo;t have a great answer either. We&rsquo;d all sat through twenty minutes of a strategy change presentation. We all nodded. None of us was in the conversation.</p>
 <p>This isn&rsquo;t a one-off. I see this pattern everywhere &ndash; across teams, across functions, across seniority levels. People show up to meetings. They sit. They nod. They leave without having processed what was said. Full attendance, zero presence.</p>
 <blockquote class="alert alert-note">
@@ -265,11 +264,11 @@
 ]]></content:encoded>
     </item>
     <item>
-      <title>Flip the Axis: A Layer-Based Approach to Multi-Service Migrations</title>
+      <title>Flip the Axis: Layer-Based Service Migration</title>
       <link>https://devdosvid.blog/2026/03/05/flip-the-axis-a-layer-based-approach-to-multi-service-migrations/</link>
       <pubDate>Thu, 05 Mar 2026 01:02:07 +0100</pubDate>
       <guid>https://devdosvid.blog/2026/03/05/flip-the-axis-a-layer-based-approach-to-multi-service-migrations/</guid>
-      <description>A practical strategy for large-scale service migrations: parallelize by step, not by service, to compound learning, catch errors early, and enable automation</description>
+      <description>A migration pattern for many services: parallelize by step instead of by service. Compound learning, catch errors early, enable automation across services.</description>
       <content:encoded><![CDATA[<h2 id="tldr">TL;DR</h2>
 <p>When you&rsquo;re migrating many services through the same steps, parallelize by step, not by service. Sweep one type of change across all services, then the next &ndash; it compounds learning, catches inconsistencies early, and makes automation viable. But recognize which services don&rsquo;t fit the pattern: architecturally unique services should still be migrated serially.</p>
 <h2 id="the-problem">The Problem</h2>
@@ -365,7 +364,7 @@
 <h2 id="execution-model">Execution Model</h2>
 <p>A layer sweep works like this: the team takes on a layer, splits the service list among themselves, and each engineer applies that layer to their assigned services. Everyone works the same type of change simultaneously.</p>
 <p>One engineer can realistically sweep a single layer across 6-8 services in a day. That number surprises people &ndash; until they know the tooling. We paired the layered methodology with AI-assisted automation that handled the repetitive configuration work across services. But the important thing is: <strong>the layer-based structure is what makes that automation possible</strong>.</p>
-<p>When every service needs the same type of change with minor variations, you can build prompts, scripts, and validation checks that apply across the board. Serial, per-service work is too varied to automate effectively. The AI tooling story &ndash; what worked, what failed, and where human judgment was irreplaceable &ndash; is the subject of the next post in this series.</p>
+<p>When every service needs the same type of change with minor variations, you can build prompts, scripts, and validation checks that apply across the board. Serial, per-service work is too varied to automate effectively. The AI tooling story &ndash; what worked, what failed, and where human judgment was irreplaceable &ndash; is the subject of the <a href="/2026/04/07/layers-made-it-universal.-harnesses-made-it-run/">follow-up post on harness engineering for infrastructure</a>.</p>
 <p>During execution, the team meets briefly to sync on edge cases &ndash; because the work is homogeneous, an edge case in one service is immediately relevant to every other service going through the same layer.</p>
 <h3 id="progress-tracking">Progress tracking</h3>
 <p>A simple table &ndash; one column per layer, one row per service &ndash; serves as the source of truth. The team updates it in real time. Status per cell: not started, in progress, done, blocked, not applicable. This sounds basic, but it&rsquo;s surprisingly effective. You can see at a glance where the project stands, which layers are complete, and where blockers are clustering.</p>
@@ -421,11 +420,11 @@
 ]]></content:encoded>
     </item>
     <item>
-      <title>Positional Dominance Is Making You a Worse Engineer</title>
+      <title>Positional Dominance: A Senior Engineer Trap</title>
       <link>https://devdosvid.blog/2026/02/19/positional-dominance-is-making-you-a-worse-engineer/</link>
       <pubDate>Thu, 19 Feb 2026 15:41:54 +0100</pubDate>
       <guid>https://devdosvid.blog/2026/02/19/positional-dominance-is-making-you-a-worse-engineer/</guid>
-      <description>At Staff level, needing to be the source of every best idea — positional dominance — quietly undermines your leadership. Here&amp;#39;s the shift to outcome dominance.</description>
+      <description>How staff and senior engineers undermine their own leadership by needing to be the source of every best idea — and the shift to outcome dominance.</description>
       <content:encoded><![CDATA[<p>A while back, I spent a few weeks designing the new access control system for our infrastructure. Three environments, multiple teams, a permissions model complex enough that every approach I tried had some trade-off I couldn’t fully resolve. I’d landed on something I felt solid about.</p>
 <p>Then, in the design review, a teammate suggested a different model — simpler access boundaries in lower environments, with resource-level policy enforcement handling the sensitive parts. Five minutes into his explanation, I knew he was right. His model let engineers roam freely across lower environments — not locked to their own namespaces — which meant debugging a cross-service issue no longer required hunting down someone from another team to pull logs for you. His approach was better.</p>
 <p>My first reaction was to defend mine anyway.</p>
@@ -475,11 +474,11 @@
 ]]></content:encoded>
     </item>
     <item>
-      <title>Delegate for Growth: Scaling Your Impact Through Others</title>
+      <title>Delegating Without Authority as a Senior Engineer</title>
       <link>https://devdosvid.blog/2025/04/04/delegate-for-growth-scaling-your-impact-through-others/</link>
       <pubDate>Fri, 04 Apr 2025 00:36:23 +0200</pubDate>
       <guid>https://devdosvid.blog/2025/04/04/delegate-for-growth-scaling-your-impact-through-others/</guid>
-      <description>Senior IC guide to scaling impact. Master peer influence &amp;amp; growth delegation to effectively lead without formal authority.</description>
+      <description>How to delegate work as a senior engineer when you don&amp;#39;t manage anyone — peer influence, scaling impact, and leading without formal authority.</description>
       <content:encoded><![CDATA[<p>As senior engineers, we often hit the ceiling at some point: our individual output is high, but writing more code or spinning up one more cluster does not feel like the best way to make more impact.</p>
 <p>A more significant impact comes from multiplying our efforts. But how do you do that without a team reporting to you? How do you effectively involve peers in your projects, influencing their priorities when you don&rsquo;t control their backlog or performance review?</p>
 <p>I had been looking for the answers to these questions for quite a long time, and then I realized there was no definitive answer or a straightforward rule to follow. Yet my brain always needs something systemized, and for those like me, I decided to compile this write-up: synthesis of my personal experience that worked well and learnings from books and blogs on that topic.</p>
