@@ -85,7 +85,7 @@ A layer sweep works like this: the team takes on a layer, splits the service lis
 
 One engineer can realistically sweep a single layer across 6-8 services in a day. That number surprises people -- until they know the tooling. We paired the layered methodology with AI-assisted automation that handled the repetitive configuration work across services. But the important thing is: **the layer-based structure is what makes that automation possible**.
 
-When every service needs the same type of change with minor variations, you can build prompts, scripts, and validation checks that apply across the board. Serial, per-service work is too varied to automate effectively. The AI tooling story -- what worked, what failed, and where human judgment was irreplaceable -- is the subject of the next post in this series.
+When every service needs the same type of change with minor variations, you can build prompts, scripts, and validation checks that apply across the board. Serial, per-service work is too varied to automate effectively. The AI tooling story -- what worked, what failed, and where human judgment was irreplaceable -- is the subject of the [follow-up post on harness engineering for infrastructure](/2026/04/07/layers-made-it-universal.-harnesses-made-it-run/).
 
 During execution, the team meets briefly to sync on edge cases -- because the work is homogeneous, an edge case in one service is immediately relevant to every other service going through the same layer.
 

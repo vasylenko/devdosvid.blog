@@ -102,7 +102,7 @@ So we built a parallel execution wrapper on top of the Claude Agent SDK. Think o
 
 Each session adapts to its repository while following the same workflow. The agent in repo A figures out one logging setup; the agent in repo B figures out a completely different one. Both produce the same kind of report. The engineer opens ten reports instead of writing ten PRs.
 
-This is the automated [flip-the-axis](https://devdosvid.blog/2026/03/05/flip-the-axis-a-layer-based-approach-to-multi-service-migrations/) model. One layer, one workflow, N repos, one human in the loop. All twelve migration layers ran through this pipeline.
+This is the automated form of the [layer-based multi-service migration model](https://devdosvid.blog/2026/03/05/flip-the-axis-a-layer-based-approach-to-multi-service-migrations/) — one layer, one workflow, N repos, one human in the loop. All twelve migration layers ran through this pipeline.
 
 Prompt pipeline + parallel sessions + per-repo reports + human review at the end.
 

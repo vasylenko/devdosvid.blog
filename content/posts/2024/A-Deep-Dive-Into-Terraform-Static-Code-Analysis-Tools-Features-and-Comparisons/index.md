@@ -280,6 +280,8 @@ Here's a comprehensive comparison summary to guide your selection of the most su
 
 Integrating a Terraform security scanning into your development pipeline is a proven strategy to boost your security posture. These tools detect potential vulnerabilities early and enforce best practices and compliance standards, representing a proactive approach to infrastructure security.
 
+A scanner can catch the bugs you've thought of. The harder problem is what to do when [a green pipeline still lies](/2026/04/10/the-pipeline-was-green/) — when CI says "safe" but the change is anything but. I wrote about that case separately, including how an AI agent trusted a green build and broke a whole environment for three days.
+
 For teams not yet utilizing these tools, **Checkov** is my top recommendation:
 - Biggest number of default policies and supported Terraform providers for a quick start.
 - Custom policy support in YAML and Python for flexible policy creation.
