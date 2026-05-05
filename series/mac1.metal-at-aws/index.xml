@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Apr 2026 16:57:55 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 05 May 2026 03:34:53 +0300</lastBuildDate>
     <atom:link href="https://devdosvid.blog/series/mac1.metal-at-aws/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Auto Scaling Group for your macOS EC2 Instances fleet</title>
@@ -596,7 +596,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 ]]></content:encoded>
     </item>
     <item>
-      <title>mac1.metal and mac2.metal EC2 Instances: Pricing, Specs &amp; Hands-on Review</title>
+      <title>mac1.metal &amp; mac2.metal EC2: Pricing, Specs &amp; Review</title>
       <link>https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/</link>
       <pubDate>Tue, 19 Jan 2021 00:00:00 +0000</pubDate>
       <guid>https://devdosvid.blog/2021/01/19/mac1.metal-and-mac2.metal-ec2-instances-user-experience/</guid>

@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.156.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Apr 2026 20:32:19 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 05 May 2026 03:34:53 +0300</lastBuildDate>
     <atom:link href="https://devdosvid.blog/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The Pipeline Was Green</title>
@@ -605,7 +605,7 @@ Doing so instantly undermines trust. Instead, frame the idea of talking to the m
 ]]></content:encoded>
     </item>
     <item>
-      <title>Aws S3 Cost Optimization: Removing Redundancy and Implementing Intelligent Tiering</title>
+      <title>AWS S3 Cost Optimization with Intelligent Tiering</title>
       <link>https://devdosvid.blog/2025/01/29/aws-s3-cost-optimization-removing-redundancy-and-implementing-intelligent-tiering/</link>
       <pubDate>Wed, 29 Jan 2025 02:48:15 +0100</pubDate>
       <guid>https://devdosvid.blog/2025/01/29/aws-s3-cost-optimization-removing-redundancy-and-implementing-intelligent-tiering/</guid>
@@ -997,11 +997,11 @@ The first bucket contains CI/CD builds and cached third-party artifacts — esse
 ]]></content:encoded>
     </item>
     <item>
-      <title>Terraform Static Code Analysis Tools Compared: Checkov, Trivy, KICS &amp; More</title>
+      <title>Terraform SAST Tools Compared: Checkov, Trivy, KICS</title>
       <link>https://devdosvid.blog/2024/04/16/a-deep-dive-into-terraform-static-code-analysis-tools-features-and-comparisons/</link>
       <pubDate>Tue, 16 Apr 2024 21:14:15 +0200</pubDate>
       <guid>https://devdosvid.blog/2024/04/16/a-deep-dive-into-terraform-static-code-analysis-tools-features-and-comparisons/</guid>
-      <description>Compare 6 Terraform static code analysis tools — Checkov, Trivy, KICS, Terrascan, tfsec, Semgrep — across built-in policies, custom rules, CI/CD integrations, and output formats.</description>
+      <description>Compare 6 Terraform SAST tools — Checkov, Trivy, KICS, Terrascan, tfsec, Semgrep — across policies, custom rules, and CI/CD integrations.</description>
       <content:encoded><![CDATA[<p>Many teams employ Terraform by HashiCorp to efficiently manage their infrastructure, leveraging its ability to automate the lifecycle of complex environments. Yet, integrating security scanning into Terraform pipelines often remains overlooked, exposing these environments to potential security risks and compliance issues.</p>
 <p>This article explores several prominent static code analyzers that support Terraform code and focus on its security scanning. This comparison will guide teams in choosing the right tool to enhance their security measures within Terraform workflows, ensuring safer and more compliant infrastructure management.</p>
 <p>Here are the tools we&rsquo;ll be reviewing: <strong>KICS</strong>, <strong>tfsec</strong>, <strong>Trivy</strong>, <strong>Terrascan</strong>, <strong>Checkov</strong>, and <strong>Semgrep Community Edition</strong> (Semgrep CE).</p>
@@ -1453,11 +1453,11 @@ License: <a href="https://github.com/semgrep/semgrep/blob/develop/LICENSE">GNU L
 ]]></content:encoded>
     </item>
     <item>
-      <title>AWS API Gateway V2 &#43; Lambda with Terraform: A Complete Guide</title>
+      <title>Terraform AWS API Gateway V2 &#43; Lambda Guide</title>
       <link>https://devdosvid.blog/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/</link>
       <pubDate>Tue, 09 Jan 2024 03:33:10 +0100</pubDate>
       <guid>https://devdosvid.blog/2024/01/09/mastering-aws-api-gateway-v2-http-and-aws-lambda-with-terraform/</guid>
-      <description>Step-by-step Terraform guide to AWS API Gateway V2 HTTP API with Lambda authorizer, backend integration, custom domain, routes, stages, and CloudWatch monitoring.</description>
+      <description>Step-by-step Terraform guide to AWS API Gateway V2 with Lambda authorizer, backend integration, custom domain, routes, and stages.</description>
       <content:encoded><![CDATA[<p>With a solid foundation in AWS API Gateway and Lambda for serverless architecture, my recent deep dive into these cloud computing services felt like uncovering new layers in familiar territory. This article aims to be a comprehensive guide for developers and DevOps professionals looking to master serverless solutions using AWS and Terraform.</p>
 <p>The article provides an in-depth guide to <strong>combining AWS API Gateway V2 HTTP API</strong> (yes, this is the official name of that service 😄) <strong>and AWS Lambda</strong> services to implement a simple, robust, and cost-effective serverless back-end using Terraform.</p>
 <p>The journey was enlightening and engaging, especially as I were transforming these services into Infrastructure as Code. Through this article, I aim to share those moments of insight and the practical, hands-on tips that emerged from weaving these AWS services into a seamless, serverless architecture.</p>
@@ -1859,11 +1859,11 @@ AWS HTTP API code logically represents the &ldquo;global&rdquo; (within a projec
 ]]></content:encoded>
     </item>
     <item>
-      <title>terraform_data vs null_resource: The Built-in Replacement in Terraform 1.4</title>
+      <title>terraform_data vs null_resource: Terraform 1.4 Migration</title>
       <link>https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/</link>
       <pubDate>Sun, 16 Apr 2023 01:25:18 +0200</pubDate>
       <guid>https://devdosvid.blog/2023/04/16/hello-terraform-data-goodbye-null-resource/</guid>
-      <description>terraform_data replaces null_resource in Terraform 1.4 as a built-in managed resource. See the differences, use cases with triggers_replace and provisioners, plus migration examples.</description>
+      <description>terraform_data replaces null_resource in Terraform 1.4 — see the differences, use cases with triggers_replace and provisioners, plus migration examples.</description>
       <content:encoded><![CDATA[<div class="updatenotice">
     <strong>Updated in April 2026</strong>: Added the <code>moved</code> block migration path (Terraform 1.9+), corrected the deprecation status of null_resource, and added notes about OpenTofu compatibility and Terraform 1.14 <code>action</code> blocks.
 </div>
@@ -3799,7 +3799,7 @@ And you can leverage the <a href="https://registry.terraform.io/providers/hashic
 ]]></content:encoded>
     </item>
     <item>
-      <title>AWS Resource Access Manager — Multi Account Resource Governance</title>
+      <title>AWS Resource Access Manager: Multi-Account Governance</title>
       <link>https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</link>
       <pubDate>Sat, 25 Sep 2021 00:54:23 +0300</pubDate>
       <guid>https://devdosvid.blog/2021/09/25/aws-resource-access-manager-multi-account-resource-governance/</guid>
