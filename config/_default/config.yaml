@@ -93,8 +93,8 @@ params:
     twittercreator: "@vasylenko"
     ShowLicense: true
     title: devDosvid blog
-    description: "Writing about technical leadership, platform engineering, and the practices that help teams and infrastructure scale."
-    keywords: [Technical Blog, DevOps, AWS, Terraform, Ukraine, Tutorials, Education, Developer Experience, Infrastructure, Explanations]
+    description: "Engineering leadership and platform engineering essays — staff engineer growth, leading without authority, and the practices that help teams and infrastructure compound over time."
+    keywords: [Engineering Leadership, Staff Engineer, Platform Engineering, Leading Without Authority, Senior Engineer Career, Tech Lead, DevOps, AWS, Terraform, Developer Experience, Infrastructure, Engineering Management]
     author: Serhii Vasylenko
     images: ["/assets/img/websitelogo.jpg"]
     DateFormat: "January 2, 2006"
@@ -137,7 +137,7 @@ params:
 
     homeInfoParams:
         Title: "devDosvid blog"
-        Content: "There are many engineering blogs, but this one is mine — writing about technical leadership, platform engineering, and the practices that help teams and infrastructure scale."
+        Content: "Essays on engineering leadership and platform engineering — staff engineer growth, leading without authority, and the practices that help teams and infrastructure compound over time. There are many engineering blogs; this one is mine."
     cover:
         hidden: false # hide everywhere but not in structured data
         hiddenInList: false # hide on list pages and home
