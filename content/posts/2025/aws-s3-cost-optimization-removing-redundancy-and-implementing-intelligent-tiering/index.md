@@ -1,5 +1,5 @@
 ---
-title: "Aws S3 Cost Optimization: Removing Redundancy and Implementing Intelligent Tiering"
+title: "AWS S3 Cost Optimization with Intelligent Tiering"
 slug: aws-s3-cost-optimization-removing-redundancy-and-implementing-intelligent-tiering
 date: 2025-01-29T02:48:15+01:00
 summary: Legacy setups can hide costs, and sometimes big. By challenging this, I learned some cool stuff about S3 Intelligent-Tiering and Lifecycle Configuration.
