@@ -23,7 +23,7 @@ jobs:
           build-artifact: ${{ env.ARTIFACT }}
 
       - name: Deploy to CloudFlare
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         id: deploy_to_cloudflare
         with:
           apiToken: ${{ secrets.CLOUDFLARE_GH_PAGES_ACTION_API_TOKEN }}
