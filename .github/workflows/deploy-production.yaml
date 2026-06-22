@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0 # full history for enableGitInfo sitemap lastmod
 
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the branch for website hosting
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: '${{ env.GHPAGES_BRANCH }}'
 
