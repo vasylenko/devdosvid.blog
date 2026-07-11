@@ -28,3 +28,37 @@ tasks:
     desc: Show logs of local dev server with the blog
     cmds:
       - docker compose logs --no-log-prefix --no-color
+
+  # ── blog (Hugo) ──────────────────────────────────────────────
+  blog-serve:
+    desc: Local dev server for the blog (alias of server-start)
+    cmds:
+      - task: server-start
+
+  blog-build:
+    desc: Production build of the blog into dist/ (Docker, CI-parity)
+    cmds:
+      - docker compose run --user $(id -u):$(id -g) --rm hugo-runtime --environment production --destination dist --gc --minify
+
+  # ── slides (Vite/reveal.js) — wired after `git subtree` in Phase 2 ──
+  slides-build:
+    desc: "Build decks into dist/slides/ — pending slides subtree (Phase 2)"
+    cmds:
+      - 'echo "slides/ arrives via git subtree in Phase 2"; exit 1'
+
+  # ── keepup (Python/uv) — wired after `git subtree` in Phase 2 ──
+  keepup-build:
+    desc: "Render digest into dist/keepup/ — pending keepup subtree (Phase 2)"
+    cmds:
+      - 'echo "keepup/ arrives via git subtree in Phase 2"; exit 1'
+
+  # ── combined site ────────────────────────────────────────────
+  build:
+    desc: "Assemble the whole site into dist/ (Phase 3)"
+    cmds:
+      - 'echo "combined build lands in Phase 3"; exit 1'
+
+  deploy:
+    desc: "Deploy dist/ to the Cloudflare Worker (Phase 4)"
+    cmds:
+      - 'echo "wrangler deploy lands in Phase 4"; exit 1'

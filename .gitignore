@@ -11,3 +11,11 @@ _vendor
 deployment-artifact/**
 cms/node_modules
 cms/dist
+
+# combined build output (blog at root + slides/ + keepup/ assembled together)
+dist
+
+# slides (Vite) and keepup (Python) toolchain artifacts, once subtreed in
+node_modules
+.venv
+__pycache__
