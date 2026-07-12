@@ -46,11 +46,12 @@ tasks:
     cmds:
       - 'echo "slides/ arrives via git subtree in Phase 2"; exit 1'
 
-  # ── keepup (Python/uv) — wired after `git subtree` in Phase 2 ──
+  # ── keepup (Python/uv) ───────────────────────────────────────
   keepup-build:
-    desc: "Render digest into dist/keepup/ — pending keepup subtree (Phase 2)"
+    desc: Generate the weekly digest (renders keepup/docs/)
+    dir: keepup
     cmds:
-      - 'echo "keepup/ arrives via git subtree in Phase 2"; exit 1'
+      - uv run python -m keepup
 
   # ── combined site ────────────────────────────────────────────
   build:

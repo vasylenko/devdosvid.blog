@@ -1,0 +1,42 @@
+name: keepup weekly digest
+
+# keepup runs from this monorepo now. Scheduled workflows fire only from the
+# default branch, so the Monday cron activates once this lands on main; until
+# then trigger it manually with workflow_dispatch.
+on:
+  schedule:
+    - cron: "0 5 * * 1" # Monday morning, before the coffee
+  workflow_dispatch:
+
+permissions:
+  contents: write # commit the rendered week
+
+defaults:
+  run:
+    working-directory: keepup
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v7
+
+      - name: Install markfetch
+        run: npm install --global "markfetch@^0.7.1" # --raw + HTTP/1.1 fetch
+
+      - name: Build the digest
+        run: uv run python -m keepup
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Commit the week
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs
+          git diff --cached --quiet && exit 0
+          git commit -m "chore(keepup): $(date -u +%G-W%V)"
+          git push
