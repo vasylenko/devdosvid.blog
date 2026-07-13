@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      # Changes confined to the other monorepo products don't affect the blog.
+      # keepup's weekly bot-commit lands here — it must not trigger a blog deploy.
+      - 'keepup/**'
+      - 'slides/**'
   workflow_dispatch:
 
 env:
