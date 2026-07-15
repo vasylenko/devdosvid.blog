@@ -1,6 +1,6 @@
 # keepup
 
-Personal weekly tech digest — one static page rebuilt every Monday by GitHub Actions and served by Pages at https://vasylenko.github.io/keepup/. Curating sources in `config/topics.yml` is most of the work here.
+Personal weekly tech digest — one static page rebuilt every Monday by GitHub Actions and published to Cloudflare R2, served at https://devdosvid.blog/keepup/. Curating sources in `config/topics.yml` is most of the work here.
 
 ## All HTTP goes through markfetch — don't add a Python HTTP client
 
@@ -18,6 +18,6 @@ Every fetch runs through the `markfetch` CLI via `fetch_raw()` in `keepup/fetche
 
 `fetchers/sitemap.py` dates each item from an h1-adjacent `Mon DD, YYYY` string in the raw HTML. `lastmod` only shortlists candidates, it never dates them — a redeploy bumps it sitewide. Pages with no matching date are dropped, so a new RSS-less site that formats dates differently yields nothing until you extend the date patterns.
 
-## The weekly commit is both the deploy and the keepalive
+## The weekly run publishes one-way to R2
 
-Each run re-renders `docs/` (the generated timestamp always changes) and commits to `main`; Pages serves `main`/`docs`. That commit also counts as the repo activity GitHub needs to avoid auto-disabling the cron after 60 days idle — so don't make the output deterministic-per-week to "skip empty commits." The churn is load-bearing.
+Each run renders `docs/` locally, then `wrangler r2 object put` uploads `index.html` and this week's `archive/<week>.html` to the `devdosvid-keepup` bucket — nothing is committed to git. Past weeks already sit in R2 and are left untouched, so the archive just grows; the Worker builds the archive index live from a bucket listing, so `render.py` never reads the archive. The monorepo's own commit activity keeps the scheduled workflow alive, so the old commit-as-keepalive trick is gone.

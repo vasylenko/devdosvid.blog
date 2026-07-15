@@ -17,7 +17,13 @@
     // Run our code before asset auto-resolution so we own the redirect status:
     // Cloudflare's built-in trailing-slash redirect is 307, we need 301.
     "run_worker_first": true
-  }
+  },
+
+  // keepup's weekly digest + archive live in R2 (written one-way by the cron);
+  // the Worker serves /keepup/* from this binding.
+  "r2_buckets": [
+    { "binding": "KEEPUP", "bucket_name": "devdosvid-keepup" }
+  ]
 
   // Route is bound only at Phase 5 cutover. Uncommenting makes this Worker take
   // over the live domain, so it stays disabled until Cloudflare is ready to

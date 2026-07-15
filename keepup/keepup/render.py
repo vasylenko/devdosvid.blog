@@ -1,8 +1,9 @@
-"""Render layer: TopicDigest[] → static site in docs/.
+"""Render layer: TopicDigest[] → static pages in docs/.
 
-The same page is written twice — docs/index.html (always the latest week) and
-docs/archive/<week>.html (accumulates) — rendered per location because
-relative links differ between the two.
+Writes docs/index.html (latest week) and docs/archive/<week>.html (this week's
+permanent copy); the two differ only in relative-link depth (root). Render never
+reads the archive — the "past digests" index is built live by the Worker from an
+R2 listing, so a run only ever writes.
 """
 
 import re
@@ -32,9 +33,6 @@ def render(
     archive_dir = docs / "archive"
     archive_dir.mkdir(parents=True, exist_ok=True)
 
-    past_weeks = sorted(
-        (p.stem for p in archive_dir.glob("*.html") if p.stem != week), reverse=True
-    )
     # Every topic renders topic (h2) → group (h3: vendor, author, or bucket) →
     # items. Child sources (Codex, Claude Code) roll up under their vendor group.
     items_by_source: dict[str, dict[str, list]] = {}
@@ -62,10 +60,7 @@ def render(
                 week=week,
                 covers=covers,
                 generated=generated,
-                past_weeks=past_weeks,
                 items_by_source=items_by_source,
                 root=root,
             )
         )
-    # Pages must serve docs/ as-is, without a Jekyll build.
-    (docs / ".nojekyll").touch()

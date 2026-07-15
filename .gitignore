@@ -15,6 +15,9 @@ cms/dist
 # combined build output (blog at root + slides/ + keepup/ assembled together)
 dist
 
+# keepup's rendered digest — generated output, published to R2, never committed
+keepup/docs/
+
 # slides (Vite) and keepup (Python) toolchain artifacts, once subtreed in
 node_modules
 .venv

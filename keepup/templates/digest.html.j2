@@ -68,11 +68,7 @@
 {% endfor %}
 
 <footer>
-  {% if past_weeks %}
-  <p>Archive:
-    {% for w in past_weeks %}<a href="{{ root }}archive/{{ w }}.html">{{ w }}</a>{% endfor %}
-  </p>
-  {% endif %}
+  <p><a href="{{ root }}archive/">Past digests</a></p>
   <p><a href="https://github.com/vasylenko/keepup">keepup</a> builds this page every Monday.</p>
 </footer>
 </body>
