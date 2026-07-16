@@ -12,11 +12,9 @@ deployment-artifact/**
 cms/node_modules
 cms/dist
 
-# combined build output (blog at root + slides/ + keepup/ assembled together)
+# build output — root dist/ (blog + slides → Worker assets) and keepup/dist/
+# (keepup's rendered digest → R2). Generated, never committed.
 dist
-
-# keepup's rendered digest — generated output, published to R2, never committed
-keepup/docs/
 
 # slides (Vite) and keepup (Python) toolchain artifacts, once subtreed in
 node_modules

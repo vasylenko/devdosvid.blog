@@ -20,4 +20,4 @@ Every fetch runs through the `markfetch` CLI via `fetch_raw()` in `keepup/fetche
 
 ## The weekly run publishes one-way to R2
 
-Each run renders `docs/` locally, then `wrangler r2 object put` uploads `index.html` and this week's `archive/<week>.html` to the `devdosvid-keepup` bucket — nothing is committed to git. Past weeks already sit in R2 and are left untouched, so the archive just grows; the Worker builds the archive index live from a bucket listing, so `render.py` never reads the archive. The monorepo's own commit activity keeps the scheduled workflow alive, so the old commit-as-keepalive trick is gone.
+Each run renders `dist/` locally, then `wrangler r2 object put` uploads `index.html` and this week's `archive/<week>.html` to the `devdosvid-keepup` bucket — nothing is committed to git. Past weeks already sit in R2 and are left untouched, so the archive just grows; the Worker builds the archive index live from a bucket listing, so `render.py` never reads the archive. The monorepo's own commit activity keeps the scheduled workflow alive, so the old commit-as-keepalive trick is gone.

@@ -38,7 +38,7 @@ def main() -> None:
         digests.append(TopicDigest(topic.name, selected, failed, topic.descriptions, groups, group_of))
 
     render(digests, week, covers, now)
-    print(f"rendered docs/index.html + docs/archive/{week}.html")
+    print(f"rendered dist/index.html + dist/archive/{week}.html")
 
 
 if __name__ == "__main__":

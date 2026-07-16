@@ -1,6 +1,6 @@
-"""Render layer: TopicDigest[] → static pages in docs/.
+"""Render layer: TopicDigest[] → static pages in dist/.
 
-Writes docs/index.html (latest week) and docs/archive/<week>.html (this week's
+Writes dist/index.html (latest week) and dist/archive/<week>.html (this week's
 permanent copy); the two differ only in relative-link depth (root). Render never
 reads the archive — the "past digests" index is built live by the Worker from an
 R2 listing, so a run only ever writes.
@@ -26,11 +26,11 @@ def render(
     week: str,
     covers: str,
     generated: datetime,
-    docs: str | Path = "docs",
+    out_dir: str | Path = "dist",
     templates: str | Path = "templates",
 ) -> None:
-    docs = Path(docs)
-    archive_dir = docs / "archive"
+    out_dir = Path(out_dir)
+    archive_dir = out_dir / "archive"
     archive_dir.mkdir(parents=True, exist_ok=True)
 
     # Every topic renders topic (h2) → group (h3: vendor, author, or bucket) →
@@ -53,7 +53,7 @@ def render(
     env.filters["first_sentence"] = first_sentence
     template = env.get_template("digest.html.j2")
 
-    for target, root in ((docs / "index.html", ""), (archive_dir / f"{week}.html", "../")):
+    for target, root in ((out_dir / "index.html", ""), (archive_dir / f"{week}.html", "../")):
         target.write_text(
             template.render(
                 digests=digests,

@@ -28,7 +28,7 @@ jobs:
         run: npm install --global "markfetch@^0.7.1" # --raw + HTTP/1.1 fetch
 
       - name: Build the digest
-        run: uv run python -m keepup # renders docs/index.html + docs/archive/<week>.html
+        run: uv run python -m keepup # renders dist/index.html + dist/archive/<week>.html
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_WORKERS_AI_KEEPUP: ${{ secrets.CLOUDFLARE_WORKERS_AI_KEEPUP }}
@@ -38,8 +38,8 @@ jobs:
         # already live in R2 and are left untouched — the archive just grows.
         run: |
           npx wrangler@4 r2 object put devdosvid-keepup/keepup/index.html \
-            --file=docs/index.html --content-type="text/html" --remote
-          for f in docs/archive/*.html; do
+            --file=dist/index.html --content-type="text/html" --remote
+          for f in dist/archive/*.html; do
             npx wrangler@4 r2 object put "devdosvid-keepup/keepup/archive/$(basename "$f")" \
               --file="$f" --content-type="text/html" --remote
           done
