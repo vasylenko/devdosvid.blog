@@ -3,32 +3,42 @@
 // Two jobs:
 //   1. /keepup/*  — served from the R2 bucket (KEEPUP). The weekly job writes
 //      keepup's digest + archive there one-way; the "past digests" index is
-//      built live from a bucket listing, so nothing re-renders when a new week
-//      lands.
+//      built live from a bucket listing.
 //   2. everything else — the static site (blog + slides): a permanent (301)
 //      trailing-slash redirect, then asset serving. Cloudflare's built-in
 //      redirect is a 307, which we can't accept for SEO.
 //
-// PROVISIONAL (Phase 4): verify run_worker_first runs this ahead of the asset
-// layer, and that the bucket name/binding match wrangler.jsonc.
+// Only devdosvid.blog is indexable. Every preview host — *.workers.dev and
+// per-version preview URLs — gets X-Robots-Tag: noindex, so Google never
+// indexes a duplicate of the live site (which would sink its SEO).
 export default {
   async fetch(request, env) {
-    const url = new URL(request.url)
-    const path = url.pathname
+    const response = await route(request, env)
+    if (new URL(request.url).hostname === 'devdosvid.blog') return response
 
-    if (path === '/keepup' || path.startsWith('/keepup/')) {
-      return serveKeepup(url, env)
-    }
-
-    // Directory-style path missing its slash → permanent redirect to add it.
-    // Skip real files (they carry an extension); those are served as-is.
-    const last = path.split('/').pop()
-    if (!path.endsWith('/') && !/\.[a-z0-9]+$/i.test(last)) {
-      url.pathname += '/'
-      return Response.redirect(url.toString(), 301)
-    }
-    return env.ASSETS.fetch(request)
+    // Re-wrap so headers are mutable (asset/redirect responses can be immutable).
+    const guarded = new Response(response.body, response)
+    guarded.headers.set('x-robots-tag', 'noindex, nofollow')
+    return guarded
   },
+}
+
+async function route(request, env) {
+  const url = new URL(request.url)
+  const path = url.pathname
+
+  if (path === '/keepup' || path.startsWith('/keepup/')) {
+    return serveKeepup(url, env)
+  }
+
+  // Directory-style path missing its slash → permanent redirect to add it.
+  // Skip real files (they carry an extension); those are served as-is.
+  const last = path.split('/').pop()
+  if (!path.endsWith('/') && !/\.[a-z0-9]+$/i.test(last)) {
+    url.pathname += '/'
+    return Response.redirect(url.toString(), 301)
+  }
+  return env.ASSETS.fetch(request)
 }
 
 // keepup lives in R2, not the static bundle. Directory paths 301 to their slash
