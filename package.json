@@ -1,0 +1,8 @@
+{
+  "name": "devdosvid",
+  "private": true,
+  "description": "Cloudflare tooling for the devdosvid.blog monorepo (Worker deploy + R2).",
+  "devDependencies": {
+    "wrangler": "^4.110.0"
+  }
+}

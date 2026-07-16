@@ -12,10 +12,6 @@ on:
 permissions:
   contents: read
 
-defaults:
-  run:
-    working-directory: keepup
-
 jobs:
   digest:
     runs-on: ubuntu-latest
@@ -24,23 +20,29 @@ jobs:
 
       - uses: astral-sh/setup-uv@v7
 
+      - name: Install wrangler (pinned, repo root)
+        run: npm ci # installs the root package.json's wrangler
+
       - name: Install markfetch
-        run: npm install --global "markfetch@^0.7.1" # --raw + HTTP/1.1 fetch
+        run: npm install --global "markfetch@^0.7.1" # CLI keepup's Python shells out to
 
       - name: Build the digest
+        working-directory: keepup
         run: uv run python -m keepup # renders dist/index.html + dist/archive/<week>.html
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_WORKERS_AI_KEEPUP: ${{ secrets.CLOUDFLARE_WORKERS_AI_KEEPUP }}
 
       - name: Publish to R2 (one-way)
+        working-directory: keepup
         # Overwrite the latest page and add this week's archive copy. Past weeks
         # already live in R2 and are left untouched — the archive just grows.
+        # npx resolves the root-installed wrangler even from here.
         run: |
-          npx wrangler@4 r2 object put devdosvid-keepup/keepup/index.html \
+          npx wrangler r2 object put devdosvid-keepup/keepup/index.html \
             --file=dist/index.html --content-type="text/html" --remote
           for f in dist/archive/*.html; do
-            npx wrangler@4 r2 object put "devdosvid-keepup/keepup/archive/$(basename "$f")" \
+            npx wrangler r2 object put "devdosvid-keepup/keepup/archive/$(basename "$f")" \
               --file="$f" --content-type="text/html" --remote
           done
         env:
