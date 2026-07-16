@@ -48,18 +48,21 @@ tasks:
 
   # ── keepup (Python/uv) ───────────────────────────────────────
   keepup-build:
-    desc: Generate the weekly digest (renders keepup/docs/)
+    desc: Generate the weekly digest (renders keepup/dist/)
     dir: keepup
     cmds:
       - uv run python -m keepup
 
   # ── combined site ────────────────────────────────────────────
   build:
-    desc: "Assemble the whole site into dist/ (Phase 3)"
+    desc: Assemble the static site (blog + slides) into dist/
     cmds:
-      - 'echo "combined build lands in Phase 3"; exit 1'
+      - rm -rf dist
+      - task: blog-build
+      # slides-build appends dist/slides/ once slides are in the repo
 
   deploy:
-    desc: "Deploy dist/ to the Cloudflare Worker (Phase 4)"
+    desc: Build dist/ and deploy the Worker (preview on *.workers.dev until the route is enabled)
     cmds:
-      - 'echo "wrangler deploy lands in Phase 4"; exit 1'
+      - task: build
+      - npx wrangler deploy
