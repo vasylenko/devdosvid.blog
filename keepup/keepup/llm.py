@@ -10,7 +10,7 @@ from openai import OpenAI
 
 def client() -> OpenAI | None:
     account = os.environ.get("CLOUDFLARE_ACCOUNT_ID")
-    token = os.environ.get("CLOUDFLARE_API_TOKEN")
+    token = os.environ.get("CLOUDFLARE_WORKERS_AI_KEEPUP")
     if not (account and token):
         return None
     return OpenAI(

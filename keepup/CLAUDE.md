@@ -4,7 +4,7 @@ Personal weekly tech digest — one static page rebuilt every Monday by GitHub A
 
 ## All HTTP goes through markfetch — don't add a Python HTTP client
 
-Every fetch runs through the `markfetch` CLI via `fetch_raw()` in `keepup/fetchers/markfetch.py` (`markfetch --raw`). Don't add `requests`, `httpx`, or `urllib` — markfetch (Serhii's own npm tool) owns the wire, including the HTTP/1.1 trick that gets past Cloudflare. Consequences: it must be installed to run locally (`npm i -g markfetch`, then `uv run python -m keepup`), and the AWS bucketing call needs `CLOUDFLARE_ACCOUNT_ID` + `CLOUDFLARE_API_TOKEN` (Workers AI) — without them that section falls back to a flat, unsorted list.
+Every fetch runs through the `markfetch` CLI via `fetch_raw()` in `keepup/fetchers/markfetch.py` (`markfetch --raw`). Don't add `requests`, `httpx`, or `urllib` — markfetch (Serhii's own npm tool) owns the wire, including the HTTP/1.1 trick that gets past Cloudflare. Consequences: it must be installed to run locally (`npm i -g markfetch`, then `uv run python -m keepup`), and the AWS bucketing call needs `CLOUDFLARE_ACCOUNT_ID` + `CLOUDFLARE_WORKERS_AI_KEEPUP` (Workers AI) — without them that section falls back to a flat, unsorted list.
 
 ## X timelines come from nitter.net, not the X API
 

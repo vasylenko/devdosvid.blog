@@ -31,12 +31,11 @@ jobs:
         run: uv run python -m keepup # renders docs/index.html + docs/archive/<week>.html
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_WORKERS_AI_KEEPUP: ${{ secrets.CLOUDFLARE_WORKERS_AI_KEEPUP }}
 
       - name: Publish to R2 (one-way)
         # Overwrite the latest page and add this week's archive copy. Past weeks
         # already live in R2 and are left untouched — the archive just grows.
-        # The token needs Workers AI (bucketize) + R2 write on devdosvid-keepup.
         run: |
           npx wrangler@4 r2 object put devdosvid-keepup/keepup/index.html \
             --file=docs/index.html --content-type="text/html" --remote
@@ -46,4 +45,6 @@ jobs:
           done
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # wrangler authenticates via the fixed env var CLOUDFLARE_API_TOKEN;
+          # point it at the keepup token, which also carries R2 write.
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_WORKERS_AI_KEEPUP }}
