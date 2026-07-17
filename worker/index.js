@@ -8,13 +8,14 @@
 //      trailing-slash redirect, then asset serving. Cloudflare's built-in
 //      redirect is a 307, which we can't accept for SEO.
 //
-// Only devdosvid.blog is indexable. Every preview host — *.workers.dev and
-// per-version preview URLs — gets X-Robots-Tag: noindex, so Google never
-// indexes a duplicate of the live site (which would sink its SEO).
+// Preview hosts get X-Robots-Tag: noindex so Google never indexes a duplicate
+// of the live site. This is a denylist on *.workers.dev (every wrangler deploy
+// + version-preview URL), NOT an allowlist on the prod domain — so a production
+// deploy can never be accidentally de-indexed, whatever hostname it serves on.
 export default {
   async fetch(request, env) {
     const response = await route(request, env)
-    if (new URL(request.url).hostname === 'devdosvid.blog') return response
+    if (!new URL(request.url).hostname.endsWith('.workers.dev')) return response
 
     // Re-wrap so headers are mutable (asset/redirect responses can be immutable).
     const guarded = new Response(response.body, response)
