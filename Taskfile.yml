@@ -69,8 +69,14 @@ tasks:
       - task: blog-build
       # slides-build appends dist/slides/ once slides are in the repo
 
-  deploy:
-    desc: Build dist/ and deploy the Worker (preview on *.workers.dev until the route is enabled)
+  deploy-production:
+    desc: Build dist/ and deploy the Worker to production (wrangler deploy)
     cmds:
       - task: build
       - npx wrangler deploy
+
+  deploy-dev:
+    desc: Build dist/ and upload a preview version — a unique *.workers.dev URL that never touches production
+    cmds:
+      - task: build
+      - npx wrangler versions upload
