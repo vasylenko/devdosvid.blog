@@ -1,0 +1,18 @@
+{
+  // The keepup Worker: serves the /keepup section from R2, on its own route so
+  // it deploys independently of the blog. No assets binding — keepup is R2-only.
+  //
+  // Routes are scoped to exactly the keepup section — the bare path plus
+  // everything under it — NOT a greedy /keepup*, so a future blog URL like
+  // /keepups or /keepup-guide is never swallowed by this Worker.
+  "name": "keepup",
+  "main": "index.js",
+  "compatibility_date": "2026-07-02",
+  "r2_buckets": [
+    { "binding": "KEEPUP", "bucket_name": "devdosvid-keepup" }
+  ],
+  "routes": [
+    { "pattern": "devdosvid.blog/keepup", "zone_name": "devdosvid.blog" },
+    { "pattern": "devdosvid.blog/keepup/*", "zone_name": "devdosvid.blog" }
+  ]
+}

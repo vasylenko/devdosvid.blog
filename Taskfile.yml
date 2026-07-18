@@ -61,6 +61,12 @@ tasks:
       - npx wrangler r2 object put devdosvid-keepup/keepup/index.html --file=dist/index.html --content-type=text/html --remote
       - for f in dist/archive/*.html; do npx wrangler r2 object put "devdosvid-keepup/keepup/archive/$(basename "$f")" --file="$f" --content-type=text/html --remote; done
 
+  keepup-deploy:
+    desc: Deploy the keepup Worker (serves the /keepup section from R2) — independent of the blog
+    dir: worker-keepup
+    cmds:
+      - npx wrangler deploy
+
   # ── combined site ────────────────────────────────────────────
   build:
     desc: Assemble the static site (blog + slides) into dist/
