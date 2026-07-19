@@ -11,56 +11,49 @@ def _display(url: str, name: str) -> str:
     return name or urlsplit(url).netloc.removeprefix("www.")
 
 
+class _Grouped:
+    """display name + parent group for a URL-backed source, shared by the config
+    source types below (X is separate — it keys off a handle, not a URL)."""
+
+    url: str
+    name: str
+    group: str
+
+    @property
+    def display(self) -> str:
+        return _display(self.url, self.name)
+
+    @property
+    def group_name(self) -> str:
+        return self.group or self.display
+
+
 # group defaults to the source's own name — a source is its own group unless it
 # rolls up under a vendor (Codex → OpenAI, Claude Code → Anthropic).
 @dataclass
-class FeedSource:
+class FeedSource(_Grouped):
     url: str
     categories: list[str] = field(default_factory=list)  # empty ⇒ take all entries
     name: str = ""  # display name when the feed's own title is unhelpful
     group: str = ""
 
-    @property
-    def display(self) -> str:
-        return _display(self.url, self.name)
-
-    @property
-    def group_name(self) -> str:
-        return self.group or self.display
-
 
 @dataclass
-class SitemapSource:
+class SitemapSource(_Grouped):
     url: str
     path_prefix: str
     name: str = ""  # display name when the bare hostname is unhelpful
     group: str = ""
 
-    @property
-    def display(self) -> str:
-        return _display(self.url, self.name)
-
-    @property
-    def group_name(self) -> str:
-        return self.group or self.display
-
 
 @dataclass
-class ReleaseNotesSource:
+class ReleaseNotesSource(_Grouped):
     """OpenAI's release-notes page: a Next.js RSC payload, filtered by product."""
 
     url: str
     products: list[str] = field(default_factory=list)
     name: str = ""
     group: str = ""
-
-    @property
-    def display(self) -> str:
-        return _display(self.url, self.name)
-
-    @property
-    def group_name(self) -> str:
-        return self.group or self.display
 
 
 @dataclass
