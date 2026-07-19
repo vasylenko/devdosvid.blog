@@ -20,46 +20,20 @@ def _flight_blob(html: str) -> str:
     return "".join(json.loads(chunk) for chunk in _FLIGHT.findall(html))
 
 
-def _json_object_at(text: str, start: int) -> str | None:
-    """Return the balanced {...} object beginning at `start` (string-aware)."""
-    depth = in_str = esc = 0
-    for j in range(start, len(text)):
-        c = text[j]
-        if esc:
-            esc = 0
-        elif c == "\\":
-            esc = 1
-        elif c == '"':
-            in_str ^= 1
-        elif not in_str:
-            if c == "{":
-                depth += 1
-            elif c == "}":
-                depth -= 1
-                if depth == 0:
-                    return text[start : j + 1]
-    return None
-
-
 def _rows(blob: str) -> list[dict]:
-    """Parse the consecutive row objects out of the `rows` array."""
-    start = blob.find('"rows":[')
+    """Decode the `rows` array from the RSC payload with the stdlib JSON parser.
+
+    raw_decode() reads one JSON value (the array) starting at its `[` and stops
+    at the matching `]` — no hand-rolled brace matching, and an empty `[]`
+    can't over-read into the next object.
+    """
+    marker = blob.find('"rows":')
+    if marker == -1:
+        return []
+    start = blob.find("[", marker)
     if start == -1:
         return []
-    pos = blob.find("{", start)
-    rows = []
-    while pos != -1:
-        raw = _json_object_at(blob, pos)
-        if not raw:
-            break
-        try:
-            rows.append(json.loads(raw))
-        except json.JSONDecodeError:
-            break
-        nxt = blob.find("{", pos + len(raw))
-        if nxt == -1 or "," not in blob[pos + len(raw) : nxt]:
-            break  # left the array
-        pos = nxt
+    rows, _ = json.JSONDecoder().raw_decode(blob, start)
     return rows
 
 
