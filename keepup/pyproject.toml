@@ -14,3 +14,10 @@ dependencies = [
 # Plain script package: run with `uv run python -m keepup`, nothing to build.
 [tool.uv]
 package = false
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+# Tests import the `keepup` package from the project root.
+pythonpath = ["."]
