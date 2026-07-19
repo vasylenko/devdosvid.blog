@@ -31,7 +31,9 @@ def fetch_feed(
     if parsed.bozo and not parsed.entries:
         raise RuntimeError(f"unparseable feed: {parsed.bozo_exception}")
 
-    source = name or parsed.feed.get("title") or urlsplit(url).netloc
+    # Must equal FeedSource.display (name or netloc) so items land in the group
+    # the roster seeded; the feed's own <title> isn't known at config time.
+    source = name or urlsplit(url).netloc.removeprefix("www.")
     items = []
     for entry in parsed.entries:
         stamp = entry.get("published_parsed") or entry.get("updated_parsed")
