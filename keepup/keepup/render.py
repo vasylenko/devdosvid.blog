@@ -10,7 +10,7 @@ import re
 from datetime import datetime
 from pathlib import Path
 
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader
 
 from keepup.models import TopicDigest
 
@@ -49,7 +49,10 @@ def render(
         for item in t.items:  # already newest-first
             item_groups.setdefault(group_for(item.source), []).append(item)
         items_by_source[t.name] = item_groups
-    env = Environment(loader=FileSystemLoader(templates), autoescape=select_autoescape())
+    # Every template here is HTML rendering untrusted feed text (titles carry
+    # &, <, >), so escape unconditionally — select_autoescape() silently skips
+    # the .j2 filename and would leave output unescaped.
+    env = Environment(loader=FileSystemLoader(templates), autoescape=True)
     env.filters["first_sentence"] = first_sentence
     template = env.get_template("digest.html.j2")
 
