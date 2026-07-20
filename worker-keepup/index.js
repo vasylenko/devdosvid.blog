@@ -68,8 +68,9 @@ async function archiveIndex(env) {
 <style>
   :root { color-scheme: light dark; }
   body { max-width: 42rem; margin: 2.5rem auto 4rem; padding: 0 1.25rem;
-         font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-  h1 { font-size: 1.5rem; }
+         font: 17px/1.65 Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif; }
+  h1 { font-size: 1.5rem;
+       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; }
   ul { padding-left: 1.2rem; } li { margin-bottom: .5rem; }
   a { color: inherit; text-decoration-color: color-mix(in srgb, currentColor 40%, transparent); }
   a:hover { text-decoration-color: currentColor; }
