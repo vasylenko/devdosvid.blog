@@ -40,12 +40,6 @@ tasks:
     cmds:
       - docker compose run --user $(id -u):$(id -g) --rm hugo-runtime --environment production --destination dist --gc --minify
 
-  # ── slides (Vite/reveal.js) — wired after `git subtree` in Phase 2 ──
-  slides-build:
-    desc: "Build decks into dist/slides/ — pending slides subtree (Phase 2)"
-    cmds:
-      - 'echo "slides/ arrives via git subtree in Phase 2"; exit 1'
-
   # ── keepup (Python/uv) ───────────────────────────────────────
   keepup-build:
     desc: Generate the weekly digest (renders keepup/dist/)
@@ -68,11 +62,10 @@ tasks:
 
   # ── combined site ────────────────────────────────────────────
   build:
-    desc: Assemble the static site (blog + slides) into dist/
+    desc: Assemble the static site into dist/ (blog; slides join in Phase 2)
     cmds:
       - rm -rf dist
       - task: blog-build
-      # slides-build appends dist/slides/ once slides are in the repo
 
   deploy-production:
     desc: Build dist/ and deploy the Worker to production (wrangler deploy)
