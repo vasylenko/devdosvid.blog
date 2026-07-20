@@ -1,4 +1,5 @@
 name: keepup weekly digest
+run-name: ${{ github.workflow }} - ${{ github.event_name }}
 
 # keepup renders in Actions (it needs the markfetch npm CLI + a Python stack a
 # Worker can't host) and publishes one-way to R2. Scheduled runs fire only from
@@ -16,9 +17,11 @@ jobs:
   digest:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - name: Checkout
+        uses: actions/checkout@v7
 
-      - uses: astral-sh/setup-uv@v7
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
 
       - name: Install wrangler (pinned, repo root)
         run: npm ci # installs the root package.json's wrangler
@@ -35,16 +38,7 @@ jobs:
 
       - name: Publish to R2 (one-way)
         working-directory: keepup
-        # Overwrite the latest page and add this week's archive copy. Past weeks
-        # already live in R2 and are left untouched — the archive just grows.
-        # npx resolves the root-installed wrangler even from here.
-        run: |
-          npx wrangler r2 object put devdosvid-keepup/keepup/index.html \
-            --file=dist/index.html --content-type="text/html" --remote
-          for f in dist/archive/*.html; do
-            npx wrangler r2 object put "devdosvid-keepup/keepup/archive/$(basename "$f")" \
-              --file="$f" --content-type="text/html" --remote
-          done
+        run: bash publish-r2.sh
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           # wrangler authenticates via the fixed env var CLOUDFLARE_API_TOKEN;
