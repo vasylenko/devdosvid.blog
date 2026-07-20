@@ -28,8 +28,7 @@ async function route(request, env) {
 
   // Directory-style path missing its slash → permanent redirect to add it.
   // Skip real files (they carry an extension); those are served as-is.
-  const last = path.split('/').pop()
-  if (!path.endsWith('/') && !/\.[a-z0-9]+$/i.test(last)) {
+  if (!path.endsWith('/') && !/\.[a-z0-9]+$/i.test(path)) {
     url.pathname += '/'
     return Response.redirect(url.toString(), 301)
   }
