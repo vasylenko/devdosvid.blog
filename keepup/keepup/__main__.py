@@ -1,4 +1,4 @@
-"""Pipeline entrypoint: one run = one weekly digest, committed by CI."""
+"""Pipeline entrypoint: one run = one weekly digest, published one-way to R2 by CI."""
 
 from datetime import UTC, datetime, timedelta
 
