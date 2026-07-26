@@ -17,6 +17,21 @@ _PROMPT = Path(__file__).parent / "prompts" / "bucketize.md"
 _MAX_OUTPUT = 2000
 
 
+def _assignments(reply: str) -> dict[str, str]:
+    """Pull the ID -> bucket map out of the model's reply.
+
+    Workers AI does not honour `response_format: json_object` for this model --
+    it returns the object wrapped in a ```json fence -- so decode from the first
+    brace rather than trusting the whole reply to be JSON. The snippet in the
+    error is what makes the next format surprise diagnosable from the CI log.
+    """
+    try:
+        payload, _ = json.JSONDecoder().raw_decode(reply, reply.index("{"))
+    except ValueError as exc:
+        raise ValueError(f"{exc}; reply began {reply[:120]!r}") from exc
+    return payload.get("assignments", {})
+
+
 def bucketize(topic_name: str, items: list[Item], buckets: list[str], model: str) -> list[str] | None:
     """Assign each item to a bucket by mutating item.source; return the bucket
     roster (display order) on success, or None to fall back to flat grouping.
@@ -42,7 +57,7 @@ def bucketize(topic_name: str, items: list[Item], buckets: list[str], model: str
             max_tokens=_MAX_OUTPUT,
             temperature=0,
         )
-        assignments = json.loads(response.choices[0].message.content).get("assignments", {})
+        assignments = _assignments(response.choices[0].message.content)
     except Exception as exc:
         print(f"  bucketize failed for {topic_name}: {exc}")
         return None
