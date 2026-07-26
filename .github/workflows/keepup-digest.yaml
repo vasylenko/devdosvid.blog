@@ -1,0 +1,46 @@
+name: keepup weekly digest
+run-name: ${{ github.workflow }} - ${{ github.event_name }}
+
+# keepup renders in Actions (it needs the markfetch npm CLI + a Python stack a
+# Worker can't host) and publishes one-way to R2. Scheduled runs fire only from
+# the default branch, so the Monday cron activates once this lands on main;
+# until then trigger it with workflow_dispatch.
+on:
+  schedule:
+    - cron: "0 5 * * 1" # Monday morning, before the coffee
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Install wrangler (pinned, repo root)
+        run: npm ci # installs the root package.json's wrangler
+
+      - name: Install markfetch
+        run: npm install --global "markfetch@^0.7.1" # CLI keepup's Python shells out to
+
+      - name: Build the digest
+        working-directory: keepup
+        run: uv run python -m keepup # renders dist/index.html + dist/archive/<week>.html
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_WORKERS_AI_KEEPUP: ${{ secrets.CLOUDFLARE_WORKERS_AI_KEEPUP }}
+
+      - name: Publish to R2 (one-way)
+        working-directory: keepup
+        run: bash publish-r2.sh
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # wrangler authenticates via the fixed env var CLOUDFLARE_API_TOKEN;
+          # point it at the keepup token, which also carries R2 write.
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_WORKERS_AI_KEEPUP }}

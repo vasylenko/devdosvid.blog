@@ -1,0 +1,87 @@
+# Curated sources per topic — the single hand-edited input to the pipeline.
+llm:
+  model: "@cf/meta/llama-3.3-70b-instruct-fp8-fast" # Cloudflare Workers AI open model; ~1 call/week, free tier
+
+topics:
+  - name: AI/LLM tooling
+    descriptions: true
+    feeds:
+      - url: https://openai.com/news/rss.xml
+        name: OpenAI
+        # openai.com/news/engineering + /news/product-releases; the feed
+        # labels those sections Engineering and Product
+        categories: [Engineering, Product]
+      - url: https://developers.openai.com/codex/changelog/rss.xml
+        name: Codex changelog
+        group: OpenAI
+      - url: https://code.claude.com/docs/en/whats-new/rss.xml
+        name: Claude Code
+        group: Anthropic
+    sitemaps: # Anthropic has no RSS
+      - url: https://www.anthropic.com/sitemap.xml
+        path_prefix: /news/
+        name: Anthropic
+      - url: https://www.anthropic.com/sitemap.xml
+        path_prefix: /engineering/
+        name: Anthropic
+    release_notes: # no RSS; ChatGPT changelog behind a Next.js RSC page
+      - url: https://openai.com/products/release-notes/
+        products: [chatgpt] # Codex covered by its own changelog feed above
+        name: ChatGPT release notes
+        group: OpenAI
+
+  - name: Engineering blogs
+    descriptions: true
+    feeds:
+      - url: https://newsletter.pragmaticengineer.com/feed
+        name: The Pragmatic Engineer # keeps the quiet-week label consistent
+      - url: https://simonwillison.net/atom/entries/ # long-form only; /everything/ is a linkblog flood
+        name: Simon Willison
+      - url: https://lethain.com/feeds/
+        name: Will Larson
+
+  - name: X threads
+    # Original posts + thread heads per author; retweets and thread
+    # continuations are dropped in the fetcher (nitter.net RSS via markfetch).
+    x_accounts:
+      - handle: karpathy
+        name: Andrej Karpathy
+      - handle: bcherny
+        name: Boris Cherny
+      - handle: ClaudeDevs
+        name: ClaudeDevs
+      - handle: addyosmani
+        name: Addy Osmani
+      - handle: DHH # lowercase gets an empty 200 from nitter's cold cache
+        name: DHH
+      - handle: mitchellh
+        name: Mitchell Hashimoto
+      - handle: ctatedev
+        name: Chris Tate
+      - handle: dexhorthy
+        name: Dex Horthy
+      - handle: trq212
+        name: Thariq
+      - handle: simonw
+        name: Simon Willison
+      - handle: ALEngineered
+        name: Steve Huynh
+      - handle: GergelyOrosz
+        name: Gergely Orosz
+      - handle: ericzakariasson
+        name: Eric Zakariasson
+      - handle: sama
+        name: Sam Altman
+
+  - name: Cloud (AWS)
+    # Buckets, not source groups: the LLM sorts each item by what it's about,
+    # which AWS's overlapping marchitecture tags can't resolve.
+    buckets: [Containers, Security, Compute]
+    feeds:
+      - url: https://aws.amazon.com/about-aws/whats-new/recent/feed/
+        name: AWS What's New # the feed titles itself "Recent Announcements"
+        categories:
+          - marketing:marchitecture/containers
+          - marketing:marchitecture/compute
+          - marketing:marchitecture/security-identity-and-compliance
+          - general:products/aws-secrets-manager # AWS tags this without a marchitecture area

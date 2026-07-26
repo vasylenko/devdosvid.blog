@@ -11,3 +11,12 @@ _vendor
 deployment-artifact/**
 cms/node_modules
 cms/dist
+
+# build output — root dist/ (blog + slides → Worker assets) and keepup/dist/
+# (keepup's rendered digest → R2). Generated, never committed.
+dist
+
+# slides (Vite) and keepup (Python) toolchain artifacts, once subtreed in
+node_modules
+.venv
+__pycache__

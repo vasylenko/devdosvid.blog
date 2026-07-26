@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      # Changes confined to the other monorepo products don't affect the blog.
+      # keepup publishes one-way to R2 (never commits here); its Worker and the
+      # slides deck live in the repo but deploy on their own.
+      - 'keepup/**'
+      - 'worker-keepup/**'
+      - 'slides/**'
   workflow_dispatch:
 
 env:

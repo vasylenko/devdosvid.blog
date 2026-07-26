@@ -1,0 +1,29 @@
+{
+  // The blog Worker: serves the blog at "/" (and "/slides" once the decks land)
+  // from the assembled dist/ tree. keepup runs as its own Worker
+  // (worker-keepup/) on the /keepup route. At cutover this replaces today's
+  // GitHub Pages + standalone slides-Worker split.
+  //
+  // PROVISIONAL until Phase 4: verify these field names and run_worker_first
+  // behaviour against current Cloudflare docs and a live *.workers.dev deploy
+  // before relying on them.
+  "name": "devdosvid",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-07-02",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    // Serve the nearest 404.html (Hugo emits one) with a real 404 status.
+    "not_found_handling": "404-page",
+    // Run our code before asset auto-resolution so we own the redirect status:
+    // Cloudflare's built-in trailing-slash redirect is 307, we need 301.
+    "run_worker_first": true
+  }
+
+  // Route is bound only at Phase 5 cutover. Uncommenting makes this Worker take
+  // over the live domain, so it stays disabled until Cloudflare is ready to
+  // serve production. Phase 4 deploys go to the workers.dev preview subdomain.
+  // "routes": [
+  //   { "pattern": "devdosvid.blog/*", "zone_name": "devdosvid.blog" }
+  // ]
+}

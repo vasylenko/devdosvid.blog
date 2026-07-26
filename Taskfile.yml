@@ -28,3 +28,53 @@ tasks:
     desc: Show logs of local dev server with the blog
     cmds:
       - docker compose logs --no-log-prefix --no-color
+
+  # ── blog (Hugo) ──────────────────────────────────────────────
+  blog-serve:
+    desc: Local dev server for the blog (alias of server-start)
+    cmds:
+      - task: server-start
+
+  blog-build:
+    desc: Production build of the blog into dist/ (Docker, CI-parity)
+    cmds:
+      - docker compose run --user $(id -u):$(id -g) --rm hugo-runtime --environment production --destination dist --gc --minify
+
+  # ── keepup (Python/uv) ───────────────────────────────────────
+  keepup-build:
+    desc: Generate the weekly digest (renders keepup/dist/)
+    dir: keepup
+    cmds:
+      - uv run python -m keepup
+
+  keepup-publish:
+    desc: Render the digest and publish it to R2 (mirrors the weekly workflow)
+    dir: keepup
+    cmds:
+      - task: keepup-build
+      - bash publish-r2.sh
+
+  keepup-deploy:
+    desc: Deploy the keepup Worker (serves the /keepup section from R2) — independent of the blog
+    dir: worker-keepup
+    cmds:
+      - npx wrangler deploy
+
+  # ── combined site ────────────────────────────────────────────
+  build:
+    desc: Assemble the static site into dist/ (blog; slides join in Phase 2)
+    cmds:
+      - rm -rf dist
+      - task: blog-build
+
+  deploy-production:
+    desc: Build dist/ and deploy the Worker to production (wrangler deploy)
+    cmds:
+      - task: build
+      - npx wrangler deploy
+
+  deploy-dev:
+    desc: Build dist/ and upload a preview version — a unique *.workers.dev URL that never touches production
+    cmds:
+      - task: build
+      - npx wrangler versions upload
