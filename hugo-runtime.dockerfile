@@ -1,6 +1,6 @@
 # Must be before the first FROM to be available in FROM instructions
 ARG GO_VERSION=1.25
-FROM alpine:3.23 AS builder
+FROM alpine:3.24 AS builder
 ARG HUGO_VERSION
 ARG TARGETARCH
 WORKDIR /hugo
