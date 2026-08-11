@@ -13,7 +13,7 @@
     "@uiw/react-md-editor": "^4.0.0",
     "express": "^5.2.1",
     "gray-matter": "^4.0.3",
-    "js-yaml": "^4.1.1",
+    "js-yaml": "^4.3.1",
     "multer": "^2.1.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
